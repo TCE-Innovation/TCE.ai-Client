@@ -1,11 +1,11 @@
-import React, {useContext, useState} from 'react';
+import React, {useState} from 'react';
 import TextField from '@mui/material/TextField';
 import Box from '@mui/material/Box';
 import Button from '@mui/material/Button';
 import Typography from '@mui/material/Typography';
 import CircularProgress from '@mui/material/CircularProgress';
 import axios from 'axios';
-import {AuthContext} from "../../firebase/Auth";
+//import {AuthContext} from "../../firebase/Auth";
 
 
 const ChatPDF = () => {

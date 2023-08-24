@@ -16,7 +16,7 @@ const GenerateCorrespondence = () => {
     const [loading, setLoading] = useState(false);
     const [error, setError] = useState('');
     //const [open, setOpen] = useState(false);
-    const {currentUser} = useContext(AuthContext);
+    //const {currentUser} = useContext(AuthContext);
     //const user = currentUser['_delegate'];
 
     /*const resetForm = () => {
