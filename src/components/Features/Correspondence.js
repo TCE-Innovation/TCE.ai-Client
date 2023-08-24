@@ -6,7 +6,7 @@ import Typography from '@mui/material/Typography';
 import CircularProgress from '@mui/material/CircularProgress';
 import axios from 'axios';
 //import {Dialog, DialogActions, DialogContent, DialogContentText, DialogTitle} from "@mui/material";
-import {AuthContext} from "../../firebase/Auth";
+//import {AuthContext} from "../../firebase/Auth";
 
 const GenerateCorrespondence = () => {
     const [context, setContext] = useState('');
