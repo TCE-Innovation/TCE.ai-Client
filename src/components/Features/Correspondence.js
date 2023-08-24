@@ -5,7 +5,7 @@ import Button from '@mui/material/Button';
 import Typography from '@mui/material/Typography';
 import CircularProgress from '@mui/material/CircularProgress';
 import axios from 'axios';
-import {Dialog, DialogActions, DialogContent, DialogContentText, DialogTitle} from "@mui/material";
+//import {Dialog, DialogActions, DialogContent, DialogContentText, DialogTitle} from "@mui/material";
 import {AuthContext} from "../../firebase/Auth";
 
 const GenerateCorrespondence = () => {
@@ -15,11 +15,11 @@ const GenerateCorrespondence = () => {
     const [supportingInfo, setSupportingInfo] = useState('');
     const [loading, setLoading] = useState(false);
     const [error, setError] = useState('');
-    const [open, setOpen] = useState(false);
+    //const [open, setOpen] = useState(false);
     const {currentUser} = useContext(AuthContext);
-    const user = currentUser['_delegate'];
+    //const user = currentUser['_delegate'];
 
-    const resetForm = () => {
+    /*const resetForm = () => {
         setContext('');
         setAnswer('');
         setResponse('');
@@ -31,7 +31,7 @@ const GenerateCorrespondence = () => {
 
     const handleClose = () => {
         setOpen(false);
-    };
+    };*/
 
     const generateCorr = async () => {
         if (!context.trim()) {

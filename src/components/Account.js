@@ -1,6 +1,5 @@
-import React, { useContext, useEffect, useState } from 'react';
+import React, { useContext } from 'react';
 import '../App.css'
-import axios from "axios";
 import { LogOutButton } from "./LogOut";
 import { Card, CardContent } from "@mui/material";
 import Box from "@mui/material/Box";
@@ -8,7 +7,7 @@ import Grid from "@mui/material/Grid";
 import { AuthContext } from "../firebase/Auth";
 const noUser = require('../img/noUser.webp')
 
-const defaultData = {};
+//const defaultData = {};
 
 function ProfileImage(props) {
     let src;
@@ -42,7 +41,7 @@ function AccountCard() {
     const { currentUser, avatar } = useContext(AuthContext);
 
     const user = currentUser['_delegate'];
-    const { displayName, email } = user;
+    const { displayName } = user;
 
 
     /*useEffect(()=>{

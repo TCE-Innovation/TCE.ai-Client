@@ -14,7 +14,7 @@ const ChatPDF = () => {
     const [response, setResponse] = useState('');
     const [loading, setLoading] = useState(false);
     const [error, setError] = useState('');
-    const {currentUser} = useContext(AuthContext);
+    //const {currentUser} = useContext(AuthContext);
 
     const chatPDF = async () => {
         if (!pdf.trim()) {
