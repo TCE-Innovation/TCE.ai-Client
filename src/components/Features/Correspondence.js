@@ -51,6 +51,19 @@ const GenerateCorrespondence = () => {
         setLoading(false);
     };
 
+    const testFunction = async () => {
+        setLoading(true);
+        setError('');
+        try {
+            const {data: {testContent}} = await axios.post('https://tce-ai-api.azurewebsites.net/api/TestFunction?code=ZsRuE0X38otZfF39Zcgxny8koFJgb1GXo8osDclPCllGAzFuf_CK2Q==', { name:"matt" });
+            setResponse(testContent);
+        } catch (error) {
+            console.log(error)
+            setError('Failed to TEST.');
+        }
+        setLoading(false);
+    };
+
     return (
         <Box
             sx={{
@@ -113,6 +126,14 @@ const GenerateCorrespondence = () => {
                         sx={{ mt: 2 }}
                     >
                         Generate Response
+                    </Button>
+                    <Button
+                        variant="contained"
+                        color="primary"
+                        onClick={testFunction}
+                        sx={{ mt: 2 }}
+                    >
+                        TEST
                     </Button>
                 </Box>
             </Box>
