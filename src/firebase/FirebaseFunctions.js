@@ -1,6 +1,5 @@
 import firebase from 'firebase/compat/app';
 import 'firebase/auth';
-import axios from 'axios';
 
 async function MicrosoftSignIn() {
     console.log("Signing into Microsoft Account")
@@ -21,15 +20,6 @@ async function MicrosoftSignIn() {
         console.log(email)
         console.log(name)
     
-         // Fetch the profile picture URL using Microsoft Graph API
-        const graphToken = result.credential.accessToken;
-        const response = await axios.get('https://graph.microsoft.com/v1.0/me/photo', {
-            headers: {
-                Authorization: `Bearer ${graphToken}`,
-            },
-        });
-
-    console.log(response);
     return email;
 
     /*if (response.status === 200) {

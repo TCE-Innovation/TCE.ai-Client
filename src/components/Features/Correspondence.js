@@ -55,8 +55,9 @@ const GenerateCorrespondence = () => {
         setLoading(true);
         setError('');
         try {
-            const {data: {testContent}} = await axios.post('https://tce-ai-api.azurewebsites.net/api/TestFunction?code=ZsRuE0X38otZfF39Zcgxny8koFJgb1GXo8osDclPCllGAzFuf_CK2Q==', { name:"matt" });
-            setResponse(testContent);
+            const testContent = await axios.post('https://tce-ai-api.azurewebsites.net/api/generate-email');
+            console.log(testContent.data)
+            setResponse(testContent.data.message);
         } catch (error) {
             console.log(error)
             setError('Failed to TEST.');
