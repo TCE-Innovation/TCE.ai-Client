@@ -65,7 +65,7 @@ const GenerateEmails = () => {
         setError('');
 
         try {
-            const {data: {emailContent}} = await axios.post('http://localhost:3001/api/generate-email', { purpose, recipientName: name, displayName, style, tone, length });
+            const {data: {emailContent}} = await axios.post('https://tce-ai-api.azurewebsites.net/api/generate-email', { purpose, recipientName: name, displayName, style, tone, length });
             setResponse(emailContent);
         } catch (error) {
             console.log(error)
@@ -78,6 +78,7 @@ const GenerateEmails = () => {
         setOpen(false);
         setError('');
         try {
+            //TODO should not have to call this to get email, maybe just set email in context after sign in
             const senderEmail = await MicrosoftSignIn();
             const arr = response.split('\n');
             const firstEmptyLineIndex = arr.findIndex(line => line.trim() === '');
@@ -89,8 +90,7 @@ const GenerateEmails = () => {
             const [subject, ...bodyLines] = arr;
             const body = bodyLines.join('\n');
 
-
-            await axios.post('http://localhost:3001/api/send-email', { email, subject, body, senderEmail});
+            await axios.post('https://tce-ai-api.azurewebsites.net/api/send-email', { email, subject, body, senderEmail});
             alert('Email sent!');
             resetForm();
         } catch (error) {

@@ -26,6 +26,7 @@ const ChatPDF = () => {
 
         try {
             const {data: {chatContent}} = await axios.post('http://localhost:3001/api/chat-pdf', { pdf, chat });
+            //const {data: {chatContent}} = await axios.post('https://tce-ai-api.azurewebsites.net/api/chat-pdf', { pdf, chat });
             setResponse(chatContent);
         } catch (error) {
             console.log(error)

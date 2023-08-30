@@ -43,21 +43,6 @@ function AccountCard() {
     const user = currentUser['_delegate'];
     const { displayName } = user;
 
-
-    /*useEffect(()=>{
-        async function getData() {
-            try {
-                const rawResult = await axios.get(`http://localhost:3001/user/${email}`)
-                setData(rawResult['data'])
-            } catch(e) {
-                setData(defaultData)
-            } finally {
-                setLoading(false)
-            }
-        }
-        getData()
-    }, [email, loading])*/
-
     return (
         <React.Fragment>
             <CardContent>
@@ -89,7 +74,6 @@ function AccountCard() {
 
 
 function Account() {
-
     return (
         <Grid
             container

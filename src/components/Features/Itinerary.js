@@ -43,7 +43,7 @@ const Itinerary = () => {
         setLoading(true);
         setError('');
         try {
-            const {data: {itineraryContent}} = await axios.post('http://localhost:3001/api/generate-day-itinerary', { events, date, startTime, endTime });
+            const {data: {itineraryContent}} = await axios.post('https://tce-ai-api.azurewebsites.net/api/generate-itinerary', { events, date, startTime, endTime });
             setResponse(itineraryContent);
         } catch (error) {
             setError('Failed to generate itinerary.');
@@ -65,7 +65,7 @@ const Itinerary = () => {
             const [date, ...bodyLines] = arr;
             const body = bodyLines.join('\n');
 
-            await axios.post('http://localhost:3001/api/send-email', { email, subject: date, body});
+            await axios.post('https://tce-ai-api.azurewebsites.net/api/send-email', { email, subject: date, body});
             alert('Email sent!');
             resetForm();
         } catch (error) {

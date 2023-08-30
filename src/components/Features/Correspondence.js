@@ -9,7 +9,7 @@ import axios from 'axios';
 //import {AuthContext} from "../../firebase/Auth";
 
 const GenerateCorrespondence = () => {
-    const [context, setContext] = useState('');
+    const [firstMsg, setFirstMsg] = useState('');
     const [answer, setAnswer] = useState('');
     const [response, setResponse] = useState('');
     const [supportingInfo, setSupportingInfo] = useState('');
@@ -34,33 +34,19 @@ const GenerateCorrespondence = () => {
     };*/
 
     const generateCorr = async () => {
-        if (!context.trim()) {
-            setError('The context message and response cannot be empty.');
+        if (!firstMsg.trim()) {
+            setError('The first message and response cannot be empty.');
             return;
         }
 
         setLoading(true);
         setError('');
         try {
-            const {data: {corrContent}} = await axios.post('http://localhost:3001/api/generate-correspondence', { context, answer, supportingInfo });
+            const {data: {corrContent}} = await axios.post('https://tce-ai-api.azurewebsites.net/api/generate-correspondence', { firstMsg, answer, supportingInfo });
             setResponse(corrContent);
         } catch (error) {
             console.log(error)
             setError('Failed to generate correspondence.');
-        }
-        setLoading(false);
-    };
-
-    const testFunction = async () => {
-        setLoading(true);
-        setError('');
-        try {
-            const testContent = await axios.post('https://tce-ai-api.azurewebsites.net/api/generate-email');
-            console.log(testContent.data)
-            setResponse(testContent.data.message);
-        } catch (error) {
-            console.log(error)
-            setError('Failed to TEST.');
         }
         setLoading(false);
     };
@@ -93,8 +79,8 @@ const GenerateCorrespondence = () => {
                         rows={10}
                         rowsMax={20}
                         fullWidth
-                        value={context}
-                        onChange={(e) => setContext(e.target.value)}
+                        value={firstMsg}
+                        onChange={(e) => setFirstMsg(e.target.value)}
                         sx={{ mb: 2 }}
                         placeholder="First Letter"
                     />
@@ -127,14 +113,6 @@ const GenerateCorrespondence = () => {
                         sx={{ mt: 2 }}
                     >
                         Generate Response
-                    </Button>
-                    <Button
-                        variant="contained"
-                        color="primary"
-                        onClick={testFunction}
-                        sx={{ mt: 2 }}
-                    >
-                        TEST
                     </Button>
                 </Box>
             </Box>
