@@ -4,8 +4,8 @@ import ListItemIcon from '@mui/material/ListItemIcon';
 import ListItemText from '@mui/material/ListItemText';
 import PictureAsPdfIcon from '@mui/icons-material/PictureAsPdf';
 import EmailIcon from '@mui/icons-material/Email';
-import ListAltIcon from '@mui/icons-material/ListAlt';
 import QuestionAnswerIcon from '@mui/icons-material/QuestionAnswer';
+import SpokeIcon from '@mui/icons-material/Spoke';
 
 const MainListItems = (props) => (
     <React.Fragment>
@@ -14,12 +14,6 @@ const MainListItems = (props) => (
                 <EmailIcon />
             </ListItemIcon>
             <ListItemText primary="Generate an Email" />
-        </ListItemButton>
-        <ListItemButton onClick={() => props.onSelect('itinerary')}>
-            <ListItemIcon>
-                <ListAltIcon />
-            </ListItemIcon>
-            <ListItemText primary="Generate an Itinerary" />
         </ListItemButton>
         <ListItemButton onClick={() => props.onSelect('correspondence')}>
             <ListItemIcon>
@@ -32,6 +26,12 @@ const MainListItems = (props) => (
                 <PictureAsPdfIcon />
             </ListItemIcon>
             <ListItemText primary="Chat with a PDF" />
+        </ListItemButton>
+        <ListItemButton onClick={() => props.onSelect('cro')}>
+            <ListItemIcon>
+                <SpokeIcon />
+            </ListItemIcon>
+            <ListItemText primary="Cable Run Optimizer" />
         </ListItemButton>
     </React.Fragment>
 );

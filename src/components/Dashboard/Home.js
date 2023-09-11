@@ -42,9 +42,6 @@ const Home = () => {
                         <CustomListItemText primary="Generate emails tailored to your needs" />
                     </ListItem>
                     <ListItem>
-                        <CustomListItemText primary="Create itineraries based on your upcoming events" />
-                    </ListItem>
-                    <ListItem>
                         <CustomListItemText primary="Generate correspondence based on past letters" />
                     </ListItem>
                     <ListItem>

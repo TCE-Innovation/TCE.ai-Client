@@ -11,13 +11,13 @@ import ChevronLeftIcon from '@mui/icons-material/ChevronLeft';
 import {ChevronRight} from "@mui/icons-material";
 import MainListItems from "./listItems";
 import GenerateEmails from "../Features/GenerateEmails";
-import Itinerary from "../Features/Itinerary";
 import Tooltip from "@mui/material/Tooltip";
 import Home from "./Home";
 import DashboardContext from "./DashboardContext";
 import {useContext, useEffect} from "react";
 import GenerateCorrespondence from '../Features/Correspondence';
 import ChatPDF from '../Features/ChatPDF';
+import CRO from '../Features/CRO';
 
 
 const Drawer = styled(MuiDrawer, { shouldForwardProp: (prop) => prop !== 'open' })(
@@ -92,9 +92,9 @@ function DashboardContent() {
         <Box component="main" sx={{ flexGrow: 1, p: 3 }}>
           {selectedFunctionality === 'home' && <Home/>}
           {selectedFunctionality === 'generateEmails' && <GenerateEmails />}
-          {selectedFunctionality === 'itinerary' && <Itinerary />}
           {selectedFunctionality === 'correspondence' && <GenerateCorrespondence />}
           {selectedFunctionality === 'chatpdf' && <ChatPDF />}
+          {selectedFunctionality === 'cro' && <CRO />}
           {/* Add other functionalities here */}
         </Box>
       </Box>
