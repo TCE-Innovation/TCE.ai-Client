@@ -12,29 +12,39 @@ const CRO = () => {
     const [response, setResponse] = useState('');
     const [loading, setLoading] = useState(false);
     const [error, setError] = useState('');
+    const [showCableSizeSheet, setShowCableSizeSheet] = useState(false);
 
     const cro = async () => {
         if (!pullsheet) {
             setError('Pull Sheet excel file must be provided.');
             return;
         }
+
+        //allowing no cable size sheet to be passed, if none then use standard cable sizes
         if (!cableSizes) {
-            setError('Cable Sizes excel file must be provided.');
-            return;
+            setCableSizes('standard');
         }
         setLoading(true);
         setError('');
 
         try {
             const formData = new FormData();
+            //this will always be a file
             formData.append('pullsheet', pullsheet);
+
+            //this may be a file or the string 'standard'
             formData.append('cableSizes', cableSizes);
 
             const {data} = await axios.post(
                 'https://tce-cro-api.azurewebsites.net/api/Post-CRO', 
                 formData
             );
-            console.log(data)
+
+            /*const {data} = await axios.post(
+                'http://localhost:7071/api/Post-CRO', 
+                formData
+            );*/
+            
             setResponse(data);
         } catch (error) {
             console.log(error)
@@ -77,21 +87,36 @@ const CRO = () => {
                         accept=".xlsx, .xls"
                         onChange={(e) => setPullsheet(e.target.files[0])}
                     />
-                    <label style={{ fontSize: '20px', marginTop: '40px', marginBottom: '10px' }}>
-                        Upload Cable Sizes Sheet
-                    </label>
-                    <Input
-                        type="file"
-                        id="cableSizesInput"
-                        accept=".xlsx, .xls"
-                        onChange={(e) => setCableSizes(e.target.files[0])}
-                    />
+
+
+                    {showCableSizeSheet ? (
+                        <>
+                            <label style={{ fontSize: '20px', marginTop: '40px', marginBottom: '10px' }}>
+                                Upload Cable Sizes Sheet
+                            </label>
+                            <Input
+                                type="file"
+                                id="cableSizesInput"
+                                accept=".xlsx, .xls"
+                                onChange={(e) => setCableSizes(e.target.files[0])}
+                            />
+                        </>
+                    ) : null}
+
+
+                    <Button
+                            color="primary"
+                            onClick={() => setShowCableSizeSheet(!showCableSizeSheet)}
+                            sx={{ marginTop: '20px' }} 
+                        >
+                            {showCableSizeSheet ? 'Use Standard Cable Sizes Sheet' : 'Upload Cable Sizes'}
+                    </Button>
+
+
                     <Box sx={{ marginTop: 2, marginLeft: 1 }}>
                         <Typography variant="body2">
                             <a
                                 href="https://judlauent.sharepoint.com/:f:/s/TCEInnovation/EqVCiaLZ_WpMmTFfrlIFaosBrtnlF1VlVvZLqwJdePwvOQ?e=BbAR8h"
-                                target="_blank"
-                                rel="noopener noreferrer"
                                 style={{ fontSize: '18px' }}
                             >
                                 View Sample Cable Size Sheet

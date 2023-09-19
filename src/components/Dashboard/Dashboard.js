@@ -15,8 +15,6 @@ import Tooltip from "@mui/material/Tooltip";
 import Home from "./Home";
 import DashboardContext from "./DashboardContext";
 import {useContext, useEffect} from "react";
-import GenerateCorrespondence from '../Features/Correspondence';
-import ChatPDF from '../Features/ChatPDF';
 import CRO from '../Features/CRO';
 
 
@@ -92,8 +90,6 @@ function DashboardContent() {
         <Box component="main" sx={{ flexGrow: 1, p: 3 }}>
           {selectedFunctionality === 'home' && <Home/>}
           {selectedFunctionality === 'generateEmails' && <GenerateEmails />}
-          {selectedFunctionality === 'correspondence' && <GenerateCorrespondence />}
-          {selectedFunctionality === 'chatpdf' && <ChatPDF />}
           {selectedFunctionality === 'cro' && <CRO />}
           {/* Add other functionalities here */}
         </Box>

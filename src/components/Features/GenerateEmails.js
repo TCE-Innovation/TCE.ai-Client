@@ -27,6 +27,10 @@ const GenerateEmails = () => {
     const [style, setStyle] = useState('');
     const [tone, setTone] = useState('');
     const [length, setLength] = useState('');
+    
+    const [relContext, setRelContext] = useState('');
+    const [prevEmail, setPrevEmail] = useState('');
+
     const [response, setResponse] = useState('');
     const [loading, setLoading] = useState(false);
     const [error, setError] = useState('');
@@ -64,8 +68,8 @@ const GenerateEmails = () => {
         setLoading(true);
         setError('');
 
-        try {
-            const {data: {emailContent}} = await axios.post('https://tce-ai-api.azurewebsites.net/api/generate-email', { purpose, recipientName: name, displayName, style, tone, length });
+        try {  
+            const {data: {emailContent}} = await axios.post('https://tce-ai-api.azurewebsites.net/api/generate-email', { purpose, recipientName: name, displayName, style, tone, length, relContext, prevEmail });
             setResponse(emailContent);
         } catch (error) {
             console.log(error)
@@ -143,6 +147,22 @@ const GenerateEmails = () => {
                         onChange={(e) => setPurpose(e.target.value)}
                         sx={{ mb: 2 }}
                         placeholder="i.e., Schedule Meeting with Project Manager"
+                    />
+                    <TextField
+                        label="Previous Email Content (optional)"
+                        fullWidth
+                        value={prevEmail}
+                        onChange={(e) => setPrevEmail(e.target.value)}
+                        sx={{ mb: 2 }}
+                        placeholder="i.e., previous email content"
+                    />
+                    <TextField
+                        label="Additional Context (optional)"
+                        fullWidth
+                        value={relContext}
+                        onChange={(e) => setRelContext(e.target.value)}
+                        sx={{ mb: 2 }}
+                        placeholder="i.e., last meeting we discussed..."
                     />
 
                 <Box component="form" width={1}>
