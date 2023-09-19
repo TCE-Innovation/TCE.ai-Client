@@ -35,23 +35,20 @@ const Home = () => {
                 </Typography>
 
                     <Typography paragraph>
-                        TCE.ai is designed to simplify your life by handling administrative tasks for you. With TCE.ai, you can:
+                        The Headquarters for TCE's Innovative Solutions:
                     </Typography>
                 <List>
                     <ListItem>
-                        <CustomListItemText primary="Generate emails tailored to your needs" />
+                        <CustomListItemText primary="Email and Response Generation" />
                     </ListItem>
                     <ListItem>
-                        <CustomListItemText primary="Generate correspondence based on past letters" />
-                    </ListItem>
-                    <ListItem>
-                        <CustomListItemText primary="Summarize a PDF based on the information you want" />
+                        <CustomListItemText primary="Cable Run Optimizer" />
                     </ListItem>
                 </List>
 
                 <Typography paragraph>
                         To get started, choose a feature from the sidebar!
-                    </Typography>
+                </Typography>
             </Box>
         </Container>
     );
