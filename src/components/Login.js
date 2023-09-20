@@ -9,9 +9,9 @@ import LockOutlinedIcon from '@mui/icons-material/LockOutlined';
 import Typography from '@mui/material/Typography';
 import Container from '@mui/material/Container';
 import { createTheme, ThemeProvider } from '@mui/material/styles';
-import {MicrosoftSignIn} from "../firebase/FirebaseFunctions";
+import {MicrosoftSignIn} from "../AzureAuth/AzureFunctions";
 import {useContext} from "react";
-import {AuthContext} from "../firebase/Auth";
+import {AuthContext} from "../AzureAuth/Auth";
 import {Navigate} from "react-router-dom";
 import { TiVendorMicrosoft } from 'react-icons/ti';
 

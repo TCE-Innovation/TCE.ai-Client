@@ -1,5 +1,5 @@
 import React from 'react';
-import {doSignOut} from "../firebase/FirebaseFunctions";
+import {doSignOut} from "../AzureAuth/AzureFunctions";
 import '../App.css'
 import {Navigate} from "react-router-dom";
 import Button from "@mui/material/Button";

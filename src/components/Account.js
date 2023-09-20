@@ -4,7 +4,7 @@ import { LogOutButton } from "./LogOut";
 import { Card, CardContent } from "@mui/material";
 import Box from "@mui/material/Box";
 import Grid from "@mui/material/Grid";
-import { AuthContext } from "../firebase/Auth";
+import { AuthContext } from "../AzureAuth/Auth";
 const noUser = require('../img/noUser.webp')
 
 //const defaultData = {};

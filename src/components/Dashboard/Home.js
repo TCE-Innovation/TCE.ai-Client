@@ -44,6 +44,9 @@ const Home = () => {
                     <ListItem>
                         <CustomListItemText primary="Cable Run Optimizer" />
                     </ListItem>
+                    <ListItem>
+                        <CustomListItemText primary="ChatBot" />
+                    </ListItem>
                 </List>
 
                 <Typography paragraph>

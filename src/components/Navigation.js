@@ -13,7 +13,7 @@ import MenuItem from '@mui/material/MenuItem';
 import AdbIcon from '@mui/icons-material/Adb';
 import logo from '../img/logo.webp'
 import {useContext, useState} from "react";
-import {AuthContext} from "../firebase/Auth";
+import {AuthContext} from "../AzureAuth/Auth";
 import { NavLink } from 'react-router-dom';
 import noUser from '../img/noUser.webp'
 import DashboardContext from "./Dashboard/DashboardContext";

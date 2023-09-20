@@ -3,7 +3,7 @@ import {BrowserRouter as Router, Route, Routes} from 'react-router-dom';
 import '../App.css';
 
 import Navigation from './Navigation';
-import {AuthenticatedRoute, AuthProvider, UnauthenticatedRoute} from "../firebase/Auth";
+import {AuthenticatedRoute, AuthProvider, UnauthenticatedRoute} from "../AzureAuth/Auth";
 import Dashboard from "./Dashboard/Dashboard";
 
 import Login from "./Login";
@@ -40,9 +40,7 @@ function App() {
                         {<Route path='/logout' element={<LogOut />} />}
                     </Routes>
                 </Router>
-
             </DashboardContext.Provider>
-
         </AuthProvider>
     );
 }

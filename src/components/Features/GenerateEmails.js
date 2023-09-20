@@ -16,8 +16,8 @@ import {Dialog,
     FormLabel,
     Radio,
     RadioGroup,} from "@mui/material";
-import {AuthContext} from "../../firebase/Auth";
-const MicrosoftSignIn = require('../../firebase/FirebaseFunctions').MicrosoftSignIn;
+import {AuthContext} from "../../AzureAuth/Auth";
+const MicrosoftSignIn = require('../../AzureAuth/AzureFunctions').MicrosoftSignIn;
 
 
 const GenerateEmails = () => {

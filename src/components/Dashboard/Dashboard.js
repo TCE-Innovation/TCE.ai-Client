@@ -16,6 +16,7 @@ import Home from "./Home";
 import DashboardContext from "./DashboardContext";
 import {useContext, useEffect} from "react";
 import CRO from '../Features/CRO';
+import ChatBot from '../Features/ChatBot';
 
 
 const Drawer = styled(MuiDrawer, { shouldForwardProp: (prop) => prop !== 'open' })(
@@ -91,6 +92,7 @@ function DashboardContent() {
           {selectedFunctionality === 'home' && <Home/>}
           {selectedFunctionality === 'generateEmails' && <GenerateEmails />}
           {selectedFunctionality === 'cro' && <CRO />}
+          {selectedFunctionality === 'chatbot' && <ChatBot />}
           {/* Add other functionalities here */}
         </Box>
       </Box>
