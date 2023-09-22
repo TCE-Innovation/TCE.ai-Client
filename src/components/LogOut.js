@@ -1,16 +1,16 @@
 import React from 'react';
 import '../App.css'
-import { Navigate } from "react-router-dom";
 import Button from "@mui/material/Button";
 import { useMsal } from "@azure/msal-react";
 
 function LogOutButton() {
+    console.log("in LogOutButton")
     const { instance } = useMsal();
 
     async function MicrosoftSignOut() {
         instance.logoutPopup({
-            postLogoutRedirectUri: "/",
-            mainWindowRedirectUri: "/"
+            postLogoutRedirectUri: "/login",
+            mainWindowRedirectUri: "/login"
         });
     }
 
@@ -21,9 +21,5 @@ function LogOutButton() {
     )
 }
 
-const LogOut = () => {
-    return <Navigate to='/login' />
-}
-
 export { LogOutButton };
-export default LogOut;
+

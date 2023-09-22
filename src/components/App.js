@@ -1,14 +1,12 @@
-import React, {useState} from 'react';
-import {BrowserRouter as Router, Route, Routes} from 'react-router-dom';
+import React, { useState } from 'react';
+import { BrowserRouter as Router, Route, Routes } from 'react-router-dom';
 import '../App.css';
 
 import Navigation from './Navigation';
-import {AuthenticatedRoute, AuthProvider, UnauthenticatedRoute} from "../AzureAuth/Auth";
+import { AuthenticatedRoute, AuthProvider, UnauthenticatedRoute } from "../AzureAuth/Auth";
 import Dashboard from "./Dashboard/Dashboard";
 
 import Login from "./Login";
-import LogOut from "./LogOut";
-
 import Account from "./Account";
 
 import DashboardContext from '../components/Dashboard/DashboardContext';
@@ -17,11 +15,11 @@ function App() {
     const [selectedFunctionality, setSelectedFunctionality] = useState('home');
     return (
         <AuthProvider>
-            <DashboardContext.Provider value={{selectedFunctionality, setSelectedFunctionality}}>
+            <DashboardContext.Provider value={{ selectedFunctionality, setSelectedFunctionality }}>
                 <Router>
                     <div className="App">
                         <header className="App-header">
-                            <Navigation/>
+                            <Navigation />
                         </header>
                     </div>
                     <Routes>
@@ -37,7 +35,6 @@ function App() {
                             <Route path='/login' element={<Login />} />
                         </Route>
 
-                        {<Route path='/logout' element={<LogOut />} />}
                     </Routes>
                 </Router>
             </DashboardContext.Provider>

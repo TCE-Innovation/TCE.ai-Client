@@ -33,9 +33,7 @@ const GenerateEmails = () => {
     const [loading, setLoading] = useState(false);
     const [error, setError] = useState('');
     const [open, setOpen] = useState(false);
-    const {currentUser} = useContext(AuthContext);
-    const user = currentUser['_delegate'];
-    const {displayName} = user;
+    const {userName, userEmail} = useContext(AuthContext);
 
     const resetForm = () => {
         setEmail('');
@@ -67,7 +65,7 @@ const GenerateEmails = () => {
         setError('');
 
         try {  
-            const {data: {emailContent}} = await axios.post('https://tce-ai-api.azurewebsites.net/api/generate-email', { purpose, recipientName: name, displayName, style, tone, length, relContext, prevEmail });
+            const {data: {emailContent}} = await axios.post('https://tce-ai-api.azurewebsites.net/api/generate-email', { purpose, recipientName: name, userName, style, tone, length, relContext, prevEmail });
             setResponse(emailContent);
         } catch (error) {
             console.log(error)
@@ -81,7 +79,7 @@ const GenerateEmails = () => {
         setError('');
         try {
             //TODO should not have to call this to get email, maybe just set email in context after sign in
-            const senderEmail = '';
+            const senderEmail = userEmail;
             const arr = response.split('\n');
             const firstEmptyLineIndex = arr.findIndex(line => line.trim() === '');
 

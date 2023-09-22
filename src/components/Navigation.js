@@ -24,7 +24,7 @@ function ResponsiveAppBar() {
 
     const { isAuthenticated } = useContext(AuthContext);
     const settings = isAuthenticated
-        ? ["Account", "Dashboard", "Logout"]
+        ? ["Account", "Dashboard"]
         : ["Login", "Signup"];
 
 
