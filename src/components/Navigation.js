@@ -22,8 +22,8 @@ function ResponsiveAppBar() {
     const [anchorElUser, setAnchorElUser] = useState(null);
     const { setSelectedFunctionality } = useContext(DashboardContext);
 
-    const { currentUser, avatar } = useContext(AuthContext);
-    const settings = currentUser
+    const { isAuthenticated } = useContext(AuthContext);
+    const settings = isAuthenticated
         ? ["Account", "Dashboard", "Logout"]
         : ["Login", "Signup"];
 
@@ -61,7 +61,7 @@ function ResponsiveAppBar() {
                             paddingLeft: '100px'
                         }}
                     >
-                        TCE.ai
+                        TCE Innovation
                     </Typography>
                     <NavLink to='/' style={{color: 'inherit'}} onClick={() => setSelectedFunctionality('home')}>
                         <AdbIcon sx={{ display: { xs: 'flex', md: 'none' }, mr: 1 }} />
@@ -83,14 +83,14 @@ function ResponsiveAppBar() {
                         }}
                         onClick={() => setSelectedFunctionality('home')}
                     >
-                        TCE.ai
+                        TCE Innovation
                     </Typography>
                     <Box sx={{ flexGrow: 0 }}>
                         <Tooltip title="Open navigation menu">
-                            {currentUser ? (
+                            {isAuthenticated ? (
                                 <IconButton onClick={handleOpenUserMenu} sx={{ p: 0 }}>
                                     <Avatar alt="You"
-                                            src={avatar || noUser}
+                                            src={ noUser}
                                             imgProps={{ referrerPolicy: "no-referrer" }}
                                     />
                                 </IconButton>

@@ -5,11 +5,11 @@ import { Card, CardContent } from "@mui/material";
 import Box from "@mui/material/Box";
 import Grid from "@mui/material/Grid";
 import { AuthContext } from "../AzureAuth/Auth";
-const noUser = require('../img/noUser.webp')
+//const noUser = require('../img/noUser.webp')
 
 //const defaultData = {};
 
-function ProfileImage(props) {
+/*function ProfileImage(props) {
     let src;
     if (props['profileImage'] === null) {
         src = noUser
@@ -34,14 +34,11 @@ function ProfileImage(props) {
             }}
         />
     )
-}
+}*/
 
 
 function AccountCard() {
-    const { currentUser, avatar } = useContext(AuthContext);
-
-    const user = currentUser['_delegate'];
-    const { displayName } = user;
+    const { userName, userEmail } = useContext(AuthContext);
 
     return (
         <React.Fragment>
@@ -54,13 +51,12 @@ function AccountCard() {
                     justify="center"
                 >
                     <div>
-                        <Box textAlign="center">
-                            <ProfileImage profileImage={avatar} />
-                        </Box>
                         <br />
-                        <h2>Welcome back, {displayName}!</h2>
+                        <h2>Welcome back, {userName}!</h2>
                         <br />
+                        
                         <Box textAlign="center">
+                            <h4>{userEmail}</h4>
                             <br />
                             <br />
                             <LogOutButton />

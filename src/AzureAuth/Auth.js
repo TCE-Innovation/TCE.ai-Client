@@ -1,40 +1,48 @@
 import React, { useState, useEffect, useContext } from 'react';
-import {pca} from './pcaConfig'; // Import the MSAL instance from pcaConfig.js
 import { Navigate, Outlet } from 'react-router-dom';
+import { useMsal, useIsAuthenticated } from "@azure/msal-react";
 
 export const AuthContext = React.createContext(null);
 
 export const AuthProvider = ({ children }) => {
-  const [currentUser, setCurrentUser] = useState(null);
+  const isAuthenticated = useIsAuthenticated();
+  const { accounts, instance } = useMsal();
+  const [userName, setUserName] = useState(null);
+  const [userEmail, setUserEmail] = useState(null);
 
   useEffect(() => {
-    console.log("in auth provider use effect")
-    try{
-      pca.handleRedirectPromise().then((response) => {
-        console.log("in auth provider redirect")
-        if (response !== null && response.account !== null) {
-          setCurrentUser(response.account);
-          console.log("current user: ", response.account)
+    if (isAuthenticated) {
+      // Get the user's claims from the ID token
+      const activeAccount = accounts[0]; // Assuming one account for simplicity
+      instance.acquireTokenSilent({
+        account: activeAccount,
+        scopes: ["openid", "profile"], // Add any additional scopes you need
+      }).then((response) => {
+        console.log(response);
+        if (response) {
+          const { name, username } = response.account;
+          setUserName(name);
+          setUserEmail(username);
         }
+      }).catch((error) => {
+        console.error('Error fetching user details:', error);
       });
-    } catch (error) {
-      console.log('Use effect error:', error);
     }
-  }, []);
+  }, [isAuthenticated, accounts, instance]);
 
   return (
-    <AuthContext.Provider value={{ currentUser }}>
+    <AuthContext.Provider value={{ isAuthenticated, userName, userEmail }}>
       {children}
     </AuthContext.Provider>
   );
 };
 
 export function AuthenticatedRoute() {
-  const { currentUser } = useContext(AuthContext);
-  return currentUser ? <Outlet /> : <Navigate to="/login" />;
+  const { isAuthenticated } = useContext(AuthContext);
+  return isAuthenticated ? <Outlet /> : <Navigate to="/login" />;
 }
 
 export function UnauthenticatedRoute() {
-  const { currentUser } = useContext(AuthContext);
-  return !currentUser ? <Outlet /> : <Navigate to="/" />;
+  const { isAuthenticated } = useContext(AuthContext);
+  return !isAuthenticated ? <Outlet /> : <Navigate to="/" />;
 }

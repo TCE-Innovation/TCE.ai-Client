@@ -116,10 +116,18 @@ const CRO = () => {
                     <Box sx={{ marginTop: 2, marginLeft: 1 }}>
                         <Typography variant="body2">
                             <a
-                                href="https://judlauent.sharepoint.com/:f:/s/TCEInnovation/EqVCiaLZ_WpMmTFfrlIFaosBrtnlF1VlVvZLqwJdePwvOQ?e=BbAR8h"
+                                href="https://judlauent.sharepoint.com/:x:/s/TCEInnovation/EURdOokWyJJHlbIbEP30nAABJkBs5a53xp3VMeFYUtVtrg?e=2B52Jn"
                                 style={{ fontSize: '18px' }}
                             >
                                 View Sample Cable Size Sheet
+                            </a>
+                        </Typography>
+                        <Typography variant="body2">
+                            <a
+                                href="https://judlauent.sharepoint.com/:x:/s/TCEInnovation/EZVQRA2hvqhKo5pNCVpzeUEBBY8JngxgWLmPe6NvSxgk8A?e=W3dtY6"
+                                style={{ fontSize: '18px', mt: 2 }}
+                            >
+                                View Pull Sheet Template
                             </a>
                         </Typography>
                     </Box>

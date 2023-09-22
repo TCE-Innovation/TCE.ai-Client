@@ -9,11 +9,13 @@ import LockOutlinedIcon from '@mui/icons-material/LockOutlined';
 import Typography from '@mui/material/Typography';
 import Container from '@mui/material/Container';
 import { createTheme, ThemeProvider } from '@mui/material/styles';
-import {MicrosoftSignIn} from "../AzureAuth/AzureFunctions";
-import {useContext} from "react";
-import {AuthContext} from "../AzureAuth/Auth";
-import {Navigate} from "react-router-dom";
+import { useContext } from "react";
+import { AuthContext } from "../AzureAuth/Auth";
+import { Navigate } from "react-router-dom";
 import { TiVendorMicrosoft } from 'react-icons/ti';
+
+import { useMsal } from "@azure/msal-react";
+import { loginRequest } from "../AzureAuth/authConfig";
 
 function Copyright(props) {
     return (
@@ -31,12 +33,18 @@ function Copyright(props) {
 const theme = createTheme();
 
 export default function Login() {
-    const {currentUser} = useContext(AuthContext);
+    const { currentUser } = useContext(AuthContext);
+    const { instance } = useMsal(); 
 
     if (currentUser) {
         return <Navigate to='/' />
     }
 
+    async function MicrosoftSignIn() {
+        instance.loginPopup(loginRequest).catch(e => {
+            console.log(e);
+        });
+    }
 
     return (
         <ThemeProvider theme={theme}>
@@ -52,18 +60,18 @@ export default function Login() {
                 >
                     <Avatar sx={{ m: 1, bgcolor: 'secondary.main' }}>
                         <LockOutlinedIcon />
-                    </Avatar>                   
+                    </Avatar>
                     <br />
                     <Grid container justifyContent="center">
                         <Button
                             variant="outlined"
                             fullWidth
                             size="large"
-                            startIcon={<TiVendorMicrosoft style={{ color: '#F25022'}} />}
+                            startIcon={<TiVendorMicrosoft style={{ color: '#F25022' }} />}
                             onClick={() => MicrosoftSignIn()}
                         >
                             Log In with Microsoft
-                        </Button>              
+                        </Button>
                     </Grid>
                 </Box>
                 <Copyright sx={{ mt: 70, mb: 4 }} />

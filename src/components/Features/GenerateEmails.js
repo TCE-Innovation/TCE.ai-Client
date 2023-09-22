@@ -17,8 +17,6 @@ import {Dialog,
     Radio,
     RadioGroup,} from "@mui/material";
 import {AuthContext} from "../../AzureAuth/Auth";
-const MicrosoftSignIn = require('../../AzureAuth/AzureFunctions').MicrosoftSignIn;
-
 
 const GenerateEmails = () => {
     const [email, setEmail] = useState('');
@@ -83,7 +81,7 @@ const GenerateEmails = () => {
         setError('');
         try {
             //TODO should not have to call this to get email, maybe just set email in context after sign in
-            const senderEmail = await MicrosoftSignIn();
+            const senderEmail = '';
             const arr = response.split('\n');
             const firstEmptyLineIndex = arr.findIndex(line => line.trim() === '');
 

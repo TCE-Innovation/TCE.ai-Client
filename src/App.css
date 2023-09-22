@@ -53,27 +53,6 @@
   animation: spin 1s linear infinite;
 }
 
-.calendar-table {
-  border-collapse: collapse;
-  width: 100%;
-  table-layout: fixed;
-}
-
-.calendar-table td,
-.calendar-table th {
-  border: 1px solid #ddd;
-  padding: 8px;
-  text-align: left;
-}
-
-.calendar-table th {
-  padding-top: 12px;
-  padding-bottom: 12px;
-  text-align: left;
-  background-color: #885fd4;
-  color: white;
-}
-
 .center {
   text-align: center;
   width: 25%
