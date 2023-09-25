@@ -35,6 +35,9 @@ const Home = () => {
                         <CustomListItemText primary="Cable Run Optimizer" />
                     </ListItem>
                     <ListItem>
+                        <CustomListItemText primary="Asset Tracker" />
+                    </ListItem>
+                    <ListItem>
                         <CustomListItemText primary="ChatBot" />
                     </ListItem>
                 </List>

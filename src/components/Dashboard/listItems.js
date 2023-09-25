@@ -5,6 +5,7 @@ import ListItemText from '@mui/material/ListItemText';
 import EmailIcon from '@mui/icons-material/Email';
 import SpokeIcon from '@mui/icons-material/Spoke';
 import ForumIcon from '@mui/icons-material/Forum';
+import DevicesOtherIcon from '@mui/icons-material/DevicesOther';
 
 const MainListItems = (props) => (
     <React.Fragment>
@@ -19,6 +20,12 @@ const MainListItems = (props) => (
                 <SpokeIcon />
             </ListItemIcon>
             <ListItemText primary="Cable Run Optimizer" />
+        </ListItemButton>
+        <ListItemButton onClick={() => props.onSelect('assetTracker')}>
+            <ListItemIcon>
+                <DevicesOtherIcon />
+            </ListItemIcon>
+            <ListItemText primary="Asset Tracker" />
         </ListItemButton>
         <ListItemButton onClick={() => props.onSelect('chatbot')}>
             <ListItemIcon>
