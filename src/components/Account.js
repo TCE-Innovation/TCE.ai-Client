@@ -1,5 +1,4 @@
 import React, { useContext } from 'react';
-import '../App.css'
 import { LogOutButton } from "./LogOut";
 import { Card, CardContent } from "@mui/material";
 import Box from "@mui/material/Box";

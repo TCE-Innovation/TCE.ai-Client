@@ -118,6 +118,8 @@ const CRO = () => {
                             <a
                                 href="https://judlauent.sharepoint.com/:x:/s/TCEInnovation/EURdOokWyJJHlbIbEP30nAABJkBs5a53xp3VMeFYUtVtrg?e=2B52Jn"
                                 style={{ fontSize: '18px' }}
+                                target="_blank"
+                                rel="noopener noreferrer"
                             >
                                 View Sample Cable Size Sheet
                             </a>
@@ -126,6 +128,8 @@ const CRO = () => {
                             <a
                                 href="https://judlauent.sharepoint.com/:x:/s/TCEInnovation/EZVQRA2hvqhKo5pNCVpzeUEBBY8JngxgWLmPe6NvSxgk8A?e=W3dtY6"
                                 style={{ fontSize: '18px', mt: 2 }}
+                                target="_blank"
+                                rel="noopener noreferrer"
                             >
                                 View Pull Sheet Template
                             </a>

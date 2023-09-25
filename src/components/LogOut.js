@@ -1,5 +1,4 @@
 import React from 'react';
-import '../App.css'
 import Button from "@mui/material/Button";
 import { useMsal } from "@azure/msal-react";
 

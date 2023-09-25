@@ -37,12 +37,26 @@ function ResponsiveAppBar() {
     };
 
     return (
-        <AppBar position="static" sx={{backgroundColor: 'light-blue'}}>
+        <AppBar position="static" sx={{
+            backgroundImage: 'linear-gradient(to right, lightblue, darkblue)', // Adjust the colors as needed
+          }}>
             <Container maxWidth="xl">
                 <Toolbar disableGutters>
                     <Box sx={{ flexGrow: 0, width: '150px', height: '150px', display: { xs: 'none', md: 'flex' }, mr: 1 }}>
                         <NavLink to="/">
-                            <img src={logo} alt='logo' style={{ width: '100%', height: '75%', paddingTop: '25px' }} draggable="false" onClick={() => setSelectedFunctionality('home')} />
+                        <img
+                            src={logo}
+                            alt='logo'
+                            style={{
+                            width: '250px', // Adjust the width as needed
+                            height: '150px', // Adjust the height as needed
+                            padding: '0',
+                            margin: '0', // To remove any default margins
+                            marginLeft: '0px',
+                            }}
+                            draggable="false"
+                            onClick={() => setSelectedFunctionality('home')}
+                        />
                         </NavLink>
                     </Box>
                     <Typography
@@ -58,7 +72,7 @@ function ResponsiveAppBar() {
                             color: 'inherit',
                             textDecoration: 'none',
                             ml: 2,
-                            paddingLeft: '100px'
+                            paddingLeft: '150px'
                         }}
                     >
                         TCE Innovation
