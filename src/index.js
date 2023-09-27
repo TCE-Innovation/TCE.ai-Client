@@ -1,16 +1,20 @@
+//REACT
 import React from 'react';
 import ReactDOM from 'react-dom';
+
+//CSS
 import './index.css';
-import App from './components/App';
-
-import { PublicClientApplication } from '@azure/msal-browser';
-import { MsalProvider } from '@azure/msal-react';
-import { msalConfig } from './AzureAuth/authConfig';
-
 import 'bootstrap/dist/css/bootstrap.min.css';
 
-const msalInstance = new PublicClientApplication(msalConfig);
+//COMPONENTS
+import App from './components/General/App';
 
+//AUTH
+import { PublicClientApplication } from '@azure/msal-browser';
+import { MsalProvider } from '@azure/msal-react';
+import { msalConfig } from './authentication/authConfig';
+
+const msalInstance = new PublicClientApplication(msalConfig);
 const root = ReactDOM.createRoot(document.getElementById('root'));
 
 root.render(
