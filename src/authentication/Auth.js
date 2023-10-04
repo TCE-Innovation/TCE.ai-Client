@@ -12,6 +12,7 @@ export const AuthProvider = ({ children }) => {
   const { accounts, instance } = useMsal();
   const [userName, setUserName] = useState(null);
   const [userEmail, setUserEmail] = useState(null);
+  //const [userImage, setUserImage] = useState(null);
   //set role
 
   useEffect(() => {
@@ -20,7 +21,7 @@ export const AuthProvider = ({ children }) => {
       const activeAccount = accounts[0]; 
       instance.acquireTokenSilent({
         account: activeAccount,
-        scopes: ["openid", "profile"], 
+        scopes: ["openid", "profile", "User.Read"], 
       }).then((response) => {
         console.log(response);
         if (response) {

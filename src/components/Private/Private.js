@@ -21,7 +21,7 @@ import PrivateHome from "./PrivateHome";
 import PrivateListItems from "./privateItems";
 import CRO from '../PrivateFeatures/CRO';
 import ChatBot from '../PrivateFeatures/ChatBot';
-import AssetTracker from '../PrivateFeatures/AssetTracker';
+import AssetTracker from '../PrivateFeatures/AssetTracker/AssetTracker';
 import GenerateEmails from "../PrivateFeatures/GenerateEmails";
 
 const Drawer = styled(MuiDrawer, { shouldForwardProp: (prop) => prop !== 'open' })(
