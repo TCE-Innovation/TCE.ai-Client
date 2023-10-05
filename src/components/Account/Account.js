@@ -27,6 +27,9 @@ function ProfileImage() {
                 // width: 350,
                 maxHeight: { xs: 233, md: 167 },
                 maxWidth: { xs: 350, md: 250 },
+                border: 2,
+                borderColor: 'primary.main', 
+                borderRadius: '50%',
             }}
             alt="user avatar"
             src={userPic ? userPic : noUser}
@@ -57,10 +60,10 @@ function AccountCard() {
                         <br />
                         
                         <Box textAlign="center">
+                        <ProfileImage />
+                            <br />
+                            <br />
                             <h4>{userEmail}</h4>
-                            <br />
-                            <ProfileImage />
-                            <br />
                             <br />
                             <LogOutButton />
                         </Box>

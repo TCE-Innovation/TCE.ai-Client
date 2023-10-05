@@ -8,7 +8,13 @@ function LogOutButton() {
     const MicrosoftSignOut = useMicrosoftSignOut(); 
 
     return (
-        <Button variant="outlined" onClick={MicrosoftSignOut}>
+        <Button variant="outlined" onClick={MicrosoftSignOut}
+        sx={{
+            '&:hover': {
+                backgroundColor: 'grey', 
+                color: 'white'
+            },
+        }}>
             Log Out
         </Button>
     )
