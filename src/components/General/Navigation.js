@@ -33,7 +33,7 @@ function ResponsiveAppBar() {
     const { setPrivateFunctionality } = useContext(PrivateContext);
     const { setPublicFunctionality } = useContext(PublicContext);
 
-    const { isAuthenticated } = useContext(AuthContext);
+    const { isAuthenticated, userPic } = useContext(AuthContext);
     const settings = ["Account", "Dashboard", "Public", "Log Out"]
 
 
@@ -54,14 +54,14 @@ function ResponsiveAppBar() {
           }}>
             <Container maxWidth="xl">
                 <Toolbar disableGutters>
-                    <Box sx={{ position: 'fixed', top: '0', left: '0', width: '150px', height: '200px', mr: 1 }}>
+                    <Box sx={{ position: 'fixed', top: '0', left: '0', width: '150px', height: '200px' }}>       
                         <NavLink to="/">
                         <img
                             src={logo}
                             alt='logo'
                             style={{
                             marginTop: '3px',
-                            marginLeft: '12px',
+                            marginLeft: '45px',
                             position: 'fixed',
                             width: '150px',
                             }}
@@ -81,22 +81,20 @@ function ResponsiveAppBar() {
                             letterSpacing: '.1rem',
                             color: 'inherit',
                             textDecoration: 'none',
-                            ml: 2,
-                            paddingLeft: '150px'
+                            textAlign: 'center',
                         }}
                     >
-                        TCE Innovation
+                        TCE Innovation Group
                     </Typography>
-                    <Box sx={{ flexGrow: 0 }}>
-
+                    <Box sx={{  display: 'flex', justifyContent: 'flex-end' }}>           
                             {isAuthenticated ? (
-                            <IconButton onClick={handleOpenUserMenu} sx={{ p: 0 }}>
-                                <Avatar
-                                alt="You"
-                                src={noUser}
-                                imgProps={{ referrerPolicy: "no-referrer" }}
-                                />
-                            </IconButton>
+                                <IconButton onClick={handleOpenUserMenu}>
+                                    <Avatar
+                                        alt="You"
+                                        src={userPic ? userPic : noUser}
+                                        imgProps={{ referrerPolicy: "no-referrer" }}
+                                    />
+                                </IconButton>
                             ) : (
                                 <Button
                                     variant="outlined"

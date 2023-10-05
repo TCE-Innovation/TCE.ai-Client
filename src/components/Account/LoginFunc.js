@@ -15,7 +15,10 @@ export function useMicrosoftSignIn() {
       const response = await instance.loginPopup(loginRequest);
       console.log("Login response:", response);
       if (response) {
-        setIsAuthenticated(true);  // Update isAuthenticated in AuthContext
+        //user is authenticated, update authContext
+        setIsAuthenticated(true); 
+
+        //navigate to private route
         navigate('/private');
       }
     } catch (e) {

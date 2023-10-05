@@ -11,6 +11,7 @@ export const AuthProvider = ({ children }) => {
   const [isAuthenticated, setIsAuthenticated] = useState(useIsAuthenticated());
   const [userName, setUserName] = useState(null);
   const [userEmail, setUserEmail] = useState(null);
+  const [userPic, setUserPic] = useState(null);
 
   useEffect(() => {
     console.log("in Auth.js useEffect")
@@ -22,9 +23,27 @@ export const AuthProvider = ({ children }) => {
       }).then((response) => {
         console.log(response);
         if (response) {
+          //grab the user's name and email from the response
           const { name, username } = response.account;
           setUserName(name);
           setUserEmail(username);
+
+          //grab the user's profile picture from the graph
+          const headers = new Headers();
+          const bearer = `Bearer ${response.accessToken}`;
+          headers.append("Authorization", bearer);
+          const options = {
+            method: "GET",
+            headers: headers,
+          };
+          const graphEndpoint = "https://graph.microsoft.com/v1.0/me/photo/$value";
+          fetch(graphEndpoint, options)
+            .then((response) => response.blob())
+            .then((blob) => {
+              const url = window.URL.createObjectURL(blob);
+              console.log(url);
+              setUserPic(url);
+            });
         }
       }).catch((error) => {
         console.error('Error fetching user details:', error);
@@ -37,6 +56,7 @@ export const AuthProvider = ({ children }) => {
     setIsAuthenticated,
     userName,
     userEmail,
+    userPic
   };
 
   return (

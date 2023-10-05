@@ -13,18 +13,12 @@ import { LogOutButton } from "./LogOut/LogOutButton";
 //AUTH
 import { AuthContext } from "../../authentication/Auth";
 
-//const noUser = require('../img/noUser.webp')
+const noUser = require('../../img/noUser.webp')
 
-//const defaultData = {};
 
-/*function ProfileImage(props) {
-    let src;
-    if (props['profileImage'] === null) {
-        src = noUser
-    } else {
-        src = props['profileImage']
-    }
 
+function ProfileImage() {
+    const { userPic } = useContext(AuthContext);
     return (
         <Box
             component="img"
@@ -35,14 +29,14 @@ import { AuthContext } from "../../authentication/Auth";
                 maxWidth: { xs: 350, md: 250 },
             }}
             alt="user avatar"
-            src={src}
+            src={userPic ? userPic : noUser}
             onError={({ currentTarget }) => {
                 currentTarget.onerror = null; // prevents looping
                 currentTarget.src = noUser;
             }}
         />
     )
-}*/
+}
 
 function AccountCard() {
     const { userName, userEmail } = useContext(AuthContext);
@@ -64,6 +58,8 @@ function AccountCard() {
                         
                         <Box textAlign="center">
                             <h4>{userEmail}</h4>
+                            <br />
+                            <ProfileImage />
                             <br />
                             <br />
                             <LogOutButton />

@@ -7,6 +7,7 @@ import MatterPortPro3Image from '../../../img/AssetImages/Pro3.png';
 import FerretPlusImage from '../../../img/AssetImages/Ferret.png';
 import RicohThetaZ1Image from '../../../img/AssetImages/Ricoh.png';
 import Insta360Image from '../../../img/AssetImages/Insta360.png';
+import BushmanImage from '../../../img/AssetImages/Bushman.png';
 
 const ItemCarousel = () => {
     const [cardData, setCardData] = useState([
@@ -38,6 +39,12 @@ const ItemCarousel = () => {
             image: Insta360Image,
             title: 'Insta360 OneX2',
             description: 'Same as the Ricoh Theta Z1, this 3D camera is placed on a hardhat to allow field engineers to walk around a job site while automatically capturing the surroundings. Compared to the Ricoh Theta Z1, this 3D camera has a removable back to allow for hot swapping batteries while on the job if it were to die. With slightly worse camera quality, the battery can last around ~1:30 hours and can still be swapped out. Best used for longer tours with a need for an overview of the surroundings. Actively used on: 207th Mainline, 207th Yard, 8 Stations, 8th Ave, Crosstown CBTC, Package 4, Rockaways, and Woodside',
+            showDescription: false,
+        },
+        {
+            image: BushmanImage,
+            title: 'Bushman Halo 360 Light',
+            description: 'A portable light attached to a selfie stick, primarily for use with either the Ricoh Theta Z1 or Insta 360 One X2 for low light areas. Low visibility areas such as under a platform edge can now be easily seen with the combination of the light and one of our cameras.',
             showDescription: false,
         },
     ]);
