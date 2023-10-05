@@ -1,17 +1,27 @@
-//AUTH
+// LoginFunc.js
+import React, { useContext } from 'react';
 import { useMsal } from "@azure/msal-react";
 import { loginRequest } from "../../authentication/authConfig";
+import { AuthContext } from "../../authentication/Auth";  
+import { useNavigate } from 'react-router-dom';
 
 export function useMicrosoftSignIn() {
-    const { instance } = useMsal(); 
-    async function MicrosoftSignIn() {
-        try {
-            const response = await instance.loginPopup(loginRequest);
-            console.log("Login response:", response);
-        } catch (e) {
-            console.error("Login error:", e);
-        }
-    }
+  const { instance } = useMsal(); 
+  const { setIsAuthenticated } = useContext(AuthContext);
+  const navigate = useNavigate();
 
-    return MicrosoftSignIn;
+  async function MicrosoftSignIn() {
+    try {
+      const response = await instance.loginPopup(loginRequest);
+      console.log("Login response:", response);
+      if (response) {
+        setIsAuthenticated(true);  // Update isAuthenticated in AuthContext
+        navigate('/private');
+      }
+    } catch (e) {
+      console.error("Login error:", e);
+    }
+  }
+
+  return MicrosoftSignIn;
 }
