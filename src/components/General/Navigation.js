@@ -13,7 +13,6 @@ import Menu from '@mui/material/Menu';
 import Container from '@mui/material/Container';
 import Avatar from '@mui/material/Avatar';
 import MenuItem from '@mui/material/MenuItem';
-import AdbIcon from '@mui/icons-material/Adb';
 import Button from "@mui/material/Button";
 
 //IMAGES
@@ -55,15 +54,16 @@ function ResponsiveAppBar() {
           }}>
             <Container maxWidth="xl">
                 <Toolbar disableGutters>
-                    <Box sx={{ flexGrow: 0, width: '150px', height: '150px', display: { xs: 'none', md: 'flex' }, mr: 1 }}>
+                    <Box sx={{ position: 'fixed', top: '0', left: '0', width: '150px', height: '200px', mr: 1 }}>
                         <NavLink to="/">
                         <img
                             src={logo}
                             alt='logo'
                             style={{
-                            width: '250px', 
-                            height: '150px', 
-                            padding: '20px',
+                            marginTop: '3px',
+                            marginLeft: '12px',
+                            position: 'fixed',
+                            width: '150px',
                             }}
                             draggable="false"
                             onClick={() => setPrivateFunctionality('privateHome')}
@@ -76,7 +76,6 @@ function ResponsiveAppBar() {
                         fontSize="45px"
                         sx={{
                             flexGrow: 1,
-                            display: { xs: 'none', md: 'flex' },
                             fontFamily: 'monospace',
                             fontWeight: 700,
                             letterSpacing: '.1rem',
@@ -85,28 +84,6 @@ function ResponsiveAppBar() {
                             ml: 2,
                             paddingLeft: '150px'
                         }}
-                    >
-                        TCE Innovation
-                    </Typography>
-                    <NavLink to='/' style={{color: 'inherit'}} onClick={() => setPrivateFunctionality('privateHome')}>
-                        <AdbIcon sx={{ display: { xs: 'flex', md: 'none' }, mr: 1 }} />
-                    </NavLink>
-                    <Typography
-                        variant="h5"
-                        noWrap
-                        component="a"
-                        href="/"
-                        sx={{
-                            mr: 2,
-                            display: { xs: 'flex', md: 'none' },
-                            flexGrow: 1,
-                            fontFamily: 'monospace',
-                            fontWeight: 700,
-                            letterSpacing: '.3rem',
-                            color: 'inherit',
-                            textDecoration: 'none',
-                        }}
-                        onClick={() => setPrivateFunctionality('privateHome')}
                     >
                         TCE Innovation
                     </Typography>
