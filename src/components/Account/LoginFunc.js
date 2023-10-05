@@ -1,5 +1,5 @@
 // LoginFunc.js
-import React, { useContext } from 'react';
+import { useContext } from 'react';
 import { useMsal } from "@azure/msal-react";
 import { loginRequest } from "../../authentication/authConfig";
 import { AuthContext } from "../../authentication/Auth";  
