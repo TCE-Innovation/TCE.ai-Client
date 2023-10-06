@@ -10,7 +10,6 @@ import Toolbar from '@mui/material/Toolbar';
 import IconButton from '@mui/material/IconButton';
 import Typography from '@mui/material/Typography';
 import Menu from '@mui/material/Menu';
-import Container from '@mui/material/Container';
 import Avatar from '@mui/material/Avatar';
 import MenuItem from '@mui/material/MenuItem';
 import Button from "@mui/material/Button";
@@ -52,18 +51,15 @@ function ResponsiveAppBar() {
         <AppBar position="static" sx={{
             backgroundImage: 'linear-gradient(to right, lightblue, darkblue)', 
           }}>
-            <Container maxWidth="xl">
                 <Toolbar disableGutters>
-                    <Box sx={{ position: 'fixed', top: '0', left: '0', width: '150px', height: '200px' }}>       
+                    <Box sx={{ display: 'flex', alignItems: 'center' }}>       
                         <NavLink to="/">
                         <img
                             src={logo}
                             alt='logo'
                             style={{
-                            marginTop: '3px',
-                            marginLeft: '45px',
-                            position: 'fixed',
-                            width: '150px',
+                                width: '150px',
+                                marginLeft: '35px',
                             }}
                             draggable="false"
                             onClick={() => setPrivateFunctionality('privateHome')}
@@ -86,10 +82,13 @@ function ResponsiveAppBar() {
                     >
                         TCE Innovation Group
                     </Typography>
-                    <Box sx={{  display: 'flex', justifyContent: 'flex-end' }}>           
+                    <Box sx={{  display: 'flex', alignItems: 'center' }}>           
                             {isAuthenticated ? (
                                 <IconButton onClick={handleOpenUserMenu}>
                                     <Avatar
+                                        style={{
+                                            marginRight: '35px'
+                                        }}
                                         alt="You"
                                         src={userPic ? userPic : noUser}
                                         imgProps={{ referrerPolicy: "no-referrer" }}
@@ -153,7 +152,6 @@ function ResponsiveAppBar() {
                         </Menu>
                     </Box>
                 </Toolbar>
-            </Container>
         </AppBar>
     );
 }

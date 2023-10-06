@@ -1,13 +1,63 @@
+//REACT
 import React, { useState } from 'react';
 import { Carousel } from 'react-responsive-carousel';
 import 'react-responsive-carousel/lib/styles/carousel.min.css';
 
+//IMAGES
 import MatterPortPro2Image from '../../../img/AssetImages/Pro2.png';
 import MatterPortPro3Image from '../../../img/AssetImages/Pro3.png';
 import FerretPlusImage from '../../../img/AssetImages/Ferret.png';
 import RicohThetaZ1Image from '../../../img/AssetImages/Ricoh.png';
 import Insta360Image from '../../../img/AssetImages/Insta360.png';
 import BushmanImage from '../../../img/AssetImages/Bushman.png';
+
+//ICONS
+import ArrowBackIosNewIcon from '@mui/icons-material/ArrowBackIosNew';
+import ArrowForwardIosIcon from '@mui/icons-material/ArrowForwardIos';
+
+const renderArrowPrev = (onClickHandler, hasPrev, label) => {
+    return (
+        <button
+            type="button"
+            onClick={onClickHandler}
+            title={label}
+            style={{
+                ...arrowStyles,
+                left: 0,
+            }} // Change this to suit your needs
+        >
+            <ArrowBackIosNewIcon />
+        </button>
+    );
+};
+
+const renderArrowNext = (onClickHandler, hasNext, label) => {
+    return (
+        <button
+            type="button"
+            onClick={onClickHandler}
+            title={label}
+            style={{
+                ...arrowStyles,
+                right: 0,
+            }}
+        >
+            <ArrowForwardIosIcon />
+        </button>
+    );
+};
+
+const arrowStyles = {
+    position: 'absolute',
+    zIndex: 2,
+    top: 'calc(50% - 15px)',
+    width: 30,
+    height: 30,
+    cursor: 'pointer',
+    backgroundColor: 'white',
+    border: 'none',
+    outline: 'none',
+};
 
 const ItemCarousel = () => {
     const [cardData, setCardData] = useState([
@@ -57,43 +107,39 @@ const ItemCarousel = () => {
 
     const styles = {
         carouselContainer: {
-            marginTop: 30,
-            marginBottom: 40,
-            width: 1400,
-            maxHeight: 900,
+            marginTop: 40,
+            width: 1500,
+            height: 400,
             margin: 'auto',
+            //border: '1px solid red'
         },
         carouselCard: {
-            width: 500, // Set a fixed width for the card
-            height: 400, 
-            textAlign: 'center',
+            width: 250, 
+            height: 250, 
             margin: 'auto',
             marginBottom: 50,
             display: 'flex',
             flexDirection: 'column',
-            //border: '1px solid #ccc', used to test card size and shape
+            padding: '25px',
+            //border: '1px solid blue'
         },
         cardImage: {
-            width: '70%', // Adjust the width as needed
-            height: 'auto',
-            objectFit: 'cover',
-            alignSelf: 'center', // Center the image vertically
-            cursor: 'pointer',
-        },
-        cardContent: {
-            padding: '10px', // Add padding to the card content
-            flex: 1,
-            textAlign: 'center', // Center the text horizontally
+            width: '100%', 
+            height: '100%',  
+            //border: '1px solid green'
         },
         titleContainer: {
             position: 'absolute',
-            bottom: '10px', // Adjust the distance from the bottom
             left: 0,
             right: 0,
-            marginBottom: '15px',
+            marginTop: '220px',
+            //border: '1px solid #ccc'
         },
-        clickableCard: {
-            cursor: 'pointer',
+        cardTitle: {
+            textAlign: 'center',
+            fontSize: '20px',
+            fontWeight: 'bold',
+            color: 'black',
         },
         descriptionPopup: {
             position: 'absolute',
@@ -102,38 +148,45 @@ const ItemCarousel = () => {
             border: '1px solid #ccc',
             boxShadow: '0 2px 4px rgba(0, 0, 0, 0.2)',
             zIndex: '999',
-        },
+        }
     };
 
     return (
         <div style={styles.carouselContainer}>
-            <Carousel showArrows={true} showThumbs={false} autoPlay infiniteLoop centerMode dynamicHeight={false} centerSlidePercentage={40}>
+              <div style={{ paddingBottom: '20px' }}></div>
+            <Carousel 
+                renderArrowPrev={renderArrowPrev}
+                renderArrowNext={renderArrowNext}
+                showArrows={true} 
+                showThumbs={false} 
+                autoPlay 
+                infiniteLoop 
+                centerMode 
+                dynamicHeight={false} 
+                centerSlidePercentage={40}
+                showIndicators={false}
+
+    
+            >
                 {cardData.map((card, index) => (
-                    <div key={index} style={styles.carouselCard}>
-                        <div
-                            onClick={() => toggleDescription(index)}  // Changed from onClick to onMouseEnter
-                            style={{ ...styles.clickableCard, cursor: 'pointer' }}
-                        >
-                            <img
-                                src={card.image}
-                                alt={card.title}
-                                style={styles.cardImage}
-                            />
-                            <div style={styles.cardContent}>
-                                <div style={styles.titleContainer}>
-                                    <h4 style={styles.cardTitle}>{card.title}</h4>
-                                </div>
-                            </div>
+
+                    <div key={index} style={styles.carouselCard} onClick={() => toggleDescription(index)}>
+
+                        <img src={card.image} alt={card.title} style={styles.cardImage}/>    
+
+                        <div style={styles.titleContainer}>
+                            <h4 style={styles.cardTitle}>{card.title}</h4>
                         </div>
+
                         {card.showDescription && (
                             <div className="description-popup" style={styles.descriptionPopup}>
                                 <p>{card.description}</p>
                             </div>
                         )}
+
                     </div>
                 ))}
             </Carousel>
-            <p  style={{textAlign: 'center'}}>Click an image above to learn more</p>
         </div>
     );
 };
