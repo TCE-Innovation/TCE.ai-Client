@@ -82,6 +82,14 @@ const CRO = () => {
                 <Typography variant="h2" mb={4} fontSize="40px">
                     Cable Run Optimizer
                 </Typography>
+
+                <Typography variant="body2"  fontSize="20px">
+                    The Cable Run Optimizer tool helps engineers efficiently plan conduit and messenger bundle runs based on input cable pull sheet information. 
+                </Typography>
+
+                <Typography variant="body2" mb={4} fontSize="20px">
+                    With an input cable pull sheet, the tool generates an Excel spreadsheet that lists conduits/bundles, the cables inside them, and their respective sizes. 
+                </Typography>
                 
                 <Box width={1}>
                     <label style={{ fontSize: '20px', marginBottom: '10px'}}>
@@ -94,9 +102,32 @@ const CRO = () => {
                         onChange={(e) => setPullsheet(e.target.files[0])}
                     />
 
+                    
+                    <Typography variant="body2" mb={4} mt={5}fontSize="18px">
+                        NOTE: This tool defaults to using cable sizes and weights from cut sheets that may be different from the cut sheets for your job. Before using this tool, verify that the cable parameters (diameter for conduits, diameter and weight for messenger bundles) in the Cable Sizes.xlsx file match the parameters from your cable cut sheets.  
+                        If they are different, you must upload an Excel file with your cable parameters in addition to your cable pull sheet. The Excel must follow the same format as the&nbsp;                      
+                        <a
+                            href="https://judlauent.sharepoint.com/:x:/s/TCEInnovation/EURdOokWyJJHlbIbEP30nAABJkBs5a53xp3VMeFYUtVtrg?e=2B52Jn"
+                            style={{ fontSize: '18px' }}
+                            target="_blank"
+                            rel="noopener noreferrer"
+                        >
+                            Sample Cable Size Sheet
+                        </a>
+                        &nbsp; and the pull sheet must follow the same format as the&nbsp;
+                        <a
+                            href="https://judlauent.sharepoint.com/:x:/s/TCEInnovation/EZVQRA2hvqhKo5pNCVpzeUEBBY8JngxgWLmPe6NvSxgk8A?e=W3dtY6"
+                            style={{ fontSize: '18px', mt: 2 }}
+                            target="_blank"
+                            rel="noopener noreferrer"
+                        >
+                            Pull Sheet Template
+                        </a>.
+                    </Typography>
+
                     {showCableSizeSheet ? (
                         <>
-                            <label style={{ fontSize: '20px', marginTop: '40px', marginBottom: '10px' }}>
+                            <label style={{ fontSize: '20px', marginBottom: '10px' }}>
                                 Upload Cable Sizes Sheet
                             </label>
                             <Input
@@ -110,36 +141,13 @@ const CRO = () => {
 
 
                     <Button
-                            color="primary"
+                            variant="contained"
+                            sx={{ color: 'black', fontWeight: 700, backgroundColor: 'white', '&:hover': { backgroundColor: 'grey' }, marginTop: 4}}
                             onClick={() => setShowCableSizeSheet(!showCableSizeSheet)}
-                            sx={{ marginTop: '20px' }} 
                         >
-                            {showCableSizeSheet ? 'Use Standard Cable Sizes Sheet' : 'Upload Cable Sizes'}
+                            {showCableSizeSheet ? 'Use Standard Cable Sizes Sheet' : 'OPTIONAL: Upload Your Cable Sizes'}
                     </Button>
 
-
-                    <Box sx={{ marginTop: 2, marginLeft: 1 }}>
-                        <Typography variant="body2">
-                            <a
-                                href="https://judlauent.sharepoint.com/:x:/s/TCEInnovation/EURdOokWyJJHlbIbEP30nAABJkBs5a53xp3VMeFYUtVtrg?e=2B52Jn"
-                                style={{ fontSize: '18px' }}
-                                target="_blank"
-                                rel="noopener noreferrer"
-                            >
-                                View Sample Cable Size Sheet
-                            </a>
-                        </Typography>
-                        <Typography variant="body2">
-                            <a
-                                href="https://judlauent.sharepoint.com/:x:/s/TCEInnovation/EZVQRA2hvqhKo5pNCVpzeUEBBY8JngxgWLmPe6NvSxgk8A?e=W3dtY6"
-                                style={{ fontSize: '18px', mt: 2 }}
-                                target="_blank"
-                                rel="noopener noreferrer"
-                            >
-                                View Pull Sheet Template
-                            </a>
-                        </Typography>
-                    </Box>
                     <Box sx={{ marginTop: 4}}>
                         <Button
                             variant="contained"

@@ -2,11 +2,11 @@
 import * as React from 'react';
 
 //MUI
-import ListItemButton from '@mui/material/ListItemButton';
-import ListItemIcon from '@mui/material/ListItemIcon';
-import ListItemText from '@mui/material/ListItemText';
+//import ListItemButton from '@mui/material/ListItemButton';
+//import ListItemIcon from '@mui/material/ListItemIcon';
+///import ListItemText from '@mui/material/ListItemText';
 //import CategoryIcon from '@mui/icons-material/Category';
-import FlashOnIcon from '@mui/icons-material/FlashOn';
+//import FlashOnIcon from '@mui/icons-material/FlashOn';
 
 const PublicListItems = (props) => (
     <React.Fragment>
@@ -15,13 +15,13 @@ const PublicListItems = (props) => (
                 <CategoryIcon />
             </ListItemIcon>
             <ListItemText primary="White Papers" />
-        </ListItemButton>*/}
+        </ListItemButton>
         <ListItemButton onClick={() => props.onSelect('aboutTCE')}>
             <ListItemIcon>
                 <FlashOnIcon />
             </ListItemIcon>
             <ListItemText primary="About TCE" />
-        </ListItemButton>
+        </ListItemButton>*/}
     </React.Fragment>
 );
 

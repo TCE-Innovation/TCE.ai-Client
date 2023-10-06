@@ -7,7 +7,7 @@ import ListItemIcon from '@mui/material/ListItemIcon';
 import ListItemText from '@mui/material/ListItemText';
 import EmailIcon from '@mui/icons-material/Email';
 import SpokeIcon from '@mui/icons-material/Spoke';
-import ForumIcon from '@mui/icons-material/Forum';
+//import ForumIcon from '@mui/icons-material/Forum';
 import DevicesOtherIcon from '@mui/icons-material/DevicesOther';
 
 const PrivateListItems = (props) => (
@@ -30,12 +30,12 @@ const PrivateListItems = (props) => (
             </ListItemIcon>
             <ListItemText primary="Asset Tracker" />
         </ListItemButton>
-        <ListItemButton onClick={() => props.onSelect('chatbot')}>
+        {/*(<ListItemButton onClick={() => props.onSelect('chatbot')}>
             <ListItemIcon>
                 <ForumIcon />
             </ListItemIcon>
             <ListItemText primary="ChatBot" />
-        </ListItemButton>
+        </ListItemButton>*/}
     </React.Fragment>
 );
 

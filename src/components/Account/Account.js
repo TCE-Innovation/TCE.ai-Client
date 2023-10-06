@@ -60,7 +60,7 @@ function AccountCard() {
                         <br />
                         
                         <Box textAlign="center">
-                        <ProfileImage />
+                            <ProfileImage />
                             <br />
                             <br />
                             <h4>{userEmail}</h4>
