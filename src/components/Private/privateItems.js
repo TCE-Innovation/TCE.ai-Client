@@ -20,17 +20,17 @@ const PrivateListItems = (props) => (
             </ListItemIcon>
             <ListItemText primary="Generate an Email" />
         </ListItemButton>
+        <ListItemButton onClick={() => props.onSelect('assetTracker')}>
+            <ListItemIcon>
+                <DevicesOtherIcon />
+            </ListItemIcon>
+            <ListItemText primary="Equipment Checkout" />
+        </ListItemButton>
         <ListItemButton onClick={() => props.onSelect('cro')}>
             <ListItemIcon>
                 <SpokeIcon />
             </ListItemIcon>
             <ListItemText primary="Cable Run Optimizer" />
-        </ListItemButton>
-        <ListItemButton onClick={() => props.onSelect('assetTracker')}>
-            <ListItemIcon>
-                <DevicesOtherIcon />
-            </ListItemIcon>
-            <ListItemText primary="Asset Tracker" />
         </ListItemButton>
         {/*(<ListItemButton onClick={() => props.onSelect('chatbot')}>
             <ListItemIcon>

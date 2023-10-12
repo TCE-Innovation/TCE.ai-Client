@@ -27,14 +27,27 @@ import PublicContext from "../Public/PublicContext";
 import {useMicrosoftSignOut} from "../Account/LogOut/LogOutFunc";
 import {useMicrosoftSignIn} from "../Account/LoginFunc";
 
+
 function ResponsiveAppBar() {
     const [anchorElUser, setAnchorElUser] = useState(null);
-    const { setPrivateFunctionality } = useContext(PrivateContext);
+    const { privateFunctionality, setPrivateFunctionality } = useContext(PrivateContext);
     const { setPublicFunctionality } = useContext(PublicContext);
 
     const { isAuthenticated, userPic } = useContext(AuthContext);
     const settings = ["Account", "Dashboard", "Public", "Log Out"]
 
+    function setTitle(privateFunctionality) {
+        switch(privateFunctionality) {
+            case 'generateEmails':
+                return 'Generate an Email';
+            case 'assetTracker':
+                return 'Equipment Checkout';
+            case 'cro':
+                return 'Cable Run Optimizer';
+            default:
+                return 'TCE Innovation Group';  // default text
+        }
+    }
 
     const handleOpenUserMenu = (event) => {
         setAnchorElUser(event.currentTarget);
@@ -80,7 +93,7 @@ function ResponsiveAppBar() {
                             textAlign: 'center',
                         }}
                     >
-                        TCE Innovation Group
+                        {setTitle(privateFunctionality)}
                     </Typography>
                     <Box sx={{  display: 'flex', alignItems: 'center' }}>           
                             {isAuthenticated ? (

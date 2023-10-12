@@ -78,10 +78,6 @@ const CRO = () => {
                     marginBottom: 4
                 }}
             >
-                <Typography variant="h2" mb={4} fontSize="40px">
-                    Cable Run Optimizer
-                </Typography>
-
                 <Typography variant="body2"  fontSize="20px">
                     The Cable Run Optimizer tool helps engineers efficiently plan conduit and messenger bundle runs based on input cable pull sheet information. 
                 </Typography>
