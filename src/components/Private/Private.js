@@ -27,8 +27,9 @@ import GenerateEmails from "../PrivateFeatures/GenerateEmails";
 const Drawer = styled(MuiDrawer, { shouldForwardProp: (prop) => prop !== 'open' })(
   ({ theme, open }) => ({
     '& .MuiDrawer-paper': {
-      position: 'relative',
+      position: 'fixed',
       whiteSpace: 'nowrap',
+      marginTop: '65px',
       width: 'auto',
       transition: theme.transitions.create('width', {
         easing: theme.transitions.easing.sharp,
@@ -93,7 +94,7 @@ function PrivateContent() {
             {/*<Divider sx={{ my: 1 }} />*/}
           </List>
         </Drawer>
-        <Box component="main" sx={{ flexGrow: 1, p: 3 }}>
+        <Box component="main" sx={{ flexGrow: 1, p: 3, ml: open ? 30 : 9 }}>
           {privateFunctionality === 'privateHome' && <PrivateHome />}
           {privateFunctionality === 'generateEmails' && <GenerateEmails />}
           {privateFunctionality === 'cro' && <CRO />}

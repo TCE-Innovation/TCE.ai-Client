@@ -61,9 +61,10 @@ function ResponsiveAppBar() {
     const MicrosoftSignIn = useMicrosoftSignIn();
 
     return (
-        <AppBar position="static" sx={{
+        <>
+        <AppBar position="fixed" sx={{
             backgroundImage: 'linear-gradient(to right, lightblue, darkblue)', 
-          }}>
+        }}>
                 <Toolbar disableGutters>
                     <Box sx={{ display: 'flex', alignItems: 'center' }}>       
                         <NavLink to="/">
@@ -166,6 +167,8 @@ function ResponsiveAppBar() {
                     </Box>
                 </Toolbar>
         </AppBar>
+        <Toolbar />
+        </>    
     );
 }
 
