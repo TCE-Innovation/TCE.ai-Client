@@ -1,6 +1,6 @@
 //REACT
 import React from 'react';
-import ReactDOM from 'react-dom';
+import { createRoot } from 'react-dom/client';
 
 //CSS
 import './index.css';
@@ -15,12 +15,16 @@ import { MsalProvider } from '@azure/msal-react';
 import { msalConfig } from './authentication/authConfig';
 
 const msalInstance = new PublicClientApplication(msalConfig);
-const root = ReactDOM.createRoot(document.getElementById('root'));
+const root = createRoot(document.getElementById('root'));
 
+if (window.location.hash !== ''){
+  console.log("hash found" + window.location.hash);
+}
+else {
 root.render(
   <React.StrictMode>
       <MsalProvider instance={msalInstance}>
           <App />
       </MsalProvider>
   </React.StrictMode>
-);
+)};

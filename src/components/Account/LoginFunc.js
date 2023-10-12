@@ -13,7 +13,6 @@ export function useMicrosoftSignIn() {
   async function MicrosoftSignIn() {
     try {
       const response = await instance.loginPopup(loginRequest);
-      console.log("Login response:", response);
       if (response) {
         //user is authenticated, update authContext
         setIsAuthenticated(true); 

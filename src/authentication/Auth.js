@@ -14,21 +14,20 @@ export const AuthProvider = ({ children }) => {
   const [userPic, setUserPic] = useState(null);
 
   useEffect(() => {
-    console.log("in Auth.js useEffect")
+    console.log('isAuthenticated:', isAuthenticated);
     if (isAuthenticated) {
       const activeAccount = accounts[0]; 
       instance.acquireTokenSilent({
         account: activeAccount,
         scopes: ["openid", "profile", "User.Read"], 
       }).then((response) => {
-        console.log(response);
         if (response) {
           //grab the user's name and email from the response
           const { name, username } = response.account;
           setUserName(name);
           setUserEmail(username);
 
-          //grab the user's profile picture from the graph
+          //grab the user's profile picture from the graph api
           const headers = new Headers();
           const bearer = `Bearer ${response.accessToken}`;
           headers.append("Authorization", bearer);
@@ -41,7 +40,6 @@ export const AuthProvider = ({ children }) => {
             .then((response) => response.blob())
             .then((blob) => {
               const url = window.URL.createObjectURL(blob);
-              console.log(url);
               setUserPic(url);
             });
         }
@@ -68,6 +66,5 @@ export const AuthProvider = ({ children }) => {
 
 export function AuthenticatedRoute() {
   const { isAuthenticated } = useContext(AuthContext);
-  console.log(isAuthenticated);
   return isAuthenticated ? <Outlet /> : <Navigate to="/" />;
 }

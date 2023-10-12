@@ -21,6 +21,7 @@ import PublicContext from "./PublicContext";
 //import WhitePapers from "../ExternalFeatures/WhitePapers";
 import PublicHome from "./PublicHome";
 import AboutTCE from "../PublicFeatures/AboutTCE";
+import ContactUs from "../PublicFeatures/ContactUs";
 
 const Drawer = styled(MuiDrawer, { shouldForwardProp: (prop) => prop !== 'open' })(
   ({ theme, open }) => ({
@@ -93,8 +94,8 @@ function PublicContent() {
         </Drawer>
         <Box component="main" sx={{ flexGrow: 1, p: 3 }}>
           {publicFunctionality === 'publicHome' && <PublicHome/>}
-          {/*externalFunctionality === 'whitePapers' && <WhitePapers/>*/}
           {publicFunctionality === 'aboutTCE' && <AboutTCE/>}
+          {publicFunctionality === 'contact' && <ContactUs/>}
           {/* Add other functionalities here */}
         </Box>
       </Box>

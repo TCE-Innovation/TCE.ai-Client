@@ -82,7 +82,7 @@ const ItemCarousel = () => {
         {
             image: RicohThetaZ1Image,
             title: 'Ricoh Theta Z1',
-            description: 'An alternative to the Insta 360 One X2, the Ricoh Theta Z1 is also used for OpenSpace but has better camera quality at the expense of lower battery life. Best used for shorter tours due to battery life in indoor, low-light applications',
+            description: 'An alternative to the Insta 360 One X2, the Ricoh Theta Z1 is also used for OpenSpace but has better camera quality at the expense of lower battery life. Best used for shorter tours due to battery life in indoor, low-light applications.',
             showDescription: false,
         },
         {

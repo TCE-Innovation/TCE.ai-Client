@@ -10,6 +10,8 @@ import SpokeIcon from '@mui/icons-material/Spoke';
 //import ForumIcon from '@mui/icons-material/Forum';
 import DevicesOtherIcon from '@mui/icons-material/DevicesOther';
 
+//conditional logic will live here, filter out features based on user role
+
 const PrivateListItems = (props) => (
     <React.Fragment>
         <ListItemButton onClick={() => props.onSelect('generateEmails')}>
