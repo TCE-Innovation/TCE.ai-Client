@@ -10,19 +10,16 @@ import Public from "../Public/Public";
 
 //CONTEXT
 import PrivateContext from '../Private/PrivateContext';
-import PublicContext from '../Public/PublicContext';
 
 //AUTH
 import { AuthenticatedRoute, AuthProvider } from "../../authentication/Auth";
 
 function App() {
     const [privateFunctionality, setPrivateFunctionality] = useState('privateHome');
-    const [publicFunctionality, setPublicFunctionality] = useState('publicHome');
     
     return (
         <AuthProvider>
             <PrivateContext.Provider value={{ privateFunctionality, setPrivateFunctionality }}>
-                <PublicContext.Provider value={{ publicFunctionality, setPublicFunctionality }}>
                     <Router>
                         <div className="App">
                             <header className="App-header">
@@ -43,7 +40,6 @@ function App() {
 
                         </Routes>
                     </Router>
-                </PublicContext.Provider>
             </PrivateContext.Provider>
         </AuthProvider>
     );

@@ -7,6 +7,7 @@ import styled from '@emotion/styled';
 
 //COMPONENTS
 import Copyright from '../General/Copyright';
+//import ContactUs from '../PublicFeatures/ContactUs';
 
 const CustomListItemText = styled(ListItemText)`
   position: relative;

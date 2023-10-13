@@ -1,6 +1,7 @@
 //REACT
 import React, { useState, useEffect, useContext } from 'react';
 import { Navigate, Outlet } from 'react-router-dom';
+
 //AUTH
 import { useMsal } from "@azure/msal-react";
 
@@ -13,6 +14,7 @@ export const AuthProvider = ({ children }) => {
   const [userEmail, setUserEmail] = useState(null);
   const [userPic, setUserPic] = useState(null);
 
+  //see if user is already authenticated
   useEffect(() => {
     const cachedAuthState = localStorage.getItem('msalAuthState');
     if (cachedAuthState === 'authenticated') {
@@ -20,6 +22,7 @@ export const AuthProvider = ({ children }) => {
     }
   }, []);
 
+  //get user details
   useEffect(() => {
     if (isAuthenticated) {
       const activeAccount = accounts[0]; 
@@ -27,11 +30,13 @@ export const AuthProvider = ({ children }) => {
         account: activeAccount,
         scopes: ["openid", "profile", "User.Read"], 
       }).then((response) => {
+        //user is authenticated
         if (response) {
           const { name, username } = response.account;
           setUserName(name);
           setUserEmail(username);
 
+          //get user profile picture
           const headers = new Headers();
           const bearer = `Bearer ${response.accessToken}`;
           headers.append("Authorization", bearer);
@@ -47,15 +52,17 @@ export const AuthProvider = ({ children }) => {
               setUserPic(url);
             });
           
-          localStorage.setItem('msalAuthState', 'authenticated'); // Save authentication state
+          //save authentication state in local storage cache
+          localStorage.setItem('msalAuthState', 'authenticated'); 
         }
       }).catch((error) => {
         console.error('Error fetching user details:', error);
       });
     } else {
-      localStorage.removeItem('msalAuthState'); // Remove cached authentication state
+      //remove cached authentication state
+      localStorage.removeItem('msalAuthState'); 
     }
-  }, [isAuthenticated, accounts, instance]);
+  }, [isAuthenticated, accounts, instance ]);
 
   const loginContextValue = {
     isAuthenticated,

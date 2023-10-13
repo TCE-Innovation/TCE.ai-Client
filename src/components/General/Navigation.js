@@ -21,7 +21,6 @@ import noUser from '../../img/noUser.webp'
 //CONTEXTS
 import {AuthContext} from "../../authentication/Auth";
 import PrivateContext from "../Private/PrivateContext";
-import PublicContext from "../Public/PublicContext";
 
 //HOOKS
 import {useMicrosoftSignOut} from "../Account/LogOut/LogOutFunc";
@@ -31,7 +30,6 @@ import {useMicrosoftSignIn} from "../Account/LoginFunc";
 function ResponsiveAppBar() {
     const [anchorElUser, setAnchorElUser] = useState(null);
     const { privateFunctionality, setPrivateFunctionality } = useContext(PrivateContext);
-    const { setPublicFunctionality } = useContext(PublicContext);
 
     const { isAuthenticated, userPic } = useContext(AuthContext);
     const settings = ["Account", "Dashboard", "Public", "Log Out"]
@@ -142,7 +140,7 @@ function ResponsiveAppBar() {
                             {settings.map((setting) => (
                                 <MenuItem key={setting} onClick={handleCloseUserMenu}>
                                     {setting === "Public" && (
-                                        <NavLink to="/" style={{color: 'black'}} onClick={() => setPublicFunctionality('publicHome')}>
+                                        <NavLink to="/" style={{color: 'black'}}>
                                             <Typography textAlign="center">{setting}</Typography>
                                         </NavLink>
                                     )}
