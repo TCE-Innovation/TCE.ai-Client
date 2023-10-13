@@ -9,7 +9,7 @@ export const msalConfig = {
     },
     cache: {
         cacheLocation: 'localStorage', // This configures where your cache will be stored
-        storeAuthStateInCookie: true, // Set this to "true" to also store cache in cookies
+        storeAuthStateInCookie: false, // Set this to "true" to also store cache in cookies
     }
     /*system: {	
         loggerOptions: {	
