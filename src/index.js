@@ -12,7 +12,7 @@ import App from './components/General/App';
 //AUTH
 import { PublicClientApplication } from '@azure/msal-browser';
 import { MsalProvider } from '@azure/msal-react';
-import { msalConfig } from './authentication/authConfig';
+import { msalConfig } from './Authentication/authConfig';
 
 const msalInstance = new PublicClientApplication(msalConfig);
 const root = createRoot(document.getElementById('root'));

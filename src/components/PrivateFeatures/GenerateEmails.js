@@ -12,7 +12,7 @@ import {Dialog, DialogActions, DialogContent, DialogContentText, DialogTitle,
 from "@mui/material";
 
 //AUTH
-import {AuthContext} from "../../authentication/Auth";
+import {AuthContext} from "../../Authentication/Auth";
 
 //DEPENDENCIES
 import axios from 'axios';

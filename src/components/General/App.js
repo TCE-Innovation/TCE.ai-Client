@@ -12,7 +12,7 @@ import Public from "../Public/Public";
 import PrivateContext from '../Private/PrivateContext';
 
 //AUTH
-import { AuthenticatedRoute, AuthProvider } from "../../authentication/Auth";
+import { AuthenticatedRoute, AuthProvider } from "../../Authentication/Auth";
 
 function App() {
     const [privateFunctionality, setPrivateFunctionality] = useState('privateHome');

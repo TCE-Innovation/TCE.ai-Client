@@ -11,7 +11,7 @@ import Copyright from '../General/Copyright';
 import { LogOutButton } from "./LogOut/LogOutButton";
 
 //AUTH
-import { AuthContext } from "../../authentication/Auth";
+import { AuthContext } from "../../Authentication/Auth";
 
 const noUser = require('../../img/noUser.webp')
 

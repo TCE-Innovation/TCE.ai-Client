@@ -4,12 +4,12 @@ export const msalConfig = {
     auth: {
         clientId: '5948db4f-c992-4d98-b5ae-ca25d1010926',
         authority: 'https://login.microsoftonline.com/3539293e-58fa-4bab-a02e-18dc57fa9737',
-        redirectUri: "https://tce.ai/private",
-        //redirectUri: "http://localhost:3000/private",
+        //redirectUri: "https://tce.ai/private",
+        redirectUri: "http://localhost:3000/private",
     },
     cache: {
-        cacheLocation: 'localStorage', // This configures where your cache will be stored
-        storeAuthStateInCookie: false, // Set this to "true" to also store cache in cookies
+        cacheLocation: 'localStorage',
+        storeAuthStateInCookie: false, 
     }
     /*system: {	
         loggerOptions: {	
