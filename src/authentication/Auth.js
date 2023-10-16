@@ -4,6 +4,7 @@ import { Navigate, Outlet } from 'react-router-dom';
 
 //AUTH
 import { useMsal } from "@azure/msal-react";
+import { getUserProfilePic } from '../API Calls/Graph';
 
 export const AuthContext = React.createContext();
 
@@ -32,26 +33,23 @@ export const AuthProvider = ({ children }) => {
       }).then((response) => {
         //user is authenticated
         if (response) {
+
+          //get user name and email
           const { name, username } = response.account;
           setUserName(name);
           setUserEmail(username);
 
           //get user profile picture
-          const headers = new Headers();
-          const bearer = `Bearer ${response.accessToken}`;
-          headers.append("Authorization", bearer);
-          const options = {
-            method: "GET",
-            headers: headers,
-          };
-          const graphEndpoint = "https://graph.microsoft.com/v1.0/me/photo/$value";
-          fetch(graphEndpoint, options)
-            .then((response) => response.blob())
-            .then((blob) => {
-              const url = window.URL.createObjectURL(blob);
-              setUserPic(url);
-            });
-          
+          getUserProfilePic(response.accessToken)
+          .then((url) => {
+            setUserPic(url);
+          })
+          .catch((error) => {
+            console.error('Error fetching user profile picture:', error);
+          });
+
+          //get user role from airtable
+
           //save authentication state in local storage cache
           localStorage.setItem('msalAuthState', 'authenticated'); 
         }
