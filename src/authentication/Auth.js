@@ -5,7 +5,7 @@ import { Navigate, Outlet } from 'react-router-dom';
 //AUTH
 import { useMsal } from "@azure/msal-react";
 import { getUserProfilePic } from '../API Calls/Graph';
-import { getJobTitle } from '../API Calls/Airtable';
+import { getJobTitle, getProjects } from '../API Calls/Airtable';
 
 export const AuthContext = React.createContext();
 
@@ -16,6 +16,7 @@ export const AuthProvider = ({ children }) => {
   const [userEmail, setUserEmail] = useState(null);
   const [userPic, setUserPic] = useState(null);
   const [userTitle, setUserTitle] = useState(null);
+  const [userProjects, setUserProjects] = useState(null);
 
   //see if user is already authenticated
   useEffect(() => {
@@ -35,7 +36,6 @@ export const AuthProvider = ({ children }) => {
       }).then((response) => {
         //user is authenticated
         if (response) {
-
           //get user name and email
           const { name, username } = response.account;
           setUserName(name);
@@ -50,15 +50,22 @@ export const AuthProvider = ({ children }) => {
             console.error('Error fetching user profile picture:', error);
           });
 
-          //get user role from airtable
+          //get user job title
           getJobTitle(name)
           .then((title) => {
             setUserTitle(title);
           })
           .catch((error) => {
-            console.error('Error fetching user profile picture:', error);
+            console.error('Error fetching user job title:', error);
           });
 
+          //get user projects
+          getProjects(name)
+          .then((projects) => {
+            setUserProjects(projects);
+          }).catch((error) => {
+            console.error('Error fetching user projects:', error);
+          });
           //save authentication state in local storage cache
           localStorage.setItem('msalAuthState', 'authenticated'); 
         }
@@ -77,7 +84,8 @@ export const AuthProvider = ({ children }) => {
     userName,
     userEmail,
     userPic,
-    userTitle
+    userTitle,
+    userProjects
   };
 
   return (
