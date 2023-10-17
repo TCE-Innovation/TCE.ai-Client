@@ -5,6 +5,7 @@ import { Navigate, Outlet } from 'react-router-dom';
 //AUTH
 import { useMsal } from "@azure/msal-react";
 import { getUserProfilePic } from '../API Calls/Graph';
+import { getJobTitle } from '../API Calls/Airtable';
 
 export const AuthContext = React.createContext();
 
@@ -14,6 +15,7 @@ export const AuthProvider = ({ children }) => {
   const [userName, setUserName] = useState(null);
   const [userEmail, setUserEmail] = useState(null);
   const [userPic, setUserPic] = useState(null);
+  const [userTitle, setUserTitle] = useState(null);
 
   //see if user is already authenticated
   useEffect(() => {
@@ -49,6 +51,13 @@ export const AuthProvider = ({ children }) => {
           });
 
           //get user role from airtable
+          getJobTitle(name)
+          .then((title) => {
+            setUserTitle(title);
+          })
+          .catch((error) => {
+            console.error('Error fetching user profile picture:', error);
+          });
 
           //save authentication state in local storage cache
           localStorage.setItem('msalAuthState', 'authenticated'); 
@@ -67,7 +76,8 @@ export const AuthProvider = ({ children }) => {
     setIsAuthenticated,
     userName,
     userEmail,
-    userPic
+    userPic,
+    userTitle
   };
 
   return (

@@ -42,7 +42,7 @@ function ProfileImage() {
 }
 
 function AccountCard() {
-    const { userName, userEmail } = useContext(AuthContext);
+    const { userName, userEmail, userTitle } = useContext(AuthContext);
 
     return (
         <React.Fragment>
@@ -64,6 +64,7 @@ function AccountCard() {
                             <br />
                             <br />
                             <h4>{userEmail}</h4>
+                            <h4>{userTitle}</h4>
                             <br />
                             <LogOutButton />
                         </Box>
