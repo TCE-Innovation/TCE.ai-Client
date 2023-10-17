@@ -1,8 +1,8 @@
 // LoginFunc.js
 import { useContext } from 'react';
 import { useMsal } from "@azure/msal-react";
-import { loginRequest } from "../../Authentication/authConfig";
-import { AuthContext } from "../../Authentication/Auth";  
+import { loginRequest } from "../../authentication/authConfig";
+import { AuthContext } from "../../authentication/Auth";  
 import { useNavigate } from 'react-router-dom';
 
 export function useMicrosoftSignIn() {

@@ -19,7 +19,7 @@ import logo from '../../img/logo.webp'
 import noUser from '../../img/noUser.webp'
 
 //CONTEXTS
-import {AuthContext} from "../../Authentication/Auth";
+import {AuthContext} from "../../authentication/Auth";
 import PrivateContext from "../Private/PrivateContext";
 
 //HOOKS
