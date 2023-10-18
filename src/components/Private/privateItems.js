@@ -1,6 +1,6 @@
 //REACT
 import * as React from 'react';
-import { useContext } from "react";
+//import { useContext } from "react";
 
 //MUI
 import ListItemButton from '@mui/material/ListItemButton';
@@ -12,10 +12,10 @@ import ForumIcon from '@mui/icons-material/Forum';
 import DevicesOtherIcon from '@mui/icons-material/DevicesOther';
 
 //conditional logic will live here, filter out features based on user role
-import { AuthContext } from '../../authentication/Auth';
+//import { AuthContext } from '../../authentication/Auth';
 
 const PrivateListItems = (props) => {
-    const { userTitle } = useContext(AuthContext);
+    //const { userTitle } = useContext(AuthContext);
 
     //set array of roles that can access each feature
     // const emailRoles = ['Innovation Engineer', 'Innovation Manager', 'Innovation Director'];
