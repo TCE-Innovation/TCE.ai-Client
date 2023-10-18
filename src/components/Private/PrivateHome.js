@@ -38,13 +38,13 @@ const PrivateHome = () => {
                         <CustomListItemText primary="Email and Response Generation" />
                     </ListItem>
                     <ListItem>
+                        <CustomListItemText primary="Equipment Checkout" />
+                    </ListItem>
+                    <ListItem>
+                        <CustomListItemText primary="Chat Bot" />
+                    </ListItem>
+                    <ListItem>
                         <CustomListItemText primary="Cable Run Optimizer" />
-                    </ListItem>
-                    <ListItem>
-                        <CustomListItemText primary="Asset Tracker" />
-                    </ListItem>
-                    <ListItem>
-                        <CustomListItemText primary="ChatBot" />
                     </ListItem>
                 </List>
 
