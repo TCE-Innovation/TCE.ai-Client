@@ -12,21 +12,19 @@ import { AuthContext } from "../../authentication/Auth";
 const ChatBot = () => {
     const [project, setProject] = useState('HR');
     const { userProjects } = useContext(AuthContext);
-    console.log(userProjects);
-    console.log('Innovation Group' in userProjects);
 
     const userProjKeys = [];
 
-    if ('ADA Package 4' in userProjects || 'Innovation Group' in userProjects) {
+    if ('ADA Package 4' in userProjects || userProjects[0] === 'Innovation Group') {
         userProjKeys.push('p4');
     }
-    if ('Amtrak ERT' in userProjects || 'Innovation Group' in userProjects) {
+    if ('Amtrak ERT' in userProjects || userProjects[0] === 'Innovation Group') {
         userProjKeys.push('ert');
     }
-    if ('CBTC Fulton Line' in userProjects || 'Innovation Group' in userProjects) {
+    if ('CBTC Fulton Line' in userProjects || userProjects[0] === 'Innovation Group') {
         userProjKeys.push('fulton');
     }
-    if ('DB Platform Screen Door Pilot Installation' in userProjects || 'Innovation Group' in userProjects) {
+    if ('DB Platform Screen Door Pilot Installation' in userProjects || userProjects[0] === 'Innovation Group') {
         userProjKeys.push('psd');
     }
     
