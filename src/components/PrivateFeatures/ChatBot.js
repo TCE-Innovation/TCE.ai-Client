@@ -60,6 +60,15 @@ const ChatBot = () => {
                 </Select>
             </FormControl>
 
+            <iframe 
+                src="https://web.powerva.microsoft.com/environments/Default-3539293e-58fa-4bab-a02e-18dc57fa9737/bots/crfb3_p4Pva/webchat?__version__=2" 
+                frameborder="0" 
+                width={1000} 
+                height={1000}
+                title="TCIG Asset Tracker"
+
+            ></iframe>
+
             {project==='ert' ? (
                 <iframe
                     src="https://ertbotchris.azurewebsites.net/"
