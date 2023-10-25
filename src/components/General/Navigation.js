@@ -42,6 +42,8 @@ function ResponsiveAppBar() {
                 return 'Equipment Checkout';
             case 'cro':
                 return 'Cable Run Optimizer';
+            case 'chatbot':
+                return 'Chat Bot';
             default:
                 return 'TCE Innovation Group';  // default text
         }
