@@ -73,27 +73,29 @@ function PrivateContent() {
     <ThemeProvider theme={mdTheme}>
       <Box sx={{ display: 'flex' }}>
         <CssBaseline />
-        <Drawer variant="permanent" open={open}>
-          <Toolbar
-            sx={{
-              display: 'flex',
-              alignItems: 'center',
-              justifyContent: 'flex-end',
-              px: [1],
-            }}
-          >
-            <Tooltip title="Expand/Collapse">
-              <IconButton onClick={toggleDrawer}>
-                {open ? <ChevronLeftIcon /> : <ChevronRight />}
-              </IconButton>
-            </Tooltip>
-          </Toolbar>
-          <Divider />
-          <List component="nav">
-            <PrivateListItems onSelect={handleFunctionalitySelect} />
-            {/*<Divider sx={{ my: 1 }} />*/}
-          </List>
-        </Drawer>
+        
+          <Drawer variant="permanent" open={open}>
+            <Toolbar
+              sx={{
+                display: 'flex',
+                alignItems: 'center',
+                justifyContent: 'flex-end',
+                px: [1],
+              }}
+            >
+              <Tooltip title="Expand/Collapse">
+                <IconButton onClick={toggleDrawer}>
+                  {open ? <ChevronLeftIcon /> : <ChevronRight />}
+                </IconButton>
+              </Tooltip>
+            </Toolbar>
+            <Divider />
+            <List component="nav">
+              <PrivateListItems onSelect={handleFunctionalitySelect} />
+              {/*<Divider sx={{ my: 1 }} />*/}
+            </List>
+          </Drawer>
+        
         <Box component="main" sx={{ flexGrow: 1, p: 3, ml: open ? 30 : 9 }}>
           {privateFunctionality === 'privateHome' && <PrivateHome />}
           {privateFunctionality === 'generateEmails' && <GenerateEmails />}

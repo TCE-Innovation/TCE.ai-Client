@@ -5,10 +5,6 @@ import React from 'react';
 import { Typography, Box, List, ListItem, ListItemText, Container} from '@mui/material';
 import styled from '@emotion/styled';
 
-//COMPONENTS
-import Copyright from '../General/Copyright';
-//import ContactUs from '../PublicFeatures/ContactUs';
-
 const CustomListItemText = styled(ListItemText)`
   position: relative;
   padding-left: 1.5em;
@@ -22,7 +18,7 @@ const CustomListItemText = styled(ListItemText)`
   }
 `;
 
-const PublicHome = () => {
+const AboutUs = () => {
     return (
         <Container maxWidth="md">
             <Box my={4}>
@@ -43,9 +39,8 @@ const PublicHome = () => {
                     </ListItem>
                 </List>
             </Box>
-            <Copyright sx={{ mt: 70, mb: 4 }} />
         </Container>
     );
 };
 
-export default PublicHome;
+export default AboutUs;

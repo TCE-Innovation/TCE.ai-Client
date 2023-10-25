@@ -44,15 +44,9 @@ const CRO = () => {
                 'https://tce-cro-api.azurewebsites.net/api/Post-CRO', 
                 formData
             );
-
-            /*const {data} = await axios.post(
-                'http://localhost:7071/api/Post-CRO', 
-                formData
-            );*/
-            
             setResponse(data);
         } catch (error) {
-            console.log(error)
+            console.log("HERE:",error)
             setError('Failed to generate optimized cable run.');
         }
         setLoading(false);

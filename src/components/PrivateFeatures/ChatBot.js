@@ -42,78 +42,74 @@ const ChatBot = () => {
     };
 
     return (
-        <Box    
-            sx={{
-                display: 'flex',
-                flexDirection: 'column',
-                alignItems: 'center',
-            }}
-        >
-                <FormControl variant="outlined" sx={{ mb: 4, width: 200 }}>
-                    <InputLabel>Project</InputLabel>
-                    <Select value={project} onChange={handleChange} label="Project">
+        <Box sx={{ display: 'flex', flexDirection: 'column', alignItems: 'center'}}>
+            
+            <FormControl variant="outlined" sx={{ mb: 4, width: 200 }}>
+                <InputLabel>Project</InputLabel>
+                <Select value={project} onChange={handleChange} label="Project">
                     <MenuItem value="HR">Human Resources</MenuItem>
-                        {matchingProjects.map((projectName) => (    
-                            <MenuItem key={projectName} value={projectName}>
-                                {projectName === 'p4' && 'Package 4'}
-                                {projectName === 'ert' && 'East River Tunnel Rehab'}
-                                {projectName === 'fulton' && 'Fulton'}
-                                {projectName === 'psd' && 'Platform Screen Doors'}
-                                {/* Add more projects as needed */}
-                            </MenuItem>
-                        ))}
-                    </Select>
-                </FormControl>
+                    {matchingProjects.map((projectName) => (    
+                        <MenuItem key={projectName} value={projectName}>
+                            {projectName === 'p4' && 'Package 4'}
+                            {projectName === 'ert' && 'East River Tunnel Rehab'}
+                            {projectName === 'fulton' && 'Fulton'}
+                            {projectName === 'psd' && 'Platform Screen Doors'}
+                            {/* Add more projects as needed */}
+                        </MenuItem>
+                    ))}
+                </Select>
+            </FormControl>
 
-                {project==='ert' ? (
-                    <iframe
-                        src="https://ertbotchris.azurewebsites.net/"
-                        width="100%"
-                        height="750px"
-                        title="TCIG Asset Tracker"
-                        style={{ background: 'transparent', border: '1px solid #ccc' }}
-                    ></iframe>
-                ) : null}
+            {project==='ert' ? (
+                <iframe
+                    src="https://ertbotchris.azurewebsites.net/"
+                    width="100%"
+                    height="750px"
+                    title="TCIG Asset Tracker"
+                    style={{ background: 'transparent', border: '1px solid #ccc' }}
+                ></iframe>
+            ) : null}
 
-                {project==='p4' ? (
-                    <iframe
-                        src="https://p4botaaron.azurewebsites.net/"
-                        width="100%"
-                        height="750px"
-                        title="TCIG Asset Tracker"
-                        style={{ background: 'transparent', border: '1px solid #ccc' }}
-                    ></iframe>
-                ) : null}
+            {project==='p4' ? (
+                <iframe
+                    src="https://p4botaaron.azurewebsites.net/"
+                    width="100%"
+                    height="750px"
+                    title="TCIG Asset Tracker"
+                    style={{ background: 'transparent', border: '1px solid #ccc' }}
+                ></iframe>
+            ) : null}
 
-                {project==='fulton' ? (
-                    <iframe
-                        src="https://fultonbotchris.azurewebsites.net/"
-                        width="100%"
-                        height="750px"
-                        title="TCIG Asset Tracker"
-                        style={{ background: 'transparent', border: '1px solid #ccc' }}
-                    ></iframe>
-                ) : null}
+            {project==='fulton' ? (
+                <iframe
+                    src="https://fultonbotchris.azurewebsites.net/"
+                    width="100%"
+                    height="750px"
+                    title="TCIG Asset Tracker"
+                    style={{ background: 'transparent', border: '1px solid #ccc' }}
+                ></iframe>
+            ) : null}
 
-                {project==='psd' ? (
-                    <iframe
-                        src="https://psdbotaaron.azurewebsites.net/"
-                        width="100%"
-                        height="750px"
-                        title="TCIG Asset Tracker"
-                        style={{ background: 'transparent', border: '1px solid #ccc' }}
-                    ></iframe>
-                ) : null}
+            {project==='psd' ? (
+                <iframe
+                    src="https://psdbotaaron.azurewebsites.net/"
+                    width="100%"
+                    height="750px"
+                    title="TCIG Asset Tracker"
+                    style={{ background: 'transparent', border: '1px solid #ccc' }}
+                ></iframe>
+            ) : null}
 
-                {project==='HR' ? (
-                    <iframe
-                        src="https://hr-bot-1.azurewebsites.net/"
-                        width="100%"
-                        height="750px"
-                        title="TCIG Asset Tracker"
-                        style={{ background: 'transparent', border: '1px solid #ccc' }}
-                    ></iframe>
-                ) : null}
+            {project==='HR' ? (
+                <iframe
+                    src="https://hr-bot-1.azurewebsites.net/"
+                    width="100%"
+                    height="750px"
+                    title="TCIG Asset Tracker"
+                    style={{ background: 'transparent', border: '1px solid #ccc' }}
+                ></iframe>
+            ) : null}
+            
         </Box>
     );
 };
