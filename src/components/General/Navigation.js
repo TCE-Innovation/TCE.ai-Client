@@ -63,7 +63,7 @@ function ResponsiveAppBar() {
     return (
         <>
         <AppBar position="fixed" sx={{
-            backgroundImage: 'linear-gradient(to right, lightblue, darkblue)', 
+            backgroundImage: 'linear-gradient(to right, #609CCF, #609CCF)' 
         }}>
                 <Toolbar disableGutters>
                     <Box sx={{ display: 'flex', alignItems: 'center' }}>       
@@ -89,14 +89,14 @@ function ResponsiveAppBar() {
                             fontFamily: 'monospace',
                             fontWeight: 700,
                             letterSpacing: '.1rem',
-                            color: 'inherit',
+                            color: 'white',
                             textDecoration: 'none',
                             textAlign: 'center',
                         }}
                     >
                         {setTitle(privateFunctionality)}
                     </Typography>
-                    <Box sx={{  display: 'flex', alignItems: 'center' }}>           
+                    <Box sx={{  display: 'flex', alignItems: 'center'}}>           
                             {isAuthenticated ? (
                                 <IconButton onClick={handleOpenUserMenu}>
                                     <Avatar

@@ -60,16 +60,57 @@ const ChatBot = () => {
                 </Select>
             </FormControl>
 
-            <iframe 
-                src="https://web.powerva.microsoft.com/environments/Default-3539293e-58fa-4bab-a02e-18dc57fa9737/bots/crfb3_p4Pva/webchat?__version__=2" 
-                frameborder="0" 
-                width={1000} 
-                height={1000}
-                title="TCIG Asset Tracker"
-
-            ></iframe>
+            {project==='p4' ? (
+                <iframe 
+                    src="https://web.powerva.microsoft.com/environments/Default-3539293e-58fa-4bab-a02e-18dc57fa9737/bots/crfb3_p4Pva/webchat?__version__=2" 
+                    frameborder="0" 
+                    width={'100%'} 
+                    height={750}
+                    title="Package 4 Bot"
+                ></iframe>
+            ) : null}
+            
+            {project==='fulton' ? (
+                <iframe 
+                    src="https://web.powerva.microsoft.com/environments/Default-3539293e-58fa-4bab-a02e-18dc57fa9737/bots/crfb3_entChatBot/webchat?__version__=2" 
+                    frameborder="0" 
+                    width={'100%'} 
+                    height={750}
+                    title="Fulton Bot"
+                ></iframe>
+            ) : null}
 
             {project==='ert' ? (
+                <iframe 
+                    src="https://web.powerva.microsoft.com/environments/Default-3539293e-58fa-4bab-a02e-18dc57fa9737/bots/crfb3_p4Pva/webchat?__version__=2" 
+                    frameborder="0" 
+                    width={'100%'} 
+                    height={750}
+                    title="Package 4 Bot"
+                ></iframe>
+            ) : null}
+            
+            {project==='psd' ? (
+                <iframe 
+                    src="https://web.powerva.microsoft.com/environments/Default-3539293e-58fa-4bab-a02e-18dc57fa9737/bots/crfb3_p4Pva/webchat?__version__=2" 
+                    frameborder="0" 
+                    width={'100%'} 
+                    height={750}
+                    title="Package 4 Bot"
+                ></iframe>
+            ) : null}
+
+            {project==='HR' ? (
+                <iframe 
+                    src="https://web.powerva.microsoft.com/environments/Default-3539293e-58fa-4bab-a02e-18dc57fa9737/bots/crfb3_p4Pva/webchat?__version__=2" 
+                    frameborder="0" 
+                    width={'100%'} 
+                    height={750}
+                    title="Package 4 Bot"
+                ></iframe>
+            ) : null}
+            
+            {/*{project==='ert' ? (
                 <iframe
                     src="https://ertbotchris.azurewebsites.net/"
                     width="100%"
@@ -78,6 +119,7 @@ const ChatBot = () => {
                     style={{ background: 'transparent', border: '1px solid #ccc' }}
                 ></iframe>
             ) : null}
+
 
             {project==='p4' ? (
                 <iframe
@@ -89,7 +131,7 @@ const ChatBot = () => {
                 ></iframe>
             ) : null}
 
-            {project==='fulton' ? (
+            {/*{project==='fulton' ? (
                 <iframe
                     src="https://fultonbotchris.azurewebsites.net/"
                     width="100%"
@@ -97,7 +139,7 @@ const ChatBot = () => {
                     title="TCIG Asset Tracker"
                     style={{ background: 'transparent', border: '1px solid #ccc' }}
                 ></iframe>
-            ) : null}
+            ) : null} 
 
             {project==='psd' ? (
                 <iframe
@@ -117,7 +159,7 @@ const ChatBot = () => {
                     title="TCIG Asset Tracker"
                     style={{ background: 'transparent', border: '1px solid #ccc' }}
                 ></iframe>
-            ) : null}
+            ) : null}*/}
             
         </Box>
     );
