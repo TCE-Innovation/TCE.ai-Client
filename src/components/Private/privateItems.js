@@ -8,7 +8,7 @@ import ListItemIcon from '@mui/material/ListItemIcon';
 import ListItemText from '@mui/material/ListItemText';
 import EmailIcon from '@mui/icons-material/Email';
 import SpokeIcon from '@mui/icons-material/Spoke';
-//import ForumIcon from '@mui/icons-material/Forum';
+import ForumIcon from '@mui/icons-material/Forum';
 import DevicesOtherIcon from '@mui/icons-material/DevicesOther';
 
 //conditional logic will live here, filter out features based on user role
@@ -41,12 +41,12 @@ const PrivateListItems = (props) => {
                 <ListItemText primary="Equipment Checkout" />
             </ListItemButton>
 
-            {/*<ListItemButton onClick={() => props.onSelect('chatbot')}>
+            <ListItemButton onClick={() => props.onSelect('chatbot')}>
                 <ListItemIcon>
                     <ForumIcon />
                 </ListItemIcon>
                 <ListItemText primary="Chat Bot" />
-            </ListItemButton>*/}
+            </ListItemButton>
 
             <ListItemButton onClick={() => props.onSelect('cro')}>
                 <ListItemIcon>

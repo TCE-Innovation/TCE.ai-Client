@@ -102,7 +102,7 @@ const ChatBot = () => {
 
             {project==='HR' ? (
                 <iframe 
-                    src="https://web.powerva.microsoft.com/environments/Default-3539293e-58fa-4bab-a02e-18dc57fa9737/bots/crfb3_p4Pva/webchat?__version__=2" 
+                    src="https://web.powerva.microsoft.com/environments/Default-3539293e-58fa-4bab-a02e-18dc57fa9737/bots/crfb3_humanResourcesChatBot/webchat?__version__=2" 
                     frameborder="0" 
                     width={'100%'} 
                     height={750}
