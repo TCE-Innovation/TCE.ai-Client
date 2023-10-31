@@ -50,10 +50,11 @@ const ChatBot = () => {
                     <MenuItem value="HR">Human Resources</MenuItem>
                     {matchingProjects.map((projectName) => (    
                         <MenuItem key={projectName} value={projectName}>
-                            {projectName === 'p4' && 'Package 4'}
-                            {projectName === 'ert' && 'East River Tunnel Rehab'}
-                            {projectName === 'fulton' && 'Fulton'}
+                            {/*{projectName === 'p4' && 'Package 4'}
+                            
                             {projectName === 'psd' && 'Platform Screen Doors'}
+                            {projectName === 'fulton' && 'Fulton'}*/}
+                            {projectName === 'ert' && 'East River Tunnel Rehab'}
                             {/* Add more projects as needed */}
                         </MenuItem>
                     ))}
@@ -70,19 +71,19 @@ const ChatBot = () => {
                 ></iframe>
             ) : null}
             
-            {project==='fulton' ? (
+            {/*{project==='fulton' ? (
                 <iframe 
-                    src="https://web.powerva.microsoft.com/environments/Default-3539293e-58fa-4bab-a02e-18dc57fa9737/bots/crfb3_entChatBot/webchat?__version__=2" 
+                    src="https://fultonbotchris.azurewebsites.net" 
                     frameborder="0" 
                     width={'100%'} 
                     height={750}
                     title="Fulton Bot"
                 ></iframe>
-            ) : null}
+            ) : null}*/}
 
             {project==='ert' ? (
                 <iframe 
-                    src="https://web.powerva.microsoft.com/environments/Default-3539293e-58fa-4bab-a02e-18dc57fa9737/bots/crfb3_p4Pva/webchat?__version__=2" 
+                    src="https://ertbotchris.azurewebsites.net/" 
                     frameborder="0" 
                     width={'100%'} 
                     height={750}
@@ -90,7 +91,7 @@ const ChatBot = () => {
                 ></iframe>
             ) : null}
             
-            {project==='psd' ? (
+            {/*{project==='psd' ? (
                 <iframe 
                     src="https://web.powerva.microsoft.com/environments/Default-3539293e-58fa-4bab-a02e-18dc57fa9737/bots/crfb3_p4Pva/webchat?__version__=2" 
                     frameborder="0" 
@@ -98,7 +99,7 @@ const ChatBot = () => {
                     height={750}
                     title="Package 4 Bot"
                 ></iframe>
-            ) : null}
+            ) : null}*/}
 
             {project==='HR' ? (
                 <iframe 

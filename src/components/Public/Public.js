@@ -8,7 +8,7 @@ import Box from '@mui/material/Box';
 
 
 //COMPONENTS
-import AboutUs from "../PublicFeatures/AboutUs";
+import AboutUs from "../PublicFeatures/AboutUs/AboutUs";
 import ContactUs from '../PublicFeatures/ContactUs';
 import Copyright from '../General/Copyright';
 

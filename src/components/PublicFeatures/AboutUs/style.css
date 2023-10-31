@@ -1,0 +1,120 @@
+.box {
+    height: 819px;
+    width: 1521px;
+  }
+  
+  .box .main-frame {
+    background-color: #ffffff;
+    height: 819px;
+    width: 1521px;
+  }
+  
+  .box .who-we-serve {
+    height: 443px;
+    left: 61px;
+    position: absolute;
+    top: 327px;
+    width: 1404px;
+  }
+  
+  .box .TCE-is-new-york-city {
+    color: #1b365f;
+    font-family: "Inter-Bold", Helvetica;
+    font-size: 24px;
+    font-weight: 400;
+    left: 1px;
+    letter-spacing: 0;
+    line-height: normal;
+    position: absolute;
+    top: 77px;
+    width: 1399px;
+  }
+  
+  .box .text-wrapper {
+    font-weight: 700;
+  }
+  
+  .box .span {
+    font-family: "Inter-Light", Helvetica;
+    font-weight: 300;
+  }
+  
+  .box .overlap-group {
+    height: 77px;
+    left: -4px;
+    position: absolute;
+    top: 0;
+    width: 629px;
+  }
+  
+  .box .line {
+    height: 14px;
+    left: 0;
+    position: absolute;
+    top: 52px;
+    width: 390px;
+  }
+  
+  .box .div {
+    color: #003eab;
+    font-family: "Inter-Bold", Helvetica;
+    font-size: 48px;
+    font-weight: 700;
+    left: 4px;
+    letter-spacing: 0;
+    line-height: normal;
+    position: absolute;
+    text-shadow: 0px 4px 4px #00000040;
+    top: 0;
+    width: 625px;
+  }
+  
+  .box .who-we-are {
+    height: 248px;
+    left: 61px;
+    position: absolute;
+    top: 68px;
+    width: 1399px;
+  }
+  
+  .box .overlap {
+    height: 248px;
+    left: -4px;
+    position: relative;
+  }
+  
+  .box .the-TCE-innovation {
+    color: #1b365f;
+    font-family: "Inter-Bold", Helvetica;
+    font-size: 24px;
+    font-weight: 700;
+    left: 4px;
+    letter-spacing: 0;
+    line-height: normal;
+    position: absolute;
+    top: 72px;
+    width: 1395px;
+  }
+  
+  .box .img {
+    height: 13px;
+    left: 0;
+    position: absolute;
+    top: 51px;
+    width: 329px;
+  }
+  
+  .box .text-wrapper-2 {
+    color: #003eab;
+    font-family: "Inter-Bold", Helvetica;
+    font-size: 48px;
+    font-weight: 700;
+    left: 4px;
+    letter-spacing: 0;
+    line-height: normal;
+    position: absolute;
+    text-shadow: 0px 4px 4px #00000040;
+    top: 0;
+    width: 526px;
+  }
+  
