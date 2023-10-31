@@ -18,7 +18,7 @@ const ChatBot = () => {
     if ('ADA Package 4' in userProjects || userProjects[0] === 'Innovation Group') {
         userProjKeys.push('p4');
     }
-    if ('Amtrak ERT' in userProjects || userProjects[0] === 'Innovation Group') {
+    if ('Amtrak ERT' in userProjects || userProjects[0] === 'Innovation Group' || userProjects[0] === 'Crosstown CBTC') {
         userProjKeys.push('ert');
     }
     if ('CBTC Fulton Line' in userProjects || userProjects[0] === 'Innovation Group') {
