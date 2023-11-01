@@ -1,21 +1,25 @@
 {
   "files": {
-    "main.css": "/static/css/main.974a22d2.css",
-    "main.js": "/static/js/main.6ef01c1a.js",
+    "main.css": "/static/css/main.95d6da7f.css",
+    "main.js": "/static/js/main.51a02e2f.js",
     "static/media/Insta360.png": "/static/media/Insta360.d8ab24ed077038c53838.png",
     "static/media/Pro2.png": "/static/media/Pro2.59fec9ae37a641a17eb4.png",
     "static/media/Pro3.png": "/static/media/Pro3.f6ebccbac28fdd2b22b5.png",
     "static/media/Bushman.png": "/static/media/Bushman.329a87963f2d2cef3877.png",
     "static/media/Ricoh.png": "/static/media/Ricoh.cff5023dcbd014444c66.png",
+    "static/media/Airtable.png": "/static/media/Airtable.7c465943297531acdd60.png",
     "static/media/Ferret.png": "/static/media/Ferret.36826f53a52601b0b4b7.png",
+    "static/media/OpenSpace.jpg": "/static/media/OpenSpace.7b7aa1609a8eb645e9c2.jpg",
+    "static/media/Bridgit.jpg": "/static/media/Bridgit.2ec5b6198a13ededfa8c.jpg",
+    "static/media/FieldWire.jpg": "/static/media/FieldWire.6bd804ff0f7df193db01.jpg",
     "static/media/noUser.webp": "/static/media/noUser.9999920b9e6c6830ebc4.webp",
     "static/media/logo.webp": "/static/media/logo.4024aae0c46de3ef51c9.webp",
     "index.html": "/index.html",
-    "main.974a22d2.css.map": "/static/css/main.974a22d2.css.map",
-    "main.6ef01c1a.js.map": "/static/js/main.6ef01c1a.js.map"
+    "main.95d6da7f.css.map": "/static/css/main.95d6da7f.css.map",
+    "main.51a02e2f.js.map": "/static/js/main.51a02e2f.js.map"
   },
   "entrypoints": [
-    "static/css/main.974a22d2.css",
-    "static/js/main.6ef01c1a.js"
+    "static/css/main.95d6da7f.css",
+    "static/js/main.51a02e2f.js"
   ]
 }
