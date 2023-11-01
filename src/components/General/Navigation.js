@@ -86,7 +86,7 @@ function ResponsiveAppBar() {
                         fontSize="45px"
                         sx={{
                             flexGrow: 1,
-                            fontFamily: 'monospace',
+                            fontfamily: "Helvetica",
                             fontWeight: 700,
                             letterSpacing: '.1rem',
                             color: 'white',
