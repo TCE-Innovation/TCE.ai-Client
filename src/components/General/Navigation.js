@@ -63,7 +63,7 @@ function ResponsiveAppBar() {
     return (
         <>
         <AppBar position="fixed" sx={{
-            backgroundImage: 'linear-gradient(to right, #609CCF, #609CCF)' 
+            background: 'linear-gradient(to right, #609CCF, #1B365F)' 
         }}>
                 <Toolbar disableGutters>
                     <Box sx={{ display: 'flex', alignItems: 'center' }}>       
