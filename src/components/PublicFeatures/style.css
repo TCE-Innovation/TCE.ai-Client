@@ -54,6 +54,7 @@
   .card-body {
     margin-top: 10px;
     position: relative;
+    text-align: center;
   }
 
   .card-text {
