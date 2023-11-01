@@ -10,7 +10,7 @@ import Box from '@mui/material/Box';
 //COMPONENTS
 import AboutUs from "../PublicFeatures/AboutUs";
 import TechPartners from "../PublicFeatures/TechPartners";
-//import ContactUs from '../PublicFeatures/ContactUs';
+import ContactUs from '../PublicFeatures/ContactUs';
 import Copyright from '../General/Copyright';
 
 const mdTheme = createTheme();
@@ -23,10 +23,10 @@ function PublicContent() {
         <Box component="main" sx={{ flexGrow: 1, p: 3 }}>
           <AboutUs/>
           <TechPartners/>
-          {/* <ContactUs/> */}
+          <ContactUs/> 
           
 
-          <Copyright sx={{ mt: 70, mb: 4 }} />
+          <Copyright sx={{ mt: 20, mb: 4 }} />
         </Box>
       </Box>
     </ThemeProvider>
