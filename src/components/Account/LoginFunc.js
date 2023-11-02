@@ -4,10 +4,13 @@ import { useMsal } from "@azure/msal-react";
 import { loginRequest } from "../../authentication/authConfig";
 import { AuthContext } from "../../authentication/Auth";  
 import { useNavigate } from 'react-router-dom';
+import PrivateContext from "../Private/PrivateContext";
 
 export function useMicrosoftSignIn() {
+
   const { instance } = useMsal(); 
   const { setIsAuthenticated } = useContext(AuthContext);
+  const { setPrivateFunctionality } = useContext(PrivateContext);
   const navigate = useNavigate();
 
   async function MicrosoftSignIn() {
@@ -19,6 +22,9 @@ export function useMicrosoftSignIn() {
 
         //navigate to private route
         navigate('/private');
+
+        //set private functionality
+        setPrivateFunctionality('privateHome');
       }
     } catch (e) {
       console.error("Login error:", e);

@@ -2,6 +2,7 @@
 import * as React from 'react';
 import {useContext, useState} from "react";
 import { NavLink } from 'react-router-dom';
+import { useNavigate } from 'react-router-dom';
 
 //MUI
 import AppBar from '@mui/material/AppBar';
@@ -13,6 +14,7 @@ import Menu from '@mui/material/Menu';
 import Avatar from '@mui/material/Avatar';
 import MenuItem from '@mui/material/MenuItem';
 import Button from "@mui/material/Button";
+import HomeRepairServiceIcon from '@mui/icons-material/HomeRepairService';
 
 //IMAGES
 import logo from '../../img/logo.webp'
@@ -26,13 +28,13 @@ import PrivateContext from "../Private/PrivateContext";
 import {useMicrosoftSignOut} from "../Account/LogOut/LogOutFunc";
 import {useMicrosoftSignIn} from "../Account/LoginFunc";
 
-
 function ResponsiveAppBar() {
     const [anchorElUser, setAnchorElUser] = useState(null);
     const { privateFunctionality, setPrivateFunctionality } = useContext(PrivateContext);
+    const navigate = useNavigate();
 
     const { isAuthenticated, userPic } = useContext(AuthContext);
-    const settings = ["Account", "Dashboard", "Public", "Log Out"]
+    const accSettings = ["Public", "Account", "Log Out"]
 
     function setTitle(privateFunctionality) {
         switch(privateFunctionality) {
@@ -46,6 +48,8 @@ function ResponsiveAppBar() {
                 return 'Chat Bot';
             case 'account':
                 return 'My Account';
+            case 'public':
+                return 'TCE Innovation Group';
             default:
                 return 'TCE Innovation Group';  
         }
@@ -78,7 +82,6 @@ function ResponsiveAppBar() {
                                 marginLeft: '35px',
                             }}
                             draggable="false"
-                            onClick={() => setPrivateFunctionality('privateHome')}
                         />
                         </NavLink>
                     </Box>
@@ -100,17 +103,26 @@ function ResponsiveAppBar() {
                     </Typography>
                     <Box sx={{  display: 'flex', alignItems: 'center'}}>           
                             {isAuthenticated ? (
-                                <IconButton onClick={handleOpenUserMenu}>
-                                    <Avatar
-                                        style={{
-                                            marginRight: '35px',
-                                            marginLeft: '50px',
-                                        }}
-                                        alt="You"
-                                        src={userPic ? userPic : noUser}
-                                        imgProps={{ referrerPolicy: "no-referrer" }}
-                                    />
-                                </IconButton>
+                                <>
+                                    <IconButton onClick={() => {
+                                        navigate('/private');
+                                        setPrivateFunctionality('privateHome');
+                                    }}>
+                                        <HomeRepairServiceIcon sx={{ color: 'white', fontSize: '2.5rem' }} />
+                                    </IconButton>
+
+                                    <IconButton onClick={handleOpenUserMenu}>
+                                        <Avatar
+                                            style={{
+                                                marginRight: '35px',
+                                                marginLeft: '10px',
+                                            }}
+                                            alt="You"
+                                            src={userPic ? userPic : noUser}
+                                            imgProps={{ referrerPolicy: "no-referrer" }}
+                                        />
+                                    </IconButton>
+                                </>
                             ) : (
                                 <Button
                                     variant="outlined"
@@ -142,7 +154,7 @@ function ResponsiveAppBar() {
                             onClose={handleCloseUserMenu}
                         >
 
-                            {settings.map((setting) => (
+                            {accSettings.map((setting) => (
                                 <MenuItem key={setting} onClick={handleCloseUserMenu}>
                                     {setting === "Public" && (
                                         <NavLink to="/" style={{color: 'black'}}>
