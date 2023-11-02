@@ -17,6 +17,7 @@ export const AuthProvider = ({ children }) => {
   const [userPic, setUserPic] = useState(null);
   const [userTitle, setUserTitle] = useState(null);
   const [userProjects, setUserProjects] = useState(null);
+  const [accessToken, setAccessToken] = useState(null);
 
   //see if user is already authenticated
   useEffect(() => {
@@ -32,7 +33,7 @@ export const AuthProvider = ({ children }) => {
       const activeAccount = accounts[0]; 
       instance.acquireTokenSilent({
         account: activeAccount,
-        scopes: ["openid", "profile", "User.Read"], 
+        scopes: ["openid", "profile", "User.Read", "Mail.Send"], 
       }).then((response) => {
         //user is authenticated
         if (response) {
@@ -40,6 +41,10 @@ export const AuthProvider = ({ children }) => {
           const { name, username } = response.account;
           setUserName(name);
           setUserEmail(username);
+
+          //get user access token
+          setAccessToken(response.accessToken);
+          console.log(accessToken)
 
           //get user profile picture
           getUserProfilePic(response.accessToken)
@@ -76,7 +81,7 @@ export const AuthProvider = ({ children }) => {
       //remove cached authentication state
       localStorage.removeItem('msalAuthState'); 
     }
-  }, [isAuthenticated, accounts, instance ]);
+  }, [isAuthenticated, accounts, instance, accessToken ]);
 
   const loginContextValue = {
     isAuthenticated,
@@ -85,7 +90,8 @@ export const AuthProvider = ({ children }) => {
     userEmail,
     userPic,
     userTitle,
-    userProjects
+    userProjects,
+    accessToken
   };
 
   return (

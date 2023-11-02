@@ -32,7 +32,7 @@ const GenerateEmails = () => {
     const [loading, setLoading] = useState(false);
     const [error, setError] = useState('');
     const [open, setOpen] = useState(false);
-    const {userName, userEmail} = useContext(AuthContext);
+    const {userName, accessToken} = useContext(AuthContext);
 
     const resetForm = () => {
         setEmail('');
@@ -78,7 +78,6 @@ const GenerateEmails = () => {
         setOpen(false);
         setError('');
         try {
-            const senderEmail = userEmail;
             const arr = response.split('\n');
             const firstEmptyLineIndex = arr.findIndex(line => line.trim() === '');
 
@@ -89,11 +88,12 @@ const GenerateEmails = () => {
             const [subject, ...bodyLines] = arr;
             const body = bodyLines.join('\n');
 
-            await axios.post('https://tce-ai-api.azurewebsites.net/api/send-email', { email, subject, body, senderEmail});
+            await axios.post('https://tce-ai-api.azurewebsites.net/api/send-email', { email, subject, body, accessToken});
             alert('Email sent!');
             resetForm();
         } catch (error) {
             setError('Failed to send email.');
+            console.log(error)
         }
     };
 
