@@ -1,5 +1,5 @@
 //REACT
-import React, { useState } from 'react';
+import React from 'react';
 import { Carousel } from 'react-responsive-carousel';
 import 'react-responsive-carousel/lib/styles/carousel.min.css';
 
@@ -12,11 +12,11 @@ import OpenSpace from "../../img/PartnerImages/OpenSpace.jpg";
 import EZ from "../../img/PartnerImages/EZ.jpg";
 
 //ICONS
-import ArrowBackIosNewIcon from '@mui/icons-material/ArrowBackIosNew';
-import ArrowForwardIosIcon from '@mui/icons-material/ArrowForwardIos';
+//import ArrowBackIosNewIcon from '@mui/icons-material/ArrowBackIosNew';
+//import ArrowForwardIosIcon from '@mui/icons-material/ArrowForwardIos';
 
 //CUSTOM ARROWS
-const renderArrowPrev = (onClickHandler, hasPrev, label) => {
+/*const renderArrowPrev = (onClickHandler, hasPrev, label) => {
     return (
         <button
             type="button"
@@ -56,7 +56,7 @@ const arrowStyles = {
     backgroundColor: 'transparent',
     border: 'none',
     outline: 'none',
-};
+};*/
 
 
 const ItemCarousel = () => {

@@ -30,7 +30,7 @@ function PublicContent() {
           <AboutUs/>
           <TechPartners/>
           <Press/>
-          {/*<ContactUs/> */}
+          <ContactUs/>
           <Copyright sx={{ mt: 20, mb: 4 }} />
         </Box>
       </Box>
