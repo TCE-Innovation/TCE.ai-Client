@@ -6,6 +6,7 @@ import * as React from 'react';
 import ListItemButton from '@mui/material/ListItemButton';
 import ListItemIcon from '@mui/material/ListItemIcon';
 import ListItemText from '@mui/material/ListItemText';
+import FeedIcon from '@mui/icons-material/Feed';
 import EmailIcon from '@mui/icons-material/Email';
 import SpokeIcon from '@mui/icons-material/Spoke';
 import ForumIcon from '@mui/icons-material/Forum';
@@ -27,6 +28,13 @@ const PrivateListItems = (props) => {
 
     return (
         <React.Fragment>
+            <ListItemButton onClick={() => props.onSelect('info')}>
+                <ListItemIcon>
+                    <FeedIcon />
+                </ListItemIcon>
+                <ListItemText primary="Information" />
+            </ListItemButton>
+
             <ListItemButton onClick={() => props.onSelect('generateEmails')}>
                 <ListItemIcon>
                     <EmailIcon />
@@ -54,8 +62,6 @@ const PrivateListItems = (props) => {
                 </ListItemIcon>
                 <ListItemText primary="Cable Run Optimizer" />
             </ListItemButton>
-
-
         </React.Fragment>
     )
 }

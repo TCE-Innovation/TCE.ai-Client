@@ -90,28 +90,3 @@
     line-height: normal;
   }
 
-  .press-cards-container {
-    display: flex;
-    flex-wrap: wrap;
-    flex-direction: row;
-    justify-content: space-between;
-    margin-bottom: 45px;
-  }
-
-  .press-card {
-    border: #1b365f 2px solid;
-    width: 48%;
-    margin-bottom: 20px;
-    padding: 20px;
-    position: relative;
-    box-shadow: inset 0px 0px 10px #1b365f;
-  }
-
-  .link-text{
-    color: #1b365f;
-    font-family: "Inter-Bold", Helvetica;
-    font-size: 24px;
-    font-weight: bold;
-    letter-spacing: 0;
-    line-height: normal;
-  }

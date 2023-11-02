@@ -23,6 +23,7 @@ import CRO from '../PrivateFeatures/CRO';
 import ChatBot from '../PrivateFeatures/ChatBot';
 import AssetTracker from '../PrivateFeatures/AssetTracker/AssetTracker';
 import GenerateEmails from "../PrivateFeatures/GenerateEmails";
+import TechPartners from '../PrivateFeatures/TechPartners';
 
 const Drawer = styled(MuiDrawer, { shouldForwardProp: (prop) => prop !== 'open' })(
   ({ theme, open }) => ({
@@ -97,6 +98,7 @@ function PrivateContent() {
           </Drawer>
         
         <Box component="main" sx={{ flexGrow: 1, p: 3, ml: open ? 30 : 9 }}>
+          {privateFunctionality === 'info' && <TechPartners />}
           {privateFunctionality === 'privateHome' && <PrivateHome />}
           {privateFunctionality === 'generateEmails' && <GenerateEmails />}
           {privateFunctionality === 'cro' && <CRO />}

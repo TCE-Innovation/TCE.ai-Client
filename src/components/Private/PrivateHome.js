@@ -35,6 +35,9 @@ const PrivateHome = () => {
                     </Typography>
                 <List>
                     <ListItem>
+                        <CustomListItemText primary="Information" />
+                    </ListItem>
+                    <ListItem>
                         <CustomListItemText primary="Email and Response Generation" />
                     </ListItem>
                     <ListItem>
