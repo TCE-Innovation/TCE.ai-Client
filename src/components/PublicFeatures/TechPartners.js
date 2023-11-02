@@ -50,7 +50,7 @@ const TechPartners = () => {
         <div className="cards-container">
 
           <div className="card">
-          <img src={Airtable} alt="Airtable"></img>
+            <img src={Airtable} alt="Airtable" onClick={() => window.open('https://www.airtable.com', '_blank')} style={{ cursor: 'pointer' }}></img>
             <div className="card-body">
               <p className="card-text">A host for multiple internal applications for use across a wide range of workflows within TCE as a whole.</p>
               {readMoreAirtable && (
@@ -70,7 +70,7 @@ const TechPartners = () => {
           </div>
 
           <div className="card">
-          <img src={ProCore} alt="ProCore"></img>
+          <img src={ProCore} alt="ProCore" onClick={() => window.open('https://www.procore.com', '_blank')} style={{ cursor: 'pointer' }}></img>
             <div className="card-body">
               <p className="card-text">Work more efficiently, communicate better, and build faster from a single source of truth.</p>
               {readMoreProcore && (
@@ -90,7 +90,7 @@ const TechPartners = () => {
           </div>
 
           <div className="card">
-          <img src={OpenSpace} alt="OpenSpace"></img>
+          <img src={OpenSpace} alt="OpenSpace" onClick={() => window.open('https://www.openspace.ai', '_blank')} style={{ cursor: 'pointer' }}></img>
             <div className="card-body">
               <p className="card-text">Visual documentation of construction sites from walk-throughs.</p>
               {readMoreOpenSpace && (
@@ -110,7 +110,7 @@ const TechPartners = () => {
           </div>
   
           <div className="card">
-          <img src={Bridgit} alt="Bridgit"></img>
+          <img src={Bridgit} alt="Bridgit" onClick={() => window.open('https://www.gobridgit.com', '_blank')} style={{ cursor: 'pointer' }}></img>
             <div className="card-body">
               <p className="card-text">Transforms workforce data into actionable insights that inform an organization’s strategic and tactical business decisions.</p>
               {readMoreBridgit && (
@@ -130,7 +130,7 @@ const TechPartners = () => {
           </div>
 
           <div className="card">
-          <img src={EZ} alt="EZOffice"></img>
+          <img src={EZ} alt="EZOffice" onClick={() => window.open('https://ezo.io/ezofficeinventory/', '_blank')} style={{ cursor: 'pointer' }}></img>
             <div className="card-body">
               <p className="card-text">Asset management for maximizing overstock usage and minimizing item surplus.</p>
               {readMoreEZ && (
@@ -150,7 +150,7 @@ const TechPartners = () => {
           </div>
 
           <div className="card">
-          <img src={FieldWire} alt="FieldWire"></img>
+          <img src={FieldWire} alt="FieldWire" onClick={() => window.open('https://www.fieldwire.com', '_blank')} style={{ cursor: 'pointer' }}></img>
             <div className="card-body">
               <p className="card-text">Standardized workflow and collaboration for marking up drawings.</p>
               {readMoreFieldwire && (
