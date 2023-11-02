@@ -44,8 +44,10 @@ function ResponsiveAppBar() {
                 return 'Cable Run Optimizer';
             case 'chatbot':
                 return 'Chat Bot';
+            case 'account':
+                return 'My Account';
             default:
-                return 'TCE Innovation Group';  // default text
+                return 'TCE Innovation Group';  
         }
     }
 
@@ -66,7 +68,7 @@ function ResponsiveAppBar() {
             background: 'linear-gradient(to right, #609CCF, #1B365F)' 
         }}>
                 <Toolbar disableGutters>
-                    <Box sx={{ display: 'flex', alignItems: 'center' }}>       
+                    <Box sx={{ display: 'flex', alignItems: 'center'}}>       
                         <NavLink to="/">
                         <img
                             src={logo}
@@ -91,7 +93,7 @@ function ResponsiveAppBar() {
                             letterSpacing: '.1rem',
                             color: 'white',
                             textDecoration: 'none',
-                            textAlign: 'center',
+                            textAlign: 'center'
                         }}
                     >
                         {setTitle(privateFunctionality)}
@@ -101,7 +103,8 @@ function ResponsiveAppBar() {
                                 <IconButton onClick={handleOpenUserMenu}>
                                     <Avatar
                                         style={{
-                                            marginRight: '35px'
+                                            marginRight: '35px',
+                                            marginLeft: '50px',
                                         }}
                                         alt="You"
                                         src={userPic ? userPic : noUser}

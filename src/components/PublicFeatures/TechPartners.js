@@ -11,6 +11,7 @@ import EZ from "../../img/PartnerImages/EZ.jpg";
 import IconButton from '@mui/material/IconButton';
 import KeyboardArrowDownIcon from '@mui/icons-material/KeyboardArrowDown';
 import KeyboardArrowUpIcon from '@mui/icons-material/KeyboardArrowUp';
+import { MagicMotion } from "react-magic-motion";
 
 
 const TechPartners = () => {
@@ -57,10 +58,10 @@ const TechPartners = () => {
               {readMoreAirtable && (
                 <>
                   <p className="extra-text">
-                    Airtable assists various user groups and their specific needs, including TCIG, Estimating, Safety, Engineers, and Project Managers. TCIG and Estimating leverage Airtable's static database functionality to track internal assets and plan future bids, complementing their workflow with Bridgit Bench. The efficiency gains are further enhanced through Airtable's process logic and email automation, seamlessly integrated into multiple applications. The safety team benefits from automation in capturing track/safety certifications in a database and notifies safety managers of expiration dates, reducing downtime required for updating certifications which often have lead times of over three months. Engineers rely on the in-house RFP Ripper, utilizing the Airtable API, to extract vital information from extensive RFP documents, saving valuable time and minimizing key-information from being glossed over. Moreover, Airtable automation facilitates Engineers and Project Managers in tracking GO Requests with the MTA, simplifying a once labor-intensive process of updating and maintaining information as it evolves.
+                    Airtable assists various user groups and their specific needs, including TCIG, Estimating, Safety, Engineers, and Project Managers. TCIG and Estimating leverage Airtable's static database functionality to track internal assets and plan future bids, complementing their workflow with Bridgit Bench. The efficiency gains are further enhanced through Airtable's process logic and email automation, seamlessly integrated into multiple applications. The safety team benefits from automation in capturing track/safety certifications in a database and notifies safety managers of expiration dates, reducing downtime required for updating certifications which often have lead times of over three months. 
                   </p>
                   <p className="contact-text">
-                    Point of Contact: Chris Kruger (ckruger@tcelect.net)
+                    Point of Contact: Chris Kruger <a href="mailto:ckruger@tcelect.net">ckruger@tcelect.net</a>
                   </p>
                 </>
               )}         
@@ -80,7 +81,7 @@ const TechPartners = () => {
                     Procore streamlines project management by centralizing document storage and eliminating the hassles of fragmented version control. This all-in-one platform enhances the workflows of all project personnel, whether they're in the field or in the office. Preconstruction tasks like estimate management, bid coordination, budget calculations, and team personnel tracking become effortless. During active projects, Procore excels at automating RFIs and Submittals, simplifying mark-ups and drawing labeling, maintaining comprehensive daily logs in real-time, providing fillable Quality and Safety reports, and offering numerous other invaluable features.
                   </p>
                   <p className="contact-text">
-                    Point of Contact: Patrick Besser (pbesser@tcelect.net)
+                    Point of Contact: Patrick Besser <a href="mailto:pbesser@tcelect.net">pbesser@tcelect.net</a>
                   </p>
                 </>
               )}    
@@ -88,46 +89,6 @@ const TechPartners = () => {
             <IconButton onClick={handleReadMoreProcoreClick} className="read-more-button">
                 {readMoreProcore ? <KeyboardArrowUpIcon/> : <KeyboardArrowDownIcon/>}
             </IconButton>        
-          </div>
-
-          <div className="card">
-          <img src={FieldWire} alt="FieldWire"></img>
-            <div className="card-body">
-              <p className="card-text">Standardized workflow and collaboration for marking up drawings.</p>
-              {readMoreFieldwire && (
-                <>
-                  <p className="extra-text">
-                    Fieldwire streamlines collaboration and version control for multiple engineers, eliminating the need to constantly ensure that work is done on the latest document version. In the past, projects faced challenges with communication among engineers and maintaining consistency in project drawings. However, Fieldwire offers a standardized space for document history and collaborative drawing markups, effectively reducing the pain points associated with maintaining consistency, enhancing communication, and improving overall efficiency.
-                  </p>
-                  <p className="contact-text">
-                    Point of Contact: Rory O'Neill (roneill@tcelect.net)
-                  </p>
-                </>
-              )}     
-            </div>
-            <IconButton onClick={handleReadMoreFieldwireClick} className="read-more-button">
-                {readMoreFieldwire ? <KeyboardArrowUpIcon/> : <KeyboardArrowDownIcon/>}
-            </IconButton>   
-          </div>
-  
-          <div className="card">
-          <img src={Bridgit} alt="Bridgit"></img>
-            <div className="card-body">
-              <p className="card-text">Transforms workforce data into actionable insights that inform an organization’s strategic and tactical business decisions.</p>
-              {readMoreBridgit && (
-                <>
-                  <p className="extra-text">
-                    Bridgit Bench improves project management by seamlessly integrating project and individual employee data, enabling more precise timelines and workforce optimization. During the pre-construction phase, it facilitates the creation and assignment of role titles and streamlines the coordination of Key Personnel for Design-Build Projects. As projects transition into the active phase and employees are assigned to specific roles, Bridgit Bench ensures optimal allocation, preventing overwork, and strategically placing employees based on their qualifications, certifications, and project history to meet both their needs and the project's requirements.
-                  </p>
-                  <p className="contact-text">
-                    Point of Contact: Jacob Shavel (jshavel@tcelect.net)
-                  </p>
-                </>
-              )}           
-            </div>
-            <IconButton onClick={handleReadMoreBridgitClick} className="read-more-button">
-                {readMoreBridgit ? <KeyboardArrowUpIcon/> : <KeyboardArrowDownIcon/>}
-            </IconButton> 
           </div>
 
           <div className="card">
@@ -140,7 +101,7 @@ const TechPartners = () => {
                     OpenSpace offers engineers and project managers a practical solution for progress tracking, featuring a 360-degree camera attached to a hard hat that automatically records construction sites in 3-D. Executive Leadership can now remotely view the walk through of a project, in a similar manner to Google Maps, without the need to be there in-person. It allows for the addition of detailed photos and field notes during site walkthroughs, providing a comprehensive view for remote oversight, timeline tracking, and cost-effective insurance management.
                   </p>
                   <p className="contact-text">
-                    Point of Contact: Rory O'Neill (roniell@tcelect.net)
+                    Point of Contact: Rory O'Neill <a href="mailto:roneill@tcelect.net">roneill@tcelect.net</a>
                   </p>
                 </>
               )}  
@@ -148,6 +109,26 @@ const TechPartners = () => {
             <IconButton onClick={handleReadMoreOpenSpaceClick} className="read-more-button">
                 {readMoreOpenSpace ? <KeyboardArrowUpIcon/> : <KeyboardArrowDownIcon/>}
             </IconButton>       
+          </div>
+  
+          <div className="card">
+          <img src={Bridgit} alt="Bridgit"></img>
+            <div className="card-body">
+              <p className="card-text">Transforms workforce data into actionable insights that inform an organization’s strategic and tactical business decisions.</p>
+              {readMoreBridgit && (
+                <>
+                  <p className="extra-text">
+                    Bridgit Bench improves project management by seamlessly integrating project and individual employee data, enabling more precise timelines and workforce optimization. During the pre-construction phase, it facilitates the creation and assignment of role titles and streamlines the coordination of Key Personnel for Design-Build Projects. As projects transition into the active phase and employees are assigned to specific roles, Bridgit Bench ensures optimal allocation, preventing overwork, and strategically placing employees based on their qualifications, certifications, and project history to meet both their needs and the project's requirements.
+                  </p>
+                  <p className="contact-text">
+                    Point of Contact: Jacob Shavel <a href="mailto:jshavel@tcelect.net">jshavel@tcelect.net</a>
+                  </p>
+                </>
+              )}           
+            </div>
+            <IconButton onClick={handleReadMoreBridgitClick} className="read-more-button">
+                {readMoreBridgit ? <KeyboardArrowUpIcon/> : <KeyboardArrowDownIcon/>}
+            </IconButton> 
           </div>
 
           <div className="card">
@@ -160,7 +141,7 @@ const TechPartners = () => {
                     EZOffice Inventory provides comprehensive asset tracking capabilities for items that can be allocated to various project sites. It mitigates the risk of lost or misused assets while optimizing resource utilization. Warehouse users benefit from streamlined processes for efficiently managing the inflow and outflow of items. Notable features, including location tracking and customized item groupings, eliminate the need for manual searches, ensuring zero downtime and efficient access to available in-stock items.
                   </p>
                   <p className="contact-text">
-                    Point of Contact: Chris Kruger (ckruger@tcelect.net)
+                    Point of Contact: Chris Kruger <a href="mailto:ckruger@tcelect.net">ckruger@tcelect.net</a>
                   </p>
                 </>
               )}    
@@ -168,6 +149,26 @@ const TechPartners = () => {
             <IconButton onClick={handleReadMoreEZClick} className="read-more-button">
                 {readMoreEZ ? <KeyboardArrowUpIcon/> : <KeyboardArrowDownIcon/>}
             </IconButton>    
+          </div>
+
+          <div className="card">
+          <img src={FieldWire} alt="FieldWire"></img>
+            <div className="card-body">
+              <p className="card-text">Standardized workflow and collaboration for marking up drawings.</p>
+              {readMoreFieldwire && (
+                <>
+                  <p className="extra-text">
+                    Fieldwire streamlines collaboration and version control for multiple engineers, eliminating the need to constantly ensure that work is done on the latest document version. In the past, projects faced challenges with communication among engineers and maintaining consistency in project drawings. However, Fieldwire offers a standardized space for document history and collaborative drawing markups, effectively reducing the pain points associated with maintaining consistency, enhancing communication, and improving overall efficiency.
+                  </p>
+                  <p className="contact-text">
+                    Point of Contact: Rory O'Neill <a href="mailto:roneill@tcelect.net">roneill@tcelect.net</a>
+                  </p>
+                </>
+              )}     
+            </div>
+            <IconButton onClick={handleReadMoreFieldwireClick} className="read-more-button">
+                {readMoreFieldwire ? <KeyboardArrowUpIcon/> : <KeyboardArrowDownIcon/>}
+            </IconButton>   
           </div>
 
         </div>

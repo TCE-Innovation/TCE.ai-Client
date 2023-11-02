@@ -12,6 +12,7 @@ import { LogOutButton } from "./LogOut/LogOutButton";
 
 //AUTH
 import { AuthContext } from "../../authentication/Auth";
+import PrivateContext from "../Private/PrivateContext";
 
 const noUser = require('../../img/noUser.webp')
 
@@ -43,6 +44,8 @@ function ProfileImage() {
 
 function AccountCard() {
     const { userName, userEmail, userTitle, userProjects } = useContext(AuthContext);
+    const { setPrivateFunctionality } = useContext(PrivateContext);
+    setPrivateFunctionality('account');
 
     return (
         <React.Fragment>
