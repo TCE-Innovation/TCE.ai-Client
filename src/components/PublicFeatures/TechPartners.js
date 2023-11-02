@@ -11,8 +11,6 @@ import EZ from "../../img/PartnerImages/EZ.jpg";
 import IconButton from '@mui/material/IconButton';
 import KeyboardArrowDownIcon from '@mui/icons-material/KeyboardArrowDown';
 import KeyboardArrowUpIcon from '@mui/icons-material/KeyboardArrowUp';
-import { MagicMotion } from "react-magic-motion";
-
 
 const TechPartners = () => {
   const [readMoreAirtable, setReadMoreAirtable] = useState(false);
