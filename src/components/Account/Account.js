@@ -1,5 +1,5 @@
 //REACT
-import React, { useContext } from 'react';
+import React, { useContext, useEffect } from 'react';
 
 //MUI
 import { Card, CardContent } from "@mui/material";
@@ -45,7 +45,10 @@ function ProfileImage() {
 function AccountCard() {
     const { userName, userEmail, userTitle, userProjects } = useContext(AuthContext);
     const { setPrivateFunctionality } = useContext(PrivateContext);
-    setPrivateFunctionality('account');
+
+    useEffect(() => {
+        setPrivateFunctionality('account');
+      }, [setPrivateFunctionality]); 
 
     return (
         <React.Fragment>

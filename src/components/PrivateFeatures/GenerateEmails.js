@@ -93,7 +93,7 @@ const GenerateEmails = () => {
             resetForm();
         } catch (error) {
             setError('Failed to send email.');
-            console.log(error)
+            console.log("error: ", error)
         }
     };
 
@@ -132,7 +132,6 @@ const GenerateEmails = () => {
                     />
                     <TextField
                         label="Email Purpose"
-                       
                         value={purpose}
                         onChange={(e) => setPurpose(e.target.value)}
                         sx={{ mb: 2, width: '63%' }}

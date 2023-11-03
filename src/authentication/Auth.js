@@ -44,7 +44,6 @@ export const AuthProvider = ({ children }) => {
 
           //get user access token
           setAccessToken(response.accessToken);
-          console.log(accessToken)
 
           //get user profile picture
           getUserProfilePic(response.accessToken)

@@ -1,6 +1,6 @@
 //REACT
 import * as React from 'react';
-import { useContext } from "react";
+import { useContext, useEffect } from "react";
 
 //MUI
 import { createTheme, ThemeProvider } from '@mui/material/styles';
@@ -21,7 +21,11 @@ const mdTheme = createTheme();
 
 function PublicContent() {
   const { setPrivateFunctionality } = useContext(PrivateContext);
-  setPrivateFunctionality('public');
+
+  useEffect(() => {
+    setPrivateFunctionality('public');
+  }, [setPrivateFunctionality]);
+
   return (
     <ThemeProvider theme={mdTheme}>
       <Box sx={{ display: 'flex' }}>
