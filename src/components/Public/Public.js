@@ -12,7 +12,6 @@ import Box from '@mui/material/Box';
 import AboutUs from "../PublicFeatures/AboutUs";
 import TechPartners from "../PublicFeatures/TechPartners";
 import ContactUs from '../PublicFeatures/ContactUs';
-import Press from '../PublicFeatures/Press';
 import Copyright from '../General/Copyright';
 
 import PrivateContext from "../Private/PrivateContext";
@@ -33,7 +32,6 @@ function PublicContent() {
         <Box component="main" sx={{ flexGrow: 1, p: 3 }}>
           <AboutUs/>
           <TechPartners/>
-          <Press/>
           <ContactUs/>
           <Copyright sx={{ mt: 20, mb: 4 }} />
         </Box>

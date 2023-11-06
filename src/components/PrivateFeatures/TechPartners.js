@@ -1,12 +1,12 @@
 import React, {useState} from "react";
 import "./style.css";
 
-import ProCore from "../../img/PartnerImages/ProCore.jpg";
+import ProCore from "../../img/PartnerImages/ProCore.png";
 import Airtable from "../../img/PartnerImages/Airtable.png";
 import FieldWire from "../../img/PartnerImages/FieldWire.jpg";
-import Bridgit from "../../img/PartnerImages/Bridgit.jpg";
+import Bridgit from "../../img/PartnerImages/Bridgit.png";
 import OpenSpace from "../../img/PartnerImages/OpenSpace.jpg";
-import EZ from "../../img/PartnerImages/EZ.jpg";
+import EZ from "../../img/PartnerImages/EZ.png";
 
 import IconButton from '@mui/material/IconButton';
 import KeyboardArrowDownIcon from '@mui/icons-material/KeyboardArrowDown';
@@ -50,8 +50,12 @@ const TechPartners = () => {
         <div className="cards-container">
 
           <div className="card">
-            <img src={Airtable} alt="Airtable" onClick={() => window.open('https://www.airtable.com', '_blank')} style={{ cursor: 'pointer' }}></img>
+            <div className="card-image">
+              <img src={Airtable} alt="Airtable" onClick={() => window.open('https://www.airtable.com', '_blank')}></img>
+            </div>
+
             <div className="card-body">
+
               <p className="card-text">A host for multiple internal applications for use across a wide range of workflows within TCE as a whole.</p>
               {readMoreAirtable && (
                 <>
@@ -64,13 +68,15 @@ const TechPartners = () => {
                 </>
               )}         
             </div>
-            <IconButton onClick={handleReadMoreAirtableClick} className="read-more-button">
+            <IconButton onClick={handleReadMoreAirtableClick} className="read-more-button" disableRipple>
                 {readMoreAirtable ? <KeyboardArrowUpIcon/> : <KeyboardArrowDownIcon/>}
             </IconButton> 
           </div>
 
           <div className="card">
-          <img src={ProCore} alt="ProCore" onClick={() => window.open('https://www.procore.com', '_blank')} style={{ cursor: 'pointer' }}></img>
+            <div className="card-image">
+              <img src={ProCore} alt="ProCore" onClick={() => window.open('https://www.procore.com', '_blank')} style={{ cursor: 'pointer' }}></img>
+            </div>
             <div className="card-body">
               <p className="card-text">Work more efficiently, communicate better, and build faster from a single source of truth.</p>
               {readMoreProcore && (
@@ -84,13 +90,15 @@ const TechPartners = () => {
                 </>
               )}    
             </div>
-            <IconButton onClick={handleReadMoreProcoreClick} className="read-more-button">
+            <IconButton onClick={handleReadMoreProcoreClick} className="read-more-button" disableRipple>
                 {readMoreProcore ? <KeyboardArrowUpIcon/> : <KeyboardArrowDownIcon/>}
             </IconButton>        
           </div>
 
           <div className="card">
-          <img src={OpenSpace} alt="OpenSpace" onClick={() => window.open('https://www.openspace.ai', '_blank')} style={{ cursor: 'pointer' }}></img>
+          <div className="card-image">
+            <img src={OpenSpace} alt="OpenSpace" onClick={() => window.open('https://www.openspace.ai', '_blank')} style={{ cursor: 'pointer' }}></img>
+          </div>
             <div className="card-body">
               <p className="card-text">Visual documentation of construction sites from walk-throughs.</p>
               {readMoreOpenSpace && (
@@ -104,13 +112,15 @@ const TechPartners = () => {
                 </>
               )}  
             </div>
-            <IconButton onClick={handleReadMoreOpenSpaceClick} className="read-more-button">
+            <IconButton onClick={handleReadMoreOpenSpaceClick} className="read-more-button" disableRipple>
                 {readMoreOpenSpace ? <KeyboardArrowUpIcon/> : <KeyboardArrowDownIcon/>}
             </IconButton>       
           </div>
   
           <div className="card">
-          <img src={Bridgit} alt="Bridgit" onClick={() => window.open('https://www.gobridgit.com', '_blank')} style={{ cursor: 'pointer' }}></img>
+          <div className="card-image">
+            <img src={Bridgit} alt="Bridgit" onClick={() => window.open('https://www.gobridgit.com', '_blank')} style={{ cursor: 'pointer' }}></img>
+          </div>
             <div className="card-body">
               <p className="card-text">Transforms workforce data into actionable insights that inform an organization’s strategic and tactical business decisions.</p>
               {readMoreBridgit && (
@@ -124,13 +134,15 @@ const TechPartners = () => {
                 </>
               )}           
             </div>
-            <IconButton onClick={handleReadMoreBridgitClick} className="read-more-button">
+            <IconButton onClick={handleReadMoreBridgitClick} className="read-more-button" disableRipple>
                 {readMoreBridgit ? <KeyboardArrowUpIcon/> : <KeyboardArrowDownIcon/>}
             </IconButton> 
           </div>
 
           <div className="card">
-          <img src={EZ} alt="EZOffice" onClick={() => window.open('https://ezo.io/ezofficeinventory/', '_blank')} style={{ cursor: 'pointer' }}></img>
+          <div className="card-image">
+            <img src={EZ} alt="EZOffice" onClick={() => window.open('https://ezo.io/ezofficeinventory/', '_blank')} style={{ cursor: 'pointer' }}></img>
+          </div>
             <div className="card-body">
               <p className="card-text">Asset management for maximizing overstock usage and minimizing item surplus.</p>
               {readMoreEZ && (
@@ -144,13 +156,15 @@ const TechPartners = () => {
                 </>
               )}    
             </div>
-            <IconButton onClick={handleReadMoreEZClick} className="read-more-button">
+            <IconButton onClick={handleReadMoreEZClick} className="read-more-button" disableRipple>
                 {readMoreEZ ? <KeyboardArrowUpIcon/> : <KeyboardArrowDownIcon/>}
             </IconButton>    
           </div>
 
           <div className="card">
-          <img src={FieldWire} alt="FieldWire" onClick={() => window.open('https://www.fieldwire.com', '_blank')} style={{ cursor: 'pointer' }}></img>
+          <div className="card-image">
+            <img src={FieldWire} alt="FieldWire" onClick={() => window.open('https://www.fieldwire.com', '_blank')} style={{ cursor: 'pointer' }}></img>
+          </div>
             <div className="card-body">
               <p className="card-text">Standardized workflow and collaboration for marking up drawings.</p>
               {readMoreFieldwire && (
@@ -164,7 +178,7 @@ const TechPartners = () => {
                 </>
               )}     
             </div>
-            <IconButton onClick={handleReadMoreFieldwireClick} className="read-more-button">
+            <IconButton onClick={handleReadMoreFieldwireClick} className="read-more-button" disableRipple>
                 {readMoreFieldwire ? <KeyboardArrowUpIcon/> : <KeyboardArrowDownIcon/>}
             </IconButton>   
           </div>

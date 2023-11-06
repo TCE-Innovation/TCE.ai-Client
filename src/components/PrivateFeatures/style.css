@@ -15,24 +15,6 @@
     padding-bottom: 1px;
     margin-top: 20px;
   }
-    
-  .body {
-    color: #1b365f;
-    font-family: "Inter-Bold", Helvetica;
-    font-size: 24px;
-    font-weight: 400;
-    letter-spacing: 0;
-    line-height: normal;
-  }
-    
-  .bold-body {
-    color: #1b365f;
-    font-family: "Inter-Bold", Helvetica;
-    font-size: 24px;
-    font-weight: 700;
-    letter-spacing: 0;
-    line-height: normal;
-  }
   
   .cards-container {
     display: flex;
@@ -43,8 +25,12 @@
   }
 
   .card {
+    display: flex;
+    flex-wrap: wrap;
+    flex-direction: row;
+    justify-content: space-between;
     border: #1b365f 2px solid;
-    width: 30%;
+    width: 100%;
     margin-bottom: 20px;
     padding: 20px;
     position: relative;
@@ -52,9 +38,9 @@
   }
 
   .card-body {
-    margin-top: 10px;
     position: relative;
     text-align: center;
+    width: 30%;
   }
 
   .card-text {
@@ -81,6 +67,11 @@
     right: 0px;
   }
 
+  .read-more-button.MuiIconButton-root:hover {
+    background-color: transparent; /* Removes any background change on hover */
+    box-shadow: none; /* Removes shadow on hover */
+  }
+
   .contact-text{
     color: #1b365f;
     font-family: "Inter-Bold", Helvetica;
@@ -90,3 +81,13 @@
     line-height: normal;
   }
 
+  .card-image{
+    width: 20%;
+    object-fit: cover;
+    margin-top: 10px;
+  }
+
+  img{
+    cursor: pointer;
+    width: 100%;
+  }

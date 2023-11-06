@@ -132,7 +132,12 @@ const CRO = () => {
                     <Button
                             variant="contained"
                             sx={{ color: 'black', fontWeight: 700, backgroundColor: 'white', '&:hover': { backgroundColor: 'grey' }, marginTop: 4}}
-                            onClick={() => setShowCableSizeSheet(!showCableSizeSheet)}
+                            onClick={() => {
+                                setShowCableSizeSheet(!showCableSizeSheet);
+                                if (showCableSizeSheet) {
+                                    setCableSizes('standard');
+                                }
+                            }}
                         >
                             {showCableSizeSheet ? 'Use Standard Cable Sizes Sheet' : 'OPTIONAL: Upload Your Cable Sizes'}
                     </Button>

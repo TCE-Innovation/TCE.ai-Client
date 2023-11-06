@@ -44,7 +44,7 @@
 
   .card {
     border: #1b365f 2px solid;
-    width: 30%;
+    width: 100%;
     margin-bottom: 20px;
     padding: 20px;
     position: relative;
@@ -114,4 +114,23 @@
     font-weight: bold;
     letter-spacing: 0;
     line-height: normal;
+  }
+
+  .clickable:hover {
+    cursor: pointer;
+    border: 3px solid #007bff !important;
+    padding: 2px;
+  }
+
+  .carousel-container {
+    width: 100%;
+    height: 200px;
+    padding: 10px;
+    padding-top: 60px;
+  }
+
+  .carousel-card {
+    width: 350px;
+    height: 100%;
+    display: flex;
   }
