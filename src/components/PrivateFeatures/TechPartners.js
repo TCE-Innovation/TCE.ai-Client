@@ -57,7 +57,7 @@ const partnerData = [
     contactEmail: "jshavel@tcelect.net",
     website: 'https://www.gobridgit.com',
     documents: [
-      {title: "Bridgit Bench White Paper", url: "https://judlauent.sharepoint.com/:b:/s/TCEInnovation/EQyO1dDTWFxDjvk9Gr5tN5YBQqF6b73gNlDd3jGcNjQ9Yg?e=Zp6Ply"},
+      {title: "Bridgit White Paper", url: "https://judlauent.sharepoint.com/:b:/s/TCEInnovation/EQyO1dDTWFxDjvk9Gr5tN5YBQqF6b73gNlDd3jGcNjQ9Yg?e=Zp6Ply"},
     ]
   },
   {
@@ -90,20 +90,28 @@ const TechPartners = () => {
     setReadMoreStates(newReadMoreStates);
   };
 
+  const handleImageClick = (e, partner) => {
+    e.stopPropagation();
+    window.open(partner.website, '_blank');
+  };
+
+  const handleLinkClick = (e) => {
+    e.stopPropagation(); 
+  };
+
   return (
     <div className="container">
       <div className="header">TECH PARTNERS</div>
       <br /><br />
       <div className="cards-container">
         {partnerData.map((partner, index) => (
-          <div className="card" key={index}>
+          <div className="card" key={index} onClick={() => toggleReadMore(index)}>
             
             <div className="one-liner-container">
-              <div className="card-image">
+              <div className="card-image" onClick={(e) => handleImageClick(e, partner)}>
                 <img
                   src={partner.imgSrc}
                   alt={partner.name}
-                  onClick={() => window.open(partner.website, '_blank')}
                   style={{ cursor: 'pointer' }}
                 />
               </div>
@@ -121,7 +129,7 @@ const TechPartners = () => {
               <div className="expanded-container">
                 <div className="link-box">
                   {partner.documents && partner.documents.map((doc, docIndex) => (
-                    <div key={docIndex}>
+                    <div key={docIndex} onClick={handleLinkClick}>
                       <a href={doc.url} target="_blank" rel="noopener noreferrer" className="link-text">{doc.title}</a>
                     </div>
                   ))}
