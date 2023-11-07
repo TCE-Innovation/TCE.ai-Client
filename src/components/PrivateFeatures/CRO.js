@@ -128,13 +128,12 @@ const CRO = () => {
                         </>
                     ) : null}
 
-
                     <Button
                             variant="contained"
                             sx={{ color: 'black', fontWeight: 700, backgroundColor: 'white', '&:hover': { backgroundColor: 'grey' }, marginTop: 4}}
                             onClick={() => {
                                 setShowCableSizeSheet(!showCableSizeSheet);
-                                if (!showCableSizeSheet) {
+                                if (showCableSizeSheet) {
                                     setCableSizes('standard');
                                 }
                             }}

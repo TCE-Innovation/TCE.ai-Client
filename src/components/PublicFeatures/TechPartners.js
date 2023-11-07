@@ -1,7 +1,7 @@
 import "./style.css";
 
 //REACT
-import React, { useState } from 'react';
+import React from 'react';
 import { Carousel } from 'react-responsive-carousel';
 import 'react-responsive-carousel/lib/styles/carousel.min.css';
 
@@ -75,7 +75,7 @@ const ItemCarousel = () => {
                                 <img src={card.image} alt={card.title}/>
                             )}
                         </div>
-                        
+
                     ))}
                 </Carousel>
             </div>
