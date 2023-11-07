@@ -25,6 +25,11 @@ const CRO = () => {
     const [loading, setLoading] = useState(false);
     const [error, setError] = useState('');
     const [showCableSizeSheet, setShowCableSizeSheet] = useState(false);
+    const [runType, setRunType] = useState('');
+
+    const handleRunTypeChange = (event) => {
+        setRunType(event.target.value);
+      };
 
     const cro = async () => {
         if (!pullsheet) {
@@ -46,6 +51,8 @@ const CRO = () => {
 
             //this may be a file or the string 'standard'
             formData.append('cableSizes', cableSizes);
+            
+            formData.append('runType', runType)
 
             const {data} = await axios.post(
                 'https://tce-cro-api.azurewebsites.net/api/Post-CRO', 
@@ -151,17 +158,23 @@ const CRO = () => {
                     <div style={{ margin: '40px 0' }}></div>
 
                     <FormControl>
-                        <FormLabel id="demo-row-radio-buttons-group-label">Select Run Type</FormLabel>
+                        <FormLabel id="select-cable-run-type">Select Run Type</FormLabel>
                         <RadioGroup
                             row
-                            aria-labelledby="demo-row-radio-buttons-group-label"
-                            name="row-radio-buttons-group"
+                            aria-labelledby="select-cable-run-type"
+                            name="conduit-messenger-selection"
+                            value={runType}
+                            onChange={handleRunTypeChange}
                         >
                             <FormControlLabel value="Conduit" control={<Radio />} label="Conduit" />
-                            <FormControlLabel value="Messenger Bundle" control={<Radio />} label="Messenger Bundle" />
-                            <FormControlLabel value="Cable Tray" disabled control={<Radio />} label="Cable Tray" />
+                            <FormControlLabel value="Messenger" control={<Radio />} label="Messenger Bundle" />
+                            <FormControlLabel value="Tray" disabled control={<Radio />} label="Cable Tray" />
                         </RadioGroup>
                     </FormControl>
+
+                    {/* <div>
+                        Selected Run Type: {runType}
+                    </div> */}
 
                     <Box sx={{ marginTop: 4}}>
                         <Button
