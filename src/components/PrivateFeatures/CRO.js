@@ -7,9 +7,16 @@ import Box from '@mui/material/Box';
 import Button from '@mui/material/Button';
 import Typography from '@mui/material/Typography';
 import CircularProgress from '@mui/material/CircularProgress';
+// Radio buttons for selecting run type
+import Radio from '@mui/material/Radio';
+import RadioGroup from '@mui/material/RadioGroup';
+import FormControlLabel from '@mui/material/FormControlLabel';
+import FormControl from '@mui/material/FormControl';
+import FormLabel from '@mui/material/FormLabel';
 
 //DEPENDENCIES
 import axios from 'axios';
+// import RunTypeRadioButtons from './RunTypeRadioButtons'; // Import the radio buttons component
 
 const CRO = () => {
     const [pullsheet, setPullsheet] = useState('');
@@ -18,6 +25,11 @@ const CRO = () => {
     const [loading, setLoading] = useState(false);
     const [error, setError] = useState('');
     const [showCableSizeSheet, setShowCableSizeSheet] = useState(false);
+    const [runType, setRunType] = useState('');
+
+    const handleRunTypeChange = (event) => {
+        setRunType(event.target.value);
+      };
 
     const cro = async () => {
         if (!pullsheet) {
@@ -39,6 +51,8 @@ const CRO = () => {
 
             //this may be a file or the string 'standard'
             formData.append('cableSizes', cableSizes);
+            
+            formData.append('runType', runType)
 
             const {data} = await axios.post(
                 'https://tce-cro-api.azurewebsites.net/api/Post-CRO', 
@@ -140,6 +154,27 @@ const CRO = () => {
                         >
                             {showCableSizeSheet ? 'Use Standard Cable Sizes Sheet' : 'OPTIONAL: Upload Your Cable Sizes'}
                     </Button>
+
+                    <div style={{ margin: '40px 0' }}></div>
+
+                    <FormControl>
+                        <FormLabel id="select-cable-run-type">Select Run Type</FormLabel>
+                        <RadioGroup
+                            row
+                            aria-labelledby="select-cable-run-type"
+                            name="conduit-messenger-selection"
+                            value={runType}
+                            onChange={handleRunTypeChange}
+                        >
+                            <FormControlLabel value="Conduit" control={<Radio />} label="Conduit" />
+                            <FormControlLabel value="Messenger" control={<Radio />} label="Messenger Bundle" />
+                            <FormControlLabel value="Tray" disabled control={<Radio />} label="Cable Tray" />
+                        </RadioGroup>
+                    </FormControl>
+
+                    {/* <div>
+                        Selected Run Type: {runType}
+                    </div> */}
 
                     <Box sx={{ marginTop: 4}}>
                         <Button
