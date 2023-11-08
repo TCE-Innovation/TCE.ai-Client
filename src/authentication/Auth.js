@@ -70,6 +70,7 @@ export const AuthProvider = ({ children }) => {
           }).catch((error) => {
             console.error('Error fetching user projects:', error);
           });
+          
           //save authentication state in local storage cache
           localStorage.setItem('msalAuthState', 'authenticated'); 
         }

@@ -20,26 +20,26 @@ function App() {
     return (
         <AuthProvider>
             <PrivateContext.Provider value={{ privateFunctionality, setPrivateFunctionality }}>
-                    <Router>
-                        <div className="App">
-                            <header className="App-header">
-                                <Navigation />
-                            </header>
-                        </div>
-                        <Routes>
+                <Router>
+                    <div className="App">
+                        <header className="App-header">
+                            <Navigation />
+                        </header>
+                    </div>
+                    <Routes>
 
-                            <Route exact path='/' element={<Public />} />
-                            
-                            <Route exact path='/account' element={<AuthenticatedRoute />}>
-                                <Route exact path='/account' element={<Account />} />
-                            </Route>
-                            
-                            <Route exact path='/private' element={<AuthenticatedRoute />}>
-                                <Route exact path='/private' element={<Private />}/>
-                            </Route>
+                        <Route exact path='/' element={<Public />} />
+                        
+                        <Route exact path='/account' element={<AuthenticatedRoute />}>
+                            <Route exact path='/account' element={<Account />} />
+                        </Route>
+                        
+                        <Route exact path='/private' element={<AuthenticatedRoute />}>
+                            <Route exact path='/private' element={<Private />}/>
+                        </Route>
 
-                        </Routes>
-                    </Router>
+                    </Routes>
+                </Router>
             </PrivateContext.Provider>
         </AuthProvider>
     );

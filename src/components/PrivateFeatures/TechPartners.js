@@ -95,7 +95,7 @@ const TechPartners = () => {
     window.open(partner.website, '_blank');
   };
 
-  const handleLinkClick = (e) => {
+  const handleInsideCardClick = (e) => {
     e.stopPropagation(); 
   };
 
@@ -129,7 +129,7 @@ const TechPartners = () => {
               <div className="expanded-container">
                 <div className="link-box">
                   {partner.documents && partner.documents.map((doc, docIndex) => (
-                    <div key={docIndex} onClick={handleLinkClick}>
+                    <div key={docIndex} onClick={handleInsideCardClick}>
                       <a href={doc.url} target="_blank" rel="noopener noreferrer" className="link-text">{doc.title}</a>
                     </div>
                   ))}
@@ -137,7 +137,7 @@ const TechPartners = () => {
                 <div className="expanded-card-body">
                   <p className="extra-text">{partner.extraText}</p>
                   <p className="contact-text">
-                    Point of Contact: {partner.contactName} <a href={`mailto:${partner.contactEmail}`}>{partner.contactEmail}</a>
+                    Point of Contact: {partner.contactName} <a href={`mailto:${partner.contactEmail}`} onClick={handleInsideCardClick}>{partner.contactEmail}</a>
                   </p>
                 </div>
               </div>
