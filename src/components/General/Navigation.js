@@ -22,6 +22,7 @@ import noUser from '../../img/noUser.webp'
 
 //CONTEXTS
 import {AuthContext} from "../../authentication/Auth";
+import { useMsal } from "@azure/msal-react";
 import PrivateContext from "../Private/PrivateContext";
 
 //HOOKS
@@ -33,7 +34,9 @@ function ResponsiveAppBar() {
     const { privateFunctionality, setPrivateFunctionality } = useContext(PrivateContext);
     const navigate = useNavigate();
 
-    const { isAuthenticated, userPic } = useContext(AuthContext);
+    const { userPic } = useContext(AuthContext);
+    const { accounts } = useMsal();
+    const isAuthenticated = accounts.length > 0;
     const accSettings = ["Public", "Account", "Log Out"]
 
     function setTitle(privateFunctionality) {

@@ -26,8 +26,8 @@ function ProfileImage() {
             sx={{
                 // height: 233,
                 // width: 350,
-                maxHeight: { xs: 233, md: 167 },
-                maxWidth: { xs: 350, md: 250 },
+                maxHeight: 200,
+                maxWidth: 200,
                 border: 2,
                 borderColor: 'primary.main', 
                 borderRadius: '50%',

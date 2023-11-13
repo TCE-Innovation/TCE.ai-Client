@@ -1,35 +1,25 @@
 // LoginFunc.js
 import { useContext } from 'react';
 import { useMsal } from "@azure/msal-react";
-import { loginRequest } from "../../authentication/authConfig";
-import { AuthContext } from "../../authentication/Auth";  
+import { loginRequest } from "../../authentication/authConfig"; 
 import { useNavigate } from 'react-router-dom';
 import PrivateContext from "../Private/PrivateContext";
 
 export function useMicrosoftSignIn() {
-
-  const { instance } = useMsal(); 
-  const { setIsAuthenticated } = useContext(AuthContext);
+  const { instance, accounts } = useMsal(); 
   const { setPrivateFunctionality } = useContext(PrivateContext);
   const navigate = useNavigate();
 
   async function MicrosoftSignIn() {
     try {
       const response = await instance.loginPopup(loginRequest);
-      if (response) {
-        //user is authenticated, update authContext
-        setIsAuthenticated(true); 
-
-        //navigate to private route
+      if (response && accounts.length > 0) {
         navigate('/private');
-
-        //set private functionality
         setPrivateFunctionality('privateHome');
       }
     } catch (e) {
       console.error("Login error:", e);
     }
   }
-  //test
   return MicrosoftSignIn;
 }

@@ -22,9 +22,7 @@ if (window.location.hash !== ''){
 }
 else {
 root.render(
-  <React.StrictMode>
-      <MsalProvider instance={msalInstance}>
-          <App />
-      </MsalProvider>
-  </React.StrictMode>
+    <MsalProvider instance={msalInstance}>
+        <App />
+    </MsalProvider>
 )};

@@ -1,5 +1,5 @@
 //REACT
-import React, { useState, useEffect, useContext } from 'react';
+import React, { useState, useEffect } from 'react';
 import { Navigate, Outlet } from 'react-router-dom';
 
 //AUTH
@@ -11,7 +11,6 @@ export const AuthContext = React.createContext();
 
 export const AuthProvider = ({ children }) => {
   const { accounts, instance } = useMsal();
-  const [isAuthenticated, setIsAuthenticated] = useState(false);
   const [userName, setUserName] = useState(null);
   const [userEmail, setUserEmail] = useState(null);
   const [userPic, setUserPic] = useState(null);
@@ -19,73 +18,63 @@ export const AuthProvider = ({ children }) => {
   const [userProjects, setUserProjects] = useState(null);
   const [accessToken, setAccessToken] = useState(null);
 
-  //see if user is already authenticated
-  useEffect(() => {
-    const cachedAuthState = localStorage.getItem('msalAuthState');
-    if (cachedAuthState === 'authenticated') {
-      setIsAuthenticated(true);
-    }
-  }, []);
-
   //get user details
   useEffect(() => {
-    if (isAuthenticated) {
-      const activeAccount = accounts[0]; 
-      instance.acquireTokenSilent({
-        account: activeAccount,
-        scopes: ["openid", "profile", "User.Read", "Mail.Send"], 
-      }).then((response) => {
-        //user is authenticated
-        if (response) {
-          //get user name and email
-          const { name, username } = response.account;
-          setUserName(name);
-          setUserEmail(username);
-
-          //get user access token
-          setAccessToken(response.accessToken);
-
-          //get user profile picture
-          getUserProfilePic(response.accessToken)
-          .then((url) => {
-            setUserPic(url);
-          })
-          .catch((error) => {
-            console.error('Error fetching user profile picture:', error);
-          });
-
-          //get user job title
-          getJobTitle(name)
-          .then((title) => {
-            setUserTitle(title);
-          })
-          .catch((error) => {
-            console.error('Error fetching user job title:', error);
-          });
-
-          //get user projects
-          getProjects(name)
-          .then((projects) => {
-            setUserProjects(projects);
-          }).catch((error) => {
-            console.error('Error fetching user projects:', error);
-          });
-          
-          //save authentication state in local storage cache
-          localStorage.setItem('msalAuthState', 'authenticated'); 
-        }
-      }).catch((error) => {
-        console.error('Error fetching user details:', error);
-      });
-    } else {
-      //remove cached authentication state
-      localStorage.removeItem('msalAuthState'); 
+    console.log('useEffect');
+    const getAccount = async () => {
+      try{
+        const activeAccount = accounts[0]; 
+        console.log('activeAccount', activeAccount);
+        console.log('instance', instance);
+        setTimeout(async () => {
+          if (activeAccount) {
+            const response = await instance.acquireTokenSilent({
+              account: activeAccount,
+              scopes: ["openid", "profile", "User.Read", "Mail.Send"], 
+            });
+            fetchAndSetUserDetails(response.accessToken, response.account.name, response.account.username);
+          }
+        }, 0)
+        
+      } catch(error){
+            console.error('Error fetching user details:', error);
+      };
     }
-  }, [isAuthenticated, accounts, instance, accessToken ]);
+
+    if(instance && accounts){
+      if (!instance.getAllAccounts().length && window.location.hash) {
+        // MSAL is still processing the redirect, handle the response
+        instance.handleRedirectPromise().then(() => {
+          getAccount(); // Now that MSAL has processed the redirect, get the account
+        });
+      } else {
+        // No redirect is being processed, it's safe to get the account
+        getAccount();
+      }
+    }
+
+  }, [accounts, instance]);
+
+  //function to fetch user details
+  function fetchAndSetUserDetails(accessToken, name, email) {
+    setUserName(name);
+    setUserEmail(email);
+    setAccessToken(accessToken);
+
+    getUserProfilePic(accessToken)
+      .then(setUserPic)
+      .catch((error) => console.error('Error fetching user profile picture:', error));
+
+    getJobTitle(name)
+      .then(setUserTitle)
+      .catch((error) => console.error('Error fetching user job title:', error));
+
+    getProjects(name)
+      .then(setUserProjects)
+      .catch((error) => console.error('Error fetching user projects:', error));
+  }
 
   const loginContextValue = {
-    isAuthenticated,
-    setIsAuthenticated,
     userName,
     userEmail,
     userPic,
@@ -102,6 +91,7 @@ export const AuthProvider = ({ children }) => {
 };
 
 export function AuthenticatedRoute() {
-  const { isAuthenticated } = useContext(AuthContext);
+  const { accounts } = useMsal();
+  const isAuthenticated = accounts.length > 0;
   return isAuthenticated ? <Outlet /> : <Navigate to="/" />;
 }

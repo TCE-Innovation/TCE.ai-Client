@@ -1,6 +1,6 @@
 //REACT
 import React, { useState } from 'react';
-import { BrowserRouter as Router, Route, Routes } from 'react-router-dom';
+import { BrowserRouter as Router, Route, Routes, Navigate } from 'react-router-dom';
 
 //COMPONENTS
 import Navigation from './Navigation';
@@ -30,13 +30,15 @@ function App() {
 
                         <Route exact path='/' element={<Public />} />
                         
-                        <Route exact path='/account' element={<AuthenticatedRoute />}>
-                            <Route exact path='/account' element={<Account />} />
+                        <Route path='/account' element={<AuthenticatedRoute />}>
+                            <Route index element={<Account />} />
                         </Route>
-                        
-                        <Route exact path='/private' element={<AuthenticatedRoute />}>
-                            <Route exact path='/private' element={<Private />}/>
+
+                        <Route path='/private' element={<AuthenticatedRoute />}>
+                            <Route index element={<Private />}/>
                         </Route>
+
+                        <Route path='*' element={<Navigate to="/" replace />} />
 
                     </Routes>
                 </Router>
