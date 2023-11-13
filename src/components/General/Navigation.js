@@ -49,6 +49,8 @@ function ResponsiveAppBar() {
                 return 'Cable Run Optimizer';
             case 'chatbot':
                 return 'Chat Bot';
+            case 'info':
+                return 'Information';
             case 'account':
                 return 'My Account';
             case 'public':

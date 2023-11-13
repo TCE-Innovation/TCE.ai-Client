@@ -20,12 +20,9 @@ export const AuthProvider = ({ children }) => {
 
   //get user details
   useEffect(() => {
-    console.log('useEffect');
     const getAccount = async () => {
       try{
         const activeAccount = accounts[0]; 
-        console.log('activeAccount', activeAccount);
-        console.log('instance', instance);
         setTimeout(async () => {
           if (activeAccount) {
             const response = await instance.acquireTokenSilent({
@@ -34,25 +31,15 @@ export const AuthProvider = ({ children }) => {
             });
             fetchAndSetUserDetails(response.accessToken, response.account.name, response.account.username);
           }
-        }, 0)
+        }, 0);
         
       } catch(error){
             console.error('Error fetching user details:', error);
       };
     }
-
-    if(instance && accounts){
-      if (!instance.getAllAccounts().length && window.location.hash) {
-        // MSAL is still processing the redirect, handle the response
-        instance.handleRedirectPromise().then(() => {
-          getAccount(); // Now that MSAL has processed the redirect, get the account
-        });
-      } else {
-        // No redirect is being processed, it's safe to get the account
-        getAccount();
-      }
-    }
-
+    
+    getAccount();
+    
   }, [accounts, instance]);
 
   //function to fetch user details

@@ -16,16 +16,12 @@ import PrivateContext from "../Private/PrivateContext";
 
 const noUser = require('../../img/noUser.webp')
 
-
-
 function ProfileImage() {
     const { userPic } = useContext(AuthContext);
     return (
         <Box
             component="img"
             sx={{
-                // height: 233,
-                // width: 350,
                 maxHeight: 200,
                 maxWidth: 200,
                 border: 2,
@@ -35,7 +31,7 @@ function ProfileImage() {
             alt="user avatar"
             src={userPic ? userPic : noUser}
             onError={({ currentTarget }) => {
-                currentTarget.onerror = null; // prevents looping
+                currentTarget.onerror = null; 
                 currentTarget.src = noUser;
             }}
         />
