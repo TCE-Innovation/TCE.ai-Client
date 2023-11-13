@@ -51,6 +51,8 @@ function ResponsiveAppBar() {
                 return 'Chat Bot';
             case 'info':
                 return 'Information';
+            case 'go':
+                return 'GO Tracker';
             case 'account':
                 return 'My Account';
             case 'public':

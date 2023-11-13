@@ -11,6 +11,7 @@ import EmailIcon from '@mui/icons-material/Email';
 import SpokeIcon from '@mui/icons-material/Spoke';
 import ForumIcon from '@mui/icons-material/Forum';
 import DevicesOtherIcon from '@mui/icons-material/DevicesOther';
+import RailwayAlertIcon from '@mui/icons-material/RailwayAlert';
 
 //conditional logic will live here, filter out features based on user role
 //import { AuthContext } from '../../authentication/Auth';
@@ -62,6 +63,14 @@ const PrivateListItems = (props) => {
                 </ListItemIcon>
                 <ListItemText primary="Cable Run Optimizer" />
             </ListItemButton>
+
+            <ListItemButton onClick={() => props.onSelect('go')}>
+                <ListItemIcon>
+                    <RailwayAlertIcon />
+                </ListItemIcon>
+                <ListItemText primary="GO Tracker" />
+            </ListItemButton>
+
         </React.Fragment>
     )
 }
