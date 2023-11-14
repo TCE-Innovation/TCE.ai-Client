@@ -1,17 +1,36 @@
-//REACT
-import React from 'react';
+import React, { useState } from 'react';
+import { CircularProgress } from '@mui/material';
 
 const OTTracker = () => {
+    const [iframeLoaded, setIframeLoaded] = useState(false);
+
+    const handleIframeLoad = () => {
+        setIframeLoaded(true)
+    };
+
+    const spinnerContainerStyle = {
+        position: 'fixed', // Fixed position
+        top: '50%', // Halfway down the viewport
+        left: '50%', // Halfway across the viewport
+        transform: 'translate(-50%, -50%)' // Center the spinner
+    };
+
     return (
         <div style={{ width: '100%', display: 'flex', flexDirection: "column", alignContent: 'center'}}>
-            <div>
+            {!iframeLoaded && (
+                <div style={ spinnerContainerStyle }>
+                    <CircularProgress/>
+                </div>
+            )}
+            <div style={{ display: iframeLoaded ? 'block' : 'none' }}>
                 <script src="https://static.airtable.com/js/embed/embed_snippet_v1.js"></script>
                 <iframe
+                    onLoad={handleIframeLoad}
                     className="airtable-embed airtable-dynamic-height"
                     src="https://airtable.com/embed/appxRXOvuEzjmVlTS/shrWbApsfP6fzj47m?backgroundColor=tealDusty"
                     width="100%"
                     height="1770px"
-                    title="TCIG Asset Tracker"
+                    title="OverTime Tracker"
                     style={{ background: 'transparent', border: '1px solid #ccc' }}
                 ></iframe>
             </div>
