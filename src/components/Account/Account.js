@@ -93,7 +93,7 @@ function Account() {
                     <AccountCard />
                 </Card>
             </Box>
-            <Copyright sx={{ mt: 70, mb: 4 }} />
+            <Copyright sx={{ mt: 2 }} />
         </Grid>
     );
 }

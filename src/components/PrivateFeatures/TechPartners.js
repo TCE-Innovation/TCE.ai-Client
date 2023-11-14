@@ -7,6 +7,7 @@ import FieldWire from "../../img/PartnerImages/FieldWire.jpg";
 import Bridgit from "../../img/PartnerImages/Bridgit.png";
 import OpenSpace from "../../img/PartnerImages/OpenSpace.jpg";
 import EZ from "../../img/PartnerImages/EZ.png";
+import Matterport from "../../img/PartnerImages/Matterport.jpg";
 
 import IconButton from '@mui/material/IconButton';
 import KeyboardArrowDownIcon from '@mui/icons-material/KeyboardArrowDown';
@@ -68,6 +69,16 @@ const partnerData = [
     contactName: "Chris Kruger",
     contactEmail: "ckruger@tcelect.net",
     website: 'https://ezo.io/ezofficeinventory/',
+    documents: []
+  },
+  {
+    name: "Matterport",
+    imgSrc: Matterport,
+    description: "Capture and connect rooms to create detailed, interactive 3D spaces.",
+    extraText: "By utilizing Matterport cameras in construction settings, the camera seamlessly converts physical environments into immersive 3D models. This digital recreation enables remote viewing from any location and allows for quick, accurate distance measurements. Whether applied indoors or outdoors, Matterport's 3D documentation system captures a visual snapshot at each project milestone, serving as a comprehensive record-keeping tool throughout the construction process.",
+    contactName: "Rory O'Neill",
+    contactEmail: "roneill@tcelect.net",
+    website: 'https://matterport.com/',
     documents: []
   },
   {

@@ -100,7 +100,7 @@ const ItemCarousel = () => {
     ];
 
     //DESCRIPTION POPUP HOVER
-    const [hoverIndex, setHoverIndex] = useState(null);  // store the index of the hovered item
+    const [hoverIndex, setHoverIndex] = useState(null);  
     const handleMouseEnter = (index) => {
         setHoverIndex(index);
     };
@@ -111,14 +111,15 @@ const ItemCarousel = () => {
     const styles = {
         carouselContainer: {
             marginTop: 40,
-            width: 1500,
-            height: 400,
+            marginBottom: 40,
+            width: '100%',
+            height: "1000%",
             margin: 'auto',
-            //border: '1px solid red'
+            //border: '1px solid green'
         },
         carouselCard: {
-            width: 250, 
-            height: 250, 
+            width: '40%', 
+            height: '100%', 
             margin: 'auto',
             marginBottom: 50,
             display: 'flex',
@@ -129,14 +130,14 @@ const ItemCarousel = () => {
         },
         cardImage: {
             width: '100%', 
-            height: '100%',  
+            height: '90%',  
             //border: '1px solid green'
         },
         titleContainer: {
             position: 'absolute',
             left: 0,
             right: 0,
-            marginTop: '220px',
+            marginTop: '250px',
             //border: '1px solid #ccc'
         },
         cardTitle: {

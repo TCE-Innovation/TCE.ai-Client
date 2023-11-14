@@ -6,7 +6,7 @@ import ItemCarousel from './ItemCarousel';
 
 const AssetTracker = () => {
     return (
-        <div style={{ width: '100%', display: 'flex', flexDirection: "column", alignContent: 'center'}}>
+        <div style={{ width: '100%', display: 'flex', flexDirection: "column", alignContent: 'center' }}>
             <ItemCarousel />
             <div>
                 <script src="https://static.airtable.com/js/embed/embed_snippet_v1.js"></script>

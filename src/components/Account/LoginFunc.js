@@ -6,16 +6,19 @@ import { useNavigate } from 'react-router-dom';
 import PrivateContext from "../Private/PrivateContext";
 
 export function useMicrosoftSignIn() {
-  const { instance, accounts } = useMsal(); 
+  const { instance } = useMsal(); 
   const { setPrivateFunctionality } = useContext(PrivateContext);
   const navigate = useNavigate();
 
   async function MicrosoftSignIn() {
     try {
       const response = await instance.loginPopup(loginRequest);
-      if (response && accounts.length > 0) {
-        navigate('/private');
-        setPrivateFunctionality('privateHome');
+      if (response) {
+        const currentAccounts = instance.getAllAccounts();
+        if (currentAccounts.length > 0) {
+          navigate('/private');
+          setPrivateFunctionality('privateHome');
+        }
       }
     } catch (e) {
       console.error("Login error:", e);

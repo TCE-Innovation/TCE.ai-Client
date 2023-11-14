@@ -18,7 +18,7 @@ export const AuthProvider = ({ children }) => {
   const [userProjects, setUserProjects] = useState(null);
   const [accessToken, setAccessToken] = useState(null);
 
-  //get user details
+  //get user account
   useEffect(() => {
     const getAccount = async () => {
       try{
@@ -32,7 +32,7 @@ export const AuthProvider = ({ children }) => {
             fetchAndSetUserDetails(response.accessToken, response.account.name, response.account.username);
           }
         }, 0);
-        
+
       } catch(error){
             console.error('Error fetching user details:', error);
       };
