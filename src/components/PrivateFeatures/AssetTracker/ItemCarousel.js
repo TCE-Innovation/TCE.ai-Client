@@ -70,7 +70,7 @@ const ItemCarousel = () => {
         {
             image: MatterPortPro3Image,
             title: 'Matterport Pro3',
-            description: 'Same usage as the Matterport Pro 2. Improvements include higher detail, longer range, and better outdoor usage. Recommended for projects with mostly outdoor scans.',
+            description: 'Same usage as the Matterport Pro2. Improvements include higher detail, longer range, and better outdoor usage. Recommended for projects with mostly outdoor scans.',
             showDescription: false,
         },
         {
@@ -151,6 +151,7 @@ const ItemCarousel = () => {
             boxShadow: '0 2px 4px rgba(0, 0, 0, 0.2)',
             zIndex: '999',
             fontSize: '14px',
+            fontWeight: 'bold',
         },
         descriptionPopupVisible: { 
             visibility: 'visible',

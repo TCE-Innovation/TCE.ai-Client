@@ -31,7 +31,7 @@ const AssetTracker = () => {
                     src="https://airtable.com/embed/apphQBuS3DFnPYMFm/shrsO3SBO3YKOJRIX?backgroundColor=purple"
                     onLoad={handleIframeLoad}
                     width="100%"
-                    height="1760px"
+                    height="1950px"
                     title="TCIG Asset Tracker"
                     style={{ background: 'transparent', border: '1px solid #ccc' }}
                 ></iframe>
