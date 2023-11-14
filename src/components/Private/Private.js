@@ -25,6 +25,8 @@ import AssetTracker from '../PrivateFeatures/AssetTracker/AssetTracker';
 import GenerateEmails from "../PrivateFeatures/GenerateEmails";
 import TechPartners from '../PrivateFeatures/TechPartners';
 import GOTracker from '../PrivateFeatures/GOTracker';
+import OTTracker from '../PrivateFeatures/OTTracker';
+
 
 const Drawer = styled(MuiDrawer, { shouldForwardProp: (prop) => prop !== 'open' })(
   ({ theme, open }) => ({
@@ -106,6 +108,7 @@ function PrivateContent() {
           {privateFunctionality === 'assetTracker' && <AssetTracker />}
           {privateFunctionality === 'chatbot' && <ChatBot />}
           {privateFunctionality === 'go' && <GOTracker />}
+          {privateFunctionality === 'overtime' && <OTTracker />}
           {/* Add other functionalities here */}
         </Box>
       </Box>

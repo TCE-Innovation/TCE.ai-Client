@@ -12,26 +12,26 @@ import FieldWire from "../../img/PartnerImages/FieldWire.jpg";
 import Bridgit from "../../img/PartnerImages/Bridgit.png";
 import OpenSpace from "../../img/PartnerImages/OpenSpace.jpg";
 import EZ from "../../img/PartnerImages/EZ.png";
+import Matterport from "../../img/PartnerImages/Matterport.jpg";
 
 const ItemCarousel = () => {
     const cardData = [
         {
             image: ProCore,
             title: 'ProCore',
-                showDescription: false,
-                description: "TEST"
         },
         {
             image: Bridgit,
             title: 'Bridgit',
-            showDescription: false,
-            description: "GET BRIDGIT LINK"
         },
         {
             image: Airtable,
             title: 'Airtable',
-            showDescription: false,
-            description: "TEST"
+        },
+        {
+            image: Matterport,
+            title: 'Matterport',
+
         },
         {
             image: FieldWire,
@@ -46,8 +46,6 @@ const ItemCarousel = () => {
         {
             image: EZ,
             title: 'EZOfficeInventory',
-            showDescription: false,
-            description: "TEST"
         },
     ];
 

@@ -49,6 +49,12 @@ const PrivateHome = () => {
                     <ListItem>
                         <CustomListItemText primary="Cable Run Optimizer" />
                     </ListItem>
+                    <ListItem>
+                        <CustomListItemText primary="GO Tracker" />
+                    </ListItem>
+                    <ListItem>
+                        <CustomListItemText primary="Overtime Tracker" />
+                    </ListItem>
                 </List>
 
                 <Typography paragraph>
