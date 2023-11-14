@@ -63,13 +63,13 @@ const ItemCarousel = () => {
     const cardData = [
         {
             image: MatterPortPro2Image,
-            title: 'MatterPort Pro2',
+            title: 'Matterport Pro2',
             description: 'A stationary, 3D capture solution for recording tours of job sites and internal rooms. Common uses include high-quality photography for remote inspections and documenting milestones, removing the need for being on-site 24/7. Recommended for projects with mostly indoor scans.',
             showDescription: false,
         },
         {
             image: MatterPortPro3Image,
-            title: 'MatterPort Pro3',
+            title: 'Matterport Pro3',
             description: 'Same usage as the Matterport Pro 2. Improvements include higher detail, longer range, and better outdoor usage. Recommended for projects with mostly outdoor scans.',
             showDescription: false,
         },
@@ -121,7 +121,6 @@ const ItemCarousel = () => {
             width: '40%', 
             height: '100%', 
             margin: 'auto',
-            marginBottom: 50,
             display: 'flex',
             position: 'relative',
             flexDirection: 'column',
@@ -134,15 +133,12 @@ const ItemCarousel = () => {
             //border: '1px solid green'
         },
         titleContainer: {
-            position: 'absolute',
-            left: 0,
-            right: 0,
-            marginTop: '250px',
+            marginTop: '20px',
             //border: '1px solid #ccc'
         },
         cardTitle: {
             textAlign: 'center',
-            fontSize: '20px',
+            fontSize: '18px',
             fontWeight: 'bold',
             color: 'black',
         },
@@ -163,7 +159,6 @@ const ItemCarousel = () => {
 
     return (
         <div style={styles.carouselContainer}>
-              <div style={{ paddingBottom: '20px' }}></div>
             <Carousel 
                 renderArrowPrev={renderArrowPrev}
                 renderArrowNext={renderArrowNext}

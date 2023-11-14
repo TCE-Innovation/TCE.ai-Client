@@ -24,7 +24,7 @@ const AssetTracker = () => {
                     <CircularProgress />
                 </div>
             )}
-            <div style={{ display: iframeLoaded ? 'block' : 'none' }}>
+            <div style={{ display: iframeLoaded ? 'block' : 'none', marginTop: 40}}>
                 <script src="https://static.airtable.com/js/embed/embed_snippet_v1.js"></script>
                 <iframe
                     className="airtable-embed airtable-dynamic-height"
