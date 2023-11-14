@@ -37,7 +37,7 @@ function ResponsiveAppBar() {
     const { userPic } = useContext(AuthContext);
     const { accounts } = useMsal();
     const isAuthenticated = accounts.length > 0;
-    const accSettings = ["Public", "Account", "Log Out"]
+    const accSettings = ["Home", "Account", "Log Out"]
 
     function setTitle(privateFunctionality) {
         switch(privateFunctionality) {
@@ -57,6 +57,8 @@ function ResponsiveAppBar() {
                 return 'Overtime Tracker';
             case 'account':
                 return 'My Account';
+            case 'contact':
+                return 'Idea Submission';
             case 'public':
                 return 'TCE Innovation Group';
             default:
@@ -165,18 +167,13 @@ function ResponsiveAppBar() {
 
                             {accSettings.map((setting) => (
                                 <MenuItem key={setting} onClick={handleCloseUserMenu}>
-                                    {setting === "Public" && (
+                                    {setting === "Home" && (
                                         <NavLink to="/" style={{color: 'black'}}>
                                             <Typography textAlign="center">{setting}</Typography>
                                         </NavLink>
                                     )}
                                     {setting === "Account" && (
                                         <NavLink to="/account" style={{color: 'black'}}>
-                                            <Typography textAlign="center">{setting}</Typography>
-                                        </NavLink>
-                                    )}
-                                    {setting === "Dashboard" && (
-                                        <NavLink to="/private" style={{color: 'black'}} onClick={() => setPrivateFunctionality('privateHome')} >
                                             <Typography textAlign="center">{setting}</Typography>
                                         </NavLink>
                                     )}

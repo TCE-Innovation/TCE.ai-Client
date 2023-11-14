@@ -13,6 +13,7 @@ import ForumIcon from '@mui/icons-material/Forum';
 import DevicesOtherIcon from '@mui/icons-material/DevicesOther';
 import RailwayAlertIcon from '@mui/icons-material/RailwayAlert';
 import AccessTimeIcon from '@mui/icons-material/AccessTime';
+import LightbulbIcon from '@mui/icons-material/Lightbulb';
 
 //conditional logic will live here, filter out features based on user role
 //import { AuthContext } from '../../authentication/Auth';
@@ -77,6 +78,13 @@ const PrivateListItems = (props) => {
                     <AccessTimeIcon />
                 </ListItemIcon>
                 <ListItemText primary="Overtime Tracker" />
+            </ListItemButton>
+
+            <ListItemButton onClick={() => props.onSelect('contact')}>
+                <ListItemIcon>
+                    <LightbulbIcon />
+                </ListItemIcon>
+                <ListItemText primary="Idea Submission" />
             </ListItemButton>
 
         </React.Fragment>

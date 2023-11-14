@@ -26,6 +26,7 @@ import GenerateEmails from "../PrivateFeatures/GenerateEmails";
 import TechPartners from '../PrivateFeatures/TechPartners';
 import GOTracker from '../PrivateFeatures/GOTracker';
 import OTTracker from '../PrivateFeatures/OTTracker';
+import ContactUs from '../PrivateFeatures/ContactUs';
 
 
 const Drawer = styled(MuiDrawer, { shouldForwardProp: (prop) => prop !== 'open' })(
@@ -109,6 +110,7 @@ function PrivateContent() {
           {privateFunctionality === 'chatbot' && <ChatBot />}
           {privateFunctionality === 'go' && <GOTracker />}
           {privateFunctionality === 'overtime' && <OTTracker />}
+          {privateFunctionality === 'contact' && <ContactUs />}
           {/* Add other functionalities here */}
         </Box>
       </Box>
