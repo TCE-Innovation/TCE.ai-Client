@@ -34,24 +34,26 @@ const ChatBot = () => {
         "Hector Lim"
     ]
 
-    if ('ADA Package 4' in userProjects || allProjectsAccess.includes(userName)) {
-        userProjKeys.push('p4');
+    if (userProjects !== undefined){
+        if ('ADA Package 4' in userProjects || allProjectsAccess.includes(userName)) {
+            userProjKeys.push('p4');
+        }
+        if ('Amtrak ERT' in userProjects || allProjectsAccess.includes(userName)) {
+            userProjKeys.push('ert');
+        }
+        if ('CBTC Fulton Line' in userProjects || allProjectsAccess.includes(userName)) {
+            userProjKeys.push('fulton');
+        }
+        if ('DB Platform Screen Door Pilot Installation' in userProjects || allProjectsAccess.includes(userName)) {
+            userProjKeys.push('psd');
+        }
+        /* 
+        if ('NEW PROJECT WITH CHATBOT' in userProjects || allProjectsAccess.includes(userName)) {
+            userProjKeys.push('psd');
+        }
+        */
     }
-    if ('Amtrak ERT' in userProjects || allProjectsAccess.includes(userName)) {
-        userProjKeys.push('ert');
-    }
-    if ('CBTC Fulton Line' in userProjects || allProjectsAccess.includes(userName)) {
-        userProjKeys.push('fulton');
-    }
-    if ('DB Platform Screen Door Pilot Installation' in userProjects || allProjectsAccess.includes(userName)) {
-        userProjKeys.push('psd');
-    }
-    /* 
-    if ('NEW PROJECT WITH CHATBOT' in userProjects || allProjectsAccess.includes(userName)) {
-        userProjKeys.push('psd');
-    }
-    */
-    
+
     const projWithChatbot = ['p4', 'ert', 'fulton', 'psd'];
 
     function findMatchingProjects(userProjects, chatbotProjects) {
