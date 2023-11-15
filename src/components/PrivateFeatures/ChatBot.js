@@ -76,7 +76,7 @@ const ChatBot = () => {
 
     return (
         <Box sx={{ display: 'flex', flexDirection: 'column', alignItems: 'center'}}>
-            <FormControl variant="outlined" sx={{ mb: 4, width: 200 }}>
+            <FormControl variant="outlined" sx={{ mb: 4, width: 250 }}>
                 <InputLabel>Project</InputLabel>
                 <Select value={project} onChange={handleChange} label="Project">
                     <MenuItem value="hr">Human Resources</MenuItem>

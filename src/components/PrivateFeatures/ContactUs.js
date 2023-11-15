@@ -1,20 +1,34 @@
-import React, { useState } from 'react';
-import { CircularProgress } from '@mui/material';
+import React, { useState, useContext } from 'react';
+import { FormControl, TextField, Button } from '@mui/material';
+
+import { sendFormData } from '../../API Calls/Airtable';
+import { AuthContext } from "../../authentication/Auth";
 
 const ContactUs = () => {
-    const [iframeLoaded, setIframeLoaded] = useState(false);
+    const [ideaDescription, setIdeaDescription] = useState('');
+    const [isSubmitted, setIsSubmitted] = useState(false);
+    const { userName, userEmail } = useContext(AuthContext);
 
-    const handleIframeLoad = () => {
-        setIframeLoaded(true);
+    const handleInputChange = (event) => {
+        setIdeaDescription(event.target.value);
     };
 
-    const spinnerContainerStyle = {
-        display: 'flex',
-        justifyContent: 'center',
-        alignItems: 'flex-start', 
-        height: '1375px', 
-        marginTop: '20px', 
+    const handleSubmit = () => {
+        sendFormData(userName, userEmail, ideaDescription)
+            .then(() => {
+                setIsSubmitted(true);
+            })
+            .catch(error => {
+                console.error('Error submitting form data:', error);
+            });
     };
+
+    const handleNewSubmission = () => {
+        setIsSubmitted(false);
+        setIdeaDescription('');
+    };
+
+    const isButtonDisabled = ideaDescription.trim() === '';
 
     return (
         <div className='container'>
@@ -22,23 +36,39 @@ const ContactUs = () => {
             <br />
             <div className="header">IDEA SUBMISSION</div>
             <br />
-            {!iframeLoaded && (
-                <div style={spinnerContainerStyle}>
-                    <CircularProgress />
-                </div>
+            <br />
+            {!isSubmitted ? (
+                <>
+                    <div className="form-prompt">
+                        Have you identified a problem with a process, tool, or system that you work on? Do you have an idea of how to solve it? Or, have you come across an exciting technology that you would like us to explore?
+                    </div>
+                    <br />
+                    <div>
+                        <FormControl fullWidth>
+                            <TextField
+                                id="idea-description"
+                                label="Please enter a description of your idea or problem."
+                                multiline
+                                rows={4}
+                                value={ideaDescription}
+                                onChange={handleInputChange}
+                                aria-describedby="idea-description-helper-text"
+                            />
+                        </FormControl>
+                        <Button 
+                            onClick={handleSubmit}
+                            disabled={isButtonDisabled}
+                        >
+                            Submit
+                        </Button>
+                    </div>
+                </>
+            ) : (
+                <>
+                    <div>Thank you for your submission.</div>
+                    <Button onClick={handleNewSubmission}>Submit another idea</Button>
+                </>
             )}
-            <div style={{ display: iframeLoaded ? 'block' : 'none' }}>
-                <script src="https://static.airtable.com/js/embed/embed_snippet_v1.js"></script>
-                <iframe
-                    className="airtable-embed airtable-dynamic-height"
-                    src="https://airtable.com/embed/appA98lgpoCkM03ZU/shrvN5JsfEYgCz6at?backgroundColor=cyan"
-                    onLoad={handleIframeLoad}
-                    width="100%"
-                    height="1375px"
-                    title="Contact Us Form"
-                    style={{ background: 'transparent', border: '1px solid #ccc' }}
-                ></iframe>
-            </div>
         </div>
     );
 };
