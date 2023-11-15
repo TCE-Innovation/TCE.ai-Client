@@ -34,7 +34,7 @@ const Drawer = styled(MuiDrawer, { shouldForwardProp: (prop) => prop !== 'open' 
     '& .MuiDrawer-paper': {
       position: 'fixed',
       whiteSpace: 'nowrap',
-      marginTop: '65px',
+      marginTop: '90px',
       width: 'auto',
       transition: theme.transitions.create('width', {
         easing: theme.transitions.easing.sharp,

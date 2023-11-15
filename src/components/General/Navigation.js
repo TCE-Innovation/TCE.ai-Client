@@ -80,7 +80,7 @@ function ResponsiveAppBar() {
     return (
         <>
         <AppBar position="fixed" sx={{
-            background: 'linear-gradient(to right, #609CCF, #1B365F)' 
+            background: 'linear-gradient(to right, #609CCF, #1B365F)', height: '90px'
         }}>
                 <Toolbar disableGutters>
                     <Box sx={{ display: 'flex', alignItems: 'center'}}>       
@@ -89,8 +89,9 @@ function ResponsiveAppBar() {
                             src={logo}
                             alt='logo'
                             style={{
-                                width: '150px',
-                                marginLeft: '35px',
+                                width: '200px',
+                                marginLeft: '10px',
+                                marginTop: '2px'
                             }}
                             draggable="false"
                         />
@@ -99,11 +100,12 @@ function ResponsiveAppBar() {
                     <Typography
                         variant="h1"
                         noWrap
-                        fontSize="45px"
+                        fontSize="50px"
                         sx={{
+                            marginTop: '10px',
                             flexGrow: 1,
                             fontfamily: "Helvetica",
-                            fontWeight: 700,
+                            fontWeight: 'bold',
                             letterSpacing: '.1rem',
                             color: 'white',
                             textDecoration: 'none',
@@ -112,7 +114,7 @@ function ResponsiveAppBar() {
                     >
                         {setTitle(privateFunctionality)}
                     </Typography>
-                    <Box sx={{  display: 'flex', alignItems: 'center'}}>           
+                    <Box sx={{  display: 'flex', alignItems: 'center', marginTop: '10px'}}>           
                             {isAuthenticated ? (
                                 <>
                                     <IconButton onClick={() => {
@@ -149,7 +151,7 @@ function ResponsiveAppBar() {
                             )}
               
                         <Menu
-                            sx={{ mt: '45px' }}
+                            sx={{ mt: '65px' }}
                             id="menu-appbar"
                             anchorEl={anchorElUser}
                             anchorOrigin={{
