@@ -9,6 +9,7 @@ import Box from '@mui/material/Box';
 
 
 //COMPONENTS
+import Image from "../PublicFeatures/Image";
 import AboutUs from "../PublicFeatures/AboutUs";
 import TechPartners from "../PublicFeatures/TechPartners";
 import ContactUs from '../PublicFeatures/ContactUs';
@@ -29,10 +30,22 @@ function PublicContent() {
     <ThemeProvider theme={mdTheme}>
       <Box sx={{ display: 'flex' }}>
         <CssBaseline />
-        <Box component="main" sx={{ flexGrow: 1, p: 3 }}>
-          <AboutUs/>
-          <TechPartners/>
-          <ContactUs/>
+        <Box component="main" className="main-scroll-container" sx={{ 
+          flexGrow: 1, 
+          height: '100vh', // Make sure the container has a height
+        }}>
+          <Box sx={{ scrollSnapAlign: 'start' }}>
+            <Image/>
+          </Box>
+          <Box sx={{ scrollSnapAlign: 'start' }}>
+            <AboutUs/>
+          </Box>
+          <Box sx={{ scrollSnapAlign: 'start' }}>
+            <TechPartners/>
+          </Box>
+          <Box sx={{ scrollSnapAlign: 'start' }}>
+            <ContactUs/>
+          </Box>
           <Copyright sx={{ mt: 20, mb: 4 }} />
         </Box>
       </Box>

@@ -17,7 +17,7 @@ import Button from "@mui/material/Button";
 import HomeRepairServiceIcon from '@mui/icons-material/HomeRepairService';
 
 //IMAGES
-import logo from '../../img/logo.webp'
+import logo from '../../img/logo.png'
 import noUser from '../../img/noUser.webp'
 
 //CONTEXTS
@@ -89,9 +89,9 @@ function ResponsiveAppBar() {
                             src={logo}
                             alt='logo'
                             style={{
-                                width: '200px',
-                                marginLeft: '10px',
-                                marginTop: '2px'
+                                width: '180px',
+                                marginLeft: '20px',
+                                marginTop: '4px'
                             }}
                             draggable="false"
                         />
