@@ -65,7 +65,7 @@ const ContactUs = () => {
                 </>
             ) : (
                 <>
-                    <div>Thank you for your submission.</div>
+                    <div>Thank you for your submission. A TCIG team member will follow up with you.</div>
                     <Button onClick={handleNewSubmission}>Submit another idea</Button>
                 </>
             )}
