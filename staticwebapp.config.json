@@ -1,6 +1,10 @@
 {
     "routes": [
       {
+        "route": "/icons/favicon.ico",
+        "allowedRoles": ["anonymous"]
+      },
+      {
         "route": "/static/*",
         "allowedRoles": ["anonymous"]
       },
