@@ -4,9 +4,7 @@ import "./style.css";
 const AboutUs = () => {
   return (
     <div className="container">
-
       <div className="topic">
-        <br />
         <div className="header">Nerds With OSHA Cards</div>
         <br />
         <p className="bold-body">
