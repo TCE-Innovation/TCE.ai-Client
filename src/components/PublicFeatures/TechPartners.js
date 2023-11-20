@@ -8,11 +8,11 @@ import 'react-responsive-carousel/lib/styles/carousel.min.css';
 //IMAGES
 import ProCore from "../../img/PartnerImages/ProCore.png";
 import Airtable from "../../img/PartnerImages/Airtable.png";
-import FieldWire from "../../img/PartnerImages/FieldWire.jpg";
+import FieldWire from "../../img/PartnerImages/FieldWire.png";
 import Bridgit from "../../img/PartnerImages/Bridgit.png";
-import OpenSpace from "../../img/PartnerImages/OpenSpace.jpg";
+import OpenSpace from "../../img/PartnerImages/OpenSpace.png";
 import EZ from "../../img/PartnerImages/EZ.png";
-import Matterport from "../../img/PartnerImages/Matterport.jpg";
+import Matterport from "../../img/PartnerImages/Matterport.png";
 
 const ItemCarousel = () => {
     const cardData = [
@@ -34,6 +34,10 @@ const ItemCarousel = () => {
 
         },
         {
+            image: EZ,
+            title: 'EZOfficeInventory',
+        },
+        {
             image: FieldWire,
             title: 'FieldWire',
 
@@ -43,15 +47,11 @@ const ItemCarousel = () => {
             title: 'OpenSpace',
             link: "https://www.openspace.ai/resources/webinars/fireside-chat-how-tces-transit-projects-arrive-on-time-with-openspace/"
         },
-        {
-            image: EZ,
-            title: 'EZOfficeInventory',
-        },
     ];
 
     return (
         <div className='container'>
-            <div className="header">TECH PARTNERS</div>
+            <div className="header">Tech Partners</div>
             <div className = 'carousel-container'>
                 <Carousel 
                     showThumbs={false} 

@@ -6,6 +6,16 @@
   .container {
     display: flex;
     flex-direction: column;
+    background-color: rgba(255, 255, 255, 0.8);
+  }
+
+  .content {
+    opacity: 0;
+    transition: opacity 1s ease-in-out;
+  }
+  
+  .fade-in {
+    opacity: 1;
   }
   
   .header {
@@ -39,88 +49,6 @@
     line-height: normal;
   }
   
-  .cards-container {
-    display: flex;
-    flex-wrap: wrap;
-    flex-direction: row;
-    justify-content: space-between;
-    margin-bottom: 45px;
-  }
-
-  .card {
-    border: #1b365f 2px solid;
-    width: 100%;
-    margin-bottom: 20px;
-    padding: 20px;
-    position: relative;
-    box-shadow: inset 0px 0px 10px #1b365f;
-  }
-
-  .card-body {
-    margin-top: 10px;
-    position: relative;
-    text-align: center;
-  }
-
-  .card-text {
-    color: #1b365f;
-    font-family: "Inter-Bold", Helvetica;
-    font-size: 20px;
-    font-weight: 500;
-    letter-spacing: 0;
-    line-height: normal;
-  }
-
-  .extra-text {
-    color: #1b365f;
-    font-family: "Inter-Bold", Helvetica;
-    font-size: 14px;
-    font-weight: 400;
-    letter-spacing: 0;
-    line-height: normal;
-  }
-
-  .read-more-button{
-    position: absolute;
-    bottom: 0px;
-    right: 0px;
-  }
-
-  .contact-text{
-    color: #1b365f;
-    font-family: "Inter-Bold", Helvetica;
-    font-size: 16px;
-    font-weight: bold;
-    letter-spacing: 0;
-    line-height: normal;
-  }
-
-  .press-cards-container {
-    display: flex;
-    flex-wrap: wrap;
-    flex-direction: row;
-    justify-content: space-between;
-    margin-bottom: 45px;
-  }
-
-  .press-card {
-    border: #1b365f 2px solid;
-    width: 48%;
-    margin-bottom: 20px;
-    padding: 20px;
-    position: relative;
-    box-shadow: inset 0px 0px 10px #1b365f;
-  }
-
-  .link-text{
-    color: #1b365f;
-    font-family: "Inter-Bold", Helvetica;
-    font-size: 24px;
-    font-weight: bold;
-    letter-spacing: 0;
-    line-height: normal;
-  }
-
   .clickable:hover {
     cursor: pointer;
     border: 3px solid #007bff !important;
@@ -140,23 +68,7 @@
     display: flex;
   }
 
-  .image-container {
-    position: relative; /* This allows absolute positioning relative to this container */
-    width: 100%;
-    height: 100vh; /* Adjust if necessary */
-  }
-  
-  .image-container img {
-    width: 100%;
-    height: 100%; /* This will stretch the image to cover the container */
-    object-fit: cover; /* This will make sure the image covers the area without distortion */
-  }
-  
   .overlay-text {
-    position: absolute; /* Absolute positioning */
-    top: 50%; /* Center vertically */
-    left: 50%; /* Center horizontally */
-    transform: translate(-50%, -50%); /* Adjust the positioning to truly center the text */
     color: white;  /* Text color */
     font-size: 5rem; /* Text size */
     text-align: center; /* Center the text */
@@ -171,10 +83,10 @@
     animation-delay: 0.5s;
   }
   
-
-  .main-scroll-container {
-    overflow-y: scroll;
-    scroll-snap-type: y mandatory;
-    scroll-behavior: smooth;
+  .full-window-component{
+    height: 100vh;
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
   }
-  

@@ -3,11 +3,11 @@ import "./privateStyle.css";
 
 import ProCore from "../../img/PartnerImages/ProCore.png";
 import Airtable from "../../img/PartnerImages/Airtable.png";
-import FieldWire from "../../img/PartnerImages/FieldWire.jpg";
+import FieldWire from "../../img/PartnerImages/FieldWire.png";
 import Bridgit from "../../img/PartnerImages/Bridgit.png";
-import OpenSpace from "../../img/PartnerImages/OpenSpace.jpg";
+import OpenSpace from "../../img/PartnerImages/OpenSpace.png";
 import EZ from "../../img/PartnerImages/EZ.png";
-import Matterport from "../../img/PartnerImages/Matterport.jpg";
+import Matterport from "../../img/PartnerImages/Matterport.png";
 
 import IconButton from '@mui/material/IconButton';
 import KeyboardArrowDownIcon from '@mui/icons-material/KeyboardArrowDown';

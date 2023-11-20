@@ -18,9 +18,7 @@ const ContactUs = () => {
 
     return (
         <div className='container'>
-            <br />
-            <br />
-            <div className="header">CONTACT US</div>
+            <div className="header">Contact Us</div>
             <br />
             {!iframeLoaded && (
                 <div style={spinnerContainerStyle}>
