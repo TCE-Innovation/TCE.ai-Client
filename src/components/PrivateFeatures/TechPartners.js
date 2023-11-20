@@ -8,6 +8,7 @@ import Bridgit from "../../img/PartnerImages/Bridgit.png";
 import OpenSpace from "../../img/PartnerImages/OpenSpace.png";
 import EZ from "../../img/PartnerImages/EZ.png";
 import Matterport from "../../img/PartnerImages/Matterport.png";
+import Oracle from "../../img/PartnerImages/Oracle.png";
 
 import IconButton from '@mui/material/IconButton';
 import KeyboardArrowDownIcon from '@mui/icons-material/KeyboardArrowDown';
@@ -79,6 +80,16 @@ const partnerData = [
     contactName: "Rory O'Neill",
     contactEmail: "roneill@tcelect.net",
     website: 'https://matterport.com/',
+    documents: []
+  },
+  {
+    name: "Oracle",
+    imgSrc: Oracle,
+    description: "Maximize project efficiency and performance with Oracle P6, the robust and easy-to-use integrated project portfolio management solution.",
+    extraText: "Oracle P6 offers unparalleled control over project complexity by facilitating planning, scheduling, and resource management across your entire portfolio. P6 is tailored for large-scale, highly sophisticated project management and enables organizations to meet deadlines, stay within budget, and achieve their project goals. It excels in multi-user and multi-project environments with features like Gantt charts, Work Breakdown Structures, and comprehensive reporting tools.",
+    contactName: "Sahul Kadarpeta",
+    contactEmail: "skadarpeta@tcelect.net",
+    website: "https://www.oracle.com/construction-engineering/primavera-p6/",
     documents: []
   },
   {

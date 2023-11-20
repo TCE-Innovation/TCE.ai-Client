@@ -13,6 +13,7 @@ import Bridgit from "../../img/PartnerImages/Bridgit.png";
 import OpenSpace from "../../img/PartnerImages/OpenSpace.png";
 import EZ from "../../img/PartnerImages/EZ.png";
 import Matterport from "../../img/PartnerImages/Matterport.png";
+import Oracle from "../../img/PartnerImages/Oracle.png";
 
 const ItemCarousel = () => {
     const cardData = [
@@ -46,6 +47,10 @@ const ItemCarousel = () => {
             image: OpenSpace,
             title: 'OpenSpace',
             link: "https://www.openspace.ai/resources/webinars/fireside-chat-how-tces-transit-projects-arrive-on-time-with-openspace/"
+        },
+        {
+            image: Oracle,
+            title: 'Oracle',
         },
     ];
 
