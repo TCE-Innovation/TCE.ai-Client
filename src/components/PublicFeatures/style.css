@@ -7,6 +7,8 @@
     display: flex;
     flex-direction: column;
     background-color: rgba(255, 255, 255, 0.8);
+    padding-left: 2%;
+    padding-right: 2%;
   }
 
   .content {
@@ -27,8 +29,6 @@
     line-height: normal;
     text-shadow: 0px 4px 4px #00000040;
     border-bottom: 6px solid #FFCF00; 
-    padding-bottom: 1px;
-    margin-top: 35px;
   }
     
   .body {
@@ -57,15 +57,55 @@
 
   .carousel-container {
     width: 100%;
-    height: 200px;
     padding: 10px;
-    padding-top: 60px;
+
+  }
+  
+  .carousel-card {
+    width: 300px; /* Set a fixed width */
+    height: 200px; /* Set a fixed height */
+    overflow: hidden;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 50px;
+    transition: border 0.3s ease;
+    position: relative;
+  }
+  
+  .carousel-card img {
+    width: 100%; /* Fill the width of the parent */
+    height: 100%; /* Fill the height of the parent */
+    object-fit: fill; /* Cover the area, preserving aspect ratio */
+    transition: transform 0.3s ease;
   }
 
-  .carousel-card {
-    width: 350px;
+  .carousel-card a {
+    display: block;
     height: 100%;
-    display: flex;
+  }
+  
+  .carousel-card-text {
+    display: none;
+    position: absolute;
+    bottom: 10px; /* Adjust as needed */
+    left: 50%;
+    transform: translateX(-50%);
+    color: #1b365f;
+    font-family: "Inter-Bold", Helvetica;
+    font-size: 20px;
+    font-weight: 700;
+    padding: 5px 10px;
+    border-radius: 5px;
+    white-space: nowrap;
+  }
+  
+  .carousel-card:hover .carousel-card-text {
+    display: block;
+  }
+  
+  .carousel-card:hover img {
+    transform: scale(1.05); /* Optional: Slightly scale the image */
   }
 
   .overlay-text {
@@ -90,3 +130,4 @@
     justify-content: center;
     align-items: center;
   }
+

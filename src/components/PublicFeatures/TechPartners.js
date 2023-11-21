@@ -2,8 +2,9 @@ import "./style.css";
 
 //REACT
 import React from 'react';
-import { Carousel } from 'react-responsive-carousel';
-import 'react-responsive-carousel/lib/styles/carousel.min.css';
+import Slider from 'react-slick';
+import "slick-carousel/slick/slick.css"; 
+import "slick-carousel/slick/slick-theme.css";
 
 //IMAGES
 import ProCore from "../../img/PartnerImages/ProCore.png";
@@ -16,6 +17,17 @@ import Matterport from "../../img/PartnerImages/Matterport.png";
 import Oracle from "../../img/PartnerImages/Oracle.png";
 
 const ItemCarousel = () => {
+    const settings = {
+        dots: false,
+        infinite: true,
+        speed: 500,
+        slidesToShow: 3,
+        slidesToScroll: 1,
+        autoplay: false,
+        autoplaySpeed: 3000,
+        cssEase: "linear",
+    };
+
     const cardData = [
         {
             image: ProCore,
@@ -57,30 +69,21 @@ const ItemCarousel = () => {
     return (
         <div className='container'>
             <div className="header">Tech Partners</div>
-            <div className = 'carousel-container'>
-                <Carousel 
-                    showThumbs={false} 
-                    autoPlay
-                    infiniteLoop 
-                    centerMode 
-                    dynamicHeight={false} 
-                    centerSlidePercentage={30}
-                    showIndicators={false}
-                >
+            <div className="carousel-container">
+                <Slider {...settings}>
                     {cardData.map((card, index) => (
-
                         <div key={index} className="carousel-card">
                             {card.link ? (
                                 <a href={card.link} target="_blank" rel="noopener noreferrer">
-                                    <img src={card.image} alt={card.title} className="clickable"/>
+                                    <img src={card.image} alt={card.title} />
+                                    <span className="carousel-card-text">View Case Study</span>
                                 </a>
                             ) : (
-                                <img src={card.image} alt={card.title}/>
+                                <img src={card.image} alt={card.title} />
                             )}
                         </div>
-
                     ))}
-                </Carousel>
+                </Slider>
             </div>
         </div>
     );

@@ -5,7 +5,7 @@ const AboutUs = () => {
   return (
     <div className="container">
       <div className="topic">
-        <div className="header">Nerds With OSHA Cards</div>
+        <div className="header">About Us</div>
         <br />
         <p className="bold-body">
           The TCE Innovation Group (TCIG) is a multidisciplinary team of engineers, data scientists, and designers passionate 
