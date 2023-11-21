@@ -28,7 +28,19 @@
     letter-spacing: 0;
     line-height: normal;
     text-shadow: 0px 4px 4px #00000040;
-    border-bottom: 6px solid #FFCF00; 
+    border-bottom: 6px solid #FFCF00;
+  }
+
+  .subheader {
+    margin-top: 15px; 
+    color: #003eab;
+    font-family: "Inter-Bold", Helvetica;
+    font-size: 30px;
+    font-weight: 700;
+    font-style: italic;
+    letter-spacing: 0;
+    line-height: normal;
+    text-shadow: 0px 4px 4px #00000040;
   }
     
   .body {

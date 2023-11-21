@@ -16,7 +16,7 @@ import TechPartners from "../PublicFeatures/TechPartners";
 import ContactUs from '../PublicFeatures/ContactUs';
 import Copyright from '../General/Copyright';
 
-import backgroundImage from '../../img/tunnelImage.jpg'
+import backgroundImage from '../../img/skyline.jpg'
 
 import PrivateContext from "../Private/PrivateContext";
 
@@ -77,10 +77,10 @@ function PublicContent() {
           <Box id="intro-text">
             <IntroText />
           </Box>
-          <Box className={`content ${showAboutUs ? 'fade-in' : ''}`} sx={{ mb: 5 }}>
+          <Box className={`content ${showAboutUs ? 'fade-in' : ''}`} sx={{ mb: 15 }}>
             <AboutUs />
           </Box>
-          <Box className={`content ${showTechPartners ? 'fade-in' : ''}`} sx={{ mb: 5 }}>
+          <Box className={`content ${showTechPartners ? 'fade-in' : ''}`} sx={{ mb: 15 }}>
             <TechPartners />
           </Box>
           <Box className={`content ${showContactUs ? 'fade-in' : ''}`} sx={{ mb: 5 }}>

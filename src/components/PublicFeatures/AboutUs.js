@@ -6,6 +6,7 @@ const AboutUs = () => {
     <div className="container">
       <div className="topic">
         <div className="header">About Us</div>
+        <div className="subheader">Nerds with OSHA Cards</div>
         <br />
         <p className="body">
           The TCE Innovation Group (TCIG) is a multidisciplinary team of engineers, data scientists, and designers passionate 
@@ -16,10 +17,8 @@ const AboutUs = () => {
           to business development, procurement, and operations.  
         </p>
       </div>
-
       <br />
       <br />
-
     </div>
   );
 };
