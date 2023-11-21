@@ -37,7 +37,7 @@ function PublicContent() {
       const scrollY = window.scrollY;
       const windowHeight = window.innerHeight;
 
-      if (scrollY > windowHeight * 0.5) { 
+      if (scrollY > windowHeight * 0.3) { 
         setShowAboutUs(true);
       }
       if (scrollY > windowHeight * 0.7) {
