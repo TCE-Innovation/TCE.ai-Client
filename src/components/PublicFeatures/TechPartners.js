@@ -36,6 +36,7 @@ const ItemCarousel = () => {
         {
             image: Bridgit,
             title: 'Bridgit',
+            link: "https://gobridgit.com/case-studies/tc-electric/"
         },
         {
             image: Airtable,
