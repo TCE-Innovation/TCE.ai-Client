@@ -38,10 +38,11 @@ export async function getProjects(name) {
     }
 }
 
-//function to send form data to airtable base
-export async function sendFormData(name, email, description) {
+//function to send private form data to airtable base
+export async function sendPrivateFormData(name, email, description) {
     const tableId = 'tblJhpvPlMY1OeqLD';
-    var base = new Airtable({apiKey: 'patlr5uHzCsVA5n44.60e06f59a3a49f3b492a501adf24fe2800073534a140500c2e28c9ff355dabef'}).base('appSnS8FJjZqfnBSv');
+    const baseId = 'appSnS8FJjZqfnBSv'
+    var base = new Airtable({apiKey: 'patlr5uHzCsVA5n44.60e06f59a3a49f3b492a501adf24fe2800073534a140500c2e28c9ff355dabef'}).base(baseId);
     try {
         //create record in Airtable
         await base(tableId).create([
@@ -50,6 +51,29 @@ export async function sendFormData(name, email, description) {
                     "Name": name,
                     "Email": email,
                     "Description": description
+                }
+            }
+        ]);
+    } catch (error) {
+        console.error(error);
+    }
+}
+
+//function to send public form data to airtable base
+export async function sendPublicFormData(name, email, organization, phone, contactMessage) {
+    const tableId = 'tblKDT1lKLBlP1oTa';
+    const baseId = 'appA98lgpoCkM03ZU'
+    var base = new Airtable({apiKey: 'patlr5uHzCsVA5n44.60e06f59a3a49f3b492a501adf24fe2800073534a140500c2e28c9ff355dabef'}).base(baseId);
+    try {
+        //create record in Airtable
+        await base(tableId).create([
+            {
+                "fields": {
+                    "Name": name,
+                    "Email": email,
+                    "Outside Organization": organization,
+                    "Contact Phone Number": phone,
+                    "Contact Description": contactMessage
                 }
             }
         ]);

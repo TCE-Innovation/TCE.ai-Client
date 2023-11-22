@@ -1,7 +1,7 @@
 import React, { useState, useContext } from 'react';
 import { FormControl, TextField, Button } from '@mui/material';
 
-import { sendFormData } from '../../API Calls/Airtable';
+import { sendPrivateFormData } from '../../API Calls/Airtable';
 import { AuthContext } from "../../authentication/Auth";
 
 const ContactUs = () => {
@@ -14,7 +14,7 @@ const ContactUs = () => {
     };
 
     const handleSubmit = () => {
-        sendFormData(userName, userEmail, ideaDescription)
+        sendPrivateFormData(userName, userEmail, ideaDescription)
             .then(() => {
                 setIsSubmitted(true);
             })
