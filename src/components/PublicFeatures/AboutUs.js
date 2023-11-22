@@ -5,7 +5,7 @@ const AboutUs = () => {
   return (
     <div className="container">
       <div className="topic">
-        <div className="header">About Us</div>
+        <div className="header">ABOUT US</div>
         <div className="subheader">Nerds with OSHA Cards</div>
         <br />
         <p className="body">
@@ -17,7 +17,6 @@ const AboutUs = () => {
           to business development, procurement, and operations.  
         </p>
       </div>
-      <br />
       <br />
     </div>
   );

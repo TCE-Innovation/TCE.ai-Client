@@ -54,7 +54,7 @@ const ContactUs = () => {
 
     return (
         <div className='container'>
-            <div className="header">Contact Us</div>
+            <div className="header">CONTACT US</div>
             <br />
             {!isSubmitted ? (
                 <>
@@ -114,6 +114,7 @@ const ContactUs = () => {
                             <Button 
                                 onClick={handleSubmit}
                                 disabled={isButtonDisabled}
+                                variant="contained"
                             >
                                 Submit
                             </Button>

@@ -69,7 +69,7 @@ const ItemCarousel = () => {
 
     return (
         <div className='container'>
-            <div className="header">Tech Partners</div>
+            <div className="header">TECH PARTNERS</div>
             <div className="carousel-container">
                 <Slider {...settings}>
                     {cardData.map((card, index) => (
