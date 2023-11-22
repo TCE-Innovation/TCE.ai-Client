@@ -35,6 +35,7 @@ function PublicContent() {
   useEffect(() => {
     const handleScroll = () => {
       const scrollY = window.scrollY;
+
       const windowHeight = window.innerHeight;
 
       if (scrollY > windowHeight * 0.3) { 
