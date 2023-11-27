@@ -26,8 +26,6 @@ import GenerateEmails from "../PrivateFeatures/GenerateEmails";
 import TechPartners from '../PrivateFeatures/TechPartners';
 import GOTracker from '../PrivateFeatures/GOTracker';
 import OTTracker from '../PrivateFeatures/OTTracker';
-import ContactUs from '../PrivateFeatures/ContactUs';
-
 
 const Drawer = styled(MuiDrawer, { shouldForwardProp: (prop) => prop !== 'open' })(
   ({ theme, open }) => ({
@@ -102,7 +100,7 @@ function PrivateContent() {
           </Drawer>
         
         <Box component="main" sx={{ marginTop: 5, flexGrow: 1, p: 3, ml: open ? 30 : 9, width: '100%' }}>
-          {privateFunctionality === 'info' && <TechPartners />}
+          {privateFunctionality === 'tech' && <TechPartners />}
           {privateFunctionality === 'privateHome' && <PrivateHome />}
           {privateFunctionality === 'generateEmails' && <GenerateEmails />}
           {privateFunctionality === 'cro' && <CRO />}
@@ -110,7 +108,6 @@ function PrivateContent() {
           {privateFunctionality === 'chatbot' && <ChatBot />}
           {privateFunctionality === 'go' && <GOTracker />}
           {privateFunctionality === 'overtime' && <OTTracker />}
-          {privateFunctionality === 'contact' && <ContactUs />}
           {/* Add other functionalities here */}
         </Box>
       </Box>

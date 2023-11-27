@@ -70,7 +70,9 @@ const partnerData = [
     contactName: "Chris Kruger",
     contactEmail: "ckruger@tcelect.net",
     website: 'https://ezo.io/ezofficeinventory/',
-    documents: []
+    documents: [
+      {title: "TCE EZOffice Dashboard", url: "https://tcelectric.ezofficeinventory.com/dashboard"},
+    ]
   },
   {
     name: "Matterport",
@@ -124,7 +126,14 @@ const TechPartners = () => {
   return (
     <div className="container">
       <div className="header">TECH PARTNERS</div>
-      <br /><br />
+      <br />
+      <div className="tech-subheader">
+        On this page you will find information about software tools in TCE's technology stack. 
+        In addition to these overviews, you will find helpful links like documentation from the 
+        partners as well as standard operating procedures and white papers created by TCIG. To 
+        contact the relevant TCIG team member with questions or requests on a certain tool, please 
+        click the PoC's name under any tool to draft an email and start a conversation. 
+      </div>
       <div className="cards-container">
         {partnerData.map((partner, index) => (
           <div className="card" key={index} onClick={() => toggleReadMore(index)}>
@@ -159,7 +168,7 @@ const TechPartners = () => {
                 <div className="expanded-card-body">
                   <p className="extra-text">{partner.extraText}</p>
                   <p className="contact-text">
-                    Point of Contact: {partner.contactName} <a href={`mailto:${partner.contactEmail}`} onClick={handleInsideCardClick}>{partner.contactEmail}</a>
+                    Point of Contact: <a href={`mailto:${partner.contactEmail}`} onClick={handleInsideCardClick}>{partner.contactName}</a>
                   </p>
                 </div>
               </div>

@@ -1,11 +1,11 @@
 import React from "react";
-import "./style.css";
+import "./privateStyle.css";
 
-const AboutUs = () => {
+const Welcome = () => {
   return (
     <div className="container">
-        <div className="header">ABOUT US</div>
-        <div className="subheader">Nerds with OSHA Cards</div>
+        <div className="header">WELCOME</div>
+        <div className="subheader">TCE Innovation Group Headquarters</div>
         <br />
         <p className="body">
           The TCE Innovation Group (TCIG) is a multidisciplinary team of engineers, data scientists, and designers passionate 
@@ -20,5 +20,5 @@ const AboutUs = () => {
   );
 };
 
-export default AboutUs;
+export default Welcome;
 

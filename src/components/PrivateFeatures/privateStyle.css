@@ -15,6 +15,16 @@
     padding-bottom: 1px;
     margin-top: 20px;
   }
+
+  .tech-subheader {
+    color: #003eab;
+    font-family: "Inter-Bold", Helvetica;
+    font-size: 23px;
+    font-weight: 700;
+    letter-spacing: 0;
+    line-height: normal;
+    margin-bottom: 40px;
+  }
   
   .cards-container {
     display: flex;
