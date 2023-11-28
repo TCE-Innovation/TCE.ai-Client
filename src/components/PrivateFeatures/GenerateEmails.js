@@ -153,7 +153,6 @@ const GenerateEmails = () => {
                         sx={{ mb: 2 }}
                         placeholder="i.e., last meeting we discussed..."
                     />
-
                 <Box component="form" width={1}>
                     <Grid container spacing={1}>
                         <Grid item xs={1.5}>
