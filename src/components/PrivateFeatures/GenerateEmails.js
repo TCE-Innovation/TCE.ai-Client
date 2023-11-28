@@ -231,7 +231,6 @@ const GenerateEmails = () => {
                         </Grid>
                     </Grid>
                     </Box>
-
                     <Button
                         variant="contained"
                         color="primary"
