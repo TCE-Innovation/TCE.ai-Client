@@ -5,6 +5,10 @@
         "allowedRoles": ["anonymous"]
       },
       {
+        "route": "/manifest.json",
+        "allowedRoles": ["anonymous"]
+      },
+      {
         "route": "/static/*",
         "allowedRoles": ["anonymous"]
       },
