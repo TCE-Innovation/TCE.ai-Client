@@ -61,6 +61,10 @@ function ResponsiveAppBar() {
                 return 'Idea Submission';
             case 'public':
                 return 'TCE Innovation Group';
+            case 'tech':
+                return 'Tech Partners';
+            case 'privateHome':
+                return 'Welcome';
             default:
                 return 'TCE Innovation Group';  
         }
@@ -85,16 +89,16 @@ function ResponsiveAppBar() {
                 <Toolbar disableGutters>
                     <Box sx={{ display: 'flex', alignItems: 'center'}}>       
                         <NavLink to="/">
-                        <img
-                            src={logo}
-                            alt='logo'
-                            style={{
-                                width: '180px',
-                                marginLeft: '20px',
-                                marginTop: '4px'
-                            }}
-                            draggable="false"
-                        />
+                            <img
+                                src={logo}
+                                alt='logo'
+                                style={{
+                                    width: '180px',
+                                    marginLeft: '20px',
+                                    marginTop: '4px'
+                                }}
+                                draggable="false"
+                            />
                         </NavLink>
                     </Box>
                     <Typography

@@ -9,10 +9,10 @@ const OTTracker = () => {
     };
 
     const spinnerContainerStyle = {
-        position: 'fixed', // Fixed position
-        top: '50%', // Halfway down the viewport
-        left: '50%', // Halfway across the viewport
-        transform: 'translate(-50%, -50%)' // Center the spinner
+        position: 'fixed', 
+        top: '50%', 
+        left: '50%', 
+        transform: 'translate(-50%, -50%)' 
     };
 
     return (

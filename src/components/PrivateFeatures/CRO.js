@@ -144,7 +144,7 @@ const CRO = () => {
 
                     <Button
                             variant="contained"
-                            sx={{ color: 'black', fontWeight: 700, backgroundColor: 'white', '&:hover': { backgroundColor: 'grey' }, marginTop: 4}}
+                            sx={{ color: 'black', fontWeight: 700, backgroundColor: 'white', '&:hover': { backgroundColor: theme => theme.palette.grey[500] }, marginTop: 4}}
                             onClick={() => {
                                 setShowCableSizeSheet(!showCableSizeSheet);
                                 if (showCableSizeSheet) {

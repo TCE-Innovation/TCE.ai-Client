@@ -59,7 +59,7 @@ const ContactUs = () => {
             {!isSubmitted ? (
                 <>
                     <div className="form-prompt">
-                        Please fill out the form below to contact TCIG.
+                        Want to learn more? Please fill out the form below to contact TCIG.
                     </div>
                     <br />
                     <div>
@@ -95,7 +95,7 @@ const ContactUs = () => {
                                 value={organization}
                                 onChange={handleOrganizationInputChange}
                                 aria-describedby="organization-helper-text"
-                                sx={{ flex: 1, mb: 1 }} // Removed mr to align with the container's edge
+                                sx={{ flex: 1, mb: 1 }} 
                                 />
                             </Box>
                         </FormControl>

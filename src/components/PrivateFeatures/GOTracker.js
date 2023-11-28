@@ -9,15 +9,15 @@ const GOTracker = () => {
     };
 
     const spinnerContainerStyle = {
-        position: 'fixed', // Fixed position to place it relative to the viewport
-        top: '50%', // Center vertically
-        left: '50%', // Center horizontally
-        transform: 'translate(-50%, -50%)', // Offset the spinner to the exact center
-        zIndex: 100, // Ensure the spinner is above other elements
+        position: 'fixed', 
+        top: '50%', 
+        left: '50%', 
+        transform: 'translate(-50%, -50%)',
+        zIndex: 100,
     };
 
     return (
-        <div style={{ width: '100%', display: 'flex', flexDirection: "column", alignContent: 'center'}}>
+        <div style={{ width: '100%', display: 'flex', flexDirection: "column", alignContent: 'center', marginTop:20}}>
             {!iframeLoaded && (
                 <div style={spinnerContainerStyle}>
                     <CircularProgress />

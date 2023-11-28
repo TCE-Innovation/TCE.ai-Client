@@ -73,7 +73,6 @@ const GenerateEmails = () => {
         setLoading(false);
     };
 
-    //TODO: convert from sendgrid to email.write permissions
     const sendEmail = async () => {
         setOpen(false);
         setError('');
@@ -105,6 +104,7 @@ const GenerateEmails = () => {
                 minHeight: '30vh',
                 padding: 4,
                 backgroundColor: '#f5f5f5',
+                marginTop: '20px',
             }}
         >
             <Box
