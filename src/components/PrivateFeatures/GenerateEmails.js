@@ -317,7 +317,6 @@ const GenerateEmails = () => {
                     </>
                 )}
             </Box>
-
         </Box>
     );
 };
