@@ -13,7 +13,6 @@ import Typography from '@mui/material/Typography';
 import Menu from '@mui/material/Menu';
 import Avatar from '@mui/material/Avatar';
 import MenuItem from '@mui/material/MenuItem';
-import Button from "@mui/material/Button";
 import HomeRepairServiceIcon from '@mui/icons-material/HomeRepairService';
 
 //IMAGES
@@ -22,12 +21,10 @@ import noUser from '../../img/noUser.webp'
 
 //CONTEXTS
 import {AuthContext} from "../../authentication/Auth";
-import { useMsal } from "@azure/msal-react";
 import PrivateContext from "../Private/PrivateContext";
 
 //HOOKS
 import {useMicrosoftSignOut} from "../Account/LogOut/LogOutFunc";
-import {useMicrosoftSignIn} from "../Account/LoginFunc";
 
 function ResponsiveAppBar() {
     const [anchorElUser, setAnchorElUser] = useState(null);
@@ -35,8 +32,6 @@ function ResponsiveAppBar() {
     const navigate = useNavigate();
 
     const { userPic } = useContext(AuthContext);
-    const { accounts } = useMsal();
-    const isAuthenticated = accounts.length > 0;
     const accSettings = ["Home", "Account", "Log Out"]
 
     function setTitle(privateFunctionality) {
@@ -79,7 +74,6 @@ function ResponsiveAppBar() {
     };
 
     const MicrosoftSignOut = useMicrosoftSignOut();
-    const MicrosoftSignIn = useMicrosoftSignIn();
 
     return (
         <>
@@ -94,7 +88,7 @@ function ResponsiveAppBar() {
                                 alt='logo'
                                 style={{
                                     width: '180px',
-                                    marginLeft: '20px',
+                                    marginLeft: '30px',
                                     marginTop: '4px'
                                 }}
                                 draggable="false"
@@ -119,41 +113,24 @@ function ResponsiveAppBar() {
                         {setTitle(privateFunctionality)}
                     </Typography>
                     <Box sx={{  display: 'flex', alignItems: 'center', marginTop: '10px'}}>           
-                            {isAuthenticated ? (
-                                <>
-                                    <IconButton onClick={() => {
-                                        navigate('/private');
-                                        setPrivateFunctionality('privateHome');
-                                    }}>
-                                        <HomeRepairServiceIcon sx={{ color: 'white', fontSize: '2.5rem' }} />
-                                    </IconButton>
+                        <IconButton onClick={() => {
+                            navigate('/private');
+                            setPrivateFunctionality('privateHome');
+                        }}>
+                            <HomeRepairServiceIcon sx={{ color: 'white', fontSize: '2.5rem' }} />
+                        </IconButton>
 
-                                    <IconButton onClick={handleOpenUserMenu}>
-                                        <Avatar
-                                            style={{
-                                                marginRight: '35px',
-                                                marginLeft: '10px',
-                                            }}
-                                            alt="You"
-                                            src={userPic ? userPic : noUser}
-                                            imgProps={{ referrerPolicy: "no-referrer" }}
-                                        />
-                                    </IconButton>
-                                </>
-                            ) : (
-                                <Button
-                                    variant="outlined"
-                                    fullWidth
-                                    size="large"
-                                    onClick={MicrosoftSignIn}
-                                    sx={{ mr: 2, color: 'black', borderColor: 'black', backgroundColor: 'white', 
-                                        '&:hover': { backgroundColor: 'grey', color: 'black' }, fontWeight: 700 
-                                    }}
-                                >
-                                    Log In
-                                </Button>
-                            )}
-              
+                        <IconButton onClick={handleOpenUserMenu}>
+                            <Avatar
+                                style={{
+                                    marginRight: '35px',
+                                    marginLeft: '10px',
+                                }}
+                                alt="You"
+                                src={userPic ? userPic : noUser}
+                                imgProps={{ referrerPolicy: "no-referrer" }}
+                            />
+                        </IconButton>
                         <Menu
                             sx={{ mt: '65px' }}
                             id="menu-appbar"

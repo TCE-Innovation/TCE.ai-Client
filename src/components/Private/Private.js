@@ -26,6 +26,7 @@ import GenerateEmails from "../PrivateFeatures/GenerateEmails";
 import TechPartners from '../PrivateFeatures/TechPartners';
 import GOTracker from '../PrivateFeatures/GOTracker';
 import OTTracker from '../PrivateFeatures/OTTracker';
+import PrivateNavigation from "../General/PrivateNavigation";
 
 const Drawer = styled(MuiDrawer, { shouldForwardProp: (prop) => prop !== 'open' })(
   ({ theme, open }) => ({
@@ -73,10 +74,17 @@ function PrivateContent() {
   };
 
   return (
+    
     <ThemeProvider theme={mdTheme}>
+      
+      <div className="App">
+          <header className="App-header">
+              <PrivateNavigation />
+          </header>
+      </div>
+
       <Box sx={{ display: 'flex' }}>
         <CssBaseline />
-        
           <Drawer variant="permanent" open={open}>
             <Toolbar
               sx={{

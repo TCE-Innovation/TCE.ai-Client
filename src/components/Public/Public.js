@@ -4,17 +4,16 @@ import { useContext, useEffect, useState } from "react";
 
 //MUI
 import { createTheme, ThemeProvider } from '@mui/material/styles';
-import CssBaseline from '@mui/material/CssBaseline';
 import Box from '@mui/material/Box';
 import { GlobalStyles } from '@mui/material';
 
 
 //COMPONENTS
+import PublicNavigation from "../General/PublicNavigation";
 import IntroText from "../PublicFeatures/IntroText";
 import AboutUs from "../PublicFeatures/AboutUs";
 import TechPartners from "../PublicFeatures/TechPartners";
 import ContactUs from '../PublicFeatures/ContactUs';
-import Copyright from '../General/Copyright';
 
 import backgroundImage from '../../img/city.webp'
 
@@ -25,39 +24,30 @@ const mdTheme = createTheme();
 function PublicContent() {
   const { setPrivateFunctionality } = useContext(PrivateContext);
   const [showAboutUs, setShowAboutUs] = useState(false);
-  const [showTechPartners, setShowTechPartners] = useState(false);
-  const [showContactUs, setShowContactUs] = useState(false);
 
   useEffect(() => {
     setPrivateFunctionality('public');
   }, [setPrivateFunctionality]);
 
   useEffect(() => {
+    const mainContainer = document.getElementById('main-container');
+
     const handleScroll = () => {
-      const scrollY = window.scrollY;
-
+      const scrollPosition = mainContainer.scrollTop;  // Correct property
       const windowHeight = window.innerHeight;
+      console.log(scrollPosition, windowHeight);
 
-      if (scrollY > windowHeight * 0.3) { 
+      if (scrollPosition > windowHeight * 0.3) { 
         setShowAboutUs(true);
-      }
-      if (scrollY > windowHeight * 0.7) {
-        setShowTechPartners(true);
-      }
-      if (scrollY > windowHeight * 0.9) {
-        setShowContactUs(true);
-      }
-
-      if (scrollY === 0) {
+      } else {
         setShowAboutUs(false);
-        setShowTechPartners(false);
-        setShowContactUs(false);
       }
     };
   
-    window.addEventListener('scroll', handleScroll);
-    return () => window.removeEventListener('scroll', handleScroll);
+    mainContainer.addEventListener('scroll', handleScroll);
+    return () => mainContainer.removeEventListener('scroll', handleScroll);
   }, []);
+
   
   return (
     <ThemeProvider theme={mdTheme}>
@@ -70,28 +60,31 @@ function PublicContent() {
             backgroundAttachment: 'fixed',
             backgroundRepeat: 'no-repeat',
           },
+          '#main-container': {
+            scrollSnapType: 'y mandatory', 
+            height: '100vh', 
+            overflowY: 'auto',
+          }
         }}
       />
-      <Box sx={{ display: 'flex' }}>
-        <CssBaseline />
-        <Box component="main" sx={{ flexGrow: 1, p: 3 }}>
-          <Box id="intro-text">
+
+        <Box id='main-container' component="main" sx={{ flexGrow: 1 }}>
+          <div className="App">
+            <header className="App-header">
+                <PublicNavigation />
+            </header>
+          </div>
+
+          <Box id="intro-text"  sx={{ scrollSnapAlign: 'start' }}>
             <IntroText />
           </Box>
-          <Box className={`content ${showAboutUs ? 'fade-in' : ''}`} sx={{mb:5}}>
+
+          <Box className={`content ${showAboutUs ? 'fade-in' : ''}`} sx={{ scrollSnapAlign: 'start'}}>
             <AboutUs />
-          </Box>
-          <Box className={`content ${showTechPartners ? 'fade-in' : ''}`} sx={{mb:5}}>
             <TechPartners />
-          </Box>
-          <Box className={`content ${showContactUs ? 'fade-in' : ''}`} sx={{mb:5}}>
             <ContactUs />
           </Box>
-          <Box>
-            <Copyright />
-          </Box>
         </Box>
-      </Box>
     </ThemeProvider>
   );
 }

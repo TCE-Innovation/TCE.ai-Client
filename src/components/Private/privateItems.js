@@ -47,7 +47,7 @@ const PrivateListItems = (props) => {
                 <ListItemIcon>
                     <InfoIcon />
                 </ListItemIcon>
-                <ListItemText primary="Information"  style={{ width: '150px' }}/>
+                <ListItemText primary="Information"  style={{ width: '130px' }}/>
                     {openInformation ? <ExpandLess /> : <ExpandMore />}
             </ListItemButton>
 
@@ -115,6 +115,8 @@ const PrivateListItems = (props) => {
 
                 </List>
             </Collapse>
+
+
 
 
             <ListItemButton onClick={handleClickOffice}>

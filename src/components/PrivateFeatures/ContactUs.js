@@ -34,12 +34,11 @@ const ContactUs = () => {
         <div className='container'>
             <br />
             <br />
-            <div className="header">IDEA SUBMISSION</div>
-            <br />
+            <div className="private-header">IDEA SUBMISSION</div>
             <br />
             {!isSubmitted ? (
                 <>
-                    <div className="form-prompt">
+                    <div className="private-form-prompt">
                         Have you identified a problem with a process, tool, or system that you work on? Do you have an idea of how to solve it? Or, have you come across an exciting technology that you would like us to explore?
                     </div>
                     <br />

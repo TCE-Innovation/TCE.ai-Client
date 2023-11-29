@@ -11,6 +11,15 @@
     padding-right: 2%;
   }
 
+  .black-container {
+    display: flex;
+    flex-direction: column;
+    background-color: rgba(0, 0, 0, .9);
+    padding-left: 15%;
+    padding-right: 15%;
+    height: 100%
+  }
+
   .content {
     opacity: 0;
     transition: opacity 1s ease-in-out;
@@ -21,7 +30,7 @@
   }
   
   .header {
-    color: #003eab;
+    color: white;
     font-family: "Inter-Bold", Helvetica;
     font-size: 48px;
     font-weight: 700;
@@ -44,7 +53,7 @@
   }
     
   .body {
-    color: #1b365f;
+    color: white;
     font-family: "Inter-Bold", Helvetica;
     font-size: 24px;
     font-weight: 400;
@@ -97,7 +106,7 @@
     bottom: 10px; /* Adjust as needed */
     left: 50%;
     transform: translateX(-50%);
-    color: #1b365f;
+    color: white;
     font-family: "Inter-Bold", Helvetica;
     font-size: 16px;
     font-weight: 700;
@@ -137,3 +146,12 @@
     align-items: center;
   }
 
+  .form-prompt{
+    color: white;
+    font-family: "Inter-Bold", Helvetica;
+    font-size: 20px;
+    font-weight: bold;
+    letter-spacing: 0;
+    line-height: normal;
+    margin-bottom: 10px;
+  }

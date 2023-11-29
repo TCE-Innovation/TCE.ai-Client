@@ -4,10 +4,10 @@ import "./privateStyle.css";
 const Welcome = () => {
   return (
     <div className="container">
-        <div className="header">WELCOME</div>
-        <div className="subheader">TCE Innovation Group Headquarters</div>
+        <div className="private-header">WELCOME</div>
+        <div className="private-subheader">TCE Innovation Group Headquarters</div>
         <br />
-        <p className="body">
+        <p className="private-body">
           The TCE Innovation Group (TCIG) is a multidisciplinary team of engineers, data scientists, and designers passionate 
           about the power of technology to transform the construction industry. Serving New York City's premier infrastructure 
           contractor, we are committed to leveraging technology to help our teams deliver successful projects in the world's most 

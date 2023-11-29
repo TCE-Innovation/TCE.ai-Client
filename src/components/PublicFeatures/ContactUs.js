@@ -53,7 +53,7 @@ const ContactUs = () => {
     const isButtonDisabled = contactMessage.trim() === '' || name.trim() === '' || email.trim() === '' || organization.trim() === '' || phone.trim() === '';
 
     return (
-        <div className='container'>
+        <div className='black-container'>
             <div className="header">CONTACT US</div>
             <br />
             {!isSubmitted ? (
@@ -66,59 +66,86 @@ const ContactUs = () => {
                         <FormControl fullWidth>
                             <Box display="flex" flexDirection="row">
                                 <TextField
-                                id="name"
-                                label="Name"
-                                value={name}
-                                onChange={handleNameInputChange}
-                                aria-describedby="name-helper-text"
-                                sx={{ flex: 1, mr: 1, mb: 1 }}
+                                    id="name"
+                                    label="Name"
+                                    value={name}
+                                    onChange={handleNameInputChange}
+                                    InputLabelProps={{
+                                        style: { color: '#fff' },
+                                    }}
+                                    InputProps={{
+                                        style: { color: '#fff' },
+                                    }}
+                                    sx={{ flex: 1, mr: 1, mb: 1, bgcolor: 'black', borderColor: 'white' }}
                                 />
                                 <TextField
-                                id="email"
-                                label="Email"
-                                value={email}
-                                onChange={handleEmailInputChange}
-                                aria-describedby="email-helper-text"
-                                sx={{ flex: 1, mr: 1, mb: 1 }}
+                                    id="email"
+                                    label="Email"
+                                    value={email}
+                                    onChange={handleEmailInputChange}
+                                    InputLabelProps={{
+                                        style: { color: '#fff' },
+                                    }}
+                                    InputProps={{
+                                        style: { color: '#fff' },
+                                    }}
+                                    sx={{ flex: 1, mr: 1, mb: 1, bgcolor: 'black', borderColor: 'white' }}
                                 />
                                 <TextField
-                                id="phone"
-                                label="Phone"
-                                value={phone}
-                                onChange={handlePhoneInputChange}
-                                aria-describedby="phone-helper-text"
-                                sx={{ flex: 1, mr: 1, mb: 1 }}
+                                    id="phone"
+                                    label="Phone"
+                                    value={phone}
+                                    onChange={handlePhoneInputChange}
+                                    InputLabelProps={{
+                                        style: { color: '#fff' },
+                                    }}
+                                    InputProps={{
+                                        style: { color: '#fff' },
+                                    }}
+                                    sx={{ flex: 1, mr: 1, mb: 1, bgcolor: 'black', borderColor: 'white' }}
                                 />
                                 <TextField
-                                id="organization"
-                                label="Organization"
-                                value={organization}
-                                onChange={handleOrganizationInputChange}
-                                aria-describedby="organization-helper-text"
-                                sx={{ flex: 1, mb: 1 }} 
+                                    id="organization"
+                                    label="Organization"
+                                    value={organization}
+                                    onChange={handleOrganizationInputChange}
+                                    InputLabelProps={{
+                                        style: { color: '#fff' },
+                                    }}
+                                    InputProps={{
+                                        style: { color: '#fff' },
+                                    }}
+                                    sx={{ flex: 1, mb: 1, bgcolor: 'black', borderColor: 'white' }} 
                                 />
                             </Box>
+                            <FormControl fullWidth>
+                                <TextField
+                                    id="contact-message"
+                                    label="Please enter some details about your question or concern"
+                                    multiline
+                                    rows={4}
+                                    value={contactMessage}
+                                    onChange={handleContactMessageInputChange}
+                                    InputLabelProps={{
+                                        style: { color: '#fff' },
+                                    }}
+                                    InputProps={{
+                                        style: { color: '#fff' },
+                                    }}
+                                    sx={{ bgcolor: 'black', borderColor: 'white' }}
+                                />
+                            </FormControl>
+                            <Box display="flex" justifyContent="flex-end" mt={2} mb={3}>
+                                <Button 
+                                    onClick={handleSubmit}
+                                    disabled={isButtonDisabled}
+                                    variant="contained"
+                                    sx={{ color: 'white', bgcolor: 'black', '&:hover': { bgcolor: '#333' } }}
+                                >
+                                    Submit
+                                </Button>
+                            </Box>
                         </FormControl>
-                        <FormControl fullWidth>
-                            <TextField
-                                id="contact-message"
-                                label="Please enter some details about your question or concern"
-                                multiline
-                                rows={4}
-                                value={contactMessage}
-                                onChange={handleContactMessageInputChange}
-                                aria-describedby="contact-message-helper-text"
-                            />
-                        </FormControl>
-                        <Box display="flex" justifyContent="flex-end" mt={2} mb={3}>
-                            <Button 
-                                onClick={handleSubmit}
-                                disabled={isButtonDisabled}
-                                variant="contained"
-                            >
-                                Submit
-                            </Button>
-                        </Box>
                     </div>
                 </>
             ) : (

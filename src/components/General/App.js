@@ -3,7 +3,6 @@ import React, { useState } from 'react';
 import { BrowserRouter as Router, Route, Routes, Navigate } from 'react-router-dom';
 
 //COMPONENTS
-import Navigation from './Navigation';
 import Account from "../Account/Account";
 import Private from "../Private/Private";
 import Public from "../Public/Public";
@@ -21,11 +20,6 @@ function App() {
         <AuthProvider>
             <PrivateContext.Provider value={{ privateFunctionality, setPrivateFunctionality }}>
                 <Router>
-                    <div className="App">
-                        <header className="App-header">
-                            <Navigation />
-                        </header>
-                    </div>
                     <Routes>
 
                         <Route exact path='/' element={<Public />} />
