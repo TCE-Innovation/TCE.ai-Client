@@ -33,7 +33,7 @@ function PublicContent() {
     const mainContainer = document.getElementById('main-container');
 
     const handleScroll = () => {
-      const scrollPosition = mainContainer.scrollTop;  // Correct property
+      const scrollPosition = mainContainer.scrollTop; 
       const windowHeight = window.innerHeight;
       console.log(scrollPosition, windowHeight);
 
