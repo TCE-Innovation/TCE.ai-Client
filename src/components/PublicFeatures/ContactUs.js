@@ -151,10 +151,10 @@ const ContactUs = () => {
                 </>
             ) : (
                 <>
-                    <Box sx={{ textAlign: 'center', mb: 3 }}>
+                    <Box sx={{ textAlign: 'center', mt: 5, mb: 10, color: 'white', fontSize: '24px' }}>
                         Thank you for your submission. A TCIG team member will follow up with you.
                     </Box>
-                    <Button onClick={handleNewSubmission} sx={{mb:3}}>Submit another contact</Button>
+                    <Button onClick={handleNewSubmission} sx={{mb:10}}>Submit another contact</Button>
                 </>
             )}
         </div>
