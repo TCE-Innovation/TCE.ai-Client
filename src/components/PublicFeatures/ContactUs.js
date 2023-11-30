@@ -153,8 +153,9 @@ const ContactUs = () => {
                 <>
                     <Box sx={{ textAlign: 'center', mt: 5, mb: 10, color: 'white', fontSize: '24px' }}>
                         Thank you for your submission. A TCIG team member will follow up with you.
+                        <Button onClick={handleNewSubmission} sx={{ mt: 10, width:1000, fontWeight:'bold' }}>Submit another contact</Button>
                     </Box>
-                    <Button onClick={handleNewSubmission} sx={{mb:10}}>Submit another contact</Button>
+
                 </>
             )}
         </div>
