@@ -69,21 +69,23 @@ const ItemCarousel = () => {
 
     return (
         <div className='black-container'>
-            <div className="carousel-container">
-                <Slider {...settings}>
-                    {cardData.map((card, index) => (
-                        <div key={index} className={`carousel-card ${card.link ? 'has-link' : ''}`}>
-                            {card.link ? (
-                                <a href={card.link} target="_blank" rel="noopener noreferrer">
+            <div className='white-container'>
+                <div className="carousel-container">
+                    <Slider {...settings}>
+                        {cardData.map((card, index) => (
+                            <div key={index} className={`carousel-card ${card.link ? 'has-link' : ''}`}>
+                                {card.link ? (
+                                    <a href={card.link} target="_blank" rel="noopener noreferrer">
+                                        <img src={card.image} alt={card.title} />
+                                        <span className="carousel-card-text">View Case Study</span>
+                                    </a>
+                                ) : (
                                     <img src={card.image} alt={card.title} />
-                                    <span className="carousel-card-text">View Case Study</span>
-                                </a>
-                            ) : (
-                                <img src={card.image} alt={card.title} />
-                            )}
-                        </div>
-                    ))}
-                </Slider>
+                                )}
+                            </div>
+                        ))}
+                    </Slider>
+                </div>
             </div>
         </div>
     );

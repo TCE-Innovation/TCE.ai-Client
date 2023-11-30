@@ -134,7 +134,7 @@ function ResponsiveAppBar() {
                                         '&:hover': { backgroundColor: 'grey', color: 'black' }, fontWeight: 700 
                                     }}
                                 >
-                                    Log In
+                                    Login
                                 </Button>
                             )}
               
@@ -154,7 +154,7 @@ function ResponsiveAppBar() {
                             open={Boolean(anchorElUser)}
                             onClose={handleCloseUserMenu}
                         >
-
+                            
                             {accSettings.map((setting) => (
                                 <MenuItem key={setting} onClick={handleCloseUserMenu}>
                                     {setting === "Home" && (

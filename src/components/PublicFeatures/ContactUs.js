@@ -54,6 +54,7 @@ const ContactUs = () => {
 
     return (
         <div className='black-container'>
+            <br /><br />
             <div className="header">CONTACT US</div>
             <br />
             {!isSubmitted ? (

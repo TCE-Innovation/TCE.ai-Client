@@ -16,7 +16,7 @@ const AboutUs = () => {
             software and hardware solutions, focusing our efforts across the business from project management and field execution 
             to business development, procurement, and operations.  
           </p>
-        <br />
+          <br />
       </div>
   );
 };

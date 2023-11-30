@@ -20,6 +20,17 @@
     height: 100%
   }
 
+  .white-container {
+    display: flex;
+    flex-direction: column;
+    background-color: rgba(255, 255, 255, .6);
+    padding-left: 5%;
+    padding-right: 5%;
+    height: 100%;
+    border: 5px solid #FFCF00;
+    border-radius: 40px;
+  }
+
   .content {
     opacity: 0;
     transition: opacity 1s ease-in-out;
@@ -106,7 +117,7 @@
     bottom: 10px; /* Adjust as needed */
     left: 50%;
     transform: translateX(-50%);
-    color: white;
+    color: #1b365f;
     font-family: "Inter-Bold", Helvetica;
     font-size: 16px;
     font-weight: 700;
