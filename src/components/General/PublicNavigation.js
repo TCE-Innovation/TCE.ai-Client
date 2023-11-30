@@ -66,8 +66,9 @@ function ResponsiveAppBar() {
     
         const handleScroll = () => {
             const scrollPosition = mainContainer.scrollTop;
+            const viewportHeight = window.innerHeight;
     
-            if (scrollPosition > 1000) {
+            if (scrollPosition > viewportHeight) { // Equivalent to 1 viewport height
                 setCurrentLogo(whiteLogo); 
                 setToolBoxColor({color: 'white'});
                 setLoginColor({backgroundColor: 'white', textColor: 'black'});
@@ -80,21 +81,20 @@ function ResponsiveAppBar() {
     
         mainContainer.addEventListener('scroll', handleScroll);
         return () => mainContainer.removeEventListener('scroll', handleScroll);
-        
+    
     }, []);
     
-
     return (
         <>
         <AppBar position="fixed" elevation={0} sx={{background: 'none', height: '90px'}}>
                 <Toolbar disableGutters>
-                    <Box sx={{ display: 'flex', alignItems: 'center'}}>       
+                    <Box sx={{ display: 'flex', alignItems: 'center' }}>       
                         <NavLink to="/">
                             <img
                                 src={currentLogo}
                                 alt='logo'
                                 style={{
-                                    width: '180px',
+                                    width: '90%',
                                     marginLeft: '35px',
                                     marginTop: '25px'
                                 }}
@@ -154,7 +154,7 @@ function ResponsiveAppBar() {
                             open={Boolean(anchorElUser)}
                             onClose={handleCloseUserMenu}
                         >
-                            
+
                             {accSettings.map((setting) => (
                                 <MenuItem key={setting} onClick={handleCloseUserMenu}>
                                     {setting === "Home" && (
