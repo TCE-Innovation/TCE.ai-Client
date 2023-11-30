@@ -53,7 +53,6 @@ const ContactUs = () => {
     const isButtonDisabled = contactMessage.trim() === '' || name.trim() === '' || email.trim() === '' || organization.trim() === '' || phone.trim() === '';
 
     return (
-        <div className='full-window-component'>
         <div className='black-container'>
             <br /><br />
             <div className="header">CONTACT US</div>
@@ -159,7 +158,6 @@ const ContactUs = () => {
 
                 </>
             )}
-        </div>
         </div>
     );
 };

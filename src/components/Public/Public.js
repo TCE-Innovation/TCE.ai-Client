@@ -82,8 +82,6 @@ function PublicContent() {
           <Box className={`content ${showAboutUs ? 'fade-in' : ''}`} sx={{ scrollSnapAlign: 'start'}}>
             <AboutUs />
             <TechPartners />
-          </Box>
-          <Box className={`content ${showAboutUs ? 'fade-in' : ''}`} sx={{ scrollSnapAlign: 'start'}}>
             <ContactUs />
           </Box>
         </Box>
