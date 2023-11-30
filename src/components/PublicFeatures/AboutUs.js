@@ -3,6 +3,7 @@ import "./style.css";
 
 const AboutUs = () => {
   return (
+    <div className="about-us-container">
       <div className="black-container">
         <br /><br />
           <div className="header">ABOUT US</div>
@@ -18,6 +19,7 @@ const AboutUs = () => {
           </p>
           <br />
       </div>
+    </div>
   );
 };
 

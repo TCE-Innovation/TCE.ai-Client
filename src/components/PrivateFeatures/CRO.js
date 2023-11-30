@@ -104,8 +104,6 @@ const CRO = () => {
                         accept=".xlsx, .xls"
                         onChange={(e) => setPullsheet(e.target.files[0])}
                     />
-
-                    
                     <Typography variant="body2" mb={4} mt={5}fontSize="18px">
                         NOTE: This tool defaults to using cable sizes and weights from cut sheets that may be different from the cut sheets for your job. Before using this tool, verify that the cable parameters (diameter for conduits, diameter and weight for messenger bundles) in the Cable Sizes.xlsx file match the parameters from your cable cut sheets.  
                         If they are different, you must upload an Excel file with your cable parameters in addition to your cable pull sheet. The Excel must follow the same format as the&nbsp;                      

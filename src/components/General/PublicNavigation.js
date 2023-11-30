@@ -88,13 +88,13 @@ function ResponsiveAppBar() {
         <>
         <AppBar position="fixed" elevation={0} sx={{background: 'none', height: '90px'}}>
                 <Toolbar disableGutters>
-                    <Box sx={{ display: 'flex', alignItems: 'center' }}>       
+                    <Box sx={{ display: 'flex', alignItems: 'center'}}>       
                         <NavLink to="/">
                             <img
                                 src={currentLogo}
                                 alt='logo'
                                 style={{
-                                    width: '90%',
+                                    width: '180px',
                                     marginLeft: '35px',
                                     marginTop: '25px'
                                 }}

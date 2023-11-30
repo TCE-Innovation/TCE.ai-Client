@@ -23,7 +23,7 @@
   .white-container {
     display: flex;
     flex-direction: column;
-    background-color: rgba(255, 255, 255, .8);
+    background-color: rgba(255, 255, 255, .65);
     padding-left: 5%;
     padding-right: 5%;
     height: 100%;
@@ -164,4 +164,12 @@
     letter-spacing: 0;
     line-height: normal;
     margin-bottom: 10px;
+  }
+
+  .about-us-container{
+    height: 80vh;
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
   }

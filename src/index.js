@@ -13,6 +13,7 @@ import App from './components/General/App';
 import { PublicClientApplication } from '@azure/msal-browser';
 import { MsalProvider } from '@azure/msal-react';
 import { msalConfig } from './authentication/authConfig';
+import { MantineProvider } from '@mantine/core';
 
 const msalInstance = new PublicClientApplication(msalConfig);
 const root = createRoot(document.getElementById('root'));
@@ -23,6 +24,8 @@ if (window.location.hash !== ''){
 else {
 root.render(
     <MsalProvider instance={msalInstance}>
+      <MantineProvider>
         <App />
+      </MantineProvider>
     </MsalProvider>
 )};
