@@ -12,7 +12,6 @@ import { GlobalStyles } from '@mui/material';
 import PublicNavigation from "../General/PublicNavigation";
 import IntroText from "../PublicFeatures/IntroText";
 import AboutUs from "../PublicFeatures/AboutUs";
-import TechPartners from "../PublicFeatures/TechPartners";
 import ContactUs from '../PublicFeatures/ContactUs';
 
 import backgroundImage from '../../img/city.webp'
@@ -35,7 +34,6 @@ function PublicContent() {
     const handleScroll = () => {
       const scrollPosition = mainContainer.scrollTop; 
       const windowHeight = window.innerHeight;
-      console.log(scrollPosition, windowHeight);
 
       if (scrollPosition > windowHeight * 0.3) { 
         setShowAboutUs(true);
@@ -79,9 +77,10 @@ function PublicContent() {
             <IntroText />
           </Box>
 
-          <Box className={`content ${showAboutUs ? 'fade-in' : ''}`} sx={{ scrollSnapAlign: 'start'}}>
+          <Box className={`content ${showAboutUs ? 'fade-in' : ''}`} sx={{ scrollSnapAlign: 'start' }}>
             <AboutUs />
-            <TechPartners />
+          </Box>
+          <Box className={`content ${showAboutUs ? 'fade-in' : ''}`} sx={{ scrollSnapAlign: 'start' }}>
             <ContactUs />
           </Box>
         </Box>

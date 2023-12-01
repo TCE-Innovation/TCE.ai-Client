@@ -1,8 +1,11 @@
 import React from "react";
 import "./style.css";
 
+import TechPartners from "../PublicFeatures/TechPartners";
+
 const AboutUs = () => {
   return (
+    <div className="full-window-component">
       <div className="black-container">
         <br /><br />
           <div className="header">ABOUT US</div>
@@ -18,6 +21,8 @@ const AboutUs = () => {
           </p>
           <br />
       </div>
+        <TechPartners />
+    </div>
   );
 };
 
