@@ -130,7 +130,7 @@ function ResponsiveAppBar() {
                                     fullWidth
                                     size="large"
                                     onClick={MicrosoftSignIn}
-                                    sx={{ mr: 2, color: loginColor.textColor, borderColor: 'black', backgroundColor: loginColor.backgroundColor, 
+                                    sx={{ color: loginColor.textColor, borderColor: 'black', backgroundColor: loginColor.backgroundColor, 
                                         '&:hover': { backgroundColor: 'grey', color: 'black' }, fontWeight: 700 
                                     }}
                                 >

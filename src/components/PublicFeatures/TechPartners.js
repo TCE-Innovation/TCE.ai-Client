@@ -26,6 +26,7 @@ const ItemCarousel = () => {
         autoplay: true,
         autoplaySpeed: 3000,
         cssEase: "linear",
+        draggable: false,
     };
 
     const cardData = [
@@ -69,23 +70,22 @@ const ItemCarousel = () => {
 
     return (
         <div className='black-container'>
-            <div className='white-container'>
-                <div className="carousel-container">
-                    <Slider {...settings}>
-                        {cardData.map((card, index) => (
-                            <div key={index} className={`carousel-card ${card.link ? 'has-link' : ''}`}>
-                                {card.link ? (
-                                    <a href={card.link} target="_blank" rel="noopener noreferrer">
-                                        <img src={card.image} alt={card.title} />
-                                        <span className="carousel-card-text">View Case Study</span>
-                                    </a>
-                                ) : (
+            <div className="carousel-container">
+            <div className="tech-partners-desc">Proud Partners</div>
+                <Slider {...settings}>
+                    {cardData.map((card, index) => (
+                        <div key={index} className={`carousel-card ${card.link ? 'has-link' : ''}`}>
+                            {card.link ? (
+                                <a href={card.link} target="_blank" rel="noopener noreferrer">
                                     <img src={card.image} alt={card.title} />
-                                )}
-                            </div>
-                        ))}
-                    </Slider>
-                </div>
+                                    <span className="carousel-card-text">View Case Study</span>
+                                </a>
+                            ) : (
+                                <img src={card.image} alt={card.title} />
+                            )}
+                        </div>
+                    ))}
+                </Slider>
             </div>
         </div>
     );
