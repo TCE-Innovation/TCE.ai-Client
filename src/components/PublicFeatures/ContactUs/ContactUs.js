@@ -186,10 +186,11 @@ const ContactUs = () => {
                     <div className="form-container">
                         <Box sx={styles.box}>
                             Thank you for your submission. A TCIG team member will follow up with you.
+                            <br />
                             <Button 
                                 onClick={handleNewSubmission} 
                                 variant="outlined" 
-                                sx={{ mt: 10, fontWeight:'bold', color: "white" }}
+                                sx={{ mt: 5, fontWeight:'bold', color: "white" }}
                             >
                                 Submit another contact
                             </Button>
