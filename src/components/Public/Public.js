@@ -12,7 +12,7 @@ import { GlobalStyles } from '@mui/material';
 import PublicNavigation from "../General/PublicNavigation";
 import IntroText from "../PublicFeatures/IntroText";
 import AboutUs from "../PublicFeatures/AboutUs";
-import ContactUs from '../PublicFeatures/ContactUs';
+import ContactUs from '../PublicFeatures/ContactUs/ContactUs';
 
 import backgroundImage from '../../img/city.webp'
 

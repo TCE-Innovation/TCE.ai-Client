@@ -5,8 +5,11 @@
   "dependencies": {
     "@azure/msal-browser": "^3.1.0",
     "@azure/msal-react": "^2.0.3",
+    "@craco/craco": "^7.1.0",
     "@emotion/react": "^11.10.6",
     "@emotion/styled": "^11.10.6",
+    "@headlessui/react": "^1.7.17",
+    "@heroicons/react": "^2.0.18",
     "@mantine/core": "^7.2.2",
     "@mantine/dropzone": "^7.2.2",
     "@mui/icons-material": "^5.11.16",
@@ -18,14 +21,17 @@
     "@testing-library/react": "^13.4.0",
     "@testing-library/user-event": "^13.5.0",
     "airtable": "^0.12.2",
+    "autoprefixer": "^10.4.16",
     "axios": "^1.4.0",
     "bootstrap": "^5.2.3",
     "fs": "^0.0.1-security",
     "openai": "^3.2.1",
     "pdf-parse": "^1.1.1",
+    "postcss": "^8.4.31",
     "react": "^18.2.0",
     "react-dom": "^18.2.0",
     "react-google-button": "^0.7.2",
+    "react-hook-form": "^7.48.2",
     "react-icons": "^4.9.0",
     "react-iframe": "^1.8.5",
     "react-magic-motion": "^1.0.9",
@@ -41,9 +47,9 @@
     "web-vitals": "^2.1.4"
   },
   "scripts": {
-    "start": "react-scripts start",
-    "build": "react-scripts build",
-    "test": "react-scripts test",
+    "start": "craco start",
+    "build": "craco build",
+    "test": "craco test",
     "eject": "react-scripts eject"
   },
   "eslintConfig": {
@@ -65,6 +71,7 @@
     ]
   },
   "devDependencies": {
-    "@babel/plugin-proposal-private-property-in-object": "^7.21.11"
+    "@babel/plugin-proposal-private-property-in-object": "^7.21.11",
+    "tailwindcss": "^3.3.5"
   }
 }

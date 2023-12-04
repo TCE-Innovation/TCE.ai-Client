@@ -21,15 +21,31 @@
     width:100%
   }
 
+  .container-contact-us{
+    display: flex;
+    flex-direction: row;
+    height: 45%;
+    width:100%;
+    margin-top: 10%;
+    align-items: center;
+  }
+
   .white-container {
     display: flex;
     flex-direction: column;
     background-color: rgba(255, 255, 255, .65);
     padding-left: 5%;
     padding-right: 5%;
-
     width: 100%;
     border: 5px solid #FFCF00;
+    border-radius: 40px;
+  }
+
+  .form-container {
+    padding: 3%;
+    width: 100%;
+    background-color: none;
+    
     border-radius: 40px;
   }
 
@@ -167,6 +183,7 @@
     letter-spacing: 0;
     line-height: normal;
     margin-bottom: 10px;
+    text-align: center;
   }
 
   .about-us-container{
