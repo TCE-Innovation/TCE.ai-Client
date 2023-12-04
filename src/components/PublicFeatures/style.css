@@ -87,18 +87,20 @@
   }
 
   .big-text{
-    width: 65%;
+    width: 70%;
     font-family: "Inter-Bold", Helvetica;
-    font-size: 50px;
+    font-size: 90px;
     margin-bottom: 20px;
     color: white;
+    margin-bottom: 60px
   }
 
   .small-text{
     width: 100%;
     font-family: "Inter-Bold", Helvetica;
     font-size: 26px;
-    color: white
+    color: white;
+    margin-bottom: 60px
   }
 
   .about-us-header{
