@@ -33,8 +33,6 @@
   .form-container {
     padding: 3%;
     width: 100%;
-    background-color: none;
-    border-radius: 40px;
   }
 
   .content {
@@ -48,7 +46,7 @@
   
   .header {
     color: white;
-    font-family: "Inter-Bold", Helvetica;
+    font-family: Helvetica;
     font-size: 48px;
     font-weight: 700;
     letter-spacing: 0;
@@ -60,7 +58,7 @@
   .subheader {
     margin-top: 15px; 
     color: #003eab;
-    font-family: "Inter-Bold", Helvetica;
+    font-family: Helvetica;
     font-size: 30px;
     font-weight: 700;
     font-style: italic;
@@ -71,7 +69,7 @@
     
   .body {
     color: white;
-    font-family: "Inter-Bold", Helvetica;
+    font-family: Helvetica;
     font-size: 24px;
     font-weight: 400;
     letter-spacing: 0;
@@ -87,7 +85,7 @@
 
   .big-text{
     width: 70%;
-    font-family: "Inter-Bold", Helvetica;
+    font-family: Helvetica;
     font-size: 90px;
     margin-bottom: 20px;
     color: white;
@@ -96,7 +94,7 @@
 
   .small-text{
     width: 100%;
-    font-family: "Inter-Bold", Helvetica;
+    font-family: Helvetica;
     font-size: 26px;
     color: white;
     margin-bottom: 60px
@@ -104,7 +102,7 @@
 
   .about-us-header{
     width: 10%;
-    font-family: "Inter-Bold", Helvetica;
+    font-family: Helvetica;
     font-size: 60px;
     color: rgb(70, 69, 69);
     margin-top: 10%;
@@ -113,7 +111,7 @@
 
   .tech-partners-desc{
     width: 100%;
-    font-family: "Inter-Bold", Helvetica;
+    font-family: Helvetica;
     font-size: 20px;
     color: white;
     text-align: center; 
@@ -121,7 +119,7 @@
     
   .bold-body {
     color: #1b365f;
-    font-family: "Inter-Bold", Helvetica;
+    font-family: Helvetica;
     font-size: 24px;
     font-weight: 700;
     letter-spacing: 0;
@@ -166,7 +164,7 @@
     left: 50%;
     transform: translateX(-50%);
     color: white;
-    font-family: "Inter-Bold", Helvetica;
+    font-family: Helvetica;
     font-size: 16px;
     font-weight: 700;
     padding: 5px 10px;
@@ -184,10 +182,11 @@
 
   .overlay-text {
     color: white;  
-    font-size: 5rem; 
+    font-size: 6rem; 
+    font-family: Helvetica;
     text-align: center; 
-    text-shadow: 8px 8px 10px rgba(0, 0, 0); 
-    font-weight: bold; 
+    text-shadow: 8px 8px 10px rgb(2, 2, 2); 
+    font-weight: 700;
     width: 100%; 
     padding: 0 2rem; 
     opacity: 0; 
@@ -208,9 +207,8 @@
 
   .form-prompt{
     color: white;
-    font-family: "Inter-Bold", Helvetica;
+    font-family: Helvetica;
     font-size: 20px;
-    font-weight: bold;
     letter-spacing: 0;
     line-height: normal;
     margin-bottom: 10px;

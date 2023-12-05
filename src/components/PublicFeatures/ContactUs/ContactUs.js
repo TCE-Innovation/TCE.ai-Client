@@ -31,6 +31,7 @@ const useStyles = () => ({
       },
       '&.Mui-disabled': {
         backgroundColor: 'none', 
+        borderColor: '#666666',
         color: '#666666',           
       },
     },
@@ -99,7 +100,6 @@ const ContactUs = () => {
         <div className="full-window-component">
             <div className='black-container'>
                 <br /><br />
-                <div className="header">CONTACT US</div>
                 <br />
                 <div className='container-contact-us'>
                     <ContactImage />

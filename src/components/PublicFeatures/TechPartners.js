@@ -71,7 +71,7 @@ const ItemCarousel = () => {
     return (
         <div className='black-container'>
             <div className="carousel-container">
-            <div className="tech-partners-desc">Proud Partners</div>
+            <div className="tech-partners-desc">Proud to Partner with Leaders in Construction Technology</div>
                 <Slider {...settings}>
                     {cardData.map((card, index) => (
                         <div key={index} className={`carousel-card ${card.link ? 'has-link' : ''}`}>
