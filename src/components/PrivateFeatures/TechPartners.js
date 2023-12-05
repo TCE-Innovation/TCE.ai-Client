@@ -11,6 +11,8 @@ import Matterport from "../../img/PartnerImages/Matterport.png";
 import Oracle from "../../img/PartnerImages/Oracle.png";
 
 import IconButton from '@mui/material/IconButton';
+import EmailIcon from '@mui/icons-material/Email';
+
 import KeyboardArrowDownIcon from '@mui/icons-material/KeyboardArrowDown';
 import KeyboardArrowUpIcon from '@mui/icons-material/KeyboardArrowUp';
 
@@ -165,7 +167,10 @@ const TechPartners = () => {
                 <div className="expanded-card-body">
                   <p className="extra-text">{partner.extraText}</p>
                   <p className="contact-text">
-                    Point of Contact: <a href={`mailto:${partner.contactEmail}`} onClick={handleInsideCardClick}>{partner.contactName}</a>
+                    Point of Contact: {partner.contactName} 
+                    <a href={`mailto:${partner.contactEmail}`} onClick={handleInsideCardClick}>
+                      <EmailIcon style={{ marginLeft: '5px', marginBottom: "1px", cursor: 'pointer', color: "gray"}} />
+                    </a>
                   </p>
                 </div>
               </div>
