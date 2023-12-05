@@ -13,7 +13,7 @@ const AboutUs = () => {
         <div className="about-us-body">
           <div className="big-text">
             <p>
-              Our mission is simple: <br />to find a better way.
+              Our mission is simple: <br />to find a better way
             </p>
           </div>
         </div>

@@ -10,23 +10,15 @@ const useStyles = () => ({
     input: {
         color: 'black',
         backgroundColor: 'white',
-        borderColor: 'white',
         '&:hover': {
           backgroundColor: 'white',
         },
         '& label.Mui-focused': {
           color: 'black',
         },
-        '& .MuiOutlinedInput-root': {
-          '& fieldset': {
-            borderColor: 'black',
-          },
-          '&.Mui-focused fieldset': {
-            borderColor: 'black',
-          },
-        },
         margin: 1,
       },
+
     button: {
       color: 'white',
       borderColor: 'white',
@@ -42,6 +34,7 @@ const useStyles = () => ({
         color: '#666666',           
       },
     },
+    
     box: {
       textAlign: 'center',
       mt: 5,
