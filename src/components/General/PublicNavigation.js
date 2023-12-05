@@ -40,7 +40,7 @@ function ResponsiveAppBar() {
     const [anchorElUser, setAnchorElUser] = useState(null);
     const [currentLogo, setCurrentLogo] = useState(logo);
     const [toolBoxColor, setToolBoxColor] = useState({ color: '#1b365f' });
-    const [loginColor, setLoginColor] = useState({ backgroundColor: '#1b365f', textColor: 'white' });
+    const [loginColor, setLoginColor] = useState({ textColor: 'white', borderColor: 'white', backgroundColor: 'none' });
 
     //hooks
     const navigate = useNavigate();
@@ -68,14 +68,14 @@ function ResponsiveAppBar() {
             const scrollPosition = mainContainer.scrollTop;
             const viewportHeight = window.innerHeight;
     
-            if (scrollPosition > viewportHeight) { // Equivalent to 1 viewport height
+            if (scrollPosition > viewportHeight) { 
                 setCurrentLogo(whiteLogo); 
                 setToolBoxColor({color: 'white'});
-                setLoginColor({backgroundColor: 'white', textColor: 'black'});
+                setLoginColor({ textColor: 'white', borderColor: 'white'});
             } else {
                 setCurrentLogo(logo); 
                 setToolBoxColor({color: '#1b365f'});
-                setLoginColor({backgroundColor: '#1b365f', textColor: 'white'});
+                setLoginColor({ textColor: '#1b365f'});
             }
         };
     
@@ -102,7 +102,7 @@ function ResponsiveAppBar() {
                             />
                         </NavLink>
                     </Box>
-                    <Box sx={{ display: 'flex', marginTop: '10px', marginLeft: '81%' }}>           
+                    <Box sx={{ display: 'flex', marginTop: '10px', marginLeft: '80%' }}>           
                             {isAuthenticated ? (
                                 <>
                                     <IconButton onClick={() => {
@@ -130,8 +130,8 @@ function ResponsiveAppBar() {
                                     fullWidth
                                     size="large"
                                     onClick={MicrosoftSignIn}
-                                    sx={{ color: loginColor.textColor, borderColor: 'black', backgroundColor: loginColor.backgroundColor, 
-                                        '&:hover': { backgroundColor: 'grey', color: 'black' }, fontWeight: 700 
+                                    sx={{ color: loginColor.textColor, borderColor: loginColor.borderColor, backgroundColor: loginColor.backgroundColor, 
+                                        '&:hover': { borderWidth: '3px', fontWeight: 700 }, fontWeight: 500, borderRadius: '50px', width: '120px', borderWidth: '2px'
                                     }}
                                 >
                                     Login

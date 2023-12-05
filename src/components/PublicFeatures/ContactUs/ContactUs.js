@@ -28,16 +28,18 @@ const useStyles = () => ({
         margin: 1,
       },
     button: {
-      color: 'black',
-      fontWeight: 'bold',
+      color: 'white',
+      borderColor: 'white',
+      borderRadius: '20px',
+      fontWeight: 500,
       marginRight: 1,
-      backgroundColor: 'white',
+      backgroundColor: 'none',
       '&:hover': {
-        backgroundColor: 'white',
+        backgroundColor: 'none',
       },
       '&.Mui-disabled': {
-        backgroundColor: 'gray', // Color for the disabled state
-        color: '#666666',           // Text color for the disabled state (optional)
+        backgroundColor: 'gray', 
+        color: '#666666',           
       },
     },
     box: {
@@ -172,7 +174,7 @@ const ContactUs = () => {
                                     <Button 
                                         onClick={handleSubmit}
                                         disabled={isButtonDisabled}
-                                        variant="contained"
+                                        variant="outlined"
                                         endIcon={<SendIcon />} 
                                         sx={styles.button}
                                     >
