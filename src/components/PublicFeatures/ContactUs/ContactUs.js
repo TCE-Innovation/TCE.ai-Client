@@ -38,7 +38,7 @@ const useStyles = () => ({
         backgroundColor: 'none',
       },
       '&.Mui-disabled': {
-        backgroundColor: 'gray', 
+        backgroundColor: 'none', 
         color: '#666666',           
       },
     },
