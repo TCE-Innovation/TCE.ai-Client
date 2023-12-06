@@ -9,6 +9,7 @@ import Grid from "@mui/material/Grid";
 //COMPONENTS
 import Copyright from '../General/Copyright';
 import { LogOutButton } from "./LogOut/LogOutButton";
+import PrivateNavigation from "../General/PrivateNavigation";
 
 //AUTH
 import { AuthContext } from "../../authentication/Auth";
@@ -47,7 +48,12 @@ function AccountCard() {
       }, [setPrivateFunctionality]); 
 
     return (
+
         <React.Fragment>
+            <header className="App-header">
+                <PrivateNavigation />
+            </header>
+
             <CardContent>
                 <Grid
                     container

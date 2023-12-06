@@ -7,14 +7,19 @@ const DotNav = ({ sections, currentSection, onDotClick }) => {
     <Box sx={{ position: 'fixed', right: 16, top: '50%', transform: 'translateY(-50%)', zIndex: 1000, display: 'flex', flexDirection: "column", marginRight: "80px" }}>
       {sections.map((section, index) => (
         <IconButton 
-          key={section} 
-          onClick={() => onDotClick(section)}
-          sx={{
-            color: currentSection === section ? '#FFCF00' : 'grey.400',
-            '&:not(:last-child)': { mb: 1 }
-          }}
-        >
-          <div style={{ width: 12, height: 12, borderRadius: '50%', background: 'currentColor' }} />
+            key={section} 
+            onClick={() => onDotClick(section)}
+            sx={{
+                '&:not(:last-child)': { mb: 1 }
+            }}
+            >
+            <div style={{ 
+                width: 12, 
+                height: 12, 
+                borderRadius: '50%', 
+                backgroundColor: currentSection === section ? '#FFCF00' : 'transparent',
+                border: currentSection === section ? 'none' : '2px solid white' 
+            }} />
         </IconButton>
       ))}
     </Box>
