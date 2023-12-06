@@ -13,6 +13,7 @@ import PublicNavigation from "../General/PublicNavigation";
 import IntroText from "../PublicFeatures/IntroText";
 import AboutUs from "../PublicFeatures/AboutUs";
 import ContactUs from '../PublicFeatures/ContactUs/ContactUs';
+import DotNav from '../General/DotNav';
 
 import backgroundImage from '../../img/city.webp'
 
@@ -23,6 +24,16 @@ const mdTheme = createTheme();
 function PublicContent() {
   const { setPrivateFunctionality } = useContext(PrivateContext);
   const [showAboutUs, setShowAboutUs] = useState(false);
+
+  
+  const sections = ['intro-text', 'about-us', 'contact-us'];
+  const [currentSection, setCurrentSection] = useState(sections[0]);
+
+  const handleDotClick = (section) => {
+    const sectionElement = document.getElementById(section);
+    sectionElement.scrollIntoView({ behavior: 'smooth' });
+    setCurrentSection(section);
+  };
 
   useEffect(() => {
     setPrivateFunctionality('public');
@@ -40,8 +51,18 @@ function PublicContent() {
       } else {
         setShowAboutUs(false);
       }
+
+      const aboutUsSection = document.getElementById('about-us');
+      const contactUsSection = document.getElementById('contact-us');
+      if (mainContainer.scrollTop >= contactUsSection.offsetTop) {
+        setCurrentSection('contact-us');
+      } else if (mainContainer.scrollTop >= aboutUsSection.offsetTop) {
+        setCurrentSection('about-us');
+      } else {
+        setCurrentSection('intro-text');
+      }
     };
-  
+
     mainContainer.addEventListener('scroll', handleScroll);
     return () => mainContainer.removeEventListener('scroll', handleScroll);
   }, []);
@@ -73,16 +94,16 @@ function PublicContent() {
             </header>
           </div>
 
-          <Box id="intro-text"  sx={{ scrollSnapAlign: 'start' }}>
+          <Box id="intro-text" sx={{ scrollSnapAlign: 'start' }}>
             <IntroText />
           </Box>
-
-          <Box className={`content ${showAboutUs ? 'fade-in' : ''}`} sx={{ scrollSnapAlign: 'start' }}>
+          <Box id="about-us" className={`content ${showAboutUs ? 'fade-in' : ''}`} sx={{ scrollSnapAlign: 'start' }}>
             <AboutUs />
           </Box>
-          <Box className={`content ${showAboutUs ? 'fade-in' : ''}`} sx={{ scrollSnapAlign: 'start' }}>
+          <Box id="contact-us" className={`content ${showAboutUs ? 'fade-in' : ''}`} sx={{ scrollSnapAlign: 'start' }}>
             <ContactUs />
           </Box>
+          <DotNav sections={sections} currentSection={currentSection} onDotClick={handleDotClick} />
         </Box>
     </ThemeProvider>
   );
