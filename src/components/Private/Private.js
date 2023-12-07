@@ -107,7 +107,7 @@ function PrivateContent() {
             </List>
           </Drawer>
         
-        <Box component="main" sx={{ marginTop: 5, flexGrow: 1, p: 3, ml: open ? 30 : 9, width: '100%' }}>
+        <Box component="main" sx={{ marginTop: 5, flexGrow: 1, p: 3, ml: open ? 30 : 9, width: '70%' }}>
           {privateFunctionality === 'tech' && <TechPartners />}
           {privateFunctionality === 'privateHome' && <PrivateHome />}
           {privateFunctionality === 'generateEmails' && <GenerateEmails />}

@@ -132,7 +132,6 @@
   }
   
   .carousel-card {
-    width: 300px; 
     height: 100%; 
     overflow: hidden;
     display: flex;

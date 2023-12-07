@@ -1,0 +1,44 @@
+  .carouselContainer {
+    width: 100%;
+    margin-top: 30px;
+    padding-left: 80px;
+    padding-right: 80px;
+  }
+  
+  .carouselCard {
+    display: flex;
+    padding-left: 80px;
+    padding-right: 80px;
+  }
+  
+  .carouselCard img {
+    height: 200px;
+  }
+
+  .cardTitle {
+    position: relative;
+    top: 0;
+    left: 0;
+    width: 100%;
+    color: black;
+    font-weight: bold;
+    font-size: 18px;
+    text-align: center;
+    margin-top: 15px;
+  }
+
+  .descriptionContainer{
+    height: 100px; /* Adjust this height to the size of your expected description */
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    padding: 20px;
+  }
+
+  .descriptionText{
+    font-size: 20px;
+    text-align: center;
+    margin-top: 20px;
+  }
