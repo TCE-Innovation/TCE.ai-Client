@@ -9,11 +9,17 @@
     display: flex;
     padding-left: 80px;
     padding-right: 80px;
+    padding-top: 20px;
   }
   
   .carouselCard img {
     height: 200px;
+    transition: transform 0.3s ease;
   }
+
+  .carouselCard:hover img {
+    transform: scale(1.15);
+}
 
   .cardTitle {
     position: relative;
