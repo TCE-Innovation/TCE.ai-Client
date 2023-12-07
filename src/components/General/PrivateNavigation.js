@@ -102,7 +102,7 @@ function ResponsiveAppBar() {
                         sx={{
                             marginTop: '10px',
                             flexGrow: 1,
-                            fontfamily: "Helvetica",
+                            fontfamily: "Roboto",
                             fontWeight: 'bold',
                             letterSpacing: '.1rem',
                             color: 'white',
