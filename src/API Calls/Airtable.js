@@ -81,3 +81,29 @@ export async function sendPublicFormData(name, email, organization, phone, conta
         console.error(error);
     }
 }
+
+//INCOMPLETE
+//function to send asset form data to airtable base
+export async function sendAssetFormData(name, email, item, project, reason, dateNeeded, dateReturn) {
+    const tableId = 'tbluSgQoYoS7rTbKg';
+    const baseId = 'apphQBuS3DFnPYMFm'
+    var base = new Airtable({apiKey: 'patlr5uHzCsVA5n44.60e06f59a3a49f3b492a501adf24fe2800073534a140500c2e28c9ff355dabef'}).base(baseId);
+    try {
+        //create record in Airtable
+        await base(tableId).create([
+            {
+                "fields": {
+                    "Item Needed": item,
+                    "Reason": reason,
+                    "Project": project,
+                    "Name": name,
+                    "Date Needed": dateNeeded,
+                    "Return Date": dateReturn,
+                    "Email Address": email,
+                }
+            }
+        ]);
+    } catch (error) {
+        console.error(error);
+    }
+}

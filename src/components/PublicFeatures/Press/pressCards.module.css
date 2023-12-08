@@ -1,0 +1,46 @@
+.mainContainer {
+    margin-top: 8rem;
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: center;
+    padding: 2rem 0;
+    flex-wrap: wrap; /* Adjusts the layout for smaller screens */
+}
+
+.cardContainer {
+    width: 25rem;
+    height: 17rem;
+    margin: 20px;
+    padding: 25px;
+    border-radius: 25px;
+    align-items: center; 
+    justify-content: center;
+    flex-grow: 0;
+    flex-shrink: 0;
+    transition: transform 0.3s ease; 
+}
+
+.cardContainer:hover {
+    transform: scale(1.1); /* Scale up the card */
+}
+
+.cardTitle {
+    margin-top: 20px;
+    font-size: 1.5rem;
+    font-weight: bold;
+    line-height: tighter;
+    color: #1f2937;
+}
+
+.cardText {
+    margin-top: 20px;
+    font-weight: normal;
+    color: #4b5563;
+}
+
+.cardLink {
+    font-weight: bold;
+    color: #1f2937;
+    text-decoration: none;
+}

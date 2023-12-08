@@ -1,4 +1,4 @@
-import "./style.css";
+import "../style.css";
 
 //REACT
 import React from 'react';
@@ -7,16 +7,16 @@ import "slick-carousel/slick/slick.css";
 import "slick-carousel/slick/slick-theme.css";
 
 //IMAGES
-import ProCore from "../../img/PartnerImages/ProCore.png";
-import Airtable from "../../img/PartnerImages/Airtable.png";
-import FieldWire from "../../img/PartnerImages/FieldWire.png";
-import Bridgit from "../../img/PartnerImages/Bridgit.png";
-import OpenSpace from "../../img/PartnerImages/OpenSpace.png";
-import EZ from "../../img/PartnerImages/EZ.png";
-import Matterport from "../../img/PartnerImages/Matterport.png";
-import Oracle from "../../img/PartnerImages/Oracle.png";
+import ProCore from "../../../img/PartnerImages/ProCore.png";
+import Airtable from "../../../img/PartnerImages/Airtable.png";
+import FieldWire from "../../../img/PartnerImages/FieldWire.png";
+import Bridgit from "../../../img/PartnerImages/Bridgit.png";
+import OpenSpace from "../../../img/PartnerImages/OpenSpace.png";
+import EZ from "../../../img/PartnerImages/EZ.png";
+import Matterport from "../../../img/PartnerImages/Matterport.png";
+import Oracle from "../../../img/PartnerImages/Oracle.png";
 
-const ItemCarousel = () => {
+const TechCarousel = () => {
     const settings = {
         dots: false,
         infinite: true,
@@ -69,30 +69,21 @@ const ItemCarousel = () => {
     ];
 
     return (
-        <div className='black-container'>
-            <div className="carousel-container">
+        <div className="carousel-container">          
+            <Slider {...settings}>
+                {cardData.map((card, index) => (
+                    <div key={index} className={`carousel-card`}>
+                        <img src={card.image} alt={card.title} />
+                    </div>
+                ))}
+            </Slider>
             <div className="tech-partners-desc">Proud to Partner with Leaders in Construction Technology</div>
-                <Slider {...settings}>
-                    {cardData.map((card, index) => (
-                        <div key={index} className={`carousel-card ${card.link ? 'has-link' : ''}`}>
-                            {card.link ? (
-                                <a href={card.link} target="_blank" rel="noopener noreferrer">
-                                    <img src={card.image} alt={card.title} />
-                                    <span className="carousel-card-text">View Case Study</span>
-                                </a>
-                            ) : (
-                                <img src={card.image} alt={card.title} />
-                            )}
-                        </div>
-                    ))}
-                </Slider>
-            </div>
         </div>
     );
     
 };
 
-export default ItemCarousel;
+export default TechCarousel;
 
 
 

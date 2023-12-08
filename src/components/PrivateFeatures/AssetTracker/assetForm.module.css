@@ -1,0 +1,21 @@
+.formContainer {
+    display: flex;
+    flex-direction: column;
+    padding-left: 5%;
+    padding-right: 5%;
+    height: 100%;
+    width:100%;
+    border: 3px red solid
+}
+
+.formDescription {
+    color: #003eab;
+    font-family: Helvetica;
+    font-size: 24px;
+    font-weight: 700;
+    letter-spacing: 0;
+    line-height: normal;
+    text-align: center;
+}
+
+
