@@ -115,6 +115,9 @@
     font-size: 20px;
     color: white;
     text-align: center; 
+    padding: 20px;
+    border-top: white solid 3px;
+    align-content: center;
   }
     
   .bold-body {
@@ -129,6 +132,9 @@
   .carousel-container {
     width: 100%;
     margin-top: 30px;
+    align-items: center; /* Horizontally centers the content */
+    justify-content: center;
+    border-top: 3px white solid;
   }
   
   .carousel-card {

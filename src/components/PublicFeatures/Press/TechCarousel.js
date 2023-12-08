@@ -77,7 +77,7 @@ const TechCarousel = () => {
                     </div>
                 ))}
             </Slider>
-            <div className="tech-partners-desc">Proud to Partner with Leaders in Construction Technology</div>
+            <div className="tech-partners-desc">Energized by construction technology leaders</div>
         </div>
     );
     
