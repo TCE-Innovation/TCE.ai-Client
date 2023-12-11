@@ -22,6 +22,7 @@ import WavingHandIcon from '@mui/icons-material/WavingHand';
 import InfoIcon from '@mui/icons-material/Info';
 import ConstructionIcon from '@mui/icons-material/Construction';
 import ApartmentIcon from '@mui/icons-material/Apartment';
+import ArticleIcon from '@mui/icons-material/Article';
 
 
 const PrivateListItems = (props) => {
@@ -141,6 +142,13 @@ const PrivateListItems = (props) => {
                             <AccessTimeIcon />
                         </ListItemIcon>
                         <ListItemText primary="Overtime Tracker" />
+                    </ListItemButton>
+                    
+                    <ListItemButton style={{ backgroundColor: '#f5f5f5' }} onClick={() => props.onSelect('subAuto')}>
+                        <ListItemIcon>
+                            <ArticleIcon />
+                        </ListItemIcon>
+                        <ListItemText primary="Subcontractor Forms" />
                     </ListItemButton>
                 </List>
             </Collapse>

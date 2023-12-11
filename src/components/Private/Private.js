@@ -27,6 +27,7 @@ import TechPartners from '../PrivateFeatures/TechPartners';
 import GOTracker from '../PrivateFeatures/GOTracker';
 import OTTracker from '../PrivateFeatures/OTTracker';
 import PrivateNavigation from "../General/PrivateNavigation";
+import SubAuto from "../PrivateFeatures/SubAuto/SubAuto";
 
 const Drawer = styled(MuiDrawer, { shouldForwardProp: (prop) => prop !== 'open' })(
   ({ theme, open }) => ({
@@ -116,6 +117,7 @@ function PrivateContent() {
           {privateFunctionality === 'chatbot' && <ChatBot />}
           {privateFunctionality === 'go' && <GOTracker />}
           {privateFunctionality === 'overtime' && <OTTracker />}
+          {privateFunctionality === 'subAuto' && <SubAuto />}
           {/* Add other functionalities here */}
         </Box>
       </Box>

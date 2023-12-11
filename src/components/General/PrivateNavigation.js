@@ -54,6 +54,8 @@ function ResponsiveAppBar() {
                 return 'My Account';
             case 'contact':
                 return 'Idea Submission';
+            case 'subAuto':
+                return 'Subcontractor Form Automation';
             case 'public':
                 return 'TCE Innovation Group';
             case 'tech':

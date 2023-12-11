@@ -1,0 +1,31 @@
+
+.descriptionText{
+    padding-left: 12%;
+    padding-right: 12%;
+    font-size: 1.5rem;
+    font-weight: 500;
+    margin-bottom: 5rem;
+    margin-top: 2rem;
+    color: #000;
+}
+
+.buttonContainer{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin-top: 2rem;
+    margin-bottom: 5rem;
+}
+
+.buttonContainer button{
+    width: 15rem;
+    height: 3.5rem;
+    border-radius: 0.5rem;
+    border: none;
+    background-color: #1b365f;
+    color: #fff;
+    font-size: 1rem;
+    font-weight: 700;
+    cursor: pointer;
+    margin: 2rem;
+}
