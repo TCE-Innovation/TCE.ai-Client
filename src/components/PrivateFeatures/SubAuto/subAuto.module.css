@@ -28,4 +28,9 @@
     font-weight: 700;
     cursor: pointer;
     margin: 2rem;
+    transition: transform 0.2s ease-in-out;
+}
+
+.buttonContainer button:hover {
+    transform: scale(1.05); /* Scale the button on hover */
 }
