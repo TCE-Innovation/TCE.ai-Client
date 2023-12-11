@@ -24,7 +24,7 @@ const mdTheme = createTheme();
 
 function PublicContent() {
   const { setPrivateFunctionality } = useContext(PrivateContext);
-  const [showAboutUs, setShowAboutUs] = useState(false);
+  const [showContent, setShowContent] = useState(false);
 
   
   const sections = ['intro-text', 'about-us','tech-partners', 'contact-us'];
@@ -48,9 +48,9 @@ function PublicContent() {
       const windowHeight = window.innerHeight;
 
       if (scrollPosition > windowHeight * 0.3) { 
-        setShowAboutUs(true);
+        setShowContent(true);
       } else {
-        setShowAboutUs(false);
+        setShowContent(false);
       }
 
       const aboutUsSection = document.getElementById('about-us');
@@ -102,13 +102,13 @@ function PublicContent() {
           <Box id="intro-text" sx={{ scrollSnapAlign: 'start' }}>
             <IntroText />
           </Box>
-          <Box id="about-us" className={`content ${showAboutUs ? 'fade-in' : ''}`} sx={{ scrollSnapAlign: 'start' }}>
+          <Box id="about-us" className={`content ${showContent ? 'fade-in' : ''}`} sx={{ scrollSnapAlign: 'start' }}>
             <AboutUs />
           </Box>
-          <Box id="tech-partners" className={`content ${showAboutUs ? 'fade-in' : ''}`} sx={{ scrollSnapAlign: 'start' }}>
+          <Box id="tech-partners" className={`content ${showContent ? 'fade-in' : ''}`} sx={{ scrollSnapAlign: 'start' }}>
             <Press />
           </Box>
-          <Box id="contact-us" className={`content ${showAboutUs ? 'fade-in' : ''}`} sx={{ scrollSnapAlign: 'start' }}>
+          <Box id="contact-us" className={`content ${showContent ? 'fade-in' : ''}`} sx={{ scrollSnapAlign: 'start' }}>
             <ContactUs />
           </Box>
           <DotNav sections={sections} currentSection={currentSection} onDotClick={handleDotClick} />
