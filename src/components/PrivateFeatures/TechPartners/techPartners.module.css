@@ -1,0 +1,122 @@
+.techSubheader {
+    color: #1b365f;
+    font-family: "Inter-Bold", Helvetica;
+    font-size: 24px;
+    letter-spacing: 0;
+    line-height: normal;
+    margin-bottom: 40px;
+}
+
+.cardsContainer {
+    display: flex;
+    flex-wrap: wrap;
+    flex-direction: row;
+    justify-content: space-between;
+    margin-bottom: 45px;
+}
+
+.card {
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+    margin-bottom: 20px;
+    padding: 20px;
+    border: 1px solid grey;
+    border-radius: 15px;
+}
+
+.card:hover{
+    box-shadow: 0px 0px 5px #1b365f;
+    cursor: pointer;
+}
+
+.cardBody {
+    position: relative;
+    text-align: center;
+    width: 100%;
+    margin-top: 20PX;
+}
+
+.cardText {
+    color: #1b365f;
+    font-family: "Inter-Bold", Helvetica;
+    font-size: 20px;
+    font-weight: 500;
+    letter-spacing: 0;
+    line-height: normal;
+    margin-left: 40px;
+}
+  
+.extraText {
+    color: #1b365f;
+    font-family: "Inter-Bold", Helvetica;
+    font-size: 14px;
+    font-weight: 400;
+    letter-spacing: 0;
+    line-height: normal;
+}
+
+.readMoreButton{
+    position: absolute;
+    top: 0px;
+    right: 0px;
+}
+
+.readMoreButton.MuiIconButton-root:hover {
+    background-color: transparent;
+    box-shadow: none; 
+}
+
+.contactText{
+    color: #1b365f;
+    font-family: "Inter-Bold", Helvetica;
+    font-size: 16px;
+    font-weight: bold;
+    letter-spacing: 0;
+    line-height: normal;
+}
+
+.cardImage{
+    display: flex;
+    height: 60px;
+    margin-top: 10px;
+}
+
+.oneLinerContainer{
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    width: 100%;
+}
+
+.expandedContainer{
+    display: flex;
+    flex-direction: row;
+    width: 100%;
+}
+
+.expandedCardBody{
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    text-align: center;
+    width: 75%;
+}
+
+.linkBox{
+    display: flex;
+    flex-direction: column;
+    width: 25%;
+    align-items: left;
+    margin-left: 2%;
+    padding-top: 2%;
+}
+
+  
+.linkText{
+    color: #1b365f;
+    font-family: "Inter-Bold", Helvetica;
+    font-size: 20px;
+    font-weight: bold;
+    letter-spacing: 0;
+}

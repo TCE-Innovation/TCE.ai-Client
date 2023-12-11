@@ -23,7 +23,7 @@ import CRO from '../PrivateFeatures/CRO';
 import ChatBot from '../PrivateFeatures/ChatBot';
 import AssetTracker from '../PrivateFeatures/AssetTracker/AssetTracker';
 import GenerateEmails from "../PrivateFeatures/GenerateEmails";
-import TechPartners from '../PrivateFeatures/TechPartners';
+import TechPartners from '../PrivateFeatures/TechPartners/TechPartners';
 import GOTracker from '../PrivateFeatures/GOTracker';
 import OTTracker from '../PrivateFeatures/OTTracker';
 import PrivateNavigation from "../General/PrivateNavigation";

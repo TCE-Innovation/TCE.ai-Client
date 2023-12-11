@@ -1,14 +1,14 @@
 import React, {useState} from "react";
-import "./privateStyle.css";
+import styles from "./techPartners.module.css";
 
-import ProCore from "../../img/PartnerImages/ProCore.png";
-import Airtable from "../../img/PartnerImages/Airtable.png";
-import FieldWire from "../../img/PartnerImages/FieldWire.png";
-import Bridgit from "../../img/PartnerImages/Bridgit.png";
-import OpenSpace from "../../img/PartnerImages/OpenSpace.png";
-import EZ from "../../img/PartnerImages/EZ.png";
-import Matterport from "../../img/PartnerImages/Matterport.png";
-import Oracle from "../../img/PartnerImages/Oracle.png";
+import ProCore from "../../../img/PartnerImages/ProCore.png";
+import Airtable from "../../../img/PartnerImages/Airtable.png";
+import FieldWire from "../../../img/PartnerImages/FieldWire.png";
+import Bridgit from "../../../img/PartnerImages/Bridgit.png";
+import OpenSpace from "../../../img/PartnerImages/OpenSpace.png";
+import EZ from "../../../img/PartnerImages/EZ.png";
+import Matterport from "../../../img/PartnerImages/Matterport.png";
+import Oracle from "../../../img/PartnerImages/Oracle.png";
 
 import IconButton from '@mui/material/IconButton';
 import EmailIcon from '@mui/icons-material/Email';
@@ -127,46 +127,46 @@ const TechPartners = () => {
   return (
     <div className="container">
       <br />
-      <div className="tech-subheader">
+      <div className={styles.techSubheader}>
         On this page you will find information about software tools in TCE's technology stack. 
         In addition to these overviews, you will find helpful links like documentation from the 
         partners as well as standard operating procedures and white papers created by TCIG. To 
         contact the relevant TCIG team member with questions or requests on a certain tool, please 
         click the PoC's name under any tool to draft an email and start a conversation. 
       </div>
-      <div className="cards-container">
+      <div className={styles.cardContainer}>
         {partnerData.map((partner, index) => (
-          <div className={`card ${expandedIndex === index ? 'expanded' : ''}`} key={index} onClick={() => toggleReadMore(index)}>
+          <div className={styles.card} key={index} onClick={() => toggleReadMore(index)}>
             
-            <div className="one-liner-container">
-              <div className="card-image" onClick={(e) => handleImageClick(e, partner)}>
+            <div className={styles.oneLinerContainer}>
+              <div className={styles.cardImage} onClick={(e) => handleImageClick(e, partner)}>
                 <img
                   src={partner.imgSrc}
                   alt={partner.name}
                 />
               </div>
   
-              <div className="card-body">
-                <p className="card-text">{partner.description}</p>
+              <div className={styles.cardBody}>
+                <p className={styles.cardText}>{partner.description}</p>
               </div>    
 
-              <IconButton onClick={() => toggleReadMore(index)} className="read-more-button" disableRipple>
+              <IconButton onClick={() => toggleReadMore(index)} className={styles.readMoreButton} disableRipple>
                 {expandedIndex === index ? <KeyboardArrowUpIcon/> : <KeyboardArrowDownIcon/>}
               </IconButton>        
             </div>
   
             {expandedIndex === index && (
-              <div className="expanded-container">
-                <div className="link-box">
+              <div className={styles.expandedContainer}>
+                <div className={styles.linkBox}>
                   {partner.documents && partner.documents.map((doc, docIndex) => (
                     <div key={docIndex} onClick={handleInsideCardClick}>
-                      <a href={doc.url} target="_blank" rel="noopener noreferrer" className="link-text">{doc.title}</a>
+                      <a href={doc.url} target="_blank" rel="noopener noreferrer" className={styles.linkText}>{doc.title}</a>
                     </div>
                   ))}
                 </div>
-                <div className="expanded-card-body">
-                  <p className="extra-text">{partner.extraText}</p>
-                  <p className="contact-text">
+                <div className={styles.expandedCardBody}>
+                  <p className={styles.extraText}>{partner.extraText}</p>
+                  <p className={styles.contactText}>
                     Point of Contact: {partner.contactName} 
                     <a href={`mailto:${partner.contactEmail}`} onClick={handleInsideCardClick}>
                       <EmailIcon style={{ marginLeft: '5px', marginBottom: "1px", cursor: 'pointer', color: "gray"}} />
@@ -175,7 +175,6 @@ const TechPartners = () => {
                 </div>
               </div>
             )}
-  
           </div>
         ))}
       </div>

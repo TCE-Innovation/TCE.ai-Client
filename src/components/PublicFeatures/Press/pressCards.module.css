@@ -1,17 +1,18 @@
 .mainContainer {
-    margin-top: 8rem;
+    margin-top: 4rem;
     display: flex;
     flex-direction: row;
     align-items: center;
     justify-content: center;
-    padding: 2rem 0;
-    flex-wrap: wrap; /* Adjusts the layout for smaller screens */
+    flex-wrap: wrap; 
 }
 
 .cardContainer {
     width: 25rem;
     height: 17rem;
-    margin: 20px;
+    margin-left: 20px;
+    margin-right: 20px;
+    margin-bottom: 30px;
     padding: 25px;
     border-radius: 25px;
     align-items: center; 
@@ -43,4 +44,12 @@
     font-weight: bold;
     color: #1f2937;
     text-decoration: none;
+}
+
+.pressHeader{
+    font-size: 3rem;
+    font-family: "Helvetica";
+    color: white;
+    text-align: center;
+    margin-top: 120px;
 }

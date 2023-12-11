@@ -21,7 +21,7 @@ const PressCards = () => {
         <a href="https://gobridgit.com/case-studies/tc-electric/" target="_blank" rel="noopener noreferrer" className={styles.cardLink}>
             <Card className={styles.cardContainer}>
                 <h5 className={styles.cardTitle}>
-                    Using Bridgit Bench to forecast accurately and plan with confidence
+                    Using Bridgit Bench to Forecast Accurately and Plan with Confidence
                 </h5>
                 <p className={styles.cardText}>
                     How Bridgit Bench gives TCE confidence in their labor allocations and integrates with the rest of their software stack.

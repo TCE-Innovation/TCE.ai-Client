@@ -8,7 +8,7 @@ const Footer = () => {
         <p style={{color: "gray", textAlign: "center", marginTop: "50px"}}>
           20 W 37th Street, New York, NY 10018 | {''}
 
-          <a href="https://www.tcelect.net" style={{color: "gray"}}>www.tcelect.net</a> | 
+          <a href="https://www.tcelect.net" style={{color: "gray"}} target="_blank" rel="noreferrer">www.tcelect.net</a> | 
 
           tcig@tcelect.net
           <a href={`mailto:tcig@tcelect.net`}>
