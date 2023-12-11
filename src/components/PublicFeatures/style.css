@@ -21,20 +21,6 @@
     width:100%;
   }
 
-  .container-contact-us{
-    display: flex;
-    flex-direction: row;
-    height: 45%;
-    width: 100%;
-    margin-top: 10%;
-    align-items: center;
-  }
-
-  .form-container {
-    padding: 3%;
-    width: 100%;
-  }
-
   .content {
     opacity: 0;
     transition: opacity 1s ease-in-out;
@@ -76,50 +62,6 @@
     line-height: normal;
   }
 
-  .about-us-body {
-    margin-top: 2.5%;
-    display: flex;
-    flex-direction: row;
-    line-height: normal;
-  }
-
-  .big-text{
-    width: 70%;
-    font-family: Helvetica;
-    font-size: 90px;
-    margin-bottom: 20px;
-    color: white;
-    margin-bottom: 60px
-  }
-
-  .small-text{
-    width: 100%;
-    font-family: Helvetica;
-    font-size: 26px;
-    color: white;
-    margin-bottom: 60px
-  }
-
-  .about-us-header{
-    width: 10%;
-    font-family: Helvetica;
-    font-size: 60px;
-    color: rgb(70, 69, 69);
-    margin-top: 10%;
-    margin-left: 10%
-  }
-
-  .tech-partners-desc{
-    width: 100%;
-    font-family: Helvetica;
-    font-size: 20px;
-    color: white;
-    text-align: center; 
-    padding: 20px;
-    border-top: white solid 3px;
-    align-content: center;
-  }
-    
   .bold-body {
     color: #1b365f;
     font-family: Helvetica;
@@ -129,58 +71,6 @@
     line-height: normal;
   }
   
-  .carousel-container {
-    width: 100%;
-    margin-top: 30px;
-    align-items: center; /* Horizontally centers the content */
-    justify-content: center;
-    border-top: 3px white solid;
-  }
-  
-  .carousel-card {
-    height: 100%; 
-    overflow: hidden;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    padding: 50px;
-    transition: border 0.3s ease;
-    position: relative;
-    align-items: center;
-  }
-  
-  .carousel-card img {
-    width: 100%; 
-    height: 60px;
-    object-fit: fill; 
-    transition: transform 0.3s ease;
-    filter: brightness(0) invert(1);
-  }
-
-  .carousel-card a {
-    display: block;
-    height: 100%;
-  }
-  
-  .carousel-card-text {
-    display: none;
-    position: absolute;
-    bottom: 10px; 
-    left: 50%;
-    transform: translateX(-50%);
-    color: white;
-    font-family: Helvetica;
-    font-size: 16px;
-    font-weight: 700;
-    padding: 5px 10px;
-    border-radius: 5px;
-    white-space: nowrap;
-  }
-  
-  .carousel-card:hover .carousel-card-text {
-    display: block;
-  }
-
   .overlay-text {
     color: white;  
     font-size: 6rem; 
@@ -206,20 +96,3 @@
     flex-direction: column;
   }
 
-  .form-prompt{
-    color: white;
-    font-family: Helvetica;
-    font-size: 20px;
-    letter-spacing: 0;
-    line-height: normal;
-    margin-bottom: 10px;
-    text-align: center;
-  }
-
-  .about-us-container{
-    height: 80vh;
-    width: 100%;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-  }

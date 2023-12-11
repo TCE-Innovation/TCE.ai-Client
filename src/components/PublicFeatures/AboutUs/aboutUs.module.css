@@ -1,0 +1,23 @@
+.body {
+    margin-top: 2.5%;
+    display: flex;
+    flex-direction: row;
+    line-height: normal;
+}
+
+.bigText{
+    width: 70%;
+    font-family: Helvetica;
+    font-size: 90px;
+    margin-bottom: 20px;
+    color: white;
+    margin-bottom: 60px
+}
+
+.smallText{
+    width: 100%;
+    font-family: Helvetica;
+    font-size: 26px;
+    color: white;
+    margin-bottom: 60px
+}

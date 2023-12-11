@@ -1,8 +1,10 @@
+import style from './contactUs.module.css';
 import React, { useState } from 'react';
 import { FormControl, TextField, Button, Box } from '@mui/material';
 
 import { sendPublicFormData } from '../../../API Calls/Airtable';
 import ContactImage from './ContactImage';
+import Footer from '../Footer';
 
 import SendIcon from '@mui/icons-material/Send';
 
@@ -99,15 +101,17 @@ const ContactUs = () => {
     return (
         <div className="full-window-component">
             <div className='black-container'>
-                <br /><br />
-                <br />
-                <div className='container-contact-us'>
+                <br /><br /><br /><br /><br />
+                <div className={style.containerContactUs}>
                     <ContactImage />
 
                 {!isSubmitted ? (
-                    <div className="form-container">
-                        <div className="form-prompt">
-                            Please fill out the form below to start a conversation with TCIG.
+                    <div className={style.formContainer}>
+                        <div className={style.formHeader}>
+                            Get in touch
+                        </div>
+                        <div className={style.formPrompt}>
+                            Please fill out the form below to start a conversation with us.
                         </div>
                         <br />
                         <div>
@@ -178,7 +182,7 @@ const ContactUs = () => {
                         </div>
                     </div>
                 ) : (
-                    <div className="form-container">
+                    <div className={styles.formContainer}>
                         <Box sx={styles.box}>
                             Thank you for your submission. A TCIG team member will follow up with you.
                             <br />
@@ -194,6 +198,7 @@ const ContactUs = () => {
                 )}
                 </div>
             </div>
+            <Footer />
         </div>
     );
 };

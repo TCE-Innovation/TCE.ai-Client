@@ -11,7 +11,7 @@ import { GlobalStyles } from '@mui/material';
 //COMPONENTS
 import PublicNavigation from "../General/PublicNavigation";
 import IntroText from "../PublicFeatures/IntroText";
-import AboutUs from "../PublicFeatures/AboutUs";
+import AboutUs from "../PublicFeatures/AboutUs/AboutUs";
 import ContactUs from '../PublicFeatures/ContactUs/ContactUs';
 import Press from '../PublicFeatures/Press/Press';
 import DotNav from '../General/DotNav';

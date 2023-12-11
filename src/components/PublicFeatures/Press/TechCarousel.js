@@ -1,4 +1,4 @@
-import "../style.css";
+import styles from "./techCarousel.module.css";
 
 //REACT
 import React from 'react';
@@ -69,15 +69,15 @@ const TechCarousel = () => {
     ];
 
     return (
-        <div className="carousel-container">          
+        <div className={styles.carouselContainer}>          
             <Slider {...settings}>
                 {cardData.map((card, index) => (
-                    <div key={index} className={`carousel-card`}>
+                    <div key={index} className={styles.carouselCard}>
                         <img src={card.image} alt={card.title} />
                     </div>
                 ))}
             </Slider>
-            <div className="tech-partners-desc">Energized by construction technology leaders</div>
+            <div className={styles.description}>Energized by construction technology leaders</div>
         </div>
     );
     
