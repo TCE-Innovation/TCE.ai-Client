@@ -85,8 +85,8 @@
     width: 100%; 
     padding: 0 2rem; 
     opacity: 0; 
-    animation: fadeIn 3s ease-in-out 0.5s forwards, 
-    sizeGrow 3s ease-in-out 0.5s forwards;
+    animation: fadeIn 1s ease-in-out 0.5s forwards, 
+    sizeGrow 1s ease-in-out 0.5s forwards;
   }
   
   .full-window-component{
