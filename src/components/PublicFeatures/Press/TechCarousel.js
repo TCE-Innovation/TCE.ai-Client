@@ -9,7 +9,6 @@ import "slick-carousel/slick/slick-theme.css";
 //IMAGES
 import ProCore from "../../../img/PartnerImages/ProCore.png";
 import Airtable from "../../../img/PartnerImages/Airtable.png";
-import FieldWire from "../../../img/PartnerImages/FieldWire.png";
 import Bridgit from "../../../img/PartnerImages/Bridgit.png";
 import OpenSpace from "../../../img/PartnerImages/OpenSpace.png";
 import EZ from "../../../img/PartnerImages/EZ.png";
@@ -51,11 +50,6 @@ const TechCarousel = () => {
         {
             image: EZ,
             title: 'EZOfficeInventory',
-        },
-        {
-            image: FieldWire,
-            title: 'FieldWire',
-
         },
         {
             image: OpenSpace,
