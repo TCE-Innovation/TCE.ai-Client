@@ -9,7 +9,7 @@ import { GlobalStyles } from '@mui/material';
 
 
 //COMPONENTS
-import PublicNavigation from "../General/PublicNavigation";
+import PublicNavigation from "../General/pubNav/PublicNavigation";
 import IntroText from "../PublicFeatures/IntroText";
 import AboutUs from "../PublicFeatures/AboutUs/AboutUs";
 import ContactUs from '../PublicFeatures/ContactUs/ContactUs';
@@ -70,7 +70,7 @@ function PublicContent() {
 
     mainContainer.addEventListener('scroll', handleScroll);
     return () => mainContainer.removeEventListener('scroll', handleScroll);
-  }, []);
+  }, []); 
 
   
   return (

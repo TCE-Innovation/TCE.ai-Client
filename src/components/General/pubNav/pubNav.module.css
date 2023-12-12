@@ -1,0 +1,7 @@
+.logo {
+    width: 15vw; /* Adjust this value as needed */
+    max-width: 180px; /* Maximum size */
+    min-width: 120px; /* Minimum size */
+    margin-left: 35px;
+    margin-top: 25px;
+  }

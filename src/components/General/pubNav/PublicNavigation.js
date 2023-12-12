@@ -1,3 +1,5 @@
+import styles from "./pubNav.module.css"
+
 //REACT
 import * as React from 'react';
 import {useContext, useState, useEffect} from "react";
@@ -17,18 +19,18 @@ import Button from "@mui/material/Button";
 import HomeRepairServiceIcon from '@mui/icons-material/HomeRepairService';
 
 //IMAGES
-import logo from '../../img/logo.png'
-import whiteLogo from '../../img/whiteLogo.png'
-import noUser from '../../img/noUser.webp'
+import logo from '../../../img/logo.png'
+import whiteLogo from '../../../img/whiteLogo.png'
+import noUser from '../../../img/noUser.webp'
 
 //CONTEXTS
-import {AuthContext} from "../../authentication/Auth";
+import {AuthContext} from "../../../authentication/Auth";
 import { useMsal } from "@azure/msal-react";
-import PrivateContext from "../Private/PrivateContext";
+import PrivateContext from "../../Private/PrivateContext";
 
 //HOOKS
-import {useMicrosoftSignOut} from "../Account/LogOut/LogOutFunc";
-import {useMicrosoftSignIn} from "../Account/LoginFunc";
+import {useMicrosoftSignOut} from "../../Account/LogOut/LogOutFunc";
+import {useMicrosoftSignIn} from "../../Account/LoginFunc";
 
 function ResponsiveAppBar() {
 
@@ -87,22 +89,25 @@ function ResponsiveAppBar() {
     return (
         <>
         <AppBar position="fixed" elevation={0} sx={{background: 'none', height: '90px'}}>
-                <Toolbar disableGutters>
+                <Toolbar sx={{width:'100%'}} disableGutters>
                     <Box sx={{ display: 'flex', alignItems: 'center'}}>       
                         <NavLink to="/">
                             <img
                                 src={currentLogo}
                                 alt='logo'
-                                style={{
-                                    width: '180px',
-                                    marginLeft: '35px',
-                                    marginTop: '25px'
-                                }}
+                                className={styles.logo}
                                 draggable="false"
                             />
                         </NavLink>
                     </Box>
-                    <Box sx={{ display: 'flex', marginTop: '10px', marginLeft: '80%' }}>           
+                    <Box sx={{
+                        display: 'flex',
+                        flexGrow: 1,
+                        justifyContent: 'flex-end',
+                        marginTop: '10px',
+                        marginLeft: '55vw',
+                        marginRight: '3%', // Responsive right margin
+                    }}>           
                             {isAuthenticated ? (
                                 <>
                                     <IconButton onClick={() => {
