@@ -3,7 +3,6 @@
     margin-top: 30px;
     align-items: center; /* Horizontally centers the content */
     justify-content: center;
-    border-top: 3px white solid;
 }
 
 .carouselCard {
@@ -12,7 +11,8 @@
     display: flex;
     justify-content: center;
     align-items: center;
-    padding: 50px;
+    padding-left: 50px;
+    padding-right: 50px;
     transition: border 0.3s ease;
     position: relative;
     align-items: center;
@@ -34,10 +34,10 @@
 .description{
     width: 100%;
     font-family: Helvetica;
-    font-size: 20px;
+    font-size: 16px;
     color: white;
     text-align: center; 
     padding: 20px;
-    border-top: white solid 3px;
     align-content: center;
+    margin-top: 5px;
 }
