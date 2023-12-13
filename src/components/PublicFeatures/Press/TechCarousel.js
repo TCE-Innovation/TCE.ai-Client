@@ -54,33 +54,38 @@ const TechCarousel = () => {
         {
             image: ProCore,
             title: 'ProCore',
+            link: 'https://www.procore.com/'
         },
         {
             image: Bridgit,
             title: 'Bridgit',
-            link: "https://gobridgit.com/case-studies/tc-electric/"
+            link: 'https://gobridgit.com/'
         },
         {
             image: Airtable,
             title: 'Airtable',
+            link: 'https://airtable.com/'
         },
         {
             image: Matterport,
             title: 'Matterport',
+            link: 'https://matterport.com/'
 
         },
         {
             image: EZ,
             title: 'EZOfficeInventory',
+            link: 'https://ezo.io/ezofficeinventory/'
         },
         {
             image: OpenSpace,
             title: 'OpenSpace',
-            link: "https://www.openspace.ai/resources/webinars/fireside-chat-how-tces-transit-projects-arrive-on-time-with-openspace/"
+            link: 'https://www.openspace.ai/'
         },
         {
             image: Oracle,
             title: 'Oracle',
+            link: 'https://www.oracle.com/construction-engineering/primavera-p6/'
         },
     ];
 
@@ -89,10 +94,13 @@ const TechCarousel = () => {
             <Slider {...settings}>
                 {cardData.map((card, index) => (
                     <div key={index} className={styles.carouselCard}>
-                        <img src={card.image} alt={card.title} />
+                        <a href={card.link} target="_blank" rel="noreferrer">
+                            <img src={card.image} alt={card.title} />
+                        </a>
                     </div>
                 ))}
             </Slider>
+            <div className={styles.line}></div>
             <div className={styles.description}>Energized by construction technology leaders</div>
         </div>
     );
