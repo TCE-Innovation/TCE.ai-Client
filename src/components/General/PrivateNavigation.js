@@ -13,10 +13,11 @@ import Typography from '@mui/material/Typography';
 import Menu from '@mui/material/Menu';
 import Avatar from '@mui/material/Avatar';
 import MenuItem from '@mui/material/MenuItem';
+import Tooltip from '@mui/material/Tooltip';
 import HomeRepairServiceIcon from '@mui/icons-material/HomeRepairService';
 
 //IMAGES
-import logo from '../../img/Utils/logo.png'
+import logo from '../../img/Utils/whiteLogo.png'
 import noUser from '../../img/Utils/noUser.webp'
 
 //CONTEXTS
@@ -80,7 +81,7 @@ function ResponsiveAppBar() {
     return (
         <>
         <AppBar position="fixed" sx={{
-            background: 'linear-gradient(to right, #609CCF, #1B365F)', height: '90px'
+            background: 'black', height: '90px'
         }}>
                 <Toolbar disableGutters>
                     <Box sx={{ display: 'flex', alignItems: 'center'}}>       
@@ -119,7 +120,9 @@ function ResponsiveAppBar() {
                             navigate('/private');
                             setPrivateFunctionality('privateHome');
                         }}>
+                        <Tooltip title="Home">
                             <HomeRepairServiceIcon sx={{ color: 'white', fontSize: '2.5rem' }} />
+                        </Tooltip>
                         </IconButton>
 
                         <IconButton onClick={handleOpenUserMenu}>

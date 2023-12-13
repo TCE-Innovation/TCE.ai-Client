@@ -104,7 +104,6 @@ function PrivateContent() {
             <Divider />
             <List component="nav">
               <PrivateListItems onSelect={handleFunctionalitySelect} />
-              {/*<Divider sx={{ my: 1 }} />*/}
             </List>
           </Drawer>
         
@@ -118,7 +117,6 @@ function PrivateContent() {
           {privateFunctionality === 'go' && <GOTracker />}
           {privateFunctionality === 'overtime' && <OTTracker />}
           {privateFunctionality === 'subAuto' && <SubAuto />}
-          {/* Add other functionalities here */}
         </Box>
       </Box>
     </ThemeProvider>
