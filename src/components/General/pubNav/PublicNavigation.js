@@ -104,7 +104,7 @@ function ResponsiveAppBar() {
                         display: 'flex',
                         flexGrow: 1,
                         justifyContent: 'flex-end',
-                        marginTop: '10px',
+                        marginTop: '35px',
                         marginLeft: '55vw',
                         marginRight: '3%', // Responsive right margin
                     }}>           
