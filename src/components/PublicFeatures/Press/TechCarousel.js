@@ -1,7 +1,7 @@
 import styles from "./techCarousel.module.css";
 
 //REACT
-import React from 'react';
+import React, { useState, useEffect } from 'react';
 import Slider from 'react-slick';
 import "slick-carousel/slick/slick.css"; 
 import "slick-carousel/slick/slick-theme.css";
@@ -16,11 +16,33 @@ import Matterport from "../../../img/PartnerImages/Matterport.png";
 import Oracle from "../../../img/PartnerImages/Oracle.png";
 
 const TechCarousel = () => {
+    const [numSlides, setNumSlides] = useState(getSlidesToShow(window.innerWidth));
+
+    useEffect(() => {
+        function handleResize() {
+            setNumSlides(getSlidesToShow(window.innerWidth));
+        }
+
+        window.addEventListener('resize', handleResize);
+
+        // Clean up
+        return () => {
+            window.removeEventListener('resize', handleResize);
+        };
+    }, []);
+
+    function getSlidesToShow(width) {
+        if (width < 600) return 1;
+        if (width < 900) return 2;
+        if (width < 1200) return 3;
+        return 4;
+    }
+    
     const settings = {
         dots: false,
         infinite: true,
         speed: 500,
-        slidesToShow: 4,
+        slidesToShow: numSlides,
         slidesToScroll: 1,
         autoplay: true,
         autoplaySpeed: 3000,

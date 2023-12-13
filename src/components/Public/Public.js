@@ -39,8 +39,6 @@ function PublicContent() {
   }, [setPrivateFunctionality]);
 
   useEffect(() => {
-    console.log(window.innerHeight);
-
     const mainContainer = document.getElementById('main-container');
 
     const handleScroll = () => {
