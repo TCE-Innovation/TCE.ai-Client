@@ -15,7 +15,7 @@ import PrivateNavigation from "../General/PrivateNavigation";
 import { AuthContext } from "../../authentication/Auth";
 import PrivateContext from "../Private/PrivateContext";
 
-const noUser = require('../../img/noUser.webp')
+const noUser = require('../../img/Utils/noUser.webp')
 
 function ProfileImage() {
     const { userPic } = useContext(AuthContext);
@@ -48,7 +48,6 @@ function AccountCard() {
       }, [setPrivateFunctionality]); 
 
     return (
-
         <React.Fragment>
             <header className="App-header">
                 <PrivateNavigation />

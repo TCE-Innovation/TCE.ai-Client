@@ -19,9 +19,9 @@ import Button from "@mui/material/Button";
 import HomeRepairServiceIcon from '@mui/icons-material/HomeRepairService';
 
 //IMAGES
-import logo from '../../../img/logo.png'
-import whiteLogo from '../../../img/whiteLogo.png'
-import noUser from '../../../img/noUser.webp'
+import logo from '../../../img/Utils/logo.png'
+import whiteLogo from '../../../img/Utils/whiteLogo.png'
+import noUser from '../../../img/Utils/noUser.webp'
 
 //CONTEXTS
 import {AuthContext} from "../../../authentication/Auth";

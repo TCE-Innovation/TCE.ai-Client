@@ -1,6 +1,6 @@
 import React from 'react';
 
-import subway from '../../../img/subway.png';
+import subway from '../../../img/Public/subway.png';
 
 const ContactImage = () => {
     return (

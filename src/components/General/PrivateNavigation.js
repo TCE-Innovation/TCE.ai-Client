@@ -16,8 +16,8 @@ import MenuItem from '@mui/material/MenuItem';
 import HomeRepairServiceIcon from '@mui/icons-material/HomeRepairService';
 
 //IMAGES
-import logo from '../../img/logo.png'
-import noUser from '../../img/noUser.webp'
+import logo from '../../img/Utils/logo.png'
+import noUser from '../../img/Utils/noUser.webp'
 
 //CONTEXTS
 import {AuthContext} from "../../authentication/Auth";

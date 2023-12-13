@@ -15,7 +15,7 @@ import ContactUs from '../PublicFeatures/ContactUs/ContactUs';
 import Press from '../PublicFeatures/Press/Press';
 import DotNav from '../General/DotNav';
 
-import backgroundImage from '../../img/city.webp'
+import backgroundImage from '../../img/Public/city.webp'
 
 import PrivateContext from "../Private/PrivateContext";
 
