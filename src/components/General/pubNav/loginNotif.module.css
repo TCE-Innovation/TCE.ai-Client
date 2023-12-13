@@ -1,0 +1,30 @@
+.container{
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
+    margin-right: 30px;
+    padding: 0 1rem;
+    background-color: #fff;
+    border-radius: 0.5rem;
+    box-shadow: 0 0 0.5rem rgba(0,0,0,0.2);
+}
+
+.text{
+    font-size: 1rem;
+    font-weight: 500;
+    color: #000;
+    margin: 1px;
+}
+
+.button{
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
+    margin-left: 1rem;
+    padding: 0.5rem 1rem;
+    background-color: #fff;
+    border: none;
+    cursor: pointer;
+}

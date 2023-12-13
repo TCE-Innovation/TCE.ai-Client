@@ -32,6 +32,8 @@ import PrivateContext from "../../Private/PrivateContext";
 import {useMicrosoftSignOut} from "../../Account/LogOut/LogOutFunc";
 import {useMicrosoftSignIn} from "../../Account/LoginFunc";
 
+import LoginNotification from "./LoginNotification";
+
 function ResponsiveAppBar() {
 
     //contexts
@@ -130,17 +132,20 @@ function ResponsiveAppBar() {
                                     </IconButton>
                                 </>
                             ) : (
-                                <Button
-                                    variant="outlined"
-                                    fullWidth
-                                    size="large"
-                                    onClick={MicrosoftSignIn}
-                                    sx={{ color: loginColor.textColor, borderColor: loginColor.borderColor, backgroundColor: loginColor.backgroundColor, 
-                                        '&:hover': { borderWidth: '3px', fontWeight: 700 }, fontWeight: 500, borderRadius: '50px', width: '120px', borderWidth: '2px'
-                                    }}
-                                >
-                                    Login
-                                </Button>
+                                <>
+                                    <LoginNotification />
+                                    <Button
+                                        variant="outlined"
+                                        fullWidth
+                                        size="large"
+                                        onClick={MicrosoftSignIn}
+                                        sx={{ color: loginColor.textColor, borderColor: loginColor.borderColor, backgroundColor: loginColor.backgroundColor, 
+                                            '&:hover': { borderWidth: '3px', fontWeight: 700 }, fontWeight: 500, borderRadius: '50px', width: '120px', borderWidth: '2px'
+                                        }}
+                                    >
+                                        Login
+                                    </Button>
+                                </>
                             )}
               
                         <Menu
