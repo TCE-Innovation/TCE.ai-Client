@@ -2,18 +2,22 @@ import * as React from 'react';
 import styles from './loginNotif.module.css';
 
 const LoginNotification = () => {
-    const [isVisible, setIsVisible] = React.useState(true); // Step 2
+    const [shouldAnimate, setShouldAnimate] = React.useState(false);
 
-    const hideContainer = () => {
-        setIsVisible(false); // Step 3
-    }
+    React.useEffect(() => {
+        const timer = setTimeout(() => {
+            setShouldAnimate(true);
+        }, 3000); // Delay of 3 seconds
 
-    if (!isVisible) return null; // Step 4
+        return () => clearTimeout(timer);
+    }, []);
+
+    if (!shouldAnimate) return null;
 
     return (
         <div className={styles.container}>
             <p className={styles.text}>TCE Employee? Log in here to access tools.</p>
-            <button className={styles.button} onClick={hideContainer}>Hide</button> {/* Step 3 */}
+            <button className={styles.button}>Hide</button>
         </div>
     );
 }
