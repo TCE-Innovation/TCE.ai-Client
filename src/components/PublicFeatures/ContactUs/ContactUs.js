@@ -100,8 +100,7 @@ const ContactUs = () => {
 
     return (
         <div className="full-window-component">
-            <div className='black-container'>
-                <br /><br /><br /><br /><br />
+            <div className='black-container'>             
                 <div className={style.containerContactUs}>
                     <ContactImage />
 
@@ -197,8 +196,8 @@ const ContactUs = () => {
                     </div>
                 )}
                 </div>
+                <Footer />
             </div>
-            <Footer />
         </div>
     );
 };

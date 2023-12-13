@@ -4,7 +4,7 @@ import EmailIcon from '@mui/icons-material/Email';
 
 const Footer = () => {
   return (
-      <div className="black-container">
+      <div style={{marginTop:'90px'}}>
         <p style={{color: "gray", textAlign: "center", marginTop: "50px"}}>
           20 W 37th Street, New York, NY 10018 | {''}
 

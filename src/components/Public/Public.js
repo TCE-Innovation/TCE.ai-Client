@@ -7,7 +7,6 @@ import { createTheme, ThemeProvider } from '@mui/material/styles';
 import Box from '@mui/material/Box';
 import { GlobalStyles } from '@mui/material';
 
-
 //COMPONENTS
 import PublicNavigation from "../General/pubNav/PublicNavigation";
 import IntroText from "../PublicFeatures/IntroText";
@@ -24,9 +23,8 @@ const mdTheme = createTheme();
 
 function PublicContent() {
   const { setPrivateFunctionality } = useContext(PrivateContext);
-  const [showContent, setShowContent] = useState(false);
+  const [showContent, setShowContent] = useState(true);
 
-  
   const sections = ['intro-text', 'about-us','tech-partners', 'contact-us'];
   const [currentSection, setCurrentSection] = useState(sections[0]);
 
@@ -41,6 +39,8 @@ function PublicContent() {
   }, [setPrivateFunctionality]);
 
   useEffect(() => {
+    console.log(window.innerHeight);
+
     const mainContainer = document.getElementById('main-container');
 
     const handleScroll = () => {
@@ -86,7 +86,7 @@ function PublicContent() {
           },
           '#main-container': {
             scrollSnapType: 'y mandatory', 
-            height: '100vh', 
+            height: '100vh',
             overflowY: 'auto',
           }
         }}
@@ -112,7 +112,7 @@ function PublicContent() {
             <ContactUs />
           </Box>
           <DotNav sections={sections} currentSection={currentSection} onDotClick={handleDotClick} />
-        </Box>
+      </Box>
     </ThemeProvider>
   );
 }
