@@ -19,7 +19,7 @@ import Tooltip from "@mui/material/Tooltip";
 import PrivateContext from "./PrivateContext";
 import PrivateHome from "./PrivateHome";
 import PrivateListItems from "./privateItems";
-import CRO from '../PrivateFeatures/CRO';
+import CRO from '../PrivateFeatures/CRO/CRO';
 import ChatBot from '../PrivateFeatures/ChatBot';
 import AssetTracker from '../PrivateFeatures/AssetTracker/AssetTracker';
 import GenerateEmails from "../PrivateFeatures/GenerateEmails";

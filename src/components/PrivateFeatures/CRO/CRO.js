@@ -18,6 +18,8 @@ import FormLabel from '@mui/material/FormLabel';
 import axios from 'axios';
 // import RunTypeRadioButtons from './RunTypeRadioButtons'; // Import the radio buttons component
 
+import Slider from "./Slider"
+
 const CRO = () => {
     const [pullsheet, setPullsheet] = useState('');
     const [cableSizes, setCableSizes] = useState('');
@@ -126,7 +128,7 @@ const CRO = () => {
                         </a>.
                     </Typography>
 
-                    {showCableSizeSheet ? (
+                    {/* {showCableSizeSheet ? (
                         <>
                             <label style={{ fontSize: '20px', marginBottom: '10px' }}>
                                 Upload Cable Sizes Sheet
@@ -138,11 +140,17 @@ const CRO = () => {
                                 onChange={(e) => setCableSizes(e.target.files[0])}
                             />
                         </>
-                    ) : null}
+                    ) : null} */}
 
                     <Button
                             variant="contained"
-                            sx={{ color: 'black', fontWeight: 700, backgroundColor: 'white', '&:hover': { backgroundColor: theme => theme.palette.grey[500] }, marginTop: 4}}
+                            sx={{ color: 'black', 
+                            fontWeight: 700, 
+                            backgroundColor: 'white', 
+                            '&:hover': { backgroundColor: theme => theme.palette.grey[500] }, 
+                            marginTop: 0
+
+                            }}
                             onClick={() => {
                                 setShowCableSizeSheet(!showCableSizeSheet);
                                 if (showCableSizeSheet) {
@@ -151,10 +159,30 @@ const CRO = () => {
                             }}
                         >
                             {showCableSizeSheet ? 'Use Standard Cable Sizes Sheet' : 'OPTIONAL: Upload Your Cable Sizes'}
+                    
                     </Button>
+                    {/* <div style={{ marginTop: '20px' }}></div> */}
+
+                    {showCableSizeSheet ? (
+                        <>
+                            {/* <label style={{ fontSize: '20px', marginTop: '5px', marginLeft: '-275px'}}>
+                                Upload Cable Sizes Sheet
+                            </label> */}
+                            <div style={{ margin: '20px' }}></div>
+                            <label style={{ fontSize: '20px', marginTop: '5px', marginLeft: '5px', marginBottom: '10px'}}>
+                                Upload Cable Sizes Sheet
+                            </label>
+                            <Input
+                                type="file"
+                                id="cableSizesInput"
+                                accept=".xlsx, .xls"
+                                onChange={(e) => setCableSizes(e.target.files[0])}
+                            />
+                        </>
+                    ) : null}
 
                     <div style={{ margin: '40px 0' }}></div>
-
+                    
                     <FormControl>
                         <FormLabel id="select-cable-run-type">Select Run Type</FormLabel>
                         <RadioGroup
@@ -170,6 +198,10 @@ const CRO = () => {
                             <FormControlLabel value="Tray" disabled control={<Radio />} label="Cable Tray" />
                         </RadioGroup>
                     </FormControl>
+                    
+                    <div style={{ marginTop: '20px', marginLeft: '12px' }}>
+                        {runType === 'Conduit' && <Slider />}
+                    </div>
 
                     {/* <div>
                         Selected Run Type: {runType}
