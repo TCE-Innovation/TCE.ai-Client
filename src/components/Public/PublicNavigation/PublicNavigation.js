@@ -72,12 +72,15 @@ function ResponsiveAppBar() {
         const handleScroll = () => {
             const scrollPosition = mainContainer.scrollTop;
             const viewportHeight = window.innerHeight;
-    
+            
+            //second page (where it turns white)
             if (scrollPosition > viewportHeight) { 
                 setCurrentLogo(whiteLogo); 
                 setToolBoxColor({color: 'white'});
                 setLoginColor({ textColor: 'white', borderColor: 'white'});
-            } else {
+            } 
+            //first page (where it turns blue)
+            else {
                 setCurrentLogo(logo); 
                 setToolBoxColor({color: '#1b365f'});
                 setLoginColor({ textColor: '#1b365f'});
@@ -105,11 +108,11 @@ function ResponsiveAppBar() {
                     </Box>
                     <Box sx={{
                         display: 'flex',
-                        flexGrow: 1,
                         justifyContent: 'flex-end',
+                        alignItems: 'right',
                         marginTop: '35px',
-                        marginLeft: '55vw',
-                        marginRight: '3%', // Responsive right margin
+                        marginRight: '3%',
+                        width: '100%'
                     }}>           
                             {isAuthenticated ? (
                                 <Box sx={{ display: 'flex', alignItems: 'center', marginTop: '10px'}}>
@@ -133,7 +136,7 @@ function ResponsiveAppBar() {
                                     </IconButton>
                                 </Box>
                             ) : (
-                                <>
+                                <Box sx={{display: "flex", flexDirection: "row"}}>
                                     <LoginNotification />
                                     <Button
                                         variant="outlined"
@@ -141,14 +144,13 @@ function ResponsiveAppBar() {
                                         size="large"
                                         onClick={MicrosoftSignIn}
                                         sx={{ color: loginColor.textColor, borderColor: loginColor.borderColor, backgroundColor: loginColor.backgroundColor, 
-                                            '&:hover': { borderWidth: '3px', fontWeight: 700 }, fontWeight: 500, borderRadius: '50px', width: '120px', borderWidth: '2px'
+                                            '&:hover': { borderWidth: '3px', fontWeight: 700, color: '#003eab', borderColor: '#003eab' }, fontWeight: 500, borderRadius: '50px', width: '120px', borderWidth: '2px'
                                         }}
                                     >
                                         Login
                                     </Button>
-                                </>
-                            )}
-              
+                                </Box>
+                            )}             
                         <Menu
                             sx={{ mt: '65px' }}
                             id="menu-appbar"

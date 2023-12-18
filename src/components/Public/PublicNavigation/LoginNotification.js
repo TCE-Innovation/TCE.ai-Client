@@ -21,7 +21,7 @@ const LoginNotification = () => {
 
     return (
         <div className={styles.container}>
-            <p className={styles.text}>TCE Employee? Log in here to access tools.</p>
+            <p className={styles.text}>TCE Employee? Log in here to access your Toolbox.</p>
             <button className={styles.button} onClick={hideNotification}>Hide</button> {/* Add onClick handler */}
         </div>
     );

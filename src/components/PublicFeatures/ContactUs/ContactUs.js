@@ -73,7 +73,7 @@ const ContactUs = () => {
                             Get in touch
                         </div>
                         <div className={style.formPrompt}>
-                            Please fill out the form below to start a conversation with us.
+                            Please submit the form below to start a conversation with us.
                         </div>
                         <br />
                         <div>
