@@ -9,8 +9,8 @@ const Press = () => {
   return (
     <div className="full-window-component">
       <div className="black-container">
-        <p className={styles.pressHeader}>Press and Publications</p>
-        <p className={styles.pressOneLiner}>Explore selected publications on the team's work as well as media appearances with technology partners</p>
+        <div className={styles.pressHeader}>Press and Publications</div>
+        <div className={styles.pressOneLiner}>Explore selected publications on the team's work as well as media appearances with technology partners</div>
         <PressCards />
         <TechCarousel />
       </div>
