@@ -68,8 +68,7 @@ function PublicContent() {
 
     mainContainer.addEventListener('scroll', handleScroll);
     return () => mainContainer.removeEventListener('scroll', handleScroll);
-  }, []); 
-
+  }, [currentSection]); 
   
   return (
     <ThemeProvider theme={mdTheme}>

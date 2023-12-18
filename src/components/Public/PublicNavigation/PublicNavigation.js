@@ -10,6 +10,7 @@ import { useNavigate } from 'react-router-dom';
 import AppBar from '@mui/material/AppBar';
 import Box from '@mui/material/Box';
 import Toolbar from '@mui/material/Toolbar';
+import Tooltip from '@mui/material/Tooltip';
 import IconButton from '@mui/material/IconButton';
 import Typography from '@mui/material/Typography';
 import Menu from '@mui/material/Menu';
@@ -111,26 +112,26 @@ function ResponsiveAppBar() {
                         marginRight: '3%', // Responsive right margin
                     }}>           
                             {isAuthenticated ? (
-                                <>
+                                <Box sx={{ display: 'flex', alignItems: 'center', marginTop: '10px'}}>
                                     <IconButton onClick={() => {
                                         navigate('/private');
                                         setPrivateFunctionality('privateHome');
                                     }}>
-                                        <HomeRepairServiceIcon sx={{ color: toolBoxColor.color, fontSize: '2.5rem' }} />
+                                        <Tooltip title="Toolbox">
+                                            <HomeRepairServiceIcon sx={{ color: toolBoxColor.color, fontSize: '2.5rem' }} />
+                                        </Tooltip>
                                     </IconButton>
 
                                     <IconButton onClick={handleOpenUserMenu}>
-                                        <Avatar
-                                            style={{
-                                                marginRight: '35px',
-                                                marginLeft: '10px',
-                                            }}
-                                            alt="You"
-                                            src={userPic ? userPic : noUser}
-                                            imgProps={{ referrerPolicy: "no-referrer" }}
-                                        />
+                                        <Tooltip title="User Menu">
+                                            <Avatar
+                                                alt="You"
+                                                src={userPic ? userPic : noUser}
+                                                imgProps={{ referrerPolicy: "no-referrer" }}
+                                            />
+                                        </Tooltip>
                                     </IconButton>
-                                </>
+                                </Box>
                             ) : (
                                 <>
                                     <LoginNotification />

@@ -115,26 +115,24 @@ function ResponsiveAppBar() {
                     >
                         {setTitle(privateFunctionality)}
                     </Typography>
-                    <Box sx={{  display: 'flex', alignItems: 'center', marginTop: '10px'}}>           
+                    <Box sx={{  display: 'flex', alignItems: 'center', marginTop: '10px', marginRight: '30px'}}>           
                         <IconButton onClick={() => {
                             navigate('/private');
                             setPrivateFunctionality('privateHome');
                         }}>
-                        <Tooltip title="Home">
+                        <Tooltip title="Toolbox">
                             <HomeRepairServiceIcon sx={{ color: 'white', fontSize: '2.5rem' }} />
                         </Tooltip>
                         </IconButton>
 
                         <IconButton onClick={handleOpenUserMenu}>
-                            <Avatar
-                                style={{
-                                    marginRight: '35px',
-                                    marginLeft: '10px',
-                                }}
-                                alt="You"
-                                src={userPic ? userPic : noUser}
-                                imgProps={{ referrerPolicy: "no-referrer" }}
-                            />
+                            <Tooltip title="User Menu">
+                                <Avatar
+                                    alt="You"
+                                    src={userPic ? userPic : noUser}
+                                    imgProps={{ referrerPolicy: "no-referrer" }}
+                                />
+                            </Tooltip>
                         </IconButton>
                         <Menu
                             sx={{ mt: '65px' }}
