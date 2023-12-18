@@ -1,5 +1,6 @@
 import React from "react";
 import styles from "./aboutUs.module.css";
+import aboutUsPic from "../../../img/Public/RoryTracks.png";
 
 const AboutUs = () => {
   return (
@@ -9,9 +10,10 @@ const AboutUs = () => {
         <div className={styles.body}>
           <div className={styles.bigText}>
             <p>
-              Our mission is simple: <br />to find a better way
+              Our mission is simple: to find a better way
             </p>
           </div>
+
         </div>
           <div className={styles.smallText}>
             <p>
@@ -25,6 +27,7 @@ const AboutUs = () => {
               of software and hardware solutions, as well as the implementation of off-the-shelf 
               technology products and the integration and management of a complex technology stack. 
             </p>
+            <img src={aboutUsPic} className={styles.picture} alt="about us"/>
           </div>
       </div>
     </div>
