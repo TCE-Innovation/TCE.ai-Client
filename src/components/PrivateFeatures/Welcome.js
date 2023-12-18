@@ -4,16 +4,15 @@ import "./privateStyle.css";
 const Welcome = () => {
   return (
     <div className="container">
-        <div className="private-header">WELCOME</div>
-        <div className="private-subheader">TCE Innovation Group Headquarters</div>
         <br />
         <p className="private-body">
-          The TCE Innovation Group (TCIG) is a multidisciplinary team of engineers, data scientists, and designers passionate 
-          about the power of technology to transform the construction industry. Serving New York City's premier infrastructure 
-          contractor, we are committed to leveraging technology to help our teams deliver successful projects in the world's most 
-          challenging and complex construction environment. We are experienced in the design, development, and implementation of 
-          software and hardware solutions, focusing our efforts across the business from project management and field execution 
-          to business development, procurement, and operations.  
+            Welcome to the TCIG Toolbox, home to an array of tools, info, and resources from the TCE Innovation Group. 
+            This site is organized into three sections -- Information is where you can access documentation, resources, 
+            and PoC info for all the tools in our software stack; Tools is where you will find custom-built software like 
+            Project Info Chatbots and Cable Run Optimizer; and Office is where you will find other resources like Equipment 
+            Checkout and Subcontractor Form Automation. This site, and the tools available here, are constantly evolving. 
+            We are eager for feedback and ideas from folks across the organization, so please utilize the Idea Submission 
+            form below if you would like to start a conversation with us. 
         </p>
       <br />
     </div>

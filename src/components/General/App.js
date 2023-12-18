@@ -6,6 +6,7 @@ import { BrowserRouter as Router, Route, Routes, Navigate } from 'react-router-d
 import Account from "../Account/Account";
 import Private from "../Private/Private";
 import Public from "../Public/Public";
+import PRDCRipperWhitePaper from "../PublicFeatures/WhitePapers/PRDCRipperWhitePaper";
 
 //CONTEXT
 import PrivateContext from '../Private/PrivateContext';
@@ -23,6 +24,8 @@ function App() {
                     <Routes>
 
                         <Route exact path='/' element={<Public />} />
+
+                        <Route exact path='/prdc-ripper' element={<PRDCRipperWhitePaper />} />
                         
                         <Route path='/account' element={<AuthenticatedRoute />}>
                             <Route index element={<Account />} />

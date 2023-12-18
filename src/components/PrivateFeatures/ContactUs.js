@@ -33,9 +33,6 @@ const ContactUs = () => {
     return (
         <div className='container'>
             <br />
-            <br />
-            <div className="private-header">IDEA SUBMISSION</div>
-            <br />
             {!isSubmitted ? (
                 <>
                     <div className="private-form-prompt">

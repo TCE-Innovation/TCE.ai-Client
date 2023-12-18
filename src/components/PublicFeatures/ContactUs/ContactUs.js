@@ -1,12 +1,16 @@
 import style from './contactUs.module.css';
 import React, { useState } from 'react';
-import { FormControl, TextField, Button, Box } from '@mui/material';
 
-import { sendPublicFormData } from '../../../API Calls/Airtable';
+//MUI
+import { FormControl, TextField, Button, Box } from '@mui/material';
+import SendIcon from '@mui/icons-material/Send';
+
+//COMPONENTS
 import ContactImage from './ContactImage';
 import Footer from '../Footer';
 
-import SendIcon from '@mui/icons-material/Send';
+//UTILS
+import { sendPublicFormData } from '../../../API Calls/Airtable';
 
 const ContactUs = () => {
     const [name, setName] = useState('');
@@ -146,15 +150,15 @@ const ContactUs = () => {
                     </div>
                 ) : (
                     <div className={style.formContainer}>
-                        <Box sx={style.box}>
-                            Thank you for your submission. A TCIG team member will follow up with you.
+                        <Box className={style.box}>
+                            Thank you for your submission. We will be in touch soon.
                             <br />
                             <Button 
                                 onClick={handleNewSubmission} 
                                 variant="outlined" 
                                 sx={{ mt: 5, fontWeight:'bold', color: "white" }}
                             >
-                                Submit another contact
+                                Submit again
                             </Button>
                         </Box>
                     </div>
