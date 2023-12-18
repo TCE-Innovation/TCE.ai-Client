@@ -22,7 +22,7 @@ import noUser from '../../img/Utils/noUser.webp'
 
 //CONTEXTS
 import {AuthContext} from "../../authentication/Auth";
-import PrivateContext from "../Private/PrivateContext";
+import PrivateContext from "./PrivateContext";
 
 //HOOKS
 import {useMicrosoftSignOut} from "../Account/LogOut/LogOutFunc";

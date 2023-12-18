@@ -31,4 +31,48 @@
     align-items: center;
 }
 
+.input {
+    color: black;
+    background-color: white;
+    width: 48.5%; 
+    border-radius: 10px;
+    margin: 8px;
+}
+
+.inputWide {
+    color: black;
+    background-color: white;
+    margin: 8px; 
+    border-radius: 10px;
+}
+
+.input:hover {
+    background-color: white;
+}
+
+.button {
+    color: white;
+    border-color: white;
+    border-radius: 20px;
+    font-weight: 500;
+    margin-right: 8px; 
+    background-color: transparent;
+}
+
+.button:hover {
+    background-color: transparent;
+}
+
+.button:global(.Mui-disabled) {
+    color: #666666; 
+    border-color: #666666; 
+}
+
+.box {
+    text-align: center;
+    margin-top: 40px;
+    margin-bottom: 80px; 
+    color: white;
+    font-size: 24px;
+}
 

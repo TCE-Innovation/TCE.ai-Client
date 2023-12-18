@@ -26,7 +26,7 @@ import GenerateEmails from "../PrivateFeatures/GenerateEmails";
 import TechPartners from '../PrivateFeatures/TechPartners/TechPartners';
 import GOTracker from '../PrivateFeatures/GOTracker';
 import OTTracker from '../PrivateFeatures/OTTracker';
-import PrivateNavigation from "../General/PrivateNavigation";
+import PrivateNavigation from "../Private/PrivateNavigation";
 import SubAuto from "../PrivateFeatures/SubAuto/SubAuto";
 
 const Drawer = styled(MuiDrawer, { shouldForwardProp: (prop) => prop !== 'open' })(

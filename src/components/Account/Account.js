@@ -9,7 +9,7 @@ import Grid from "@mui/material/Grid";
 //COMPONENTS
 import Copyright from '../General/Copyright';
 import { LogOutButton } from "./LogOut/LogOutButton";
-import PrivateNavigation from "../General/PrivateNavigation";
+import PrivateNavigation from "../Private/PrivateNavigation";
 
 //AUTH
 import { AuthContext } from "../../authentication/Auth";

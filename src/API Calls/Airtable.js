@@ -107,3 +107,34 @@ export async function sendAssetFormData(name, email, item, project, reason, date
         console.error(error);
     }
 }
+
+//INCOMPLETE
+//function to update the amount of times someone has accessed a feature
+export async function updateAccessCount(name, feature) {
+    const tableId = '';
+    const baseId = ''
+    var base = new Airtable({apiKey: 'patlr5uHzCsVA5n44.60e06f59a3a49f3b492a501adf24fe2800073534a140500c2e28c9ff355dabef'}).base(baseId);
+    try {
+        //get all records from Airtable
+        const records = await base(tableId).select().all();
+
+        //loop through records and check name
+        for (const record of records){
+            if (record.fields.name === name) {
+                //update record
+                base(tableId).update([
+                    {
+                        "id": record.fields.id,
+                        "fields": {
+                            "Feature": feature,
+                            "Access Count": record.fields.accessCount + 1
+                        }
+                    }
+                ]);
+            }
+        };
+    } catch (error) {
+        console.error(error);
+    }
+}
+

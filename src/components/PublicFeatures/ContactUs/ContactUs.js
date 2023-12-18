@@ -8,45 +8,6 @@ import Footer from '../Footer';
 
 import SendIcon from '@mui/icons-material/Send';
 
-const useStyles = () => ({
-    input: {
-        color: 'black',
-        backgroundColor: 'white',
-        '&:hover': {
-          backgroundColor: 'white',
-        },
-        '& label.Mui-focused': {
-          color: 'black',
-        },
-        margin: 1,
-      },
-
-    button: {
-      color: 'white',
-      borderColor: 'white',
-      borderRadius: '20px',
-      fontWeight: 500,
-      marginRight: 1,
-      backgroundColor: 'none',
-      '&:hover': {
-        backgroundColor: 'none',
-      },
-      '&.Mui-disabled': {
-        backgroundColor: 'none', 
-        borderColor: '#666666',
-        color: '#666666',           
-      },
-    },
-    
-    box: {
-      textAlign: 'center',
-      mt: 5,
-      mb: 10,
-      color: 'white',
-      fontSize: '24px',
-    },
-  });  
-
 const ContactUs = () => {
     const [name, setName] = useState('');
     const [email, setEmail] = useState('');
@@ -54,8 +15,6 @@ const ContactUs = () => {
     const [phone, setPhone] = useState('');
     const [contactMessage, setContactMessage] = useState('');
     const [isSubmitted, setIsSubmitted] = useState(false);
-
-    const styles = useStyles();
 
     const handleContactMessageInputChange = (event) => {
         setContactMessage(event.target.value);
@@ -123,7 +82,8 @@ const ContactUs = () => {
                                         required
                                         value={name}
                                         onChange={handleNameInputChange}
-                                        sx={{...styles.input, width: '48.5%'}}
+                                        className={style.input}
+                                        style={{ margin: '8px' }}
                                     />
                                     <TextField
                                         id="email"
@@ -132,7 +92,8 @@ const ContactUs = () => {
                                         required
                                         value={email}
                                         onChange={handleEmailInputChange}
-                                        sx={{...styles.input, width: '48.5%'}}
+                                        className={style.input}
+                                        style={{ margin: '8px' }}
                                     />
                                 </Box>
                                 <Box display="flex" flexDirection="row">
@@ -142,7 +103,8 @@ const ContactUs = () => {
                                         variant="filled"
                                         value={phone}
                                         onChange={handlePhoneInputChange}
-                                        sx={{...styles.input, width: '48.5%'}}
+                                        className={style.input}
+                                        style={{ margin: '8px' }}
                                     />
                                     <TextField
                                         id="organization"
@@ -150,7 +112,8 @@ const ContactUs = () => {
                                         variant="filled"
                                         value={organization}
                                         onChange={handleOrganizationInputChange}
-                                        sx={{...styles.input, width: '48.5%'}}
+                                        className={style.input}
+                                        style={{ margin: '8px' }}
                                     />
                                 </Box>
                                 <FormControl fullWidth>
@@ -163,7 +126,8 @@ const ContactUs = () => {
                                         rows={4}
                                         value={contactMessage}
                                         onChange={handleContactMessageInputChange}
-                                        sx={styles.input}
+                                        className={style.inputWide}
+                                        style={{ margin: '8px' }}
                                     />
                                 </FormControl>
                                 <Box display="flex" justifyContent="flex-end" mt={2} mb={3}>
@@ -172,7 +136,7 @@ const ContactUs = () => {
                                         disabled={isButtonDisabled}
                                         variant="outlined"
                                         endIcon={<SendIcon />} 
-                                        sx={styles.button}
+                                        className={style.button}
                                     >
                                         Submit
                                     </Button>
@@ -181,8 +145,8 @@ const ContactUs = () => {
                         </div>
                     </div>
                 ) : (
-                    <div className={styles.formContainer}>
-                        <Box sx={styles.box}>
+                    <div className={style.formContainer}>
+                        <Box sx={style.box}>
                             Thank you for your submission. A TCIG team member will follow up with you.
                             <br />
                             <Button 
