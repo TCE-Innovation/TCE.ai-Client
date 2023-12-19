@@ -32,14 +32,6 @@ const PrivateListItems = (props) => {
     const [hoverOpenSection, setHoverOpenSection] = React.useState(null);
     const [clickOpenSection, setClickOpenSection] = React.useState(null);
 
-    const handleHover = (section) => {
-        setHoverOpenSection(section);
-    };
-
-    const handleLeave = () => {
-        setHoverOpenSection(null);
-    };
-
     const handleClick = (section) => {
         setClickOpenSection(clickOpenSection === section ? null : section);
     };
