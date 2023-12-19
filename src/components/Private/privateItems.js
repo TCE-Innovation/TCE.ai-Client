@@ -24,35 +24,48 @@ import ConstructionIcon from '@mui/icons-material/Construction';
 import ApartmentIcon from '@mui/icons-material/Apartment';
 import ArticleIcon from '@mui/icons-material/Article';
 
+const listItemStyle = {
+    padding: '30px', // Increase padding for more space and larger items
+};
 
 const PrivateListItems = (props) => {
-    const [openInformation, setOpenInformation] = React.useState(false);
-    const [openTools, setOpenTools] = React.useState(false);
-    const [openOffice, setOpenOffice] = React.useState(false);
+    const [hoverOpenSection, setHoverOpenSection] = React.useState(null);
+    const [clickOpenSection, setClickOpenSection] = React.useState(null);
 
-    const handleClickInformation = () => {
-        setOpenInformation(!openInformation);
+    const handleHover = (section) => {
+        setHoverOpenSection(section);
     };
 
-    const handleClickTools = () => {
-        setOpenTools(!openTools);
+    const handleLeave = () => {
+        setHoverOpenSection(null);
     };
 
-    const handleClickOffice = () => {
-        setOpenOffice(!openOffice);
+    const handleClick = (section) => {
+        setClickOpenSection(clickOpenSection === section ? null : section);
+    };
+
+    const isOpen = (section) => {
+        return clickOpenSection === section || hoverOpenSection === section;
     };
 
     return (
         <React.Fragment>
-            <ListItemButton onClick={handleClickInformation}>
+            <div
+                onMouseEnter={() => setHoverOpenSection('information')}
+                onMouseLeave={() => setHoverOpenSection(null)}
+            >
+            <ListItemButton
+                style={listItemStyle}                 
+                onClick={() => handleClick('information')}
+            >
                 <ListItemIcon>
                     <InfoIcon />
                 </ListItemIcon>
                 <ListItemText primary="Information"  style={{ width: '130px' }}/>
-                    {openInformation ? <ExpandLess /> : <ExpandMore />}
+                    {isOpen('information') ? <ExpandLess /> : <ExpandMore />}
             </ListItemButton>
 
-            <Collapse in={openInformation} timeout="auto" unmountOnExit>
+            <Collapse in={isOpen('information')} timeout="auto" unmountOnExit>
                 <List component="div" disablePadding>
 
                     <ListItemButton style={{ backgroundColor: '#f5f5f5' }} onClick={() => props.onSelect('privateHome')}>
@@ -71,19 +84,25 @@ const PrivateListItems = (props) => {
 
                 </List>
             </Collapse>
+            </div>
 
 
-
-
-            <ListItemButton onClick={handleClickTools}>
+            <div
+                onMouseEnter={() => setHoverOpenSection('tools')}
+                onMouseLeave={() => setHoverOpenSection(null)}
+            >
+            <ListItemButton  
+                style={listItemStyle}                  
+                onClick={() => handleClick('tools')}
+            >
                 <ListItemIcon>
                     <ConstructionIcon />
                 </ListItemIcon>
                 <ListItemText primary="Tools" />
-                    {openTools ? <ExpandLess /> : <ExpandMore />}
+                    {isOpen('tools') ? <ExpandLess /> : <ExpandMore />}
             </ListItemButton>
 
-            <Collapse in={openTools} timeout="auto" unmountOnExit>
+            <Collapse in={isOpen('tools')} timeout="auto" unmountOnExit>
                 <List component="div" disablePadding>
 
                     <ListItemButton style={{ backgroundColor: '#f5f5f5' }} onClick={() => props.onSelect('generateEmails')}>
@@ -116,19 +135,25 @@ const PrivateListItems = (props) => {
 
                 </List>
             </Collapse>
+            </div>
 
 
-
-
-            <ListItemButton onClick={handleClickOffice}>
+            <div
+                onMouseEnter={() => setHoverOpenSection('office')}
+                onMouseLeave={() => setHoverOpenSection(null)}
+            >          
+            <ListItemButton    
+                style={listItemStyle}                
+                onClick={() => handleClick('office')}
+            >
                 <ListItemIcon>
                     <ApartmentIcon />
                 </ListItemIcon>
                 <ListItemText primary="Office" />
-                    {openOffice ? <ExpandLess /> : <ExpandMore />}
+                    {isOpen('office') ? <ExpandLess /> : <ExpandMore />}
             </ListItemButton>
 
-            <Collapse in={openOffice} timeout="auto" unmountOnExit>
+            <Collapse in={isOpen('office')} timeout="auto" unmountOnExit>
                 <List component="div" disablePadding>
                     <ListItemButton style={{ backgroundColor: '#f5f5f5' }} onClick={() => props.onSelect('assetTracker')}>
                         <ListItemIcon>
@@ -152,11 +177,9 @@ const PrivateListItems = (props) => {
                     </ListItemButton>
                 </List>
             </Collapse>
-
+            </div> 
         </React.Fragment>
     )
 }
 
 export default PrivateListItems;
-
-
