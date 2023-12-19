@@ -28,6 +28,11 @@ const listItemStyle = {
     padding: '30px', // Increase padding for more space and larger items
 };
 
+const innerItemStyle = {
+    paddingLeft: '50px',
+    backgroundColor: '#f5f5f5'
+}
+
 const PrivateListItems = (props) => {
     const [hoverOpenSection, setHoverOpenSection] = React.useState(null);
     const [clickOpenSection, setClickOpenSection] = React.useState(null);
@@ -60,14 +65,14 @@ const PrivateListItems = (props) => {
             <Collapse in={isOpen('information')} timeout="auto" unmountOnExit>
                 <List component="div" disablePadding>
 
-                    <ListItemButton style={{ backgroundColor: '#f5f5f5' }} onClick={() => props.onSelect('privateHome')}>
+                    <ListItemButton style={innerItemStyle} onClick={() => props.onSelect('privateHome')}>
                         <ListItemIcon>
                             <WavingHandIcon />
                         </ListItemIcon>
                         <ListItemText primary="Welcome"/>
                     </ListItemButton>
 
-                    <ListItemButton style={{ backgroundColor: '#f5f5f5' }} onClick={() => props.onSelect('tech')}>
+                    <ListItemButton style={innerItemStyle} onClick={() => props.onSelect('tech')}>
                         <ListItemIcon>
                             <FeedIcon />
                         </ListItemIcon>
@@ -97,28 +102,28 @@ const PrivateListItems = (props) => {
             <Collapse in={isOpen('tools')} timeout="auto" unmountOnExit>
                 <List component="div" disablePadding>
 
-                    <ListItemButton style={{ backgroundColor: '#f5f5f5' }} onClick={() => props.onSelect('generateEmails')}>
+                    <ListItemButton style={innerItemStyle} onClick={() => props.onSelect('generateEmails')}>
                         <ListItemIcon>
                             <EmailIcon />
                         </ListItemIcon>
                         <ListItemText primary="Generate an Email" />
                     </ListItemButton>
 
-                    <ListItemButton style={{ backgroundColor: '#f5f5f5' }} onClick={() => props.onSelect('chatbot')}>
+                    <ListItemButton style={innerItemStyle} onClick={() => props.onSelect('chatbot')}>
                         <ListItemIcon>
                             <ForumIcon />
                         </ListItemIcon>
                         <ListItemText primary="Chat Bot" />
                     </ListItemButton>
 
-                    <ListItemButton style={{ backgroundColor: '#f5f5f5' }} onClick={() => props.onSelect('cro')}>
+                    <ListItemButton style={innerItemStyle} onClick={() => props.onSelect('cro')}>
                         <ListItemIcon>
                             <SpokeIcon />
                         </ListItemIcon>
                         <ListItemText primary="Cable Run Optimizer" />
                     </ListItemButton>
 
-                    <ListItemButton style={{ backgroundColor: '#f5f5f5' }} onClick={() => props.onSelect('go')}>
+                    <ListItemButton style={innerItemStyle} onClick={() => props.onSelect('go')}>
                         <ListItemIcon>
                             <RailwayAlertIcon />
                         </ListItemIcon>
@@ -147,21 +152,21 @@ const PrivateListItems = (props) => {
 
             <Collapse in={isOpen('office')} timeout="auto" unmountOnExit>
                 <List component="div" disablePadding>
-                    <ListItemButton style={{ backgroundColor: '#f5f5f5' }} onClick={() => props.onSelect('assetTracker')}>
+                    <ListItemButton style={innerItemStyle} onClick={() => props.onSelect('assetTracker')}>
                         <ListItemIcon>
                             <DevicesOtherIcon />
                         </ListItemIcon>
                         <ListItemText primary="Equipment Checkout" />
                     </ListItemButton>
 
-                    <ListItemButton style={{ backgroundColor: '#f5f5f5' }} onClick={() => props.onSelect('overtime')}>
+                    <ListItemButton style={innerItemStyle} onClick={() => props.onSelect('overtime')}>
                         <ListItemIcon>
                             <AccessTimeIcon />
                         </ListItemIcon>
                         <ListItemText primary="Overtime Tracker" />
                     </ListItemButton>
                     
-                    <ListItemButton style={{ backgroundColor: '#f5f5f5' }} onClick={() => props.onSelect('subAuto')}>
+                    <ListItemButton style={innerItemStyle} onClick={() => props.onSelect('subAuto')}>
                         <ListItemIcon>
                             <ArticleIcon />
                         </ListItemIcon>
