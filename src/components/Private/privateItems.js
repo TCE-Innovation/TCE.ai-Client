@@ -58,7 +58,7 @@ const PrivateListItems = (props) => {
                 <ListItemIcon>
                     <InfoIcon />
                 </ListItemIcon>
-                <ListItemText primary="Information"  style={{ width: '130px' }}/>
+                <ListItemText primary="Information"  style={{ width: '150px' }}/>
                     {isOpen('information') ? <ExpandLess /> : <ExpandMore />}
             </ListItemButton>
 
