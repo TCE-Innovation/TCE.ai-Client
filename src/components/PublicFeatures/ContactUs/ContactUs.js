@@ -4,6 +4,7 @@ import React, { useState } from 'react';
 //MUI
 import { FormControl, TextField, Button, Box } from '@mui/material';
 import SendIcon from '@mui/icons-material/Send';
+import { CircularProgress } from '@mui/material';
 
 //COMPONENTS
 import ContactImage from './ContactImage';
@@ -19,6 +20,7 @@ const ContactUs = () => {
     const [phone, setPhone] = useState('');
     const [contactMessage, setContactMessage] = useState('');
     const [isSubmitted, setIsSubmitted] = useState(false);
+    const [isLoading, setIsLoading] = useState(false);
 
     const handleContactMessageInputChange = (event) => {
         setContactMessage(event.target.value);
@@ -41,13 +43,20 @@ const ContactUs = () => {
     };
 
     const handleSubmit = () => {
+        setIsLoading(true); // Set loading to true on submit
+
         sendPublicFormData(name, email, organization, phone, contactMessage)
             .then(() => {
-                setIsSubmitted(true);
+                // Use setTimeout to delay the submission state
+                setTimeout(() => {
+                    setIsSubmitted(true);
+                    setIsLoading(false); // Reset loading to false after 3 seconds
+                }, 2000);
             })
             .catch(error => {
                 console.error('Error submitting form data:', error);
-            })
+                setIsLoading(false); // Ensure loading is false if there's an error
+            });
     };
 
     const handleNewSubmission = () => {
@@ -63,106 +72,112 @@ const ContactUs = () => {
 
     return (
         <div className="full-window-component">
-            <div className='black-container'>             
+            <div className='black-container'>
                 <div className={style.containerContactUs}>
                     <ContactImage />
 
-                {!isSubmitted ? (
-                    <div className={style.formContainer}>
-                        <div className={style.formHeader}>
-                            Get in touch
-                        </div>
-                        <div className={style.formPrompt}>
-                            Please submit the form below to start a conversation with us.
-                        </div>
-                        <br />
-                        <div>
-                            <FormControl fullWidth>
-                                <Box display="flex" flexDirection="row">
-                                    <TextField
-                                        id="name"
-                                        label="Name"
-                                        variant="filled"
-                                        required
-                                        value={name}
-                                        onChange={handleNameInputChange}
-                                        className={style.input}
-                                        style={{ margin: '8px' }}
-                                    />
-                                    <TextField
-                                        id="email"
-                                        label="Email"
-                                        variant="filled"
-                                        required
-                                        value={email}
-                                        onChange={handleEmailInputChange}
-                                        className={style.input}
-                                        style={{ margin: '8px' }}
-                                    />
+                    {!isSubmitted ? (
+                        <div className={style.formContainer}>
+                            {!isLoading ? (
+                                <>
+                                    <div className={style.formHeader}>
+                                        Get in touch
+                                    </div>
+                                    <div className={style.formPrompt}>
+                                        Please submit the form below to start a conversation with us.
+                                    </div>
+                                    <br />
+                                    <FormControl fullWidth>
+                                        <Box display="flex" flexDirection="row">
+                                            <TextField
+                                                id="name"
+                                                label="Name"
+                                                variant="filled"
+                                                required
+                                                value={name}
+                                                onChange={handleNameInputChange}
+                                                className={style.input}
+                                                style={{ margin: '8px' }}
+                                            />
+                                            <TextField
+                                                id="email"
+                                                label="Email"
+                                                variant="filled"
+                                                required
+                                                value={email}
+                                                onChange={handleEmailInputChange}
+                                                className={style.input}
+                                                style={{ margin: '8px' }}
+                                            />
+                                        </Box>
+                                        <Box display="flex" flexDirection="row">
+                                            <TextField
+                                                id="phone"
+                                                label="Phone"
+                                                variant="filled"
+                                                value={phone}
+                                                onChange={handlePhoneInputChange}
+                                                className={style.input}
+                                                style={{ margin: '8px' }}
+                                            />
+                                            <TextField
+                                                id="organization"
+                                                label="Organization"
+                                                variant="filled"
+                                                value={organization}
+                                                onChange={handleOrganizationInputChange}
+                                                className={style.input}
+                                                style={{ margin: '8px' }}
+                                            />
+                                        </Box>
+                                        <FormControl fullWidth>
+                                            <TextField
+                                                id="contact-message"
+                                                label="Please enter some details about your question or concern"
+                                                multiline
+                                                required
+                                                variant="filled"
+                                                rows={4}
+                                                value={contactMessage}
+                                                onChange={handleContactMessageInputChange}
+                                                className={style.inputWide}
+                                                style={{ margin: '8px' }}
+                                            />
+                                        </FormControl>
+                                        <Box display="flex" justifyContent="flex-end" mt={2} mb={3}>
+                                            <Button 
+                                                onClick={handleSubmit}
+                                                disabled={isButtonDisabled}
+                                                variant="outlined"
+                                                endIcon={<SendIcon />} 
+                                                className={style.button}
+                                            >
+                                                Submit
+                                            </Button>
+                                        </Box>
+                                    </FormControl>
+                                </>
+                            ) : (
+                                <Box display="flex" justifyContent="center" alignItems="center" minHeight="200px">
+                                    <CircularProgress />
                                 </Box>
-                                <Box display="flex" flexDirection="row">
-                                    <TextField
-                                        id="phone"
-                                        label="Phone"
-                                        variant="filled"
-                                        value={phone}
-                                        onChange={handlePhoneInputChange}
-                                        className={style.input}
-                                        style={{ margin: '8px' }}
-                                    />
-                                    <TextField
-                                        id="organization"
-                                        label="Organization"
-                                        variant="filled"
-                                        value={organization}
-                                        onChange={handleOrganizationInputChange}
-                                        className={style.input}
-                                        style={{ margin: '8px' }}
-                                    />
-                                </Box>
-                                <FormControl fullWidth>
-                                    <TextField
-                                        id="contact-message"
-                                        label="Please enter some details about your question or concern"
-                                        multiline
-                                        required
-                                        variant="filled"
-                                        rows={4}
-                                        value={contactMessage}
-                                        onChange={handleContactMessageInputChange}
-                                        className={style.inputWide}
-                                        style={{ margin: '8px' }}
-                                    />
-                                </FormControl>
-                                <Box display="flex" justifyContent="flex-end" mt={2} mb={3}>
-                                    <Button 
-                                        onClick={handleSubmit}
-                                        disabled={isButtonDisabled}
-                                        variant="outlined"
-                                        endIcon={<SendIcon />} 
-                                        className={style.button}
-                                    >
-                                        Submit
-                                    </Button>
-                                </Box>
-                            </FormControl>
+                            )}
                         </div>
-                    </div>
-                ) : (
-                    <div className={style.formContainer}>
-                        <Box className={style.box}>
-                            Thank you for your submission. We will be in touch soon.
-                            <br />
-                            <Button 
-                                onClick={handleNewSubmission} 
-                                variant="outlined" 
-                                sx={{ mt: 5, fontWeight:'bold', color: "white" }}
-                            >
-                                Submit again
-                            </Button>
-                        </Box>
-                    </div>
-                )}
+                    ) : (
+                        <div className={style.formContainer}>
+                            <Box className={style.box}>
+                                Thank you for your submission. We will be in touch soon.
+                                <br />
+                                <Button 
+                                    onClick={handleNewSubmission} 
+                                    variant="outlined" 
+                                    sx={{ mt: 5, fontWeight:'bold', color: "white" }}
+                                >
+                                    Submit again
+                                </Button>
+                            </Box>
+                        </div>
+                    )}
                 </div>
                 <Footer />
             </div>
