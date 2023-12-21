@@ -61,15 +61,15 @@ const PrivateListItems = (props) => {
             <Collapse in={isOpen('information')} timeout="auto" unmountOnExit>
                 <List component="div" disablePadding>
 
-                    <ListItemButton className="innerNavItem" onClick={() => props.onSelect('privateHome')}>
-                        <ListItemIcon>
-                            <WavingHandIcon />
+                    <ListItemButton onClick={() => props.onSelect('privateHome')}>
+                        <ListItemIcon style={{marginLeft: "15px"}}>
+                            <WavingHandIcon/>
                         </ListItemIcon>
                         <ListItemText primary="Welcome"/>
                     </ListItemButton>
 
-                    <ListItemButton className="innerNavItem" onClick={() => props.onSelect('tech')}>
-                        <ListItemIcon>
+                    <ListItemButton onClick={() => props.onSelect('tech')}>
+                        <ListItemIcon style={{marginLeft: "15px"}}>
                             <FeedIcon />
                         </ListItemIcon>
                         <ListItemText primary="Tech Partners"/>
@@ -98,29 +98,29 @@ const PrivateListItems = (props) => {
             <Collapse in={isOpen('tools')} timeout="auto" unmountOnExit>
                 <List component="div" disablePadding>
 
-                    <ListItemButton className="innerNavItem" onClick={() => props.onSelect('generateEmails')}>
-                        <ListItemIcon>
+                    <ListItemButton onClick={() => props.onSelect('generateEmails')}>
+                        <ListItemIcon style={{marginLeft: "15px"}}>
                             <EmailIcon />
                         </ListItemIcon>
                         <ListItemText primary="Generate an Email" />
                     </ListItemButton>
 
-                    <ListItemButton className="innerNavItem" onClick={() => props.onSelect('chatbot')}>
-                        <ListItemIcon>
+                    <ListItemButton onClick={() => props.onSelect('chatbot')}>
+                        <ListItemIcon style={{marginLeft: "15px"}}>
                             <ForumIcon />
                         </ListItemIcon>
                         <ListItemText primary="Chat Bot" />
                     </ListItemButton>
 
-                    <ListItemButton className="innerNavItem" onClick={() => props.onSelect('cro')}>
-                        <ListItemIcon>
+                    <ListItemButton onClick={() => props.onSelect('cro')}>
+                        <ListItemIcon style={{marginLeft: "15px"}}>
                             <SpokeIcon />
                         </ListItemIcon>
                         <ListItemText primary="Cable Run Optimizer" />
                     </ListItemButton>
 
-                    <ListItemButton className="innerNavItem" onClick={() => props.onSelect('go')}>
-                        <ListItemIcon>
+                    <ListItemButton onClick={() => props.onSelect('go')}>
+                        <ListItemIcon style={{marginLeft: "15px"}}>
                             <RailwayAlertIcon />
                         </ListItemIcon>
                         <ListItemText primary="GO Tracker" />
@@ -148,22 +148,22 @@ const PrivateListItems = (props) => {
 
             <Collapse in={isOpen('office')} timeout="auto" unmountOnExit>
                 <List component="div" disablePadding>
-                    <ListItemButton className="innerNavItem" onClick={() => props.onSelect('assetTracker')}>
-                        <ListItemIcon>
+                    <ListItemButton onClick={() => props.onSelect('assetTracker')}>
+                        <ListItemIcon style={{marginLeft: "15px"}}>
                             <DevicesOtherIcon />
                         </ListItemIcon>
                         <ListItemText primary="Equipment Checkout" />
                     </ListItemButton>
 
-                    <ListItemButton className="innerNavItem" onClick={() => props.onSelect('overtime')}>
-                        <ListItemIcon>
+                    <ListItemButton onClick={() => props.onSelect('overtime')}>
+                        <ListItemIcon style={{marginLeft: "15px"}}>
                             <AccessTimeIcon />
                         </ListItemIcon>
                         <ListItemText primary="Overtime Tracker" />
                     </ListItemButton>
                     
-                    <ListItemButton className="innerNavItem" onClick={() => props.onSelect('subAuto')}>
-                        <ListItemIcon>
+                    <ListItemButton onClick={() => props.onSelect('subAuto')}>
+                        <ListItemIcon style={{marginLeft: "15px"}}>
                             <ArticleIcon />
                         </ListItemIcon>
                         <ListItemText primary="Subcontractor Forms" />
