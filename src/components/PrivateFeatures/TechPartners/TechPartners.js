@@ -154,8 +154,9 @@ const TechPartners = () => {
                 <div className={styles.expandedCardBody}>
                   <p className={styles.extraText}>{partner.extraText}</p>
                   <p className={styles.contactText}>
-                    Point of Contact: {partner.contactName} 
-                    <a href={`mailto:${partner.contactEmail}`} onClick={handleInsideCardClick}>
+                    Point of Contact: &nbsp;
+                    <a className={styles.nameLink} href={`mailto:${partner.contactEmail}`} onClick={handleInsideCardClick}>
+                        {partner.contactName} 
                       <EmailIcon style={{ marginLeft: '5px', marginBottom: "1px", cursor: 'pointer', color: "gray"}} />
                     </a>
                   </p>

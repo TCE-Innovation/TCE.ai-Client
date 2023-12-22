@@ -120,3 +120,12 @@
     font-weight: bold;
     letter-spacing: 0;
 }
+
+.nameLink{
+    color: #1b365f;
+    font-family: "Inter-Bold", Helvetica;
+    font-weight: bold;
+    letter-spacing: 0;
+    margin-top: 10px;
+    text-decoration: none;
+}
