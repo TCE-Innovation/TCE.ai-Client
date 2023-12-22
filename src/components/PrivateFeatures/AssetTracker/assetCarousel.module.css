@@ -19,7 +19,8 @@
 
   .carouselCard:hover img {
     transform: scale(1.15);
-}
+    cursor: default;
+  }
 
   .cardTitle {
     position: relative;

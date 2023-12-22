@@ -1,77 +1,52 @@
 import style from './assetForm.module.css';
 
 //REACT
-import React, { useState, useContext } from 'react';
+import React, { useState, useContext, useEffect } from 'react';
 import { AuthContext } from "../../../authentication/Auth";
 
 //MUI
-import { FormControl, TextField, Button, Box, Select, InputLabel, MenuItem } from '@mui/material';
+import { FormControl, TextField, Button, Box, Select, InputLabel, MenuItem, ListSubheader, Typography } from '@mui/material';
 import SendIcon from '@mui/icons-material/Send';
 import { LocalizationProvider, DatePicker } from '@mui/x-date-pickers';
 import { AdapterDateFns } from '@mui/x-date-pickers/AdapterDateFns';
+import { format } from 'date-fns';
 
 //AIRTABLE
-import { sendAssetFormData } from '../../../API Calls/Airtable';
-//import { getAssetFormData } from '../../../API Calls/Airtable';
-
-const useStyles = () => ({
-    input: {
-        color: 'black',
-        backgroundColor: 'white',
-        '&:hover': {
-          backgroundColor: 'white',
-        },
-        '& label.Mui-focused': {
-          color: 'black',
-        },
-        margin: 1,
-      },
-
-    button: {
-      color: 'white',
-      borderColor: 'white',
-      borderRadius: '20px',
-      fontWeight: 500,
-      marginRight: 1,
-      backgroundColor: 'none',
-      '&:hover': {
-        backgroundColor: 'none',
-      },
-      '&.Mui-disabled': {
-        backgroundColor: 'none', 
-        borderColor: '#666666',
-        color: '#666666',           
-      },
-    },
-    
-    box: {
-      textAlign: 'center',
-      mt: 5,
-      mb: 10,
-      color: 'white',
-      fontSize: '24px',
-    },
-  });  
+import { sendAssetFormData, getActiveProjects } from '../../../API Calls/Airtable';
 
 const AssetForm = () => {
-    //STYLES
-    const styles = useStyles();
-    
     //STATES
     const [isSubmitted, setIsSubmitted] = useState(false);
     const [item, setItem] = useState('');
     const [project, setProject] = useState('');
     const [reason, setReason] = useState('');
-    const [dateNeeded, setDateNeeded] = useState('');     //maybe a date picker or initialize date as today's date
-    const [dateReturn, setDateReturn] = useState('');
+    const [dateNeeded, setDateNeeded] = useState(null);     //maybe a date picker or initialize date as today's date
+    const [dateReturn, setDateReturn] = useState(null);
+    const [projectOptions, setProjectOptions] = useState([]);
+    const [initials, setInitials] = useState('');
+
+    // Asynchronously fetch project options when the component mounts
+    useEffect(() => {
+        const fetchProjectOptions = async () => {
+            try {
+                const options = await getActiveProjects();
+                // Group projects by status
+                const groupedOptions = {
+                    Active: options.filter(o => o.status === 'Active'),
+                    Bidding: options.filter(o => o.status === 'Bidding')
+                };
+                setProjectOptions(groupedOptions);
+            } catch (error) {
+                console.error('Error fetching project options:', error);
+            }
+        };
+
+        fetchProjectOptions();
+    }, []);
     
     //useContext for email
     const { userName, userEmail } = useContext(AuthContext);
 
-    //make signature pad
-
-
-    
     //HANDLER FUNCTIONS
     const handleItemInputChange = (event) => {
         setItem(event.target.value);
@@ -80,19 +55,34 @@ const AssetForm = () => {
     const handleProjectInputChange = (event) => {
         setProject(event.target.value);
     };
+
+    const handleInitialInputChange = (event) => {
+        setInitials(event.target.value);
+    };
     
     const handleReasonInputChange = (event) => {
         setReason(event.target.value);
     };
     
     const handleSubmit = () => {
-        sendAssetFormData(userName, userEmail, item, project, reason, dateNeeded, dateReturn)
+        const formattedDateNeeded = dateNeeded ? format(dateNeeded, 'M/d/yyyy') : '';
+        const formattedDateReturn = dateReturn ? format(dateReturn, 'M/d/yyyy') : '';
+
+        const combinedProjectOptions = [
+            ...(projectOptions.Active || []), 
+            ...(projectOptions.Bidding || [])
+        ];
+        const selectedProject = combinedProjectOptions.find(option => option.name === project);        
+        const projectId = selectedProject ? [selectedProject.rec_id] : []; 
+
+        console.log(userName, userEmail, item, projectId, reason, formattedDateNeeded, formattedDateReturn)
+        sendAssetFormData(userName, userEmail, item, projectId, reason, formattedDateNeeded, formattedDateReturn, initials)
             .then(() => {
                 setIsSubmitted(true);
             })
             .catch(error => {
                 console.error('Error submitting form data:', error);
-            })
+            });
     };
 
     const handleNewSubmission = () => {
@@ -115,22 +105,22 @@ const AssetForm = () => {
 
 
     //make request to azure function app to fetch options from airtable
-    const itemOptions = ["item1", "item2"]; // Add item options here
-    const projectOptions = ["proj1", "proj2"]; // Add project options here
-
-
+    const itemOptions = [
+        "Matterport Pro2", 
+        "Matterport Pro3",
+        "Ferret Plus",
+        "Ricoh Theta Z1",
+        "Insta360 OneX2",
+        "Bushman Halo 360 Light",
+    ]; 
 
     return (
             <div className={style.formContainer}>
                 {!isSubmitted ? (
                     <div className="form-container">
-                        <div className={style.formDescription}>
-                            DESCRIPTION TEXT HERE
-                        </div>
-                        <br />
                         <div>
                                 <Box display="flex" flexDirection="row">
-                                    <FormControl sx={{...styles.input, width: '50%'}}>
+                                    <FormControl className={style.input}>
                                         <InputLabel id="item-label">Item Needed</InputLabel>
                                         <Select
                                             labelId="item-label"
@@ -145,7 +135,7 @@ const AssetForm = () => {
                                             ))}
                                         </Select>
                                     </FormControl>
-                                    <FormControl sx={{...styles.input, width: '50%'}}>
+                                    <FormControl className={style.input}>
                                         <InputLabel id="project-label">Project</InputLabel>
                                         <Select
                                             labelId="project-label"
@@ -155,8 +145,13 @@ const AssetForm = () => {
                                             label="Project"
                                             required
                                         >
-                                            {projectOptions.map((option, index) => (
-                                                <MenuItem key={index} value={option}>{option}</MenuItem>
+                                            <ListSubheader>Active Jobs</ListSubheader>
+                                            {projectOptions.Active?.map((option, index) => (
+                                                <MenuItem key={index} value={option.name}>{option.name}</MenuItem>
+                                            ))}
+                                            <ListSubheader>Pursuits</ListSubheader>
+                                            {projectOptions.Bidding?.map((option, index) => (
+                                                <MenuItem key={index} value={option.name}>{option.name}</MenuItem>
                                             ))}
                                         </Select>
                                     </FormControl>
@@ -164,57 +159,63 @@ const AssetForm = () => {
                                 <Box display="flex" flexDirection="row">
                                     <TextField
                                         id="reason"
-                                        label="Reason"
+                                        label="Intended Use - Record Keeping Purposes"
                                         multiline
                                         value={reason}
                                         onChange={handleReasonInputChange}
-                                        sx={{...styles.input, width: '100%'}}
+                                        className={style.inputWide}
                                     />
                                 </Box>
-                                <Box display="flex" flexDirection="row" marginLeft="7px" marginTop='20px'>
-                                    <LocalizationProvider dateAdapter={AdapterDateFns}>
-                                        <DatePicker
-                                            label="Date to Pick Up"
-                                            value={dateNeeded}
-                                            onChange={(newValue) => {
-                                                setDateNeeded(newValue);
-                                            }}
-                                            renderInput={(params) => <TextField {...params} sx={{ }} />}
+                                <Box display="flex" flexDirection="row">
+                                        <LocalizationProvider dateAdapter={AdapterDateFns}>
+                                            <DatePicker
+                                                label="Date to Pick Up"
+                                                className={style.datePicker}
+                                                value={dateNeeded}
+                                                onChange={setDateNeeded}
+                                                renderInput={(params) => <TextField {...params} sx={{ }} />}
+                                            />
+                                        </LocalizationProvider>
+                                        <LocalizationProvider dateAdapter={AdapterDateFns}>
+                                            <DatePicker
+                                                label="Date to Return"
+                                                className={style.datePicker}
+                                                value={dateReturn}
+                                                onChange={setDateReturn}
+                                                renderInput={(params) => <TextField {...params} sx={{}} />}
+                                            />
+                                        </LocalizationProvider>
+                                        <TextField
+                                            id="initials"
+                                            label="Initials"
+                                            multiline
+                                            value={initials}
+                                            onChange={handleInitialInputChange}
+                                            className={style.initial}
                                         />
-                                    </LocalizationProvider>
-                                    <LocalizationProvider dateAdapter={AdapterDateFns}>
-                                        <DatePicker
-                                            label="Date to Return"
-                                            value={dateReturn}
-                                            onChange={(newValue) => {
-                                                setDateReturn(newValue);
-                                            }}
-                                            renderInput={(params) => <TextField {...params} sx={{}} />}
-                                        />
-                                    </LocalizationProvider>                            
+                                        <Button 
+                                            onClick={handleSubmit}
+                                            disabled={isButtonDisabled}
+                                            variant="outlined"
+                                            endIcon={<SendIcon />} 
+                                            className={style.button}
+                                        >
+                                            Submit
+                                        </Button>  
                                 </Box>
-                                <Box display="flex" justifyContent="flex-end" mt={2} mb={3}>
-                                    <Button 
-                                        onClick={handleSubmit}
-                                        disabled={isButtonDisabled}
-                                        variant="outlined"
-                                        endIcon={<SendIcon />} 
-                                        sx={styles.button}
-                                    >
-                                        Submit
-                                    </Button>
-                                </Box>
+
                         </div>
                     </div>
                 ) : (
                     <div className="form-container">
-                        <Box sx={styles.box}>
+                        <Box className={style.box}>
                             Thank you for your submission. A TCIG team member will follow up with you.
                             <br />
                             <Button 
                                 onClick={handleNewSubmission} 
                                 variant="outlined" 
                                 sx={{ mt: 5, fontWeight:'bold', color: "white" }}
+                                className={style.postButton}
                             >
                                 Request another Item
                             </Button>

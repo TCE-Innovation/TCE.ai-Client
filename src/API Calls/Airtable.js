@@ -84,7 +84,7 @@ export async function sendPublicFormData(name, email, organization, phone, conta
 
 //INCOMPLETE
 //function to send asset form data to airtable base
-export async function sendAssetFormData(name, email, item, project, reason, dateNeeded, dateReturn) {
+export async function sendAssetFormData(name, email, item, project, reason, dateNeeded, dateReturn, initials) {
     const tableId = 'tbluSgQoYoS7rTbKg';
     const baseId = 'apphQBuS3DFnPYMFm'
     var base = new Airtable({apiKey: 'patlr5uHzCsVA5n44.60e06f59a3a49f3b492a501adf24fe2800073534a140500c2e28c9ff355dabef'}).base(baseId);
@@ -100,6 +100,7 @@ export async function sendAssetFormData(name, email, item, project, reason, date
                     "Date Needed": dateNeeded,
                     "Return Date": dateReturn,
                     "Email Address": email,
+                    "Signoff": initials
                 }
             }
         ]);
@@ -138,3 +139,25 @@ export async function updateAccessCount(name, feature) {
     }
 }
 
+export async function getActiveProjects() {
+    const tableId = 'tblKYFZFrj1kLrhwy';
+    const baseId = 'apphQBuS3DFnPYMFm';
+    var base = new Airtable({apiKey: 'patlr5uHzCsVA5n44.60e06f59a3a49f3b492a501adf24fe2800073534a140500c2e28c9ff355dabef'}).base(baseId);
+
+    try {
+        // Get all records from Airtable
+        const records = await base(tableId).select().all();
+
+        // Filter and map records to an array of {name, rec_id} objects
+        const projectInfo = records.map(record => ({
+            name: record.fields.Name,
+            rec_id: record.id,
+            status: record.fields.Status 
+        }));
+
+        return projectInfo;
+
+    } catch (error) {
+        console.error('Error fetching project information:', error);
+    }
+}
