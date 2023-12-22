@@ -5,7 +5,7 @@ import React, { useState, useContext, useEffect } from 'react';
 import { AuthContext } from "../../../authentication/Auth";
 
 //MUI
-import { FormControl, TextField, Button, Box, Select, InputLabel, MenuItem, ListSubheader, Typography } from '@mui/material';
+import { FormControl, TextField, Button, Box, Select, InputLabel, MenuItem, ListSubheader } from '@mui/material';
 import SendIcon from '@mui/icons-material/Send';
 import { LocalizationProvider, DatePicker } from '@mui/x-date-pickers';
 import { AdapterDateFns } from '@mui/x-date-pickers/AdapterDateFns';
