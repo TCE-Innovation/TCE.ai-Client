@@ -1,4 +1,4 @@
-import style from './assetForm.module.css';
+import style from './assetForm.module.css'
 
 //REACT
 import React, { useState, useContext, useEffect } from 'react';
