@@ -4,7 +4,7 @@ import React, { useState } from 'react';
 //MUI
 import { FormControl, TextField, Button, Box } from '@mui/material';
 import SendIcon from '@mui/icons-material/Send';
-import { CircularProgress } from '@mui/material';
+import {CircularProgress } from '@mui/material';
 
 //COMPONENTS
 import ContactImage from './ContactImage';

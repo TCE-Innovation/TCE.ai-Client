@@ -4,10 +4,10 @@ import Select from '@mui/material/Select';
 import MenuItem from '@mui/material/MenuItem';
 import FormControl from '@mui/material/FormControl';
 import InputLabel from '@mui/material/InputLabel';
-import { CircularProgress } from '@mui/material';
 
 //AUTH
 import { AuthContext } from "../../authentication/Auth";
+import TrainLoader from '../General/TrainLoader';
 
 
 const ChatBot = () => {
@@ -15,7 +15,7 @@ const ChatBot = () => {
     const { userProjects, userName } = useContext(AuthContext);
 
     const [loadingStates, setLoadingStates] = useState({
-        fulton: true,
+        fulton: true, 
         ert: true,
         p4: true,
         psd: true,
@@ -34,7 +34,7 @@ const ChatBot = () => {
         "Hector Lim"
     ]
 
-    if (userProjects !== undefined){
+    if (userProjects !== undefined || userProjects !== null){
         if ('ADA Package 4' in userProjects || allProjectsAccess.includes(userName)) {
             userProjKeys.push('p4');
         }
@@ -94,7 +94,7 @@ const ChatBot = () => {
 
             {loadingStates[project] && (
                 <div style={spinnerContainerStyle}>
-                    <CircularProgress />
+                    <TrainLoader />
                 </div>
             )}
 

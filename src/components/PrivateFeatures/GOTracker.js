@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { CircularProgress } from '@mui/material';
+import TrainLoader from '../General/TrainLoader';
 
 const GOTracker = () => {
     const [iframeLoaded, setIframeLoaded] = useState(false);
@@ -20,7 +20,7 @@ const GOTracker = () => {
         <div style={{ width: '100%', display: 'flex', flexDirection: "column", alignContent: 'center', marginTop:20}}>
             {!iframeLoaded && (
                 <div style={spinnerContainerStyle}>
-                    <CircularProgress />
+                    <TrainLoader />
                 </div>
             )}
             <div style={{ display: iframeLoaded ? 'block' : 'none' }}>

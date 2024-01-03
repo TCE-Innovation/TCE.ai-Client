@@ -6,7 +6,7 @@ import { Input } from 'reactstrap';
 import Box from '@mui/material/Box';
 import Button from '@mui/material/Button';
 import Typography from '@mui/material/Typography';
-import CircularProgress from '@mui/material/CircularProgress';
+import TrainLoader from '../../General/TrainLoader';
 // Radio buttons for selecting run type
 import Radio from '@mui/material/Radio';
 import RadioGroup from '@mui/material/RadioGroup';
@@ -230,7 +230,7 @@ const CRO = () => {
             >
                 {loading ? (
                     <>
-                        <CircularProgress />
+                        <TrainLoader />
                         <Typography variant="body2" mt={2}>
                             Optimizing...
                         </Typography>

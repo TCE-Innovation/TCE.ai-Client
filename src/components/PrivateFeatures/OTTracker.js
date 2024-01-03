@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { CircularProgress } from '@mui/material';
+import TrainLoader from '../General/TrainLoader';
 
 const OTTracker = () => {
     const [iframeLoaded, setIframeLoaded] = useState(false);
@@ -19,7 +19,7 @@ const OTTracker = () => {
         <div style={{ width: '100%', display: 'flex', flexDirection: "column", alignContent: 'center'}}>
             {!iframeLoaded && (
                 <div style={ spinnerContainerStyle }>
-                    <CircularProgress/>
+                    <TrainLoader/>
                 </div>
             )}
             <div style={{ display: iframeLoaded ? 'block' : 'none' }}>

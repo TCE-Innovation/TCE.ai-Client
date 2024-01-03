@@ -6,9 +6,9 @@ import TextField from '@mui/material/TextField';
 import Box from '@mui/material/Box';
 import Button from '@mui/material/Button';
 import Typography from '@mui/material/Typography';
-import CircularProgress from '@mui/material/CircularProgress';
+import TrainLoader from '../General/TrainLoader';
 import {Dialog, DialogActions, DialogContent, DialogContentText, DialogTitle,
-    Grid, FormControl, FormControlLabel, FormLabel, Radio, RadioGroup,} 
+    Grid, FormControl, InputLabel, Select, MenuItem} 
 from "@mui/material";
 
 //AUTH
@@ -64,7 +64,8 @@ const GenerateEmails = () => {
         setError('');
 
         try {  
-            const {data: {emailContent}} = await axios.post('https://tce-ai-api.azurewebsites.net/api/generate-email', { purpose, recipientName: name, userName, style, tone, length, relContext, prevEmail });
+            let displayName = userName;
+            const {data: {emailContent}} = await axios.post('https://tce-ai-api.azurewebsites.net/api/generate-email', { purpose, recipientName: name, displayName, style, tone, length, relContext, prevEmail });
             setResponse(emailContent);
         } catch (error) {
             console.log(error)
@@ -155,79 +156,60 @@ const GenerateEmails = () => {
                     />
                 <Box component="form" width={1}>
                     <Grid container spacing={1}>
-                        <Grid item xs={1.5}>
-                            <FormControl component="fieldset" fullWidth sx={{ mb: 2 }} required>
-                                <FormLabel component="legend" sx={{ fontSize: '1.25rem' }}>Style:</FormLabel>
-                                <RadioGroup
-                                    aria-label="style"
-                                    name="style"
+                        {/* Style Dropdown */}
+                        <Grid item xs={4}>
+                            <FormControl fullWidth sx={{ mb: 2 }} required>
+                                <InputLabel id="style-label">Style</InputLabel>
+                                <Select
+                                    labelId="style-label"
+                                    id="style-select"
                                     value={style}
+                                    label="Style"
                                     onChange={(e) => setStyle(e.target.value)}
                                 >
-                                    {['N/A', 'Formal', 'Casual', 'Informative'].map((option) => (
-                                        <FormControlLabel key={option} value={option.toLowerCase()} control={<Radio />} label={option} />
+                                    {['N/A', 'Formal', 'Casual', 'Informative', 'Conversational', 'Persuasive', 'Descriptive', 'Technical'].map((option) => (
+                                        <MenuItem key={option} value={option.toLowerCase()}>{option}</MenuItem>
                                     ))}
-                                </RadioGroup>
+                                </Select>
                             </FormControl>
                         </Grid>
-                        <Grid item xs={3}>
-                            <FormControl component="fieldset" fullWidth sx={{ mb: 2, mt: 4.5 }} required>
-                                <RadioGroup
-                                    aria-label="style"
-                                    name="style"
-                                    value={style}
-                                    onChange={(e) => setStyle(e.target.value)}
-                                >
-                                    {['Conversational', 'Persuasive', 'Descriptive', 'Technical'].map((option) => (
-                                        <FormControlLabel key={option} value={option.toLowerCase()} control={<Radio />} label={option} />
-                                    ))}
-                                </RadioGroup>
-                            </FormControl>
-                        </Grid>
-                        <Grid item xs={1.5}>
-                            <FormControl component="fieldset" fullWidth sx={{ mb: 2 }} required>
-                                <FormLabel component="legend" sx={{ fontSize: '1.25rem' }}>Tone:</FormLabel>
-                                <RadioGroup
-                                    aria-label="tone"
-                                    name="tone"
+
+                        {/* Tone Dropdown */}
+                        <Grid item xs={4}>
+                            <FormControl fullWidth sx={{ mb: 2 }} required>
+                                <InputLabel id="tone-label">Tone</InputLabel>
+                                <Select
+                                    labelId="tone-label"
+                                    id="tone-select"
                                     value={tone}
+                                    label="Tone"
                                     onChange={(e) => setTone(e.target.value)}
                                 >
-                                    {['N/A', 'Friendly', 'Serious', 'Enthusiastic'].map((option) => (
-                                        <FormControlLabel key={option} value={option.toLowerCase()} control={<Radio />} label={option} />
+                                    {['N/A', 'Friendly', 'Serious', 'Enthusiastic', 'Humorous', 'Assertive', 'Compassionate', 'Encouraging'].map((option) => (
+                                        <MenuItem key={option} value={option.toLowerCase()}>{option}</MenuItem>
                                     ))}
-                                </RadioGroup>
+                                </Select>
                             </FormControl>
                         </Grid>
-                        <Grid item xs={3}>
-                            <FormControl component="fieldset" fullWidth sx={{ mb: 2, mt: 4.5}} required>
-                                <RadioGroup
-                                    aria-label="tone"
-                                    name="tone"
-                                    value={tone}
-                                    onChange={(e) => setTone(e.target.value)}
-                                >
-                                    {['Humorous',  'Assertive', 'Compassionate', 'Encouraging'].map((option) => (
-                                        <FormControlLabel key={option} value={option.toLowerCase()} control={<Radio />} label={option} />
-                                    ))}
-                                </RadioGroup>
-                            </FormControl>
-                        </Grid>
-                        <Grid item xs={2}>
-                            <FormControl component="fieldset" fullWidth sx={{ mb: 2 }} required>
-                                <FormLabel component="legend" sx={{ fontSize: '1.25rem' }}>Length:</FormLabel>
-                                <RadioGroup
-                                    aria-label="length"
-                                    name="length"
+
+                        {/* Length Dropdown */}
+                        <Grid item xs={4}>
+                            <FormControl fullWidth sx={{ mb: 2 }} required>
+                                <InputLabel id="length-label">Length</InputLabel>
+                                <Select
+                                    labelId="length-label"
+                                    id="length-select"
                                     value={length}
+                                    label="Length"
                                     onChange={(e) => setLength(e.target.value)}
                                 >
                                     {['Short', 'Medium', 'Long'].map((option) => (
-                                        <FormControlLabel key={option} value={option.toLowerCase()} control={<Radio />} label={option} />
+                                        <MenuItem key={option} value={option.toLowerCase()}>{option}</MenuItem>
                                     ))}
-                                </RadioGroup>
+                                </Select>
                             </FormControl>
                         </Grid>
+
                     </Grid>
                     </Box>
                     <Button
@@ -251,7 +233,7 @@ const GenerateEmails = () => {
             >
                 {loading ? (
                     <>
-                        <CircularProgress />
+                        <TrainLoader />
                         <Typography variant="body2" mt={2}>
                             Generating email...
                         </Typography>
