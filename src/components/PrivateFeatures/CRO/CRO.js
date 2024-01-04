@@ -235,6 +235,11 @@ const CRO = () => {
                             Optimizing...
                         </Typography>
                     </>
+                // If the 'response' state variable exists and is truthy, a hyperlink is rendered.
+                // This hyperlink points to the URL stored in 'response' and opens in a new tab or window.
+                // The text for the hyperlink is "Click here to download output file".
+                // The 'rel' attribute with "noopener noreferrer" value is a security measure to prevent the new page from accessing the window.opener property and ensures it runs in a separate process.
+                // The '<>' and '</>' are shorthand for a React Fragment, allowing us to group multiple elements without adding an extra node to the DOM.
                 ) : response && (
                     <>
                         <a href={response} target="_blank" rel="noopener noreferrer">
