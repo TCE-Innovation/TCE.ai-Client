@@ -31,7 +31,10 @@ const ChatBot = () => {
         "Matthew Bayne",
         "Jacob Shavel",
         "Chris Dawson",
-        "Hector Lim"
+        "Hector Lim",
+        "Rory O'Neill",
+        'Patrick Besser'
+
     ]
 
     if (userProjects !== undefined || userProjects !== null){
