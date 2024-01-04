@@ -46,7 +46,7 @@ const Track = styled.div`
     transform: rotate(-15deg);
     width: 50px;
     height: 120px;
-    background-color: none;
+    background-color: white;
     border-left: 3px solid #333;
     left: 30px;
     top: -10px;
