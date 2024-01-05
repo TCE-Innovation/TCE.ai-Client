@@ -4,11 +4,11 @@ import React, { useState } from 'react';
 //MUI
 import { FormControl, TextField, Button, Box } from '@mui/material';
 import SendIcon from '@mui/icons-material/Send';
-import {CircularProgress } from '@mui/material';
 
 //COMPONENTS
 import ContactImage from './ContactImage';
 import Footer from '../Footer';
+import PublicTrainLoader from '../../Public/PublicTrainLoader';
 
 //UTILS
 import { sendPublicFormData } from '../../../API Calls/Airtable';
@@ -154,12 +154,12 @@ const ContactUs = () => {
                                             >
                                                 Submit
                                             </Button>
-                                        </Box>
-                                    </FormControl>
+                                        </Box>                                       
+                                    </FormControl>                      
                                 </>
                             ) : (
                                 <Box display="flex" justifyContent="center" alignItems="center" minHeight="200px">
-                                    <CircularProgress />
+                                    <PublicTrainLoader />
                                 </Box>
                             )}
                         </div>

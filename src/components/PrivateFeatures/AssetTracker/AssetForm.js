@@ -120,7 +120,7 @@ const AssetForm = () => {
                     <div className="form-container">
                         <div>
                                 <Box display="flex" flexDirection="row">
-                                    <FormControl className={style.input}>
+                                    <FormControl style={{color: "black", backgroundColor: "white", margin: "8px", width: "50%", marginBottom: "20px"}}>
                                         <InputLabel id="item-label">Item Needed</InputLabel>
                                         <Select
                                             labelId="item-label"
@@ -135,7 +135,7 @@ const AssetForm = () => {
                                             ))}
                                         </Select>
                                     </FormControl>
-                                    <FormControl className={style.input}>
+                                    <FormControl style={{color: "black", backgroundColor: "white", margin: "8px", width: "50%", marginBottom: "20px"}}>
                                         <InputLabel id="project-label">Project</InputLabel>
                                         <Select
                                             labelId="project-label"
@@ -163,14 +163,14 @@ const AssetForm = () => {
                                         multiline
                                         value={reason}
                                         onChange={handleReasonInputChange}
-                                        className={style.inputWide}
+                                        style={{color: "black", backgroundColor: "white", margin: "8px", width: "100%"}}
                                     />
                                 </Box>
                                 <Box display="flex" flexDirection="row">
                                         <LocalizationProvider dateAdapter={AdapterDateFns}>
                                             <DatePicker
                                                 label="Date to Pick Up"
-                                                className={style.datePicker}
+                                                sx=  {{width: "25%", marginBottom: "28px", marginLeft: "8px", marginTop: "25px"}}
                                                 value={dateNeeded}
                                                 onChange={setDateNeeded}
                                                 renderInput={(params) => <TextField {...params} sx={{ }} />}
@@ -179,7 +179,7 @@ const AssetForm = () => {
                                         <LocalizationProvider dateAdapter={AdapterDateFns}>
                                             <DatePicker
                                                 label="Date to Return"
-                                                className={style.datePicker}
+                                                sx=  {{width: "25%", marginBottom: "28px", marginLeft: "8px", marginTop: "25px"}}
                                                 value={dateReturn}
                                                 onChange={setDateReturn}
                                                 renderInput={(params) => <TextField {...params} sx={{}} />}
@@ -191,14 +191,23 @@ const AssetForm = () => {
                                             multiline
                                             value={initials}
                                             onChange={handleInitialInputChange}
-                                            className={style.initial}
+                                            sx= {{width: "25%", marginBottom: "28px", marginLeft: "8px", marginTop: "25px"}}
                                         />
                                         <Button 
                                             onClick={handleSubmit}
                                             disabled={isButtonDisabled}
                                             variant="outlined"
                                             endIcon={<SendIcon />} 
-                                            className={style.button}
+                                            sx={{color: "#1b365f",
+                                            borderColor: "#1b365f",
+                                            borderRadius: "20px",
+                                            fontWeight: "500",
+                                            marginRight: "8px",
+                                            marginLeft: "20px",
+                                            backgroundColor: "transparent",
+                                            width: "20%",
+                                            height: "50px",
+                                            marginTop: "25px"}}
                                         >
                                             Submit
                                         </Button>  
@@ -214,8 +223,17 @@ const AssetForm = () => {
                             <Button 
                                 onClick={handleNewSubmission} 
                                 variant="outlined" 
-                                sx={{ mt: 5, fontWeight:'bold', color: "white" }}
-                                className={style.postButton}
+                                sx={{
+                                mt: 5, 
+                                fontWeight:'bold', 
+                                color: "#1b365f",
+                                borderColor: "#1b365f",
+                                borderRadius: "20px",
+                                marginRight: "8px",
+                                backgroundColor: "transparent",
+                                width: "20%",
+                                height: "50px",
+                                marginTop: "25px"}}
                             >
                                 Request another Item
                             </Button>

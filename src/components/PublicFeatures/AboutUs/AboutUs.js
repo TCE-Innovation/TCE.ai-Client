@@ -1,10 +1,12 @@
 import React from "react";
 import styles from "./aboutUs.module.css";
+import PublicTrainLoader from "../../Public/PublicTrainLoader";
 
 const AboutUs = () => {
   return (
     <div className="full-window-component">
       <div className="black-container">
+      <PublicTrainLoader />
         <br /><br /><br /><br /><br /><br />
         <div className={styles.body}>
           <div className={styles.bigText}>
