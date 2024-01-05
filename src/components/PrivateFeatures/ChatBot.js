@@ -1,13 +1,21 @@
+//REACT
 import React, { useState, useContext } from 'react';
+
+//MUI
 import Box from '@mui/material/Box';
 import Select from '@mui/material/Select';
 import MenuItem from '@mui/material/MenuItem';
 import FormControl from '@mui/material/FormControl';
 import InputLabel from '@mui/material/InputLabel';
+import TrainLoader from '../General/TrainLoader';
 
 //AUTH
 import { AuthContext } from "../../authentication/Auth";
-import TrainLoader from '../General/TrainLoader';
+
+//LISTS
+import { allProjectsAccess } from '../../admin/lists';
+import { projWithChatbot } from '../../admin/lists';
+
 
 
 const ChatBot = () => {
@@ -27,15 +35,6 @@ const ChatBot = () => {
     };
 
     const userProjKeys = [];
-    const allProjectsAccess = [
-        "Matthew Bayne",
-        "Jacob Shavel",
-        "Chris Dawson",
-        "Hector Lim",
-        "Rory O'Neill",
-        'Patrick Besser'
-
-    ]
 
     if (userProjects !== undefined || userProjects !== null){
         if ('ADA Package 4' in userProjects || allProjectsAccess.includes(userName)) {
@@ -56,8 +55,6 @@ const ChatBot = () => {
         }
         */
     }
-
-    const projWithChatbot = ['p4', 'ert', 'fulton', 'psd'];
 
     function findMatchingProjects(userProjects, chatbotProjects) {
         return userProjects.filter((project) => chatbotProjects.includes(project));
