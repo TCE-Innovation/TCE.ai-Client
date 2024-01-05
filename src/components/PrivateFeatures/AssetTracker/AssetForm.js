@@ -235,7 +235,7 @@ const AssetForm = () => {
                                 height: "50px",
                                 marginTop: "25px"}}
                             >
-                                Request another Item
+                                Request another item
                             </Button>
                         </Box>
                     </div>
