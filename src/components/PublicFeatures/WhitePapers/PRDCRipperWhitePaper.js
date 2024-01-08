@@ -1,6 +1,6 @@
 import styles from './whitepaper.module.css';
 import React, { useState } from 'react';
-import { CircularProgress } from '@mui/material';
+import TrainLoader from '../../General/TrainLoader';
 
 const WhitePaper = () => {
     const [iframeLoaded, setIframeLoaded] = useState(false);
@@ -20,10 +20,10 @@ const WhitePaper = () => {
         <div className={styles.container}>
             {!iframeLoaded && (
                 <div style={spinnerContainerStyle}>
-                    <CircularProgress />
+                    <TrainLoader />
                 </div>
             )}
-            <div style={{ display: iframeLoaded ? 'block' : 'none', width: '100%', height: '100%'}}>
+            <div style={{ display: iframeLoaded ? 'block' : 'none', width: '100%', height: '98.7%'}}>
                 <iframe 
                     src="https://tceaiblob.blob.core.windows.net/whitepapers/PRDC Ripper White Paper R2.pdf" 
                     height="100%"
