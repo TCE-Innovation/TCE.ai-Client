@@ -25,7 +25,7 @@ const WhitePaper = () => {
             )}
             <div style={{ display: iframeLoaded ? 'block' : 'none', width: '100%', height: '100%'}}>
                 <iframe 
-                    src="https://judlauent.sharepoint.com/sites/TCEInnovation/_layouts/15/embed.aspx?UniqueId=6e8aad5a-a430-45a0-9c5b-24159ce9a449" 
+                    src="https://tceaiblob.blob.core.windows.net/whitepapers/PRDC Ripper White Paper R1.0.pdf" 
                     height="100%"
                     width="100%"
                     onLoad={handleIframeLoad}
