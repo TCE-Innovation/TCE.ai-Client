@@ -30,23 +30,15 @@ const listItemStyle = {
 };
 
 const PrivateListItems = (props) => {
-    const [hoverOpenSection, setHoverOpenSection] = React.useState(null);
     const [clickOpenSection, setClickOpenSection] = React.useState(null);
 
     const handleClick = (section) => {
         setClickOpenSection(clickOpenSection === section ? null : section);
     };
 
-    const isOpen = (section) => {
-        return clickOpenSection === section || hoverOpenSection === section;
-    };
-
     return (
         <React.Fragment>
-            <div
-                onMouseEnter={() => setHoverOpenSection('information')}
-                onMouseLeave={() => setHoverOpenSection(null)}
-            >
+            <div>
             <ListItemButton
                 style={listItemStyle}                 
                 onClick={() => handleClick('information')}
@@ -55,10 +47,10 @@ const PrivateListItems = (props) => {
                     <InfoIcon />
                 </ListItemIcon>
                 <ListItemText primary="Information"  style={{ width: '150px' }}/>
-                    {isOpen('information') ? <ExpandLess /> : <ExpandMore />}
+                    {clickOpenSection === 'information' ? <ExpandLess /> : <ExpandMore />}
             </ListItemButton>
 
-            <Collapse in={isOpen('information')} timeout="auto" unmountOnExit>
+            <Collapse in={clickOpenSection === 'information'} timeout="auto" unmountOnExit>
                 <List component="div" disablePadding>
 
                     <ListItemButton onClick={() => props.onSelect('privateHome')}>
@@ -80,10 +72,7 @@ const PrivateListItems = (props) => {
             </div>
 
 
-            <div
-                onMouseEnter={() => setHoverOpenSection('tools')}
-                onMouseLeave={() => setHoverOpenSection(null)}
-            >
+            <div>
             <ListItemButton  
                 style={listItemStyle}                  
                 onClick={() => handleClick('tools')}
@@ -92,10 +81,10 @@ const PrivateListItems = (props) => {
                     <ConstructionIcon />
                 </ListItemIcon>
                 <ListItemText primary="Tools" />
-                    {isOpen('tools') ? <ExpandLess /> : <ExpandMore />}
+                    {clickOpenSection === 'tools' ? <ExpandLess /> : <ExpandMore />}
             </ListItemButton>
 
-            <Collapse in={isOpen('tools')} timeout="auto" unmountOnExit>
+            <Collapse in={clickOpenSection === 'tools'} timeout="auto" unmountOnExit>
                 <List component="div" disablePadding>
 
                     <ListItemButton onClick={() => props.onSelect('generateEmails')}>
@@ -131,10 +120,7 @@ const PrivateListItems = (props) => {
             </div>
 
 
-            <div
-                onMouseEnter={() => setHoverOpenSection('office')}
-                onMouseLeave={() => setHoverOpenSection(null)}
-            >          
+            <div>          
             <ListItemButton    
                 style={listItemStyle}                
                 onClick={() => handleClick('office')}
@@ -143,10 +129,10 @@ const PrivateListItems = (props) => {
                     <ApartmentIcon />
                 </ListItemIcon>
                 <ListItemText primary="Office" />
-                    {isOpen('office') ? <ExpandLess /> : <ExpandMore />}
+                    {clickOpenSection === 'office' ? <ExpandLess /> : <ExpandMore />}
             </ListItemButton>
 
-            <Collapse in={isOpen('office')} timeout="auto" unmountOnExit>
+            <Collapse in={clickOpenSection === 'office'} timeout="auto" unmountOnExit>
                 <List component="div" disablePadding>
                     <ListItemButton onClick={() => props.onSelect('assetTracker')}>
                         <ListItemIcon style={{marginLeft: "15px"}}>
