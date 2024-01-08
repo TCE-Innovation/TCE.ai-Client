@@ -78,7 +78,7 @@
   
   .overlay-text {
     color: white;  
-    font-size: 6rem; 
+    font-size: 7vw; 
     font-family: 'Bebas Neue', sans-serif;
     text-align: center; 
     text-shadow: 8px 8px 8px black; 
@@ -88,6 +88,27 @@
     animation: fadeIn 1s ease-in-out 0.5s forwards, 
     sizeGrow 1s ease-in-out 0.5s forwards;
   }
+
+  /* For medium screens */
+@media (max-width: 1200px) {
+  .overlay-text {
+    font-size: 5rem;
+  }
+}
+
+/* For small screens */
+@media (max-width: 768px) {
+  .overlay-text {
+    font-size: 3rem;
+  }
+}
+
+/* For extra small screens */
+@media (max-width: 480px) {
+  .overlay-text {
+    font-size: 2rem;
+  }
+}
   
   .full-window-component{
     min-height: 100vh;
