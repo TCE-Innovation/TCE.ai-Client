@@ -4,6 +4,7 @@ import { useMsal } from "@azure/msal-react";
 import { loginRequest } from "../../authentication/authConfig"; 
 import { useNavigate } from 'react-router-dom';
 import PrivateContext from "../Private/PrivateContext";
+import { updateUserLog } from '../../API Calls/Airtable';
 
 export function useMicrosoftSignIn() {
   const { instance } = useMsal(); 
@@ -18,6 +19,7 @@ export function useMicrosoftSignIn() {
         if (currentAccounts.length > 0) {
           navigate('/private');
           setPrivateFunctionality('privateHome');
+          await updateUserLog(currentAccounts[0].name);
         }
       }
     } catch (e) {

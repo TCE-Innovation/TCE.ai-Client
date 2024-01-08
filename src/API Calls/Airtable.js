@@ -161,3 +161,52 @@ export async function getActiveProjects() {
         console.error('Error fetching project information:', error);
     }
 }
+
+function formatDate(date) {
+    return date.toLocaleDateString("en-US") + ' ' + date.toLocaleTimeString("en-US");
+}
+
+//function to log when someone has signed into the site
+export async function updateUserLog(name) {
+    const tableId = 'tblyUm10poTz9ICFu';
+    const baseId = 'appfF7QtyV8ahG0OT'
+    var base = new Airtable({apiKey: 'patlr5uHzCsVA5n44.60e06f59a3a49f3b492a501adf24fe2800073534a140500c2e28c9ff355dabef'}).base(baseId);
+    try {
+        // Get all records from Airtable
+        const records = await base(tableId).select().all();
+
+        // Flag to check if the user already exists
+        let userExists = false;
+
+        // Loop through records and check name
+        for (const record of records) {
+            if (record.fields.Name === name) {
+                userExists = true;
+                // Update record
+                await base(tableId).update([
+                    {
+                        "id": record.id,
+                        "fields": {
+                            "Last Sign On": formatDate(new Date()),
+                        }
+                    }
+                ]);
+                break;
+            }
+        }
+
+        // If name is not found, create new record
+        if (!userExists) {
+            await base(tableId).create([
+                {
+                    "fields": {
+                        "Name": name,
+                        "Last Sign On": formatDate(new Date()),
+                    }
+                }
+            ]);
+        }
+    } catch (error) {
+        console.error(error);
+    }
+}
