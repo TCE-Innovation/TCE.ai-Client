@@ -1,13 +1,12 @@
 
 //CHAT BOT
 const allProjectsAccess = [
-    "Matthew Bayne",
-    "Jacob Shavel",
-    "Chris Dawson",
-    "Christopher Dawson",
-    "Hector Lim",
-    "Rory O'Neill",
-    "Patrick Besser"
+    "mbayne@tcelect.net",
+    "jshavel@tcelect.net",
+    "cdawson@tcelect.net",
+    "hlim@tcelect.net",
+    "roneill@tcelect.net",
+    "pbesser@tcelect.net"
 ];
 
 const projWithChatbot = [

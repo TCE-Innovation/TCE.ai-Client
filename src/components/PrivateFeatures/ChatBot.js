@@ -20,7 +20,7 @@ import { projWithChatbot } from '../../admin/lists';
 
 const ChatBot = () => {
     const [project, setProject] = useState('hr');
-    const { userProjects, userName } = useContext(AuthContext);
+    const { userProjects, userEmail } = useContext(AuthContext);
 
     const [loadingStates, setLoadingStates] = useState({
         fulton: true, 
@@ -37,16 +37,16 @@ const ChatBot = () => {
     const userProjKeys = [];
 
     if (userProjects !== undefined || userProjects !== null){
-        if ('ADA Package 4' in userProjects || allProjectsAccess.includes(userName)) {
+        if ('ADA Package 4' in userProjects || allProjectsAccess.includes(userEmail)) {
             userProjKeys.push('p4');
         }
-        if ('Amtrak ERT' in userProjects || allProjectsAccess.includes(userName)) {
+        if ('Amtrak ERT' in userProjects || allProjectsAccess.includes(userEmail)) {
             userProjKeys.push('ert');
         }
-        if ('CBTC Fulton Line' in userProjects || allProjectsAccess.includes(userName)) {
+        if ('CBTC Fulton Line' in userProjects || allProjectsAccess.includes(userEmail)) {
             userProjKeys.push('fulton');
         }
-        if ('DB Platform Screen Door Pilot Installation' in userProjects || allProjectsAccess.includes(userName)) {
+        if ('DB Platform Screen Door Pilot Installation' in userProjects || allProjectsAccess.includes(userEmail)) {
             userProjKeys.push('psd');
         }
         /* 
