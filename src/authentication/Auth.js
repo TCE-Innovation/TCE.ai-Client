@@ -44,6 +44,7 @@ export const AuthProvider = ({ children }) => {
 
   //function to fetch user details
   function fetchAndSetUserDetails(accessToken, name, email) {
+    email = email.toLowerCase();
     setUserName(name);
     setUserEmail(email);
     setAccessToken(accessToken);
@@ -56,7 +57,7 @@ export const AuthProvider = ({ children }) => {
       .then(setUserTitle)
       .catch((error) => console.error('Error fetching user job title:', error));
 
-    getProjects(name)
+    getProjects(email)
       .then(setUserProjects)
       .catch((error) => console.error('Error fetching user projects:', error));
   }

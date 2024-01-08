@@ -19,8 +19,8 @@ export async function getJobTitle(name) {
     }
 }
 
-//function to pull job title from Airtable based on name
-export async function getProjects(name) { 
+//function to pull job title from Airtable based on email
+export async function getProjects(email) { 
     const tableId = 'tbllr82cbFWIZ15C5'; 
     var base = new Airtable({apiKey: 'patlr5uHzCsVA5n44.60e06f59a3a49f3b492a501adf24fe2800073534a140500c2e28c9ff355dabef'}).base('appbZOyLaEfXejoBd');
     try {
@@ -29,7 +29,7 @@ export async function getProjects(name) {
 
         //loop through records and check name
         for (const record of records){
-            if (record.fields.name === name) {
+            if (record.fields.email === email) {
                return record.fields.projects;
             }
         };
