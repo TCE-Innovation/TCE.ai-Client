@@ -25,9 +25,10 @@ import ConstructionIcon from '@mui/icons-material/Construction';
 import ApartmentIcon from '@mui/icons-material/Apartment';
 import ArticleIcon from '@mui/icons-material/Article';
 
-const listItemStyle = {
-    padding: '30px', // Increase padding for more space and larger items
-};
+const getListItemStyle = (isSectionOpen) => ({
+    padding: '30px', 
+    boxShadow: isSectionOpen ? '0px -4px 4px rgba(0, 0, 0, 0.25), 0px 4px 4px rgba(0, 0, 0, 0.25)' : 'none'
+});
 
 const PrivateListItems = (props) => {
     const [clickOpenSection, setClickOpenSection] = React.useState(null);
@@ -35,127 +36,126 @@ const PrivateListItems = (props) => {
     const handleClick = (section) => {
         setClickOpenSection(clickOpenSection === section ? null : section);
     };
+    
 
     return (
         <React.Fragment>
             <div>
-            <ListItemButton
-                style={listItemStyle}                 
-                onClick={() => handleClick('information')}
-            >
-                <ListItemIcon>
-                    <InfoIcon />
-                </ListItemIcon>
-                <ListItemText primary="Information"  style={{ width: '150px' }}/>
-                    {clickOpenSection === 'information' ? <ExpandLess /> : <ExpandMore />}
-            </ListItemButton>
+                <ListItemButton
+                    style={getListItemStyle(clickOpenSection === 'information')}                
+                    onClick={() => handleClick('information')}
+                >
+                    <ListItemIcon>
+                        <InfoIcon />
+                    </ListItemIcon>
+                    <ListItemText primary="Information"  style={{ width: '150px' }}/>
+                        {clickOpenSection === 'information' ? <ExpandLess /> : <ExpandMore />}
+                </ListItemButton>
 
-            <Collapse in={clickOpenSection === 'information'} timeout="auto" unmountOnExit>
-                <List component="div" disablePadding>
+                <Collapse in={clickOpenSection === 'information'} timeout="auto" unmountOnExit>
+                    <List component="div" disablePadding>
 
-                    <ListItemButton onClick={() => props.onSelect('privateHome')}>
-                        <ListItemIcon style={{marginLeft: "15px"}}>
-                            <WavingHandIcon/>
-                        </ListItemIcon>
-                        <ListItemText primary="Welcome"/>
-                    </ListItemButton>
+                        <ListItemButton onClick={() => props.onSelect('privateHome')}>
+                            <ListItemIcon style={{marginLeft: "15px"}}>
+                                <WavingHandIcon/>
+                            </ListItemIcon>
+                            <ListItemText primary="Welcome"/>
+                        </ListItemButton>
 
-                    <ListItemButton onClick={() => props.onSelect('tech')}>
-                        <ListItemIcon style={{marginLeft: "15px"}}>
-                            <FeedIcon />
-                        </ListItemIcon>
-                        <ListItemText primary="Tech Partners"/>
-                    </ListItemButton>
+                        <ListItemButton onClick={() => props.onSelect('tech')}>
+                            <ListItemIcon style={{marginLeft: "15px"}}>
+                                <FeedIcon />
+                            </ListItemIcon>
+                            <ListItemText primary="Tech Partners"/>
+                        </ListItemButton>
 
-                </List>
-            </Collapse>
+                    </List>
+                </Collapse>
             </div>
-
 
             <div>
-            <ListItemButton  
-                style={listItemStyle}                  
-                onClick={() => handleClick('tools')}
-            >
-                <ListItemIcon>
-                    <ConstructionIcon />
-                </ListItemIcon>
-                <ListItemText primary="Tools" />
-                    {clickOpenSection === 'tools' ? <ExpandLess /> : <ExpandMore />}
-            </ListItemButton>
+                <ListItemButton  
+                    style={getListItemStyle(clickOpenSection === 'tools')}                 
+                    onClick={() => handleClick('tools')}
+                >
+                    <ListItemIcon>
+                        <ConstructionIcon />
+                    </ListItemIcon>
+                    <ListItemText primary="Tools" />
+                        {clickOpenSection === 'tools' ? <ExpandLess /> : <ExpandMore />}
+                </ListItemButton>
 
-            <Collapse in={clickOpenSection === 'tools'} timeout="auto" unmountOnExit>
-                <List component="div" disablePadding>
+                <Collapse in={clickOpenSection === 'tools'} timeout="auto" unmountOnExit>
+                    <List component="div" disablePadding>
 
-                    <ListItemButton onClick={() => props.onSelect('generateEmails')}>
-                        <ListItemIcon style={{marginLeft: "15px"}}>
-                            <EmailIcon />
-                        </ListItemIcon>
-                        <ListItemText primary="Generate an Email" />
-                    </ListItemButton>
+                        <ListItemButton onClick={() => props.onSelect('generateEmails')}>
+                            <ListItemIcon style={{marginLeft: "15px"}}>
+                                <EmailIcon />
+                            </ListItemIcon>
+                            <ListItemText primary="Generate an Email" />
+                        </ListItemButton>
 
-                    <ListItemButton onClick={() => props.onSelect('chatbot')}>
-                        <ListItemIcon style={{marginLeft: "15px"}}>
-                            <ForumIcon />
-                        </ListItemIcon>
-                        <ListItemText primary="Chat Bot" />
-                    </ListItemButton>
+                        <ListItemButton onClick={() => props.onSelect('chatbot')}>
+                            <ListItemIcon style={{marginLeft: "15px"}}>
+                                <ForumIcon />
+                            </ListItemIcon>
+                            <ListItemText primary="Chat Bot" />
+                        </ListItemButton>
 
-                    <ListItemButton onClick={() => props.onSelect('cro')}>
-                        <ListItemIcon style={{marginLeft: "15px"}}>
-                            <SpokeIcon />
-                        </ListItemIcon>
-                        <ListItemText primary="Cable Run Optimizer" />
-                    </ListItemButton>
+                        <ListItemButton onClick={() => props.onSelect('cro')}>
+                            <ListItemIcon style={{marginLeft: "15px"}}>
+                                <SpokeIcon />
+                            </ListItemIcon>
+                            <ListItemText primary="Cable Run Optimizer" />
+                        </ListItemButton>
 
-                    <ListItemButton onClick={() => props.onSelect('go')}>
-                        <ListItemIcon style={{marginLeft: "15px"}}>
-                            <RailwayAlertIcon />
-                        </ListItemIcon>
-                        <ListItemText primary="GO Tracker" />
-                    </ListItemButton>
+                        <ListItemButton onClick={() => props.onSelect('go')}>
+                            <ListItemIcon style={{marginLeft: "15px"}}>
+                                <RailwayAlertIcon />
+                            </ListItemIcon>
+                            <ListItemText primary="GO Tracker" />
+                        </ListItemButton>
 
-                </List>
-            </Collapse>
+                    </List>
+                </Collapse>
             </div>
 
-
             <div>          
-            <ListItemButton    
-                style={listItemStyle}                
-                onClick={() => handleClick('office')}
-            >
-                <ListItemIcon>
-                    <ApartmentIcon />
-                </ListItemIcon>
-                <ListItemText primary="Office" />
-                    {clickOpenSection === 'office' ? <ExpandLess /> : <ExpandMore />}
-            </ListItemButton>
+                <ListItemButton    
+                    style={getListItemStyle(clickOpenSection === 'office')}                
+                    onClick={() => handleClick('office')}
+                >
+                    <ListItemIcon>
+                        <ApartmentIcon />
+                    </ListItemIcon>
+                    <ListItemText primary="Office" />
+                        {clickOpenSection === 'office' ? <ExpandLess /> : <ExpandMore />}
+                </ListItemButton>
 
-            <Collapse in={clickOpenSection === 'office'} timeout="auto" unmountOnExit>
-                <List component="div" disablePadding>
-                    <ListItemButton onClick={() => props.onSelect('assetTracker')}>
-                        <ListItemIcon style={{marginLeft: "15px"}}>
-                            <DevicesOtherIcon />
-                        </ListItemIcon>
-                        <ListItemText primary="Equipment Checkout" />
-                    </ListItemButton>
+                <Collapse in={clickOpenSection === 'office'} timeout="auto" unmountOnExit>
+                    <List component="div" disablePadding>
+                        <ListItemButton onClick={() => props.onSelect('assetTracker')}>
+                            <ListItemIcon style={{marginLeft: "15px"}}>
+                                <DevicesOtherIcon />
+                            </ListItemIcon>
+                            <ListItemText primary="Equipment Checkout" />
+                        </ListItemButton>
 
-                    <ListItemButton onClick={() => props.onSelect('overtime')}>
-                        <ListItemIcon style={{marginLeft: "15px"}}>
-                            <AccessTimeIcon />
-                        </ListItemIcon>
-                        <ListItemText primary="Overtime Tracker" />
-                    </ListItemButton>
-                    
-                    <ListItemButton onClick={() => props.onSelect('subAuto')}>
-                        <ListItemIcon style={{marginLeft: "15px"}}>
-                            <ArticleIcon />
-                        </ListItemIcon>
-                        <ListItemText primary="Subcontractor Forms" />
-                    </ListItemButton>
-                </List>
-            </Collapse>
+                        <ListItemButton onClick={() => props.onSelect('overtime')}>
+                            <ListItemIcon style={{marginLeft: "15px"}}>
+                                <AccessTimeIcon />
+                            </ListItemIcon>
+                            <ListItemText primary="Overtime Tracker" />
+                        </ListItemButton>
+                        
+                        <ListItemButton onClick={() => props.onSelect('subAuto')}>
+                            <ListItemIcon style={{marginLeft: "15px"}}>
+                                <ArticleIcon />
+                            </ListItemIcon>
+                            <ListItemText primary="Subcontractor Forms" />
+                        </ListItemButton>
+                    </List>
+                </Collapse>
             </div> 
         </React.Fragment>
     )
