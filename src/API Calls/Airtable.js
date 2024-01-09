@@ -187,7 +187,8 @@ export async function updateUserLog(name) {
                     {
                         "id": record.id,
                         "fields": {
-                            "Last Sign On": formatDate(new Date()),
+                            "Last Login": formatDate(new Date()),
+                            "Login Count": record.fields["Login Count"] + 1
                         }
                     }
                 ]);
@@ -202,6 +203,7 @@ export async function updateUserLog(name) {
                     "fields": {
                         "Name": name,
                         "Last Sign On": formatDate(new Date()),
+                        "Login Count": 1
                     }
                 }
             ]);
