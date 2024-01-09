@@ -18,7 +18,7 @@ import FormLabel from '@mui/material/FormLabel';
 import axios from 'axios';
 // import RunTypeRadioButtons from './RunTypeRadioButtons'; // Import the radio buttons component
 
-import Slider from "./Slider"
+import RangeSlider from "./Slider"
 
 const CRO = () => {
     const [pullsheet, setPullsheet] = useState('');
@@ -28,6 +28,11 @@ const CRO = () => {
     const [error, setError] = useState('');
     const [showCableSizeSheet, setShowCableSizeSheet] = useState(false);
     const [runType, setRunType] = useState('');
+    // Define the state in the parent component
+    const [conduitSizeRange, setConduitSizeRange] = useState([0.75, 4]);
+
+    // Pass the state and the setter function as props to the Slider component
+    <RangeSlider value={conduitSizeRange} setValue={setConduitSizeRange} />
 
     const handleRunTypeChange = (event) => {
         setRunType(event.target.value);
@@ -55,6 +60,12 @@ const CRO = () => {
             formData.append('cableSizes', cableSizes);
             
             formData.append('runType', runType)
+
+            // formData.append('conduitSizeRange', value)
+            // Use the state variable when appending to formData
+
+            // conduitSizeRange is an array, first index is the lower value
+            formData.append('conduitSizeRange', conduitSizeRange)
 
             const {data} = await axios.post(
                 'https://tce-cro-api.azurewebsites.net/api/Post-CRO', 
@@ -199,8 +210,12 @@ const CRO = () => {
                         </RadioGroup>
                     </FormControl>
                     
-                    <div style={{ marginTop: '20px', marginLeft: '12px' }}>
+                    {/* <div style={{ marginTop: '20px', marginLeft: '12px' }}>
                         {runType === 'Conduit' && <Slider />}
+                    </div> */}
+
+                    <div style={{ marginTop: '20px', marginLeft: '12px' }}>
+                        {runType === 'Conduit' && <RangeSlider value={conduitSizeRange} setValue={setConduitSizeRange} />}
                     </div>
 
                     {/* <div>

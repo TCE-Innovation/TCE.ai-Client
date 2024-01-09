@@ -23,10 +23,14 @@ function valuetext(value) {
   return `${value}"`;
 }
 
-export default function RangeSlider() {
-  const [value, setValue] = useState([0, 6]);
+// export default function RangeSlider() {
+//   const [value, setConduitSizeRange] = useState([0.75, 4]);
 
-  const handleChange = (event, newValue) => {
+//   const handleConduitSizeRangeChange = (event, newValue) => {
+//     setConduitSizeRange(newValue);
+//   };
+export default function RangeSlider({ value, setValue }) {
+  const handleConduitSizeRangeChange = (event, newValue) => {
     setValue(newValue);
   };
 
@@ -34,13 +38,13 @@ export default function RangeSlider() {
     <Box sx={{ width: 600 }}>
 
     <p style={{marginLeft: '-10px' }}>
-        Input Range of Potential Conduit Sizes
+        Input Range of Potential Conduit Sizes:
     </p>
 
       <Slider
-        getAriaLabel={() => "Temperature range"}
+        getAriaLabel={() => "Conduit Size Range"}
         value={value}
-        onChange={handleChange}
+        onChange={handleConduitSizeRangeChange}
         valueLabelDisplay="auto"
         getAriaValueText={valuetext}
         step={null}
@@ -48,6 +52,11 @@ export default function RangeSlider() {
         min={0.75}
         max={6}
       />
+
+      <p style={{marginTop: '20px'}}>
+        Current range: {value[0]}" - {value[1]}"
+      </p>
+
     </Box>
   );
 }
