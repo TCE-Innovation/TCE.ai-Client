@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React from "react";
 import Box from "@mui/material/Box";
 import Slider from "@mui/material/Slider";
 
@@ -53,9 +53,9 @@ export default function RangeSlider({ value, setValue }) {
         max={6}
       />
 
-      <p style={{marginTop: '20px'}}>
+      {/* <p style={{marginTop: '20px'}}>
         Current range: {value[0]}" - {value[1]}"
-      </p>
+      </p> */}
 
     </Box>
   );
