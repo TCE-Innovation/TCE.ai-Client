@@ -202,7 +202,7 @@ export async function updateUserLog(name) {
                 {
                     "fields": {
                         "Name": name,
-                        "Last Sign On": formatDate(new Date()),
+                        "Last Login": formatDate(new Date()),
                         "Login Count": 1
                     }
                 }
