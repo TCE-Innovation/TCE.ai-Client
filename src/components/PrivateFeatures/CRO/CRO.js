@@ -65,7 +65,8 @@ const CRO = () => {
             // Use the state variable when appending to formData
 
             // conduitSizeRange is an array, first index is the lower value
-            formData.append('conduitSizeRange', conduitSizeRange)
+            formData.append('conduitSizeRangeLower', conduitSizeRange[0])
+            formData.append('conduitSizeRangeHigher', conduitSizeRange[1])
 
             const {data} = await axios.post(
                 'https://tce-cro-api.azurewebsites.net/api/Post-CRO', 
