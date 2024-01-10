@@ -166,7 +166,7 @@ const ContactUs = () => {
                     ) : (
                         <div className={style.formContainer}>
                             <Box className={style.box}>
-                                Thank you for your submission. We will be in touch soon.
+                                Thank you for your submission. <br/> We will be in touch soon.
                                 <br />
                                 <Button 
                                     onClick={handleNewSubmission} 
