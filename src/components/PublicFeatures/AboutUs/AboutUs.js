@@ -5,7 +5,6 @@ const AboutUs = () => {
   return (
     <div className="full-window-component">
       <div className="black-container">
-        <br /><br /><br /><br /><br /><br />
         <div className={styles.body}>
           <div className={styles.bigText}>
             <p>

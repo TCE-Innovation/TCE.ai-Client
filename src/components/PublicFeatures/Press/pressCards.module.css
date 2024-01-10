@@ -1,5 +1,5 @@
 .mainContainer {
-    margin-top: 4rem;
+    margin-top: 3vw;
     display: flex;
     flex-direction: row;
     align-items: center;
@@ -8,12 +8,12 @@
 }
 
 .cardContainer {
-    width: 25rem;
-    height: 17rem;
-    margin-left: 20px;
-    margin-right: 20px;
-    margin-bottom: 55px;
-    padding: 25px;
+    width: 20vw;
+    height: 14vw;
+    margin-left: 1vw;
+    margin-right: 1vw;
+    margin-bottom: 2vw;
+    padding: 1.1vw;
     border-radius: 25px;
     align-items: center; 
     justify-content: center;
@@ -27,15 +27,15 @@
 }
 
 .cardTitle {
-    margin-top: 20px;
-    font-size: 1.5rem;
+    font-size: 1.2vw;
     font-weight: bold;
     line-height: tighter;
     color: #1f2937;
 }
 
 .cardText {
-    margin-top: 20px;
+    margin-top: 1vw;
+    font-size: 1vw;
     font-weight: normal;
     color: #4b5563;
 }
@@ -47,16 +47,17 @@
 }
 
 .pressHeader{
-    font-size: 4rem;
+    font-size: 4vw;
     font-family: "Helvetica";
     color: white;
     text-align: center;
-    margin-top: 135px;
+    margin-top: 3vw;
 }
 
 .pressOneLiner{
-    font-size: 1.5rem;
+    font-size: 1.3vw;
     font-family: "Helvetica";
     color: white;
     text-align: center;
 }
+

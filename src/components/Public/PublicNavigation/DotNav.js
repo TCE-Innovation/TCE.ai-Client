@@ -4,7 +4,7 @@ import IconButton from '@mui/material/IconButton';
 
 const DotNav = ({ sections, currentSection, onDotClick }) => {
   return (
-    <Box sx={{ position: 'fixed', right: 16, top: '50%', transform: 'translateY(-50%)', zIndex: 1000, display: 'flex', flexDirection: "column", marginRight: "80px" }}>
+    <Box sx={{ position: 'fixed', right: 16, top: '50%', transform: 'translateY(-50%)', zIndex: 1000, display: 'flex', flexDirection: "column", marginRight: "3vw" }}>
       {sections.map((section, index) => (
         <IconButton 
             key={section} 

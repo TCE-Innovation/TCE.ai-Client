@@ -4,8 +4,8 @@ import EmailIcon from '@mui/icons-material/Email';
 
 const Footer = () => {
   return (
-      <div style={{marginTop:'90px'}}>
-        <p style={{color: "gray", textAlign: "center", marginTop: "50px"}}>
+      <div>
+        <p style={{color: "gray", textAlign: "center", marginTop: "2vw"}}>
           20 W 37th Street, New York, NY 10018 | {''}
 
           <a href="https://www.tcelect.net" style={{color: "gray"}} target="_blank" rel="noreferrer">www.tcelect.net</a> | 

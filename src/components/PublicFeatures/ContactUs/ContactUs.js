@@ -97,7 +97,7 @@ const ContactUs = () => {
                                                 value={name}
                                                 onChange={handleNameInputChange}
                                                 className={style.input}
-                                                style={{ margin: '8px' }}
+                                                style={{ margin: '.5vw' }}
                                             />
                                             <TextField
                                                 id="email"
@@ -107,7 +107,7 @@ const ContactUs = () => {
                                                 value={email}
                                                 onChange={handleEmailInputChange}
                                                 className={style.input}
-                                                style={{ margin: '8px' }}
+                                                style={{ margin: '.5vw' }}
                                             />
                                         </Box>
                                         <Box display="flex" flexDirection="row">
@@ -118,7 +118,7 @@ const ContactUs = () => {
                                                 value={phone}
                                                 onChange={handlePhoneInputChange}
                                                 className={style.input}
-                                                style={{ margin: '8px' }}
+                                                style={{ margin: '.5vw' }}
                                             />
                                             <TextField
                                                 id="organization"
@@ -127,10 +127,10 @@ const ContactUs = () => {
                                                 value={organization}
                                                 onChange={handleOrganizationInputChange}
                                                 className={style.input}
-                                                style={{ margin: '8px' }}
+                                                style={{ margin: '.5vw' }}
                                             />
                                         </Box>
-                                        <FormControl fullWidth>
+                                        <FormControl>
                                             <TextField
                                                 id="contact-message"
                                                 label="Please enter some details about your question or concern"
@@ -141,10 +141,10 @@ const ContactUs = () => {
                                                 value={contactMessage}
                                                 onChange={handleContactMessageInputChange}
                                                 className={style.inputWide}
-                                                style={{ margin: '8px' }}
+                                                style={{ margin: '.5vw' }}
                                             />
                                         </FormControl>
-                                        <Box display="flex" justifyContent="flex-end" mt={2} mb={3}>
+                                        <Box display="flex" justifyContent="flex-end" mt={2} mr={'1vw'}>
                                             <Button 
                                                 onClick={handleSubmit}
                                                 disabled={isButtonDisabled}
