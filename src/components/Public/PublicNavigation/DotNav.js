@@ -14,8 +14,8 @@ const DotNav = ({ sections, currentSection, onDotClick }) => {
             }}
             >
             <div style={{ 
-                width: 12, 
-                height: 12, 
+                width: ".8vw", 
+                height: ".8vw", 
                 borderRadius: '50%', 
                 backgroundColor: currentSection === section ? '#FFCF00' : 'transparent',
                 border: currentSection === section ? 'none' : '2px solid white' 
