@@ -81,7 +81,7 @@ function ResponsiveAppBar() {
     return (
         <>
         <AppBar position="fixed" sx={{
-            background: '#1b365f', height: '6.5vw'
+            background: '#1b365f', height: '90px'
         }}>
                 <Toolbar disableGutters>
                     <Box sx={{ display: 'flex', alignItems: 'center'}}>       
@@ -90,9 +90,9 @@ function ResponsiveAppBar() {
                                 src={logo}
                                 alt='logo'
                                 style={{
-                                    width: '11vw',
-                                    marginLeft: '2.4vw',
-                                    marginTop: '.7vw'
+                                    width: '180px',
+                                    marginLeft: '30px',
+                                    marginTop: '4px',
                                 }}
                                 draggable="false"
                             />
@@ -101,13 +101,13 @@ function ResponsiveAppBar() {
                     <Typography
                         variant="h1"
                         noWrap
-                        fontSize="4vw"
+                        fontSize="50px"
                         sx={{
-                            marginTop: '.7vw',
+                            marginTop: '10px',
                             flexGrow: 1,
                             fontfamily: "Roboto",
                             fontWeight: 'bold',
-                            letterSpacing: '.1vw',
+                            letterSpacing: '.1rem',
                             color: 'white',
                             textDecoration: 'none',
                             textAlign: 'center'
@@ -115,13 +115,13 @@ function ResponsiveAppBar() {
                     >
                         {setTitle(privateFunctionality)}
                     </Typography>
-                    <Box sx={{  display: 'flex', alignItems: 'center', marginTop: '.7vw', marginRight: '2vw'}}>           
+                    <Box sx={{  display: 'flex', alignItems: 'center', marginTop: '10px', marginRight: '30px'}}>           
                         <IconButton onClick={() => {
                             navigate('/private');
                             setPrivateFunctionality('privateHome');
                         }}>
                         <Tooltip title="Toolbox">
-                            <HomeRepairServiceIcon sx={{ color: 'white', fontSize: '3.2vw' }} />
+                            <HomeRepairServiceIcon sx={{ color: 'white', fontSize: '2.5rem' }} />
                         </Tooltip>
                         </IconButton>
 
@@ -135,7 +135,7 @@ function ResponsiveAppBar() {
                             </Tooltip>
                         </IconButton>
                         <Menu
-                            sx={{ mt: '5vw' }}
+                            sx={{ mt: '65px' }}
                             id="menu-appbar"
                             anchorEl={anchorElUser}
                             anchorOrigin={{

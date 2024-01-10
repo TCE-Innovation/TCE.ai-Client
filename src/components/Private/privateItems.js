@@ -48,7 +48,7 @@ const PrivateListItems = (props) => {
                     <ListItemIcon>
                         <InfoIcon />
                     </ListItemIcon>
-                    <ListItemText primary="Information"  style={{ width: '10vw' }}/>
+                    <ListItemText primary="Information"  style={{ width: '150px' }}/>
                         {clickOpenSection === 'information' ? <ExpandLess /> : <ExpandMore />}
                 </ListItemButton>
 
@@ -56,14 +56,14 @@ const PrivateListItems = (props) => {
                     <List component="div" disablePadding>
 
                         <ListItemButton onClick={() => props.onSelect('privateHome')}>
-                            <ListItemIcon style={{marginLeft: "1vw"}}>
+                            <ListItemIcon style={{marginLeft: "15px"}}>
                                 <WavingHandIcon/>
                             </ListItemIcon>
                             <ListItemText primary="Welcome"/>
                         </ListItemButton>
 
                         <ListItemButton onClick={() => props.onSelect('tech')}>
-                            <ListItemIcon style={{marginLeft: "1vw"}}>
+                            <ListItemIcon style={{marginLeft: "15px"}}>
                                 <FeedIcon />
                             </ListItemIcon>
                             <ListItemText primary="Tech Partners"/>
@@ -89,28 +89,28 @@ const PrivateListItems = (props) => {
                     <List component="div" disablePadding>
 
                         <ListItemButton onClick={() => props.onSelect('generateEmails')}>
-                            <ListItemIcon style={{marginLeft: "1vw"}}>
+                            <ListItemIcon style={{marginLeft: "15px"}}>
                                 <EmailIcon />
                             </ListItemIcon>
                             <ListItemText primary="Generate an Email" />
                         </ListItemButton>
 
                         <ListItemButton onClick={() => props.onSelect('chatbot')}>
-                            <ListItemIcon style={{marginLeft: "1vw"}}>
+                            <ListItemIcon style={{marginLeft: "15px"}}>
                                 <ForumIcon />
                             </ListItemIcon>
                             <ListItemText primary="Chat Bot" />
                         </ListItemButton>
 
                         <ListItemButton onClick={() => props.onSelect('cro')}>
-                            <ListItemIcon style={{marginLeft: "1vw"}}>
+                            <ListItemIcon style={{marginLeft: "15px"}}>
                                 <SpokeIcon />
                             </ListItemIcon>
                             <ListItemText primary="Cable Run Optimizer" />
                         </ListItemButton>
 
                         <ListItemButton onClick={() => props.onSelect('go')}>
-                            <ListItemIcon style={{marginLeft: "1vw"}}>
+                            <ListItemIcon style={{marginLeft: "15px"}}>
                                 <RailwayAlertIcon />
                             </ListItemIcon>
                             <ListItemText primary="GO Tracker" />
@@ -135,21 +135,21 @@ const PrivateListItems = (props) => {
                 <Collapse in={clickOpenSection === 'office'} timeout="auto" unmountOnExit>
                     <List component="div" disablePadding>
                         <ListItemButton onClick={() => props.onSelect('assetTracker')}>
-                            <ListItemIcon style={{marginLeft: "1vw"}}>
+                            <ListItemIcon style={{marginLeft: "15px"}}>
                                 <DevicesOtherIcon />
                             </ListItemIcon>
                             <ListItemText primary="Equipment Checkout" />
                         </ListItemButton>
 
                         <ListItemButton onClick={() => props.onSelect('overtime')}>
-                            <ListItemIcon style={{marginLeft: "1vw"}}>
+                            <ListItemIcon style={{marginLeft: "15px"}}>
                                 <AccessTimeIcon />
                             </ListItemIcon>
                             <ListItemText primary="Overtime Tracker" />
                         </ListItemButton>
                         
                         <ListItemButton onClick={() => props.onSelect('subAuto')}>
-                            <ListItemIcon style={{marginLeft: "1vw"}}>
+                            <ListItemIcon style={{marginLeft: "15px"}}>
                                 <ArticleIcon />
                             </ListItemIcon>
                             <ListItemText primary="Subcontractor Forms" />

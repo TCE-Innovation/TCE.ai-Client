@@ -34,7 +34,7 @@ const Drawer = styled(MuiDrawer, { shouldForwardProp: (prop) => prop !== 'open' 
     '& .MuiDrawer-paper': {
       position: 'fixed',
       whiteSpace: 'nowrap',
-      marginTop: '6.5vw',
+      marginTop: '90px',
       width: 'auto',
       transition: theme.transitions.create('width', {
         easing: theme.transitions.easing.sharp,
@@ -107,7 +107,7 @@ function PrivateContent() {
             </List>
           </Drawer>
         
-        <Box component="main" sx={{ marginTop: '1.5vw', flexGrow: 1, p: "1.5vw", ml: open ? "20vw" : "5vw" }}>
+        <Box component="main" sx={{ marginTop: 5, flexGrow: 1, p: 3, ml: open ? 39 : 9 }}>
           {privateFunctionality === 'tech' && <TechPartners />}
           {privateFunctionality === 'privateHome' && <PrivateHome />}
           {privateFunctionality === 'generateEmails' && <GenerateEmails />}
