@@ -21,19 +21,20 @@
     flex-direction: row;
     justify-content: center;
     align-items: center;
-    margin-right: 30px;
-    padding: 0 1rem;
+    margin-right: 2.5vw;
+    height: 3vw;
+    padding: 0 1vw;
     background-color: #fff;
-    border-radius: 0.5rem;
-    box-shadow: 0 0 0.5rem rgba(0,0,0,0.2);
+    border-radius: 0.5vw;
+    box-shadow: 0 0 0.5vw rgba(0,0,0,0.2);
     animation: popUp 0.5s ease-out forwards, dance 1s 0.5s ease-in-out forwards;
 }
 
 .text{
-    font-size: 1rem;
+    font-size: 1.2vw;
     font-weight: 500;
     color: #1b365f;
-    margin: 1px;
+    margin: .5vw;
 }
 
 .button{
@@ -41,8 +42,8 @@
     flex-direction: row;
     justify-content: center;
     align-items: center;
-    margin-left: 1rem;
-    padding: 0.5rem 1rem;
+    margin-left: 1vw;
+    padding: 0.5vw 1vw;
     background-color: #fff;
     border: none;
     cursor: pointer;

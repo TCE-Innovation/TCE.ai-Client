@@ -94,7 +94,7 @@ function ResponsiveAppBar() {
     
     return (
         <>
-        <AppBar position="fixed" elevation={0} sx={{background: 'none', height: '90px'}}>
+            <AppBar position="fixed" elevation={0} sx={{background: 'none', height: '2vw'}}>
                 <Toolbar sx={{width:'100%'}} disableGutters>
                     <Box sx={{ display: 'flex', alignItems: 'center'}}>       
                         <NavLink to="/">
@@ -110,18 +110,18 @@ function ResponsiveAppBar() {
                         display: 'flex',
                         justifyContent: 'flex-end',
                         alignItems: 'right',
-                        marginTop: '35px',
-                        marginRight: '3%',
+                        marginTop: '1.5vw',
+                        marginRight: '3vw',
                         width: '100%'
                     }}>           
                             {isAuthenticated ? (
-                                <Box sx={{ display: 'flex', alignItems: 'center', marginTop: '10px'}}>
+                                <Box sx={{ display: 'flex', alignItems: 'center', marginTop: '1vw'}}>
                                     <IconButton onClick={() => {
                                         navigate('/private');
                                         setPrivateFunctionality('privateHome');
                                     }}>
                                         <Tooltip title="Toolbox">
-                                            <HomeRepairServiceIcon sx={{ color: toolBoxColor.color, fontSize: '2.5rem' }} />
+                                            <HomeRepairServiceIcon sx={{ color: toolBoxColor.color, fontSize: '3.5vw' }} />
                                         </Tooltip>
                                     </IconButton>
 
@@ -144,7 +144,7 @@ function ResponsiveAppBar() {
                                         size="large"
                                         onClick={MicrosoftSignIn}
                                         sx={{ color: loginColor.textColor, borderColor: loginColor.borderColor, backgroundColor: loginColor.backgroundColor, 
-                                            '&:hover': { borderWidth: '3px', fontWeight: 700, color: '#003eab', borderColor: '#003eab' }, fontWeight: 500, borderRadius: '50px', width: '120px', borderWidth: '2px'
+                                            '&:hover': { borderWidth: '.3vw', fontWeight: 700, color: '#003eab', borderColor: '#003eab' }, fontWeight: 500, borderRadius: '2vw', width: '8vw', borderWidth: '.2vw'
                                         }}
                                     >
                                         Login
@@ -152,7 +152,7 @@ function ResponsiveAppBar() {
                                 </Box>
                             )}             
                         <Menu
-                            sx={{ mt: '65px' }}
+                            sx={{ mt: '4.5vw' }}
                             id="menu-appbar"
                             anchorEl={anchorElUser}
                             anchorOrigin={{
@@ -190,7 +190,7 @@ function ResponsiveAppBar() {
                         </Menu>
                     </Box>
                 </Toolbar>
-        </AppBar>
+            </AppBar>
         <Toolbar />
         </>    
     );
