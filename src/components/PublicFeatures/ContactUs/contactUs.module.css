@@ -1,12 +1,12 @@
 .formContainer {
-    padding: 3%;
+    margin-left: 3vw;
     width: 100%;
 }
 
 .formHeader{
     font-size: 3vw;
     font-weight: 600;
-    margin-bottom: 1rem;
+    margin-bottom: 1vw;
     margin-left: .5vw;
     color: white;
     text-align: left;
@@ -25,7 +25,7 @@
 .containerContactUs{
     display: flex;
     flex-direction: row;
-    margin-top: 1vw;
+    margin-top: 3vw;
     align-items: center;
 }
 
@@ -38,29 +38,12 @@
 
 .inputWide {
     background-color: white;
-    border-radius: 10px;
+    border-radius: 1vw;
     width: 33vw
 }
 
 .input:hover {
     background-color: white;
-}
-
-.button {
-    color: white;
-    border-color: white;
-    border-radius: 20px;
-    font-weight: 500;
-    background-color: transparent;
-}
-
-.button:hover {
-    background-color: transparent;
-}
-
-.button:global(.Mui-disabled) {
-    color: #666666; 
-    border-color: #666666; 
 }
 
 .box {

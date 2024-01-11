@@ -8,6 +8,11 @@
     to { transform: scale(1); }
   }
 
+  @keyframes fadeOut {
+    from { opacity: 1; }
+    to { opacity: 0; }
+  }
+
   .container {
     display: flex;
     flex-direction: column;
@@ -43,6 +48,10 @@
   
   .fade-in {
     opacity: 1;
+  }
+
+  .fade-out {
+    animation: fadeOut 1s ease-in-out;
   }
   
   .header {

@@ -16,7 +16,7 @@
     position: relative;
     align-items: center;
     background-color: transparent; /* Ensures the background is initially transparent */
-    border-radius: 20px;
+    border-radius: 2vw;
 }
   
 .carouselCard img {

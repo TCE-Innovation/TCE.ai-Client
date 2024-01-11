@@ -150,7 +150,6 @@ const ContactUs = () => {
                                                 disabled={isButtonDisabled}
                                                 variant="outlined"
                                                 endIcon={<SendIcon />} 
-                                                className={style.button}
                                             >
                                                 Submit
                                             </Button>

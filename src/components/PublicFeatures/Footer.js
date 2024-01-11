@@ -12,7 +12,7 @@ const Footer = () => {
 
           tcig@tcelect.net
           <a href={`mailto:tcig@tcelect.net`}>
-              <EmailIcon style={{ marginLeft: '5px', marginBottom: "1px", cursor: 'pointer', color: "gray"}} />
+              <EmailIcon style={{ marginLeft: '.5vw', marginBottom: ".1vw", cursor: 'pointer', color: "gray"}} />
           </a>
         </p>       
       </div>

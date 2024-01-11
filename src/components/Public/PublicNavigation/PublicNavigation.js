@@ -1,5 +1,3 @@
-import styles from "./pubNav.module.css"
-
 //REACT
 import * as React from 'react';
 import {useContext, useState, useEffect} from "react";
@@ -101,7 +99,11 @@ function ResponsiveAppBar() {
                             <img
                                 src={currentLogo}
                                 alt='logo'
-                                className={styles.logo}
+                                style={{
+                                    width: "10vw", 
+                                    marginLeft: "2vw",
+                                    marginTop: "2.5vw",
+                                }}
                                 draggable="false"
                             />
                         </NavLink>
@@ -131,6 +133,7 @@ function ResponsiveAppBar() {
                                                 alt="You"
                                                 src={userPic ? userPic : noUser}
                                                 imgProps={{ referrerPolicy: "no-referrer" }}
+                                                style={{ width: '3vw', height: '3vw' }}
                                             />
                                         </Tooltip>
                                     </IconButton>
@@ -143,8 +146,16 @@ function ResponsiveAppBar() {
                                         fullWidth
                                         size="large"
                                         onClick={MicrosoftSignIn}
-                                        sx={{ color: loginColor.textColor, borderColor: loginColor.borderColor, backgroundColor: loginColor.backgroundColor, 
-                                            '&:hover': { borderWidth: '.3vw', fontWeight: 700, color: '#003eab', borderColor: '#003eab' }, fontWeight: 500, borderRadius: '2vw', width: '8vw', borderWidth: '.2vw'
+                                        sx={{ 
+                                            color: loginColor.textColor, 
+                                            borderColor: loginColor.borderColor, 
+                                            backgroundColor: loginColor.backgroundColor, 
+                                            fontWeight: 500, 
+                                            borderRadius: '2vw', 
+                                            width: '8vw', 
+                                            height: '2.5vw',
+                                            borderWidth: '.2vw',
+                                            '&:hover': { borderWidth: '.3vw', fontWeight: 700, color: '#003eab', borderColor: '#003eab' }, 
                                         }}
                                     >
                                         Login
