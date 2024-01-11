@@ -28,7 +28,7 @@ import ArticleIcon from '@mui/icons-material/Article';
 const getListItemStyle = (isSectionOpen) => ({
     paddingTop: '2vw', 
     paddingBottom: '2vw',
-    marginLeft: "10px",
+    paddingLeft: "1.4vw",
     boxShadow: isSectionOpen ? '0px 4px 4px rgba(0, 0, 0, 0.25)' : 'none'
 });
 
