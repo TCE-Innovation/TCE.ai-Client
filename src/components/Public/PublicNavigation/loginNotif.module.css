@@ -22,7 +22,7 @@
     justify-content: center;
     align-items: center;
     margin-right: 2.5vw;
-    height: 3vw;
+    height: 2.5vw;
     padding: 0 1vw;
     background-color: #fff;
     border-radius: 0.5vw;
@@ -31,7 +31,7 @@
 }
 
 .text{
-    font-size: 1.2vw;
+    font-size: 1vw;
     font-weight: 500;
     color: #1b365f;
     margin: .5vw;
@@ -47,4 +47,6 @@
     background-color: #fff;
     border: none;
     cursor: pointer;
+    height: 2.5vw;
+    font-size: 1vw;
 }
