@@ -8,7 +8,7 @@
 }
 
 .fullscreen-iframe {
-    width: 100%; /* Full width of the parent container */
-    height: 100%; /* Full height of the parent container */
+    width: 100vw; /* Full width of the parent container */
+    height: 100vh; /* Full height of the parent container */
     border: none; /* Optional: Removes the default border */
 }

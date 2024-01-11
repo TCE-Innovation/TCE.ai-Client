@@ -16,28 +16,6 @@ import Matterport from "../../../img/PartnerImages/Matterport.png";
 import Oracle from "../../../img/PartnerImages/Oracle.png";
 
 const TechCarousel = () => {
-    /*const [numSlides, setNumSlides] = useState(getSlidesToShow(window.innerWidth));
-
-    useEffect(() => {
-        function handleResize() {
-            setNumSlides(getSlidesToShow(window.innerWidth));
-        }
-
-        window.addEventListener('resize', handleResize);
-
-        // Clean up
-        return () => {
-            window.removeEventListener('resize', handleResize);
-        };
-    }, []);
-
-    function getSlidesToShow(width) {
-        if (width < 600) return 1;
-        if (width < 900) return 2;
-        if (width < 1200) return 3;
-        return 4;
-    }*/
-    
     const settings = {
         dots: false,
         infinite: true,
