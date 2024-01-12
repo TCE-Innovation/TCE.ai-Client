@@ -34,8 +34,6 @@ function PublicContent() {
     setCurrentSection(section);
   };
 
-  console.log(currentSection)
-
   useEffect(() => {
     setPrivateFunctionality('public');
   }, [setPrivateFunctionality]);

@@ -1,30 +1,38 @@
-import * as React from 'react';
+import React, { useState, useEffect } from 'react';
 import styles from './loginNotif.module.css';
+import Box from '@mui/material/Box';
 
 const LoginNotification = () => {
-    const [shouldAnimate, setShouldAnimate] = React.useState(false);
-    const [isVisible, setIsVisible] = React.useState(true); // New state to control visibility
+  const [shouldAnimate, setShouldAnimate] = useState(false);
+  const [isVisible, setIsVisible] = useState(true);
 
-    React.useEffect(() => {
-        const timer = setTimeout(() => {
-            setShouldAnimate(true);
-        }, 3000);
+  useEffect(() => {
+    const showTimer = setTimeout(() => {
+      setShouldAnimate(true);
+    }, 3000);
 
-        return () => clearTimeout(timer);
-    }, []);
+    const hideTimer = setTimeout(() => {
+      hideNotification();
+    }, 20000);
 
-    const hideNotification = () => {
-        setIsVisible(false); // Function to hide the notification
+    return () => {
+      clearTimeout(showTimer);
+      clearTimeout(hideTimer);
     };
+  }, []);
 
-    if (!shouldAnimate || !isVisible) return null; // Check both animation and visibility states
+  const hideNotification = () => {
+    setIsVisible(false);
+  };
 
-    return (
-        <div className={styles.container}>
-            <p className={styles.text}>TCE Employee? Log in here to access your Toolbox.</p>
-            <button className={styles.button} onClick={hideNotification}>Hide</button> {/* Add onClick handler */}
-        </div>
-    );
-}
+  if (!shouldAnimate || !isVisible) return null;
+
+  return (
+    <Box className={styles.container}>
+      <p className={styles.text}>TCE Employee? Log in here to access your Toolbox.</p>
+      <button className={styles.button} onClick={hideNotification}>Hide</button>
+    </Box>
+  );
+};
 
 export default LoginNotification;
