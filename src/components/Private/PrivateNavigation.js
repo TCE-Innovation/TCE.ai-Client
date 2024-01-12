@@ -90,9 +90,9 @@ function ResponsiveAppBar() {
                                 src={logo}
                                 alt='logo'
                                 style={{
-                                    width: '180px',
+                                    width: '150px',
                                     marginLeft: '30px',
-                                    marginTop: '4px',
+                                    marginTop: '11px',
                                 }}
                                 draggable="false"
                             />
@@ -115,13 +115,13 @@ function ResponsiveAppBar() {
                     >
                         {setTitle(privateFunctionality)}
                     </Typography>
-                    <Box sx={{  display: 'flex', alignItems: 'center', marginTop: '10px', marginRight: '30px'}}>           
+                    <Box sx={{  display: 'flex', alignItems: 'center', marginTop: '7px', marginRight: '30px'}}>           
                         <IconButton onClick={() => {
                             navigate('/private');
                             setPrivateFunctionality('privateHome');
                         }}>
                         <Tooltip title="Toolbox">
-                            <HomeRepairServiceIcon sx={{ color: 'white', fontSize: '2.5rem' }} />
+                            <HomeRepairServiceIcon sx={{ color: 'white', fontSize: '55px' }} />
                         </Tooltip>
                         </IconButton>
 
@@ -131,6 +131,7 @@ function ResponsiveAppBar() {
                                     alt="You"
                                     src={userPic ? userPic : noUser}
                                     imgProps={{ referrerPolicy: "no-referrer" }}
+                                    style={{height:"50px", width:"50px"}}
                                 />
                             </Tooltip>
                         </IconButton>
