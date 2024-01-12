@@ -27,8 +27,6 @@ import ArticleIcon from '@mui/icons-material/Article';
 
 const getListItemStyle = (isSectionOpen) => ({
     padding: "25px",
-    borderTop: isSectionOpen ? '1px solid #1b365f' : 'none',
-    borderBottom: isSectionOpen ? '1px solid #1b365f' : 'none'
 });
 
 const PrivateListItems = (props) => {
@@ -46,6 +44,7 @@ const PrivateListItems = (props) => {
 
     const getInnerItemStyle = (item) => ({
         backgroundColor: selectedInnerItem === item ? '#f2f2f2' : 'transparent',
+        boxShadow: selectedInnerItem === item ? 'inset 0px 0px 4px rgba(0, 0, 0, 0.25)' : 'none',
         paddingLeft: "25px"
     });
 
