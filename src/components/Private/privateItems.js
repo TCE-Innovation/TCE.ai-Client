@@ -31,7 +31,7 @@ const getListItemStyle = (isSectionOpen) => ({
 
 const PrivateListItems = (props) => {
     const [clickOpenSection, setClickOpenSection] = React.useState(null);
-    const [selectedInnerItem, setSelectedInnerItem] = React.useState(null);
+    const [selectedInnerItem, setSelectedInnerItem] = React.useState('privateHome');
 
     const handleClick = (section) => {
         setClickOpenSection(clickOpenSection === section ? null : section);
