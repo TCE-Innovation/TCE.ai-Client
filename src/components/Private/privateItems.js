@@ -25,10 +25,6 @@ import ConstructionIcon from '@mui/icons-material/Construction';
 import ApartmentIcon from '@mui/icons-material/Apartment';
 import ArticleIcon from '@mui/icons-material/Article';
 
-const getListItemStyle = (isSectionOpen) => ({
-    padding: "25px",
-});
-
 const PrivateListItems = (props) => {
     const [clickOpenSection, setClickOpenSection] = React.useState(null);
     const [selectedInnerItem, setSelectedInnerItem] = React.useState('privateHome');
@@ -51,7 +47,7 @@ const PrivateListItems = (props) => {
     return (
         <React.Fragment>           
             <ListItemButton
-                style={getListItemStyle(clickOpenSection === 'information')}                
+                style={{padding:"25px"}}                
                 onClick={() => handleClick('information')}
             >
                 <ListItemIcon>
@@ -90,7 +86,7 @@ const PrivateListItems = (props) => {
 
         
             <ListItemButton  
-                style={getListItemStyle(clickOpenSection === 'tools')}                 
+                style={{padding:"25px"}}                 
                 onClick={() => handleClick('tools')}
             >
                 <ListItemIcon>
@@ -149,7 +145,7 @@ const PrivateListItems = (props) => {
 
                     
             <ListItemButton    
-                style={getListItemStyle(clickOpenSection === 'office')}                
+                style={{padding:"25px"}}                
                 onClick={() => handleClick('office')}
             >
                 <ListItemIcon>
