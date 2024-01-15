@@ -24,7 +24,7 @@ const SubAuto = () => {
                     The Subcontractor Automation Process is a streamlined and error-minimizing system designed to guide 
                     subcontractors through the completion of vital documentation, specifically the Statement of 
                     Qualification of Subcontractor (SQS) and the Owner Controlled Insurance Program (OCIP) forms. The 
-                    process begins with an Initialization step, where subcontractors receive a customized link via email 
+                    process begins with an Initialization step completed by TCE personnel. Next, subcontractors receive a customized link via email 
                     to access the forms. These forms are pre-filled with known good information and utilize an 
                     interface for easy navigation and validation, ensuring that all necessary sections are accurately 
                     completed. Once completed, subcontractors submit the forms and receive a copy of their 

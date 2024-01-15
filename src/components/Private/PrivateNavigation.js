@@ -120,9 +120,9 @@ function ResponsiveAppBar() {
                             navigate('/private');
                             setPrivateFunctionality('privateHome');
                         }}>
-                        <Tooltip title="Toolbox">
-                            <HomeRepairServiceIcon sx={{ color: 'white', fontSize: '55px' }} />
-                        </Tooltip>
+                            <Tooltip title="Toolbox">
+                                <HomeRepairServiceIcon sx={{ color: 'white', fontSize: '55px' }} />
+                            </Tooltip>
                         </IconButton>
 
                         <IconButton onClick={handleOpenUserMenu}>

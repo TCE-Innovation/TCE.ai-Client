@@ -16,8 +16,6 @@ import { AuthContext } from "../../authentication/Auth";
 import { allProjectsAccess } from '../../admin/lists';
 import { projWithChatbot } from '../../admin/lists';
 
-
-
 const ChatBot = () => {
     const [project, setProject] = useState('hr');
     const { userProjects, userEmail } = useContext(AuthContext);
@@ -36,7 +34,7 @@ const ChatBot = () => {
 
     const userProjKeys = [];
 
-    if (userProjects !== undefined || userProjects !== null){
+    if (userProjects !== undefined && userProjects !== null){
         if ('ADA Package 4' in userProjects || allProjectsAccess.includes(userEmail)) {
             userProjKeys.push('p4');
         }
