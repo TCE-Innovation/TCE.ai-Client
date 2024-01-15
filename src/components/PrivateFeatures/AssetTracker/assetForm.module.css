@@ -1,10 +1,6 @@
 .formContainer {
     display: flex;
     flex-direction: column;
-    padding-left: 5%;
-    padding-right: 5%;
-    height: 100%;
-    width:100%;
 }
 
 .formDescription {
@@ -23,7 +19,7 @@
 .input {
     color: black;
     background-color: white;
-    margin: 8px; /* margin: 1px adjusted to 8px for standard CSS */
+    margin: 8px; 
     width: 50%;
     margin-bottom: 20px;
 }

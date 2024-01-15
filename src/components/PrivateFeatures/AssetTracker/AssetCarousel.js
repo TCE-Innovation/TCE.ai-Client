@@ -1,7 +1,7 @@
 import styles from './assetCarousel.module.css';
 
 //REACT
-import React, { useState, useEffect } from 'react';
+import React, { useState } from 'react';
 import Slider from 'react-slick';
 import "slick-carousel/slick/slick.css"; 
 import "slick-carousel/slick/slick-theme.css";
@@ -43,36 +43,16 @@ function PrevArrow(props) {
 }
 
 const AssetCarousel = () => {
-    const [numSlides, setNumSlides] = useState(getSlidesToShow(window.innerWidth));
     const [hoveredCard, setHoveredCard] = useState(null);
-
-    useEffect(() => {
-        function handleResize() {
-            setNumSlides(getSlidesToShow(window.innerWidth));
-        }
-
-        window.addEventListener('resize', handleResize);
-
-        return () => {
-            window.removeEventListener('resize', handleResize);
-        };
-    }, []);
-
-    function getSlidesToShow(width) {
-        if (width < 900) return 1;
-        if (width < 1200) return 2;
-        if (width < 1500) return 3;
-        return 4;
-    }
 
     //settings for the carousel itself
     const settings = {
         dots: false,
         infinite: true,
         speed: 500,
-        slidesToShow: numSlides,
+        slidesToShow: 4,
         slidesToScroll: 1,
-        autoplay: true,
+        autoplay: false,
         autoplaySpeed: 3000,
         cssEase: "linear",
         draggable: false,

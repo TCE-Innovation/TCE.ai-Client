@@ -1,19 +1,20 @@
   .carouselContainer {
     width: 80vw;
-    margin-top: 30px;
-    padding-left: 80px;
-    padding-right: 80px;
+    margin-top: 2vw;
+    padding: 2vw;
   }
   
   .carouselCard {
     display: flex;
-    padding-left: 80px;
-    padding-right: 80px;
-    padding-top: 20px;
+    padding: 2vw;
+    align-items: center;
+    justify-content: center;
   }
   
   .carouselCard img {
-    height: 200px;
+    width: 11vw;
+    height: 11vw;
+    margin-left: 2vw;
     transition: transform 0.3s ease;
   }
 
@@ -29,23 +30,22 @@
     width: 100%;
     color: black;
     font-weight: bold;
-    font-size: 18px;
+    font-size: 1vw;
     text-align: center;
-    margin-top: 15px;
+    margin-top: .7vw;
   }
 
   .descriptionContainer{
-    height: 100px; /* Adjust this height to the size of your expected description */
+    height: 7vw;
     position: relative;
     display: flex;
     flex-direction: column;
     justify-content: center;
     align-items: center;
-    padding: 20px;
   }
 
   .descriptionText{
-    font-size: 20px;
+    font-size: 1.3vw;
     text-align: center;
-    margin-top: 20px;
+    margin-top: .9vw;
   }
