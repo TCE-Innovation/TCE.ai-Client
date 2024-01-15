@@ -8,11 +8,12 @@ const Footer = () => {
         <p style={{color: "gray", textAlign: "center", marginTop: "2vw"}}>
           20 W 37th Street, New York, NY 10018 | {''}
 
-          <a href="https://www.tcelect.net" style={{color: "gray"}} target="_blank" rel="noreferrer">www.tcelect.net</a> | 
+          <a href="https://www.tcelect.net" style={{color: "gray"}} target="_blank" rel="noreferrer">www.tcelect.net</a> | &nbsp; 
 
-          tcig@tcelect.net
-          <a href={`mailto:tcig@tcelect.net`}>
-              <EmailIcon style={{ marginLeft: '.5vw', marginBottom: ".1vw", cursor: 'pointer', color: "gray"}} />
+          
+          <a href={`mailto:tcig@tcelect.net`} style={{color: "gray", textDecoration: "none"}}>
+            tcig@tcelect.net
+            <EmailIcon style={{ marginLeft: '.5vw', marginBottom: ".1vw", cursor: 'pointer', color: "gray"}} />
           </a>
         </p>       
       </div>
