@@ -92,7 +92,7 @@ function PrivateContent() {
                 display: 'flex',
                 alignItems: 'center',
                 justifyContent: 'flex-end',
-                px: [1],
+                px: [2],
               }}
             >
               <Tooltip title="Expand/Collapse">

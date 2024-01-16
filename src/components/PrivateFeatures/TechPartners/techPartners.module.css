@@ -19,15 +19,9 @@
     display: flex;
     flex-direction: column;
     width: 100%;
-    margin-bottom: 20px;
-    padding: 20px;
-    border: 1px solid grey;
-    border-radius: 15px;
-}
-
-.card:hover{
-    box-shadow: 0px 0px 5px #1b365f;
-    cursor: pointer;
+    padding: 2vw;
+    padding-bottom: 2.5vw;
+    border-bottom: 1px solid #1b365f;
 }
 
 .cardBody {
