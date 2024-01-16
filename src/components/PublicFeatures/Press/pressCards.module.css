@@ -8,7 +8,7 @@
 }
 
 .cardContainer {
-    transition: transform 0.3s ease; 
+    transition: transform 0.4s ease; 
 }
 
 .cardContainer:hover {
