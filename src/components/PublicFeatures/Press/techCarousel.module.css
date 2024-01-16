@@ -1,6 +1,6 @@
 .carouselContainer {
-    width: 100%;
-    margin-top: 1.5vw;
+    width: 70vw;
+    margin-top: 2vw;
     align-items: center; /* Horizontally centers the content */
     justify-content: center;
 }

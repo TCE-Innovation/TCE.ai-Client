@@ -8,22 +8,32 @@
 }
 
 .cardContainer {
-    width: 20vw;
-    height: 14vw;
-    margin-left: 1vw;
-    margin-right: 1vw;
-    margin-bottom: 2vw;
-    padding: 1.1vw;
-    border-radius: 2vw;
-    align-items: center; 
-    justify-content: center;
-    flex-grow: 0;
-    flex-shrink: 0;
     transition: transform 0.3s ease; 
 }
 
 .cardContainer:hover {
-    transform: scale(1.1); /* Scale up the card */
+    transform: scale(1.1);
+}
+
+.cardLink {
+    font-weight: bold;
+    color: #1f2937;
+    text-decoration: none;
+}
+
+.pressHeader{
+    font-size: 4vw;
+    font-family: "Helvetica";
+    color: white;
+    text-align: center;
+    margin-top: 1vw;
+}
+
+.pressOneLiner{
+    font-size: 1.3vw;
+    font-family: "Helvetica";
+    color: white;
+    text-align: center;
 }
 
 .cardTitle {
@@ -39,25 +49,3 @@
     font-weight: normal;
     color: #4b5563;
 }
-
-.cardLink {
-    font-weight: bold;
-    color: #1f2937;
-    text-decoration: none;
-}
-
-.pressHeader{
-    font-size: 4vw;
-    font-family: "Helvetica";
-    color: white;
-    text-align: center;
-    margin-top: 3vw;
-}
-
-.pressOneLiner{
-    font-size: 1.3vw;
-    font-family: "Helvetica";
-    color: white;
-    text-align: center;
-}
-

@@ -9,10 +9,10 @@ const Press = () => {
   return (
     <div className="full-window-component">
       <div className="black-container">
-        <div className={styles.pressHeader}>Press and Publications</div>
-        <div className={styles.pressOneLiner}>Explore selected publications on the team's work as well as media appearances with technology partners.</div>
-        <PressCards />
-        <TechCarousel />
+        <div className={styles.pressHeader}>Press and Partners</div>
+        <div className={styles.pressOneLiner}>Explore selected media appearances with technology partners.</div>
+          <PressCards />
+          <TechCarousel />
       </div>
     </div>
   );
