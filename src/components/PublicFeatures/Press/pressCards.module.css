@@ -9,6 +9,8 @@
 
 .cardContainer {
     transition: transform 0.4s ease; 
+    max-width: 18vw;
+    border-radius: 1vw
 }
 
 .cardContainer:hover {

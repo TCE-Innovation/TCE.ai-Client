@@ -13,7 +13,7 @@ const PressCards = () => {
     return (
         <div className={styles.mainContainer}>
             <a href="https://www.openspace.ai/resources/webinars/fireside-chat-how-tces-transit-projects-arrive-on-time-with-openspace/" target="_blank" rel="noopener noreferrer" className={styles.cardLink} style={{marginRight: "2vw"}}>
-                <Card sx={{ maxWidth: "18vw", borderRadius: "1vw"}} className={styles.cardContainer}>
+                <Card className={styles.cardContainer}>
                     <CardActionArea>
                         <CardMedia
                         component="img"
@@ -34,7 +34,7 @@ const PressCards = () => {
             </a>
 
             <a href="https://gobridgit.com/case-studies/tc-electric/" target="_blank" rel="noopener noreferrer" className={styles.cardLink}>
-                <Card sx={{ maxWidth: "18vw", borderRadius: "1vw" }} className={styles.cardContainer}>
+                <Card className={styles.cardContainer}>
                     <CardActionArea>
                         <CardMedia
                         component="img"

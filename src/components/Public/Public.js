@@ -1,6 +1,7 @@
 //REACT
 import * as React from 'react';
 import { useContext, useEffect, useState } from "react";
+import { useNavigate } from 'react-router-dom';
 
 //MUI
 import { createTheme, ThemeProvider } from '@mui/material/styles';
@@ -13,7 +14,7 @@ import IntroText from "../PublicFeatures/IntroText";
 import AboutUs from "../PublicFeatures/AboutUs/AboutUs";
 import ContactUs from '../PublicFeatures/ContactUs/ContactUs';
 import Press from '../PublicFeatures/Press/Press';
-import WhitePapers from '../PublicFeatures/WhitePapers/WhitePapers';
+import Publications from '../PublicFeatures/Publications/Publications';
 import DotNav from './PublicNavigation/DotNav';
 
 import backgroundImage from '../../img/Public/city.webp'
@@ -38,6 +39,25 @@ function PublicContent() {
   useEffect(() => {
     setPrivateFunctionality('public');
   }, [setPrivateFunctionality]);
+
+  const navigate = useNavigate();
+
+  useEffect(() => {
+    const state = window.history.state;
+    const fromWhitePaper = state?.usr?.fromWhitePaper;
+    const scrollToSection = state?.usr?.scrollTo;
+
+    if (fromWhitePaper && scrollToSection) {
+      const sectionElement = document.getElementById(scrollToSection);
+      if (sectionElement) {
+        sectionElement.scrollIntoView({ behavior: 'smooth' });
+
+        // Clear the state after scrolling
+        navigate(window.location.pathname, { replace: true, state: {} });
+      }
+    }
+  }, [navigate]);
+  
 
   useEffect(() => {
     const mainContainer = document.getElementById('main-container');
@@ -110,7 +130,7 @@ function PublicContent() {
             <Press />
           </Box>
           <Box id="whitepapers" className={`content ${showContent ? 'fade-in' : ''}`} sx={{ scrollSnapAlign: 'start' }}>
-            <WhitePapers />
+            <Publications />
           </Box>
           <Box id="contact-us" className={`content ${showContent ? 'fade-in' : ''}`} sx={{ scrollSnapAlign: 'start' }}>
             <ContactUs />
