@@ -1,9 +1,7 @@
 import styles from './whitepaper.module.css';
 import React, { useState } from 'react';
-import { useLocation, useNavigate } from 'react-router-dom';
-import Button from '@mui/material/Button';
+import { useLocation } from 'react-router-dom';
 import TrainLoader from '../../General/TrainLoader';
-import StaticAppBar from './Navigation';
 
 const getIframeUrl = (documentName) => {
     const urls = {
@@ -16,7 +14,6 @@ const getIframeUrl = (documentName) => {
 
 const WhitePaper = ( ) => { 
     const location = useLocation();
-    const navigate = useNavigate();
 
     const searchParams = new URLSearchParams(location.search);
     const documentName = searchParams.get('document');
@@ -28,10 +25,6 @@ const WhitePaper = ( ) => {
         setIframeLoaded(true);
     };
 
-    const handleBackClick = () => {
-        navigate('/', { state: { fromWhitePaper: true, scrollTo: 'whitepapers' } });
-    };
-
     const spinnerContainerStyle = {
         display: 'flex',
         justifyContent: 'center',
@@ -39,28 +32,20 @@ const WhitePaper = ( ) => {
         height: '100vh',
     };
 
-    return (
-        <div className={`full-window-component ${styles.backgroundImage}`}>
-            <div className="black-container">
-                <StaticAppBar />
-                
-                <div className={styles.container}>
-                <Button onClick={handleBackClick}>Return to Publications</Button>
-                    {!iframeLoaded && (
-                        <div style={spinnerContainerStyle}>
-                            <TrainLoader />
-                        </div>
-                    )}
-                    <iframe 
-                        src={iframeUrl} 
-                        height="90%"
-                        width="100%"
-                        onLoad={handleIframeLoad}
-                        title="White Paper"
-                        style={{ borderRadius: "1vw" }}>
-                    </iframe>
+    return (      
+        <div className={styles.container}>
+            {!iframeLoaded && (
+                <div style={spinnerContainerStyle}>
+                    <TrainLoader />
                 </div>
-            </div>
+            )}
+            <iframe 
+                src={iframeUrl} 
+                height="100%"
+                width="100%"
+                onLoad={handleIframeLoad}
+                title="White Paper">
+            </iframe>
         </div>
     );
 };

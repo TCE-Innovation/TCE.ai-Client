@@ -1,6 +1,5 @@
 //REACT
 import React, { useState } from 'react';
-import { useNavigate } from 'react-router-dom';
 
 //MUI
 import Accordion from '@mui/material/Accordion';
@@ -29,11 +28,10 @@ const accordionDetailsStyle = {
 }
 
 export default function WPAccordion() {
-    const navigate = useNavigate();
     const [expanded, setExpanded] = useState(false);
 
     const handleReadMoreClick = (documentName) => {
-        navigate(`/whitepaper?document=${documentName}`);
+        window.open(`/whitepaper?document=${documentName}`, '_blank');
     };
 
     const handleChange = (panel) => (event, isExpanded) => {
