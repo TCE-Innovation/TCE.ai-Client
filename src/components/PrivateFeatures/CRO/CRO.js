@@ -50,34 +50,90 @@ const CRO = () => {
         }
         setLoading(true);
         setError('');
-
+        
+        // Breaking up try clause into a part for every formData.append
         try {
+            // Append user info to FormData to be sent to backend
             const formData = new FormData();
             //this will always be a file
             formData.append('pullsheet', pullsheet);
+        } 
+        catch (error) {
+            console.log("PULLSHEET:",error)
+            setError('Failed to read pull sheet.');
+        }
 
+        try{
             //this may be a file or the string 'standard'
             formData.append('cableSizes', cableSizes);
-            
+        }
+        catch (error) {
+            console.log("CABLESIZES:",error)
+            setError('Failed to read cable sizes.');
+        }
+
+        try{
             formData.append('runType', runType)
+        }
+        catch (error) {
+            console.log("RUNTYPE:",error)
+            setError('Failed to read run type.');
+        }
 
-            // formData.append('conduitSizeRange', value)
-            // Use the state variable when appending to formData
-
+        try{
             // conduitSizeRange is an array, first index is the lower value
             formData.append('conduitSizeRangeLower', conduitSizeRange[0])
             formData.append('conduitSizeRangeHigher', conduitSizeRange[1])
+            
+        }
+        catch (error) {
+            console.log("CONDUIT_RANGE:",error)
+            setError('Failed to read conduit size range.');
+        }
 
+        try{
+            // Send form data to backend, receive response within data
             const {data} = await axios.post(
                 'https://tce-cro-api.azurewebsites.net/api/Post-CRO', 
                 formData
             );
-            setResponse(data);
-        } catch (error) {
-            console.log("HERE:",error)
-            setError('Failed to generate optimized cable run.');
+        
+        // The data received from backend is the URL of the output file
+        setResponse(data);
+        }
+        catch (error) {
+            console.log("AXIOS:",error)
+            setError('Failed to generate output file.');
         }
         setLoading(false);
+
+        // try {
+        //     // Append user info to FormData to be sent to backend
+        //     const formData = new FormData();
+        //     //this will always be a file
+        //     formData.append('pullsheet', pullsheet);
+
+        //     //this may be a file or the string 'standard'
+        //     formData.append('cableSizes', cableSizes);
+            
+        //     formData.append('runType', runType)
+            
+        //     // conduitSizeRange is an array, first index is the lower value
+        //     formData.append('conduitSizeRangeLower', conduitSizeRange[0])
+        //     formData.append('conduitSizeRangeHigher', conduitSizeRange[1])
+            
+        //     // Send form data to backend, receive response within data
+        //     const {data} = await axios.post(
+        //         'https://tce-cro-api.azurewebsites.net/api/Post-CRO', 
+        //         formData
+        //     );
+        //     // The data received from backend is the URL of the output file
+        //     setResponse(data);
+        // } catch (error) {
+        //     console.log("HERE:",error)
+        //     setError('Failed to generate optimized cable run.');
+        // }
+        // setLoading(false);
     };
 
     return (
@@ -253,6 +309,7 @@ const CRO = () => {
                     </>
                 ) : response && (
                     <>
+                        {/* response is the output excel file */}
                         <a href={response} target="_blank" rel="noopener noreferrer">
                             Click here to download output file
                         </a>
