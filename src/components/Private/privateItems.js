@@ -61,7 +61,7 @@ const PrivateListItems = () => {
             <Collapse in={clickOpenSection === 'information'} timeout="auto" unmountOnExit>
                 <List component="div" disablePadding>
 
-                    <Link to="/private/private-home" style={{ textDecoration: 'none', color: 'black' }}>
+                    <Link to="/private/welcome" style={{ textDecoration: 'none', color: 'black' }}>
                         <ListItemButton 
                             style={getInnerItemStyle('privateHome')}
                             onClick={() => handleInnerItemClick('privateHome')}

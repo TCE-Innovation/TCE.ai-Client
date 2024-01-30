@@ -14,24 +14,24 @@ import { AuthenticatedRoute, AuthProvider } from "../../authentication/Auth";
 function App() {  
     return (
         <AuthProvider>
-                <Router>
-                    <Routes>
+            <Router>
+                <Routes>
+                    
+                    <Route exact path='/' element={<Public />} />
+                    <Route exact path='/whitepaper' element={<WhitePaper />} />
+                    
+                    <Route path='/account' element={<AuthenticatedRoute />}>
+                        <Route index element={<Account />} />
+                    </Route>
 
-                        <Route exact path='/' element={<Public />} />
-                        <Route exact path='/whitepaper' element={<WhitePaper />} />
-                        
-                        <Route path='/account' element={<AuthenticatedRoute />}>
-                            <Route index element={<Account />} />
-                        </Route>
+                    <Route path='/private/:tool' element={<AuthenticatedRoute />}>
+                        <Route index element={<Private />} />
+                    </Route>
 
-                        <Route path='/private/:tool' element={<AuthenticatedRoute />}>
-                            <Route index element={<Private />} />
-                        </Route>
+                    <Route path='*' element={<Navigate to="/" replace />} />
 
-                        <Route path='*' element={<Navigate to="/" replace />} />
-
-                    </Routes>
-                </Router>
+                </Routes>
+            </Router>
         </AuthProvider>
     );
 }

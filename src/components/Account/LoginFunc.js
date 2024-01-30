@@ -14,7 +14,7 @@ export function useMicrosoftSignIn() {
       if (response) {
         const currentAccounts = instance.getAllAccounts();
         if (currentAccounts.length > 0) {
-          navigate('/private/private-home');
+          navigate('/private/welcome');
           await updateUserLog(currentAccounts[0].name);
         }
       }

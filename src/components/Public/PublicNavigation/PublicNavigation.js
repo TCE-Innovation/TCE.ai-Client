@@ -117,7 +117,7 @@ function ResponsiveAppBar() {
                             {isAuthenticated ? (
                                 <Box sx={{ display: 'flex', alignItems: 'center', marginTop: '1vw'}}>
                                     <IconButton onClick={() => {
-                                        navigate('/private/private-home');
+                                        navigate('/private/welcome');
                                     }}>
                                         <Tooltip title="Toolbox">
                                             <HomeRepairServiceIcon sx={{ color: toolBoxColor.color, fontSize: '3.5vw' }} />

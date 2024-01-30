@@ -60,7 +60,7 @@ function ResponsiveAppBar() {
                 return 'TCE Innovation Group';
             case 'tech-partners':
                 return 'Tech Partners';
-            case 'private-home':
+            case 'welcome':
                 return 'Welcome';
             default:
                 return 'TCE Innovation Group';  
@@ -116,7 +116,7 @@ function ResponsiveAppBar() {
                     </Typography>
                     <Box sx={{  display: 'flex', alignItems: 'center', marginTop: '7px', marginRight: '30px'}}>           
                         <IconButton onClick={() => {
-                            navigate('/private/private-home');
+                            navigate('/private/welcome');
                         }}>
                             <Tooltip title="Toolbox">
                                 <HomeRepairServiceIcon sx={{ color: 'white', fontSize: '55px' }} />
