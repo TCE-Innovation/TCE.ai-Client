@@ -1,6 +1,7 @@
 //REACT
 import * as React from 'react';
 import '../PrivateFeatures/privateStyle.css'
+import { Link } from 'react-router-dom';
 
 //MUI
 import List from '@mui/material/List';
@@ -25,7 +26,7 @@ import ConstructionIcon from '@mui/icons-material/Construction';
 import ApartmentIcon from '@mui/icons-material/Apartment';
 import ArticleIcon from '@mui/icons-material/Article';
 
-const PrivateListItems = (props) => {
+const PrivateListItems = () => {
     const [clickOpenSection, setClickOpenSection] = React.useState(null);
     const [selectedInnerItem, setSelectedInnerItem] = React.useState('privateHome');
 
@@ -35,7 +36,6 @@ const PrivateListItems = (props) => {
 
     const handleInnerItemClick = (item) => {
         setSelectedInnerItem(item);
-        props.onSelect(item);
     };
 
     const getInnerItemStyle = (item) => ({
@@ -55,30 +55,35 @@ const PrivateListItems = (props) => {
                 </ListItemIcon>
                 <ListItemText primary="Information"  style={{ width: '150px' }}/>
                     {clickOpenSection === 'information' ? <ExpandLess /> : <ExpandMore />}
+
             </ListItemButton>
 
             <Collapse in={clickOpenSection === 'information'} timeout="auto" unmountOnExit>
                 <List component="div" disablePadding>
 
-                    <ListItemButton 
-                        style={getInnerItemStyle('privateHome')}
-                        onClick={() => handleInnerItemClick('privateHome')}
-                    >
-                        <ListItemIcon>
-                            <WavingHandIcon/>
-                        </ListItemIcon>
-                        <ListItemText primary="Welcome"/>
-                    </ListItemButton>
+                    <Link to="/private/private-home" style={{ textDecoration: 'none', color: 'black' }}>
+                        <ListItemButton 
+                            style={getInnerItemStyle('privateHome')}
+                            onClick={() => handleInnerItemClick('privateHome')}
+                        >
+                            <ListItemIcon>
+                                <WavingHandIcon/>
+                            </ListItemIcon>
+                            <ListItemText primary="Welcome"/>
+                        </ListItemButton>
+                    </Link>
 
-                    <ListItemButton 
-                        style={getInnerItemStyle('tech')}
-                        onClick={() => handleInnerItemClick('tech')}
-                    >
-                        <ListItemIcon>
-                            <FeedIcon />
-                        </ListItemIcon>
-                        <ListItemText primary="Tech Partners"/>
-                    </ListItemButton>
+                    <Link to="/private/tech-partners" style={{ textDecoration: 'none', color: 'black' }}>
+                        <ListItemButton 
+                            style={getInnerItemStyle('tech')}
+                            onClick={() => handleInnerItemClick('tech')}
+                        >
+                            <ListItemIcon>
+                                <FeedIcon />
+                            </ListItemIcon>
+                            <ListItemText primary="Tech Partners"/>
+                        </ListItemButton>
+                    </Link>
 
                 </List>
             </Collapse>
@@ -99,45 +104,53 @@ const PrivateListItems = (props) => {
             <Collapse in={clickOpenSection === 'tools'} timeout="auto" unmountOnExit>
                 <List component="div" disablePadding>
 
-                    <ListItemButton 
-                        style={getInnerItemStyle('generateEmails')}
-                        onClick={() => handleInnerItemClick('generateEmails')}
-                    >
-                        <ListItemIcon>
-                            <EmailIcon />
-                        </ListItemIcon>
-                        <ListItemText primary="Generate an Email" />
-                    </ListItemButton>
+                    <Link to="/private/generate-emails" style={{ textDecoration: 'none', color: 'black' }}>
+                        <ListItemButton 
+                            style={getInnerItemStyle('generateEmails')}
+                            onClick={() => handleInnerItemClick('generateEmails')}
+                        >
+                            <ListItemIcon>
+                                <EmailIcon />
+                            </ListItemIcon>
+                            <ListItemText primary="Generate an Email" />
+                        </ListItemButton>
+                    </Link>
 
-                    <ListItemButton 
-                        style={getInnerItemStyle('chatbot')}
-                        onClick={() => handleInnerItemClick('chatbot')}
-                    >
-                        <ListItemIcon>
-                            <ForumIcon />
-                        </ListItemIcon>
-                        <ListItemText primary="Chat Bot" />
-                    </ListItemButton>
+                    <Link to="/private/chat-bot" style={{ textDecoration: 'none', color: 'black' }}>
+                        <ListItemButton 
+                            style={getInnerItemStyle('chatbot')}
+                            onClick={() => handleInnerItemClick('chatbot')}
+                        >
+                            <ListItemIcon>
+                                <ForumIcon />
+                            </ListItemIcon>
+                            <ListItemText primary="Chat Bot" />
+                        </ListItemButton>
+                    </Link>
 
-                    <ListItemButton 
-                        style={getInnerItemStyle('cro')}
-                        onClick={() => handleInnerItemClick('cro')}
-                    >
-                        <ListItemIcon>
-                            <SpokeIcon />
-                        </ListItemIcon>
-                        <ListItemText primary="Cable Run Optimizer" />
-                    </ListItemButton>
+                    <Link to="/private/cable-run-optimizer" style={{ textDecoration: 'none', color: 'black' }}>
+                        <ListItemButton 
+                            style={getInnerItemStyle('cro')}
+                            onClick={() => handleInnerItemClick('cro')}
+                        >
+                            <ListItemIcon>
+                                <SpokeIcon />
+                            </ListItemIcon>
+                            <ListItemText primary="Cable Run Optimizer" />
+                        </ListItemButton>
+                    </Link>
 
-                    <ListItemButton 
-                        style={getInnerItemStyle('go')}
-                        onClick={() => handleInnerItemClick('go')}
-                    >
-                        <ListItemIcon>
-                            <RailwayAlertIcon />
-                        </ListItemIcon>
-                        <ListItemText primary="GO Tracker" />
-                    </ListItemButton>
+                    <Link to="/private/go-tracker" style={{ textDecoration: 'none', color: 'black' }}>
+                        <ListItemButton 
+                            style={getInnerItemStyle('go')}
+                            onClick={() => handleInnerItemClick('go')}
+                        >
+                            <ListItemIcon>
+                                <RailwayAlertIcon />
+                            </ListItemIcon>
+                            <ListItemText primary="GO Tracker" />
+                        </ListItemButton>
+                    </Link>
 
                 </List>
             </Collapse>
@@ -157,35 +170,42 @@ const PrivateListItems = (props) => {
 
             <Collapse in={clickOpenSection === 'office'} timeout="auto" unmountOnExit>
                 <List component="div" disablePadding>
-                    <ListItemButton 
-                        style={getInnerItemStyle('assetTracker')}
-                        onClick={() => handleInnerItemClick('assetTracker')}
-                    >
-                        <ListItemIcon>
-                            <DevicesOtherIcon />
-                        </ListItemIcon>
-                        <ListItemText primary="Equipment Checkout" />
-                    </ListItemButton>
+                    <Link to="/private/equipment-checkout" style={{ textDecoration: 'none', color: 'black' }}>
+                        <ListItemButton 
+                            style={getInnerItemStyle('assetTracker')}
+                            onClick={() => handleInnerItemClick('assetTracker')}
+                        >
+                            <ListItemIcon>
+                                <DevicesOtherIcon />
+                            </ListItemIcon>
+                            <ListItemText primary="Equipment Checkout" />
+                        </ListItemButton>
+                    </Link>
 
-                    <ListItemButton 
-                        style={getInnerItemStyle('overtime')}
-                        onClick={() => handleInnerItemClick('overtime')}
-                    >
-                        <ListItemIcon>
-                            <AccessTimeIcon />
-                        </ListItemIcon>
-                        <ListItemText primary="Overtime Tracker" />
-                    </ListItemButton>
+                    <Link to="/private/overtime-tracker" style={{ textDecoration: 'none', color: 'black' }}>
+                        <ListItemButton 
+                            style={getInnerItemStyle('overtime')}
+                            onClick={() => handleInnerItemClick('overtime')}
+                        >
+                            <ListItemIcon>
+                                <AccessTimeIcon />
+                            </ListItemIcon>
+                            <ListItemText primary="Overtime Tracker" />
+                        </ListItemButton>
+                    </Link>
                     
-                    <ListItemButton 
-                        style={getInnerItemStyle('subAuto')}
-                        onClick={() => handleInnerItemClick('subAuto')}
-                    >
-                        <ListItemIcon>
-                            <ArticleIcon />
-                        </ListItemIcon>
-                        <ListItemText primary="Subcontractor Forms" />
-                    </ListItemButton>
+                    <Link to="/private/sub-automation" style={{ textDecoration: 'none', color: 'black' }}>
+                        <ListItemButton 
+                            style={getInnerItemStyle('subAuto')}
+                            onClick={() => handleInnerItemClick('subAuto')}
+                        >
+                            <ListItemIcon>
+                                <ArticleIcon />
+                            </ListItemIcon>
+                            <ListItemText primary="Subcontractor Forms" />
+                        </ListItemButton>
+                    </Link>
+
                 </List>
             </Collapse>        
         </React.Fragment>

@@ -1,6 +1,6 @@
 //REACT
 import * as React from 'react';
-import {useContext, useEffect} from "react";
+import { useParams } from 'react-router-dom';
 
 //MUI
 import { styled, createTheme, ThemeProvider } from '@mui/material/styles';
@@ -16,7 +16,6 @@ import {ChevronRight} from "@mui/icons-material";
 import Tooltip from "@mui/material/Tooltip";
 
 //COMPONENTS
-import PrivateContext from "./PrivateContext";
 import PrivateHome from "./PrivateHome";
 import PrivateListItems from "./privateItems";
 import CRO from '../PrivateFeatures/CRO/CRO';
@@ -61,18 +60,49 @@ const mdTheme = createTheme();
 
 function PrivateContent() {
   const [open, setOpen] = React.useState(true);
-  const { privateFunctionality, setPrivateFunctionality} = useContext(PrivateContext);
   const toggleDrawer = () => {
     setOpen(!open);
   };
 
-  useEffect(() => {
-    console.log(privateFunctionality);
-  }, [privateFunctionality])
+  const { tool } = useParams();
 
-  const handleFunctionalitySelect = (functionality) => {
-    setPrivateFunctionality(functionality);
-  };
+  // Determine which component to render based on the URL
+  let ComponentToRender;
+  switch (tool) {
+      case 'tech-partners':
+          ComponentToRender = TechPartners;
+          break;
+      case 'generate-emails':
+          ComponentToRender = GenerateEmails;
+          break;
+
+      case 'cable-run-optimizer':
+          ComponentToRender = CRO;
+          break;
+
+      case 'chat-bot':
+          ComponentToRender = ChatBot;
+          break;
+
+      case 'equipment-checkout': 
+          ComponentToRender = AssetTracker;
+          break;
+
+      case 'go-tracker':
+          ComponentToRender = GOTracker;
+          break;  
+
+      case 'overtime-tracker':
+          ComponentToRender = OTTracker;
+          break;
+
+      case 'sub-automation':
+          ComponentToRender = SubAuto;
+          break;
+
+      default:
+          ComponentToRender = PrivateHome;
+  }
 
   return (
     
@@ -103,20 +133,12 @@ function PrivateContent() {
             </Toolbar>
             <Divider />
             <List component="nav">
-              <PrivateListItems onSelect={handleFunctionalitySelect} />
+              <PrivateListItems />
             </List>
           </Drawer>
         
         <Box component="main" sx={{ marginTop: 5, flexGrow: 1, p: 3, ml: open ? 39 : 9 }}>
-          {privateFunctionality === 'tech' && <TechPartners />}
-          {privateFunctionality === 'privateHome' && <PrivateHome />}
-          {privateFunctionality === 'generateEmails' && <GenerateEmails />}
-          {privateFunctionality === 'cro' && <CRO />}
-          {privateFunctionality === 'assetTracker' && <AssetTracker />}
-          {privateFunctionality === 'chatbot' && <ChatBot />}
-          {privateFunctionality === 'go' && <GOTracker />}
-          {privateFunctionality === 'overtime' && <OTTracker />}
-          {privateFunctionality === 'subAuto' && <SubAuto />}
+            <ComponentToRender />
         </Box>
       </Box>
     </ThemeProvider>
