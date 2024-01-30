@@ -1,5 +1,5 @@
 //REACT
-import React, { useState } from 'react';
+import React from 'react';
 import { BrowserRouter as Router, Route, Routes, Navigate } from 'react-router-dom';
 
 //COMPONENTS
@@ -8,18 +8,12 @@ import Private from "../Private/Private";
 import Public from "../Public/Public";
 import WhitePaper from "../PublicFeatures/Publications/WhitePaper";
 
-//CONTEXT
-import PrivateContext from '../Private/PrivateContext';
-
 //AUTH
 import { AuthenticatedRoute, AuthProvider } from "../../authentication/Auth";
 
-function App() {
-    const [privateFunctionality, setPrivateFunctionality] = useState('privateHome');
-    
+function App() {  
     return (
         <AuthProvider>
-            <PrivateContext.Provider value={{ privateFunctionality, setPrivateFunctionality }}>
                 <Router>
                     <Routes>
 
@@ -38,7 +32,6 @@ function App() {
 
                     </Routes>
                 </Router>
-            </PrivateContext.Provider>
         </AuthProvider>
     );
 }

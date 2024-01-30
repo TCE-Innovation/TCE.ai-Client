@@ -1,14 +1,11 @@
 // LoginFunc.js
-import { useContext } from 'react';
 import { useMsal } from "@azure/msal-react";
 import { loginRequest } from "../../authentication/authConfig"; 
 import { useNavigate } from 'react-router-dom';
-import PrivateContext from "../Private/PrivateContext";
 import { updateUserLog } from '../../API Calls/Airtable';
 
 export function useMicrosoftSignIn() {
   const { instance } = useMsal(); 
-  const { setPrivateFunctionality } = useContext(PrivateContext);
   const navigate = useNavigate();
 
   async function MicrosoftSignIn() {
@@ -17,8 +14,7 @@ export function useMicrosoftSignIn() {
       if (response) {
         const currentAccounts = instance.getAllAccounts();
         if (currentAccounts.length > 0) {
-          navigate('/private');
-          setPrivateFunctionality('privateHome');
+          navigate('/private/private-home');
           await updateUserLog(currentAccounts[0].name);
         }
       }

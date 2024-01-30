@@ -25,7 +25,6 @@ import noUser from '../../../img/Utils/noUser.webp'
 //CONTEXTS
 import {AuthContext} from "../../../authentication/Auth";
 import { useMsal } from "@azure/msal-react";
-import PrivateContext from "../../Private/PrivateContext";
 
 //HOOKS
 import {useMicrosoftSignOut} from "../../Account/LogOut/LogOutFunc";
@@ -36,7 +35,6 @@ import LoginNotification from "./LoginNotification";
 function ResponsiveAppBar() {
 
     //contexts
-    const { setPrivateFunctionality } = useContext(PrivateContext);
     const { userPic } = useContext(AuthContext);
 
     //states
@@ -119,8 +117,7 @@ function ResponsiveAppBar() {
                             {isAuthenticated ? (
                                 <Box sx={{ display: 'flex', alignItems: 'center', marginTop: '1vw'}}>
                                     <IconButton onClick={() => {
-                                        navigate('/private');
-                                        setPrivateFunctionality('privateHome');
+                                        navigate('/private/private-home');
                                     }}>
                                         <Tooltip title="Toolbox">
                                             <HomeRepairServiceIcon sx={{ color: toolBoxColor.color, fontSize: '3.5vw' }} />

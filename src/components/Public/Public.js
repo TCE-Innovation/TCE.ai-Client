@@ -1,6 +1,6 @@
 //REACT
 import * as React from 'react';
-import { useContext, useEffect, useState } from "react";
+import { useEffect, useState } from "react";
 import { useNavigate } from 'react-router-dom';
 
 //MUI
@@ -19,12 +19,9 @@ import DotNav from './PublicNavigation/DotNav';
 
 import backgroundImage from '../../img/Public/city.webp'
 
-import PrivateContext from "../Private/PrivateContext";
-
 const mdTheme = createTheme();
 
 function PublicContent() {
-  const { setPrivateFunctionality } = useContext(PrivateContext);
   const [showContent, setShowContent] = useState(true);
 
   const sections = ['intro-text', 'about-us','tech-partners', 'whitepapers', 'contact-us'];
@@ -35,10 +32,6 @@ function PublicContent() {
     sectionElement.scrollIntoView({ behavior: 'smooth' });
     setCurrentSection(section);
   };
-
-  useEffect(() => {
-    setPrivateFunctionality('public');
-  }, [setPrivateFunctionality]);
 
   const navigate = useNavigate();
 

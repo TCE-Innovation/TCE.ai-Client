@@ -1,7 +1,7 @@
 //REACT
 import * as React from 'react';
 import {useContext, useState} from "react";
-import { NavLink } from 'react-router-dom';
+import { NavLink, useParams } from 'react-router-dom';
 import { useNavigate } from 'react-router-dom';
 
 //MUI
@@ -22,46 +22,45 @@ import noUser from '../../img/Utils/noUser.webp'
 
 //CONTEXTS
 import {AuthContext} from "../../authentication/Auth";
-import PrivateContext from "./PrivateContext";
 
 //HOOKS
 import {useMicrosoftSignOut} from "../Account/LogOut/LogOutFunc";
 
 function ResponsiveAppBar() {
     const [anchorElUser, setAnchorElUser] = useState(null);
-    const { privateFunctionality, setPrivateFunctionality } = useContext(PrivateContext);
+    const { tool } = useParams(); // Get the current tool from URL
     const navigate = useNavigate();
 
     const { userPic } = useContext(AuthContext);
     const accSettings = ["Home", "Account", "Log Out"]
 
-    function setTitle(privateFunctionality) {
-        switch(privateFunctionality) {
-            case 'generateEmails':
+    function setTitle(tool) {
+        switch(tool) {
+            case 'generate-emails':
                 return 'Generate an Email';
-            case 'assetTracker':
+            case 'equipment-checkout':
                 return 'Equipment Checkout';
-            case 'cro':
+            case 'cable-run-optimizer':
                 return 'Cable Run Optimizer';
-            case 'chatbot':
+            case 'chat-bot':
                 return 'Chat Bot';
             case 'info':
                 return 'Information';
-            case 'go':
+            case 'go-tracker':
                 return 'GO Tracker';
-            case 'overtime':
+            case 'overtime-tracker':
                 return 'Overtime Tracker';
             case 'account':
                 return 'My Account';
             case 'contact':
                 return 'Idea Submission';
-            case 'subAuto':
+            case 'sub-automation':
                 return 'Subcontractor Form Automation';
             case 'public':
                 return 'TCE Innovation Group';
-            case 'tech':
+            case 'tech-partners':
                 return 'Tech Partners';
-            case 'privateHome':
+            case 'private-home':
                 return 'Welcome';
             default:
                 return 'TCE Innovation Group';  
@@ -113,12 +112,11 @@ function ResponsiveAppBar() {
                             textAlign: 'center'
                         }}
                     >
-                        {setTitle(privateFunctionality)}
+                        {setTitle(tool)}
                     </Typography>
                     <Box sx={{  display: 'flex', alignItems: 'center', marginTop: '7px', marginRight: '30px'}}>           
                         <IconButton onClick={() => {
-                            navigate('/private');
-                            setPrivateFunctionality('privateHome');
+                            navigate('/private/private-home');
                         }}>
                             <Tooltip title="Toolbox">
                                 <HomeRepairServiceIcon sx={{ color: 'white', fontSize: '55px' }} />

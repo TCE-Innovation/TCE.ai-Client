@@ -1,5 +1,5 @@
 //REACT
-import React, { useContext, useEffect } from 'react';
+import React, { useContext } from 'react';
 
 //MUI
 import { Card, CardContent } from "@mui/material";
@@ -13,7 +13,6 @@ import PrivateNavigation from "../Private/PrivateNavigation";
 
 //AUTH
 import { AuthContext } from "../../authentication/Auth";
-import PrivateContext from "../Private/PrivateContext";
 
 const noUser = require('../../img/Utils/noUser.webp')
 
@@ -41,11 +40,6 @@ function ProfileImage() {
 
 function AccountCard() {
     const { userName, userEmail, userTitle, userProjects } = useContext(AuthContext);
-    const { setPrivateFunctionality } = useContext(PrivateContext);
-
-    useEffect(() => {
-        setPrivateFunctionality('account');
-      }, [setPrivateFunctionality]); 
 
     return (
         <React.Fragment>
