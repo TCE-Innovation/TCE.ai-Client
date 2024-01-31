@@ -24,7 +24,7 @@ const mdTheme = createTheme();
 function PublicContent() {
   const [showContent, setShowContent] = useState(true);
 
-  const sections = ['intro-text', 'about-us','tech-partners', 'whitepapers', 'contact-us'];
+  const sections = ['intro-text', 'about-us','tech-partners', 'contact-us']; //whitepapers
   const [currentSection, setCurrentSection] = useState(sections[0]);
 
   const handleDotClick = (section) => {
@@ -68,13 +68,14 @@ function PublicContent() {
       const aboutUsSection = document.getElementById('about-us');
       const contactUsSection = document.getElementById('contact-us');
       const techPartnersSection = document.getElementById('tech-partners');
-      const whitepapersSection = document.getElementById('whitepapers');
+      //const whitepapersSection = document.getElementById('whitepapers');
 
       if (mainContainer.scrollTop >= contactUsSection.offsetTop) {
         setCurrentSection('contact-us');
-      } else if (mainContainer.scrollTop >= whitepapersSection.offsetTop) {
-        setCurrentSection('whitepapers');
-      } else if (mainContainer.scrollTop >= techPartnersSection.offsetTop) {
+      } //else if (mainContainer.scrollTop >= whitepapersSection.offsetTop) {
+        //setCurrentSection('whitepapers');
+      //} 
+      else if (mainContainer.scrollTop >= techPartnersSection.offsetTop) {
         setCurrentSection('tech-partners');
       } else if (mainContainer.scrollTop >= aboutUsSection.offsetTop) {
         setCurrentSection('about-us');
@@ -122,9 +123,9 @@ function PublicContent() {
           <Box id="tech-partners" className={`content ${showContent ? 'fade-in' : ''}`} sx={{ scrollSnapAlign: 'start' }}>
             <Press />
           </Box>
-          <Box id="whitepapers" className={`content ${showContent ? 'fade-in' : ''}`} sx={{ scrollSnapAlign: 'start' }}>
+          {/*<Box id="whitepapers" className={`content ${showContent ? 'fade-in' : ''}`} sx={{ scrollSnapAlign: 'start' }}>
             <Publications />
-          </Box>
+      </Box>*/}
           <Box id="contact-us" className={`content ${showContent ? 'fade-in' : ''}`} sx={{ scrollSnapAlign: 'start' }}>
             <ContactUs />
           </Box>
