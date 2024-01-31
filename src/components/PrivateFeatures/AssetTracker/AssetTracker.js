@@ -22,7 +22,7 @@ const AssetTracker = () => {
             
                 <AssetCarousel />
 
-            <div style={{ display: 'block', marginTop: 30 }}>
+            <div style={{ display: 'block' }}>
                 <AssetForm />
             </div>
         </div>

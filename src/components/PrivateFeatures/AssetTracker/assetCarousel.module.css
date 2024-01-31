@@ -1,7 +1,6 @@
   .carouselContainer {
     width: 80vw;
-    margin-top: 2vw;
-    padding: 2vw;
+    padding: 1vw;
   }
   
   .carouselCard {
@@ -36,7 +35,7 @@
   }
 
   .descriptionContainer{
-    height: 7vw;
+    height: 5vw;
     position: relative;
     display: flex;
     flex-direction: column;
@@ -45,7 +44,6 @@
   }
 
   .descriptionText{
-    font-size: 1.3vw;
+    font-size: 1vw;
     text-align: center;
-    margin-top: .9vw;
   }
