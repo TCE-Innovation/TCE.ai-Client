@@ -14,7 +14,7 @@ import IntroText from "../PublicFeatures/IntroText";
 import AboutUs from "../PublicFeatures/AboutUs/AboutUs";
 import ContactUs from '../PublicFeatures/ContactUs/ContactUs';
 import Press from '../PublicFeatures/Press/Press';
-import Publications from '../PublicFeatures/Publications/Publications';
+//import Publications from '../PublicFeatures/Publications/Publications';
 import DotNav from './PublicNavigation/DotNav';
 
 import backgroundImage from '../../img/Public/city.webp'

@@ -51,10 +51,12 @@ const CRO = () => {
         setLoading(true);
         setError('');
         
+        // Append user info to FormData to be sent to backend
+        const formData = new FormData();
+        
         // Breaking up try clause into a part for every formData.append
         try {
-            // Append user info to FormData to be sent to backend
-            const formData = new FormData();
+
             //this will always be a file
             formData.append('pullsheet', pullsheet);
         } 
