@@ -159,7 +159,7 @@ const AssetForm = () => {
                                 <Box display="flex" flexDirection="row">
                                     <TextField
                                         id="reason"
-                                        label="Intended Use - Record Keeping Purposes"
+                                        label="Intended Use - For Record Keeping Purposes"
                                         multiline
                                         value={reason}
                                         onChange={handleReasonInputChange}
@@ -169,7 +169,7 @@ const AssetForm = () => {
                                 <Box display="flex" flexDirection="row">
                                         <LocalizationProvider dateAdapter={AdapterDateFns}>
                                             <DatePicker
-                                                label="Date to Pick Up"
+                                                label="Date Needed"
                                                 sx=  {{width: "25%", marginBottom: "28px", marginLeft: "8px", marginTop: "25px"}}
                                                 value={dateNeeded}
                                                 onChange={setDateNeeded}
@@ -178,7 +178,7 @@ const AssetForm = () => {
                                         </LocalizationProvider>
                                         <LocalizationProvider dateAdapter={AdapterDateFns}>
                                             <DatePicker
-                                                label="Date to Return"
+                                                label="Return Date"
                                                 sx=  {{width: "25%", marginBottom: "28px", marginLeft: "8px", marginTop: "25px"}}
                                                 value={dateReturn}
                                                 onChange={setDateReturn}
