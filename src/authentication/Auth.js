@@ -1,6 +1,6 @@
 //REACT
 import React, { useState, useEffect } from 'react';
-import { Navigate, Outlet } from 'react-router-dom';
+import { Navigate, Outlet, useLocation } from 'react-router-dom';
 
 //AUTH
 import { useMsal } from "@azure/msal-react";
@@ -80,6 +80,14 @@ export const AuthProvider = ({ children }) => {
 
 export function AuthenticatedRoute() {
   const { accounts } = useMsal();
+  const location = useLocation();
   const isAuthenticated = accounts.length > 0;
-  return isAuthenticated ? <Outlet /> : <Navigate to="/" />;
+
+  if (!isAuthenticated) {
+    // Store the attempted URL before redirecting
+    localStorage.setItem('postLoginRedirect', location.pathname + location.search);
+    return <Navigate to="/" replace />;
+  }
+
+  return <Outlet />;
 }

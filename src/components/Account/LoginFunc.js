@@ -14,7 +14,9 @@ export function useMicrosoftSignIn() {
       if (response) {
         const currentAccounts = instance.getAllAccounts();
         if (currentAccounts.length > 0) {
-          navigate('/private/welcome');
+          const postLoginRedirect = localStorage.getItem('postLoginRedirect') || '/private/welcome';
+          navigate(postLoginRedirect);
+          localStorage.removeItem('postLoginRedirect'); // Clear the stored URL after redirecting
           await updateUserLog(currentAccounts[0].name);
         }
       }

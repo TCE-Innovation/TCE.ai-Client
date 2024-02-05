@@ -34,23 +34,43 @@ export default function PubCarousel() {
         },
     ];
 
-    const handleReadMoreClick = (documentName) => {
-        window.open(`/whitepaper?document=${documentName}`, '_blank');
-    };
+
 
     return (
-        <div style={{ width: '50%', margin: 'auto' }}>
+        <div style={{ width: '70%', margin: 'auto' }}>
             <Slider {...settings}>
                 {data.map((item, index) => (
                     <div key={index} >
-                        <div style={{border: "1px solid white"}}>
-                            <h3 style={{color:"white"}}>{item.title}</h3>
-                            <p style={{color:"white"}}>{item.content}</p>
-                            <button onClick={() => handleReadMoreClick(item.link)}>Read More</button>
-                        </div>
+                        <CarouselCard item={item} />
                     </div>
                 ))}
             </Slider>
         </div>
     ); 
+}
+
+
+function CarouselCard({item}) {
+    const handleReadMoreClick = (documentName) => {
+        window.open(`/whitepaper?document=${documentName}`, '_blank');
+    };
+
+    return (
+        <div style={{border: "1px solid white", borderRadius: "1vw", backgroundColor: "white", height: "15vw"}}>
+            <div style={{
+                height: "3vw", 
+                width: "100%", 
+                backgroundColor: "#999999", 
+                color: "white", 
+                display: "flex", 
+                justifyContent: "center", 
+                alignItems: "center",
+                borderRadius: "1vw",
+            }}>
+                <h3 style={{color:"black"}}>{item.title}</h3>
+            </div>
+            <p style={{color:"black"}}>{item.content}</p>
+            <button onClick={() => handleReadMoreClick(item.link)}>Read More</button>
+        </div>
+    )
 }

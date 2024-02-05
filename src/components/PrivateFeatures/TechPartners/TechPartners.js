@@ -22,8 +22,8 @@ const partnerData = [
     imgSrc: Airtable,
     description: "A host for multiple internal applications for use across a wide range of workflows",
     extraText: "Airtable assists various user groups and their specific needs, including TCIG, Estimating, Safety, Engineers, and Project Managers. TCIG and Estimating leverage Airtable's static database functionality to track internal assets and plan future bids, complementing their workflow with Bridgit Bench. The efficiency gains are further enhanced through Airtable's process logic and email automation, seamlessly integrated into multiple applications. The safety team benefits from automation in capturing track/safety certifications in a database and notifies safety managers of expiration dates, reducing downtime required for updating certifications which often have lead times of over three months.",
-    contactName: "Chris Kruger",
-    contactEmail: "ckruger@tcelect.net",
+    contactName: "Jacob Shavel",
+    contactEmail: "jshavel@tcelect.net",
     documents: [
       {title: "GO Tracker White Paper", url: "https://judlauent.sharepoint.com/:b:/s/TCEInnovation/ETEIqNwZPvFPsCP6KLnLxYIBjt_3LmFY_SAtRvYhBchi_Q?e=GgEatL"},
       {title: "GO Tracker SOP", url: "https://judlauent.sharepoint.com/:b:/s/TCEInnovation/EehYuVJdG9NJj_8Hp4_gqskBg8G5xFP0W6s7iQKaslYRDA?e=LL6t1E"}
@@ -65,8 +65,8 @@ const partnerData = [
     imgSrc: EZ,
     description: "Asset management for maximizing overstock usage and minimizing item surplus",
     extraText: "EZOffice Inventory provides comprehensive asset tracking capabilities for items that can be allocated to various project sites. It mitigates the risk of lost or misused assets while optimizing resource utilization. Warehouse users benefit from streamlined processes for efficiently managing the inflow and outflow of items. Notable features, including location tracking and customized item groupings, eliminate the need for manual searches, ensuring zero downtime and efficient access to available in-stock items.",
-    contactName: "Chris Kruger",
-    contactEmail: "ckruger@tcelect.net",
+    contactName: "Matthew Bayne",
+    contactEmail: "mbayne@tcelect.net",
     documents: [
       {title: "TCE EZOffice Dashboard", url: "https://tcelectric.ezofficeinventory.com/dashboard"},
     ]
@@ -114,6 +114,7 @@ const TechPartners = () => {
   return (
     <div className="container">
       <br />
+
       <div className={styles.techSubheader}>
         On this page you will find information about software tools in TCE's technology stack. 
         In addition to these overviews, you will find helpful links like documentation from the 
@@ -121,7 +122,8 @@ const TechPartners = () => {
         contact the relevant TCIG team member with questions or requests on a certain tool, please 
         click the PoC's name under any tool to draft an email and start a conversation. 
       </div>
-      <div className={styles.cardContainer}>
+      
+      <div>
         {partnerData.map((partner, index) => (
           <div className={styles.card} key={index} onClick={() => toggleReadMore(index)}>
             
@@ -144,22 +146,28 @@ const TechPartners = () => {
   
             {expandedIndex === index && (
               <div className={styles.expandedContainer}>
-                <div className={styles.linkBox}>
-                  {partner.documents && partner.documents.map((doc, docIndex) => (
-                    <div key={docIndex} onClick={handleInsideCardClick}>
-                      <a href={doc.url} target="_blank" rel="noopener noreferrer" className={styles.linkText}>{doc.title}</a>
-                    </div>
-                  ))}
-                </div>
                 <div className={styles.expandedCardBody}>
+
                   <p className={styles.extraText}>{partner.extraText}</p>
-                  <p className={styles.contactText}>
+                  
+                  <div className={styles.linkBox}>
+
+                      {partner.documents && partner.documents.map((doc, docIndex) => (
+                      <div key={docIndex} onClick={handleInsideCardClick}>
+                        <a href={doc.url} target="_blank" rel="noopener noreferrer" className={styles.linkText}>{doc.title}</a> &nbsp;
+                      </div>
+                    ))}
+
+                    
                     Point of Contact: &nbsp;
-                    <a className={styles.nameLink} href={`mailto:${partner.contactEmail}`} onClick={handleInsideCardClick}>
-                        {partner.contactName} 
-                      <EmailIcon style={{ marginLeft: '5px', marginBottom: "1px", cursor: 'pointer', color: "gray"}} />
-                    </a>
-                  </p>
+                      <a className={styles.nameLink} href={`mailto:${partner.contactEmail}`} onClick={handleInsideCardClick}>
+                          {partner.contactName} 
+                        <EmailIcon style={{ marginLeft: '5px', marginBottom: "1px", cursor: 'pointer', color: "gray"}} />
+                      </a>
+
+
+                  </div>
+
                 </div>
               </div>
             )}
