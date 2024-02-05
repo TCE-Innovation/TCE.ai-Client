@@ -25,8 +25,8 @@ const partnerData = [
     contactName: "Jacob Shavel",
     contactEmail: "jshavel@tcelect.net",
     documents: [
-      {title: "GO Tracker White Paper", url: "https://judlauent.sharepoint.com/:b:/s/TCEInnovation/ETEIqNwZPvFPsCP6KLnLxYIBjt_3LmFY_SAtRvYhBchi_Q?e=GgEatL"},
-      {title: "GO Tracker SOP", url: "https://judlauent.sharepoint.com/:b:/s/TCEInnovation/EehYuVJdG9NJj_8Hp4_gqskBg8G5xFP0W6s7iQKaslYRDA?e=LL6t1E"}
+      {title: "GO Tracker White Paper", url: "https://judlauent.sharepoint.com/:b:/s/TCEInnovation/ETEIqNwZPvFPsCP6KLnLxYIBjt_3LmFY_SAtRvYhBchi_Q?e=GgEatL", id: "go-tracker"},
+      {title: "GO Tracker SOP", url: "https://judlauent.sharepoint.com/:b:/s/TCEInnovation/EehYuVJdG9NJj_8Hp4_gqskBg8G5xFP0W6s7iQKaslYRDA?e=LL6t1E", id: "go-tracker-sop"}
     ]
   },
   {
@@ -46,7 +46,7 @@ const partnerData = [
     contactName: "Rory O'Neill",
     contactEmail: "roneill@tcelect.net",
     documents: [
-      {title: "OpenSpace SOP", url: "https://judlauent.sharepoint.com/:b:/s/TCEInnovation/ESGFy6NJP6pHteZx0vyLLygBb7XFxuGv4EnzGyuA5WOOQQ?e=GZQcte"},
+      {title: "OpenSpace SOP", url: "https://judlauent.sharepoint.com/:b:/s/TCEInnovation/ESGFy6NJP6pHteZx0vyLLygBb7XFxuGv4EnzGyuA5WOOQQ?e=GZQcte", id: "openspace-sop"},
     ]
   },
   {
@@ -57,7 +57,7 @@ const partnerData = [
     contactName: "Jacob Shavel",
     contactEmail: "jshavel@tcelect.net",
     documents: [
-      {title: "Bridgit White Paper", url: "https://judlauent.sharepoint.com/:b:/s/TCEInnovation/EQyO1dDTWFxDjvk9Gr5tN5YBQqF6b73gNlDd3jGcNjQ9Yg?e=Zp6Ply"},
+      {title: "Bridgit White Paper", url: "https://judlauent.sharepoint.com/:b:/s/TCEInnovation/EQyO1dDTWFxDjvk9Gr5tN5YBQqF6b73gNlDd3jGcNjQ9Yg?e=Zp6Ply", id: "bridgit"},
     ]
   },
   {
@@ -154,11 +154,17 @@ const TechPartners = () => {
 
                     {partner.documents && partner.documents.map((doc, docIndex) => (
                       <div key={docIndex} onClick={handleInsideCardClick}>
-                        <a href={doc.url} target="_blank" rel="noopener noreferrer" className={styles.linkText}>{doc.title}</a> &nbsp; &nbsp;
+                        <span
+                          className={styles.linkText}
+                          onClick={() => window.open(`/whitepaper?document=${doc.id}`, '_blank')}
+                          style={{ cursor: 'pointer', textDecoration: 'none' }}
+                        >
+                          {doc.title}&nbsp;&nbsp;|&nbsp;&nbsp;
+                        </span>
                       </div>
                     ))}
 
-                    <div style={{marginLeft:"2vw"}}>Point of Contact: &nbsp; </div>
+                    <div>Point of Contact: &nbsp; </div>
 
                     <a className={styles.nameLink} href={`mailto:${partner.contactEmail}`} onClick={handleInsideCardClick}>
                         {partner.contactName} 

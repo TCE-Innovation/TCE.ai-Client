@@ -7,7 +7,14 @@ const getIframeUrl = (documentName) => {
     const urls = {
       'prdc-ripper': 'https://tceaiblob.blob.core.windows.net/whitepapers/PRDC Ripper White Paper R3.pdf',
       'airtable': 'https://tceaiblob.blob.core.windows.net/whitepapers/AirTable White Paper.pdf',
-      'openspace': "https://tceaiblob.blob.core.windows.net/whitepapers/OpenSpace White Paper .pdf"
+      'openspace': "https://tceaiblob.blob.core.windows.net/whitepapers/OpenSpace White Paper .pdf",
+      "openspace-sop": "https://tceaiblob.blob.core.windows.net/whitepapers/OpenSpace Standard Operating Procedure.pdf",
+      'go-tracker': "https://tceaiblob.blob.core.windows.net/whitepapers/GO Tracker White Paper.pdf",
+      "go-tracker-sop": "https://tceaiblob.blob.core.windows.net/whitepapers/GO Tracker Standard Operating Procedure.pdf",
+      "bridgit": "https://tceaiblob.blob.core.windows.net/whitepapers/Bridgit Bench White Paper.pdf",
+      
+
+
     };
     return urls[documentName];
   };
