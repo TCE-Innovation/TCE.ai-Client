@@ -83,7 +83,7 @@ const partnerData = [
   {
     name: "Oracle",
     imgSrc: Oracle,
-    description: "Maximize efficiency and performance with an integrated project portfolio management solution",
+    description: "Maximize efficiency and performance with an integrated project management solution",
     extraText: "Oracle P6 offers unparalleled control over project complexity by facilitating planning, scheduling, and resource management across your entire portfolio. P6 is tailored for large-scale, highly sophisticated project management and enables organizations to meet deadlines, stay within budget, and achieve their project goals. It excels in multi-user and multi-project environments with features like Gantt charts, Work Breakdown Structures, and comprehensive reporting tools.",
     contactName: "Sahul Kadarpeta",
     contactEmail: "skadarpeta@tcelect.net",
