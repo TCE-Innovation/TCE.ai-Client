@@ -1,5 +1,5 @@
 //REACT
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, createContext } from 'react';
 import { Navigate, Outlet, useLocation } from 'react-router-dom';
 
 //AUTH
@@ -7,7 +7,7 @@ import { useMsal } from "@azure/msal-react";
 import { getUserProfilePic } from '../API Calls/Graph';
 import { getJobTitle, getProjects } from '../API Calls/Airtable';
 
-export const AuthContext = React.createContext();
+export const AuthContext = createContext();
 
 export const AuthProvider = ({ children }) => {
   const { accounts, instance } = useMsal();
@@ -86,6 +86,7 @@ export function AuthenticatedRoute() {
   if (!isAuthenticated) {
     // Store the attempted URL before redirecting
     localStorage.setItem('postLoginRedirect', location.pathname + location.search);
+    //HERE TRIGGER THE LOGIN POPUP
     return <Navigate to="/" replace />;
   }
 

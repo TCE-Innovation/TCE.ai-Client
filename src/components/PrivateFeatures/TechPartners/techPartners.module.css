@@ -75,7 +75,6 @@
 .oneLinerContainer{
     display: flex;
     flex-direction: row;
-    justify-content: space-between;
     width: 100%;
 }
 
@@ -84,7 +83,7 @@
     flex-direction: row;
     width: 48vw;
     align-self: flex-end;
-   
+    justify-content: right; 
 }
 
 .expandedCardBody{
@@ -92,14 +91,28 @@
     flex-direction: column;
     justify-content: space-between;
     text-align: center;
-    width: 48vw;
+    width: 40vw;
+    margin-right: 2vw
 }
 
 .linkBox{
     display: flex;
     flex-direction: row;
     align-items: center;
-    justify-content: right;
+    justify-content: center;
+    background-color: #f5f5f5;
+    padding: 1vw;
+    width: auto;
+    border-radius: 10px;
+}
+
+.pocText{
+    color: #1b365f;
+    font-family: "Inter-Bold", Helvetica;
+    font-size: 160px;
+    font-weight: bold;
+    letter-spacing: 0;
+    line-height: normal;
 
 }
 
@@ -107,7 +120,7 @@
 .linkText{
     color: #1b365f;
     font-family: "Inter-Bold", Helvetica;
-    font-size: 20px;
+    font-size: 16px;
     font-weight: bold;
     letter-spacing: 0;
 }
@@ -117,6 +130,5 @@
     font-family: "Inter-Bold", Helvetica;
     font-weight: bold;
     letter-spacing: 0;
-    margin-top: 10px;
     text-decoration: none;
 }

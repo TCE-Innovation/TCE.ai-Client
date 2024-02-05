@@ -152,18 +152,18 @@ const TechPartners = () => {
                   
                   <div className={styles.linkBox}>
 
-                      {partner.documents && partner.documents.map((doc, docIndex) => (
+                    {partner.documents && partner.documents.map((doc, docIndex) => (
                       <div key={docIndex} onClick={handleInsideCardClick}>
-                        <a href={doc.url} target="_blank" rel="noopener noreferrer" className={styles.linkText}>{doc.title}</a> &nbsp;
+                        <a href={doc.url} target="_blank" rel="noopener noreferrer" className={styles.linkText}>{doc.title}</a> &nbsp; &nbsp;
                       </div>
                     ))}
 
-                    
-                    Point of Contact: &nbsp;
-                      <a className={styles.nameLink} href={`mailto:${partner.contactEmail}`} onClick={handleInsideCardClick}>
-                          {partner.contactName} 
-                        <EmailIcon style={{ marginLeft: '5px', marginBottom: "1px", cursor: 'pointer', color: "gray"}} />
-                      </a>
+                    <div style={{marginLeft:"2vw"}}>Point of Contact: &nbsp; </div>
+
+                    <a className={styles.nameLink} href={`mailto:${partner.contactEmail}`} onClick={handleInsideCardClick}>
+                        {partner.contactName} 
+                      <EmailIcon style={{ marginLeft: '5px', marginBottom: "1px", cursor: 'pointer', color: "gray"}} />
+                    </a>
 
 
                   </div>
