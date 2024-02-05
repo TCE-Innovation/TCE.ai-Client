@@ -6,7 +6,7 @@ import { BrowserRouter as Router, Route, Routes, Navigate } from 'react-router-d
 import Account from "../Account/Account";
 import Private from "../Private/Private";
 import Public from "../Public/Public";
-import WhitePaper from "../PublicFeatures/Publications/WhitePaper";
+import Document from "../PublicFeatures/Publications/Document";
 
 //AUTH
 import { AuthenticatedRoute, AuthProvider } from "../../authentication/Auth";
@@ -18,7 +18,7 @@ function App() {
                 <Routes>
                     
                     <Route exact path='/' element={<Public />} />
-                    <Route exact path='/whitepaper' element={<WhitePaper />} />
+                    <Route exact path='/document' element={<Document />} />
                     
                     <Route path='/account' element={<AuthenticatedRoute />}>
                         <Route index element={<Account />} />

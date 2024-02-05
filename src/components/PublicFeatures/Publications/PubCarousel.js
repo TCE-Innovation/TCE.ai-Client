@@ -52,7 +52,7 @@ export default function PubCarousel() {
 
 function CarouselCard({item}) {
     const handleReadMoreClick = (documentName) => {
-        window.open(`/whitepaper?document=${documentName}`, '_blank');
+        window.open(`/document?file=${documentName}`, '_blank');
     };
 
     return (

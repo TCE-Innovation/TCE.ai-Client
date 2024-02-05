@@ -156,7 +156,7 @@ const TechPartners = () => {
                       <div key={docIndex} onClick={handleInsideCardClick}>
                         <span
                           className={styles.linkText}
-                          onClick={() => window.open(`/whitepaper?document=${doc.id}`, '_blank')}
+                          onClick={() => window.open(`/document?file=${doc.id}`, '_blank')}
                           style={{ cursor: 'pointer', textDecoration: 'none' }}
                         >
                           {doc.title}&nbsp;&nbsp;|&nbsp;&nbsp;

@@ -19,11 +19,11 @@ const getIframeUrl = (documentName) => {
     return urls[documentName];
   };
 
-const WhitePaper = ( ) => { 
+const Document = ( ) => { 
     const location = useLocation();
 
     const searchParams = new URLSearchParams(location.search);
-    const documentName = searchParams.get('document');
+    const documentName = searchParams.get('file');
 
     const iframeUrl = getIframeUrl(documentName); 
     const [iframeLoaded, setIframeLoaded] = useState(false);
@@ -57,4 +57,4 @@ const WhitePaper = ( ) => {
     );
 };
 
-export default WhitePaper;
+export default Document;
