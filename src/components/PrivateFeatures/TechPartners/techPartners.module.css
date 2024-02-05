@@ -14,7 +14,7 @@
     padding: 2vw;
     padding-bottom: 2.5vw;
     border-bottom: 1px solid #1b365f;
-    border: 3px solid red;
+    
     align-items: center;
 }
 
@@ -23,7 +23,7 @@
     text-align: center;
     width: 100%;
     margin-top: 1.7vw;
-    border: 3px solid yellow
+    
 }
 
 .cardText {
@@ -69,7 +69,7 @@
     display: flex;
     height: 4vw;
     margin-top: 1vw;
-    border: 3px solid blue
+  
 }
 
 .oneLinerContainer{
@@ -84,7 +84,7 @@
     flex-direction: row;
     width: 48vw;
     align-self: flex-end;
-    border: 3px solid purple
+   
 }
 
 .expandedCardBody{
@@ -100,7 +100,7 @@
     flex-direction: row;
     align-items: center;
     justify-content: right;
-    border: 3px solid green
+
 }
 
   
