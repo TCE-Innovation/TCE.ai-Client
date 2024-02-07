@@ -29,7 +29,7 @@ const PressCards = () => {
                     <div className={styles.cardContainer}>                        
                         <img src={card.image} alt={card.alt} className={styles.cardImage} />
                         <div className={styles.textContainer}>
-                            <div gutterBottom variant="h5" component="div" className={styles.cardTitle}>
+                            <div variant="h5" component="div" className={styles.cardTitle}>
                                 {card.title}
                             </div>
                             <div variant="body2" color="text.secondary" className={styles.cardText}>
