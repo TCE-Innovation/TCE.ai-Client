@@ -12,6 +12,8 @@ import Oracle from "../../../img/PartnerImages/Oracle.png";
 
 import IconButton from '@mui/material/IconButton';
 import EmailIcon from '@mui/icons-material/Email';
+import OpenInNewIcon from '@mui/icons-material/OpenInNew';
+import ArticleIcon from '@mui/icons-material/Article';
 
 import KeyboardArrowDownIcon from '@mui/icons-material/KeyboardArrowDown';
 import KeyboardArrowUpIcon from '@mui/icons-material/KeyboardArrowUp';
@@ -36,7 +38,8 @@ const partnerData = [
     extraText: "Procore streamlines project management by centralizing document storage and eliminating the hassles of fragmented version control. This all-in-one platform enhances the workflows of all project personnel, whether they're in the field or in the office. Preconstruction tasks like estimate management, bid coordination, budget calculations, and team personnel tracking become effortless. During active projects, Procore excels at automating RFIs and Submittals, simplifying mark-ups and drawing labeling, maintaining comprehensive daily logs in real-time, providing fillable Quality and Safety reports, and offering numerous other invaluable features.",
     contactName: "Patrick Besser",
     contactEmail: "pbesser@tcelect.net",
-    documents: []
+    documents: [],
+    supportLink: "https://support.procore.com/"
   },
   {
     name: "OpenSpace",
@@ -47,7 +50,8 @@ const partnerData = [
     contactEmail: "roneill@tcelect.net",
     documents: [
       {title: "OpenSpace SOP", url: "https://judlauent.sharepoint.com/:b:/s/TCEInnovation/ESGFy6NJP6pHteZx0vyLLygBb7XFxuGv4EnzGyuA5WOOQQ?e=GZQcte", id: "openspace-sop"},
-    ]
+    ],
+    supportLink: "https://support.openspace.ai/en/"
   },
   {
     name: "Bridgit",
@@ -69,7 +73,8 @@ const partnerData = [
     contactEmail: "mbayne@tcelect.net",
     documents: [
       {title: "TCE EZOffice Dashboard", url: "https://tcelectric.ezofficeinventory.com/dashboard"},
-    ]
+    ],
+    supportLink: "https://ezo.io/ezofficeinventory/knowledge-base/"
   },
   {
     name: "Matterport",
@@ -78,7 +83,8 @@ const partnerData = [
     extraText: "By utilizing Matterport cameras in construction settings, the camera seamlessly converts physical environments into immersive 3D models. This digital recreation enables remote viewing from any location and allows for quick, accurate distance measurements. Whether applied indoors or outdoors, Matterport's 3D documentation system captures a visual snapshot at each project milestone, serving as a comprehensive record-keeping tool throughout the construction process.",
     contactName: "Rory O'Neill",
     contactEmail: "roneill@tcelect.net",
-    documents: []
+    documents: [],
+    supportLink: ""
   },
   {
     name: "Oracle",
@@ -128,7 +134,7 @@ const TechPartners = () => {
           <div className={styles.card} key={index} onClick={() => toggleReadMore(index)}>
             
             <div className={styles.oneLinerContainer}>
-              <div style={{width: "22vw", alignContent: "center", justifyContent: "center"}}>
+              <div style={{width: "22vw"}}>
                 <div className={styles.cardImage}>
                   <img
                     src={partner.imgSrc}
@@ -161,13 +167,27 @@ const TechPartners = () => {
                           onClick={() => window.open(`/document?file=${doc.id}`, '_blank')}
                         >
                           {doc.title}
+                          <ArticleIcon className={styles.icon} />
                         </span>
                       </div>
                     ))}
 
+                  {partner.supportLink && (
+                    <a
+                      className={styles.linkText}
+                      href={partner.supportLink}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      onClick={handleInsideCardClick}
+                    >
+                      Documentation
+                      <OpenInNewIcon className={styles.icon} />
+                    </a>
+                  )}
+
                     <a className={styles.linkText} href={`mailto:${partner.contactEmail}`} onClick={handleInsideCardClick}>
                         Need assistance?
-                      <EmailIcon className={styles.emailIcon} />
+                      <EmailIcon className={styles.icon} />
                     </a>
 
 

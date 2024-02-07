@@ -23,7 +23,7 @@
     justify-content: left;
     align-items: center;
     padding-top: 1vw;
-    padding-left: 2vw
+    padding-left: 2.5vw
 }
 
 .cardText {
@@ -57,7 +57,9 @@
 }
 
 .cardImage{
-    padding: 1vw;
+    padding-right: 1vw;
+    padding-top: 1vw;
+    padding-bottom: 1vw;
 }
 
 .oneLinerContainer{
@@ -105,7 +107,7 @@
     text-decoration: none
 }
 
-.emailIcon{
+.icon{
     margin-left: .4vw;
     margin-bottom: .1vw;
     cursor: pointer;
