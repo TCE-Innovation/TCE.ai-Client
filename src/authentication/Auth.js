@@ -86,7 +86,17 @@ export function AuthenticatedRoute() {
   if (!isAuthenticated) {
     // Store the attempted URL before redirecting
     localStorage.setItem('postLoginRedirect', location.pathname + location.search);
-    //HERE TRIGGER THE LOGIN POPUP
+    return <Navigate to="/login" replace />;
+  }
+
+  return <Outlet />;
+}
+
+export function UnauthenticatedRoute() {
+  const { accounts } = useMsal();
+  const isAuthenticated = accounts.length > 0;
+
+  if (isAuthenticated) {
     return <Navigate to="/" replace />;
   }
 

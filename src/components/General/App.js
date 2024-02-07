@@ -4,12 +4,13 @@ import { BrowserRouter as Router, Route, Routes, Navigate } from 'react-router-d
 
 //COMPONENTS
 import Account from "../Account/Account";
+import Login from "../Account/Login";
 import Private from "../Private/Private";
 import Public from "../Public/Public";
 import Document from "../PublicFeatures/Publications/Document";
 
 //AUTH
-import { AuthenticatedRoute, AuthProvider } from "../../authentication/Auth";
+import { AuthenticatedRoute, UnauthenticatedRoute, AuthProvider } from "../../authentication/Auth";
 
 function App() {  
     return (
@@ -20,6 +21,10 @@ function App() {
                     <Route exact path='/' element={<Public />} />
                     <Route exact path='/document' element={<Document />} />
                     
+                    <Route path="/login" element={<UnauthenticatedRoute />}>
+                        <Route index element={<Login />} />
+                    </Route>
+
                     <Route path='/account' element={<AuthenticatedRoute />}>
                         <Route index element={<Account />} />
                     </Route>
