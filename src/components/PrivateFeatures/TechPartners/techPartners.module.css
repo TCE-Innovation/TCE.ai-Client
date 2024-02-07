@@ -20,9 +20,10 @@
 .cardBody {
     display: flex;
     width: 100%;
-    justify-content: center;
+    justify-content: left;
     align-items: center;
-    padding-top: 1.3vw;
+    padding-top: 1vw;
+    padding-left: 2vw
 }
 
 .cardText {
@@ -37,7 +38,7 @@
 .extraText {
     color: #1b365f;
     font-family: "Inter-Bold", Helvetica;
-    font-size: 1vw;
+    font-size: .9vw;
     font-weight: 400;
     letter-spacing: 0;
     line-height: normal;
@@ -56,7 +57,6 @@
 }
 
 .cardImage{
-    height: 4vw;
     padding: 1vw;
 }
 

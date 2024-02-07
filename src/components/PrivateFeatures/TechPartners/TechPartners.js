@@ -120,7 +120,7 @@ const TechPartners = () => {
         In addition to these overviews, you will find helpful links like documentation from the 
         partners as well as standard operating procedures and white papers created by TCIG. To 
         contact the relevant TCIG team member with questions or requests on a certain tool, please 
-        click the PoC's name under any tool to draft an email and start a conversation. 
+        click email icon under any tool to draft an email and start a conversation. 
       </div>
       
       <div>
@@ -128,7 +128,7 @@ const TechPartners = () => {
           <div className={styles.card} key={index} onClick={() => toggleReadMore(index)}>
             
             <div className={styles.oneLinerContainer}>
-              <div style={{width: "22vw"}}>
+              <div style={{width: "22vw", alignContent: "center", justifyContent: "center"}}>
                 <div className={styles.cardImage}>
                   <img
                     src={partner.imgSrc}
