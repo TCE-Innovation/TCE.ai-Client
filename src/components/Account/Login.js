@@ -47,12 +47,12 @@ function Login() {
                     height: '15vw',
                     width: '30vw',
                     padding: '2vw',
-                    borderRadius: '30px',
+                    borderRadius: '3vw',
                     boxShadow: '0px 0px 20px 0px rgba(0,0,0,0.75)',
                     marginTop: '25vh',
                 }}
             >
-                <Typography variant="h4" component="h1" gutterBottom sx={{marginBottom: "5vw"}}>
+                <Typography variant="h4" component="h1" gutterBottom sx={{marginBottom: "5vw", fontSize: "2vw"}}>
                     Please login to continue
                 </Typography>
                 <Button
@@ -66,6 +66,7 @@ function Login() {
                         backgroundColor: 'none', 
                         fontWeight: 500, 
                         borderRadius: '2vw', 
+                        fontSize: '1.5vw',
                         width: '8vw', 
                         height: '2.5vw',
                         borderWidth: '.2vw',
