@@ -1,10 +1,10 @@
 .techSubheader {
     color: #1b365f;
     font-family: "Inter-Bold", Helvetica;
-    font-size: 24px;
+    font-size: 1.3vw;
     letter-spacing: 0;
     line-height: normal;
-    margin-bottom: 40px;
+    margin-bottom: 3vw;
 }
 
 .card {
@@ -12,27 +12,26 @@
     flex-direction: column;
     width: 100%;
     padding: 2vw;
-    padding-bottom: 2.5vw;
     border-bottom: 1px solid #1b365f;
     align-items: center;
+
 }
 
 .cardBody {
-    position: relative;
-    text-align: center;
+    display: flex;
     width: 100%;
-    margin-top: 1.7vw;
+    justify-content: center;
+    align-items: center;
+    padding-top: 1.3vw;
 }
 
 .cardText {
     color: #1b365f;
     font-family: "Inter-Bold", Helvetica;
-    font-size: 20px;
+    font-size: 1vw;
     font-weight: 500;
     letter-spacing: 0;
     line-height: normal;
-    margin-left: 2.2vw;
-    margin-top: .5vw;
 }
   
 .extraText {
@@ -42,6 +41,7 @@
     font-weight: 400;
     letter-spacing: 0;
     line-height: normal;
+    text-align: justify;
 }
 
 .readMoreButton{
@@ -55,20 +55,9 @@
     box-shadow: none; 
 }
 
-.contactText{
-    color: #1b365f;
-    font-family: "Inter-Bold", Helvetica;
-    font-size: 1vw;
-    font-weight: bold;
-    letter-spacing: 0;
-    line-height: normal;
-}
-
 .cardImage{
-    display: flex;
     height: 4vw;
-    margin-top: 1vw;
-  
+    padding: 1vw;
 }
 
 .oneLinerContainer{
@@ -97,7 +86,6 @@
     flex-direction: row;
     align-items: center;
     justify-content: center;
-    background-color: #f5f5f5;
     padding: 1vw;
     border-radius: 10px;
 }
@@ -105,16 +93,21 @@
 .linkText{
     color: #1b365f;
     font-family: "Inter-Bold", Helvetica;
-    font-size: 16px;
+    font-size: 1vw;
     font-weight: bold;
     letter-spacing: 0;
+
+    padding: .5vw;
+    border-radius: 1vw;
+    margin-left: 1vw;
+    margin-right: 1vw;
+    cursor: pointer;
+    text-decoration: none
 }
 
-.nameLink{
-    color: #1b365f;
-    font-family: "Inter-Bold", Helvetica;
-    font-weight: bold;
-    letter-spacing: 0;
-    text-decoration: none;
-    margin-top: .1vw;
+.emailIcon{
+    margin-left: .4vw;
+    margin-bottom: .1vw;
+    cursor: pointer;
+    color: gray;
 }

@@ -128,11 +128,13 @@ const TechPartners = () => {
           <div className={styles.card} key={index} onClick={() => toggleReadMore(index)}>
             
             <div className={styles.oneLinerContainer}>
-              <div className={styles.cardImage}>
-                <img
-                  src={partner.imgSrc}
-                  alt={partner.name}
-                />
+              <div style={{width: "22vw"}}>
+                <div className={styles.cardImage}>
+                  <img
+                    src={partner.imgSrc}
+                    alt={partner.name}
+                  />
+                </div>
               </div>
   
               <div className={styles.cardBody}>
@@ -157,18 +159,15 @@ const TechPartners = () => {
                         <span
                           className={styles.linkText}
                           onClick={() => window.open(`/document?file=${doc.id}`, '_blank')}
-                          style={{ cursor: 'pointer', textDecoration: 'none' }}
                         >
-                          {doc.title}&nbsp;&nbsp;|&nbsp;&nbsp;
+                          {doc.title}
                         </span>
                       </div>
                     ))}
 
-                    <div>Point of Contact: &nbsp; </div>
-
-                    <a className={styles.nameLink} href={`mailto:${partner.contactEmail}`} onClick={handleInsideCardClick}>
-                        {partner.contactName} 
-                      <EmailIcon style={{ marginLeft: '5px', marginBottom: "1px", cursor: 'pointer', color: "gray"}} />
+                    <a className={styles.linkText} href={`mailto:${partner.contactEmail}`} onClick={handleInsideCardClick}>
+                        Need assistance?
+                      <EmailIcon className={styles.emailIcon} />
                     </a>
 
 
