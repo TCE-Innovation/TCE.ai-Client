@@ -1,0 +1,42 @@
+ @keyframes fadeIn {
+    from { opacity: 0; }
+    to { opacity: 1; }
+  }
+  
+  @keyframes sizeGrow {
+    from { transform: scale(0.5); }
+    to { transform: scale(1); }
+  }
+
+  .logo {
+    height: 5vw;
+    width: 11vw;
+    margin-left: 2vw;
+    margin-top: 1vw;
+  }
+  
+  .mainContainer {
+    display: flex;
+    flex-grow: 1;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+  }
+  
+  .textBox {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    background-color: rgba(255, 255, 255, 0.9);
+    height: 15vw;
+    width: 30vw;
+    padding: 2vw;
+    border-radius: 3vw;
+    box-shadow: 0px 0px 20px 0px rgba(0, 0, 0, 0.75);
+    margin-top: 25vh;
+    animation: fadeIn 1s ease-in-out 0.5s forwards, 
+    sizeGrow 1s ease-in-out 0.5s forwards;
+  }
+
+ 

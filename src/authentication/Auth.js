@@ -84,7 +84,6 @@ export function AuthenticatedRoute() {
   const isAuthenticated = accounts.length > 0;
 
   if (!isAuthenticated) {
-    // Store the attempted URL before redirecting
     localStorage.setItem('postLoginRedirect', location.pathname + location.search);
     return <Navigate to="/login" replace />;
   }

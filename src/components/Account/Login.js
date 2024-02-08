@@ -4,6 +4,8 @@ import backgroundImage from '../../img/Public/city.webp';
 import logo from '../../img/Utils/logo.png';
 import { useMicrosoftSignIn } from "../Account/LoginFunc"; 
 
+import styles from './login.module.css';
+
 const mdTheme = createTheme();
 
 function Login() {
@@ -27,33 +29,11 @@ function Login() {
           }
         }}
       />
-        <img src={logo} alt="logo" style={{height: "5vw", width: "11vw", marginLeft: "2vw", marginTop: "1vw"}} />
-        <Box
-            sx={{
-                flexGrow: 1,
-                display: 'flex',
-                flexDirection: 'column',
-                alignItems: 'center',
-                justifyContent: 'center',
-            }}
-        >
-            <Box
-                sx={{
-                    display: 'flex',
-                    flexDirection: 'column',
-                    alignItems: 'center',
-                    justifyContent: 'center',
-                    backgroundColor: 'rgba(255, 255, 255, 0.9)',
-                    height: '15vw',
-                    width: '30vw',
-                    padding: '2vw',
-                    borderRadius: '3vw',
-                    boxShadow: '0px 0px 20px 0px rgba(0,0,0,0.75)',
-                    marginTop: '25vh',
-                }}
-            >
-                <Typography variant="h4" component="h1" gutterBottom sx={{marginBottom: "5vw", fontSize: "2vw"}}>
-                    Please login to continue
+        <img src={logo} alt="logo" className={styles.logo} />
+        <Box className={styles.mainContainer}>
+            <Box className={styles.textBox}>
+                <Typography variant="h4" component="h1" gutterBottom sx={{marginBottom: '3vw', fontSize: '2vw'}}>
+                    Please log in to continue
                 </Typography>
                 <Button
                     variant="outlined"
