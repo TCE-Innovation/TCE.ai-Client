@@ -29,7 +29,7 @@ const LoginNotification = () => {
 
   return (
     <Box className={styles.container}>
-      <p className={styles.text}>TCE Employee? Log in here to access your Toolbox.</p>
+      <p className={styles.text}>TCE Employee? Sign in here to access your Toolbox.</p>
       <button className={styles.button} onClick={hideNotification}>Hide</button>
     </Box>
   );

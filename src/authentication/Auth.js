@@ -85,7 +85,7 @@ export function AuthenticatedRoute() {
 
   if (!isAuthenticated) {
     localStorage.setItem('postLoginRedirect', location.pathname + location.search);
-    return <Navigate to="/login" replace />;
+    return <Navigate to="/sign-in" replace />;
   }
 
   return <Outlet />;

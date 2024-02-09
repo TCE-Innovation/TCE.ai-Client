@@ -2,6 +2,7 @@ import React from 'react';
 import Slider from 'react-slick';
 import "slick-carousel/slick/slick.css"; 
 import "slick-carousel/slick/slick-theme.css";
+import styles from './pubCarousel.module.css';
 
 export default function PubCarousel() {
     const settings = {
@@ -13,7 +14,8 @@ export default function PubCarousel() {
         slidesToShow: 2, // Show one slide at a time
         slidesToScroll: 1,
         autoplay: true,
-        autoplaySpeed: 3000,
+        autoplaySpeed: 5000,
+        arrows: false, // Disable arrows
     };
 
     const data = [
@@ -37,7 +39,7 @@ export default function PubCarousel() {
 
 
     return (
-        <div style={{ width: '70%', margin: 'auto' }}>
+        <div className={styles.carouselContainer}>
             <Slider {...settings}>
                 {data.map((item, index) => (
                     <div key={index} >
@@ -56,21 +58,14 @@ function CarouselCard({item}) {
     };
 
     return (
-        <div style={{border: "1px solid white", borderRadius: "1vw", backgroundColor: "white", height: "15vw"}}>
-            <div style={{
-                height: "3vw", 
-                width: "100%", 
-                backgroundColor: "#999999", 
-                color: "white", 
-                display: "flex", 
-                justifyContent: "center", 
-                alignItems: "center",
-                borderRadius: "1vw",
-            }}>
-                <h3 style={{color:"black"}}>{item.title}</h3>
+        <div className={styles.card}>
+            <div className={styles.cardTitleBox}>
+                <h3 className={styles.cardTitle}>{item.title}</h3>
             </div>
-            <p style={{color:"black"}}>{item.content}</p>
-            <button onClick={() => handleReadMoreClick(item.link)}>Read More</button>
+            <div className={styles.cardContentContainer}>
+                <p className={styles.cardContent}>{item.content}</p>
+            </div>
+            <button className={styles.cardButton} onClick={() => handleReadMoreClick(item.link)}>Read More</button>
         </div>
     )
 }

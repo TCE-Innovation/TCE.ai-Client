@@ -1,0 +1,48 @@
+  .carouselContainer {
+    width: 70%;
+    margin: 1vw;
+  }
+  
+  .card {
+    border: 1px solid white;
+    border-radius: 1vw;
+    background-color: white;
+    height: 15vw;
+    align-items: center;
+    justify-content: center;
+  }
+  
+  .cardTitleBox {
+    height: 3vw;
+    width: 100%;
+    /*background-color: #999999;*/
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    border-radius: 1vw 1vw 0 0; 
+  }
+  
+  .cardTitle {
+    color: black;
+    font-family: Helvetica, sans-serif;
+    font-size: 1.5vw;
+  }
+  
+  .cardContent {
+    color: black;
+    font-family: Helvetica, sans-serif;
+    font-size: .9vw;
+  }
+
+  .cardContentContainer {
+    height: 10vw;
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
+  
+  .cardButton {
+
+  }
+  

@@ -2,8 +2,8 @@ import React, { useState, useEffect } from 'react';
 import { createTheme, ThemeProvider, Box, Button, GlobalStyles, Typography } from '@mui/material';
 import backgroundImage from '../../img/Public/city.webp';
 import logo from '../../img/Utils/logo.png';
-import { useMicrosoftSignIn } from "../Account/LoginFunc"; 
-import styles from './login.module.css';
+import { useMicrosoftSignIn } from "./LoginFunc"; 
+import styles from './signIn.module.css';
 
 const mdTheme = createTheme();
 
@@ -82,13 +82,13 @@ function Login() {
           }
         }}
       />
-        <img src={logo} alt="logo" className={styles.logo} />
         <Box className={styles.mainContainer}>
             <Box className={styles.textBox}>
-                <Typography variant="h4" component="h1" gutterBottom sx={{ fontSize: '1.7vw'}}>
-                    Please log in to access the
+                <img src={logo} alt="logo" className={styles.smallLogo} />
+                <Typography variant="h1" component="h1" gutterBottom sx={{ fontSize: '1.4vw', textAlign:"center" }}>
+                    Please sign in to access the 
                 </Typography>
-                <Typography variant="h4" component="h1" gutterBottom sx={{marginBottom: '3vw', fontSize: '1.7vw'}}>
+                <Typography variant="h1" component="h1" gutterBottom sx={{ marginBottom: '2.7vw', fontSize: '1.4vw' }}>
                     {tool}
                 </Typography>
                 <Button
@@ -102,14 +102,14 @@ function Login() {
                         backgroundColor: 'none', 
                         fontWeight: 500, 
                         borderRadius: '2vw', 
-                        fontSize: '1.5vw',
-                        width: '8vw', 
+                        fontSize: '1.4vw',
+                        width: '8.5vw', 
                         height: '2.5vw',
                         borderWidth: '.2vw',
                         '&:hover': { borderWidth: '.3vw', fontWeight: 700, color: '#003eab', borderColor: '#003eab' }, 
                     }}
                 >
-                    Login
+                    Sign In
                 </Button>
             </Box>
         </Box>

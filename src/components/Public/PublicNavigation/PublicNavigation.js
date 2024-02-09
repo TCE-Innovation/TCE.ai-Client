@@ -155,7 +155,7 @@ function ResponsiveAppBar() {
                                             '&:hover': { borderWidth: '.3vw', fontWeight: 700, color: '#003eab', borderColor: '#003eab' }, 
                                         }}
                                     >
-                                        Login
+                                        Sign In
                                     </Button>
                                 </Box>
                             )}             

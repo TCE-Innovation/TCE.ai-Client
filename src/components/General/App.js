@@ -4,7 +4,7 @@ import { BrowserRouter as Router, Route, Routes, Navigate } from 'react-router-d
 
 //COMPONENTS
 import Account from "../Account/Account";
-import Login from "../Account/Login";
+import SignIn from "../Account/SignIn";
 import Private from "../Private/Private";
 import Public from "../Public/Public";
 import Document from "../PublicFeatures/Publications/Document";
@@ -21,8 +21,8 @@ function App() {
                     <Route exact path='/' element={<Public />} />
                     <Route exact path='/document' element={<Document />} />
                     
-                    <Route path="/login" element={<UnauthenticatedRoute />}>
-                        <Route index element={<Login />} />
+                    <Route path="/sign-in" element={<UnauthenticatedRoute />}>
+                        <Route index element={<SignIn />} />
                     </Route>
 
                     <Route path='/account' element={<AuthenticatedRoute />}>
