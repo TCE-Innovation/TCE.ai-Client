@@ -23,7 +23,7 @@ import RangeSlider from "./Slider"
 const CRO = () => {
     const [pullsheet, setPullsheet] = useState('');
     const [cableSizes, setCableSizes] = useState('');
-    const [response, setResponse] = useState('');
+    const [responses, setResponses] = useState('');
     const [loading, setLoading] = useState(false);
     const [error, setError] = useState('');
     const [showCableSizeSheet, setShowCableSizeSheet] = useState(false);
@@ -99,9 +99,22 @@ const CRO = () => {
                 'https://tce-cro-api.azurewebsites.net/api/Post-CRO', 
                 formData
             );
+
+            // If the backend returns only one URL and the second URL is None
+            if (data.length === 1 && data[0] !== null) {
+                // Update state with the first URL only
+                setResponses([data[0], '']);
+            } else if (data.length === 2) {
+                // Update state with both URLs
+                setResponses(data);
+            } else {
+                // Handle other cases where the response is unexpected
+                setError('Unexpected response from the server.');
+            }
+            
         
         // The data received from backend is the URL of the output file
-        setResponse(data);
+        // setResponse(data);
         }
         catch (error) {
             console.log("AXIOS:",error)
@@ -265,7 +278,7 @@ const CRO = () => {
                             <FormControlLabel value="Conduit" control={<Radio />} label="Conduit" />
                             <FormControlLabel value="Messenger" control={<Radio />} label="Messenger Bundle" />
                             <FormControlLabel value="CMRS" disabled control={<Radio />} label="CMRS" />
-                            <FormControlLabel value="Tray" disabled control={<Radio />} label="Cable Tray" />
+                            {/* <FormControlLabel value="Tray" disabled control={<Radio />} label="Cable Tray" /> */}
                         </RadioGroup>
                     </FormControl>
                     
@@ -309,24 +322,29 @@ const CRO = () => {
                             Optimizing...
                         </Typography>
                     </>
-                // If the 'response' state variable exists and is truthy, a hyperlink is rendered.
-                // This hyperlink points to the URL stored in 'response' and opens in a new tab or window.
-                // The text for the hyperlink is "Click here to download output file".
-                // The 'rel' attribute with "noopener noreferrer" value is a security measure to prevent the new page from accessing the window.opener property and ensures it runs in a separate process.
-                // The '<>' and '</>' are shorthand for a React Fragment, allowing us to group multiple elements without adding an extra node to the DOM.
-                ) : response && (
+                ) : (
                     <>
-                        {/* response is the output excel file */}
-                        <a href={response} target="_blank" rel="noopener noreferrer">
-                            Click here to download output file
-                        </a>
+                        {responses[0] && (
+                        <>
+                            <a href={responses[0]} target="_blank" rel="noopener noreferrer">
+                                Click here to download Excel File of Optimized Runs
+                            </a>
+                            <br />
+                        </>
+                        )}
+                        {responses[1] && (
+                            <a href={responses[1]} target="_blank" rel="noopener noreferrer">
+                                Click here to download PDF File of Bundle Images
+                            </a>
+                        )}
+                        {error && (
+                            <Typography variant="body2" color="error" mt={2}>
+                                {error}
+                            </Typography>
+                        )}
                     </>
                 )}
-                {error && (
-                    <Typography variant="body2" color="error" mt={2}>
-                        {error}
-                    </Typography>
-                )}
+
             </Box>
         </Box>
     );
