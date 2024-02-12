@@ -17,11 +17,7 @@ import Press from '../PublicFeatures/Press/Press';
 //import Publications from '../PublicFeatures/Publications/Publications';
 import DotNav from './PublicNavigation/DotNav';
 
-import backgroundImage from '../../img/Public/city.webp'
-//import backgroundImg1 from '../../img/Public/background.jpg'
-//import backgroundImg2 from '../../img/Public/background2.jpg'
-//import backgroundImg3 from '../../img/Public/background3.jpg'
-//import backgroundImg4 from '../../img/Public/background4.jpg'
+import backgroundImage from '../../img/Public/city.jpg'
 
 const mdTheme = createTheme();
 
