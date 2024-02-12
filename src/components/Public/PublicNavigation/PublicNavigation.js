@@ -152,6 +152,7 @@ function ResponsiveAppBar() {
                                             width: '8vw', 
                                             height: '2.5vw',
                                             borderWidth: '.2vw',
+                                            whiteSpace: 'nowrap',
                                             '&:hover': { borderWidth: '.3vw', fontWeight: 700, color: '#003eab', borderColor: '#003eab' }, 
                                         }}
                                     >
