@@ -102,10 +102,11 @@ function Login() {
                         backgroundColor: 'none', 
                         fontWeight: 500, 
                         borderRadius: '2vw', 
-                        fontSize: '1.4vw',
+                        fontSize: '1.3vw',
                         width: '8.5vw', 
                         height: '2.5vw',
                         borderWidth: '.2vw',
+                        whiteSpace: 'nowrap',
                         '&:hover': { borderWidth: '.3vw', fontWeight: 700, color: '#003eab', borderColor: '#003eab' }, 
                     }}
                 >

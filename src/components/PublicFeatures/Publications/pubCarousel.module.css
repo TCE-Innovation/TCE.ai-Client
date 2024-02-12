@@ -1,13 +1,27 @@
   .carouselContainer {
     width: 70%;
     margin: 1vw;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 30vw;
+    border: 3px solid red
   }
   
-  .card {
-    border: 1px solid white;
+  .expandedCard {
+    border: 3px solid blue;
     border-radius: 1vw;
     background-color: white;
     height: 15vw;
+    align-items: center;
+    justify-content: center;
+  }
+
+  .collapsedCard {
+    border: 3px solid green;
+    border-radius: 1vw;
+    background-color: white;
+    height: 5vw;
     align-items: center;
     justify-content: center;
   }

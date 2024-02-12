@@ -1,10 +1,12 @@
-import React from 'react';
+import React, { useState } from 'react';
 import Slider from 'react-slick';
 import "slick-carousel/slick/slick.css"; 
 import "slick-carousel/slick/slick-theme.css";
 import styles from './pubCarousel.module.css';
 
 export default function PubCarousel() {
+    const [currentSlide, setCurrentSlide] = useState(0);
+
     const settings = {
         dots: true, // Enable dots for navigation
         infinite: true,
@@ -16,6 +18,7 @@ export default function PubCarousel() {
         autoplay: true,
         autoplaySpeed: 5000,
         arrows: false, // Disable arrows
+        beforeChange: (oldIndex, newIndex) => setCurrentSlide(newIndex)
     };
 
     const data = [
@@ -34,16 +37,29 @@ export default function PubCarousel() {
             content: "The purpose of this document is to introduce OpenSpace, a 360° construction photo documentation software that uses a cloud-based AI to stitch 3D images captured on off-the-shelf cameras to create interactive, highly detailed jobsite documentation to allow project teams to collaborate, resolve problems, and track progress. OpenSpace allows project teams to share information that previously could only be visualized and understood by traveling to the jobsite. For TCE project teams working on geographically dispersed projects, OpenSpace represents an opportunity to enhance visibility and empower teamwork without the hassle of travel. Besides introducing OpenSpace, this document will outline key use cases identified by TCIG.",
             link: 'openspace'
         },
+        {
+            title: 'Sample 1',
+            content: "The purpose of this document is to introduce OpenSpace, a 360° construction photo documentation software that uses a cloud-based AI to stitch 3D images captured on off-the-shelf cameras to create interactive, highly detailed jobsite documentation to allow project teams to collaborate, resolve problems, and track progress. OpenSpace allows project teams to share information that previously could only be visualized and understood by traveling to the jobsite. For TCE project teams working on geographically dispersed projects, OpenSpace represents an opportunity to enhance visibility and empower teamwork without the hassle of travel. Besides introducing OpenSpace, this document will outline key use cases identified by TCIG.",
+            link: 'openspace'
+        },
+        {
+            title: 'Sample 2',
+            content: "The purpose of this document is to introduce OpenSpace, a 360° construction photo documentation software that uses a cloud-based AI to stitch 3D images captured on off-the-shelf cameras to create interactive, highly detailed jobsite documentation to allow project teams to collaborate, resolve problems, and track progress. OpenSpace allows project teams to share information that previously could only be visualized and understood by traveling to the jobsite. For TCE project teams working on geographically dispersed projects, OpenSpace represents an opportunity to enhance visibility and empower teamwork without the hassle of travel. Besides introducing OpenSpace, this document will outline key use cases identified by TCIG.",
+            link: 'openspace'
+        },
+        {
+            title: 'Sample 3',
+            content: "The purpose of this document is to introduce OpenSpace, a 360° construction photo documentation software that uses a cloud-based AI to stitch 3D images captured on off-the-shelf cameras to create interactive, highly detailed jobsite documentation to allow project teams to collaborate, resolve problems, and track progress. OpenSpace allows project teams to share information that previously could only be visualized and understood by traveling to the jobsite. For TCE project teams working on geographically dispersed projects, OpenSpace represents an opportunity to enhance visibility and empower teamwork without the hassle of travel. Besides introducing OpenSpace, this document will outline key use cases identified by TCIG.",
+            link: 'openspace'
+        },
     ];
-
-
 
     return (
         <div className={styles.carouselContainer}>
             <Slider {...settings}>
                 {data.map((item, index) => (
-                    <div key={index} >
-                        <CarouselCard item={item} />
+                    <div key={index}>
+                        <CarouselCard item={item} isCurrent={index === currentSlide} />
                     </div>
                 ))}
             </Slider>
@@ -51,21 +67,31 @@ export default function PubCarousel() {
     ); 
 }
 
-
-function CarouselCard({item}) {
+function CarouselCard({ item, isCurrent }) {
     const handleReadMoreClick = (documentName) => {
         window.open(`/document?file=${documentName}`, '_blank');
     };
 
-    return (
-        <div className={styles.card}>
-            <div className={styles.cardTitleBox}>
-                <h3 className={styles.cardTitle}>{item.title}</h3>
+    if (isCurrent) {
+        return (
+            <div className={styles.expandedCard}>
+                <div className={styles.cardTitleBox}>
+                    <h3 className={styles.cardTitle}>{item.title}</h3>
+                </div>
+                <div className={styles.cardContentContainer}>
+                    <p className={styles.cardContent}>{item.content}</p>
+                </div>
+                <button className={styles.cardButton} onClick={() => handleReadMoreClick(item.link)}>Read More</button>
             </div>
-            <div className={styles.cardContentContainer}>
-                <p className={styles.cardContent}>{item.content}</p>
+        );
+    } else {
+        return (
+            <div className={styles.collapsedCard}>
+                <div className={styles.cardTitleBox}>
+                    <h3 className={styles.cardTitle}>{item.title}</h3>
+                </div>
+                {/* This part is omitted or replaced with simplified content for non-current cards */}
             </div>
-            <button className={styles.cardButton} onClick={() => handleReadMoreClick(item.link)}>Read More</button>
-        </div>
-    )
+        );
+    }
 }
