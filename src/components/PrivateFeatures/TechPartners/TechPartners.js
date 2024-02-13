@@ -17,6 +17,7 @@ import ArticleIcon from '@mui/icons-material/Article';
 
 import KeyboardArrowDownIcon from '@mui/icons-material/KeyboardArrowDown';
 import KeyboardArrowUpIcon from '@mui/icons-material/KeyboardArrowUp';
+import { Tooltip } from "@mui/material";
 
 const partnerData = [
   {
@@ -185,10 +186,12 @@ const TechPartners = () => {
                     </a>
                   )}
 
-                    <a className={styles.linkText} href={`mailto:${partner.contactEmail}`} onClick={handleInsideCardClick}>
-                        Need assistance?
-                      <EmailIcon className={styles.icon} />
-                    </a>
+                    <Tooltip title={`Email ${partner.contactEmail}`}>
+                      <a className={styles.linkText} href={`mailto:${partner.contactEmail}`} onClick={handleInsideCardClick}>
+                          Need assistance?
+                        <EmailIcon className={styles.icon} />
+                      </a>
+                    </Tooltip>
 
 
                   </div>
