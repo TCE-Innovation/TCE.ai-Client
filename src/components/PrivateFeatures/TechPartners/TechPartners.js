@@ -186,7 +186,7 @@ const TechPartners = () => {
                     </a>
                   )}
 
-                    <Tooltip title={`Email ${partner.contactEmail}`}>
+                    <Tooltip title={`Email ${partner.contactName} at ${partner.contactEmail}`}>
                       <a className={styles.linkText} href={`mailto:${partner.contactEmail}`} onClick={handleInsideCardClick}>
                           Need assistance?
                         <EmailIcon className={styles.icon} />
