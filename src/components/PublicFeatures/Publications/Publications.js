@@ -1,7 +1,7 @@
 import React from "react";
 import styles from "./whitepaper.module.css";
 import PubCarousel from "./PubCarousel";
-import PubImage from "./PubImage";
+//import PubImage from "./PubImage";
 
 const WhitePapers = () => {
   return (
