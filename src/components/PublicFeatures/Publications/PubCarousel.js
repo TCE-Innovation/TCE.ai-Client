@@ -16,9 +16,10 @@ export default function PubCarousel() {
         speed: 500,
         slidesToShow: 2, 
         slidesToScroll: 1,
-        autoplay: true,
+        autoplay: false,
         autoplaySpeed: 5000,
         arrows: false, 
+        variableWidth: true,
     };
 
     const data = [

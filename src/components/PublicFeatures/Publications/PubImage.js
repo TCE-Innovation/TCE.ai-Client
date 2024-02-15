@@ -6,7 +6,7 @@ const PubImage = () => {
     return (
         <img src={subway} alt="subwayTunnel" 
             style={{ 
-                width: '19vw', 
+                width: '18.5vw', 
                 height: 'auto', 
                 objectFit: 'cover', 
                 objectPosition: 'center',

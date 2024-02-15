@@ -1,9 +1,10 @@
   .carouselContainer {
-    width: 70%;
     display: flex;
     justify-content: center;
     align-items: center;
     height: 30vw;
+    width: 45vw;
+    margin-right: 1vw;
   }
   
   .cardContainer {
@@ -11,6 +12,7 @@
     flex-direction: column;
     justify-content: space-between; 
     height: 15vw;
+    width: 46vw;
     padding: .5vw;
   }
 
@@ -19,23 +21,22 @@
     flex-direction: column;
     justify-content: space-between; 
     border-radius: 1vw;
-    background-color: white;
+    background-color: rgba(30, 30, 30, 0.7); 
     height: 15vw;
+    width: 45vw;
     padding: .5vw;
   }
 
   .cardTitleBox {
     height: 3vw;
-    width: 100%;
     display: flex;
     justify-content: center;
     align-items: center;
     border-radius: 1vw; 
-    border: 2px solid #999999;
   }
   
   .cardTitle {
-    color: black;
+    color: white;
     font-family: Helvetica, sans-serif;
     font-size: 1.5vw;
     margin-top: .5vw;
@@ -43,7 +44,7 @@
   }
   
   .cardContent {
-    color: black;
+    color: white;
     font-family: Helvetica, sans-serif;
     font-size: .9vw;
     flex-grow: 1; 
@@ -57,14 +58,13 @@
   }
 
   .buttonsContainer {
-    width: 100%;
     display: flex;
     justify-content: flex-end;
     align-items: center;
   }
   
   .readMoreButton {
-    color: black;
+    color: white;
     font-family: Helvetica, sans-serif;
     font-size: 1vw;
     border: none;
@@ -73,9 +73,10 @@
   }
 
   .downloadButton {
-    color: black;
+    color: white;
     margin: .5vw;
     cursor: pointer;
+    width: 1vw
   }
   
   
