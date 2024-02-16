@@ -45,19 +45,19 @@ export default function PubCarousel() {
 
     const data = [
         {
-            title: 'PRDC Ripper',
+            title: 'PRDC Ripper White Paper',
             content: "This White Paper introduces the PRDC Ripper, an innovative software solution developed by the TCE Innovation Group to automate the extraction, classification, and presentation of Project Requirements and Design Criteria documents associated with Design-Build project pursuits.",
             link: 'prdc-ripper',
             blobName: 'PRDC Ripper White Paper R3.pdf'
         },
         {
-            title: 'Airtable',
+            title: 'Airtable White Paper',
             content: "The purpose of this document is to highlight issues with the current project portfolio management and resource planning process and to offer a solution for TCE's leadership.",
             link: 'airtable',
             blobName: 'AirTable White Paper.pdf'
         },
         {
-            title: 'OpenSpace',
+            title: 'OpenSpace White Paper',
             content: "The purpose of this document is to introduce OpenSpace, a 360° construction photo documentation software that uses a cloud-based AI to stitch 3D images captured on off-the-shelf cameras to create interactive, highly detailed jobsite documentation to allow project teams to collaborate, resolve problems, and track progress.",
             link: 'openspace',
             blobName: 'OpenSpace White Paper .pdf'
