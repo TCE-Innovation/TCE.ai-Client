@@ -19,7 +19,6 @@ export default function PubCarousel() {
         autoplay: true,
         autoplaySpeed: 5000,
         arrows: false, 
-
     };
 
     const data = [

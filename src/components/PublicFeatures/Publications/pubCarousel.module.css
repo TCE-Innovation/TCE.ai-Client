@@ -72,11 +72,19 @@
     cursor: pointer;
   }
 
+  .readMoreButton:hover {
+    color: #FFCF00
+  }
+
   .downloadButton {
     color: white;
     margin: .5vw;
     cursor: pointer;
     width: 1vw
+  }
+
+  .downloadButton:hover {
+    color: #FFCF00
   }
   
   
