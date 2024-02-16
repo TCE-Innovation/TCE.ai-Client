@@ -22,10 +22,14 @@
     flex-direction: column;
     justify-content: space-between; 
     border-radius: 1vw;
-    background-color: rgba(30, 30, 30, 0.7); 
+    background-color: rgba(30, 30, 30, 0.6); 
     height: 15vw;
     width: 45vw;
     padding: .5vw;
+  }
+
+  .card:hover{
+    background-color: rgba(30, 30, 30, 0.9); 
   }
 
   .cardTitleBox {
