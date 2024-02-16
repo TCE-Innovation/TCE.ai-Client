@@ -1,5 +1,6 @@
   .carouselContainer {
     display: flex;
+    flex-direction: column;
     justify-content: center;
     align-items: center;
     height: 30vw;
@@ -46,7 +47,7 @@
   .cardContent {
     color: white;
     font-family: Helvetica, sans-serif;
-    font-size: .9vw;
+    font-size: 1vw;
     flex-grow: 1; 
     display: flex; 
     justify-content: center; 
@@ -87,4 +88,8 @@
     color: #FFCF00
   }
   
-  
+  .topNav, .bottomNav {
+    cursor: pointer;
+    text-align: center;
+    color: white
+  }

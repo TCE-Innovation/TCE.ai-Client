@@ -3,13 +3,35 @@ import Slider from 'react-slick';
 import "slick-carousel/slick/slick.css"; 
 import "slick-carousel/slick/slick-theme.css";
 import styles from './pubCarousel.module.css';
+
+//ICONS
 import DownloadIcon from '@mui/icons-material/Download';
+import KeyboardArrowUpIcon from '@mui/icons-material/KeyboardArrowUp';
+import KeyboardArrowDownIcon from '@mui/icons-material/KeyboardArrowDown';
+
 import axios from 'axios';
 
 export default function PubCarousel() {
+    let slider = null;
+    const setSliderRef = (sliderInstance) => {
+        slider = sliderInstance;
+    };
+
+    // Function to navigate to the next slide
+    const goToNext = () => {
+        if (slider && slider.slickNext) {
+          slider.slickNext();
+        }
+      };
+      
+      const goToPrev = () => {
+        if (slider && slider.slickPrev) {
+          slider.slickPrev();
+        }
+      };
 
     const settings = {
-        dots: true, 
+        dots: false, 
         infinite: true,
         vertical: true,
         verticalSwiping: true, 
@@ -18,7 +40,7 @@ export default function PubCarousel() {
         slidesToScroll: 1,
         autoplay: true,
         autoplaySpeed: 5000,
-        arrows: false, 
+        arrows: false,
     };
 
     const data = [
@@ -45,13 +67,15 @@ export default function PubCarousel() {
 
     return (
         <div className={styles.carouselContainer}>
-            <Slider {...settings}>
+            <div className={styles.topNav} onClick={goToPrev}><KeyboardArrowUpIcon/></div>
+            <Slider ref={setSliderRef} {...settings}>
                 {data.map((item, index) => (
                     <div key={index}>
                         <CarouselCard item={item} />
                     </div>
                 ))}
             </Slider>
+            <div className={styles.bottomNav} onClick={goToNext}><KeyboardArrowDownIcon/></div>
         </div>
     ); 
 }
@@ -110,7 +134,6 @@ function DownloadButton({ item }) {
             link.remove();
         } catch (error) {
             console.error('Error downloading file:', error);
-            // Handle the error (e.g., display a notification)
         }
     };
 
