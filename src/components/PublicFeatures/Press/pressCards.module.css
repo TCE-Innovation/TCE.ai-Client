@@ -12,7 +12,7 @@
     width: 18vw;
     height: 20vw;
     border-radius: 1vw;
-    background-color: white;
+    background-color: rgba(30, 30, 30, 0.7); 
 }
 
 .textContainer {
@@ -54,14 +54,14 @@
     font-size: 1.2vw;
     font-weight: bold;
     line-height: tighter;
-    color: #1f2937;
+    color: white;
 }
 
 .cardText {
     margin-top: .2vw;
     font-size: .9vw;
     font-weight: normal;
-    color: #4b5563;
+    color: white;
 }
 
 .cardImage {
