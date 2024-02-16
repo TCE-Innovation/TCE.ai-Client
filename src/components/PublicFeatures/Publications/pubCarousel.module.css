@@ -15,6 +15,7 @@
     height: 15vw;
     width: 46vw;
     padding: .5vw;
+
   }
 
   .card {
@@ -43,10 +44,9 @@
   .cardTitle {
     color: white;
     font-family: Helvetica, sans-serif;
-    font-size: 1.5vw;
+    font-size: 1.7vw;
     margin-top: .5vw;
     font-family: Helvetica;
-    font-weight: bold;
   }
   
   .cardContent {
@@ -79,7 +79,7 @@
   }
 
   .readMoreButton:hover {
-    color: #FFCF00
+    color: #FFCF00;
   }
 
   .downloadButton {
