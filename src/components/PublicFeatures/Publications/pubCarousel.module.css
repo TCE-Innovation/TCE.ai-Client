@@ -93,3 +93,7 @@
     text-align: center;
     color: white
   }
+
+  .topNav:hover, .bottomNav:hover {
+    color: #FFCF00
+  }

@@ -61,7 +61,6 @@ export default function PubCarousel() {
             content: "The purpose of this document is to introduce OpenSpace, a 360° construction photo documentation software that uses a cloud-based AI to stitch 3D images captured on off-the-shelf cameras to create interactive, highly detailed jobsite documentation to allow project teams to collaborate, resolve problems, and track progress.",
             link: 'openspace',
             blobName: 'OpenSpace White Paper .pdf'
-
         }
     ];
 
