@@ -6,7 +6,6 @@
     height: 30vw;
     width: 46vw;
     margin-right: 1vw;
-
   }
   
   .cardContainer {
@@ -91,7 +90,7 @@
     color: white;
     margin: .5vw;
     cursor: pointer;
-    width: 1vw
+    font-size: 2vw;
   }
 
   .downloadButton:hover {

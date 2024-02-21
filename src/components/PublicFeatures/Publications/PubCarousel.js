@@ -41,6 +41,7 @@ export default function PubCarousel() {
         autoplay: false,
         autoplaySpeed: 5000,
         arrows: false,
+
     };
 
     const data = [
@@ -82,6 +83,7 @@ export default function PubCarousel() {
 function CarouselCard({ item }) {
 
     return (
+        <div style={{display:"flex", alignItems:"center", justifyContent:"center", width: "100%"}}>
         <div className={styles.cardContainer}>
             <div className={styles.card}>
                 <div className={styles.cardTitleBox}>
@@ -95,6 +97,7 @@ function CarouselCard({ item }) {
                     <DownloadButton item={item} />    
                 </div>
             </div>
+        </div>
         </div>
     );
 }
