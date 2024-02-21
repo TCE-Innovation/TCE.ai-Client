@@ -4,8 +4,9 @@
     justify-content: center;
     align-items: center;
     height: 30vw;
-    width: 45vw;
+    width: 46vw;
     margin-right: 1vw;
+
   }
   
   .cardContainer {
@@ -14,7 +15,7 @@
     justify-content: space-between; 
     height: 15vw;
     width: 46vw;
-    padding: .5vw;
+    padding-top: .5vw;
 
   }
 
@@ -24,7 +25,7 @@
     justify-content: space-between; 
     border-radius: 1vw;
     background-color: rgba(30, 30, 30, 0.6); 
-    height: 15vw;
+    height: 14vw;
     width: 45vw;
     padding: .5vw;
   }
@@ -72,14 +73,18 @@
   .readMoreButton {
     color: white;
     font-family: Helvetica, sans-serif;
-    font-size: 1vw;
+    font-size: .7vw;
     border: none;
     margin: .5vw;
     cursor: pointer;
+    border: 1px solid white;
+    border-radius: .5vw;
+    padding: .2vw;;
   }
 
   .readMoreButton:hover {
     color: #FFCF00;
+    border: 1px solid #FFCF00;
   }
 
   .downloadButton {
