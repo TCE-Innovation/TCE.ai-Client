@@ -4,7 +4,7 @@ import axios from 'axios';
 //function to pull job title from Airtable based on name
 export async function getJobTitle(name) { 
     // Define a unique key for localStorage based on the function and parameters
-    const localStorageKey = `jobTitle-${name}`;
+    const localStorageKey = `jobTitle`;
 
     // Try to get the cached data from localStorage
     console.log("Checking for cached job title")
