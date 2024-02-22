@@ -3,14 +3,32 @@ import axios from 'axios';
 
 //function to pull job title from Airtable based on name
 export async function getJobTitle(name) { 
-    try{
-        const {data} = await axios.post('https://tce-ai-api.azurewebsites.net/api/get-job-title', { name } );
-        return data;
+    // Define a unique key for localStorage based on the function and parameters
+    const localStorageKey = `jobTitle-${name}`;
+
+    // Try to get the cached data from localStorage
+    console.log("Checking for cached job title")
+    const cachedData = localStorage.getItem(localStorageKey);
+    if (cachedData) {
+        console.log("Cached job title found")
+        // Parse and return the cached data if it exists
+        return JSON.parse(cachedData);
     }
-    catch(error){
+
+    try {
+        console.log("No cached job title, getting from Airtable")
+        // If no cached data, proceed with the API call
+        const {data} = await axios.post('https://tce-ai-api.azurewebsites.net/api/get-job-title', { name });
+
+        // Store the API response in localStorage for future use
+        localStorage.setItem(localStorageKey, JSON.stringify(data));
+
+        return data;
+    } catch (error) {
         console.error('Error fetching job title:', error);
     }
 }
+
 
 //function to pull job title from Airtable based on email
 export async function getProjects(email) { 
