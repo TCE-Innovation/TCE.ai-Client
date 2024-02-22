@@ -1,214 +1,81 @@
-var Airtable = require('airtable');
+//DEPENDENCIES
+import axios from 'axios';
 
 //function to pull job title from Airtable based on name
 export async function getJobTitle(name) { 
-    const tableId = 'tbllr82cbFWIZ15C5'; 
-    var base = new Airtable({apiKey: 'patlr5uHzCsVA5n44.60e06f59a3a49f3b492a501adf24fe2800073534a140500c2e28c9ff355dabef'}).base('appbZOyLaEfXejoBd');
-    try {
-        //get all records from Airtable
-        const records = await base(tableId).select().all();
-
-        //loop through records and check name
-        for (const record of records){
-            if (record.fields.name === name) {
-               return record.fields.title;
-            }
-        };
-    } catch (error) {
-        console.error(error);
+    try{
+        const {data} = await axios.post('https://tce-ai-api.azurewebsites.net/api/get-job-title', { name } );
+        return data;
+    }
+    catch(error){
+        console.error('Error fetching job title:', error);
     }
 }
 
 //function to pull job title from Airtable based on email
 export async function getProjects(email) { 
-    const tableId = 'tbllr82cbFWIZ15C5'; 
-    var base = new Airtable({apiKey: 'patlr5uHzCsVA5n44.60e06f59a3a49f3b492a501adf24fe2800073534a140500c2e28c9ff355dabef'}).base('appbZOyLaEfXejoBd');
-    try {
-        //get all records from Airtable
-        const records = await base(tableId).select().all();
-
-        //loop through records and check name
-        for (const record of records){
-            if (record.fields.email === email) {
-               return record.fields.projects;
-            }
-        };
-    } catch (error) {
-        console.error(error);
+    try{
+        const {data} = await axios.post('https://tce-ai-api.azurewebsites.net/api/get-user-projects', { email } );
+        return data;
+    }
+    catch(error){
+        console.error('Error fetching projects:', error);
     }
 }
 
 //function to send private form data to airtable base
 export async function sendPrivateFormData(name, email, description) {
-    const tableId = 'tblJhpvPlMY1OeqLD';
-    const baseId = 'appSnS8FJjZqfnBSv'
-    var base = new Airtable({apiKey: 'patlr5uHzCsVA5n44.60e06f59a3a49f3b492a501adf24fe2800073534a140500c2e28c9ff355dabef'}).base(baseId);
-    try {
-        //create record in Airtable
-        await base(tableId).create([
-            {
-                "fields": {
-                    "Name": name,
-                    "Email": email,
-                    "Description": description
-                }
-            }
-        ]);
-    } catch (error) {
-        console.error(error);
+    try{
+        const {data} = await axios.post('https://tce-ai-api.azurewebsites.net/api/send-private-form', { name, email, description } );
+        return data;
+    }
+    catch(error){
+        console.error('Error sending private form data:', error);
     }
 }
 
 //function to send public form data to airtable base
 export async function sendPublicFormData(name, email, organization, phone, contactMessage) {
-    const tableId = 'tblKDT1lKLBlP1oTa';
-    const baseId = 'appA98lgpoCkM03ZU'
-    var base = new Airtable({apiKey: 'patlr5uHzCsVA5n44.60e06f59a3a49f3b492a501adf24fe2800073534a140500c2e28c9ff355dabef'}).base(baseId);
-    try {
-        //create record in Airtable
-        await base(tableId).create([
-            {
-                "fields": {
-                    "Name": name,
-                    "Email": email,
-                    "Outside Organization": organization,
-                    "Contact Phone Number": phone,
-                    "Contact Description": contactMessage
-                }
-            }
-        ]);
-    } catch (error) {
-        console.error(error);
+    try{
+        const {data} = await axios.post('https://tce-ai-api.azurewebsites.net/api/send-public-form', { name, email, organization, phone, contactMessage } );
+        return data;
     }
+    catch(error){
+        console.error('Error sending public form data:', error);
+    }    
 }
 
-//INCOMPLETE
+
 //function to send asset form data to airtable base
 export async function sendAssetFormData(name, email, item, project, reason, dateNeeded, dateReturn, initials) {
-    const tableId = 'tbluSgQoYoS7rTbKg';
-    const baseId = 'apphQBuS3DFnPYMFm'
-    var base = new Airtable({apiKey: 'patlr5uHzCsVA5n44.60e06f59a3a49f3b492a501adf24fe2800073534a140500c2e28c9ff355dabef'}).base(baseId);
-    try {
-        //create record in Airtable
-        await base(tableId).create([
-            {
-                "fields": {
-                    "Item Needed": item,
-                    "Reason": reason,
-                    "Project": project,
-                    "Name": name,
-                    "Date Needed": dateNeeded,
-                    "Return Date": dateReturn,
-                    "Email Address": email,
-                    "Signoff": initials
-                }
-            }
-        ]);
-    } catch (error) {
-        console.error(error);
+    try{
+        const {data} = await axios.post('https://tce-ai-api.azurewebsites.net/api/send-asset-form', { name, email, item, project, reason, dateNeeded, dateReturn, initials } );
+        return data;
     }
+    catch(error){
+        console.error('Error sending asset form data:', error);
+    }    
 }
 
-//INCOMPLETE
-//function to update the amount of times someone has accessed a feature
-export async function updateAccessCount(name, feature) {
-    const tableId = '';
-    const baseId = ''
-    var base = new Airtable({apiKey: 'patlr5uHzCsVA5n44.60e06f59a3a49f3b492a501adf24fe2800073534a140500c2e28c9ff355dabef'}).base(baseId);
-    try {
-        //get all records from Airtable
-        const records = await base(tableId).select().all();
-
-        //loop through records and check name
-        for (const record of records){
-            if (record.fields.name === name) {
-                //update record
-                base(tableId).update([
-                    {
-                        "id": record.fields.id,
-                        "fields": {
-                            "Feature": feature,
-                            "Access Count": record.fields.accessCount + 1
-                        }
-                    }
-                ]);
-            }
-        };
-    } catch (error) {
-        console.error(error);
-    }
-}
-
+//function to get project data from airtable base
 export async function getActiveProjects() {
-    const tableId = 'tblKYFZFrj1kLrhwy';
-    const baseId = 'apphQBuS3DFnPYMFm';
-    var base = new Airtable({apiKey: 'patlr5uHzCsVA5n44.60e06f59a3a49f3b492a501adf24fe2800073534a140500c2e28c9ff355dabef'}).base(baseId);
-
-    try {
-        // Get all records from Airtable
-        const records = await base(tableId).select().all();
-
-        // Filter and map records to an array of {name, rec_id} objects
-        const projectInfo = records.map(record => ({
-            name: record.fields.Name,
-            rec_id: record.id,
-            status: record.fields.Status 
-        }));
-
-        return projectInfo;
-
-    } catch (error) {
-        console.error('Error fetching project information:', error);
+    try{
+        const {data} = await axios.post('https://tce-ai-api.azurewebsites.net/api/get-active-projects');
+        return data;
     }
+    catch(error){
+        console.error('Error getting active projects:', error);
+    }    
 }
 
-function formatDate(date) {
-    return date.toLocaleDateString("en-US") + ' ' + date.toLocaleTimeString("en-US");
-}
 
 //function to log when someone has signed into the site
 export async function updateUserLog(name) {
-    const tableId = 'tblyUm10poTz9ICFu';
-    const baseId = 'appfF7QtyV8ahG0OT'
-    var base = new Airtable({apiKey: 'patlr5uHzCsVA5n44.60e06f59a3a49f3b492a501adf24fe2800073534a140500c2e28c9ff355dabef'}).base(baseId);
-    try {
-        // Get all records from Airtable
-        const records = await base(tableId).select().all();
-
-        // Flag to check if the user already exists
-        let userExists = false;
-
-        // Loop through records and check name
-        for (const record of records) {
-            if (record.fields.Name === name) {
-                userExists = true;
-                // Update record
-                await base(tableId).update([
-                    {
-                        "id": record.id,
-                        "fields": {
-                            "Last Login": formatDate(new Date()),
-                            "Login Count": record.fields["Login Count"] + 1
-                        }
-                    }
-                ]);
-                break;
-            }
-        }
-
-        // If name is not found, create new record
-        if (!userExists) {
-            await base(tableId).create([
-                {
-                    "fields": {
-                        "Name": name,
-                        "Last Login": formatDate(new Date()),
-                        "Login Count": 1
-                    }
-                }
-            ]);
-        }
-    } catch (error) {
-        console.error(error);
+    try{
+        const {data} = await axios.post('https://tce-ai-api.azurewebsites.net/api/update-user-log', { name } );
+        return data;
     }
+    catch(error){
+        console.error('Error getting active projects:', error);
+    }    
 }
