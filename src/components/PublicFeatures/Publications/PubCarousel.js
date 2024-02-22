@@ -85,6 +85,7 @@ export default function PubCarousel() {
 
 function CarouselCard({ item }) {
     return (
+        <div style={{display:"flex", alignItems:"center", justifyContent:"center", width: "100%"}}>
         <div className={styles.cardContainer}>
             <div className={styles.card}>
                 <div className={styles.cardTitleBox}>
@@ -96,6 +97,7 @@ function CarouselCard({ item }) {
                     <DownloadButton sasUrl={item.sasUrl} blobName={item.blobName} />
                 </div>
             </div>
+        </div>
         </div>
     );
 }
