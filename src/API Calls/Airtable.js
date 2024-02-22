@@ -60,7 +60,7 @@ export async function sendAssetFormData(name, email, item, project, reason, date
 //function to get project data from airtable base
 export async function getActiveProjects() {
     try{
-        const {data} = await axios.post('https://tce-ai-api.azurewebsites.net/api/get-active-projects');
+        const {data} = await axios.get('https://tce-ai-api.azurewebsites.net/api/get-active-projects');
         return data;
     }
     catch(error){
@@ -76,6 +76,6 @@ export async function updateUserLog(name) {
         return data;
     }
     catch(error){
-        console.error('Error getting active projects:', error);
+        console.error('Error updating user log:', error);
     }    
 }
