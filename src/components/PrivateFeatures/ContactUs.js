@@ -60,10 +60,10 @@ const ContactUs = () => {
                     </div>
                 </>
             ) : (
-                <>
+                <div style={{textAlign:"center", color:"#1b365f"}}>
                     <div>Thank you for your submission. A TCIG team member will follow up with you.</div>
-                    <Button onClick={handleNewSubmission}>Submit another idea</Button>
-                </>
+                    <Button style={{width:"12vw", marginTop:"1vw", fontSize:".9vw"}} onClick={handleNewSubmission}>Submit another idea</Button>
+                </div>
             )}
         </div>
     );
