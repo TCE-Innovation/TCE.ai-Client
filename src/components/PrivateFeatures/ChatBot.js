@@ -21,10 +21,7 @@ const ChatBot = () => {
     const { userProjects, userEmail } = useContext(AuthContext);
 
     const [loadingStates, setLoadingStates] = useState({
-        fulton: true, 
-        ert: true,
         p4: true,
-        psd: true,
         hr: true,
     });
 
@@ -37,15 +34,6 @@ const ChatBot = () => {
     if (userProjects !== undefined && userProjects !== null){
         if ('ADA Package 4' in userProjects || allProjectsAccess.includes(userEmail)) {
             userProjKeys.push('p4');
-        }
-        if ('Amtrak ERT' in userProjects || allProjectsAccess.includes(userEmail)) {
-            userProjKeys.push('ert');
-        }
-        if ('CBTC Fulton Line' in userProjects || allProjectsAccess.includes(userEmail)) {
-            userProjKeys.push('fulton');
-        }
-        if ('DB Platform Screen Door Pilot Installation' in userProjects || allProjectsAccess.includes(userEmail)) {
-            userProjKeys.push('psd');
         }
         /* 
         if ('NEW PROJECT WITH CHATBOT' in userProjects || allProjectsAccess.includes(userName)) {
@@ -81,9 +69,6 @@ const ChatBot = () => {
                     {matchingProjects.map((projectKey) => (
                         <MenuItem key={projectKey} value={projectKey}>
                             {projectKey === 'p4' && 'Package 4'}
-                            {projectKey === 'psd' && 'Platform Screen Doors'}
-                            {projectKey === 'fulton' && 'Fulton'}
-                            {projectKey === 'ert' && 'East River Tunnel Rehab'}
                             {/* Add more projects as needed */}
                         </MenuItem>
                     ))}
@@ -94,36 +79,6 @@ const ChatBot = () => {
                 <div style={spinnerContainerStyle}>
                     <TrainLoader />
                 </div>
-            )}
-
-            {project==='fulton' && (
-                <iframe 
-                    src="https://fultonbotchris.azurewebsites.net" 
-                    onLoad={() => handleIframeLoad('fulton')}
-                    width="100%" 
-                    height="750"
-                    title="Fulton Bot"
-                    style={{
-                        background: 'transparent',
-                        border: '1px solid #ccc',
-                        display: loadingStates['fulton'] ? 'none' : 'block',
-                    }}
-                ></iframe>
-            )}
-
-            {project==='ert' && (
-                <iframe
-                    src="https://ertbotchris.azurewebsites.net/"
-                    onLoad={() => handleIframeLoad('ert')}
-                    width="100%"
-                    height="750px"
-                    title="ERT Bot"
-                    style={{
-                        background: 'transparent',
-                        border: '1px solid #ccc',
-                        display: loadingStates['ert'] ? 'none' : 'block',
-                    }}
-                ></iframe>
             )}
 
             {project==='p4' && (
@@ -137,21 +92,6 @@ const ChatBot = () => {
                         background: 'transparent',
                         border: '1px solid #ccc',
                         display: loadingStates['p4'] ? 'none' : 'block',
-                    }}
-                ></iframe>
-            )}
-
-            {project==='psd' && (
-                <iframe
-                    src="https://psdbotaaron.azurewebsites.net/"
-                    onLoad={() => handleIframeLoad('psd')}
-                    width="100%"
-                    height="750px"
-                    title="PSD Bot"
-                    style={{
-                        background: 'transparent',
-                        border: '1px solid #ccc',
-                        display: loadingStates['psd'] ? 'none' : 'block',
                     }}
                 ></iframe>
             )}
