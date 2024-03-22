@@ -299,14 +299,20 @@ const CRO = () => {
                         </>
                         )}
                         {responses[1] && (
+                        <>
                             <a href={responses[1]} target="_blank" rel="noopener noreferrer">
                                 Click here to download Cable Run Visualization
                             </a>
+                            <br />
+                        </>
                         )}
                         {responses[2] && (
+                        <>
                             <a href={responses[2]} target="_blank" rel="noopener noreferrer">
                                 Click here to download PDF File of Bundle Images
                             </a>
+                            <br />
+                        </>
                         )}
                         {error && (
                             <Typography variant="body2" color="error" mt={2}>
