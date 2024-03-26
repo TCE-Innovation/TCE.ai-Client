@@ -28,7 +28,6 @@ const CRO = () => {
     const [error, setError] = useState('');
     const [showCableSizeSheet, setShowCableSizeSheet] = useState(false);
     const [runType, setRunType] = useState('');
-    // Define the state in the parent component
     const [conduitSizeRange, setConduitSizeRange] = useState([0.75, 4]);
 
     // Pass the state and the setter function as props to the Slider component
@@ -54,10 +53,8 @@ const CRO = () => {
         // Append user info to FormData to be sent to backend
         const formData = new FormData();
         
-        // Breaking up try clause into a part for every formData.append
         try {
-
-            //this will always be a file
+            // This will be a file
             formData.append('pullsheet', pullsheet);
         } 
         catch (error) {
@@ -66,7 +63,7 @@ const CRO = () => {
         }
 
         try{
-            //this may be a file or the string 'standard'
+            // This may be a file or the string 'standard'
             formData.append('cableSizes', cableSizes);
         }
         catch (error) {
@@ -75,6 +72,7 @@ const CRO = () => {
         }
 
         try{
+            // This will be a string
             formData.append('runType', runType)
         }
         catch (error) {
@@ -96,18 +94,24 @@ const CRO = () => {
         try{
             // Send form data to backend, receive response within data
             const {data} = await axios.post(
+                // Link to where backend is hosted
                 'https://tce-cro-api.azurewebsites.net/api/Post-CRO', 
                 formData
             );
 
-            // If the backend returns only one URL and the second URL is None
-            if (data.length === 1 && data[0] !== null) {
+            // If the backend returns only two URLs and the third URL is None (conduit optimization)
+            if (data.length === 2 && data[0] !== null && data[1] !== null) {
                 // Update state with the first URL only
-                setResponses([data[0], '']);
-            } else if (data.length === 2) {
+                setResponses([data[0], data[1]]);
+            } 
+
+            // If backend returns two URLs (messenger bundle optimization)
+            else if (data.length === 3) {
                 // Update state with both URLs
                 setResponses(data);
-            } else {
+            } 
+            
+            else {
                 // Handle other cases where the response is unexpected
                 setError('Unexpected response from the server.');
             }
@@ -122,33 +126,6 @@ const CRO = () => {
         }
         setLoading(false);
 
-        // try {
-        //     // Append user info to FormData to be sent to backend
-        //     const formData = new FormData();
-        //     //this will always be a file
-        //     formData.append('pullsheet', pullsheet);
-
-        //     //this may be a file or the string 'standard'
-        //     formData.append('cableSizes', cableSizes);
-            
-        //     formData.append('runType', runType)
-            
-        //     // conduitSizeRange is an array, first index is the lower value
-        //     formData.append('conduitSizeRangeLower', conduitSizeRange[0])
-        //     formData.append('conduitSizeRangeHigher', conduitSizeRange[1])
-            
-        //     // Send form data to backend, receive response within data
-        //     const {data} = await axios.post(
-        //         'https://tce-cro-api.azurewebsites.net/api/Post-CRO', 
-        //         formData
-        //     );
-        //     // The data received from backend is the URL of the output file
-        //     setResponse(data);
-        // } catch (error) {
-        //     console.log("HERE:",error)
-        //     setError('Failed to generate optimized cable run.');
-        // }
-        // setLoading(false);
     };
 
     return (
@@ -171,17 +148,18 @@ const CRO = () => {
                     marginBottom: 4
                 }}
             >
-                <Typography variant="body2"  fontSize="20px">
-                    The Cable Run Optimizer tool helps engineers efficiently plan conduit and messenger bundle runs based on input cable pull sheet information. 
+                <Typography variant="body2" fontSize="20px" align="left">
+                    The Cable Run Optimizer tool is designed to automate the process of planning cable runs.
                 </Typography>
 
-                <Typography variant="body2" mb={4} fontSize="20px">
+                <Typography variant="body2" mb={4} fontSize="20px" style={{ marginTop: '20px' }}>
+                    This tool currently supports the following run types: Conduit and Messenger Bundle.
                     With an input cable pull sheet, the tool generates an Excel spreadsheet that lists conduits/bundles, the cables inside them, and their respective sizes. 
                 </Typography>
                 
                 <Box width={1}>
                     <label style={{ fontSize: '20px', marginBottom: '10px'}}>
-                        Upload Pull Sheet
+                        Upload Pull Sheet (.xlsx format)
                     </label>
                     <Input
                         type="file"
@@ -190,8 +168,10 @@ const CRO = () => {
                         onChange={(e) => setPullsheet(e.target.files[0])}
                     />
                     <Typography variant="body2" mb={4} mt={5}fontSize="18px">
-                        NOTE: This tool defaults to using cable sizes and weights from cut sheets that may be different from the cut sheets for your job. Before using this tool, verify that the cable parameters (diameter for conduits, diameter and weight for messenger bundles) in the Cable Sizes.xlsx file match the parameters from your cable cut sheets.  
-                        If they are different, you must upload an Excel file with your cable parameters in addition to your cable pull sheet. The Excel must follow the same format as the&nbsp;                      
+                        NOTE: This tool defaults to using cable sizes and weights from cut sheets that may be different from the cut sheets for your job. 
+                        Before using this tool, verify that the cable parameters (diameter for conduits, diameter and weight for messenger bundles) in the Cable Sizes.xlsx file match the parameters from your cable cut sheets.  
+                        If they are different, you must upload an Excel file with your cable parameters in addition to your cable pull sheet. 
+                        The Excel must follow the same format as the&nbsp;                      
                         <a
                             href="https://judlauent.sharepoint.com/:x:/s/TCEInnovation/EURdOokWyJJHlbIbEP30nAABJkBs5a53xp3VMeFYUtVtrg?e=2B52Jn"
                             style={{ fontSize: '18px' }}
@@ -210,20 +190,6 @@ const CRO = () => {
                             Pull Sheet Template
                         </a>.
                     </Typography>
-
-                    {/* {showCableSizeSheet ? (
-                        <>
-                            <label style={{ fontSize: '20px', marginBottom: '10px' }}>
-                                Upload Cable Sizes Sheet
-                            </label>
-                            <Input
-                                type="file"
-                                id="cableSizesInput"
-                                accept=".xlsx, .xls"
-                                onChange={(e) => setCableSizes(e.target.files[0])}
-                            />
-                        </>
-                    ) : null} */}
 
                     <Button
                             variant="contained"
@@ -333,9 +299,20 @@ const CRO = () => {
                         </>
                         )}
                         {responses[1] && (
+                        <>
                             <a href={responses[1]} target="_blank" rel="noopener noreferrer">
+                                Click here to download Cable Run Visualization
+                            </a>
+                            <br />
+                        </>
+                        )}
+                        {responses[2] && (
+                        <>
+                            <a href={responses[2]} target="_blank" rel="noopener noreferrer">
                                 Click here to download PDF File of Bundle Images
                             </a>
+                            <br />
+                        </>
                         )}
                         {error && (
                             <Typography variant="body2" color="error" mt={2}>
