@@ -1,6 +1,8 @@
 //REACT
 import * as React from 'react';
 import { useParams } from 'react-router-dom';
+import { useNavigate } from 'react-router-dom';
+
 
 //MUI
 import { styled, createTheme, ThemeProvider } from '@mui/material/styles';
@@ -64,10 +66,33 @@ function PrivateContent() {
   };
 
   const { tool } = useParams();
+  const navigate = useNavigate();
+
+  const validTools = [
+    'tech-partners',
+    'generate-emails',
+    'cable-run-optimizer',
+    'chat-bot',
+    'equipment-checkout',
+    'go-tracker',
+    'sub-automation',
+    'welcome'
+    // Add other valid tool routes here
+  ];
+
+  //check if the tool is valid
+  React.useEffect(() => {
+    if (tool && !validTools.includes(tool)) {
+      navigate("/private/welcome", { replace: true });
+    }
+  }, [tool, navigate]);
 
   // Determine which component to render based on the URL
   let ComponentToRender;
   switch (tool) {
+      case 'welcome':
+        ComponentToRender = PrivateHome;
+        break;
       case 'tech-partners':
           ComponentToRender = TechPartners;
           break;
