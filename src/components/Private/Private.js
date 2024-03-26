@@ -59,6 +59,18 @@ const Drawer = styled(MuiDrawer, { shouldForwardProp: (prop) => prop !== 'open' 
 
 const mdTheme = createTheme();
 
+const validTools = [
+  'tech-partners',
+  'generate-emails',
+  'cable-run-optimizer',
+  'chat-bot',
+  'equipment-checkout',
+  'go-tracker',
+  'sub-automation',
+  'welcome'
+  // Add other valid tool routes here
+];
+
 function PrivateContent() {
   const [open, setOpen] = React.useState(true);
   const toggleDrawer = () => {
@@ -67,18 +79,6 @@ function PrivateContent() {
 
   const { tool } = useParams();
   const navigate = useNavigate();
-
-  const validTools = [
-    'tech-partners',
-    'generate-emails',
-    'cable-run-optimizer',
-    'chat-bot',
-    'equipment-checkout',
-    'go-tracker',
-    'sub-automation',
-    'welcome'
-    // Add other valid tool routes here
-  ];
 
   //check if the tool is valid
   React.useEffect(() => {
