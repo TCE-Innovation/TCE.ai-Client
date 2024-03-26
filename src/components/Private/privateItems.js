@@ -181,18 +181,6 @@ const PrivateListItems = () => {
                             <ListItemText primary="Equipment Checkout" />
                         </ListItemButton>
                     </Link>
-
-                    <Link to="/private/overtime-tracker" style={{ textDecoration: 'none', color: 'black' }}>
-                        <ListItemButton 
-                            style={getInnerItemStyle('overtime')}
-                            onClick={() => handleInnerItemClick('overtime')}
-                        >
-                            <ListItemIcon>
-                                <AccessTimeIcon />
-                            </ListItemIcon>
-                            <ListItemText primary="Overtime Tracker" />
-                        </ListItemButton>
-                    </Link>
                     
                     <Link to="/private/sub-automation" style={{ textDecoration: 'none', color: 'black' }}>
                         <ListItemButton 

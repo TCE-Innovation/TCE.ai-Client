@@ -24,7 +24,6 @@ import AssetTracker from '../PrivateFeatures/AssetTracker/AssetTracker';
 import GenerateEmails from "../PrivateFeatures/GenerateEmails";
 import TechPartners from '../PrivateFeatures/TechPartners/TechPartners';
 import GOTracker from '../PrivateFeatures/GOTracker';
-import OTTracker from '../PrivateFeatures/OTTracker';
 import PrivateNavigation from "../Private/PrivateNavigation";
 import SubAuto from "../PrivateFeatures/SubAuto/SubAuto";
 
@@ -91,10 +90,6 @@ function PrivateContent() {
       case 'go-tracker':
           ComponentToRender = GOTracker;
           break;  
-
-      case 'overtime-tracker':
-          ComponentToRender = OTTracker;
-          break;
 
       case 'sub-automation':
           ComponentToRender = SubAuto;

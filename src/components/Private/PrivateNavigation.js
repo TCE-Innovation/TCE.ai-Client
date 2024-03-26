@@ -48,8 +48,6 @@ function ResponsiveAppBar() {
                 return 'Information';
             case 'go-tracker':
                 return 'GO Tracker';
-            case 'overtime-tracker':
-                return 'Overtime Tracker';
             case 'account':
                 return 'My Account';
             case 'contact':
