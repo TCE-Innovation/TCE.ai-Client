@@ -61,6 +61,8 @@ function ResponsiveAppBar() {
                 return 'Tech Partners';
             case 'privateHome':
                 return 'Welcome';
+            case 'support':
+                return 'Support';
             default:
                 return 'TCE Innovation Group';  
         }

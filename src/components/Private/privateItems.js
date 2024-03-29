@@ -25,6 +25,7 @@ import ConstructionIcon from '@mui/icons-material/Construction';
 import FormatAlignJustifyIcon from '@mui/icons-material/FormatAlignJustify';
 import ArticleIcon from '@mui/icons-material/Article';
 import LightbulbIcon from '@mui/icons-material/Lightbulb';
+import HelpIcon from '@mui/icons-material/Help';
 
 const PrivateListItems = () => {
     const [clickOpenSection, setClickOpenSection] = React.useState(null);
@@ -203,6 +204,18 @@ const PrivateListItems = () => {
                                 <LightbulbIcon />
                             </ListItemIcon>
                             <ListItemText primary="Idea Submission" />
+                        </ListItemButton>
+                    </Link>
+
+                    <Link to="/private/support" style={{ textDecoration: 'none', color: 'black' }}>
+                        <ListItemButton 
+                            style={getInnerItemStyle('support')}
+                            onClick={() => handleInnerItemClick('support')}
+                        >
+                            <ListItemIcon>
+                                <HelpIcon />
+                            </ListItemIcon>
+                            <ListItemText primary="Support" />
                         </ListItemButton>
                     </Link>
 

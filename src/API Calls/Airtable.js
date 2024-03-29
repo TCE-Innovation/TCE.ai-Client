@@ -92,6 +92,17 @@ export async function sendAssetFormData(name, email, item, project, reason, date
     }    
 }
 
+//function to send support form data to airtable base and create asana task
+export async function sendSupportFormData(formData) {
+    try{
+        const {data} = await axios.post('https://support-functions.azurewebsites.net/api/airtable-asana', { formData } );
+        return data;
+    }
+    catch(error){
+        console.error('Error sending support form data:', error);
+    }    
+}
+
 //function to get project data from airtable base
 export async function getActiveProjects() {
     try{
