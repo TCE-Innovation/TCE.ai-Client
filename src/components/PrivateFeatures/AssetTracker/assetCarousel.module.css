@@ -27,7 +27,7 @@
     top: 0;
     left: 0;
     width: 100%;
-    color: black;
+    color: #1b365f;
     font-weight: bold;
     font-size: 1vw;
     text-align: center;
@@ -44,6 +44,7 @@
   }
 
   .descriptionText{
+    color: #1b365f;
     font-size: 1vw;
     text-align: center;
   }

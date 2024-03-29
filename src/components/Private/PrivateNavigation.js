@@ -60,6 +60,8 @@ function ResponsiveAppBar() {
                 return 'Tech Partners';
             case 'welcome':
                 return 'Welcome';
+            case 'idea-submission':
+                return 'Idea Submission';
             default:
                 return 'TCE Innovation Group';  
         }

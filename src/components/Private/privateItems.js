@@ -22,8 +22,9 @@ import RailwayAlertIcon from '@mui/icons-material/RailwayAlert';
 import WavingHandIcon from '@mui/icons-material/WavingHand';
 import InfoIcon from '@mui/icons-material/Info';
 import ConstructionIcon from '@mui/icons-material/Construction';
-import ApartmentIcon from '@mui/icons-material/Apartment';
+import FormatAlignJustifyIcon from '@mui/icons-material/FormatAlignJustify';
 import ArticleIcon from '@mui/icons-material/Article';
+import LightbulbIcon from '@mui/icons-material/Lightbulb';
 
 const PrivateListItems = () => {
     const [clickOpenSection, setClickOpenSection] = React.useState(null);
@@ -158,16 +159,16 @@ const PrivateListItems = () => {
                     
             <ListItemButton    
                 style={{padding:"25px"}}                
-                onClick={() => handleClick('office')}
+                onClick={() => handleClick('forms')}
             >
                 <ListItemIcon>
-                    <ApartmentIcon />
+                    <FormatAlignJustifyIcon />
                 </ListItemIcon>
-                <ListItemText primary="Office" />
-                    {clickOpenSection === 'office' ? <ExpandLess /> : <ExpandMore />}
+                <ListItemText primary="Forms" />
+                    {clickOpenSection === 'forms' ? <ExpandLess /> : <ExpandMore />}
             </ListItemButton>
 
-            <Collapse in={clickOpenSection === 'office'} timeout="auto" unmountOnExit>
+            <Collapse in={clickOpenSection === 'forms'} timeout="auto" unmountOnExit>
                 <List component="div" disablePadding>
                     <Link to="/private/equipment-checkout" style={{ textDecoration: 'none', color: 'black' }}>
                         <ListItemButton 
@@ -190,6 +191,18 @@ const PrivateListItems = () => {
                                 <ArticleIcon />
                             </ListItemIcon>
                             <ListItemText primary="Subcontractor Forms" />
+                        </ListItemButton>
+                    </Link>
+
+                    <Link to="/private/idea-submission" style={{ textDecoration: 'none', color: 'black' }}>
+                        <ListItemButton 
+                            style={getInnerItemStyle('ideaSubmission')}
+                            onClick={() => handleInnerItemClick('ideaSubmission')}
+                        >
+                            <ListItemIcon>
+                                <LightbulbIcon />
+                            </ListItemIcon>
+                            <ListItemText primary="Idea Submission" />
                         </ListItemButton>
                     </Link>
 

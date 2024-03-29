@@ -4,7 +4,7 @@ import { FormControl, TextField, Button } from '@mui/material';
 import { sendPrivateFormData } from '../../API Calls/Airtable';
 import { AuthContext } from "../../authentication/Auth";
 
-const ContactUs = () => {
+const IdeaSubmission = () => {
     const [ideaDescription, setIdeaDescription] = useState('');
     const [isSubmitted, setIsSubmitted] = useState(false);
     const { userName, userEmail } = useContext(AuthContext);
@@ -69,4 +69,4 @@ const ContactUs = () => {
     );
 };
 
-export default ContactUs;
+export default IdeaSubmission;
