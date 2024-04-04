@@ -40,7 +40,7 @@ const IdeaSubmission = () => {
                     </div>
                     <br />
                     <div>
-                        <FormControl fullWidth>
+                        <FormControl fullWidth margin="normal">
                             <TextField
                                 id="idea-description"
                                 label="Please enter a description of your idea or problem."
@@ -54,6 +54,11 @@ const IdeaSubmission = () => {
                         <Button 
                             onClick={handleSubmit}
                             disabled={isButtonDisabled}
+                            sx={{color: "#1b365f",
+                            borderColor: "#1b365f",
+                            fontWeight: "500",
+                            backgroundColor: "transparent",
+                            width: "3.5vw",}}
                         >
                             Submit
                         </Button>

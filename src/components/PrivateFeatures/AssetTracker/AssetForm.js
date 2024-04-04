@@ -6,7 +6,6 @@ import { AuthContext } from "../../../authentication/Auth";
 
 //MUI
 import { FormControl, TextField, Button, Box, Select, InputLabel, MenuItem, ListSubheader } from '@mui/material';
-import SendIcon from '@mui/icons-material/Send';
 import { LocalizationProvider, DatePicker } from '@mui/x-date-pickers';
 import { AdapterDateFns } from '@mui/x-date-pickers/AdapterDateFns';
 import { format } from 'date-fns';
@@ -197,11 +196,8 @@ const AssetForm = () => {
                                         <Button 
                                             onClick={handleSubmit}
                                             disabled={isButtonDisabled}
-                                            variant="outlined"
-                                            endIcon={<SendIcon />} 
                                             sx={{color: "#1b365f",
                                             borderColor: "#1b365f",
-                                            borderRadius: "20px",
                                             fontWeight: "500",
                                             marginRight: "8px",
                                             marginLeft: "20px",

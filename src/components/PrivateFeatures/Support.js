@@ -162,7 +162,15 @@ const Support = () => {
                             required
                         />
                     </FormControl>
-                    <Button onClick={handleSubmit} disabled={isButtonDisabled}>Submit</Button>
+                    <Button onClick={handleSubmit}                                         
+                        sx={{color: "#1b365f",
+                            borderColor: "#1b365f",
+                            fontWeight: "500",
+                            backgroundColor: "transparent",
+                            width: "3.5vw",}}
+                            disabled={isButtonDisabled}>
+                                Submit
+                    </Button>
                 </>
             ) : (
                 // Display submission success message
