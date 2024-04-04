@@ -1,5 +1,5 @@
 import React, { useState, useContext } from 'react';
-import { FormControl, TextField, Button } from '@mui/material';
+import { FormControl, TextField, Button, CircularProgress } from '@mui/material';
 
 import { sendPrivateFormData } from '../../API Calls/Airtable';
 import { AuthContext } from "../../authentication/Auth";
@@ -7,6 +7,7 @@ import { AuthContext } from "../../authentication/Auth";
 const IdeaSubmission = () => {
     const [ideaDescription, setIdeaDescription] = useState('');
     const [isSubmitted, setIsSubmitted] = useState(false);
+    const [isLoading, setIsLoading] = useState(false); // Added isLoading state
     const { userName, userEmail } = useContext(AuthContext);
 
     const handleInputChange = (event) => {
@@ -14,12 +15,16 @@ const IdeaSubmission = () => {
     };
 
     const handleSubmit = () => {
+        setIsLoading(true); // Start loading
         sendPrivateFormData(userName, userEmail, ideaDescription)
             .then(() => {
                 setIsSubmitted(true);
             })
             .catch(error => {
                 console.error('Error submitting form data:', error);
+            })
+            .finally(() => {
+                setIsLoading(false); // Stop loading regardless of outcome
             });
     };
 
@@ -33,7 +38,13 @@ const IdeaSubmission = () => {
     return (
         <div className='container'>
             <br />
-            {!isSubmitted ? (
+            {isLoading ? (
+                // Show loading spinner when form is being submitted
+                <div style={{ textAlign: "center", paddingTop: "20px" }}>
+                    <CircularProgress />
+                </div>
+            ) : !isSubmitted ? (
+                // Show form if not submitted and not loading
                 <>
                     <div className="private-form-prompt">
                         Have you identified a problem with a process, tool, or system that you work on? Do you have an idea of how to solve it? Or, have you come across an exciting technology that you would like us to explore?
@@ -65,9 +76,20 @@ const IdeaSubmission = () => {
                     </div>
                 </>
             ) : (
+                // Show success message if submitted
                 <div style={{textAlign:"center", color:"#1b365f"}}>
                     <div>Thank you for your submission. A TCIG team member will follow up with you.</div>
-                    <Button style={{width:"12vw", marginTop:"1vw", fontSize:".9vw"}} onClick={handleNewSubmission}>Submit another idea</Button>
+                    <Button style={{ 
+                                width: "15vw", 
+                                marginTop: "1vw", 
+                                fontSize: ".9vw",
+                                color: "#1b365f",
+                                borderColor: "#1b365f",
+                                fontWeight: "500",
+                            }} 
+                            onClick={handleNewSubmission}>
+                        Submit another idea
+                    </Button>
                 </div>
             )}
         </div>

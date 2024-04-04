@@ -214,27 +214,20 @@ const AssetForm = () => {
                     </div>
                 ) : (
                     <div className="form-container">
-                        <Box className={style.box}>
-                            Thank you for your submission. A TCIG team member will follow up with you.
-                            <br />
-                            <Button 
-                                onClick={handleNewSubmission} 
-                                variant="outlined" 
-                                sx={{
-                                mt: 5, 
-                                fontWeight:'bold', 
-                                color: "#1b365f",
-                                borderColor: "#1b365f",
-                                borderRadius: "20px",
-                                marginRight: "8px",
-                                backgroundColor: "transparent",
-                                width: "20%",
-                                height: "50px",
-                                marginTop: "25px"}}
-                            >
-                                Request another item
+                        <div style={{textAlign:"center", color:"#1b365f"}}>
+                            <div>Thank you for your submission. A TCIG team member will follow up with you.</div>
+                            <Button style={{ 
+                                        width: "15vw", 
+                                        marginTop: "1vw", 
+                                        fontSize: ".9vw",
+                                        color: "#1b365f",
+                                        borderColor: "#1b365f",
+                                        fontWeight: "500",
+                                    }} 
+                                    onClick={handleNewSubmission}>
+                                Submit another request
                             </Button>
-                        </Box>
+                        </div>
                     </div>
                 )}
                 </div>

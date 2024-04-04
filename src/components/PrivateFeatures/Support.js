@@ -176,7 +176,17 @@ const Support = () => {
                 // Display submission success message
                 <div style={{ textAlign: "center", color: "#1b365f", paddingTop: "20px" }}>
                     <div>Thank you for your submission. A team member will follow up with you.</div>
-                    <Button style={{ width: "15vw", marginTop: "1vw", fontSize: ".9vw" }} onClick={handleNewSubmission}>Submit another request</Button>
+                    <Button style={{ 
+                                width: "15vw", 
+                                marginTop: "1vw", 
+                                fontSize: ".9vw",
+                                color: "#1b365f",
+                                borderColor: "#1b365f",
+                                fontWeight: "500",
+                            }} 
+                            onClick={handleNewSubmission}>
+                        Submit another request
+                    </Button>
                 </div>
             )}
         </div>
