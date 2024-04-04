@@ -139,11 +139,17 @@ const Support = () => {
                             onChange={handleInputChange}
                             required
                         >
-                            {["Procore", "OpenSpace", "TCIG.nyc", "Airtable"].map((tool, index) => (
+                            {["Procore", "OpenSpace", "Airtable"].map((tool, index) => (
                                 <MenuItem key={index} value={tool}>{tool}</MenuItem>
+                            ))}
+                            <ListSubheader>TCIG Tools</ListSubheader>
+                            {/* Example subsection options under TCIG.nyc */}
+                            {["Cable Run Optimizer", "ChatBot", "Equipment Checkout", "Subcontractor Forms", "General"].map((subTool, index) => (
+                                <MenuItem key={`tcig-${index}`} value={`TCIG.nyc - ${subTool}`}>{subTool}</MenuItem>
                             ))}
                         </Select>
                     </FormControl>
+
                     <FormControl fullWidth margin="normal">
                         <TextField
                             id="problem-description"
