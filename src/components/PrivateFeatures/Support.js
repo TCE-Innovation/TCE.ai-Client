@@ -112,6 +112,7 @@ const Support = () => {
                             id="project-select"
                             value={project}
                             onChange={handleProjectChange}
+                            label="Project"
                             required
                         >
                             <ListSubheader>Active Projects</ListSubheader>
@@ -139,6 +140,7 @@ const Support = () => {
                                 id="tool-select"
                                 value={tool}
                                 name="tool"
+                                label="Tool"
                                 onChange={handleInputChange}
                                 required
                             >
