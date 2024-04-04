@@ -34,8 +34,6 @@ const AssetForm = () => {
                 const groupedOptions = {
                     Active: options.filter(o => o.status === 'Active'),
                     Bidding: options.filter(o => o.status === 'Bidding'),
-                    Continuous: options.filter(o => o.status === 'Continuous'),
-                    Closeout: options.filter(o => o.status === 'Closeout')
                 };
                 setProjectOptions(groupedOptions);
             } catch (error) {
@@ -73,8 +71,6 @@ const AssetForm = () => {
         const combinedProjectOptions = [
             ...(projectOptions.Active || []), 
             ...(projectOptions.Bidding || []),
-            ...(projectOptions.Continuous || []),
-            ...(projectOptions.Closeout || [])
         ];
         const selectedProject = combinedProjectOptions.find(option => option.name === project);        
         const projectId = selectedProject ? [selectedProject.rec_id] : []; 
@@ -149,19 +145,12 @@ const AssetForm = () => {
                                             label="Project"
                                             required
                                         >
+                                            <MenuItem value="Non-Project - 1010">Non-Project - 1010</MenuItem>
                                             <ListSubheader>Active Jobs</ListSubheader>
                                             {projectOptions.Active?.map((option, index) => (
                                                 <MenuItem key={index} value={option.name}>{option.name}</MenuItem>
                                             ))}
                                             <ListSubheader>Pursuits</ListSubheader>
-                                            {projectOptions.Bidding?.map((option, index) => (
-                                                <MenuItem key={index} value={option.name}>{option.name}</MenuItem>
-                                            ))}
-                                            <ListSubheader>Continuous</ListSubheader>
-                                            {projectOptions.Bidding?.map((option, index) => (
-                                                <MenuItem key={index} value={option.name}>{option.name}</MenuItem>
-                                            ))}
-                                            <ListSubheader>Closeout</ListSubheader>
                                             {projectOptions.Bidding?.map((option, index) => (
                                                 <MenuItem key={index} value={option.name}>{option.name}</MenuItem>
                                             ))}

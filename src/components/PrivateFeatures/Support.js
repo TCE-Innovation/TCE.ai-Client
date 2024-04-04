@@ -10,7 +10,7 @@ const Support = () => {
     const [problemDescription, setProblemDescription] = useState('');
     const [project, setProject] = useState('');
     const [isSubmitted, setIsSubmitted] = useState(false);
-    const [projectOptions, setProjectOptions] = useState({ Active: [], Bidding: [], Continuous: [], Closeout: [] });
+    const [projectOptions, setProjectOptions] = useState({ Active: [], Bidding: [], Continuous: [] });
     const [isLoading, setIsLoading] = useState(false);
     const { userName, userEmail } = useContext(AuthContext);
 
@@ -20,13 +20,9 @@ const Support = () => {
                 const projects = await getActiveProjects();
                 const activeProjects = projects.filter(project => project.status === 'Active');
                 const biddingProjects = projects.filter(project => project.status === 'Bidding');
-                const continuousProjects = projects.filter(project => project.status === 'Continuous');
-                const closeoutProjects = projects.filter(project => project.status === 'Closeout');
                 setProjectOptions({
                     Active: activeProjects,
                     Bidding: biddingProjects,
-                    Continuous: continuousProjects,
-                    Closeout: closeoutProjects
                 });
             } catch (error) {
                 console.error('Error fetching projects:', error);
@@ -89,10 +85,16 @@ const Support = () => {
 
     return (
         <div className='container'>
-            {!isSubmitted ? (
+            {isLoading ? (
+                // Display the loading spinner centered when isLoading is true
+                <div style={{ textAlign: "center", paddingTop: "20px" }}>
+                    <CircularProgress />
+                </div>
+            ) : !isSubmitted ? (
+                // Display the form if not submitted and not loading
                 <>
-                    <div className="private-form-prompt">
-                        Please fill out the form below and we will get back to you as soon as possible.
+                    <div className="private-form-prompt" style={{ textAlign: "center" }}>
+                        Need assistance? Please fill out the form below and we will get back to you as soon as possible.
                     </div>
                     <br />
                     <FormControl fullWidth margin="normal">
@@ -115,40 +117,33 @@ const Support = () => {
                             label="Project"
                             required
                         >
+                            <MenuItem value="Non-Project -1010">Non-Project - 1010</MenuItem>
                             <ListSubheader>Active Projects</ListSubheader>
                             {projectOptions.Active.map((proj) => (
                                 <MenuItem key={`Active-${proj.id}`} value={proj.name}>{proj.name}</MenuItem>
                             ))}
-                            <ListSubheader>Bidding Projects</ListSubheader>
+                            <ListSubheader>Pursuits</ListSubheader>
                             {projectOptions.Bidding.map((proj) => (
                                 <MenuItem key={`Bidding-${proj.id}`} value={proj.name}>{proj.name}</MenuItem>
-                            ))}
-                            <ListSubheader>Continuous Projects</ListSubheader>
-                            {projectOptions.Continuous.map((proj) => (
-                                <MenuItem key={`Continuous-${proj.id}`} value={proj.name}>{proj.name}</MenuItem>
-                            ))}
-                            <ListSubheader>Closeout Projects</ListSubheader>
-                            {projectOptions.Closeout.map((proj) => (
-                                <MenuItem key={`Closeout-${proj.id}`} value={proj.name}>{proj.name}</MenuItem>
                             ))}
                         </Select>
                     </FormControl>
                     <FormControl fullWidth margin="normal">
-                            <InputLabel id="tool-select-label">Tool</InputLabel>
-                            <Select
-                                labelId="tool-select-label"
-                                id="tool-select"
-                                value={tool}
-                                name="tool"
-                                label="Tool"
-                                onChange={handleInputChange}
-                                required
-                            >
-                                {["Procore", "OpenSpace", "TCIG.nyc", "Airtable"].map((tool, index) => (
-                                    <MenuItem key={index} value={tool}>{tool}</MenuItem>
-                                ))}
-                            </Select>
-                        </FormControl>
+                        <InputLabel id="tool-select-label">Tool</InputLabel>
+                        <Select
+                            labelId="tool-select-label"
+                            id="tool-select"
+                            value={tool}
+                            name="tool"
+                            label="Tool"
+                            onChange={handleInputChange}
+                            required
+                        >
+                            {["Procore", "OpenSpace", "TCIG.nyc", "Airtable"].map((tool, index) => (
+                                <MenuItem key={index} value={tool}>{tool}</MenuItem>
+                            ))}
+                        </Select>
+                    </FormControl>
                     <FormControl fullWidth margin="normal">
                         <TextField
                             id="problem-description"
@@ -161,20 +156,18 @@ const Support = () => {
                             required
                         />
                     </FormControl>
-                    {isLoading ? (
-                        <CircularProgress />
-                    ) : (
-                        <Button onClick={handleSubmit} disabled={isButtonDisabled}>Submit</Button>
-                    )}
+                    <Button onClick={handleSubmit} disabled={isButtonDisabled}>Submit</Button>
                 </>
             ) : (
-                <div style={{textAlign:"center", color:"#1b365f"}}>
+                // Display submission success message
+                <div style={{ textAlign: "center", color: "#1b365f", paddingTop: "20px" }}>
                     <div>Thank you for your submission. A team member will follow up with you.</div>
-                    <Button style={{width:"15vw", marginTop:"1vw", fontSize:".9vw"}} onClick={handleNewSubmission}>Submit another request</Button>
+                    <Button style={{ width: "15vw", marginTop: "1vw", fontSize: ".9vw" }} onClick={handleNewSubmission}>Submit another request</Button>
                 </div>
             )}
         </div>
     );
+    
 };
 
 export default Support;
