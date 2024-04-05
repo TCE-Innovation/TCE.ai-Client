@@ -1,0 +1,19 @@
+.buttonColored {
+    color: white;
+    border-color: #1b365f;
+    font-weight: 500;
+    border: 1px solid #1b365f;
+    background-color: #1b365f;
+    width: 3.5vw;
+    margin-bottom: 1vw;
+  }
+  
+  .buttonColored:hover {
+    color: #1b365f;
+  }
+  
+  .buttonColored:disabled {
+    background-color: #1b365f;
+    color: white;
+    opacity: 0.5;
+  }

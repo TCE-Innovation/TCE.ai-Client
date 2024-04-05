@@ -4,6 +4,8 @@ import { FormControl, TextField, Button, Select, MenuItem, InputLabel, ListSubhe
 import { getActiveProjects, sendSupportFormData } from '../../API Calls/Airtable';
 import { AuthContext } from "../../authentication/Auth";
 
+import styles from './submitbutton.module.css';
+
 const Support = () => {
     const [subject, setSubject] = useState('');
     const [tool, setTool] = useState('');
@@ -162,15 +164,13 @@ const Support = () => {
                             required
                         />
                     </FormControl>
-                    <Button onClick={handleSubmit}                                         
-                        sx={{color: "#1b365f",
-                            borderColor: "#1b365f",
-                            fontWeight: "500",
-                            backgroundColor: "transparent",
-                            width: "3.5vw",}}
+
+                    <Button onClick={handleSubmit}
+                            className={styles.buttonColored}
                             disabled={isButtonDisabled}>
-                                Submit
+                        Submit
                     </Button>
+
                 </>
             ) : (
                 // Display submission success message

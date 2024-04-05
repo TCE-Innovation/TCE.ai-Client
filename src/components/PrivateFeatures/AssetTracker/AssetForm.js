@@ -6,6 +6,7 @@ import { AdapterDateFns } from '@mui/x-date-pickers/AdapterDateFns';
 import { format } from 'date-fns';
 import { sendAssetFormData, getActiveProjects } from '../../../API Calls/Airtable';
 import style from './assetForm.module.css';
+import buttonstyle from '../submitbutton.module.css';
 
 const AssetForm = () => {
     //STATES
@@ -195,21 +196,13 @@ const AssetForm = () => {
                                                 onChange={handleInitialInputChange}
                                                 sx= {{width: "25%", marginBottom: "28px", marginLeft: "8px", marginTop: "25px"}}
                                             />
-                                            <Button 
-                                                onClick={handleSubmit}
-                                                disabled={isButtonDisabled}
-                                                sx={{color: "#1b365f",
-                                                borderColor: "#1b365f",
-                                                fontWeight: "500",
-                                                marginRight: "8px",
-                                                marginLeft: "20px",
-                                                backgroundColor: "transparent",
-                                                width: "20%",
-                                                height: "50px",
-                                                marginTop: "25px"}}
-                                            >
+
+                                            <Button onClick={handleSubmit}
+                                                    className={buttonstyle.buttonColored}
+                                                    style={{width: "5vw", height: '2.7vw', marginTop: "25px", marginLeft: "38px"}}
+                                                    disabled={isButtonDisabled}>
                                                 Submit
-                                            </Button>  
+                                            </Button>
                                     </Box>
 
                             </div>

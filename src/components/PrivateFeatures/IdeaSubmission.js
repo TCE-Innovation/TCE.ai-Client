@@ -4,6 +4,8 @@ import { FormControl, TextField, Button, CircularProgress } from '@mui/material'
 import { sendPrivateFormData } from '../../API Calls/Airtable';
 import { AuthContext } from "../../authentication/Auth";
 
+import styles from './submitbutton.module.css';
+
 const IdeaSubmission = () => {
     const [ideaDescription, setIdeaDescription] = useState('');
     const [isSubmitted, setIsSubmitted] = useState(false);
@@ -62,15 +64,9 @@ const IdeaSubmission = () => {
                                 aria-describedby="idea-description-helper-text"
                             />
                         </FormControl>
-                        <Button 
-                            onClick={handleSubmit}
-                            disabled={isButtonDisabled}
-                            sx={{color: "#1b365f",
-                            borderColor: "#1b365f",
-                            fontWeight: "500",
-                            backgroundColor: "transparent",
-                            width: "3.5vw",}}
-                        >
+                        <Button onClick={handleSubmit}
+                            className={styles.buttonColored}
+                            disabled={isButtonDisabled}>
                             Submit
                         </Button>
                     </div>
