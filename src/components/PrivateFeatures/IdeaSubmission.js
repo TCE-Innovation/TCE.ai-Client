@@ -4,7 +4,7 @@ import { FormControl, TextField, Button, CircularProgress } from '@mui/material'
 import { sendPrivateFormData } from '../../API Calls/Airtable';
 import { AuthContext } from "../../authentication/Auth";
 
-import styles from './submitbutton.module.css';
+import './submitbutton.css'
 
 const IdeaSubmission = () => {
     const [ideaDescription, setIdeaDescription] = useState('');
@@ -65,7 +65,7 @@ const IdeaSubmission = () => {
                             />
                         </FormControl>
                         <Button onClick={handleSubmit}
-                            className={styles.buttonColored}
+                            className='buttonColored'
                             disabled={isButtonDisabled}>
                             Submit
                         </Button>

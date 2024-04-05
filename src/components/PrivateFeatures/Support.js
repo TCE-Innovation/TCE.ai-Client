@@ -4,7 +4,7 @@ import { FormControl, TextField, Button, Select, MenuItem, InputLabel, ListSubhe
 import { getActiveProjects, sendSupportFormData } from '../../API Calls/Airtable';
 import { AuthContext } from "../../authentication/Auth";
 
-import styles from './submitbutton.module.css';
+import './submitbutton.css'
 
 const Support = () => {
     const [subject, setSubject] = useState('');
@@ -166,7 +166,7 @@ const Support = () => {
                     </FormControl>
 
                     <Button onClick={handleSubmit}
-                            className={styles.buttonColored}
+                            className='buttonColored'
                             disabled={isButtonDisabled}>
                         Submit
                     </Button>
