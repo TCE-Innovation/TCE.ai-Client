@@ -13,7 +13,7 @@
   }
   
   .buttonColored:disabled {
-    background-color: #1b365f;
-    color: white;
+    background-color: grey;
+    color: black;
     opacity: 0.5;
   }
