@@ -6,10 +6,12 @@
     background-color: #1b365f;
     width: 3.5vw;
     margin-bottom: 1vw;
+    border-radius: 3px;
   }
   
   .buttonColored:hover {
     color: #1b365f;
+    background-color: white;
   }
   
   .buttonColored:disabled {

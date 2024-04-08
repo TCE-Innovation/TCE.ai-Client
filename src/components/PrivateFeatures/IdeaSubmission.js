@@ -64,11 +64,11 @@ const IdeaSubmission = () => {
                                 aria-describedby="idea-description-helper-text"
                             />
                         </FormControl>
-                        <Button onClick={handleSubmit}
+                        <button onClick={handleSubmit}
                             className='buttonColored'
                             disabled={isButtonDisabled}>
                             Submit
-                        </Button>
+                        </button>
                     </div>
                 </>
             ) : (

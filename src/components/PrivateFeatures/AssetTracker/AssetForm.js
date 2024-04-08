@@ -197,12 +197,12 @@ const AssetForm = () => {
                                                 sx= {{width: "25%", marginBottom: "28px", marginLeft: "8px", marginTop: "25px"}}
                                             />
 
-                                            <Button onClick={handleSubmit}
+                                            <button onClick={handleSubmit}
                                                     className='buttonColored'
                                                     style={{width: "5vw", height: '2.7vw', marginTop: "25px", marginLeft: "38px"}}
                                                     disabled={isButtonDisabled}>
                                                 Submit
-                                            </Button>
+                                            </button>
                                     </Box>
 
                             </div>

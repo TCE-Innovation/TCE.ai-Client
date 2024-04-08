@@ -165,11 +165,11 @@ const Support = () => {
                         />
                     </FormControl>
 
-                    <Button onClick={handleSubmit}
+                    <button onClick={handleSubmit}
                             className='buttonColored'
                             disabled={isButtonDisabled}>
                         Submit
-                    </Button>
+                    </button>
 
                 </>
             ) : (
