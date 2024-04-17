@@ -88,17 +88,17 @@ function ResponsiveAppBar() {
     
     return (
         <>
-            <AppBar position="fixed" elevation={0} sx={{background: 'none', height: '2vw'}}>
-                <Toolbar sx={{width:'100%'}} disableGutters>
-                    <Box sx={{ display: 'flex', alignItems: 'center'}}>       
+            <AppBar position="fixed" elevation={0} sx={{ background: 'none', height: '3rem' }}>
+                <Toolbar sx={{ width: '100%' }} disableGutters>
+                    <Box sx={{ display: 'flex', alignItems: 'center' }}>       
                         <NavLink to="/">
                             <img
                                 src={currentLogo}
                                 alt='logo'
                                 style={{
-                                    width: "10vw", 
-                                    marginLeft: "2vw",
-                                    marginTop: "2.5vw",
+                                    width: "10rem", 
+                                    marginLeft: "2em",
+                                    marginTop: "3em",
                                 }}
                                 draggable="false"
                             />
@@ -108,27 +108,27 @@ function ResponsiveAppBar() {
                         display: 'flex',
                         justifyContent: 'flex-end',
                         alignItems: 'right',
-                        marginTop: '1.5vw',
-                        marginRight: '3vw',
+                        marginTop: '3em',
+                        marginRight: '2em',
                         width: '100%'
                     }}>           
                             {isAuthenticated ? (
-                                <Box sx={{ display: 'flex', alignItems: 'center', marginTop: '1vw'}}>
+                                <Box sx={{ display: 'flex', alignItems: 'center'}}>
                                     <IconButton onClick={() => {
                                         navigate('/private/welcome');
                                     }}>
                                         <Tooltip title="Toolbox">
-                                            <HomeRepairServiceIcon sx={{ color: toolBoxColor.color, fontSize: '3.5vw' }} />
+                                            <HomeRepairServiceIcon sx={{ color: toolBoxColor.color, fontSize: '2.5em' }} />
                                         </Tooltip>
                                     </IconButton>
-
+    
                                     <IconButton onClick={handleOpenUserMenu}>
                                         <Tooltip title="User Menu">
                                             <Avatar
                                                 alt="You"
                                                 src={userPic ? userPic : noUser}
                                                 imgProps={{ referrerPolicy: "no-referrer" }}
-                                                style={{ width: '3vw', height: '3vw' }}
+                                                style={{ width: '2.5em', height: '2.5em' }}
                                             />
                                         </Tooltip>
                                     </IconButton>
@@ -145,12 +145,12 @@ function ResponsiveAppBar() {
                                             borderColor: loginColor.borderColor, 
                                             backgroundColor: loginColor.backgroundColor, 
                                             fontWeight: 500, 
-                                            borderRadius: '2vw', 
-                                            width: '8vw', 
-                                            height: '2.5vw',
-                                            borderWidth: '.2vw',
+                                            borderRadius: '1em', 
+                                            width: '12em', 
+                                            height: '2em',
+                                            borderWidth: '0.1em',
                                             whiteSpace: 'nowrap',
-                                            '&:hover': { borderWidth: '.3vw', fontWeight: 700, color: '#003eab', borderColor: '#003eab' }, 
+                                            '&:hover': { borderWidth: '0.1em', fontWeight: 700, color: '#003eab', borderColor: '#003eab' }, 
                                         }}
                                     >
                                         Sign In
@@ -158,7 +158,7 @@ function ResponsiveAppBar() {
                                 </Box>
                             )}             
                         <Menu
-                            sx={{ mt: '4.5vw' }}
+                            sx={{ mt: '5rem' }}
                             id="menu-appbar"
                             anchorEl={anchorElUser}
                             anchorOrigin={{
@@ -173,7 +173,7 @@ function ResponsiveAppBar() {
                             open={Boolean(anchorElUser)}
                             onClose={handleCloseUserMenu}
                         >
-
+    
                             {accSettings.map((setting) => (
                                 <MenuItem key={setting} onClick={handleCloseUserMenu}>
                                     {setting === "Home" && (
@@ -198,8 +198,9 @@ function ResponsiveAppBar() {
                 </Toolbar>
             </AppBar>
         <Toolbar />
-        </>    
+        </>
     );
+    
 }
 
 export default ResponsiveAppBar;

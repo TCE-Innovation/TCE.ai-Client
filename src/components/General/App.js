@@ -17,7 +17,9 @@ function App() {
         <AuthProvider>
             <Router>
                 <Routes>
-                    
+                    {/* <Route exact path='/' element={<LandingPage />} /> */}
+                    {/* <Route exact path='/public' element={<Public />} /> */}
+
                     <Route exact path='/' element={<Public />} />
                     <Route exact path='/document' element={<Document />} />
                     
