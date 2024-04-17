@@ -128,7 +128,7 @@ function DownloadButton({ sasUrl, blobName }) {
             document.body.appendChild(link);
             link.click();
             link.remove();
-            window.URL.revokeObjectURL(downloadUrl); // Clean up
+            window.URL.revokeObjectURL(downloadUrl); 
         } catch (error) {
             console.error('Error downloading file:', error);
         }

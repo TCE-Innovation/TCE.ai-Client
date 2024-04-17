@@ -30,8 +30,6 @@ import { useMsal } from "@azure/msal-react";
 import {useMicrosoftSignOut} from "../../Account/LogOut/LogOutFunc";
 import {useMicrosoftSignIn} from "../../Account/LoginFunc";
 
-import LoginNotification from "./LoginNotification";
-
 function ResponsiveAppBar() {
 
     //contexts
@@ -137,7 +135,6 @@ function ResponsiveAppBar() {
                                 </Box>
                             ) : (
                                 <Box sx={{display: "flex", flexDirection: "row"}}>
-                                    <LoginNotification />
                                     <Button
                                         variant="outlined"
                                         fullWidth
