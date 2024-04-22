@@ -14,7 +14,6 @@ import Menu from '@mui/material/Menu';
 import Avatar from '@mui/material/Avatar';
 import MenuItem from '@mui/material/MenuItem';
 import Tooltip from '@mui/material/Tooltip';
-import HomeRepairServiceIcon from '@mui/icons-material/HomeRepairService';
 
 //IMAGES
 import logo from '../../img/Utils/whiteLogo.png'
@@ -32,7 +31,7 @@ function ResponsiveAppBar() {
     const navigate = useNavigate();
 
     const { userPic } = useContext(AuthContext);
-    const accSettings = ["Home", "Account", "Log Out"]
+    const accSettings = [ "Public", "Account", "Log Out"]
 
     function setTitle(tool) {
         switch(tool) {
@@ -86,7 +85,7 @@ function ResponsiveAppBar() {
         }}>
                 <Toolbar disableGutters>
                     <Box sx={{ display: 'flex', alignItems: 'center'}}>       
-                        <NavLink to="/">
+                        <NavLink to="/private/welcome">
                             <img
                                 src={logo}
                                 alt='logo'
@@ -117,14 +116,6 @@ function ResponsiveAppBar() {
                         {setTitle(tool)}
                     </Typography>
                     <Box sx={{  display: 'flex', alignItems: 'center', marginTop: '7px', marginRight: '30px'}}>           
-                        <IconButton onClick={() => {
-                            navigate('/private/welcome');
-                        }}>
-                            <Tooltip title="Toolbox">
-                                <HomeRepairServiceIcon sx={{ color: 'white', fontSize: '55px' }} />
-                            </Tooltip>
-                        </IconButton>
-
                         <IconButton onClick={handleOpenUserMenu}>
                             <Tooltip title="User Menu">
                                 <Avatar
@@ -154,8 +145,8 @@ function ResponsiveAppBar() {
 
                             {accSettings.map((setting) => (
                                 <MenuItem key={setting} onClick={handleCloseUserMenu}>
-                                    {setting === "Home" && (
-                                        <NavLink to="/" style={{color: 'black'}}>
+                                    {setting === "Public" && (
+                                        <NavLink to="/public" style={{color: 'black'}}>
                                             <Typography textAlign="center">{setting}</Typography>
                                         </NavLink>
                                     )}

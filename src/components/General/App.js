@@ -18,8 +18,10 @@ function App() {
         <AuthProvider>
             <Router>
                 <Routes>
-                    <Route exact path='/' element={<Gateway />} /> 
-                    
+                    <Route path="/" element={<UnauthenticatedRoute />}>
+                        <Route index element={<Gateway />} /> 
+                    </Route>
+
                     <Route exact path='/public' element={<Public />} />
 
                     <Route exact path='/document' element={<Document />} />

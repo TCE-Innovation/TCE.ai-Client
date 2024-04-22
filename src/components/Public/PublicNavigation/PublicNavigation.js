@@ -2,7 +2,6 @@
 import * as React from 'react';
 import {useContext, useState, useEffect} from "react";
 import { NavLink } from 'react-router-dom';
-import { useNavigate } from 'react-router-dom';
 
 //MUI
 import AppBar from '@mui/material/AppBar';
@@ -15,7 +14,6 @@ import Menu from '@mui/material/Menu';
 import Avatar from '@mui/material/Avatar';
 import MenuItem from '@mui/material/MenuItem';
 import Button from "@mui/material/Button";
-import HomeRepairServiceIcon from '@mui/icons-material/HomeRepairService';
 
 //IMAGES
 import logo from '../../../img/Utils/logo.png'
@@ -38,15 +36,22 @@ function ResponsiveAppBar() {
     //states
     const [anchorElUser, setAnchorElUser] = useState(null);
     const [currentLogo, setCurrentLogo] = useState(logo);
-    const [toolBoxColor, setToolBoxColor] = useState({ color: '#1b365f' });
     const [loginColor, setLoginColor] = useState({ textColor: 'white', borderColor: 'white', backgroundColor: 'none' });
 
-    //hooks
-    const navigate = useNavigate();
+    const handleLogoClick = () => {
+        const mainContainer = document.getElementById('main-container');
+        if (mainContainer) {
+            mainContainer.scrollTo({
+                top: 0,
+                behavior: 'smooth'  // Adds smooth scrolling animation
+            });
+        }
+    };    
+
     const { accounts } = useMsal();
 
     const isAuthenticated = accounts.length > 0;
-    const accSettings = ["Home", "Account", "Log Out"]
+    const accSettings = ["Toolbox", "Account", "Log Out"]
 
     const handleOpenUserMenu = (event) => {
         setAnchorElUser(event.currentTarget);
@@ -70,13 +75,11 @@ function ResponsiveAppBar() {
             //second page (where it turns white)
             if (scrollPosition > viewportHeight) { 
                 setCurrentLogo(whiteLogo); 
-                setToolBoxColor({color: 'white'});
                 setLoginColor({ textColor: 'white', borderColor: 'white'});
             } 
             //first page (where it turns blue)
             else {
                 setCurrentLogo(logo); 
-                setToolBoxColor({color: '#1b365f'});
                 setLoginColor({ textColor: '#1b365f'});
             }
         };
@@ -91,18 +94,18 @@ function ResponsiveAppBar() {
             <AppBar position="fixed" elevation={0} sx={{ background: 'none', height: '3rem' }}>
                 <Toolbar sx={{ width: '100%' }} disableGutters>
                     <Box sx={{ display: 'flex', alignItems: 'center' }}>       
-                        <NavLink to="/">
-                            <img
-                                src={currentLogo}
-                                alt='logo'
-                                style={{
-                                    width: "10rem", 
-                                    marginLeft: "2em",
-                                    marginTop: "3em",
-                                }}
-                                draggable="false"
-                            />
-                        </NavLink>
+                        <div onClick={handleLogoClick}>
+                                <img
+                                    src={currentLogo}
+                                    alt='logo'
+                                    style={{
+                                        width: "10rem", 
+                                        marginLeft: "2em",
+                                        marginTop: "3em",
+                                    }}
+                                    draggable="false"
+                                />
+                            </div>
                     </Box>
                     <Box sx={{
                         display: 'flex',
@@ -113,15 +116,7 @@ function ResponsiveAppBar() {
                         width: '100%'
                     }}>           
                             {isAuthenticated ? (
-                                <Box sx={{ display: 'flex', alignItems: 'center'}}>
-                                    <IconButton onClick={() => {
-                                        navigate('/private/welcome');
-                                    }}>
-                                        <Tooltip title="Toolbox">
-                                            <HomeRepairServiceIcon sx={{ color: toolBoxColor.color, fontSize: '2.5em' }} />
-                                        </Tooltip>
-                                    </IconButton>
-    
+                                <Box sx={{ display: 'flex', alignItems: 'center'}}>    
                                     <IconButton onClick={handleOpenUserMenu}>
                                         <Tooltip title="User Menu">
                                             <Avatar
@@ -176,8 +171,8 @@ function ResponsiveAppBar() {
     
                             {accSettings.map((setting) => (
                                 <MenuItem key={setting} onClick={handleCloseUserMenu}>
-                                    {setting === "Home" && (
-                                        <NavLink to="/" style={{color: 'black'}}>
+                                    {setting === "Toolbox" && (
+                                        <NavLink to="/private/welcome" style={{color: 'black'}}>
                                             <Typography textAlign="center">{setting}</Typography>
                                         </NavLink>
                                     )}
