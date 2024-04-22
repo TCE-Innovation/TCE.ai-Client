@@ -2,7 +2,6 @@
 import * as React from 'react';
 import {useContext, useState} from "react";
 import { NavLink, useParams } from 'react-router-dom';
-import { useNavigate } from 'react-router-dom';
 
 //MUI
 import AppBar from '@mui/material/AppBar';
@@ -28,7 +27,6 @@ import {useMicrosoftSignOut} from "../Account/LogOut/LogOutFunc";
 function ResponsiveAppBar() {
     const [anchorElUser, setAnchorElUser] = useState(null);
     const { tool } = useParams(); // Get the current tool from URL
-    const navigate = useNavigate();
 
     const { userPic } = useContext(AuthContext);
     const accSettings = [ "Public", "Account", "Log Out"]
