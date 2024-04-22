@@ -8,6 +8,7 @@ import SignIn from "../Account/SignIn";
 import Private from "../Private/Private";
 import Public from "../Public/Public";
 import Document from "../PublicFeatures/Publications/Document";
+import Gateway from './Gateway';
 
 //AUTH
 import { AuthenticatedRoute, UnauthenticatedRoute, AuthProvider } from "../../authentication/Auth";
@@ -17,10 +18,10 @@ function App() {
         <AuthProvider>
             <Router>
                 <Routes>
-                    {/* <Route exact path='/' element={<LandingPage />} /> */}
-                    {/* <Route exact path='/public' element={<Public />} /> */}
+                    <Route exact path='/' element={<Gateway />} /> 
+                    
+                    <Route exact path='/public' element={<Public />} />
 
-                    <Route exact path='/' element={<Public />} />
                     <Route exact path='/document' element={<Document />} />
                     
                     <Route path="/sign-in" element={<UnauthenticatedRoute />}>
