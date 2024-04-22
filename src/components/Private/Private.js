@@ -29,7 +29,6 @@ import GOTracker from '../PrivateFeatures/GOTracker';
 import PrivateNavigation from "../Private/PrivateNavigation";
 import SubAuto from "../PrivateFeatures/SubAuto/SubAuto";
 import IdeaSubmission from "../PrivateFeatures/IdeaSubmission";
-import Support from "../PrivateFeatures/Support";
 
 const Drawer = styled(MuiDrawer, { shouldForwardProp: (prop) => prop !== 'open' })(
   ({ theme, open }) => ({
@@ -127,10 +126,6 @@ function PrivateContent() {
       case 'idea-submission':
           ComponentToRender = IdeaSubmission;
           break;
-
-      case 'support':
-        ComponentToRender = Support;
-        break;
 
       default:
           ComponentToRender = PrivateHome;

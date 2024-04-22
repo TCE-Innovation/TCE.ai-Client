@@ -4,6 +4,10 @@ import {useContext, useState} from "react";
 import { NavLink, useParams } from 'react-router-dom';
 
 //MUI
+import Dialog from '@mui/material/Dialog';
+import DialogContent from '@mui/material/DialogContent';
+import DialogActions from '@mui/material/DialogActions';
+import Button from '@mui/material/Button';
 import AppBar from '@mui/material/AppBar';
 import Box from '@mui/material/Box';
 import Toolbar from '@mui/material/Toolbar';
@@ -13,6 +17,8 @@ import Menu from '@mui/material/Menu';
 import Avatar from '@mui/material/Avatar';
 import MenuItem from '@mui/material/MenuItem';
 import Tooltip from '@mui/material/Tooltip';
+import HelpIcon from '@mui/icons-material/Help';
+
 
 //IMAGES
 import logo from '../../img/Utils/whiteLogo.png'
@@ -24,7 +30,20 @@ import {AuthContext} from "../../authentication/Auth";
 //HOOKS
 import {useMicrosoftSignOut} from "../Account/LogOut/LogOutFunc";
 
+//COMPONENTS
+import Support from "../PrivateFeatures/Support";
+
 function ResponsiveAppBar() {
+    const [openDialog, setOpenDialog] = useState(false);
+
+    const handleOpenDialog = () => {
+        setOpenDialog(true);
+    };
+
+    const handleCloseDialog = () => {
+        setOpenDialog(false);
+    };
+
     const [anchorElUser, setAnchorElUser] = useState(null);
     const { tool } = useParams(); // Get the current tool from URL
 
@@ -59,8 +78,6 @@ function ResponsiveAppBar() {
                 return 'Welcome';
             case 'idea-submission':
                 return 'Idea Submission';
-            case 'support':
-                return 'Support';
             default:
                 return 'TCE Innovation Group';  
         }
@@ -78,6 +95,17 @@ function ResponsiveAppBar() {
 
     return (
         <>
+        <Dialog open={openDialog} onClose={handleCloseDialog} fullWidth maxWidth="md">
+            <DialogContent>
+                <Support />
+            </DialogContent>
+            <DialogActions>
+                <Button onClick={handleCloseDialog} color="primary">
+                    Close
+                </Button>
+            </DialogActions>
+        </Dialog>
+
         <AppBar position="fixed" sx={{
             background: '#1b365f', height: '90px'
         }}>
@@ -114,6 +142,12 @@ function ResponsiveAppBar() {
                         {setTitle(tool)}
                     </Typography>
                     <Box sx={{  display: 'flex', alignItems: 'center', marginTop: '7px', marginRight: '30px'}}>           
+                        <IconButton onClick={handleOpenDialog}>
+                            <Tooltip title="Support">
+                                <HelpIcon sx={{ color: 'white', fontSize: '55px' }} />
+                            </Tooltip>
+                        </IconButton>
+
                         <IconButton onClick={handleOpenUserMenu}>
                             <Tooltip title="User Menu">
                                 <Avatar
