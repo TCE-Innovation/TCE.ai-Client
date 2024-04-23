@@ -17,7 +17,7 @@ import Menu from '@mui/material/Menu';
 import Avatar from '@mui/material/Avatar';
 import MenuItem from '@mui/material/MenuItem';
 import Tooltip from '@mui/material/Tooltip';
-import HelpIcon from '@mui/icons-material/Help';
+import HelpOutlineIcon from '@mui/icons-material/HelpOutline';
 
 
 //IMAGES
@@ -107,7 +107,7 @@ function ResponsiveAppBar() {
         </Dialog>
 
         <AppBar position="fixed" sx={{
-            background: '#1b365f', height: '90px'
+            background: '#003EAB', height: '90px'
         }}>
                 <Toolbar disableGutters>
                     <Box sx={{ display: 'flex', alignItems: 'center'}}>       
@@ -144,7 +144,7 @@ function ResponsiveAppBar() {
                     <Box sx={{  display: 'flex', alignItems: 'center', marginTop: '7px', marginRight: '30px'}}>           
                         <IconButton onClick={handleOpenDialog}>
                             <Tooltip title="Support">
-                                <HelpIcon sx={{ color: 'white', fontSize: '55px' }} />
+                                <HelpOutlineIcon sx={{ color: 'white', fontSize: '60px' }} />
                             </Tooltip>
                         </IconButton>
 
