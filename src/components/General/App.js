@@ -8,7 +8,7 @@ import SignIn from "../Account/SignIn";
 import Private from "../Private/Private";
 import Public from "../Public/Public";
 import Document from "../PublicFeatures/Publications/Document";
-import Gateway from './Gateway';
+import Gateway from './Gateway/Gateway';
 
 //AUTH
 import { AuthenticatedRoute, UnauthenticatedRoute, AuthProvider } from "../../authentication/Auth";

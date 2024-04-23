@@ -1,0 +1,41 @@
+ @keyframes fadeIn {
+    from { opacity: 0; }
+    to { opacity: 1; }
+  }
+  
+  @keyframes sizeGrow {
+    from { transform: scale(0.5); }
+    to { transform: scale(1); }
+  }
+
+  .smallLogo {
+    height: 3vw;
+    width: 6vw;
+    margin-bottom: 1vw;
+    cursor: default;
+  }
+  
+  .mainContainer {
+    display: flex;
+    flex-grow: 1;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+  }
+  
+  .textBox {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    background-color: rgba(255, 255, 255, 0.9);
+    height: 18.8vw;
+    width: 26vw;
+    padding: 2vw;
+    border-radius: .5vw;
+    box-shadow: 0px 0px 20px 0px rgba(0, 0, 0, 0.75);
+    margin-top: 30vh;
+    animation: fadeIn 1s ease-in-out 0.5s forwards, 
+    sizeGrow 1s ease-in-out 0.5s forwards;
+  }
+
+ 
