@@ -38,10 +38,19 @@ const PrivateListItems = () => {
         setSelectedInnerItem(item);
     };
 
+
     const getInnerItemStyle = (item) => ({
-        backgroundColor: selectedInnerItem === item ? '#f2f2f2' : 'transparent',
+        backgroundColor: selectedInnerItem === item ? '#003EAB' : 'transparent', // Blue background
+        color: selectedInnerItem === item ? 'white' : 'grey', // Blue background
+        borderRadius: selectedInnerItem === item ? '10px' : '0', // Rounded corners
         boxShadow: selectedInnerItem === item ? 'inset 0px 0px 4px rgba(0, 0, 0, 0.25)' : 'none',
-        paddingLeft: "25px"
+        paddingLeft: "15px",
+        marginLeft: "10px",
+        marginRight: "10px",
+    });
+
+    const getIconColor = (item) => ({
+        color: selectedInnerItem === item ? 'white' : 'inherit' // Icon color changes based on selection
     });
 
     const itemTextStyle = {
@@ -58,7 +67,7 @@ const PrivateListItems = () => {
                 onClick={() => handleClick('information')}
             >
                 <ListItemIcon>
-                    <InfoIcon />
+                    <InfoIcon/>
                 </ListItemIcon>
                 <ListItemText primary="Information"  style={ itemTextStyle }/>
                     {clickOpenSection === 'information' ? <ExpandLess /> : <ExpandMore />}
@@ -74,7 +83,7 @@ const PrivateListItems = () => {
                             onClick={() => handleInnerItemClick('privateHome')}
                         >
                             <ListItemIcon>
-                                <WavingHandIcon/>
+                                <WavingHandIcon style={getIconColor('privateHome')}/>
                             </ListItemIcon>
                             <ListItemText primary="Welcome"/>
                         </ListItemButton>
@@ -86,7 +95,7 @@ const PrivateListItems = () => {
                             onClick={() => handleInnerItemClick('tech')}
                         >
                             <ListItemIcon>
-                                <FeedIcon />
+                                <FeedIcon style={getIconColor('tech')}/>
                             </ListItemIcon>
                             <ListItemText primary="Tech Partners"/>
                         </ListItemButton>
@@ -117,7 +126,7 @@ const PrivateListItems = () => {
                             onClick={() => handleInnerItemClick('generateEmails')}
                         >
                             <ListItemIcon>
-                                <EmailIcon />
+                                <EmailIcon style={getIconColor('generateEmails')}/>
                             </ListItemIcon>
                             <ListItemText primary="Generate an Email" />
                         </ListItemButton>
@@ -129,7 +138,7 @@ const PrivateListItems = () => {
                             onClick={() => handleInnerItemClick('chatbot')}
                         >
                             <ListItemIcon>
-                                <ForumIcon />
+                                <ForumIcon style={getIconColor('chatbot')}/>
                             </ListItemIcon>
                             <ListItemText primary="Chat Bot" />
                         </ListItemButton>
@@ -141,7 +150,7 @@ const PrivateListItems = () => {
                             onClick={() => handleInnerItemClick('cro')}
                         >
                             <ListItemIcon>
-                                <SpokeIcon />
+                                <SpokeIcon style={getIconColor('cro')}/>
                             </ListItemIcon>
                             <ListItemText primary="Cable Run Optimizer" />
                         </ListItemButton>
@@ -153,7 +162,7 @@ const PrivateListItems = () => {
                             onClick={() => handleInnerItemClick('go')}
                         >
                             <ListItemIcon>
-                                <RailwayAlertIcon />
+                                <RailwayAlertIcon style={getIconColor('go')}/>
                             </ListItemIcon>
                             <ListItemText primary="GO Tracker" />
                         </ListItemButton>
@@ -183,7 +192,7 @@ const PrivateListItems = () => {
                             onClick={() => handleInnerItemClick('assetTracker')}
                         >
                             <ListItemIcon>
-                                <DevicesOtherIcon />
+                                <DevicesOtherIcon style={getIconColor('assetTracker')}/>
                             </ListItemIcon>
                             <ListItemText primary="Equipment Checkout" />
                         </ListItemButton>
@@ -195,7 +204,7 @@ const PrivateListItems = () => {
                             onClick={() => handleInnerItemClick('subAuto')}
                         >
                             <ListItemIcon>
-                                <ArticleIcon />
+                                <ArticleIcon style={getIconColor('subAuto')}/>
                             </ListItemIcon>
                             <ListItemText primary="Subcontractor Forms" />
                         </ListItemButton>
@@ -207,7 +216,7 @@ const PrivateListItems = () => {
                             onClick={() => handleInnerItemClick('ideaSubmission')}
                         >
                             <ListItemIcon>
-                                <LightbulbIcon />
+                                <LightbulbIcon style={getIconColor('ideaSubmission')}/>
                             </ListItemIcon>
                             <ListItemText primary="Idea Submission" />
                         </ListItemButton>
