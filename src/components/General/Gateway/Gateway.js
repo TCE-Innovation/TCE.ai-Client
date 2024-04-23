@@ -31,7 +31,7 @@ function Gateway() {
         <Box className={styles.mainContainer}>
             <Box className={styles.textBox}>
                 <img src={logo} alt="logo" className={styles.smallLogo} />
-                <Typography variant="h1" component="h1" gutterBottom sx={{ fontSize: '1.8vw', textAlign:"center" }}>
+                <Typography variant="h1" component="h1" gutterBottom sx={{ fontSize: '1.8vw', textAlign:"center", color: '#1b365f', }}>
                     Welcome to the home of the <br/> TC Innovation Group
                 </Typography>
             </Box>
@@ -44,11 +44,12 @@ function Gateway() {
                         color: '#1b365f', 
                         borderColor: '#1b365f', 
                         backgroundColor: 'rgba(255, 255, 255, 0.9)', 
+                        boxShadow:'0px 0px 20px 0px rgba(0, 0, 0, 0.75)',
                         fontWeight: 500, 
-                        borderRadius: '1vw', 
+                        borderRadius: '.5vw', 
                         fontSize: '1.3vw',
-                        width: '20.5vw', 
-                        height: '2.5vw',
+                        width: '21.5vw', 
+                        height: '3vw',
                         borderWidth: '.2vw',
                         whiteSpace: 'nowrap',
                         transition: 'ease-intransform 0.2s ease-in-out, border-width 0.2s ease-in-out, font-weight 0.2s ease-in-out, color 0.2s ease-in-out, border-color 0.2s ease-in-out',
@@ -59,7 +60,7 @@ function Gateway() {
                 </Button>
 
                 <Typography variant="h1" component="h1" gutterBottom sx={{ fontSize: '1.4vw', textAlign:"center", marginTop: ".3vw", color: 'white' }}>
-                    OR
+                    
                 </Typography>
 
                 <Button
@@ -72,13 +73,15 @@ function Gateway() {
                         color: '#1b365f', 
                         borderColor: '#1b365f', 
                         backgroundColor: 'rgba(255, 255, 255, 0.9)', 
+                        boxShadow:'0px 0px 20px 0px rgba(0, 0, 0, 0.75)',
                         fontWeight: 500, 
-                        borderRadius: '1vw', 
+                        borderRadius: '.5vw', 
                         fontSize: '1.3vw',
                         width: '21.5vw', 
-                        height: '2.5vw',
+                        height: '3vw',
                         borderWidth: '.2vw',
                         whiteSpace: 'nowrap',
+                        marginTop: '.5vw',
                         '&:hover': { borderWidth: '.3vw', borderColor: '#003eab', backgroundColor: 'rgba(255, 255, 255, 0.9)', transform: 'scale(1.05)' }, 
                     }}
                 >
