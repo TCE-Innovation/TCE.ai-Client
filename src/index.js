@@ -3,7 +3,7 @@ import React from 'react';
 import { createRoot } from 'react-dom/client';
 
 //CSS
-import './index.css';
+//import './index.css';
 import 'bootstrap/dist/css/bootstrap.min.css';
 
 //COMPONENTS

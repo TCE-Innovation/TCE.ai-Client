@@ -31,10 +31,11 @@ function Gateway() {
         <Box className={styles.mainContainer}>
             <Box className={styles.textBox}>
                 <img src={logo} alt="logo" className={styles.smallLogo} />
-                <Typography variant="h1" component="h1" gutterBottom sx={{ fontSize: '1.4vw', textAlign:"center" }}>
-                    Welcome to tcig.nyc
+                <Typography variant="h1" component="h1" gutterBottom sx={{ fontSize: '1.8vw', textAlign:"center" }}>
+                    Welcome to the home of the <br/> TC Innovation Group
                 </Typography>
-
+            </Box>
+            <Box className={styles.buttonBox}>
                 <Button
                     fullWidth
                     size="large"
@@ -42,22 +43,22 @@ function Gateway() {
                     sx={{ 
                         color: '#1b365f', 
                         borderColor: '#1b365f', 
-                        backgroundColor: 'none', 
+                        backgroundColor: 'rgba(255, 255, 255, 0.9)', 
                         fontWeight: 500, 
-                        borderRadius: '2vw', 
+                        borderRadius: '1vw', 
                         fontSize: '1.3vw',
                         width: '20.5vw', 
                         height: '2.5vw',
                         borderWidth: '.2vw',
                         whiteSpace: 'nowrap',
-                        marginTop: '1.5vw',
-                        '&:hover': { borderWidth: '.3vw', fontWeight: 700, color: '#003eab', borderColor: '#003eab' }, 
+                        transition: 'ease-intransform 0.2s ease-in-out, border-width 0.2s ease-in-out, font-weight 0.2s ease-in-out, color 0.2s ease-in-out, border-color 0.2s ease-in-out',
+                        '&:hover': { borderWidth: '.3vw', borderColor: '#003eab', backgroundColor: 'rgba(255, 255, 255, 0.9)', transform: 'scale(1.05)' }, 
                     }}
                 >
                     Sign in to the private site
                 </Button>
 
-                <Typography variant="h1" component="h1" gutterBottom sx={{ fontSize: '1.4vw', textAlign:"center", marginTop: ".3vw" }}>
+                <Typography variant="h1" component="h1" gutterBottom sx={{ fontSize: '1.4vw', textAlign:"center", marginTop: ".3vw", color: 'white' }}>
                     OR
                 </Typography>
 
@@ -70,16 +71,15 @@ function Gateway() {
                     sx={{ 
                         color: '#1b365f', 
                         borderColor: '#1b365f', 
-                        backgroundColor: 'none', 
+                        backgroundColor: 'rgba(255, 255, 255, 0.9)', 
                         fontWeight: 500, 
-                        borderRadius: '2vw', 
+                        borderRadius: '1vw', 
                         fontSize: '1.3vw',
                         width: '21.5vw', 
                         height: '2.5vw',
                         borderWidth: '.2vw',
                         whiteSpace: 'nowrap',
-                        marginTop: '.0vw',
-                        '&:hover': { borderWidth: '.3vw', fontWeight: 700, color: '#003eab', borderColor: '#003eab' }, 
+                        '&:hover': { borderWidth: '.3vw', borderColor: '#003eab', backgroundColor: 'rgba(255, 255, 255, 0.9)', transform: 'scale(1.05)' }, 
                     }}
                 >
                     Continue to the public site

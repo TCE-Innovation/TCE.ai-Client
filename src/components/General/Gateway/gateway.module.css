@@ -9,8 +9,8 @@
   }
 
   .smallLogo {
-    height: 3vw;
-    width: 6vw;
+    height: 4vw;
+    width: 8vw;
     margin-bottom: 1vw;
     cursor: default;
   }
@@ -28,7 +28,7 @@
     flex-direction: column;
     align-items: center;
     background-color: rgba(255, 255, 255, 0.9);
-    height: 18.8vw;
+    height: 14vw;
     width: 26vw;
     padding: 2vw;
     border-radius: .5vw;
@@ -38,4 +38,16 @@
     sizeGrow 1s ease-in-out 0.5s forwards;
   }
 
- 
+  .buttonBox {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    height: 10vw;
+    width: 26vw;
+    padding: 1vw;
+    margin-top: 2vw;
+    border-radius: .5vw;
+    animation: fadeIn 1s ease-in-out 0.5s forwards, 
+    sizeGrow 1s ease-in-out 0.5s forwards;
+  }
+
