@@ -127,12 +127,11 @@ function ResponsiveAppBar() {
                     <Typography
                         variant="h1"
                         noWrap
-                        fontSize="50px"
+                        fontSize="40px"
                         sx={{
                             marginTop: '10px',
                             flexGrow: 1,
                             fontfamily: "Roboto",
-                            fontWeight: 'bold',
                             letterSpacing: '.1rem',
                             color: 'white',
                             textDecoration: 'none',
