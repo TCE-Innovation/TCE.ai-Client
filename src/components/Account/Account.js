@@ -2,14 +2,11 @@
 import React, { useContext } from 'react';
 
 //MUI
-import { Card, CardContent } from "@mui/material";
 import Box from "@mui/material/Box";
 import Grid from "@mui/material/Grid";
 
 //COMPONENTS
-import Copyright from '../General/Copyright';
 import { LogOutButton } from "./LogOut/LogOutButton";
-import PrivateNavigation from "../Private/PrivateNavigation";
 
 //AUTH
 import { AuthContext } from "../../authentication/Auth";
@@ -42,19 +39,6 @@ function AccountCard() {
     const { userName, userEmail, userTitle, userProjects } = useContext(AuthContext);
 
     return (
-        <React.Fragment>
-            <header className="App-header">
-                <PrivateNavigation />
-            </header>
-
-            <CardContent>
-                <Grid
-                    container
-                    spacing={0}
-                    direction="column"
-                    alignItems="center"
-                    justify="center"
-                >
                     <div>
                         <br />
                         <h2>Welcome back, {userName}!</h2>
@@ -71,9 +55,6 @@ function AccountCard() {
                             <LogOutButton />
                         </Box>
                     </div>
-                </Grid>
-            </CardContent>
-        </React.Fragment>
     )
 }
 
@@ -85,14 +66,9 @@ function Account() {
             direction="column"
             alignItems="center"
             justify="center"
-            style={{ minHeight: '100vh', }}
         >
-            <Box sx={{ minWidth: 275, margin: "30px" }}>
-                <Card className="m-5 p-5" variant="outlined">
-                    <AccountCard />
-                </Card>
-            </Box>
-            <Copyright sx={{ mt: 2 }} />
+            <AccountCard />
+
         </Grid>
     );
 }

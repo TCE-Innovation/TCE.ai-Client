@@ -13,9 +13,7 @@ import Box from '@mui/material/Box';
 import Toolbar from '@mui/material/Toolbar';
 import IconButton from '@mui/material/IconButton';
 import Typography from '@mui/material/Typography';
-import Menu from '@mui/material/Menu';
 import Avatar from '@mui/material/Avatar';
-import MenuItem from '@mui/material/MenuItem';
 import Tooltip from '@mui/material/Tooltip';
 import HelpOutlineIcon from '@mui/icons-material/HelpOutline';
 
@@ -27,28 +25,21 @@ import noUser from '../../img/Utils/noUser.webp'
 //CONTEXTS
 import {AuthContext} from "../../authentication/Auth";
 
-//HOOKS
-import {useMicrosoftSignOut} from "../Account/LogOut/LogOutFunc";
-
 //COMPONENTS
 import Support from "../PrivateFeatures/Support";
+import Account from "../Account/Account";
 
 function ResponsiveAppBar() {
-    const [openDialog, setOpenDialog] = useState(false);
+    const [openDialog, setOpenSupportDialog] = useState(false);
+    const [openAccountDialog, setOpenAccountDialog] = useState(false);
 
-    const handleOpenDialog = () => {
-        setOpenDialog(true);
-    };
-
-    const handleCloseDialog = () => {
-        setOpenDialog(false);
-    };
-
-    const [anchorElUser, setAnchorElUser] = useState(null);
-    const { tool } = useParams(); // Get the current tool from URL
-
+    const { tool } = useParams();
     const { userPic } = useContext(AuthContext);
-    const accSettings = [ "Public", "Account", "Log Out"]
+
+    const handleOpenSupportDialog = () => setOpenSupportDialog(true);
+    const handleCloseSupportDialog = () => setOpenSupportDialog(false);
+    const handleOpenAccountDialog = () => setOpenAccountDialog(true);
+    const handleCloseAccountDialog = () => setOpenAccountDialog(false);
 
     function setTitle(tool) {
         switch(tool) {
@@ -64,8 +55,6 @@ function ResponsiveAppBar() {
                 return 'Information';
             case 'go-tracker':
                 return 'GO Tracker';
-            case 'account':
-                return 'My Account';
             case 'contact':
                 return 'Idea Submission';
             case 'sub-automation':
@@ -83,24 +72,40 @@ function ResponsiveAppBar() {
         }
     }
 
-    const handleOpenUserMenu = (event) => {
-        setAnchorElUser(event.currentTarget);
-    };
-
-    const handleCloseUserMenu = () => {
-        setAnchorElUser(null);
-    };
-
-    const MicrosoftSignOut = useMicrosoftSignOut();
-
     return (
         <>
-        <Dialog open={openDialog} onClose={handleCloseDialog} fullWidth maxWidth="md">
+        <Dialog open={openDialog} onClose={handleCloseSupportDialog} fullWidth maxWidth="md">
             <DialogContent>
                 <Support />
             </DialogContent>
             <DialogActions>
-                <Button onClick={handleCloseDialog} color="primary">
+                <Button onClick={handleCloseSupportDialog} color="primary">
+                    Close
+                </Button>
+            </DialogActions>
+        </Dialog>
+
+        <Dialog
+            open={openAccountDialog}
+            onClose={handleCloseAccountDialog}
+            fullWidth
+            maxWidth="md"
+            PaperProps={{
+                style: {
+                    marginTop: '4vw', // Adjusts vertical position from the top of the screen
+                    marginRight: '4vw', 
+                    position: 'absolute',
+                    top: 0,
+                    right: 0,
+                    width: '35vw',
+                }
+            }}
+        >
+            <DialogContent>
+                <Account />
+            </DialogContent>
+            <DialogActions>
+                <Button onClick={handleCloseAccountDialog} color="primary">
                     Close
                 </Button>
             </DialogActions>
@@ -141,14 +146,14 @@ function ResponsiveAppBar() {
                         {setTitle(tool)}
                     </Typography>
                     <Box sx={{  display: 'flex', alignItems: 'center', marginTop: '7px', marginRight: '30px'}}>           
-                        <IconButton onClick={handleOpenDialog}>
+                        <IconButton onClick={handleOpenSupportDialog}>
                             <Tooltip title="Support">
                                 <HelpOutlineIcon sx={{ color: 'white', fontSize: '60px' }} />
                             </Tooltip>
                         </IconButton>
 
-                        <IconButton onClick={handleOpenUserMenu}>
-                            <Tooltip title="User Menu">
+                        <IconButton onClick={handleOpenAccountDialog}>
+                            <Tooltip title="Account">
                                 <Avatar
                                     alt="You"
                                     src={userPic ? userPic : noUser}
@@ -157,43 +162,6 @@ function ResponsiveAppBar() {
                                 />
                             </Tooltip>
                         </IconButton>
-                        <Menu
-                            sx={{ mt: '65px' }}
-                            id="menu-appbar"
-                            anchorEl={anchorElUser}
-                            anchorOrigin={{
-                                vertical: 'top',
-                                horizontal: 'right',
-                            }}
-                            keepMounted
-                            transformOrigin={{
-                                vertical: 'top',
-                                horizontal: 'right',
-                            }}
-                            open={Boolean(anchorElUser)}
-                            onClose={handleCloseUserMenu}
-                        >
-
-                            {accSettings.map((setting) => (
-                                <MenuItem key={setting} onClick={handleCloseUserMenu}>
-                                    {setting === "Public" && (
-                                        <NavLink to="/public" style={{color: 'black'}}>
-                                            <Typography textAlign="center">{setting}</Typography>
-                                        </NavLink>
-                                    )}
-                                    {setting === "Account" && (
-                                        <NavLink to="/account" style={{color: 'black'}}>
-                                            <Typography textAlign="center">{setting}</Typography>
-                                        </NavLink>
-                                    )}
-                                    {setting === "Log Out" && (
-                                        <NavLink to="/" style={{color: 'black'}} onClick={MicrosoftSignOut} >
-                                            <Typography textAlign="center">{setting}</Typography>
-                                        </NavLink>
-                                    )}
-                                </MenuItem>
-                            ))}
-                        </Menu>
                     </Box>
                 </Toolbar>
         </AppBar>

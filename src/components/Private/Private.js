@@ -16,6 +16,8 @@ import IconButton from '@mui/material/IconButton';
 import ChevronLeftIcon from '@mui/icons-material/ChevronLeft';
 import {ChevronRight} from "@mui/icons-material";
 import Tooltip from "@mui/material/Tooltip";
+import { Button } from '@mui/material';
+import ExitToAppIcon from '@mui/icons-material/ExitToApp';
 
 //COMPONENTS
 import PrivateHome from "./PrivateHome";
@@ -131,6 +133,10 @@ function PrivateContent() {
           ComponentToRender = PrivateHome;
   }
 
+  const handlePublicNavigate = () => {
+    navigate('/public');
+  };
+
   return (
     
     <ThemeProvider theme={mdTheme}>     
@@ -161,6 +167,27 @@ function PrivateContent() {
             <List component="nav">
               <PrivateListItems />
             </List>
+            <Box sx={{ flexGrow: .83 }} /> 
+            <Divider />
+            {open ? (
+              <Button 
+                sx={{ m: 2 }} 
+                variant="outlined" 
+                onClick={handlePublicNavigate}
+                style={{color: '#1b365f', borderColor: '#1b365f'}}
+              >
+                Go to Public Site
+              </Button>
+            ) : (
+              <IconButton 
+                sx={{ mx: 'auto', color: 'action.active', my: 1 }} 
+                onClick={handlePublicNavigate}
+              >
+                <Tooltip title="Go to Public">
+                  <ExitToAppIcon />
+                </Tooltip>
+              </IconButton>
+            )}
           </Drawer>
         
         <Box component="main" sx={{ marginTop: 5, flexGrow: 1, p: 3, ml: open ? 39 : 9 }}>

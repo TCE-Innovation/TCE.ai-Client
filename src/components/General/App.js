@@ -3,7 +3,6 @@ import React from 'react';
 import { BrowserRouter as Router, Route, Routes, Navigate } from 'react-router-dom';
 
 //COMPONENTS
-import Account from "../Account/Account";
 import SignIn from "../Account/SignIn";
 import Private from "../Private/Private";
 import Public from "../Public/Public";
@@ -28,10 +27,6 @@ function App() {
                     
                     <Route path="/sign-in" element={<UnauthenticatedRoute />}>
                         <Route index element={<SignIn />} />
-                    </Route>
-
-                    <Route path='/account' element={<AuthenticatedRoute />}>
-                        <Route index element={<Account />} />
                     </Route>
 
                     <Route path='/private/:tool' element={<AuthenticatedRoute />}>
