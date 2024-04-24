@@ -7,6 +7,7 @@ import DownloadIcon from '@mui/icons-material/Download';
 import KeyboardArrowUpIcon from '@mui/icons-material/KeyboardArrowUp';
 import KeyboardArrowDownIcon from '@mui/icons-material/KeyboardArrowDown';
 import axios from 'axios';
+import Tooltip from '@mui/material/Tooltip';
 
 // Predefined data for carousel items
 const initialData = [
@@ -135,6 +136,8 @@ function DownloadButton({ sasUrl, blobName }) {
     };
 
     return (
-        <DownloadIcon className={styles.downloadButton} onClick={handleDownloadClick} />
+        <Tooltip title="Click to download">
+            <DownloadIcon className={styles.downloadButton} onClick={handleDownloadClick} />
+        </Tooltip>
     );
 }
