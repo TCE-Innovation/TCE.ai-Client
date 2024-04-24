@@ -51,7 +51,7 @@ function ResponsiveAppBar() {
     const { accounts } = useMsal();
 
     const isAuthenticated = accounts.length > 0;
-    const accSettings = ["Toolbox", "Account", "Log Out"]
+    const accSettings = ["Toolbox", "Log Out"]
 
     const handleOpenUserMenu = (event) => {
         setAnchorElUser(event.currentTarget);
@@ -173,11 +173,6 @@ function ResponsiveAppBar() {
                                 <MenuItem key={setting} onClick={handleCloseUserMenu}>
                                     {setting === "Toolbox" && (
                                         <NavLink to="/private/welcome" style={{color: 'black'}}>
-                                            <Typography textAlign="center">{setting}</Typography>
-                                        </NavLink>
-                                    )}
-                                    {setting === "Account" && (
-                                        <NavLink to="/account" style={{color: 'black'}}>
                                             <Typography textAlign="center">{setting}</Typography>
                                         </NavLink>
                                     )}
