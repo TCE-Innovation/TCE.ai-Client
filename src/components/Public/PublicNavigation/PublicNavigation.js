@@ -43,7 +43,7 @@ function ResponsiveAppBar() {
         if (mainContainer) {
             mainContainer.scrollTo({
                 top: 0,
-                behavior: 'smooth'  // Adds smooth scrolling animation
+                behavior: 'smooth'
             });
         }
     };    
