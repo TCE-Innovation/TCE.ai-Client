@@ -40,7 +40,7 @@ const PrivateListItems = () => {
 
 
     const getInnerItemStyle = (item) => ({
-        backgroundColor: selectedInnerItem === item ? '#003EAB' : 'transparent', // Blue background
+        backgroundColor: selectedInnerItem === item ? '#1b365f' : 'transparent', // Blue background
         color: selectedInnerItem === item ? 'white' : 'grey', // Blue background
         borderRadius: selectedInnerItem === item ? '10px' : '0', // Rounded corners
         boxShadow: selectedInnerItem === item ? 'inset 0px 0px 4px rgba(0, 0, 0, 0.25)' : 'none',

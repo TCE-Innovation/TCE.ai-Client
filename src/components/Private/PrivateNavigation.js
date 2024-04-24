@@ -107,7 +107,7 @@ function ResponsiveAppBar() {
         </Dialog>
 
         <AppBar position="fixed" sx={{
-            background: '#003EAB', height: '90px'
+            background: '#1b365f', height: '90px'
         }}>
                 <Toolbar disableGutters>
                     <Box sx={{ display: 'flex', alignItems: 'center'}}>       
