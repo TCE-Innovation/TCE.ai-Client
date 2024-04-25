@@ -172,12 +172,12 @@ function ResponsiveAppBar() {
                             {accSettings.map((setting) => (
                                 <MenuItem key={setting} onClick={handleCloseUserMenu}>
                                     {setting === "Toolbox" && (
-                                        <NavLink to="/private/welcome" style={{color: 'black'}}>
+                                        <NavLink to="/private/welcome" style={{color: 'black', textDecoration: 'none'}}>
                                             <Typography textAlign="center">{setting}</Typography>
                                         </NavLink>
                                     )}
                                     {setting === "Log Out" && (
-                                        <NavLink to="/" style={{color: 'black'}} onClick={MicrosoftSignOut} >
+                                        <NavLink to="/" style={{color: 'black', textDecoration: 'none'}} onClick={MicrosoftSignOut} >
                                             <Typography textAlign="center">{setting}</Typography>
                                         </NavLink>
                                     )}

@@ -145,13 +145,13 @@ function ResponsiveAppBar() {
                     </Typography>
                     <Box sx={{  display: 'flex', alignItems: 'center', marginTop: '7px', marginRight: '30px'}}>           
                         <IconButton onClick={handleOpenSupportDialog}>
-                            <Tooltip title="Support">
+                            <Tooltip title="Need help?">
                                 <HelpOutlineIcon sx={{ color: 'white', fontSize: '60px' }} />
                             </Tooltip>
                         </IconButton>
 
                         <IconButton onClick={handleOpenIdeaDialog}>
-                            <Tooltip title="Idea Submission">
+                            <Tooltip title="Got an idea?">
                                 <LightbulbOutlinedIcon sx={{ color: 'white', fontSize: '60px', marginRight: '.2vw' }} />
                             </Tooltip>
                         </IconButton>
