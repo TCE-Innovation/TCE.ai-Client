@@ -160,7 +160,7 @@ function PrivateContent() {
             <List component="nav">
               <PrivateListItems />
             </List>
-            <Box sx={{ flexGrow: .83 }} /> 
+            <Box sx={{ flexGrow: .75 }} /> 
             <Divider />
             {open ? (
               <Button 
