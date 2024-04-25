@@ -65,10 +65,8 @@ function ResponsiveAppBar() {
                 return 'Subcontractor Form Automation';
             case 'public':
                 return 'TCE Innovation Group';
-            case 'tech-partners':
-                return 'Tech Partners';
-            case 'welcome':
-                return 'Welcome';
+            case 'home':
+                return 'Home';
             default:
                 return 'TCE Innovation Group';  
         }
@@ -114,7 +112,7 @@ function ResponsiveAppBar() {
         }}>
                 <Toolbar disableGutters>
                     <Box sx={{ display: 'flex', alignItems: 'center', justifyContent:"center"}}>       
-                        <NavLink to="/private/welcome">
+                        <NavLink to="/private/home">
                             <img
                                 src={logo}
                                 alt='logo'

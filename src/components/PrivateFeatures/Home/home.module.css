@@ -113,3 +113,8 @@
     cursor: pointer;
     color: gray;
 }
+
+.image{
+    height: 100%;
+    width: 100%;
+}

@@ -1,15 +1,9 @@
 import * as React from 'react';
 import { Link } from 'react-router-dom';
-
-// MUI
-import List from '@mui/material/List';
-import ListItemButton from '@mui/material/ListItemButton';
-import ListItemIcon from '@mui/material/ListItemIcon';
-import ListItemText from '@mui/material/ListItemText';
+import { List, ListItemButton, ListItemIcon, ListItemText } from '@mui/material';
 
 // ICONS
-import WavingHandOutlinedIcon from '@mui/icons-material/WavingHandOutlined';
-import FeedOutlinedIcon from '@mui/icons-material/FeedOutlined';
+import HomeOutlinedIcon from '@mui/icons-material/HomeOutlined';
 import EmailOutlinedIcon from '@mui/icons-material/EmailOutlined';
 import ForumOutlinedIcon from '@mui/icons-material/ForumOutlined';
 import SpokeOutlinedIcon from '@mui/icons-material/SpokeOutlined';
@@ -18,7 +12,7 @@ import DevicesOtherIcon from '@mui/icons-material/DevicesOther';
 import ArticleOutlinedIcon from '@mui/icons-material/ArticleOutlined';
 
 const PrivateListItems = () => {
-    const [selectedInnerItem, setSelectedInnerItem] = React.useState('privateHome');
+    const [selectedInnerItem, setSelectedInnerItem] = React.useState('home');
 
     const handleInnerItemClick = (item) => {
         setSelectedInnerItem(item);
@@ -33,115 +27,33 @@ const PrivateListItems = () => {
     });
 
     const getIconColor = (item) => ({
-        color: selectedInnerItem === item ? 'white' : 'inherit'
+        color: selectedInnerItem === item ? 'white' : 'inherit' 
     });
 
-    const itemTextStyle = {
-        color: 'grey',
-        width: '150px',
-        fontWeight: '200',
-        textDecoration: 'none',
+    const getIcon = (iconComponent, itemKey) => {
+        return <ListItemIcon style={getIconColor(itemKey)}>{iconComponent}</ListItemIcon>;
     };
 
     return (
         <List component="nav">
-            <Link to="/private/welcome" style={itemTextStyle}>
-                <ListItemButton 
-                    style={getInnerItemStyle('privateHome')}
-                    onClick={() => handleInnerItemClick('privateHome')}
-                >
-                    <ListItemIcon>
-                        <WavingHandOutlinedIcon style={getIconColor('privateHome')}/>
-                    </ListItemIcon>
-                    <ListItemText primary="Welcome"/>
-                </ListItemButton>
-            </Link>
-
-            <Link to="/private/tech-partners" style={itemTextStyle}>
-                <ListItemButton 
-                    style={getInnerItemStyle('tech')}
-                    onClick={() => handleInnerItemClick('tech')}
-                >
-                    <ListItemIcon>
-                        <FeedOutlinedIcon style={getIconColor('tech')}/>
-                    </ListItemIcon>
-                    <ListItemText primary="Tech Partners"/>
-                </ListItemButton>
-            </Link>
-
-            <Link to="/private/generate-emails" style={itemTextStyle}>
-                <ListItemButton 
-                    style={getInnerItemStyle('generateEmails')}
-                    onClick={() => handleInnerItemClick('generateEmails')}
-                >
-                    <ListItemIcon>
-                        <EmailOutlinedIcon style={getIconColor('generateEmails')}/>
-                    </ListItemIcon>
-                    <ListItemText primary="Generate an Email" />
-                </ListItemButton>
-            </Link>
-
-            <Link to="/private/chat-bot" style={itemTextStyle}>
-                <ListItemButton 
-                    style={getInnerItemStyle('chatbot')}
-                    onClick={() => handleInnerItemClick('chatbot')}
-                >
-                    <ListItemIcon>
-                        <ForumOutlinedIcon style={getIconColor('chatbot')}/>
-                    </ListItemIcon>
-                    <ListItemText primary="Chat Bot" />
-                </ListItemButton>
-            </Link>
-
-            <Link to="/private/cable-run-optimizer" style={itemTextStyle}>
-                <ListItemButton 
-                    style={getInnerItemStyle('cro')}
-                    onClick={() => handleInnerItemClick('cro')}
-                >
-                    <ListItemIcon>
-                        <SpokeOutlinedIcon style={getIconColor('cro')}/>
-                    </ListItemIcon>
-                    <ListItemText primary="Cable Run Optimizer" />
-                </ListItemButton>
-            </Link>
-
-            <Link to="/private/go-tracker" style={itemTextStyle}>
-                <ListItemButton 
-                    style={getInnerItemStyle('go')}
-                    onClick={() => handleInnerItemClick('go')}
-                >
-                    <ListItemIcon>
-                        <RailwayAlertOutlinedIcon style={getIconColor('go')}/>
-                    </ListItemIcon>
-                    <ListItemText primary="GO Tracker" />
-                </ListItemButton>
-            </Link>
-
-            <Link to="/private/equipment-checkout" style={itemTextStyle}>
-                <ListItemButton 
-                    style={getInnerItemStyle('assetTracker')}
-                    onClick={() => handleInnerItemClick('assetTracker')}
-                >
-                    <ListItemIcon>
-                        <DevicesOtherIcon style={getIconColor('assetTracker')}/>
-                    </ListItemIcon>
-                    <ListItemText primary="Equipment Checkout" />
-                </ListItemButton>
-            </Link>
-
-            <Link to="/private/sub-automation" style={itemTextStyle}>
-                <ListItemButton 
-                    style={getInnerItemStyle('subAuto')}
-                    onClick={() => handleInnerItemClick('subAuto')}
-                >
-                    <ListItemIcon>
-                        <ArticleOutlinedIcon style={getIconColor('subAuto')}/>
-                    </ListItemIcon>
-                    <ListItemText primary="Subcontractor Forms" />
-                </ListItemButton>
-            </Link>
+            {[
+                { to: '/private/home', text: 'Home', icon: <HomeOutlinedIcon />, key: 'home' },
+                { to: '/private/generate-emails', text: 'Email Generator', icon: <EmailOutlinedIcon />, key: 'generateEmails' },
+                { to: '/private/chat-bot', text: 'Chat Bot', icon: <ForumOutlinedIcon />, key: 'chatbot' },
+                { to: '/private/cable-run-optimizer', text: 'Cable Run Optimizer', icon: <SpokeOutlinedIcon />, key: 'cro' },
+                { to: '/private/go-tracker', text: 'GO Tracker', icon: <RailwayAlertOutlinedIcon />, key: 'go' },
+                { to: '/private/equipment-checkout', text: 'Equipment Checkout', icon: <DevicesOtherIcon />, key: 'assetTracker' },
+                { to: '/private/sub-automation', text: 'Subcontractor Forms', icon: <ArticleOutlinedIcon />, key: 'subAuto' },
+            ].map(item => (
+                <Link to={item.to} style={{ textDecoration: 'none', color: 'inherit' }} key={item.key}>
+                    <ListItemButton style={getInnerItemStyle(item.key)} onClick={() => handleInnerItemClick(item.key)}>
+                        {getIcon(item.icon, item.key)}
+                        <ListItemText primary={item.text} />
+                    </ListItemButton>
+                </Link>
+            ))}
         </List>
     );
-}
+};
 
 export default PrivateListItems;

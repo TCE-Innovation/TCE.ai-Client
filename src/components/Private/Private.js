@@ -20,13 +20,12 @@ import { Button } from '@mui/material';
 import ExitToAppIcon from '@mui/icons-material/ExitToApp';
 
 //COMPONENTS
-import PrivateHome from "./PrivateHome";
+import Home from '../PrivateFeatures/Home/Home';
 import PrivateListItems from "./privateItems";
 import CRO from '../PrivateFeatures/CRO/CRO';
 import ChatBot from '../PrivateFeatures/ChatBot';
 import AssetTracker from '../PrivateFeatures/AssetTracker/AssetTracker';
 import GenerateEmails from "../PrivateFeatures/GenerateEmails";
-import TechPartners from '../PrivateFeatures/TechPartners/TechPartners';
 import GOTracker from '../PrivateFeatures/GOTracker';
 import PrivateNavigation from "../Private/PrivateNavigation";
 import SubAuto from "../PrivateFeatures/SubAuto/SubAuto";
@@ -62,14 +61,13 @@ const Drawer = styled(MuiDrawer, { shouldForwardProp: (prop) => prop !== 'open' 
 const mdTheme = createTheme();
 
 const validTools = [
-  'tech-partners',
   'generate-emails',
   'cable-run-optimizer',
   'chat-bot',
   'equipment-checkout',
   'go-tracker',
   'sub-automation',
-  'welcome',
+  'home',
   // Add other valid tool routes here
 ];
 
@@ -85,19 +83,16 @@ function PrivateContent() {
   //check if the tool is valid
   React.useEffect(() => {
     if (tool && !validTools.includes(tool)) {
-      navigate("/private/welcome", { replace: true });
+      navigate("/private/home", { replace: true });
     }
   }, [tool, navigate]);
 
   // Determine which component to render based on the URL
   let ComponentToRender;
   switch (tool) {
-      case 'welcome':
-        ComponentToRender = PrivateHome;
+      case 'home':
+        ComponentToRender = Home;
         break;
-      case 'tech-partners':
-          ComponentToRender = TechPartners;
-          break;
       case 'generate-emails':
           ComponentToRender = GenerateEmails;
           break;
@@ -123,7 +118,7 @@ function PrivateContent() {
           break;
 
       default:
-          ComponentToRender = PrivateHome;
+          ComponentToRender = Home;
   }
 
   const handlePublicNavigate = () => {
@@ -150,11 +145,9 @@ function PrivateContent() {
                 px: [2],
               }}
             >
-              <Tooltip title="Expand/Collapse">
-                <IconButton onClick={toggleDrawer}>
-                  {open ? <ChevronLeftIcon /> : <ChevronRight />}
-                </IconButton>
-              </Tooltip>
+            <IconButton onClick={toggleDrawer}>
+              {open ? <ChevronLeftIcon /> : <ChevronRight />}
+            </IconButton>
             </Toolbar>
             <Divider />
             <List component="nav">
@@ -165,9 +158,8 @@ function PrivateContent() {
             {open ? (
               <Button 
                 sx={{ m: 2 }} 
-                variant="outlined" 
                 onClick={handlePublicNavigate}
-                style={{color: '#1b365f', borderColor: '#1b365f'}}
+                style={{color: 'grey'}}
               >
                 Go to Public Site
               </Button>
@@ -176,7 +168,7 @@ function PrivateContent() {
                 sx={{ mx: 'auto', color: 'action.active', my: 1 }} 
                 onClick={handlePublicNavigate}
               >
-                <Tooltip title="Go to Public">
+                <Tooltip title="Go to Public" placement="right">
                   <ExitToAppIcon />
                 </Tooltip>
               </IconButton>

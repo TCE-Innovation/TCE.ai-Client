@@ -1,5 +1,5 @@
 import React, {useState} from "react";
-import styles from "./techPartners.module.css";
+import styles from "./home.module.css";
 
 import ProCore from "../../../img/PartnerImages/ProCore.png";
 import Airtable from "../../../img/PartnerImages/Airtable.png";
@@ -107,7 +107,7 @@ const partnerData = [
   }
 ];
 
-const TechPartners = () => {
+const Home = () => {
   const [expandedIndex, setExpandedIndex] = useState(-1);
 
   const toggleReadMore = (index) => {
@@ -137,10 +137,7 @@ const TechPartners = () => {
             <div className={styles.oneLinerContainer}>
               <div style={{width: "22vw"}}>
                 <div className={styles.cardImage}>
-                  <img
-                    src={partner.imgSrc}
-                    alt={partner.name}
-                  />
+                  <img src={partner.imgSrc} alt={partner.name} className={styles.image}/>
                 </div>
               </div>
   
@@ -207,5 +204,5 @@ const TechPartners = () => {
   
 };
 
-export default TechPartners;
+export default Home;
 
