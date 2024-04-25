@@ -16,7 +16,7 @@ import Typography from '@mui/material/Typography';
 import Avatar from '@mui/material/Avatar';
 import Tooltip from '@mui/material/Tooltip';
 import HelpOutlineIcon from '@mui/icons-material/HelpOutline';
-import LightbulbIcon from '@mui/icons-material/Lightbulb';
+import LightbulbOutlinedIcon from '@mui/icons-material/LightbulbOutlined';
 
 
 //IMAGES
@@ -114,7 +114,7 @@ function ResponsiveAppBar() {
             background: '#1b365f', height: '90px'
         }}>
                 <Toolbar disableGutters>
-                    <Box sx={{ display: 'flex', alignItems: 'center'}}>       
+                    <Box sx={{ display: 'flex', alignItems: 'center', justifyContent:"center"}}>       
                         <NavLink to="/private/welcome">
                             <img
                                 src={logo}
@@ -153,7 +153,7 @@ function ResponsiveAppBar() {
 
                         <IconButton onClick={handleOpenIdeaDialog}>
                             <Tooltip title="Idea Submission">
-                                <LightbulbIcon sx={{ color: 'white', fontSize: '60px', marginRight: '.2vw' }} />
+                                <LightbulbOutlinedIcon sx={{ color: 'white', fontSize: '60px', marginRight: '.2vw' }} />
                             </Tooltip>
                         </IconButton>
 
@@ -163,7 +163,7 @@ function ResponsiveAppBar() {
                                     alt="You"
                                     src={userPic ? userPic : noUser}
                                     imgProps={{ referrerPolicy: "no-referrer" }}
-                                    style={{height:"50px", width:"50px"}}
+                                    style={{height:"55px", width:"55px"}}
                                 />
                             </Tooltip>
                         </IconButton>
