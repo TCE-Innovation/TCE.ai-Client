@@ -18,7 +18,6 @@ import Tooltip from '@mui/material/Tooltip';
 import HelpOutlineIcon from '@mui/icons-material/HelpOutline';
 import LightbulbOutlinedIcon from '@mui/icons-material/LightbulbOutlined';
 
-
 //IMAGES
 import logo from '../../img/Utils/whiteLogo.png'
 import noUser from '../../img/Utils/noUser.webp'

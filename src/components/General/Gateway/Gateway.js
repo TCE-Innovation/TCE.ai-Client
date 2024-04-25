@@ -1,6 +1,6 @@
 import React from 'react';
 import { createTheme, ThemeProvider, Box, Button, GlobalStyles, Typography } from '@mui/material';
-import backgroundImage from '../../../img/Public/city.jpg';
+import backgroundImage from '../../../img/Public/city.webp';
 import logo from '../../../img/Utils/logo.png';
 import { useMicrosoftSignIn } from "../../Account/LoginFunc";
 import styles from './gateway.module.css';
