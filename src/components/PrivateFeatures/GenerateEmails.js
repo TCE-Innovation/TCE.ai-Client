@@ -98,6 +98,22 @@ const GenerateEmails = () => {
     };
 
     return (
+        <>
+        <Box 
+            sx={{
+                display: 'flex',
+                flexDirection: 'column',
+                padding: 4,
+                marginTop: '20px',
+            }}
+        >
+            <Typography variant="h6" align="center" sx={{color: '#1b365f'}} gutterBottom>
+            The Email Generator is a dynamic tool designed to streamline the process of creating and sending customized emails. 
+            It allows users to specify details such as the recipient's email and name, the purpose of the email, and any relevant 
+            context or previous correspondence, as well as offering customizable options for the style, tone, and length 
+            of the email. The program generates an email based on this criteria, ensuring that each message is tailored to its intended audience and purpose.
+            </Typography>
+        </Box > 
         <Box
             sx={{
                 display: 'flex',
@@ -297,6 +313,7 @@ const GenerateEmails = () => {
                 )}
             </Box>
         </Box>
+        </>
     );
 };
 

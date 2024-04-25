@@ -1,5 +1,6 @@
 import React, { useState, useContext } from 'react';
-import { FormControl, TextField, Button, CircularProgress } from '@mui/material';
+import { FormControl, TextField, Button } from '@mui/material';
+import TrainLoader from '../General/TrainLoader';
 
 import { sendPrivateFormData } from '../../API Calls/Airtable';
 import { AuthContext } from "../../authentication/Auth";
@@ -26,7 +27,7 @@ const IdeaSubmission = () => {
                 console.error('Error submitting form data:', error);
             })
             .finally(() => {
-                setIsLoading(false); // Stop loading regardless of outcome
+                setIsLoading(false); // Stop loading
             });
     };
 
@@ -37,13 +38,19 @@ const IdeaSubmission = () => {
 
     const isButtonDisabled = ideaDescription.trim() === '';
 
+    const spinnerContainerStyle = {
+        display: 'flex',
+        justifyContent: 'center',
+        alignItems: 'center'
+    };
+
     return (
         <div className='container'>
             <br />
             {isLoading ? (
                 // Show loading spinner when form is being submitted
-                <div style={{ textAlign: "center", paddingTop: "20px" }}>
-                    <CircularProgress />
+                <div style={spinnerContainerStyle}>
+                    <TrainLoader />
                 </div>
             ) : !isSubmitted ? (
                 // Show form if not submitted and not loading

@@ -3,6 +3,7 @@ import { FormControl, TextField, Button, Select, MenuItem, InputLabel, ListSubhe
 
 import { getActiveProjects, sendSupportFormData } from '../../API Calls/Airtable';
 import { AuthContext } from "../../authentication/Auth";
+import TrainLoader from '../General/TrainLoader';
 
 import './submitbutton.css'
 
@@ -85,12 +86,17 @@ const Support = () => {
 
     const isButtonDisabled = isLoading || problemDescription.trim() === '' || project.trim() === '' || subject.trim() === '';
 
+    const spinnerContainerStyle = {
+        display: 'flex',
+        justifyContent: 'center',
+        alignItems: 'center'
+    };
+
     return (
         <div className='container'>
             {isLoading ? (
-                // Display the loading spinner centered when isLoading is true
-                <div style={{ textAlign: "center", paddingTop: "20px" }}>
-                    <CircularProgress />
+                <div style={spinnerContainerStyle}>
+                    <TrainLoader />
                 </div>
             ) : !isSubmitted ? (
                 // Display the form if not submitted and not loading
