@@ -121,6 +121,12 @@ const Home = () => {
   return (
     <div className="container">
       <br />
+      <div className={styles.techSubheader}>
+      Welcome to TCIG.nyc - home of the TC Innovation Group! Here, you'll find a suite of tools designed to enhance our internal operations and collaboration. 
+      Whether you're looking to access specific applications, seek guidance on our tech stack, or explore user documentation, everything you need 
+      is right at your fingertips. Our goal is to empower each team member with the resources and support necessary to excel in our projects. 
+      Dive into our tools or reach out for assistance - let's innovate together!
+      </div>
 
       <div className={styles.techSubheader}>
         On this page you will find information about software tools in TCE's technology stack. 
