@@ -22,9 +22,15 @@ const adminList = [
     'Patrick Besser'
 ]
 
-const PrivateListItems = () => {
+const PrivateListItems = ( {tool} ) => {
     const { userName } = useContext(AuthContext);
     const [selectedInnerItem, setSelectedInnerItem] = React.useState('home');
+
+    console.log('tool:', tool);
+
+    React.useEffect(() => {
+        setSelectedInnerItem(tool);
+    }, [tool]);
 
     const handleInnerItemClick = (item) => {
         setSelectedInnerItem(item);
@@ -48,12 +54,12 @@ const PrivateListItems = () => {
 
     const listItems = [
         { to: '/private/home', text: 'Home', icon: <HomeOutlinedIcon />, key: 'home' },
-        { to: '/private/generate-emails', text: 'Email Generator', icon: <EmailOutlinedIcon />, key: 'generateEmails' },
-        { to: '/private/chat-bot', text: 'Chat Bot', icon: <ForumOutlinedIcon />, key: 'chatbot' },
-        { to: '/private/cable-run-optimizer', text: 'Cable Run Optimizer', icon: <SpokeOutlinedIcon />, key: 'cro' },
-        { to: '/private/go-tracker', text: 'GO Tracker', icon: <RailwayAlertOutlinedIcon />, key: 'go' },
-        { to: '/private/equipment-checkout', text: 'Equipment Checkout', icon: <DevicesOtherIcon />, key: 'assetTracker' },
-        { to: '/private/sub-automation', text: 'Subcontractor Forms', icon: <ArticleOutlinedIcon />, key: 'subAuto' },
+        { to: '/private/generate-emails', text: 'Email Generator', icon: <EmailOutlinedIcon />, key: 'generate-emails' },
+        { to: '/private/chat-bot', text: 'Chat Bot', icon: <ForumOutlinedIcon />, key: 'chat-bot' },
+        { to: '/private/cable-run-optimizer', text: 'Cable Run Optimizer', icon: <SpokeOutlinedIcon />, key: 'cable-run-optimizer' },
+        { to: '/private/go-tracker', text: 'GO Tracker', icon: <RailwayAlertOutlinedIcon />, key: 'go-tracker' },
+        { to: '/private/equipment-checkout', text: 'Equipment Checkout', icon: <DevicesOtherIcon />, key: 'equipment-checkout' },
+        { to: '/private/sub-automation', text: 'Subcontractor Forms', icon: <ArticleOutlinedIcon />, key: 'sub-automation' },
     ];
 
     // Add admin specific item conditionally
@@ -62,7 +68,7 @@ const PrivateListItems = () => {
             to: '/private/data-dashboard', // Assuming there's a route for admin tools
             text: 'Data Dashboard',
             icon: <DonutSmallOutlinedIcon />,
-            key: 'dataDashboard'
+            key: 'data-dashboard'
         });
     }
 

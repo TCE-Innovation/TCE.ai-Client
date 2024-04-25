@@ -158,7 +158,7 @@ function PrivateContent() {
             </Toolbar>
             <Divider />
             <List component="nav">
-              <PrivateListItems />
+              <PrivateListItems tool={tool}/>
             </List>
             <Box sx={{ flexGrow: .75 }} /> 
             <Divider />

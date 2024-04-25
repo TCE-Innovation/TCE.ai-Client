@@ -47,26 +47,22 @@ function ResponsiveAppBar() {
 
     function setTitle(tool) {
         switch(tool) {
-            case 'generate-emails':
-                return 'Generate an Email';
-            case 'equipment-checkout':
-                return 'Equipment Checkout';
-            case 'cable-run-optimizer':
-                return 'Cable Run Optimizer';
-            case 'chat-bot':
-                return 'Chat Bot';
-            case 'info':
-                return 'Information';
-            case 'go-tracker':
-                return 'GO Tracker';
-            case 'contact':
-                return 'Idea Submission';
-            case 'sub-automation':
-                return 'Subcontractor Form Automation';
-            case 'public':
-                return 'TCE Innovation Group';
             case 'home':
                 return 'Home';
+            case 'generate-emails':
+                return 'Generate an Email';
+            case 'chat-bot':
+                return 'Chat Bot';   
+            case 'cable-run-optimizer':
+                return 'Cable Run Optimizer';
+            case 'go-tracker':
+                return 'GO Tracker';
+            case 'equipment-checkout':
+                return 'Equipment Checkout';
+            case 'sub-automation':
+                return 'Subcontractor Form Automation';
+            case 'data-dashboard':
+                return 'Data Dashboard';
             default:
                 return 'TCE Innovation Group';  
         }
