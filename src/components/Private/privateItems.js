@@ -24,7 +24,6 @@ import InfoIcon from '@mui/icons-material/Info';
 import ConstructionIcon from '@mui/icons-material/Construction';
 import FormatAlignJustifyIcon from '@mui/icons-material/FormatAlignJustify';
 import ArticleIcon from '@mui/icons-material/Article';
-import LightbulbIcon from '@mui/icons-material/Lightbulb';
 
 const PrivateListItems = () => {
     const [clickOpenSection, setClickOpenSection] = React.useState(null);
@@ -207,18 +206,6 @@ const PrivateListItems = () => {
                                 <ArticleIcon style={getIconColor('subAuto')}/>
                             </ListItemIcon>
                             <ListItemText primary="Subcontractor Forms" />
-                        </ListItemButton>
-                    </Link>
-
-                    <Link to="/private/idea-submission" style={itemTextStyle}>
-                        <ListItemButton 
-                            style={getInnerItemStyle('ideaSubmission')}
-                            onClick={() => handleInnerItemClick('ideaSubmission')}
-                        >
-                            <ListItemIcon>
-                                <LightbulbIcon style={getIconColor('ideaSubmission')}/>
-                            </ListItemIcon>
-                            <ListItemText primary="Idea Submission" />
                         </ListItemButton>
                     </Link>
 

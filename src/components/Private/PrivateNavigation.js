@@ -16,6 +16,7 @@ import Typography from '@mui/material/Typography';
 import Avatar from '@mui/material/Avatar';
 import Tooltip from '@mui/material/Tooltip';
 import HelpOutlineIcon from '@mui/icons-material/HelpOutline';
+import LightbulbIcon from '@mui/icons-material/Lightbulb';
 
 
 //IMAGES
@@ -28,10 +29,12 @@ import {AuthContext} from "../../authentication/Auth";
 //COMPONENTS
 import Support from "../PrivateFeatures/Support";
 import Account from "../Account/Account";
+import IdeaSubmission from "../PrivateFeatures/IdeaSubmission";
 
 function ResponsiveAppBar() {
     const [openDialog, setOpenSupportDialog] = useState(false);
     const [openAccountDialog, setOpenAccountDialog] = useState(false);
+    const [openIdeaDialog, setOpenIdeaDialog] = useState(false);
 
     const { tool } = useParams();
     const { userPic } = useContext(AuthContext);
@@ -40,6 +43,8 @@ function ResponsiveAppBar() {
     const handleCloseSupportDialog = () => setOpenSupportDialog(false);
     const handleOpenAccountDialog = () => setOpenAccountDialog(true);
     const handleCloseAccountDialog = () => setOpenAccountDialog(false);
+    const handleOpenIdeaDialog = () => setOpenIdeaDialog(true);
+    const handleCloseIdeaDialog = () => setOpenIdeaDialog(false);
 
     function setTitle(tool) {
         switch(tool) {
@@ -65,8 +70,6 @@ function ResponsiveAppBar() {
                 return 'Tech Partners';
             case 'welcome':
                 return 'Welcome';
-            case 'idea-submission':
-                return 'Idea Submission';
             default:
                 return 'TCE Innovation Group';  
         }
@@ -85,27 +88,23 @@ function ResponsiveAppBar() {
             </DialogActions>
         </Dialog>
 
-        <Dialog
-            open={openAccountDialog}
-            onClose={handleCloseAccountDialog}
-            fullWidth
-            maxWidth="md"
-            PaperProps={{
-                style: {
-                    marginTop: '4vw', // Adjusts vertical position from the top of the screen
-                    marginRight: '4vw', 
-                    position: 'absolute',
-                    top: 0,
-                    right: 0,
-                    width: '35vw',
-                }
-            }}
-        >
+        <Dialog open={openAccountDialog} onClose={handleCloseAccountDialog} fullWidth maxWidth="md">
             <DialogContent>
                 <Account />
             </DialogContent>
             <DialogActions>
                 <Button onClick={handleCloseAccountDialog} color="primary">
+                    Close
+                </Button>
+            </DialogActions>
+        </Dialog>
+
+        <Dialog open={openIdeaDialog} onClose={handleCloseIdeaDialog} fullWidth maxWidth="md">
+            <DialogContent>
+                <IdeaSubmission />
+            </DialogContent>
+            <DialogActions>
+                <Button onClick={handleCloseIdeaDialog} color="primary">
                     Close
                 </Button>
             </DialogActions>
@@ -149,6 +148,12 @@ function ResponsiveAppBar() {
                         <IconButton onClick={handleOpenSupportDialog}>
                             <Tooltip title="Support">
                                 <HelpOutlineIcon sx={{ color: 'white', fontSize: '60px' }} />
+                            </Tooltip>
+                        </IconButton>
+
+                        <IconButton onClick={handleOpenIdeaDialog}>
+                            <Tooltip title="Idea Submission">
+                                <LightbulbIcon sx={{ color: 'white', fontSize: '60px', marginRight: '.2vw' }} />
                             </Tooltip>
                         </IconButton>
 

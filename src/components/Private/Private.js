@@ -30,7 +30,6 @@ import TechPartners from '../PrivateFeatures/TechPartners/TechPartners';
 import GOTracker from '../PrivateFeatures/GOTracker';
 import PrivateNavigation from "../Private/PrivateNavigation";
 import SubAuto from "../PrivateFeatures/SubAuto/SubAuto";
-import IdeaSubmission from "../PrivateFeatures/IdeaSubmission";
 
 const Drawer = styled(MuiDrawer, { shouldForwardProp: (prop) => prop !== 'open' })(
   ({ theme, open }) => ({
@@ -70,9 +69,7 @@ const validTools = [
   'equipment-checkout',
   'go-tracker',
   'sub-automation',
-  'idea-submission',
   'welcome',
-  'support'
   // Add other valid tool routes here
 ];
 
@@ -123,10 +120,6 @@ function PrivateContent() {
 
       case 'sub-automation':
           ComponentToRender = SubAuto;
-          break;
-      
-      case 'idea-submission':
-          ComponentToRender = IdeaSubmission;
           break;
 
       default:
