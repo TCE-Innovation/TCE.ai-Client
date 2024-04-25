@@ -29,6 +29,7 @@ import GenerateEmails from "../PrivateFeatures/GenerateEmails";
 import GOTracker from '../PrivateFeatures/GOTracker';
 import PrivateNavigation from "../Private/PrivateNavigation";
 import SubAuto from "../PrivateFeatures/SubAuto/SubAuto";
+import DataDashboard from "../PrivateFeatures/DataDashboard";
 
 const Drawer = styled(MuiDrawer, { shouldForwardProp: (prop) => prop !== 'open' })(
   ({ theme, open }) => ({
@@ -67,6 +68,7 @@ const validTools = [
   'equipment-checkout',
   'go-tracker',
   'sub-automation',
+  'data-dashboard',
   'home',
   // Add other valid tool routes here
 ];
@@ -116,6 +118,11 @@ function PrivateContent() {
       case 'sub-automation':
           ComponentToRender = SubAuto;
           break;
+
+      case 'data-dashboard':
+        ComponentToRender = DataDashboard;
+        break;
+  
 
       default:
           ComponentToRender = Home;
