@@ -27,7 +27,7 @@ import {AuthContext} from "../../authentication/Auth";
 
 //COMPONENTS
 import Support from "../PrivateFeatures/Support";
-import Account from "../Account/Account";
+import Account from "../Account/AccountPage/Account";
 import IdeaSubmission from "../PrivateFeatures/IdeaSubmission";
 
 function ResponsiveAppBar() {

@@ -26,8 +26,6 @@ const PrivateListItems = ( {tool} ) => {
     const { userName } = useContext(AuthContext);
     const [selectedInnerItem, setSelectedInnerItem] = React.useState('home');
 
-    console.log('tool:', tool);
-
     React.useEffect(() => {
         setSelectedInnerItem(tool);
     }, [tool]);

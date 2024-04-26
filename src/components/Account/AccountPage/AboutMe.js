@@ -3,15 +3,14 @@ import React, { useContext } from 'react';
 
 //MUI
 import Box from "@mui/material/Box";
-import Grid from "@mui/material/Grid";
 
 //COMPONENTS
-import { LogOutButton } from "./LogOut/LogOutButton";
+import { LogOutButton } from "../LogOut/LogOutButton";
 
 //AUTH
-import { AuthContext } from "../../authentication/Auth";
+import { AuthContext } from "../../../authentication/Auth";
 
-const noUser = require('../../img/Utils/noUser.webp')
+const noUser = require('../../../img/Utils/noUser.webp')
 
 function ProfileImage() {
     const { userPic } = useContext(AuthContext);
@@ -35,11 +34,11 @@ function ProfileImage() {
     )
 }
 
-function AccountCard() {
+function AboutMe() {
     const { userName, userEmail, userTitle, userProjects } = useContext(AuthContext);
 
     return (
-                    <div>
+                    <div style={{justifyContent: 'center', alignItems: 'center'}}>
                         <br />
                         <h2>Welcome back, {userName}!</h2>
                         <br />
@@ -58,19 +57,5 @@ function AccountCard() {
     )
 }
 
-function Account() {
-    return (
-        <Grid
-            container
-            spacing={0}
-            direction="column"
-            alignItems="center"
-            justify="center"
-        >
-            <AccountCard />
+export default AboutMe;
 
-        </Grid>
-    );
-}
-
-export default Account;

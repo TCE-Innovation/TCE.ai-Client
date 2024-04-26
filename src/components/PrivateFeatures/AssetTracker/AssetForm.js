@@ -4,7 +4,7 @@ import { FormControl, TextField, Button, Box, Select, InputLabel, MenuItem, List
 import { LocalizationProvider, DatePicker } from '@mui/x-date-pickers';
 import { AdapterDateFns } from '@mui/x-date-pickers/AdapterDateFns';
 import { format } from 'date-fns';
-import { sendAssetFormData, getActiveProjects } from '../../../API Calls/Airtable';
+import { sendAssetFormData, getActiveProjects } from '../../../data/Airtable';
 import style from './assetForm.module.css';
 import '../submitbutton.css'
 

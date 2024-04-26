@@ -4,8 +4,8 @@ import { Navigate, Outlet, useLocation } from 'react-router-dom';
 
 //AUTH
 import { useMsal } from "@azure/msal-react";
-import { getUserProfilePic } from '../API Calls/Graph';
-import { getJobTitle, getProjects } from '../API Calls/Airtable';
+import { getUserProfilePic } from '../data/Graph';
+import { getJobTitle, getProjects, getApplications } from '../data/Airtable';
 
 export const AuthContext = createContext();
 
@@ -16,6 +16,7 @@ export const AuthProvider = ({ children }) => {
   const [userPic, setUserPic] = useState(null);
   const [userTitle, setUserTitle] = useState(null);
   const [userProjects, setUserProjects] = useState(null);
+  const [userApplications, setUserApplications] = useState(null);
   const [accessToken, setAccessToken] = useState(null);
 
   //get user account
@@ -60,6 +61,10 @@ export const AuthProvider = ({ children }) => {
     getProjects(email)
       .then(setUserProjects)
       .catch((error) => console.error('Error fetching user projects:', error));
+
+    getApplications(email)
+      .then(setUserApplications)
+      .catch((error) => console.error('Error fetching user applications:', error));
   }
 
   const loginContextValue = {
@@ -68,6 +73,7 @@ export const AuthProvider = ({ children }) => {
     userPic,
     userTitle,
     userProjects,
+    userApplications,
     accessToken
   };
 

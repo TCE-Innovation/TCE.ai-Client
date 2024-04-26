@@ -2,7 +2,7 @@
 import { useMsal } from "@azure/msal-react";
 import { loginRequest } from "../../authentication/authConfig"; 
 import { useNavigate } from 'react-router-dom';
-import { updateUserLog } from '../../API Calls/Airtable';
+import { updateUserLog } from '../../data/Airtable';
 
 export function useMicrosoftSignIn() {
   const { instance } = useMsal(); 

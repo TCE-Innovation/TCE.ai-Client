@@ -11,7 +11,7 @@ import Footer from '../Footer';
 import PublicTrainLoader from '../../Public/PublicTrainLoader';
 
 //UTILS
-import { sendPublicFormData } from '../../../API Calls/Airtable';
+import { sendPublicFormData } from '../../../data/Airtable';
 
 const ContactUs = () => {
     const [name, setName] = useState('');

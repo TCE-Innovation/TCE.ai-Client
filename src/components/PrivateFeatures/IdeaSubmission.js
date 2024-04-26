@@ -2,7 +2,7 @@ import React, { useState, useContext } from 'react';
 import { FormControl, TextField, Button } from '@mui/material';
 import TrainLoader from '../General/TrainLoader';
 
-import { sendPrivateFormData } from '../../API Calls/Airtable';
+import { sendPrivateFormData } from '../../data/Airtable';
 import { AuthContext } from "../../authentication/Auth";
 
 import './submitbutton.css'
