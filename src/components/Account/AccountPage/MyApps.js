@@ -25,7 +25,7 @@ function MyApps() {
     const [dialogOpen, setDialogOpen] = useState(false);
 
     // All possible applications
-    const allApplications = ['Procore', 'AirTable', 'EzOffice', 'OpenSpace', 'BambooHR'];
+    const allApplications = ['Procore', 'AirTable', 'EzOffice', 'OpenSpace', 'BambooHR', 'Test'];
 
     // User's applications as an array, excluding Bridgit
     const userAppsArray = userApplications.split(', ').filter(app => app !== 'Bridgit').concat('BambooHR');
@@ -104,11 +104,17 @@ function MyApps() {
                             color: '#142850',
                             backgroundColor: 'white',
                             boxShadow: 'none',
+                        },
+                        '&.Mui-disabled': {
+                            color: 'grey',
+                            backgroundColor: 'white',
+                            boxShadow: 'none',
                         }
                     }}
                     variant="contained"
                     startIcon={<AddIcon />}
                     onClick={handleDialogOpen}
+                    disabled
                 >
                     Request Application
                 </Button>
