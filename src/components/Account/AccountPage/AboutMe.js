@@ -21,7 +21,7 @@ function ProfileImage() {
                 maxHeight: 200,
                 maxWidth: 200,
                 border: 2,
-                borderColor: 'primary.main', 
+                borderColor: '#1b365f', 
                 borderRadius: '50%',
             }}
             alt="user avatar"
