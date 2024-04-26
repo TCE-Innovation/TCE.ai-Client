@@ -232,7 +232,7 @@ const GenerateEmails = () => {
                         variant="contained"
                         color="primary"
                         onClick={generateEmail}
-                        sx={{ mt: 2 }}
+                        sx={{ mt: 2, backgroundColor: '#1b365f' }}
                     >
                         Generate Email Draft
                     </Button>

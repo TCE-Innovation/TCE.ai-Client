@@ -75,7 +75,7 @@ function ResponsiveAppBar() {
                 <Support />
             </DialogContent>
             <DialogActions>
-                <Button onClick={handleCloseSupportDialog} color="primary">
+                <Button onClick={handleCloseSupportDialog} style={{color: "#1b365f"}}>
                     Close
                 </Button>
             </DialogActions>
@@ -86,7 +86,7 @@ function ResponsiveAppBar() {
                 <Account />
             </DialogContent>
             <DialogActions>
-                <Button onClick={handleCloseAccountDialog} color="primary">
+                <Button onClick={handleCloseAccountDialog} style={{color: "#1b365f"}}>
                     Close
                 </Button>
             </DialogActions>
@@ -97,7 +97,7 @@ function ResponsiveAppBar() {
                 <IdeaSubmission />
             </DialogContent>
             <DialogActions>
-                <Button onClick={handleCloseIdeaDialog} color="primary">
+                <Button onClick={handleCloseIdeaDialog} style={{color: "#1b365f"}}>
                     Close
                 </Button>
             </DialogActions>
