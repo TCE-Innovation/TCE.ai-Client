@@ -24,14 +24,11 @@ function MyApps() {
     const { userApplications } = useContext(AuthContext);
     const [dialogOpen, setDialogOpen] = useState(false);
 
-    // Full list of applications excluding BambooHR (assuming everyone has it)
-    const allApplications = ['Procore', 'AirTable', 'EzOffice', 'OpenSpace'];
+    // All possible applications
+    const allApplications = ['Procore', 'AirTable', 'EzOffice', 'OpenSpace', 'BambooHR'];
 
-    // Append BambooHR as it is included for everyone
-    const userAppsArray = userApplications.split(', ').concat('BambooHR');
-
-    // Filter applications that the user does not have
-    const availableApplications = allApplications.filter(app => !userAppsArray.includes(app));
+    // User's applications as an array, excluding Bridgit
+    const userAppsArray = userApplications.split(', ').filter(app => app !== 'Bridgit').concat('BambooHR');
 
     // Map names to corresponding image and URLs
     const imageMap = {
@@ -42,12 +39,18 @@ function MyApps() {
         'BambooHR': { image: BambooHR, url: 'https://iovino.bamboohr.com/home' }
     };
 
-    const applicationArray = ['BambooHR', ...allApplications].map((app, index) => ({
-        id: `app-${index}`,
-        name: app,
-        image: imageMap[app].image,
-        url: imageMap[app].url
-    }));
+    const applicationArray = userAppsArray.map((app, index) => {
+        const appDetails = imageMap[app] || { image: 'path/to/default/image.png', url: '#' }; // Fallback for undefined apps
+        return {
+            id: `app-${index}`,
+            name: app,
+            image: appDetails.image,
+            url: appDetails.url
+        };
+    });
+
+    // Filter applications that the user does not have
+    const availableApplications = allApplications.filter(app => !userAppsArray.includes(app) && app !== 'BambooHR');
 
     const handleDialogOpen = () => {
         setDialogOpen(true);
