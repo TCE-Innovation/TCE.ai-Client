@@ -90,63 +90,33 @@ function PrivateContent() {
   const { userName } = useContext(AuthContext);
   const isAdmin = adminList.includes(userName); 
 
+    // Component map for routing
+    const toolComponentMap = {
+      'home': Home,
+      'generate-emails': GenerateEmails,
+      'cable-run-optimizer': CRO,
+      'chat-bot': ChatBot,
+      'equipment-checkout': AssetTracker,
+      'go-tracker': GOTracker,
+      'sub-automation': SubAuto,
+      'data-dashboard': isAdmin ? DataDashboard : null,
+      'admin': isAdmin ? Admin : null
+    };
+  
   //check if the tool is valid and if user is admin
   useEffect(() => {
-    // Redirect if the tool is not valid or restricted and user is not admin
-    if (tool && (!validTools.includes(tool) || (tool === 'data-dashboard' && !isAdmin) || (tool === 'admin' && !isAdmin))) {
+    if (!toolComponentMap[tool] || toolComponentMap[tool] === null) {
       navigate("/private/home", { replace: true });
     }
-  }, [tool, navigate, isAdmin]);
-
-  // Determine which component to render based on the URL
-  let ComponentToRender;
-  switch (tool) {
-      case 'home':
-        ComponentToRender = Home;
-        break;
-      case 'generate-emails':
-          ComponentToRender = GenerateEmails;
-          break;
-
-      case 'cable-run-optimizer':
-          ComponentToRender = CRO;
-          break;
-
-      case 'chat-bot':
-          ComponentToRender = ChatBot;
-          break;
-
-      case 'equipment-checkout': 
-          ComponentToRender = AssetTracker;
-          break;
-
-      case 'go-tracker':
-          ComponentToRender = GOTracker;
-          break;  
-
-      case 'sub-automation':
-          ComponentToRender = SubAuto;
-          break;
-
-      case 'data-dashboard':
-        ComponentToRender = DataDashboard;
-        break;
-
-      case 'admin':
-        ComponentToRender = Admin;
-        break;
-  
-
-      default:
-          ComponentToRender = Home;
-  }
+  }, [tool, navigate]);
 
   const handlePublicNavigate = () => {
     navigate('/public');
   };
 
+  const ComponentToRender = toolComponentMap[tool] || Home;
+
   return (
-    
     <ThemeProvider theme={mdTheme}>     
       <div className="App">
           <header className="App-header">
