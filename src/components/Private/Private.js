@@ -1,5 +1,5 @@
 //REACT
-import React, { useContext, useEffect } from 'react';
+import React, { useContext, useEffect, useMemo } from 'react';
 import { useParams } from 'react-router-dom';
 import { useNavigate } from 'react-router-dom';
 
@@ -65,19 +65,6 @@ const Drawer = styled(MuiDrawer, { shouldForwardProp: (prop) => prop !== 'open' 
 
 const mdTheme = createTheme();
 
-const validTools = [
-  'generate-emails',
-  'cable-run-optimizer',
-  'chat-bot',
-  'equipment-checkout',
-  'go-tracker',
-  'sub-automation',
-  'data-dashboard',
-  'admin',
-  'home',
-  // Add other valid tool routes here
-];
-
 function PrivateContent() {
   const [open, setOpen] = React.useState(true);
   const toggleDrawer = () => {
@@ -90,25 +77,25 @@ function PrivateContent() {
   const { userName } = useContext(AuthContext);
   const isAdmin = adminList.includes(userName); 
 
-    // Component map for routing
-    const toolComponentMap = {
-      'home': Home,
-      'generate-emails': GenerateEmails,
-      'cable-run-optimizer': CRO,
-      'chat-bot': ChatBot,
-      'equipment-checkout': AssetTracker,
-      'go-tracker': GOTracker,
-      'sub-automation': SubAuto,
-      'data-dashboard': isAdmin ? DataDashboard : null,
-      'admin': isAdmin ? Admin : null
-    };
+  // Memorize toolComponentMap to avoid recalculating it on every render
+  const toolComponentMap = useMemo(() => ({
+    'home': Home,
+    'generate-emails': GenerateEmails,
+    'cable-run-optimizer': CRO,
+    'chat-bot': ChatBot,
+    'equipment-checkout': AssetTracker,
+    'go-tracker': GOTracker,
+    'sub-automation': SubAuto,
+    'data-dashboard': isAdmin ? DataDashboard : null, // Admin access only
+    'admin': isAdmin ? Admin : null // Admin access only
+  }), [isAdmin]); // Only recalculate if isAdmin changes
   
   //check if the tool is valid and if user is admin
   useEffect(() => {
     if (!toolComponentMap[tool] || toolComponentMap[tool] === null) {
       navigate("/private/home", { replace: true });
     }
-  }, [tool, navigate]);
+  }, [tool, navigate, toolComponentMap]);
 
   const handlePublicNavigate = () => {
     navigate('/public');
