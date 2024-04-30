@@ -35,13 +35,14 @@ const PrivateListItems = ( {tool} ) => {
     const getInnerItemStyle = (item) => ({
         backgroundColor: selectedInnerItem === item ? '#1b365f' : 'transparent',
         color: selectedInnerItem === item ? 'white' : 'grey',
-        borderRadius: selectedInnerItem === item ? '10px' : '0',
+        borderRadius:'10px',
         marginLeft: "10px",
         marginRight: "10px",
+        paddingLeft: "14px",
     });
 
     const getIconColor = (item) => ({
-        color: selectedInnerItem === item ? 'white' : 'inherit' 
+        color: selectedInnerItem === item ? 'white' : 'inherit',
     });
 
     const getIcon = (iconComponent, itemKey) => {
@@ -58,7 +59,7 @@ const PrivateListItems = ( {tool} ) => {
         { to: '/private/sub-automation', text: 'Subcontractor Forms', icon: <ArticleOutlinedIcon />, key: 'sub-automation' },
     ];
 
-    // Add admin specific item conditionally
+    // Add admin specific items conditionally
     if (adminList.includes(userName)) {
         listItems.push(
             {
