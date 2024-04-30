@@ -12,6 +12,7 @@ import RailwayAlertOutlinedIcon from '@mui/icons-material/RailwayAlertOutlined';
 import DevicesOtherIcon from '@mui/icons-material/DevicesOther';
 import ArticleOutlinedIcon from '@mui/icons-material/ArticleOutlined';
 import DonutSmallOutlinedIcon from '@mui/icons-material/DonutSmallOutlined';
+import AdminPanelSettingsOutlinedIcon from '@mui/icons-material/AdminPanelSettingsOutlined';
 
 //CONTEXT
 import { AuthContext } from "../../authentication/Auth";
@@ -59,12 +60,20 @@ const PrivateListItems = ( {tool} ) => {
 
     // Add admin specific item conditionally
     if (adminList.includes(userName)) {
-        listItems.push({
-            to: '/private/data-dashboard', // Assuming there's a route for admin tools
-            text: 'Data Dashboard',
-            icon: <DonutSmallOutlinedIcon />,
-            key: 'data-dashboard'
-        });
+        listItems.push(
+            {
+                to: '/private/data-dashboard', 
+                text: 'Data Dashboard',
+                icon: <DonutSmallOutlinedIcon />,
+                key: 'data-dashboard'
+            },
+            {
+                to: '/private/admin', 
+                text: 'Admin Panel',
+                icon: <AdminPanelSettingsOutlinedIcon />,
+                key: 'admin'
+            }
+        );
     }
 
     return (

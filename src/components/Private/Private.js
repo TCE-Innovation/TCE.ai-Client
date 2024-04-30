@@ -29,6 +29,7 @@ import GOTracker from '../PrivateFeatures/GOTracker';
 import PrivateNavigation from "../Private/PrivateNavigation";
 import SubAuto from "../PrivateFeatures/SubAuto/SubAuto";
 import DataDashboard from "../PrivateFeatures/DataDashboard";
+import Admin from '../PrivateFeatures/Admin';
 
 //AUTH
 import { adminList } from '../../admin/lists';
@@ -72,6 +73,7 @@ const validTools = [
   'go-tracker',
   'sub-automation',
   'data-dashboard',
+  'admin',
   'home',
   // Add other valid tool routes here
 ];
@@ -91,7 +93,7 @@ function PrivateContent() {
   //check if the tool is valid and if user is admin
   useEffect(() => {
     // Redirect if the tool is not valid or restricted and user is not admin
-    if (tool && (!validTools.includes(tool) || (tool === 'data-dashboard' && !isAdmin))) {
+    if (tool && (!validTools.includes(tool) || (tool === 'data-dashboard' && !isAdmin) || (tool === 'admin' && !isAdmin))) {
       navigate("/private/home", { replace: true });
     }
   }, [tool, navigate, isAdmin]);
@@ -128,6 +130,10 @@ function PrivateContent() {
 
       case 'data-dashboard':
         ComponentToRender = DataDashboard;
+        break;
+
+      case 'admin':
+        ComponentToRender = Admin;
         break;
   
 

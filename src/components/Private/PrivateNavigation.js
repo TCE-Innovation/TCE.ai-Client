@@ -63,6 +63,8 @@ function ResponsiveAppBar() {
                 return 'Subcontractor Form Automation';
             case 'data-dashboard':
                 return 'Data Dashboard';
+            case 'admin':
+                return 'Admin Panel';
             default:
                 return 'TCE Innovation Group';  
         }
