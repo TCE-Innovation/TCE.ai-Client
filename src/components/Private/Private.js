@@ -1,8 +1,7 @@
 //REACT
-import * as React from 'react';
+import React, { useContext, useEffect } from 'react';
 import { useParams } from 'react-router-dom';
 import { useNavigate } from 'react-router-dom';
-
 
 //MUI
 import { styled, createTheme, ThemeProvider } from '@mui/material/styles';
@@ -30,6 +29,10 @@ import GOTracker from '../PrivateFeatures/GOTracker';
 import PrivateNavigation from "../Private/PrivateNavigation";
 import SubAuto from "../PrivateFeatures/SubAuto/SubAuto";
 import DataDashboard from "../PrivateFeatures/DataDashboard";
+
+//AUTH
+import { adminList } from '../../admin/lists';
+import { AuthContext } from '../../authentication/Auth';
 
 const Drawer = styled(MuiDrawer, { shouldForwardProp: (prop) => prop !== 'open' })(
   ({ theme, open }) => ({
@@ -81,13 +84,17 @@ function PrivateContent() {
 
   const { tool } = useParams();
   const navigate = useNavigate();
+  
+  const { userName } = useContext(AuthContext);
+  const isAdmin = adminList.includes(userName); 
 
-  //check if the tool is valid
-  React.useEffect(() => {
-    if (tool && !validTools.includes(tool)) {
+  //check if the tool is valid and if user is admin
+  useEffect(() => {
+    // Redirect if the tool is not valid or restricted and user is not admin
+    if (tool && (!validTools.includes(tool) || (tool === 'data-dashboard' && !isAdmin))) {
       navigate("/private/home", { replace: true });
     }
-  }, [tool, navigate]);
+  }, [tool, navigate, isAdmin]);
 
   // Determine which component to render based on the URL
   let ComponentToRender;

@@ -16,11 +16,8 @@ import DonutSmallOutlinedIcon from '@mui/icons-material/DonutSmallOutlined';
 //CONTEXT
 import { AuthContext } from "../../authentication/Auth";
 
-const adminList = [
-    'Matthew Bayne',
-    'Jacob Shavel',
-    'Patrick Besser'
-]
+//ADMIN
+import { adminList } from '../../admin/lists';
 
 const PrivateListItems = ( {tool} ) => {
     const { userName } = useContext(AuthContext);

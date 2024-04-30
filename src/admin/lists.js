@@ -16,9 +16,19 @@ const projWithChatbot = [
     "psd"
 ];
 
+
+// ADMINS
+const adminList = [
+    'Matthew Bayne',
+    'Jacob Shavel',
+    'Patrick Besser',
+    'Rory O\'Neill',
+]
+
 module.exports = {
     allProjectsAccess,
-    projWithChatbot
+    projWithChatbot, 
+    adminList
 }
 
 
