@@ -1,4 +1,3 @@
-
 //CHAT BOT
 const allProjectsAccess = [
     "mbayne@tcelect.net",
@@ -25,10 +24,19 @@ const adminList = [
     'Rory O\'Neill',
 ]
 
+//TOOLS
+const toolList = [
+    'Email Generator',
+    'Chatbot',
+    'Cable Run Optimizer',
+    'GO Tracker'
+]
+
 module.exports = {
     allProjectsAccess,
     projWithChatbot, 
-    adminList
+    adminList, 
+    toolList
 }
 
 

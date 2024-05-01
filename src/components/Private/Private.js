@@ -29,7 +29,7 @@ import GOTracker from '../PrivateFeatures/GOTracker';
 import PrivateNavigation from "../Private/PrivateNavigation";
 import SubAuto from "../PrivateFeatures/SubAuto/SubAuto";
 import DataDashboard from "../PrivateFeatures/DataDashboard";
-import Admin from '../PrivateFeatures/Admin';
+import Admin from '../PrivateFeatures/AdminPanel/AdminPanel';
 
 //AUTH
 import { adminList } from '../../admin/lists';

@@ -76,11 +76,20 @@ export async function getApplications(email) {
         //console.log("No cached applications, getting from SQL db")
         // If no cached data, proceed with the API call
         const {data} = await axios.post('https://tce-ai-api.azurewebsites.net/api/get-user-applications', { email } );
-        console.log(data);
 
         // Store the API response in localStorage for future use
         sessionStorage.setItem(sessionStorageKey, JSON.stringify(data));
 
+        return data;
+    } catch(error){
+        console.error('Error fetching applications:', error);
+    }
+}
+
+//function to pull all personnel from Airtable
+export async function getAllPersonnel() { 
+    try{
+        const {data} = await axios.get('https://tce-ai-api.azurewebsites.net/api/get-all-personnel');
         return data;
     } catch(error){
         console.error('Error fetching applications:', error);

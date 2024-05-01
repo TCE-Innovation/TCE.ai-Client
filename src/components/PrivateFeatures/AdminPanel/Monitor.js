@@ -1,13 +1,12 @@
 import React from 'react';
 
-const Admin = () => {
-
+const Monitor = () => {
+    
     return (
         <div style={{ width: '100%', display: 'flex', flexDirection: "column", alignContent: 'center', marginTop:20}}>
-            COMING SOON - This page is only visible / accessible to administrators.
-
+            MONITOR COMING SOON
         </div>
     );
 };
 
-export default Admin;
+export default Monitor;
