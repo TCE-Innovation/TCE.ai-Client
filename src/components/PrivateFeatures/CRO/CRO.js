@@ -187,7 +187,20 @@ const CRO = () => {
 
                     <div className="rounded-rectangle-1">
                         <div className="title">Choose Cable Sizes</div>
-                        <div className="body">Placeholder for radio buttons</div>
+                        <FormControl>
+                            <RadioGroup
+                                row
+                                aria-labelledby="select-cable-sizes"
+                                name="cable-size-selection"
+                                value={cableSizes}
+                                // onChange={handleRunTypeChange}
+                                style={{ marginLeft: '40px' }} // Add this style
+                            >
+                                <FormControlLabel value="Conduit" control={<Radio />} label="Use default cable sizes" />
+                                <FormControlLabel value="Messenger" control={<Radio />} label="Upload custom cable sizes" />
+                            </RadioGroup>
+                        </FormControl>
+                        
                     </div>
                 </Box>
 
