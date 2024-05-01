@@ -166,7 +166,23 @@ const CRO = () => {
                 >
                     <div className="rounded-rectangle-1">
                         <div className="title">Select Run Type</div>
-                        <div className="body">Placeholder for radio buttons</div>
+                        <FormControl>
+                            <RadioGroup
+                                row
+                                aria-labelledby="select-cable-run-type"
+                                name="conduit-messenger-selection"
+                                value={runType}
+                                onChange={handleRunTypeChange}
+                                style={{ marginLeft: '40px' }} // Add this style
+                            >
+                                <FormControlLabel value="Conduit" control={<Radio />} label="Conduit" />
+                                <FormControlLabel value="Messenger" control={<Radio />} label="Messenger Bundle" />
+                            </RadioGroup>
+                        </FormControl>
+
+                        <div style={{ marginTop: '20px', marginLeft: '12px' }}>
+                            {runType === 'Conduit' && <RangeSlider value={conduitSizeRange} setValue={setConduitSizeRange} />}
+                        </div>
                     </div>
 
                     <div className="rounded-rectangle-1">
