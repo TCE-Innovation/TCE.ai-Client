@@ -1,26 +1,52 @@
+.title, .body {
+    color: black; /* Change this to the color you want */
+  }
 
-.roundedRectangle {
-    background-color: #c2c1c1;
-    color:black;
-    width: 30%;
-    height: 200px;
-    border-radius: 15px;
-    /* border: 1px solid #000; */
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    align-items: center;
-    padding: 10px;
-    box-sizing: border-box;
-    margin-bottom: 10px; /* Add some margin between the rectangles */
+.rounded-rectangle-1 {
+    border-radius: 20px;
+    background-color: rgb(197, 197, 197);
+    padding: 20px;
+    margin: 10px;
+    width: 400px;
+    height: 180px;
+    margin-left: 40px;
+    margin-right: 40px;
 }
 
-
-.roundedRectangle .title {
+.rounded-rectangle-1 .title {
+    font-size: 20px;
     font-weight: bold;
-    margin-bottom: 30px;
+    text-align: center;
+    position: relative;
+    top: -10px;
 }
 
-.roundedRectangle .body {
-    font-size: 14px;
+.rounded-rectangle-1 .body {
+    color: black;
+    font-size: 16px;
+    text-align:center;
+}
+
+
+.rounded-rectangle-3 {
+    border-radius: 20px;
+    background-color: rgb(197, 197, 197);
+    padding: 20px;
+    margin: 10px;
+    width: 1000px;
+    height: 120px;
+}
+
+.rounded-rectangle-3 .title {
+    font-size: 20px;
+    font-weight: bold;
+    text-align: center;
+    position: relative;
+    top: -10px;
+}
+
+.rounded-rectangle-3 .body {
+    color: black;
+    font-size: 16px;
+    text-align:center;
 }

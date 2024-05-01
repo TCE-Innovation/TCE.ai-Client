@@ -153,7 +153,33 @@ const CRO = () => {
                 <Typography variant="body2" fontSize="20px" align="left">
                     The Cable Run Optimizer is a tool for generating cable runs involving conduit or messenger bundles.
                 </Typography>
+                
+                <Box
+                    sx={{
+                        display: 'flex',
+                        flexDirection: 'row',
+                        alignItems: 'center',
+                        justifyContent: 'flex-start',
+                        marginBottom: 4,
+                        backgroundColor: 'transparent',
+                    }}
+                >
+                    <div className="rounded-rectangle-1">
+                        <div className="title">Select Run Type</div>
+                        <div className="body">Placeholder for radio buttons</div>
+                    </div>
 
+                    <div className="rounded-rectangle-1">
+                        <div className="title">Choose Cable Sizes</div>
+                        <div className="body">Placeholder for radio buttons</div>
+                    </div>
+                </Box>
+
+
+                <div class="rounded-rectangle-3">
+                    <div class="title">Upload Pull Sheet</div>
+                    <div class="body">Placeholder for download and upload buttons</div>
+                </div>
 
                 <Typography variant="body2" mb={4} fontSize="20px" style={{ marginTop: '20px' }}>
                     This tool currently supports the following run types: Conduit and Messenger Bundle.
