@@ -1,5 +1,4 @@
 import React, { useState } from 'react';
-import Grid from "@mui/material/Grid";
 import Box from "@mui/material/Box";
 import Button from "@mui/material/Button";
 
@@ -21,7 +20,7 @@ function AdminPanel() {
 
     return (
         <Box>
-            <Box sx={{ width: '100%', display: 'flex', justifyContent: 'flex-start', mt: 2, mb: 5 }}>
+            <Box sx={{ width: '100%', display: 'flex', justifyContent: 'flex-start' }}>
                 <Button
                     variant={activeTab === 'provisioning' ? 'contained' : 'outlined'}
                     onClick={() => handleTabChange('provisioning')}
