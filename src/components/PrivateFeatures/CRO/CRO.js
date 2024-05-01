@@ -19,6 +19,7 @@ import axios from 'axios';
 // import RunTypeRadioButtons from './RunTypeRadioButtons'; // Import the radio buttons component
 
 import RangeSlider from "./Slider"
+import './CRO.css';
 
 const CRO = () => {
     const [pullsheet, setPullsheet] = useState('');
@@ -145,12 +146,14 @@ const CRO = () => {
                     flexDirection: 'column',
                     alignItems: 'center',
                     justifyContent: 'flex-start',
-                    marginBottom: 4
+                    marginBottom: 4,
+                    backgroundColor: 'transparent',
                 }}
             >
                 <Typography variant="body2" fontSize="20px" align="left">
-                    The Cable Run Optimizer tool is designed to automate the process of planning cable runs.
+                    The Cable Run Optimizer is a tool for generating cable runs involving conduit or messenger bundles.
                 </Typography>
+
 
                 <Typography variant="body2" mb={4} fontSize="20px" style={{ marginTop: '20px' }}>
                     This tool currently supports the following run types: Conduit and Messenger Bundle.
@@ -259,6 +262,8 @@ const CRO = () => {
                     {/* <div>
                         Selected Run Type: {runType}
                     </div> */}
+
+                    
 
                     <Box sx={{ marginTop: 4}}>
                         <Button
