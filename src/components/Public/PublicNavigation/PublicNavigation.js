@@ -1,4 +1,4 @@
-import React, { useContext, useState, useEffect } from 'react';
+import React, { useContext, useState, useEffect, useMemo } from 'react';
 import { NavLink } from 'react-router-dom';
 import {
   AppBar, Box, Toolbar, Tooltip, IconButton, Typography, Menu, MenuItem, 
@@ -25,11 +25,32 @@ function ResponsiveAppBar() {
     // Hooks for sign in and sign out
     const MicrosoftSignOut = useMicrosoftSignOut();
     const MicrosoftSignIn = useMicrosoftSignIn();
+    
+    // Memoize login button styles
+    const originalLoginColor = useMemo(() => ({
+        color: '#1b365f',
+        border: '1px solid #1b365f',
+        backgroundColor: 'transparent',
+        '&:hover': {
+            color: 'white',
+            backgroundColor: '#1b365f'
+        }
+    }), []);
+
+    const whiteLoginColor = useMemo(() => ({
+        color: 'white',
+        border: '1px solid white',
+        backgroundColor: 'transparent',
+        '&:hover': {
+            color: '#1b365f',
+            backgroundColor: 'white'
+        }
+    }), []);
 
     // States
     const [anchorElUser, setAnchorElUser] = useState(null);
     const [currentLogo, setCurrentLogo] = useState(logo);
-    const [loginColor, setLoginColor] = useState({ textColor: 'white', borderColor: 'white', backgroundColor: 'none' });
+    const [loginColor, setLoginColor] = useState(originalLoginColor);
 
     const handleLogoClick = () => {
         const mainContainer = document.getElementById('main-container');
@@ -55,19 +76,25 @@ function ResponsiveAppBar() {
         const handleScroll = () => {
             const scrollPosition = mainContainer.scrollTop;
             const viewportHeight = window.innerHeight;
-
-            if (scrollPosition > viewportHeight) { 
+    
+            console.log("Scroll position: ", scrollPosition);  // Debug log
+    
+            if (scrollPosition > viewportHeight) {
+                console.log("Switch to white logo and login color");  // Debug log
                 setCurrentLogo(whiteLogo);
-                setLoginColor({ textColor: 'white', borderColor: 'white' });
+                setLoginColor(whiteLoginColor);
             } else {
+                console.log("Switch to original logo and login color");  // Debug log
                 setCurrentLogo(logo);
-                setLoginColor({ textColor: '#1b365f' });
+                setLoginColor(originalLoginColor);
             }
         };
-
+    
         mainContainer.addEventListener('scroll', handleScroll);
         return () => mainContainer.removeEventListener('scroll', handleScroll);
-    }, []);
+    }, [ originalLoginColor, whiteLoginColor]);
+    
+    
 
     const accSettings = [
         { label: "Toolbox", icon: <HomeIcon />, link: "/private/welcome" },
@@ -100,7 +127,7 @@ function ResponsiveAppBar() {
                                 </IconButton>
                             </Box>
                         ) : (
-                            <Button onClick={MicrosoftSignIn} sx={{ ...loginColor, '&:hover': { color: '#003eab', borderColor: '#003eab' } }}>
+                            <Button onClick={MicrosoftSignIn} sx={ loginColor }>
                                 Sign In
                             </Button>
                         )}
