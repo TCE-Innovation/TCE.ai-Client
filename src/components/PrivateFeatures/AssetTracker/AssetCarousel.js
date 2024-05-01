@@ -44,6 +44,13 @@ function PrevArrow(props) {
 
 const AssetCarousel = () => {
     const [hoveredCard, setHoveredCard] = useState(null);
+    const [loadingState, setLoadingState] = useState({});
+
+    const handleImageLoaded = (index) => {
+        setLoadingState(prev => ({ ...prev, [index]: true }));
+        console.log(loadingState);
+    };
+
 
     //settings for the carousel itself
     const settings = {
@@ -110,7 +117,15 @@ const AssetCarousel = () => {
                         onMouseEnter={() => setHoveredCard(card)}
                         onMouseLeave={() => setHoveredCard(null)}
                     >
-                        <img src={card.image} alt={card.title} />
+                        <div className={styles.imageContainer}>
+                            {!loadingState[index] && <div className={styles.spinner}></div>}
+                            <img 
+                                src={card.image} 
+                                alt={card.title} 
+                                onLoad={() => handleImageLoaded(index)}
+                                style={{ display: loadingState[index] ? 'block' : 'none' }} 
+                            />
+                        </div>
                         <div className={styles.cardTitle}>{card.title}</div>
                     </div>
                 ))}
