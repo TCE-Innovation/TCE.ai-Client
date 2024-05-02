@@ -204,7 +204,7 @@ const CRO = () => {
                                 aria-labelledby="select-cable-sizes"
                                 name="cable-size-selection"
                                 value={cableSizes}
-                                // onChange={handleRunTypeChange}
+                                onChange={handleCableSizesChange}
                                 style={{ marginLeft: '40px' }} // Add this style
                             >
                                 <FormControlLabel value="standard" control={<Radio />} label="Use default cable sizes" />
