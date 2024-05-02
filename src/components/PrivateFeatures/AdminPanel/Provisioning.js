@@ -1,14 +1,14 @@
 import React, { useState } from 'react';
+import Autocomplete from '@mui/material/Autocomplete';
+import TextField from '@mui/material/TextField';
 import Button from '@mui/material/Button';
 import FormControl from '@mui/material/FormControl';
 import Typography from '@mui/material/Typography';
 import Box from '@mui/material/Box';
-import OutlinedInput from '@mui/material/OutlinedInput';
-import Autocomplete from '@mui/material/Autocomplete';
-import TextField from '@mui/material/TextField';
-import Select from '@mui/material/Select';
 import MenuItem from '@mui/material/MenuItem';
-import { InputLabel } from '@mui/material';
+import Select from '@mui/material/Select';
+import InputLabel from '@mui/material/InputLabel';
+import OutlinedInput from '@mui/material/OutlinedInput';
 
 import { getAllPersonnel } from '../../../data/Airtable';
 import { toolList } from '../../../admin/lists';
@@ -19,9 +19,14 @@ const Provisioning = () => {
     const [action, setAction] = useState('add');
     const [selectedUsers, setSelectedUsers] = useState([]);
     const [selectedTools, setSelectedTools] = useState([]);
+    const [inputValue, setInputValue] = useState(''); // State to track input value
 
     const handleUserChange = (event, newValue) => {
         setSelectedUsers(newValue);
+    };
+
+    const handleInputChange = (event, newInputValue) => {
+        setInputValue(newInputValue);
     };
 
     const handleToolChange = (event) => {
@@ -30,20 +35,8 @@ const Provisioning = () => {
 
     const handleActionChange = (newAction) => {
         setAction(newAction);
-        // Reset selections
         setSelectedUsers([]);
         setSelectedTools([]);
-    };
-
-    // Example functions (define these properly or import them if they're defined elsewhere)
-    const addUsersToTool = (users, tools) => {
-        console.log('Adding', users, 'to', tools);
-        // Implement addition logic here
-    };
-
-    const removeUsersFromTool = (users, tools) => {
-        console.log('Removing', users, 'from', tools);
-        // Implement removal logic here
     };
 
     return (
@@ -67,17 +60,17 @@ const Provisioning = () => {
 
             {(action === 'add' || action === 'remove') && (
                 <Box sx={{ display: 'flex', flexDirection: 'column', marginTop: '5vw', width: '70%', justifyContent: 'center'}}>
-                    
                     <Box sx={{ display: 'flex', flexDirection: 'row', alignItems: 'center', marginBottom: '3vw', width: '100%'}}>
                         <Typography variant="subtitle1" sx={{ marginRight: 2, whiteSpace: 'nowrap' }}>
                             {action === 'add' ? 'Add the following user(s):' : 'Remove the following user(s):'}
                         </Typography>
                         <Autocomplete
                             multiple
-                            options={users}
+                            options={inputValue.length > 0 ? users : []} // Show options only when input value has characters
                             getOptionLabel={(option) => option}
                             value={selectedUsers}
                             onChange={handleUserChange}
+                            onInputChange={handleInputChange} // Update the input value
                             renderInput={(params) => (
                                 <TextField {...params} label="Select Users" placeholder="Search Users" />
                             )}
@@ -108,13 +101,6 @@ const Provisioning = () => {
                     </Box>
                 </Box>
             )}
-            <Button
-                variant="contained"
-                onClick={() => action === 'add' ? addUsersToTool(selectedUsers, selectedTools) : removeUsersFromTool(selectedUsers, selectedTools)}
-                style={{ backgroundColor: '#1b365f', color: 'white', marginTop: '5vw' }}
-            >
-                {action === 'add' ? '+ Add' : 'x Remove'}
-            </Button>
         </div>
     );
 };
