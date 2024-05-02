@@ -242,7 +242,7 @@ const CRO = () => {
                     <Button
                                 variant="contained"
                                 startIcon={<Download />}
-                                style={{ marginTop: '8px', marginLeft: '45px', backgroundColor: '#8B5A73'}}
+                                style={{ marginTop: '5px', marginLeft: '45px', backgroundColor: '#8B5A73'}}
                                 size="large"
                                 
                             >
@@ -253,12 +253,27 @@ const CRO = () => {
                     <Button
                                 variant="contained"
                                 startIcon={<Upload />}
-                                style={{ marginTop: '8px', marginLeft: '70px', width: '350px' }}
+                                style={{ marginTop: '5px', marginLeft: '70px', width: '350px' }}
                                 size="large"
                             >
                                 Upload Pull Sheet
                     </Button>
                         
+                </div>
+
+                {/* GENERATE CABLE RUN Box */}
+                <div style={{ margin: '20px' }}></div>
+                <div className="rounded-rectangle-1">
+
+                <Button
+                            variant="contained"
+                            color="success"
+                            style={{ marginTop: '15px', marginLeft: '20px', width: '325px' }}
+                            size="large"
+                        >
+                            GENERATE
+                </Button>
+
                 </div>
 
                 <Typography variant="body2" mb={4} fontSize="20px" style={{ marginTop: '20px' }}>
