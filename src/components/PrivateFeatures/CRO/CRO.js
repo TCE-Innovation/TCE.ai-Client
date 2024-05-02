@@ -23,7 +23,7 @@ import './CRO.css';
 
 const CRO = () => {
     const [pullsheet, setPullsheet] = useState('');
-    const [cableSizes, setCableSizes] = useState('');
+    const [cableSizes, setCableSizes] = useState('standard');
     const [responses, setResponses] = useState('');
     const [loading, setLoading] = useState(false);
     const [error, setError] = useState('');
@@ -37,6 +37,10 @@ const CRO = () => {
     const handleRunTypeChange = (event) => {
         setRunType(event.target.value);
       };
+
+    const handleCableSizesChange = (event) => {
+        setCableSizes(event.target.value);
+    };
 
     const cro = async () => {
         if (!pullsheet) {
@@ -106,7 +110,7 @@ const CRO = () => {
                 setResponses([data[0], data[1]]);
             } 
 
-            // If backend returns two URLs (messenger bundle optimization)
+            // If backend returns three URLs (messenger bundle optimization)
             else if (data.length === 3) {
                 // Update state with both URLs
                 setResponses(data);
@@ -149,11 +153,14 @@ const CRO = () => {
                     marginBottom: 4,
                     backgroundColor: 'transparent',
                 }}
-            >
-                <Typography variant="body2" fontSize="20px" align="left">
+            >   
+                {/* Intro text */}
+                <Typography variant="body2" fontSize="20px" align="left" style={{paddingBottom: '10px'}}>
                     The Cable Run Optimizer is a tool for generating cable runs involving conduit or messenger bundles.
                 </Typography>
                 
+                {/* Box to set direction to row for Run Type Selection 
+                and Cable Size Selection to be stacked horizontally */}
                 <Box
                     sx={{
                         display: 'flex',
@@ -163,7 +170,8 @@ const CRO = () => {
                         marginBottom: 4,
                         backgroundColor: 'transparent',
                     }}
-                >
+                >   
+                    {/* Run Type Selection box */}
                     <div className="rounded-rectangle-1">
                         <div className="title">Select Run Type</div>
                         <FormControl>
@@ -173,18 +181,21 @@ const CRO = () => {
                                 name="conduit-messenger-selection"
                                 value={runType}
                                 onChange={handleRunTypeChange}
-                                style={{ marginLeft: '40px' }} // Add this style
+                                style={{ marginLeft: '40px' }}
                             >
+                                {/* Radio Buttons to Selects Run Type */}
                                 <FormControlLabel value="Conduit" control={<Radio />} label="Conduit" />
                                 <FormControlLabel value="Messenger" control={<Radio />} label="Messenger Bundle" />
                             </RadioGroup>
                         </FormControl>
 
+                        {/* Show slider if Conduit radio button selected */}
                         <div style={{ marginTop: '20px', marginLeft: '12px' }}>
                             {runType === 'Conduit' && <RangeSlider value={conduitSizeRange} setValue={setConduitSizeRange} />}
                         </div>
                     </div>
-
+                    
+                    {/* Cable Size Selection box */}
                     <div className="rounded-rectangle-1">
                         <div className="title">Choose Cable Sizes</div>
                         <FormControl>
@@ -196,15 +207,17 @@ const CRO = () => {
                                 // onChange={handleRunTypeChange}
                                 style={{ marginLeft: '40px' }} // Add this style
                             >
-                                <FormControlLabel value="Conduit" control={<Radio />} label="Use default cable sizes" />
-                                <FormControlLabel value="Messenger" control={<Radio />} label="Upload custom cable sizes" />
+                                <FormControlLabel value="standard" control={<Radio />} label="Use default cable sizes" />
+                                <FormControlLabel value="custom" control={<Radio />} label="Upload custom cable sizes" />
                             </RadioGroup>
                         </FormControl>
                         
                     </div>
                 </Box>
 
-
+                {/* Upload Pull Sheet box. 
+                Wider than previous boxes*/}
+                <div style={{ margin: '5px' }}></div>
                 <div class="rounded-rectangle-3">
                     <div class="title">Upload Pull Sheet</div>
                     <div class="body">Placeholder for download and upload buttons</div>
