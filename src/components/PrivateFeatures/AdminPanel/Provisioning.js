@@ -51,8 +51,8 @@ const Provisioning = () => {
         };
 
     return (
-        <div style={{ width: '100%', display: 'flex', flexDirection: "column", alignItems: 'center', marginTop: 20 }}>
-            <div>
+        <div style={{ width: '100%', display: 'flex', flexDirection: "column", alignItems: 'center', marginTop: 100 }}>
+            <div style={{ marginTop: 20 }}>
                 <Button
                     variant={action === 'add' ? 'contained' : 'outlined'}
                     onClick={() => handleActionChange('add')}

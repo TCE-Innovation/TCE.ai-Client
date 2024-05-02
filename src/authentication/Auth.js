@@ -17,6 +17,7 @@ export const AuthProvider = ({ children }) => {
   const [userTitle, setUserTitle] = useState(null);
   const [userProjects, setUserProjects] = useState(null);
   const [userApplications, setUserApplications] = useState(null);
+  //const [userTools, setUserTools] = useState(null);
   const [accessToken, setAccessToken] = useState(null);
 
   //get user account
@@ -65,6 +66,10 @@ export const AuthProvider = ({ children }) => {
     getApplications(email)
       .then(setUserApplications)
       .catch((error) => console.error('Error fetching user applications:', error));
+
+    //getTools(email)
+    //  .then(setUserTools)
+    //  .catch((error) => console.error('Error fetching user tools:', error));
   }
 
   const loginContextValue = {

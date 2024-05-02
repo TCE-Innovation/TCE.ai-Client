@@ -3,6 +3,7 @@ import FormControl from '@mui/material/FormControl';
 import Button from '@mui/material/Button';
 import InputLabel from '@mui/material/InputLabel';
 import MenuItem from '@mui/material/MenuItem';
+import { Typography } from '@mui/material';
 import Select from '@mui/material/Select';
 import Box from '@mui/material/Box';
 import OutlinedInput from '@mui/material/OutlinedInput';
@@ -38,6 +39,9 @@ const Monitor = () => {
                             Search
                         </Button>
                     </Box>
+                    <Typography variant="subtitle1" sx={{ marginTop: 2 }}>
+                        * Under Construction *
+                    </Typography>
                 </Box>
         </div>
     );

@@ -101,7 +101,7 @@ const Support = () => {
             ) : !isSubmitted ? (
                 // Display the form if not submitted and not loading
                 <>
-                    <div className="private-form-prompt" style={{ textAlign: "center" }}>
+                    <div className="private-form-prompt" style={{ textAlign: "center", marginTop: 30 }}>
                         Need assistance? Please fill out the form below and we will get back to you as soon as possible.
                     </div>
                     <br />
