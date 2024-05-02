@@ -16,7 +16,8 @@ import FormLabel from '@mui/material/FormLabel';
 
 // Upload icon
 import { IconCloudUpload } from '@tabler/icons-react';
-import UploadFile from '@mui/icons-material/UploadFile';
+import Upload from '@mui/icons-material/Upload';
+import Download from '@mui/icons-material/Download';
 import Stack from '@mui/material/Stack';
 import DeleteIcon from '@mui/icons-material/Delete';
 import SendIcon from '@mui/icons-material/Send';
@@ -30,7 +31,7 @@ import './CRO.css';
 
 const CRO = () => {
     const [pullsheet, setPullsheet] = useState('');
-    const [cableSizes, setCableSizes] = useState('standard');
+    const [cableSizes, setCableSizes] = useState('');
     const [responses, setResponses] = useState('');
     const [loading, setLoading] = useState(false);
     const [error, setError] = useState('');
@@ -222,8 +223,9 @@ const CRO = () => {
                         {cableSizes === 'custom' && (
                             <Button
                                 variant="contained"
-                                startIcon={<UploadFile />}
+                                startIcon={<Upload />}
                                 style={{ marginTop: '8px', marginLeft: '45px' }}
+                                
                             >
                                 Upload Custom Cable Sizes
                             </Button>
@@ -236,7 +238,27 @@ const CRO = () => {
                 <div style={{ margin: '5px' }}></div>
                 <div class="rounded-rectangle-3">
                     <div class="title">Upload Pull Sheet</div>
-                    <div class="body">Placeholder for download and upload buttons</div>
+
+                    <Button
+                                variant="contained"
+                                startIcon={<Download />}
+                                style={{ marginTop: '8px', marginLeft: '45px', backgroundColor: '#8B5A73'}}
+                                size="large"
+                                
+                            >
+                                Download Pull Sheet template
+                    </Button>
+                        
+
+                    <Button
+                                variant="contained"
+                                startIcon={<Upload />}
+                                style={{ marginTop: '8px', marginLeft: '70px', width: '350px' }}
+                                size="large"
+                            >
+                                Upload Pull Sheet
+                    </Button>
+                        
                 </div>
 
                 <Typography variant="body2" mb={4} fontSize="20px" style={{ marginTop: '20px' }}>
