@@ -18,8 +18,8 @@ const Monitor = () => {
     };
 
     return (
-        <div style={{ width: '100%', display: 'flex', flexDirection: "column", alignItems: 'center', marginTop: 20 }}>
-                <Box sx={{ display: 'flex', flexDirection: 'column', marginTop: '5vw', width: '70%', justifyContent: 'center'}}>
+        <div style={{ width: '100%', display: 'flex', flexDirection: "column", alignItems: 'center', marginTop: 20, backgroundColor: '#f5f5f5', borderRadius: '10px', padding: '30px' }}>
+                <Box sx={{ display: 'flex', flexDirection: 'column', marginTop: '1vw', width: '70%', justifyContent: 'center'}}>
                     <Box sx={{ display: 'flex', flexDirection: 'row', alignItems: 'center', width: '100%' }}>
                         <FormControl fullWidth sx={{ flex: 1 }}>
                             <InputLabel>Select Tool</InputLabel>

@@ -58,7 +58,7 @@ const Provisioning = () => {
     };
 
     return (
-        <div style={{ width: '100%', display: 'flex', flexDirection: "column", alignItems: 'center', marginTop: 100 }}>
+        <div style={{ width: '100%', display: 'flex', flexDirection: "column", alignItems: 'center', marginTop: 20, backgroundColor: '#f5f5f5', borderRadius: '10px', padding: '30px'  }}>
             <div style={{ marginTop: 20 }}>
                 <Button
                     variant={action === 'add' ? 'contained' : 'outlined'}
@@ -80,7 +80,7 @@ const Provisioning = () => {
                 <Box sx={{ display: 'flex', flexDirection: 'column', marginTop: '5vw', width: '70%', justifyContent: 'center'}}>
                     <Box sx={{ display: 'flex', flexDirection: 'row', alignItems: 'center', marginBottom: '3vw', width: '100%'}}>
                         <Typography variant="subtitle1" sx={{ marginRight: 2, whiteSpace: 'nowrap' }}>
-                            {action === 'add' ? 'Add the following user(s):' : 'Remove the following user(s):'}
+                            {action === 'add' ? 'Add:' : 'Remove:'}
                         </Typography>
                         <Autocomplete
                             multiple
@@ -99,7 +99,7 @@ const Provisioning = () => {
 
                     <Box sx={{ display: 'flex', flexDirection: 'row', alignItems: 'center', width: '100%' }}>
                         <Typography variant="subtitle1" sx={{ marginRight: 2, whiteSpace: 'nowrap' }}>
-                            {action === 'add' ? 'to the following tool:' : 'from the following tool:'}
+                            {action === 'add' ? 'To:' : 'From:'}
                         </Typography>
                         <FormControl fullWidth sx={{ flex: 1 }}>
                             <InputLabel>Select Tools</InputLabel>
