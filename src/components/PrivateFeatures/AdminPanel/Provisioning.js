@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import Autocomplete from '@mui/material/Autocomplete';
 import TextField from '@mui/material/TextField';
 import Button from '@mui/material/Button';
@@ -13,13 +13,20 @@ import OutlinedInput from '@mui/material/OutlinedInput';
 import { getAllPersonnel } from '../../../data/Airtable';
 import { toolList } from '../../../admin/lists';
 
-const users = await getAllPersonnel();
-
 const Provisioning = () => {
     const [action, setAction] = useState('add');
+    const [users, setUsers] = useState([]);
     const [selectedUsers, setSelectedUsers] = useState([]);
-    const [selectedTools, setSelectedTools] = useState([]);
+    const [selectedTool, setSelectedTool] = useState('');
     const [inputValue, setInputValue] = useState(''); // State to track input value
+
+    useEffect(() => {
+        const fetchUsers = async () => {
+            const allUsers = await getAllPersonnel();
+            setUsers(allUsers);
+        };
+        fetchUsers();
+    }, []);
 
     const handleUserChange = (event, newValue) => {
         setSelectedUsers(newValue);
@@ -30,25 +37,25 @@ const Provisioning = () => {
     };
 
     const handleToolChange = (event) => {
-        setSelectedTools(event.target.value);
+        setSelectedTool(event.target.value);
     };
 
     const handleActionChange = (newAction) => {
         setAction(newAction);
         setSelectedUsers([]);
-        setSelectedTools([]);
+        setSelectedTool('');
     };
 
-        // Example functions (define these properly or import them if they're defined elsewhere)
-        const addUsersToTool = (users, tools) => {
-            console.log('Adding', users, 'to', tools);
-            // Implement addition logic here
-        };
-    
-        const removeUsersFromTool = (users, tools) => {
-            console.log('Removing', users, 'from', tools);
-            // Implement removal logic here
-        };
+    // Example functions 
+    const addUsersToTool = (users, tools) => {
+        console.log('Adding', users, 'to', tools);
+        // Implement addition logic here
+    };
+
+    const removeUsersFromTool = (users, tools) => {
+        console.log('Removing', users, 'from', tools);
+        // Implement removal logic here
+    };
 
     return (
         <div style={{ width: '100%', display: 'flex', flexDirection: "column", alignItems: 'center', marginTop: 100 }}>
@@ -78,7 +85,7 @@ const Provisioning = () => {
                         <Autocomplete
                             multiple
                             options={inputValue.length > 0 ? users : []} // Show options only when input value has characters
-                            getOptionLabel={(option) => option}
+                            getOptionLabel={(option) => option.name}
                             value={selectedUsers}
                             onChange={handleUserChange}
                             onInputChange={handleInputChange} // Update the input value
@@ -92,16 +99,14 @@ const Provisioning = () => {
 
                     <Box sx={{ display: 'flex', flexDirection: 'row', alignItems: 'center', width: '100%' }}>
                         <Typography variant="subtitle1" sx={{ marginRight: 2, whiteSpace: 'nowrap' }}>
-                            {action === 'add' ? 'to the following tool(s):' : 'from the following tool(s):'}
+                            {action === 'add' ? 'to the following tool:' : 'from the following tool:'}
                         </Typography>
                         <FormControl fullWidth sx={{ flex: 1 }}>
                             <InputLabel>Select Tools</InputLabel>
                             <Select
-                                multiple
-                                value={selectedTools}
+                                value={selectedTool}
                                 onChange={handleToolChange}
-                                input={<OutlinedInput label="Select Tools" />}
-                                renderValue={(selected) => selected.join(', ')}
+                                input={<OutlinedInput label="Select Tool" />}
                             >
                                 {toolList.map((tool, index) => (
                                     <MenuItem key={index} value={tool}>
@@ -115,7 +120,7 @@ const Provisioning = () => {
             )}
             <Button
                 variant="contained"
-                onClick={() => action === 'add' ? addUsersToTool(selectedUsers, selectedTools) : removeUsersFromTool(selectedUsers, selectedTools)}
+                onClick={() => action === 'add' ? addUsersToTool(selectedUsers, selectedTool) : removeUsersFromTool(selectedUsers, selectedTool)}
                 style={{ backgroundColor: '#1b365f', color: 'white', marginTop: '5vw' }}
             >
                 {action === 'add' ? '+ Add' : 'x Remove'}
