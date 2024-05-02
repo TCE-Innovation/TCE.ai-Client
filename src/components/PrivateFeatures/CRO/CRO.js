@@ -214,7 +214,7 @@ const CRO = () => {
                                 style={{ marginLeft: '60px' }}
                             >
                                 <FormControlLabel
-                                    value="custom"
+                                    value="standard"
                                     control={<Radio />}
                                     label={
                                         <>
@@ -222,6 +222,8 @@ const CRO = () => {
                                             <Link
                                                 href="https://judlauent.sharepoint.com/:x:/s/TCEInnovation/EURdOokWyJJHlbIbEP30nAABJkBs5a53xp3VMeFYUtVtrg?e=ediMR2" // Set the URL here
                                                 style={{ color: 'blue', textDecoration: 'underline', cursor: 'pointer' }}
+                                                target="_blank"
+                                                rel="noopener noreferrer"
                                             >
                                                 default cable sizes
                                             </Link>
