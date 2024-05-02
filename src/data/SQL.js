@@ -1,3 +1,6 @@
+//DEPENDENCIES
+import axios from 'axios';
+
 //function to pull tools from SQL db based on email
 export async function getTools(email) { 
     // Define a unique key for localStorage based on the function and parameters
@@ -43,5 +46,15 @@ export async function removeUsersFromTool(users, tool) {
         return data;
     } catch(error){
         console.error('Error removing users from tool table:', error);
+    }
+}
+
+//function to get all the users of a single tool
+export async function getUsersOfTool(tool) { 
+    try{
+        const {data} = await axios.post('https://tce-ai-api.azurewebsites.net/api/get-users-of-tool', { tool } );
+        return data;
+    } catch(error){
+        console.error('Error getting users of tool:', error);
     }
 }

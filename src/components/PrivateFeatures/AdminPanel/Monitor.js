@@ -8,7 +8,9 @@ import Select from '@mui/material/Select';
 import Box from '@mui/material/Box';
 import OutlinedInput from '@mui/material/OutlinedInput';
 
+
 import { toolList } from '../../../admin/lists';
+import { getUsersOfTool } from '../../../data/SQL';
 
 const Monitor = () => {
     const [selectedTool, setSelectedTool] = useState([]);
@@ -35,7 +37,11 @@ const Monitor = () => {
                                 ))}
                             </Select>
                         </FormControl>
-                        <Button variant="contained" style={{ backgroundColor: '#1b365f', color: 'white', marginLeft: 10 }}>
+                        <Button 
+                            variant="contained" 
+                            onClick={() => getUsersOfTool(selectedTool)}
+                            style={{ backgroundColor: '#1b365f', color: 'white', marginLeft: 10 }}
+                        >
                             Search
                         </Button>
                     </Box>

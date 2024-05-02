@@ -6,6 +6,7 @@ import { Navigate, Outlet, useLocation } from 'react-router-dom';
 import { useMsal } from "@azure/msal-react";
 import { getUserProfilePic } from '../data/Graph';
 import { getJobTitle, getProjects, getApplications } from '../data/Airtable';
+//import { getTools } from '../data/SQL';
 
 export const AuthContext = createContext();
 
@@ -79,6 +80,7 @@ export const AuthProvider = ({ children }) => {
     userTitle,
     userProjects,
     userApplications,
+    //userTools,
     accessToken
   };
 
