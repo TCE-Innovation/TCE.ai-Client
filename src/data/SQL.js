@@ -37,7 +37,7 @@ export async function addUsersToTool(users, tool) {
 }
 
 //function to remove users from a tool table in SQL db based on email. users is an array of user objects [{email: email, name: name}, ... ]
-export async function addUsersToTool(users, tool) { 
+export async function removeUsersFromTool(users, tool) { 
     try{
         const {data} = await axios.post('https://tce-ai-api.azurewebsites.net/api/remove-users-from-tool', { users, tool } );
         return data;
