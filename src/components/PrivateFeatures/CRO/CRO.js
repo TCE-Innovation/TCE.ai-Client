@@ -139,6 +139,13 @@ const CRO = () => {
 
     };
 
+    const spinnerContainerStyle = {
+        display: 'flex',
+        justifyContent: 'center',
+        alignItems: 'center',
+        height: '750px',
+    };
+
     return (
         
         <Box
@@ -313,35 +320,55 @@ const CRO = () => {
                         >
                             GENERATE
                 </Button>
-
+                
+                {loading ? (
+                    <>
+                        <div style={spinnerContainerStyle}>
+                    <TrainLoader />
+                </div>
+                        <Typography variant="body2" mt={2}>
+                            Optimizing...
+                        </Typography>
+                    </>
+                ) : (
+                    <>
+                        {responses[0] && (
+                        <>
+                            <a href={responses[0]} target="_blank" rel="noopener noreferrer">
+                                Click to download Excel File of Optimized Runs
+                            </a>
+                            <br />
+                        </>
+                        )}
+                        {responses[1] && (
+                        <>
+                            <a href={responses[1]} target="_blank" rel="noopener noreferrer">
+                                Click to download Cable Run Visualization
+                            </a>
+                            <br />
+                        </>
+                        )}
+                        {responses[2] && (
+                        <>
+                            <a href={responses[2]} target="_blank" rel="noopener noreferrer">
+                                Click to download PDF File of Bundle Images
+                            </a>
+                            <br />
+                        </>
+                        )}
+                        {error && (
+                            <Typography variant="body2" color="error" mt={2}>
+                                {error}
+                            </Typography>
+                        )}
+                    </>
+                )}
                 
 
                 </div>
 
                 <Box width={1}>
-                    <Typography variant="body2" mb={4} mt={5}fontSize="18px">
-                        NOTE: This tool defaults to using cable sizes and weights from cut sheets that may be different from the cut sheets for your job. 
-                        Before using this tool, verify that the cable parameters (diameter for conduits, diameter and weight for messenger bundles) in the Cable Sizes.xlsx file match the parameters from your cable cut sheets.  
-                        If they are different, you must upload an Excel file with your cable parameters in addition to your cable pull sheet. 
-                        The Excel must follow the same format as the&nbsp;                      
-                        <a
-                            href="https://judlauent.sharepoint.com/:x:/s/TCEInnovation/EURdOokWyJJHlbIbEP30nAABJkBs5a53xp3VMeFYUtVtrg?e=2B52Jn"
-                            style={{ fontSize: '18px' }}
-                            target="_blank"
-                            rel="noopener noreferrer"
-                        >
-                            Sample Cable Size Sheet
-                        </a>
-                        &nbsp; and the pull sheet must follow the same format as the&nbsp;
-                        <a
-                            href="https://judlauent.sharepoint.com/:x:/s/TCEInnovation/EZVQRA2hvqhKo5pNCVpzeUEBBY8JngxgWLmPe6NvSxgk8A?e=W3dtY6"
-                            style={{ fontSize: '18px', mt: 2 }}
-                            target="_blank"
-                            rel="noopener noreferrer"
-                        >
-                            Pull Sheet Template
-                        </a>.
-                    </Typography>
+
 
                     <Button
                             variant="contained"
