@@ -1,6 +1,8 @@
 //REACT
 import React, {useState} from 'react';
 import { Input } from 'reactstrap';
+import { Link } from '@mui/material';
+
 
 //MUI
 import Box from '@mui/material/Box';
@@ -14,13 +16,9 @@ import FormControlLabel from '@mui/material/FormControlLabel';
 import FormControl from '@mui/material/FormControl';
 import FormLabel from '@mui/material/FormLabel';
 
-// Upload icon
-import { IconCloudUpload } from '@tabler/icons-react';
+// Icons
 import Upload from '@mui/icons-material/Upload';
 import Download from '@mui/icons-material/Download';
-import Stack from '@mui/material/Stack';
-import DeleteIcon from '@mui/icons-material/Delete';
-import SendIcon from '@mui/icons-material/Send';
 
 //DEPENDENCIES
 import axios from 'axios';
@@ -215,20 +213,47 @@ const CRO = () => {
                                 onChange={handleCableSizesChange}
                                 style={{ marginLeft: '60px' }}
                             >
-                                <FormControlLabel value="standard" control={<Radio />} label="Use default cable sizes" />
+                                <FormControlLabel
+                                    value="custom"
+                                    control={<Radio />}
+                                    label={
+                                        <>
+                                            Use{' '}
+                                            <Link
+                                                href="https://judlauent.sharepoint.com/:x:/s/TCEInnovation/EURdOokWyJJHlbIbEP30nAABJkBs5a53xp3VMeFYUtVtrg?e=ediMR2" // Set the URL here
+                                                style={{ color: 'blue', textDecoration: 'underline', cursor: 'pointer' }}
+                                            >
+                                                default cable sizes
+                                            </Link>
+                                        </>
+                                    }
+                                />
                                 <FormControlLabel value="custom" control={<Radio />} label="Upload custom cable sizes" />
                             </RadioGroup>
                         </FormControl>
 
                         {cableSizes === 'custom' && (
-                            <Button
-                                variant="contained"
-                                startIcon={<Upload />}
-                                style={{ marginTop: '8px', marginLeft: '45px' }}
-                                
-                            >
-                                Upload Custom Cable Sizes
-                            </Button>
+                            <>
+                                <label htmlFor="cableSizesInput">
+                                    <Button
+                                        variant="contained"
+                                        startIcon={<Upload />}
+                                        style={{ marginTop: '8px', marginLeft: '45px' }}
+                                        onClick={() => {
+                                            document.getElementById('cableSizesInput').click();
+                                        }}
+                                    >
+                                        Upload Custom Cable Sizes
+                                    </Button>
+                                </label>
+                                <input
+                                    type="file"
+                                    id="cableSizesInput"
+                                    accept=".xlsx, .xls"
+                                    style={{ display: 'none' }}
+                                    onChange={(e) => setCableSizes(e.target.files[0])}
+                                />
+                            </>
                         )}
                     </div>
                 </Box>
@@ -242,22 +267,34 @@ const CRO = () => {
                     <Button
                                 variant="contained"
                                 startIcon={<Download />}
-                                style={{ marginTop: '5px', marginLeft: '45px', backgroundColor: '#8B5A73'}}
+                                style={{ marginTop: '5px', marginLeft: '35px', width: '350px', backgroundColor: '#8B5A73'}}
                                 size="large"
-                                
+                                onClick={() => {
+                                    document.getElementById('pullsheetInput').click();
+                                }}
                             >
                                 Download Pull Sheet template
                     </Button>
-                        
 
-                    <Button
-                                variant="contained"
-                                startIcon={<Upload />}
-                                style={{ marginTop: '5px', marginLeft: '70px', width: '350px' }}
-                                size="large"
-                            >
-                                Upload Pull Sheet
-                    </Button>
+                    <label htmlFor="pullsheetInput">
+                        <Button
+                            variant="contained"
+                            startIcon={<Upload />}
+                            style={{ marginTop: '5px', marginLeft: '70px', width: '350px' }}
+                            size="large"
+                            component="span" // Allows the button to trigger file input
+                        >
+                            Upload Pull Sheet
+                        </Button>
+                    </label>
+                    <input
+                        type="file"
+                        id="pullsheetInput"
+                        accept=".xlsx, .xls"
+                        style={{ display: 'none' }} // Hide the file input
+                        onChange={(e) => setPullsheet(e.target.files[0])}
+                        
+                    />
                         
                 </div>
 
@@ -270,27 +307,16 @@ const CRO = () => {
                             color="success"
                             style={{ marginTop: '15px', marginLeft: '20px', width: '325px' }}
                             size="large"
+                            onClick={cro}
                         >
                             GENERATE
                 </Button>
 
+                
+
                 </div>
 
-                <Typography variant="body2" mb={4} fontSize="20px" style={{ marginTop: '20px' }}>
-                    This tool currently supports the following run types: Conduit and Messenger Bundle.
-                    With an input cable pull sheet, the tool generates an Excel spreadsheet that lists conduits/bundles, the cables inside them, and their respective sizes. 
-                </Typography>
-                
                 <Box width={1}>
-                    <label style={{ fontSize: '20px', marginBottom: '10px'}}>
-                        Upload Pull Sheet (.xlsx format)
-                    </label>
-                    <Input
-                        type="file"
-                        id="pullsheetInput"
-                        accept=".xlsx, .xls"
-                        onChange={(e) => setPullsheet(e.target.files[0])}
-                    />
                     <Typography variant="body2" mb={4} mt={5}fontSize="18px">
                         NOTE: This tool defaults to using cable sizes and weights from cut sheets that may be different from the cut sheets for your job. 
                         Before using this tool, verify that the cable parameters (diameter for conduits, diameter and weight for messenger bundles) in the Cable Sizes.xlsx file match the parameters from your cable cut sheets.  
