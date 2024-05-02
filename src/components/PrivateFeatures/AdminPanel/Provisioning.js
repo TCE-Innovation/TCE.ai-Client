@@ -39,6 +39,17 @@ const Provisioning = () => {
         setSelectedTools([]);
     };
 
+        // Example functions (define these properly or import them if they're defined elsewhere)
+        const addUsersToTool = (users, tools) => {
+            console.log('Adding', users, 'to', tools);
+            // Implement addition logic here
+        };
+    
+        const removeUsersFromTool = (users, tools) => {
+            console.log('Removing', users, 'from', tools);
+            // Implement removal logic here
+        };
+
     return (
         <div style={{ width: '100%', display: 'flex', flexDirection: "column", alignItems: 'center', marginTop: 20 }}>
             <div>
@@ -74,6 +85,7 @@ const Provisioning = () => {
                             renderInput={(params) => (
                                 <TextField {...params} label="Select Users" placeholder="Search Users" />
                             )}
+                            noOptionsText={inputValue ? 'No options' : 'Start typing to search'}
                             sx={{ width: '100%' }}
                         />
                     </Box>
@@ -101,6 +113,13 @@ const Provisioning = () => {
                     </Box>
                 </Box>
             )}
+            <Button
+                variant="contained"
+                onClick={() => action === 'add' ? addUsersToTool(selectedUsers, selectedTools) : removeUsersFromTool(selectedUsers, selectedTools)}
+                style={{ backgroundColor: '#1b365f', color: 'white', marginTop: '5vw' }}
+            >
+                {action === 'add' ? '+ Add' : 'x Remove'}
+            </Button>
         </div>
     );
 };
