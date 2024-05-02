@@ -11,6 +11,7 @@ import InputLabel from '@mui/material/InputLabel';
 import OutlinedInput from '@mui/material/OutlinedInput';
 
 import { getAllPersonnel } from '../../../data/Airtable';
+//import { addUsersToTool, removeUsersFromTool } from '../../../data/SQL';
 import { toolList } from '../../../admin/lists';
 
 const Provisioning = () => {
@@ -48,14 +49,17 @@ const Provisioning = () => {
 
     // Example functions 
     const addUsersToTool = (users, tools) => {
-        console.log('Adding', users, 'to', tools);
-        // Implement addition logic here
+        const message = `Adding ${users.map(user => user.name).join(', ')} to ${tools}`;
+        console.log(message);
+        alert(message);  // Use a single string
     };
-
+    
     const removeUsersFromTool = (users, tools) => {
-        console.log('Removing', users, 'from', tools);
-        // Implement removal logic here
+        const message = `Removing ${users.map(user => user.name).join(', ')} from ${tools}`;
+        console.log(message);
+        alert(message);  // Use a single string
     };
+    
 
     return (
         <div style={{ width: '100%', display: 'flex', flexDirection: "column", alignItems: 'center', marginTop: 20, backgroundColor: '#f5f5f5', borderRadius: '10px', padding: '30px'  }}>
@@ -102,7 +106,7 @@ const Provisioning = () => {
                             {action === 'add' ? 'To:' : 'From:'}
                         </Typography>
                         <FormControl fullWidth sx={{ flex: 1 }}>
-                            <InputLabel>Select Tools</InputLabel>
+                            <InputLabel>Select Tool</InputLabel>
                             <Select
                                 value={selectedTool}
                                 onChange={handleToolChange}
@@ -120,7 +124,15 @@ const Provisioning = () => {
             )}
             <Button
                 variant="contained"
-                onClick={() => action === 'add' ? addUsersToTool(selectedUsers, selectedTool) : removeUsersFromTool(selectedUsers, selectedTool)}
+                onClick={() => {
+                    if (action === 'add') {
+                        addUsersToTool(selectedUsers, selectedTool);
+                    } else {
+                        removeUsersFromTool(selectedUsers, selectedTool);
+                    }
+                    setSelectedUsers([]);
+                    setSelectedTool('');
+                }}
                 style={{ backgroundColor: '#1b365f', color: 'white', marginTop: '5vw' }}
             >
                 {action === 'add' ? '+ Add' : 'x Remove'}
