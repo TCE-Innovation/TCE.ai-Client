@@ -14,6 +14,13 @@ import FormControlLabel from '@mui/material/FormControlLabel';
 import FormControl from '@mui/material/FormControl';
 import FormLabel from '@mui/material/FormLabel';
 
+// Upload icon
+import { IconCloudUpload } from '@tabler/icons-react';
+import UploadFile from '@mui/icons-material/UploadFile';
+import Stack from '@mui/material/Stack';
+import DeleteIcon from '@mui/icons-material/Delete';
+import SendIcon from '@mui/icons-material/Send';
+
 //DEPENDENCIES
 import axios from 'axios';
 // import RunTypeRadioButtons from './RunTypeRadioButtons'; // Import the radio buttons component
@@ -158,7 +165,7 @@ const CRO = () => {
                 <Typography variant="body2" fontSize="20px" align="left" style={{paddingBottom: '10px'}}>
                     The Cable Run Optimizer is a tool for generating cable runs involving conduit or messenger bundles.
                 </Typography>
-                
+            
                 {/* Box to set direction to row for Run Type Selection 
                 and Cable Size Selection to be stacked horizontally */}
                 <Box
@@ -205,13 +212,22 @@ const CRO = () => {
                                 name="cable-size-selection"
                                 value={cableSizes}
                                 onChange={handleCableSizesChange}
-                                style={{ marginLeft: '40px' }} // Add this style
+                                style={{ marginLeft: '60px' }}
                             >
                                 <FormControlLabel value="standard" control={<Radio />} label="Use default cable sizes" />
                                 <FormControlLabel value="custom" control={<Radio />} label="Upload custom cable sizes" />
                             </RadioGroup>
                         </FormControl>
-                        
+
+                        {cableSizes === 'custom' && (
+                            <Button
+                                variant="contained"
+                                startIcon={<UploadFile />}
+                                style={{ marginTop: '8px', marginLeft: '45px' }}
+                            >
+                                Upload Custom Cable Sizes
+                            </Button>
+                        )}
                     </div>
                 </Box>
 
