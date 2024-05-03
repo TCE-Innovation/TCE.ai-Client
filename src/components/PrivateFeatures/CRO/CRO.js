@@ -18,7 +18,7 @@ import FormControl from '@mui/material/FormControl';
 // Icons
 import Upload from '@mui/icons-material/Upload';
 import Download from '@mui/icons-material/Download';
-import HelpOutlineIcon from '@mui/icons-material/HelpOutline';
+import InfoOutlinedIcon from '@mui/icons-material/InfoOutlined';
 
 // Tooltip for on hover info
 import Tooltip from '@mui/material/Tooltip';
@@ -27,8 +27,36 @@ import Tooltip from '@mui/material/Tooltip';
 import axios from 'axios';
 // import RunTypeRadioButtons from './RunTypeRadioButtons'; // Import the radio buttons component
 
+// FAQ Section
+import Accordion from '@mui/material/Accordion';
+import AccordionDetails from '@mui/material/AccordionDetails';
+import AccordionSummary from '@mui/material/AccordionSummary';
+import ArrowDropDownIcon from '@mui/icons-material/ArrowDropDown';
+import QuizIcon from '@mui/icons-material/Quiz';
+import Dialog, { DialogProps } from '@mui/material/Dialog';
+import DialogActions from '@mui/material/DialogActions';
+import DialogContent from '@mui/material/DialogContent';
+import DialogContentText from '@mui/material/DialogContentText';
+import DialogTitle from '@mui/material/DialogTitle';
+import InputLabel from '@mui/material/InputLabel';
+import MenuItem from '@mui/material/MenuItem';
+import Select, { SelectChangeEvent } from '@mui/material/Select';
+import Switch from '@mui/material/Switch';
+import CloseIcon from '@mui/icons-material/Close';
+import { styled } from '@mui/material/styles';
+import IconButton from '@mui/material/IconButton';
+
 import RangeSlider from "./Slider"
 import './CRO.css';
+
+const BootstrapDialog = styled(Dialog)(({ theme }) => ({
+    '& .MuiDialogContent-root': {
+      padding: theme.spacing(2),
+    },
+    '& .MuiDialogActions-root': {
+      padding: theme.spacing(1),
+    },
+  }));
 
 const CRO = () => {
     const [pullsheet, setPullsheet] = useState('');
@@ -36,9 +64,19 @@ const CRO = () => {
     const [responses, setResponses] = useState('');
     const [loading, setLoading] = useState(false);
     const [error, setError] = useState('');
-    const [showCableSizeSheet, setShowCableSizeSheet] = useState(false);
+    // const [showCableSizeSheet, setShowCableSizeSheet] = useState(false);
     const [runType, setRunType] = useState('');
     const [conduitSizeRange, setConduitSizeRange] = useState([0.75, 4]);
+
+    const [open, setOpen] = React.useState(false);
+
+    const handleClickOpen = () => {
+      setOpen(true);
+    };
+    const handleClose = () => {
+      setOpen(false);
+    };
+    
 
     // Pass the state and the setter function as props to the Slider component
     <RangeSlider value={conduitSizeRange} setValue={setConduitSizeRange} />
@@ -50,6 +88,14 @@ const CRO = () => {
     const handleCableSizesChange = (event) => {
         setCableSizes(event.target.value);
     };
+
+    // const handleFAQClickOpen = () => {
+    //     openFAQ(true);
+    // };
+
+    // const handleFAQClickClose = () => {
+    //     openFAQ(false);
+    // };
 
     const cro = async () => {
         if (!pullsheet) {
@@ -169,12 +215,80 @@ const CRO = () => {
                     marginBottom: 4,
                     backgroundColor: 'transparent',
                 }}
+
+                
             >   
+            <Box display="flex" flexDirection="row" alignItems="center">
                 {/* Intro text */}
-                <Typography variant="body2" fontSize="20px" align="left" style={{paddingBottom: '10px'}}>
-                    The Cable Run Optimizer is a tool for generating cable runs involving conduit or messenger bundles.
+                <Typography
+                    variant="body2"
+                    fontSize="20px"
+                    align="center"
+                    style={{ 
+                        paddingBottom: '10px', 
+                        marginLeft: '350px' // Increase marginLeft from 250px to 300px
+                    }}
+                >
+                    The Cable Run Optimizer is for generating conduit or messenger bundle cable runs.
                 </Typography>
-            
+
+
+                {/* FAQ Section */}
+                <Button
+                    variant="contained"
+                    startIcon={<QuizIcon />}
+                    style={{ marginLeft: '290px', marginTop: '-px'}}
+                    onClick={handleClickOpen}
+                >
+                    FAQ
+                </Button>
+                </Box>
+                
+                <BootstrapDialog
+                    onClose={handleClose}
+                    aria-labelledby="customized-dialog-title"
+                    open={open}
+                >
+                    <DialogTitle sx={{ m: 0, p: 2 }} id="customized-dialog-title">
+                    Modal title
+                    </DialogTitle>
+                    <IconButton
+                    aria-label="close"
+                    onClick={handleClose}
+                    sx={{
+                        position: 'absolute',
+                        right: 8,
+                        top: 8,
+                        color: (theme) => theme.palette.grey[500],
+                    }}
+                    >
+                    <CloseIcon />
+                    </IconButton>
+                    <DialogContent dividers>
+                    <Typography gutterBottom>
+                        Cras mattis consectetur purus sit amet fermentum. Cras justo odio,
+                        dapibus ac facilisis in, egestas eget quam. Morbi leo risus, porta ac
+                        consectetur ac, vestibulum at eros.
+                    </Typography>
+                    <Typography gutterBottom>
+                        Praesent commodo cursus magna, vel scelerisque nisl consectetur et.
+                        Vivamus sagittis lacus vel augue laoreet rutrum faucibus dolor auctor.
+                    </Typography>
+                    <Typography gutterBottom>
+                        Aenean lacinia bibendum nulla sed consectetur. Praesent commodo cursus
+                        magna, vel scelerisque nisl consectetur et. Donec sed odio dui. Donec
+                        ullamcorper nulla non metus auctor fringilla.
+                    </Typography>
+                    </DialogContent>
+                    <DialogActions>
+                    <Button autoFocus onClick={handleClose}>
+                        Save changes
+                    </Button>
+                    </DialogActions>
+                </BootstrapDialog>
+                {/* </div> */}
+
+
                 {/* Box to set direction to row for Run Type Selection 
                 and Cable Size Selection to be stacked horizontally */}
                 <Box
@@ -210,27 +324,25 @@ const CRO = () => {
                             {runType === 'Conduit' && <RangeSlider value={conduitSizeRange} setValue={setConduitSizeRange} />}
                         </div>
                     </div>
-                    
-                    
-
+                                    
                     {/* Cable Size Selection box */}
                     <div className="rounded-rectangle-1">
                         <div className="title">Choose Cable Sizes</div>
                         <Tooltip title={
                             <Typography noWrap={false}>
-                                If you are using custom cable sizes, then you must download{" "}  
+                                If you are using custom cable sizes, then you must {" "}  
                                  <Link 
                                     href="https://tceaiblob.blob.core.windows.net/cro/Cable%20Sizes.xlsx?sp=r&st=2024-05-03T15:21:21Z&se=2050-05-03T23:21:21Z&sv=2022-11-02&sr=b&sig=mFQQaFmy2Hz%2Bppt0s1zrJjbQlfzZpz1BVqiTRMw5wvw%3D" // Set the URL here
-                                    style={{ color: '#0000EE', textDecoration: 'underline', cursor: 'pointer' }}
+                                    style={{ color: 'blue', textDecoration: 'underline', cursor: 'pointer' }}
                                     target="_blank"
                                     rel="noopener noreferrer"
                                 >
-                                     the default cables sizes Excel
+                                     download the default cables sizes Excel
                                 </Link>
-                                {" "}and edit the values there or add your own cable sizes to it.
+                                {" "}and edit the cable sizes to match your project.
                             </Typography>
                         } arrow sx={{ fontSize: '2.5em' }}>
-                            <HelpOutlineIcon style={{ position: 'relative', top: -40, left: 330 }} />
+                            <InfoOutlinedIcon style={{ position: 'relative', top: -40, left: 330 }} />
                         </Tooltip>
                         <FormControl style={{ marginTop: '-40px' }}>
                             <RadioGroup
@@ -294,11 +406,39 @@ const CRO = () => {
                 <div class="rounded-rectangle-3">
                     <div class="title">Upload Pull Sheet</div>
 
+                    <Tooltip title={
+                            <Typography component="div" style={{ minWidth: '300px' }}>
+                                <ul>
+                                    <li>.xlsx format required</li>
+                                    <li>Required Columns:
+                                        <ul>
+                                            <li>Pull number</li>
+                                            <li>Size</li>
+                                            <li>Start Stationing</li>
+                                            <li>End Stationing</li>
+                                        </ul>
+                                    </li>
+                                    <li>Optional Columns:
+                                        <ul>
+                                            <li>Express</li>
+                                            <li>Trade</li>
+                                            <li>Coil Length</li>
+                                            <li>High Bend</li>
+                                            <li>Bottom/Top of Bundle</li>
+                                        </ul>
+                                    </li>
+                                </ul>
+                                                    
+                            </Typography>
+                        } arrow sx={{ fontSize: '2.5em' }}>
+                            <InfoOutlinedIcon style={{ position: 'relative', top: -45, left: 810 }} />
+                    </Tooltip>
+
                     <a href="https://tceaiblob.blob.core.windows.net/cro/Cable%20Pull%20Sheet%20Template.xlsx?sp=r&st=2024-05-03T13:54:51Z&se=2050-05-03T21:54:51Z&sv=2022-11-02&sr=b&sig=GMWzScbnQ0QHQHbAHgRC%2BCenfeBJxwucXY3eAE6fRCQ%3D">
                         <Button
                             variant="contained"
                             startIcon={<Download />}
-                            style={{ marginTop: '5px', marginLeft: '35px', width: '350px', backgroundColor: '#8B5A73'}}
+                            style={{ marginTop: '5px', marginLeft: '0px', width: '350px', backgroundColor: '#8B5A73'}}
                             size="large"
                         >
                             Download Pull Sheet template
@@ -310,7 +450,7 @@ const CRO = () => {
                         <Button
                             variant="contained"
                             startIcon={<Upload />}
-                            style={{ marginTop: '5px', marginLeft: '70px', width: '350px' }}
+                            style={{ marginTop: '5px', marginLeft: '60px', width: '350px' }}
                             size="large"
                             onClick={() => {
                                 document.getElementById('pullsheetInput').click();
@@ -403,53 +543,7 @@ const CRO = () => {
 
                 </div>
 
-                <Box width={1}>
-
-
-                    <Button
-                            variant="contained"
-                            sx={{ color: 'black', 
-                            fontWeight: 700, 
-                            backgroundColor: 'white', 
-                            '&:hover': { backgroundColor: theme => theme.palette.grey[500] }, 
-                            marginTop: 0
-
-                            }}
-                            onClick={() => {
-                                setShowCableSizeSheet(!showCableSizeSheet);
-                                if (showCableSizeSheet) {
-                                    setCableSizes('standard');
-                                }
-                            }}
-                        >
-                            {showCableSizeSheet ? 'Use Standard Cable Sizes Sheet' : 'OPTIONAL: Upload Your Cable Sizes'}
-                    
-                    </Button>
-                    {/* <div style={{ marginTop: '20px' }}></div> */}
-
-                    {showCableSizeSheet ? (
-                        <>
-                            {/* <label style={{ fontSize: '20px', marginTop: '5px', marginLeft: '-275px'}}>
-                                Upload Cable Sizes Sheet
-                            </label> */}
-                            <div style={{ margin: '20px' }}></div>
-                            <label style={{ fontSize: '20px', marginTop: '5px', marginLeft: '5px', marginBottom: '10px'}}>
-                                Upload Cable Sizes Sheet
-                            </label>
-                            <Input
-                                type="file"
-                                id="cableSizesInput"
-                                accept=".xlsx, .xls"
-                                onChange={(e) => setCableSizes(e.target.files[0])}
-                            />
-                        </>
-                    ) : null}
-
-                    <div style={{ margin: '40px 0' }}></div>
-                    
-                    
                 
-                </Box>
             </Box>
         </Box>
     );
