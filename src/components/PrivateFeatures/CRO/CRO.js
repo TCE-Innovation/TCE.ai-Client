@@ -50,6 +50,12 @@ import RangeSlider from "./Slider"
 import './CRO.css';
 
 const BootstrapDialog = styled(Dialog)(({ theme }) => ({
+    '& .MuiDialog-paper': {
+        // width: '200vw',
+        // height: '150vh',
+        maxWidth: '80%', // 80% of viewport width
+        height: '150vh'
+    },
     '& .MuiDialogContent-root': {
       padding: theme.spacing(2),
     },
@@ -245,12 +251,13 @@ const CRO = () => {
                 </Box>
                 
                 <BootstrapDialog
+                    fullscreen
                     onClose={handleClose}
                     aria-labelledby="customized-dialog-title"
                     open={open}
                 >
                     <DialogTitle sx={{ m: 0, p: 2 }} id="customized-dialog-title">
-                    Modal title
+                    Frequently Asked Questions
                     </DialogTitle>
                     <IconButton
                     aria-label="close"
@@ -281,9 +288,9 @@ const CRO = () => {
                     </Typography>
                     </DialogContent>
                     <DialogActions>
-                    <Button autoFocus onClick={handleClose}>
-                        Save changes
-                    </Button>
+                    {/* <Button autoFocus onClick={handleClose}>
+                        x
+                    </Button> */}
                     </DialogActions>
                 </BootstrapDialog>
                 {/* </div> */}
