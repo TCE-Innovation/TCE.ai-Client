@@ -257,7 +257,7 @@ const CRO = () => {
                 <Button
                     variant="contained"
                     startIcon={<QuizIcon />}
-                    style={{ marginLeft: '290px', marginTop: '-px'}}
+                    style={{ marginLeft: '290px', marginTop: '-px', backgroundColor: '#8B5A73'}}
                     onClick={handleClickOpen}
                 >
                     FAQ
@@ -289,7 +289,7 @@ const CRO = () => {
                     <div>
                     <Accordion expanded={expanded === 'panel1'} onChange={handleChange('panel1')}>
                         <AccordionSummary aria-controls="panel1d-content" id="panel1d-header">
-                        <Typography>Collapsible Group Item #1</Typography>
+                        <Typography>How does the logic work for creating conduits?</Typography>
                         </AccordionSummary>
                         <AccordionDetails>
                         <Typography>
@@ -302,7 +302,7 @@ const CRO = () => {
                     </Accordion>
                     <Accordion expanded={expanded === 'panel2'} onChange={handleChange('panel2')}>
                         <AccordionSummary aria-controls="panel2d-content" id="panel2d-header">
-                        <Typography>Collapsible Group Item #2</Typography>
+                        <Typography>How does the logic work for creating messenger bundles?</Typography>
                         </AccordionSummary>
                         <AccordionDetails>
                         <Typography>
@@ -315,17 +315,69 @@ const CRO = () => {
                     </Accordion>
                     <Accordion expanded={expanded === 'panel3'} onChange={handleChange('panel3')}>
                         <AccordionSummary aria-controls="panel3d-content" id="panel3d-header">
-                        <Typography>Collapsible Group Item #3</Typography>
+                        <Typography>What information is relevant for cable sizes?</Typography>
                         </AccordionSummary>
                         <AccordionDetails>
                         <Typography>
-                            Lorem ipsum dolor sit amet, consectetur adipiscing elit. Suspendisse
-                            malesuada lacus ex, sit amet blandit leo lobortis eget. Lorem ipsum dolor
-                            sit amet, consectetur adipiscing elit. Suspendisse malesuada lacus ex,
-                            sit amet blandit leo lobortis eget.
+                            For conduit, the diameter is used. For messenger bundles, the diameter and weight is used.
                         </Typography>
                         </AccordionDetails>
                     </Accordion>
+                    <Accordion expanded={expanded === 'panel4'} onChange={handleChange('panel4')}>
+                    <AccordionSummary aria-controls="panel4d-content" id="panel4d-header">
+                    <Typography>How is the diameter of messenger bundles calculated?</Typography>
+                    </AccordionSummary>
+                    <AccordionDetails>
+                    <Typography>
+                        The diameter calculation is a rough approximation. 
+                        The outermost cable that is placed within the bundle is used to dicatate 
+                        the diameter approximation of the bundle. So if the outermost cable in a bundle 
+                        is placed two inches away from the center, and its radius is 0.5 inches so the outermost distance 
+                        of a cable from the center is 2.5 inches, then the diameter is said to be about 5 inches.
+                    </Typography>
+                    </AccordionDetails>
+                    </Accordion>
+                    <Accordion expanded={expanded === 'panel5'} onChange={handleChange('panel5')}>
+                        <AccordionSummary aria-controls="panel5d-content" id="panel5d-header">
+                            <Typography>How would I get a cable to be put at the bottom of the bundle?</Typography>
+                        </AccordionSummary>
+                        <AccordionDetails>
+                            <Typography>
+                            Within your pull sheet, you can add a column called "Bottom/Top of Bundle" and
+                            set the value to "Bottom" for the cable you want to be placed at the bottom of the bundle.
+                            </Typography>
+                        </AccordionDetails>
+                    </Accordion>
+                    {/* <Accordion expanded={expanded === 'panel6'} onChange={handleChange('panel6')}>
+                        <AccordionSummary aria-controls="panel6d-content" id="panel6d-header">
+                            <Typography>Accordion 6</Typography>
+                        </AccordionSummary>
+                        <AccordionDetails>
+                            <Typography>
+                                Content for Accordion 6
+                            </Typography>
+                        </AccordionDetails>
+                    </Accordion>
+                    <Accordion expanded={expanded === 'panel7'} onChange={handleChange('panel7')}>
+                        <AccordionSummary aria-controls="panel7d-content" id="panel7d-header">
+                            <Typography>Accordion 7</Typography>
+                        </AccordionSummary>
+                        <AccordionDetails>
+                            <Typography>
+                                Content for Accordion 7
+                            </Typography>
+                        </AccordionDetails>
+                    </Accordion>
+                    <Accordion expanded={expanded === 'panel8'} onChange={handleChange('panel8')}>
+                        <AccordionSummary aria-controls="panel8d-content" id="panel8d-header">
+                            <Typography>Accordion 8</Typography>
+                        </AccordionSummary>
+                        <AccordionDetails>
+                            <Typography>
+                                Content for Accordion 8
+                            </Typography>
+                        </AccordionDetails>
+                    </Accordion> */}
                     </div>
                     </DialogContent>
                     <DialogActions>
