@@ -14,11 +14,14 @@ import Radio from '@mui/material/Radio';
 import RadioGroup from '@mui/material/RadioGroup';
 import FormControlLabel from '@mui/material/FormControlLabel';
 import FormControl from '@mui/material/FormControl';
-import FormLabel from '@mui/material/FormLabel';
 
 // Icons
 import Upload from '@mui/icons-material/Upload';
 import Download from '@mui/icons-material/Download';
+import HelpOutlineIcon from '@mui/icons-material/HelpOutline';
+
+// Tooltip for on hover info
+import Tooltip from '@mui/material/Tooltip';
 
 //DEPENDENCIES
 import axios from 'axios';
@@ -208,10 +211,28 @@ const CRO = () => {
                         </div>
                     </div>
                     
+                    
+
                     {/* Cable Size Selection box */}
                     <div className="rounded-rectangle-1">
                         <div className="title">Choose Cable Sizes</div>
-                        <FormControl>
+                        <Tooltip title={
+                            <Typography noWrap={false}>
+                                If you are using custom cable sizes, then you must download{" "}  
+                                 <Link 
+                                    href="https://tceaiblob.blob.core.windows.net/cro/Cable%20Sizes.xlsx?sp=r&st=2024-05-03T15:21:21Z&se=2050-05-03T23:21:21Z&sv=2022-11-02&sr=b&sig=mFQQaFmy2Hz%2Bppt0s1zrJjbQlfzZpz1BVqiTRMw5wvw%3D" // Set the URL here
+                                    style={{ color: '#0000EE', textDecoration: 'underline', cursor: 'pointer' }}
+                                    target="_blank"
+                                    rel="noopener noreferrer"
+                                >
+                                     the default cables sizes Excel
+                                </Link>
+                                {" "}and edit the values there or add your own cable sizes to it.
+                            </Typography>
+                        } arrow sx={{ fontSize: '2.5em' }}>
+                            <HelpOutlineIcon style={{ position: 'relative', top: -40, left: 330 }} />
+                        </Tooltip>
+                        <FormControl style={{ marginTop: '-40px' }}>
                             <RadioGroup
                                 row
                                 aria-labelledby="select-cable-sizes"
@@ -322,7 +343,7 @@ const CRO = () => {
                         >
                             <Typography variant="h5">GENERATE</Typography>
                 </Button>
-                
+            
                 {loading ? (
                     <>
                         <div style={spinnerContainerStyle}>
@@ -426,34 +447,7 @@ const CRO = () => {
 
                     <div style={{ margin: '40px 0' }}></div>
                     
-                    <FormControl>
-                        <FormLabel id="select-cable-run-type">Select Run Type</FormLabel>
-                        <RadioGroup
-                            row
-                            aria-labelledby="select-cable-run-type"
-                            name="conduit-messenger-selection"
-                            value={runType}
-                            onChange={handleRunTypeChange}
-                        >
-                            <FormControlLabel value="Conduit" control={<Radio />} label="Conduit" />
-                            <FormControlLabel value="Messenger" control={<Radio />} label="Messenger Bundle" />
-                            <FormControlLabel value="CMRS" disabled control={<Radio />} label="CMRS" />
-                            {/* <FormControlLabel value="Tray" disabled control={<Radio />} label="Cable Tray" /> */}
-                        </RadioGroup>
-                    </FormControl>
                     
-                    {/* <div style={{ marginTop: '20px', marginLeft: '12px' }}>
-                        {runType === 'Conduit' && <Slider />}
-                    </div> */}
-
-                    <div style={{ marginTop: '20px', marginLeft: '12px' }}>
-                        {runType === 'Conduit' && <RangeSlider value={conduitSizeRange} setValue={setConduitSizeRange} />}
-                    </div>
-
-                    {/* <div>
-                        Selected Run Type: {runType}
-                    </div> */}
-
                 
                 </Box>
             </Box>
