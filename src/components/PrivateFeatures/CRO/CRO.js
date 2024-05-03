@@ -273,17 +273,17 @@ const CRO = () => {
                 <div class="rounded-rectangle-3">
                     <div class="title">Upload Pull Sheet</div>
 
-                    <Button
-                                variant="contained"
-                                startIcon={<Download />}
-                                style={{ marginTop: '5px', marginLeft: '35px', width: '350px', backgroundColor: '#8B5A73'}}
-                                size="large"
-                                onClick={() => {
-                                    document.getElementById('pullsheetInput').click();
-                                }}
-                            >
-                                Download Pull Sheet template
-                    </Button>
+                    <a href="https://tceaiblob.blob.core.windows.net/cro/Cable%20Pull%20Sheet%20Template.xlsx?sp=r&st=2024-05-03T13:54:51Z&se=2050-05-03T21:54:51Z&sv=2022-11-02&sr=b&sig=GMWzScbnQ0QHQHbAHgRC%2BCenfeBJxwucXY3eAE6fRCQ%3D">
+                        <Button
+                            variant="contained"
+                            startIcon={<Download />}
+                            style={{ marginTop: '5px', marginLeft: '35px', width: '350px', backgroundColor: '#8B5A73'}}
+                            size="large"
+                        >
+                            Download Pull Sheet template
+                        </Button>
+                    </a>
+
 
                     <label htmlFor="pullsheetInput">
                         <Button
@@ -291,7 +291,9 @@ const CRO = () => {
                             startIcon={<Upload />}
                             style={{ marginTop: '5px', marginLeft: '70px', width: '350px' }}
                             size="large"
-                            component="span" // Allows the button to trigger file input
+                            onClick={() => {
+                                document.getElementById('pullsheetInput').click();
+                            }}
                         >
                             Upload Pull Sheet
                         </Button>
@@ -318,7 +320,7 @@ const CRO = () => {
                             size="large"
                             onClick={cro}
                         >
-                            GENERATE
+                            <Typography variant="h5">GENERATE</Typography>
                 </Button>
                 
                 {loading ? (
@@ -334,26 +336,38 @@ const CRO = () => {
                     <>
                         {responses[0] && (
                         <>
-                            <a href={responses[0]} target="_blank" rel="noopener noreferrer">
+                            <a
+                                href={responses[0]}
+                                target="_blank"
+                                rel="noopener noreferrer"
+                                style={{ display: 'block', marginLeft: '10px', marginTop: '10px' }}
+                            >
                                 Click to download Excel File of Optimized Runs
                             </a>
-                            <br />
                         </>
                         )}
                         {responses[1] && (
                         <>
-                            <a href={responses[1]} target="_blank" rel="noopener noreferrer">
+                            <a
+                                href={responses[1]}
+                                target="_blank"
+                                rel="noopener noreferrer"
+                                style={{ display: 'block', marginLeft: '10px', marginTop: '10px' }}
+                            >
                                 Click to download Cable Run Visualization
                             </a>
-                            <br />
                         </>
                         )}
                         {responses[2] && (
                         <>
-                            <a href={responses[2]} target="_blank" rel="noopener noreferrer">
+                            <a
+                                href={responses[2]}
+                                target="_blank"
+                                rel="noopener noreferrer"
+                                style={{ display: 'block', marginLeft: '10px', marginTop: '10px' }}
+                            >
                                 Click to download PDF File of Bundle Images
                             </a>
-                            <br />
                         </>
                         )}
                         {error && (
@@ -362,6 +376,7 @@ const CRO = () => {
                             </Typography>
                         )}
                     </>
+
                 )}
                 
 
@@ -439,70 +454,8 @@ const CRO = () => {
                         Selected Run Type: {runType}
                     </div> */}
 
-                    
-
-                    <Box sx={{ marginTop: 4}}>
-                        <Button
-                            variant="contained"
-                            color="primary"
-                            onClick={cro}
-                            sx={{ }}
-                        >
-                            Generate Optimized Cable Run
-                        </Button>
-                    </Box>
+                
                 </Box>
-            </Box>
-            <Box
-                sx={{
-                    display: 'flex',
-                    flexDirection: 'column',
-                    alignItems: 'center',
-                    justifyContent: 'center',
-                    flexGrow: 1,
-                }}
-            >
-                {loading ? (
-                    <>
-                        <TrainLoader />
-                        <Typography variant="body2" mt={2}>
-                            Optimizing...
-                        </Typography>
-                    </>
-                ) : (
-                    <>
-                        {responses[0] && (
-                        <>
-                            <a href={responses[0]} target="_blank" rel="noopener noreferrer">
-                                Click here to download Excel File of Optimized Runs
-                            </a>
-                            <br />
-                        </>
-                        )}
-                        {responses[1] && (
-                        <>
-                            <a href={responses[1]} target="_blank" rel="noopener noreferrer">
-                                Click here to download Cable Run Visualization
-                            </a>
-                            <br />
-                        </>
-                        )}
-                        {responses[2] && (
-                        <>
-                            <a href={responses[2]} target="_blank" rel="noopener noreferrer">
-                                Click here to download PDF File of Bundle Images
-                            </a>
-                            <br />
-                        </>
-                        )}
-                        {error && (
-                            <Typography variant="body2" color="error" mt={2}>
-                                {error}
-                            </Typography>
-                        )}
-                    </>
-                )}
-
             </Box>
         </Box>
     );
