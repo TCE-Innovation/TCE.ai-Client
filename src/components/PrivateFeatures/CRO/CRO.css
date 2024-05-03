@@ -1,0 +1,52 @@
+.title, .body {
+    color: black;
+  }
+
+.rounded-rectangle-1 {
+    border-radius: 20px;
+    background-color: rgb(197, 197, 197);
+    padding: 20px;
+    margin: 10px;
+    width: 400px;
+    height: 200px;
+    margin-left: 40px;
+    margin-right: 40px;
+}
+
+.rounded-rectangle-1 .title {
+    font-size: 20px;
+    font-weight: bold;
+    text-align: center;
+    position: relative;
+    top: -10px;
+}
+
+.rounded-rectangle-1 .body {
+    color: black;
+    font-size: 16px;
+    text-align:center;
+}
+
+
+.rounded-rectangle-3 {
+    border-radius: 20px;
+    background-color: rgb(197, 197, 197);
+    padding: 20px;
+    margin: 10px;
+    width: 880px;
+    height: 130px;
+}
+
+.rounded-rectangle-3 .title {
+    font-size: 20px;
+    font-weight: bold;
+    text-align: center;
+    position: relative;
+    top: -10px;
+}
+
+.rounded-rectangle-3 .body {
+    color: black;
+    font-size: 16px;
+    text-align:center;
+}

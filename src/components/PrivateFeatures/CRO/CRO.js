@@ -1,6 +1,8 @@
 //REACT
 import React, {useState} from 'react';
 import { Input } from 'reactstrap';
+import { Link } from '@mui/material';
+
 
 //MUI
 import Box from '@mui/material/Box';
@@ -12,13 +14,62 @@ import Radio from '@mui/material/Radio';
 import RadioGroup from '@mui/material/RadioGroup';
 import FormControlLabel from '@mui/material/FormControlLabel';
 import FormControl from '@mui/material/FormControl';
-import FormLabel from '@mui/material/FormLabel';
+
+// Icons
+import Upload from '@mui/icons-material/Upload';
+import Download from '@mui/icons-material/Download';
+import InfoOutlinedIcon from '@mui/icons-material/InfoOutlined';
+
+// Tooltip for on hover info
+import Tooltip from '@mui/material/Tooltip';
 
 //DEPENDENCIES
 import axios from 'axios';
 // import RunTypeRadioButtons from './RunTypeRadioButtons'; // Import the radio buttons component
 
+// FAQ Section
+import Accordion from '@mui/material/Accordion';
+import AccordionDetails from '@mui/material/AccordionDetails';
+import AccordionSummary from '@mui/material/AccordionSummary';
+import ArrowDropDownIcon from '@mui/icons-material/ArrowDropDown';
+import ArrowForwardIosSharpIcon from '@mui/icons-material/ArrowForwardIosSharp';
+import QuizIcon from '@mui/icons-material/Quiz';
+import Dialog, { DialogProps } from '@mui/material/Dialog';
+import DialogActions from '@mui/material/DialogActions';
+import DialogContent from '@mui/material/DialogContent';
+import DialogContentText from '@mui/material/DialogContentText';
+import DialogTitle from '@mui/material/DialogTitle';
+import InputLabel from '@mui/material/InputLabel';
+import MenuItem from '@mui/material/MenuItem';
+import Select, { SelectChangeEvent } from '@mui/material/Select';
+import Switch from '@mui/material/Switch';
+import CloseIcon from '@mui/icons-material/Close';
+import { styled } from '@mui/material/styles';
+import IconButton from '@mui/material/IconButton';
+import MuiAccordion, { AccordionProps } from '@mui/material/Accordion';
+import MuiAccordionSummary, {
+  AccordionSummaryProps,
+} from '@mui/material/AccordionSummary';
+import MuiAccordionDetails from '@mui/material/AccordionDetails';
+
 import RangeSlider from "./Slider"
+import './CRO.css';
+
+const BootstrapDialog = styled(Dialog)(({ theme }) => ({
+    '& .MuiDialog-paper': {
+        // width: '200vw',
+        // height: '150vh',
+        maxWidth: '80%', // 80% of viewport width
+        height: '150vh'
+    },
+    '& .MuiDialogContent-root': {
+      padding: theme.spacing(2),
+    },
+    '& .MuiDialogActions-root': {
+      padding: theme.spacing(1),
+    },
+  }));
+    
 
 const CRO = () => {
     const [pullsheet, setPullsheet] = useState('');
@@ -26,9 +77,26 @@ const CRO = () => {
     const [responses, setResponses] = useState('');
     const [loading, setLoading] = useState(false);
     const [error, setError] = useState('');
-    const [showCableSizeSheet, setShowCableSizeSheet] = useState(false);
+    // const [showCableSizeSheet, setShowCableSizeSheet] = useState(false);
     const [runType, setRunType] = useState('');
     const [conduitSizeRange, setConduitSizeRange] = useState([0.75, 4]);
+
+    const [open, setOpen] = React.useState(false);
+
+    const handleClickOpen = () => {
+      setOpen(true);
+    };
+    const handleClose = () => {
+      setOpen(false);
+    };
+
+    const [expanded, setExpanded] = React.useState('panel1');
+  
+    const handleChange = (panel) => (event, newExpanded) => {
+        setExpanded(newExpanded ? panel : false);
+      };
+      
+    
 
     // Pass the state and the setter function as props to the Slider component
     <RangeSlider value={conduitSizeRange} setValue={setConduitSizeRange} />
@@ -36,6 +104,18 @@ const CRO = () => {
     const handleRunTypeChange = (event) => {
         setRunType(event.target.value);
       };
+
+    const handleCableSizesChange = (event) => {
+        setCableSizes(event.target.value);
+    };
+
+    // const handleFAQClickOpen = () => {
+    //     openFAQ(true);
+    // };
+
+    // const handleFAQClickClose = () => {
+    //     openFAQ(false);
+    // };
 
     const cro = async () => {
         if (!pullsheet) {
@@ -105,7 +185,7 @@ const CRO = () => {
                 setResponses([data[0], data[1]]);
             } 
 
-            // If backend returns two URLs (messenger bundle optimization)
+            // If backend returns three URLs (messenger bundle optimization)
             else if (data.length === 3) {
                 // Update state with both URLs
                 setResponses(data);
@@ -128,6 +208,13 @@ const CRO = () => {
 
     };
 
+    const spinnerContainerStyle = {
+        display: 'flex',
+        justifyContent: 'center',
+        alignItems: 'center',
+        height: '750px',
+    };
+
     return (
         
         <Box
@@ -145,145 +232,363 @@ const CRO = () => {
                     flexDirection: 'column',
                     alignItems: 'center',
                     justifyContent: 'flex-start',
-                    marginBottom: 4
+                    marginBottom: 4,
+                    backgroundColor: 'transparent',
                 }}
-            >
-                <Typography variant="body2" fontSize="20px" align="left">
-                    The Cable Run Optimizer tool is designed to automate the process of planning cable runs.
+
+                
+            >   
+            <Box display="flex" flexDirection="row" alignItems="center">
+                {/* Intro text */}
+                <Typography
+                    variant="body2"
+                    fontSize="20px"
+                    align="center"
+                    style={{ 
+                        paddingBottom: '10px', 
+                        marginLeft: '350px' // Increase marginLeft from 250px to 300px
+                    }}
+                >
+                    The Cable Run Optimizer is for generating conduit or messenger bundle cable runs.
                 </Typography>
 
-                <Typography variant="body2" mb={4} fontSize="20px" style={{ marginTop: '20px' }}>
-                    This tool currently supports the following run types: Conduit and Messenger Bundle.
-                    With an input cable pull sheet, the tool generates an Excel spreadsheet that lists conduits/bundles, the cables inside them, and their respective sizes. 
-                </Typography>
+
+                {/* FAQ Section */}
+                <Button
+                    variant="contained"
+                    startIcon={<QuizIcon />}
+                    style={{ marginLeft: '290px', marginTop: '-px', backgroundColor: '#8B5A73'}}
+                    onClick={handleClickOpen}
+                >
+                    FAQ
+                </Button>
+                </Box>
                 
-                <Box width={1}>
-                    <label style={{ fontSize: '20px', marginBottom: '10px'}}>
-                        Upload Pull Sheet (.xlsx format)
+                <BootstrapDialog
+                    fullscreen
+                    onClose={handleClose}
+                    aria-labelledby="customized-dialog-title"
+                    open={open}
+                >
+                    <DialogTitle sx={{ m: 0, p: 2 }} id="customized-dialog-title">
+                    Frequently Asked Questions
+                    </DialogTitle>
+                    <IconButton
+                    aria-label="close"
+                    onClick={handleClose}
+                    sx={{
+                        position: 'absolute',
+                        right: 8,
+                        top: 8,
+                        color: (theme) => theme.palette.grey[500],
+                    }}
+                    >
+                    <CloseIcon />
+                    </IconButton>
+                    <DialogContent dividers>
+                    <div>
+                    <Accordion expanded={expanded === 'panel1'} onChange={handleChange('panel1')}>
+                        <AccordionSummary aria-controls="panel1d-content" id="panel1d-header">
+                        <Typography>How does the logic work for creating conduits?</Typography>
+                        </AccordionSummary>
+                        <AccordionDetails>
+                        <Typography>
+                            Lorem ipsum dolor sit amet, consectetur adipiscing elit. Suspendisse
+                            malesuada lacus ex, sit amet blandit leo lobortis eget. Lorem ipsum dolor
+                            sit amet, consectetur adipiscing elit. Suspendisse malesuada lacus ex,
+                            sit amet blandit leo lobortis eget.
+                        </Typography>
+                        </AccordionDetails>
+                    </Accordion>
+                    <Accordion expanded={expanded === 'panel2'} onChange={handleChange('panel2')}>
+                        <AccordionSummary aria-controls="panel2d-content" id="panel2d-header">
+                        <Typography>How does the logic work for creating messenger bundles?</Typography>
+                        </AccordionSummary>
+                        <AccordionDetails>
+                        <Typography>
+                            Lorem ipsum dolor sit amet, consectetur adipiscing elit. Suspendisse
+                            malesuada lacus ex, sit amet blandit leo lobortis eget. Lorem ipsum dolor
+                            sit amet, consectetur adipiscing elit. Suspendisse malesuada lacus ex,
+                            sit amet blandit leo lobortis eget.
+                        </Typography>
+                        </AccordionDetails>
+                    </Accordion>
+                    <Accordion expanded={expanded === 'panel3'} onChange={handleChange('panel3')}>
+                        <AccordionSummary aria-controls="panel3d-content" id="panel3d-header">
+                        <Typography>What information is relevant for cable sizes?</Typography>
+                        </AccordionSummary>
+                        <AccordionDetails>
+                        <Typography>
+                            For conduit, the diameter is used. For messenger bundles, the diameter and weight is used.
+                        </Typography>
+                        </AccordionDetails>
+                    </Accordion>
+                    <Accordion expanded={expanded === 'panel4'} onChange={handleChange('panel4')}>
+                    <AccordionSummary aria-controls="panel4d-content" id="panel4d-header">
+                    <Typography>How is the diameter of messenger bundles calculated?</Typography>
+                    </AccordionSummary>
+                    <AccordionDetails>
+                    <Typography>
+                        The diameter calculation is a rough approximation. 
+                        The outermost cable that is placed within the bundle is used to dicatate 
+                        the diameter approximation of the bundle. So if the outermost cable in a bundle 
+                        is placed two inches away from the center, and its radius is 0.5 inches so the outermost distance 
+                        of a cable from the center is 2.5 inches, then the diameter is said to be about 5 inches.
+                    </Typography>
+                    </AccordionDetails>
+                    </Accordion>
+                    <Accordion expanded={expanded === 'panel5'} onChange={handleChange('panel5')}>
+                        <AccordionSummary aria-controls="panel5d-content" id="panel5d-header">
+                            <Typography>How would I get a cable to be put at the bottom of the bundle?</Typography>
+                        </AccordionSummary>
+                        <AccordionDetails>
+                            <Typography>
+                            Within your pull sheet, you can add a column called "Bottom/Top of Bundle" and
+                            set the value to "Bottom" for the cable you want to be placed at the bottom of the bundle.
+                            </Typography>
+                        </AccordionDetails>
+                    </Accordion>
+                    {/* <Accordion expanded={expanded === 'panel6'} onChange={handleChange('panel6')}>
+                        <AccordionSummary aria-controls="panel6d-content" id="panel6d-header">
+                            <Typography>Accordion 6</Typography>
+                        </AccordionSummary>
+                        <AccordionDetails>
+                            <Typography>
+                                Content for Accordion 6
+                            </Typography>
+                        </AccordionDetails>
+                    </Accordion>
+                    <Accordion expanded={expanded === 'panel7'} onChange={handleChange('panel7')}>
+                        <AccordionSummary aria-controls="panel7d-content" id="panel7d-header">
+                            <Typography>Accordion 7</Typography>
+                        </AccordionSummary>
+                        <AccordionDetails>
+                            <Typography>
+                                Content for Accordion 7
+                            </Typography>
+                        </AccordionDetails>
+                    </Accordion>
+                    <Accordion expanded={expanded === 'panel8'} onChange={handleChange('panel8')}>
+                        <AccordionSummary aria-controls="panel8d-content" id="panel8d-header">
+                            <Typography>Accordion 8</Typography>
+                        </AccordionSummary>
+                        <AccordionDetails>
+                            <Typography>
+                                Content for Accordion 8
+                            </Typography>
+                        </AccordionDetails>
+                    </Accordion> */}
+                    </div>
+                    </DialogContent>
+                    <DialogActions>
+                    {/* <Button autoFocus onClick={handleClose}>
+                        x
+                    </Button> */}
+                    </DialogActions>
+                </BootstrapDialog>
+                {/* </div> */}
+
+
+                {/* Box to set direction to row for Run Type Selection 
+                and Cable Size Selection to be stacked horizontally */}
+                <Box
+                    sx={{
+                        display: 'flex',
+                        flexDirection: 'row',
+                        alignItems: 'center',
+                        justifyContent: 'flex-start',
+                        marginBottom: 4,
+                        backgroundColor: 'transparent',
+                    }}
+                >   
+                    {/* Run Type Selection box */}
+                    <div className="rounded-rectangle-1">
+                        <div className="title">Select Run Type</div>
+                        <FormControl>
+                            <RadioGroup
+                                row
+                                aria-labelledby="select-cable-run-type"
+                                name="conduit-messenger-selection"
+                                value={runType}
+                                onChange={handleRunTypeChange}
+                                style={{ marginLeft: '40px' }}
+                            >
+                                {/* Radio Buttons to Selects Run Type */}
+                                <FormControlLabel value="Conduit" control={<Radio />} label="Conduit" />
+                                <FormControlLabel value="Messenger" control={<Radio />} label="Messenger Bundle" />
+                            </RadioGroup>
+                        </FormControl>
+
+                        {/* Show slider if Conduit radio button selected */}
+                        <div style={{ marginTop: '20px', marginLeft: '12px' }}>
+                            {runType === 'Conduit' && <RangeSlider value={conduitSizeRange} setValue={setConduitSizeRange} />}
+                        </div>
+                    </div>
+                                    
+                    {/* Cable Size Selection box */}
+                    <div className="rounded-rectangle-1">
+                        <div className="title">Choose Cable Sizes</div>
+                        <Tooltip title={
+                            <Typography noWrap={false}>
+                                If you are using custom cable sizes, then you must {" "}  
+                                 <Link 
+                                    href="https://tceaiblob.blob.core.windows.net/cro/Cable%20Sizes.xlsx?sp=r&st=2024-05-03T15:21:21Z&se=2050-05-03T23:21:21Z&sv=2022-11-02&sr=b&sig=mFQQaFmy2Hz%2Bppt0s1zrJjbQlfzZpz1BVqiTRMw5wvw%3D" // Set the URL here
+                                    style={{ color: 'blue', textDecoration: 'underline', cursor: 'pointer' }}
+                                    target="_blank"
+                                    rel="noopener noreferrer"
+                                >
+                                     download the default cables sizes Excel
+                                </Link>
+                                {" "}and edit the cable sizes to match your project.
+                            </Typography>
+                        } arrow sx={{ fontSize: '2.5em' }}>
+                            <InfoOutlinedIcon style={{ position: 'relative', top: -40, left: 330 }} />
+                        </Tooltip>
+                        <FormControl style={{ marginTop: '-40px' }}>
+                            <RadioGroup
+                                row
+                                aria-labelledby="select-cable-sizes"
+                                name="cable-size-selection"
+                                value={cableSizes}
+                                onChange={handleCableSizesChange}
+                                style={{ marginLeft: '60px' }}
+                            >
+                                <FormControlLabel
+                                    value="standard"
+                                    control={<Radio />}
+                                    label={
+                                        <>
+                                            Use{' '}
+                                            <Link
+                                                href="https://judlauent.sharepoint.com/:x:/s/TCEInnovation/EURdOokWyJJHlbIbEP30nAABJkBs5a53xp3VMeFYUtVtrg?e=ediMR2" // Set the URL here
+                                                style={{ color: 'blue', textDecoration: 'underline', cursor: 'pointer' }}
+                                                target="_blank"
+                                                rel="noopener noreferrer"
+                                            >
+                                                default cable sizes
+                                            </Link>
+                                        </>
+                                    }
+                                />
+                                <FormControlLabel value="custom" control={<Radio />} label="Upload custom cable sizes" />
+                            </RadioGroup>
+                        </FormControl>
+
+                        {cableSizes === 'custom' && (
+                            <>
+                                <label htmlFor="cableSizesInput">
+                                    <Button
+                                        variant="contained"
+                                        startIcon={<Upload />}
+                                        style={{ marginTop: '8px', marginLeft: '45px' }}
+                                        onClick={() => {
+                                            document.getElementById('cableSizesInput').click();
+                                        }}
+                                    >
+                                        Upload Custom Cable Sizes
+                                    </Button>
+                                </label>
+                                <input
+                                    type="file"
+                                    id="cableSizesInput"
+                                    accept=".xlsx, .xls"
+                                    style={{ display: 'none' }}
+                                    onChange={(e) => setCableSizes(e.target.files[0])}
+                                />
+                            </>
+                        )}
+                    </div>
+                </Box>
+
+                {/* Upload Pull Sheet box. 
+                Wider than previous boxes*/}
+                <div style={{ margin: '5px' }}></div>
+                <div class="rounded-rectangle-3">
+                    <div class="title">Upload Pull Sheet</div>
+
+                    <Tooltip title={
+                            <Typography component="div" style={{ minWidth: '300px' }}>
+                                <ul>
+                                    <li>.xlsx format required</li>
+                                    <li>Required Columns:
+                                        <ul>
+                                            <li>Pull number</li>
+                                            <li>Size</li>
+                                            <li>Start Stationing</li>
+                                            <li>End Stationing</li>
+                                        </ul>
+                                    </li>
+                                    <li>Optional Columns:
+                                        <ul>
+                                            <li>Express</li>
+                                            <li>Trade</li>
+                                            <li>Coil Length</li>
+                                            <li>High Bend</li>
+                                            <li>Bottom/Top of Bundle</li>
+                                        </ul>
+                                    </li>
+                                </ul>
+                                                    
+                            </Typography>
+                        } arrow sx={{ fontSize: '2.5em' }}>
+                            <InfoOutlinedIcon style={{ position: 'relative', top: -45, left: 810 }} />
+                    </Tooltip>
+
+                    <a href="https://tceaiblob.blob.core.windows.net/cro/Cable%20Pull%20Sheet%20Template.xlsx?sp=r&st=2024-05-03T13:54:51Z&se=2050-05-03T21:54:51Z&sv=2022-11-02&sr=b&sig=GMWzScbnQ0QHQHbAHgRC%2BCenfeBJxwucXY3eAE6fRCQ%3D">
+                        <Button
+                            variant="contained"
+                            startIcon={<Download />}
+                            style={{ marginTop: '5px', marginLeft: '0px', width: '350px', backgroundColor: '#8B5A73'}}
+                            size="large"
+                        >
+                            Download Pull Sheet template
+                        </Button>
+                    </a>
+
+
+                    <label htmlFor="pullsheetInput">
+                        <Button
+                            variant="contained"
+                            startIcon={<Upload />}
+                            style={{ marginTop: '5px', marginLeft: '60px', width: '350px' }}
+                            size="large"
+                            onClick={() => {
+                                document.getElementById('pullsheetInput').click();
+                            }}
+                        >
+                            Upload Pull Sheet
+                        </Button>
                     </label>
-                    <Input
+                    <input
                         type="file"
                         id="pullsheetInput"
                         accept=".xlsx, .xls"
+                        style={{ display: 'none' }} // Hide the file input
                         onChange={(e) => setPullsheet(e.target.files[0])}
+                        
                     />
-                    <Typography variant="body2" mb={4} mt={5}fontSize="18px">
-                        NOTE: This tool defaults to using cable sizes and weights from cut sheets that may be different from the cut sheets for your job. 
-                        Before using this tool, verify that the cable parameters (diameter for conduits, diameter and weight for messenger bundles) in the Cable Sizes.xlsx file match the parameters from your cable cut sheets.  
-                        If they are different, you must upload an Excel file with your cable parameters in addition to your cable pull sheet. 
-                        The Excel must follow the same format as the&nbsp;                      
-                        <a
-                            href="https://judlauent.sharepoint.com/:x:/s/TCEInnovation/EURdOokWyJJHlbIbEP30nAABJkBs5a53xp3VMeFYUtVtrg?e=2B52Jn"
-                            style={{ fontSize: '18px' }}
-                            target="_blank"
-                            rel="noopener noreferrer"
-                        >
-                            Sample Cable Size Sheet
-                        </a>
-                        &nbsp; and the pull sheet must follow the same format as the&nbsp;
-                        <a
-                            href="https://judlauent.sharepoint.com/:x:/s/TCEInnovation/EZVQRA2hvqhKo5pNCVpzeUEBBY8JngxgWLmPe6NvSxgk8A?e=W3dtY6"
-                            style={{ fontSize: '18px', mt: 2 }}
-                            target="_blank"
-                            rel="noopener noreferrer"
-                        >
-                            Pull Sheet Template
-                        </a>.
-                    </Typography>
+                        
+                </div>
 
-                    <Button
+                {/* GENERATE CABLE RUN Box */}
+                <div style={{ margin: '20px' }}></div>
+                <div className="rounded-rectangle-1">
+
+                <Button
                             variant="contained"
-                            sx={{ color: 'black', 
-                            fontWeight: 700, 
-                            backgroundColor: 'white', 
-                            '&:hover': { backgroundColor: theme => theme.palette.grey[500] }, 
-                            marginTop: 0
-
-                            }}
-                            onClick={() => {
-                                setShowCableSizeSheet(!showCableSizeSheet);
-                                if (showCableSizeSheet) {
-                                    setCableSizes('standard');
-                                }
-                            }}
-                        >
-                            {showCableSizeSheet ? 'Use Standard Cable Sizes Sheet' : 'OPTIONAL: Upload Your Cable Sizes'}
-                    
-                    </Button>
-                    {/* <div style={{ marginTop: '20px' }}></div> */}
-
-                    {showCableSizeSheet ? (
-                        <>
-                            {/* <label style={{ fontSize: '20px', marginTop: '5px', marginLeft: '-275px'}}>
-                                Upload Cable Sizes Sheet
-                            </label> */}
-                            <div style={{ margin: '20px' }}></div>
-                            <label style={{ fontSize: '20px', marginTop: '5px', marginLeft: '5px', marginBottom: '10px'}}>
-                                Upload Cable Sizes Sheet
-                            </label>
-                            <Input
-                                type="file"
-                                id="cableSizesInput"
-                                accept=".xlsx, .xls"
-                                onChange={(e) => setCableSizes(e.target.files[0])}
-                            />
-                        </>
-                    ) : null}
-
-                    <div style={{ margin: '40px 0' }}></div>
-                    
-                    <FormControl>
-                        <FormLabel id="select-cable-run-type">Select Run Type</FormLabel>
-                        <RadioGroup
-                            row
-                            aria-labelledby="select-cable-run-type"
-                            name="conduit-messenger-selection"
-                            value={runType}
-                            onChange={handleRunTypeChange}
-                        >
-                            <FormControlLabel value="Conduit" control={<Radio />} label="Conduit" />
-                            <FormControlLabel value="Messenger" control={<Radio />} label="Messenger Bundle" />
-                            <FormControlLabel value="CMRS" disabled control={<Radio />} label="CMRS" />
-                            {/* <FormControlLabel value="Tray" disabled control={<Radio />} label="Cable Tray" /> */}
-                        </RadioGroup>
-                    </FormControl>
-                    
-                    {/* <div style={{ marginTop: '20px', marginLeft: '12px' }}>
-                        {runType === 'Conduit' && <Slider />}
-                    </div> */}
-
-                    <div style={{ marginTop: '20px', marginLeft: '12px' }}>
-                        {runType === 'Conduit' && <RangeSlider value={conduitSizeRange} setValue={setConduitSizeRange} />}
-                    </div>
-
-                    {/* <div>
-                        Selected Run Type: {runType}
-                    </div> */}
-
-                    <Box sx={{ marginTop: 4}}>
-                        <Button
-                            variant="contained"
-                            color="primary"
+                            color="success"
+                            style={{ marginTop: '15px', marginLeft: '20px', width: '325px' }}
+                            size="large"
                             onClick={cro}
-                            sx={{ }}
                         >
-                            Generate Optimized Cable Run
-                        </Button>
-                    </Box>
-                </Box>
-            </Box>
-            <Box
-                sx={{
-                    display: 'flex',
-                    flexDirection: 'column',
-                    alignItems: 'center',
-                    justifyContent: 'center',
-                    flexGrow: 1,
-                }}
-            >
+                            <Typography variant="h5">GENERATE</Typography>
+                </Button>
+            
                 {loading ? (
                     <>
-                        <TrainLoader />
+                        <div style={spinnerContainerStyle}>
+                    <TrainLoader />
+                </div>
                         <Typography variant="body2" mt={2}>
                             Optimizing...
                         </Typography>
@@ -292,26 +597,38 @@ const CRO = () => {
                     <>
                         {responses[0] && (
                         <>
-                            <a href={responses[0]} target="_blank" rel="noopener noreferrer">
-                                Click here to download Excel File of Optimized Runs
+                            <a
+                                href={responses[0]}
+                                target="_blank"
+                                rel="noopener noreferrer"
+                                style={{ display: 'block', marginLeft: '10px', marginTop: '10px' }}
+                            >
+                                Click to download Excel File of Optimized Runs
                             </a>
-                            <br />
                         </>
                         )}
                         {responses[1] && (
                         <>
-                            <a href={responses[1]} target="_blank" rel="noopener noreferrer">
-                                Click here to download Cable Run Visualization
+                            <a
+                                href={responses[1]}
+                                target="_blank"
+                                rel="noopener noreferrer"
+                                style={{ display: 'block', marginLeft: '10px', marginTop: '10px' }}
+                            >
+                                Click to download Cable Run Visualization
                             </a>
-                            <br />
                         </>
                         )}
                         {responses[2] && (
                         <>
-                            <a href={responses[2]} target="_blank" rel="noopener noreferrer">
-                                Click here to download PDF File of Bundle Images
+                            <a
+                                href={responses[2]}
+                                target="_blank"
+                                rel="noopener noreferrer"
+                                style={{ display: 'block', marginLeft: '10px', marginTop: '10px' }}
+                            >
+                                Click to download PDF File of Bundle Images
                             </a>
-                            <br />
                         </>
                         )}
                         {error && (
@@ -320,8 +637,13 @@ const CRO = () => {
                             </Typography>
                         )}
                     </>
-                )}
 
+                )}
+                
+
+                </div>
+
+                
             </Box>
         </Box>
     );
