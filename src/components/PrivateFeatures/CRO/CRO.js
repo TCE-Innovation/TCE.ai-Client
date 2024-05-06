@@ -1,6 +1,6 @@
 //REACT
 import React, {useState} from 'react';
-import { Input } from 'reactstrap';
+// import { Input } from 'reactstrap';
 import { Link } from '@mui/material';
 
 
@@ -34,7 +34,7 @@ import AccordionSummary from '@mui/material/AccordionSummary';
 // import ArrowDropDownIcon from '@mui/icons-material/ArrowDropDown';
 // import ArrowForwardIosSharpIcon from '@mui/icons-material/ArrowForwardIosSharp';
 import QuizIcon from '@mui/icons-material/Quiz';
-import Dialog, { DialogProps } from '@mui/material/Dialog';
+import Dialog from '@mui/material/Dialog';
 import DialogActions from '@mui/material/DialogActions';
 import DialogContent from '@mui/material/DialogContent';
 // import DialogContentText from '@mui/material/DialogContentText';
