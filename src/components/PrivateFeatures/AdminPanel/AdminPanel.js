@@ -3,7 +3,6 @@ import Box from "@mui/material/Box";
 import Button from "@mui/material/Button";
 
 // COMPONENTS
-import Provisioning from './Provisioning';
 import Monitor from './Monitor';
 
 function AdminPanel() {
@@ -22,13 +21,6 @@ function AdminPanel() {
         <Box>
             <Box sx={{ width: '100%', display: 'flex', justifyContent: 'flex-start' }}>
                 <Button
-                    variant={activeTab === 'provisioning' ? 'contained' : 'outlined'}
-                    onClick={() => handleTabChange('provisioning')}
-                    style={activeTab === 'provisioning' ? { backgroundColor: '#1b365f', color: 'white' } : { backgroundColor: 'white', color: '#1b365f', border: '1px solid #1b365f' }}
-                >
-                    Provisioning
-                </Button>
-                <Button
                     variant={activeTab === 'monitor' ? 'contained' : 'outlined'}
                     onClick={() => handleTabChange('monitor')}
                     style={activeTab === 'monitor' ? { backgroundColor: '#1b365f', color: 'white', marginLeft: 10 } : { backgroundColor: 'white', color: '#1b365f', border: '1px solid #1b365f', marginLeft: 10 }}
@@ -38,7 +30,7 @@ function AdminPanel() {
             </Box>
 
             <Box sx={contentStyle}>
-                {activeTab === 'provisioning' ? <Provisioning /> : <Monitor />}
+                 <Monitor />
             </Box>
         </Box>
     );

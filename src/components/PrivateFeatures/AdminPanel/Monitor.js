@@ -1,11 +1,7 @@
-import React, { useState } from 'react';
-import FormControl from '@mui/material/FormControl';
-import Button from '@mui/material/Button';
-import InputLabel from '@mui/material/InputLabel';
-import MenuItem from '@mui/material/MenuItem';
-import { Typography, Table, TableBody, TableCell, TableContainer, TableHead, TableRow, Paper, Select, Box, OutlinedInput } from '@mui/material';
-import { toolList } from '../../../admin/lists';
-import { getUsersOfTool, removeUserFromTool } from '../../../data/SQL';
+import React, { useState, useEffect } from 'react';
+import { Table, TableBody, TableCell, TableContainer, TableHead, TableRow, Paper, Button, Box, Typography, FormControl, Select, MenuItem } from '@mui/material';
+import { getUsersOfTool, removeUserFromTool, addUserToTool } from '../../../data/SQL';
+import { getAllPersonnel } from '../../../data/Airtable';
 
 const toolNameMap = {
     'Chatbot': 'chatbot',
@@ -17,70 +13,92 @@ const toolNameMap = {
 const Monitor = () => {
     const [selectedTool, setSelectedTool] = useState('');
     const [users, setUsers] = useState([]);
+    const [personnelList, setPersonnelList] = useState([]);
     const [searched, setSearched] = useState(false);
+
+    useEffect(() => {
+        const fetchUsers = async () => {
+            if (selectedTool) {
+                const sqlToolName = toolNameMap[selectedTool];
+                if (sqlToolName) {
+                    const result = await getUsersOfTool(sqlToolName);
+                    setUsers(result);
+                    setSearched(true);
+                } else {
+                    console.error('Tool not found in map');
+                }
+            }
+        };
+        fetchUsers();
+    }, [selectedTool]);
+
+    useEffect(() => {
+        const fetchPersonnelList = async () => {
+            try {
+                const personnel = await getAllPersonnel();
+                setPersonnelList(personnel);
+            } catch (error) {
+                console.error('Error fetching personnel list:', error);
+            }
+        };
+        fetchPersonnelList();
+    }, []);
+
+    const handleRemoveUser = async (email) => {
+        await removeUserFromTool(email, toolNameMap[selectedTool]);
+        setUsers(prevUsers => prevUsers.filter(user => user.email !== email));
+    };
+
+    const handleAddUser = async (user) => {
+        try {
+            await addUserToTool(user, toolNameMap[selectedTool]);
+            const updatedUsers = await getUsersOfTool(toolNameMap[selectedTool]);
+            setUsers(updatedUsers);
+    
+            // Remove the added user from the personnelList
+            setPersonnelList(prevPersonnel => prevPersonnel.filter(person => person.email !== user.email));
+        } catch (error) {
+            console.error('Error adding user:', error);
+        }
+    };
 
     const handleToolChange = (event) => {
         setSelectedTool(event.target.value);
     };
 
-    const handleSearch = async () => {
-        const sqlToolName = toolNameMap[selectedTool];
-        if (sqlToolName) {
-            const result = await getUsersOfTool(sqlToolName);
-            setUsers(result);
-            setSearched(true); 
-        } else {
-            console.error('Tool not found in map');
-            setSearched(true); 
-        }
-    };
-
-    const handleRemoveUser = async (email) => {
-        // Call the SQL function to remove the user from the tool
-        await removeUserFromTool(email, toolNameMap[selectedTool]);
-
-        // Update the users state to reflect the removal
-        setUsers(prevUsers => prevUsers.filter(user => user.email !== email));
-    };
-
     return (
-        <div style={{ width: '100%', display: 'flex', flexDirection: "column", alignItems: 'center', marginTop: 20, backgroundColor: '#f5f5f5', borderRadius: '10px', padding: '30px' }}>
-            <Box sx={{ display: 'flex', flexDirection: 'column', marginTop: '1vw', width: '70%', justifyContent: 'center' }}>
-                <Box sx={{ display: 'flex', flexDirection: 'row', alignItems: 'center', width: '100%' }}>
-                    <FormControl fullWidth sx={{ flex: 1 }}>
-                        <InputLabel>Select Tool</InputLabel>
-                        <Select
-                            value={selectedTool}
-                            onChange={handleToolChange}
-                            input={<OutlinedInput label="Select Tools" />}
-                        >
-                            {toolList.map((tool, index) => (
-                                <MenuItem key={index} value={tool}>
-                                    {tool}
-                                </MenuItem>
-                            ))}
-                        </Select>
-                    </FormControl>
-                    <Button 
-                        variant="contained" 
-                        onClick={handleSearch}
-                        style={{ backgroundColor: '#1b365f', color: 'white', marginLeft: 10 }}
+        <div style={{ width: '100%', display: 'flex', flexDirection: 'column', alignItems: 'center', marginTop: 20 }}>
+            <Box sx={{ width: '70%', padding: 2 }}>
+                <FormControl fullWidth sx={{ marginBottom: '1rem' }}>
+                    <Select
+                        value={selectedTool}
+                        onChange={handleToolChange}
+                        displayEmpty
+                        inputProps={{ 'aria-label': 'Select Tool' }}
                     >
-                        Search
-                    </Button>
-                </Box>
+                        <MenuItem value="" disabled>Select Tool</MenuItem>
+                        {Object.keys(toolNameMap).map((tool, index) => (
+                            <MenuItem key={index} value={tool}>{tool}</MenuItem>
+                        ))}
+                    </Select>
+                </FormControl>
 
-                {users.length > 0 ? (
-                    <TableContainer component={Paper} sx={{ maxHeight: 500, marginTop: 2 }}>
-                        <Table stickyHeader aria-label="users table">
+                {searched && (
+                    <TableContainer component={Paper}>
+                        <Table>
                             <TableHead>
                                 <TableRow>
                                     <TableCell>Name</TableCell>
                                     <TableCell>Email</TableCell>
-                                    <TableCell>Action</TableCell> {/* New column for the remove button */}
+                                    <TableCell>Action</TableCell>
                                 </TableRow>
                             </TableHead>
                             <TableBody>
+                                <TableRow>
+                                    <TableCell colSpan={3} style={{ backgroundColor: '#f5f5f5' }}>
+                                        <Typography variant="subtitle1" >Existing Users:</Typography>
+                                    </TableCell>
+                                </TableRow>
                                 {users.map((user, index) => (
                                     <TableRow key={index}>
                                         <TableCell>{user.name}</TableCell>
@@ -89,9 +107,29 @@ const Monitor = () => {
                                             <Button 
                                                 variant="contained" 
                                                 onClick={() => handleRemoveUser(user.email)}
-                                                style={{ border: '2px solid red', backgroundColor: '#f5f5f5', color: 'red' }}
+                                                style={{ backgroundColor: 'white', color: 'red', border: '1px solid red'}}
                                             >
                                                 Remove
+                                            </Button>
+                                        </TableCell>
+                                    </TableRow>
+                                ))}
+                                <TableRow>
+                                    <TableCell colSpan={3} style={{ backgroundColor: '#f5f5f5' }}>
+                                        <Typography variant="subtitle1">Add Users:</Typography>
+                                    </TableCell>
+                                </TableRow>
+                                {personnelList.map((person, index) => (
+                                    <TableRow key={index}>
+                                        <TableCell>{person.name}</TableCell>
+                                        <TableCell>{person.email}</TableCell>
+                                        <TableCell>
+                                            <Button 
+                                                variant="contained" 
+                                                onClick={() => handleAddUser(person)}
+                                                style={{ backgroundColor: 'white', color: 'green', border: '1px solid green'}}
+                                            >
+                                                Add
                                             </Button>
                                         </TableCell>
                                     </TableRow>
@@ -99,12 +137,6 @@ const Monitor = () => {
                             </TableBody>
                         </Table>
                     </TableContainer>
-                ) : (
-                    searched && (
-                        <Typography variant="h6" sx={{ marginTop: 2 }}>
-                            No users found
-                        </Typography>
-                    )
                 )}
             </Box>
         </div>
