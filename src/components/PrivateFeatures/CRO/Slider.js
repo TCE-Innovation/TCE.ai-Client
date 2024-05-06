@@ -11,7 +11,6 @@ const marks = [
   { value: 2.5, label: '2.5"' },
   { value: 3.0, label: '3.0"' },
   { value: 3.5, label: '3.5"' },
-  { value: 3.5, label: '3.5"' },
   { value: 4.0, label: '4.0"' },
   { value: 4.5, label: '4.5"' },
   { value: 5.0, label: '5.0"' },
@@ -35,11 +34,11 @@ export default function RangeSlider({ value, setValue }) {
   };
 
   return (
-    <Box sx={{ width: 600 }}>
+    <Box sx={{ width: 340 }}>
 
-    <p style={{marginLeft: '-10px' }}>
+      <p style={{ marginLeft: '10px', marginTop: '-5px', marginBottom: '-5px', fontSize: '16px' }}>
         Input Range of Potential Conduit Sizes:
-    </p>
+      </p>
 
       <Slider
         getAriaLabel={() => "Conduit Size Range"}
@@ -51,11 +50,8 @@ export default function RangeSlider({ value, setValue }) {
         marks={marks}
         min={0.75}
         max={6}
+        
       />
-
-      {/* <p style={{marginTop: '20px'}}>
-        Current range: {value[0]}" - {value[1]}"
-      </p> */}
 
     </Box>
   );
