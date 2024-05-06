@@ -48,7 +48,6 @@ const AssetCarousel = () => {
 
     const handleImageLoaded = (index) => {
         setLoadingState(prev => ({ ...prev, [index]: true }));
-        console.log(loadingState);
     };
 
 
