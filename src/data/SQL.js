@@ -30,22 +30,24 @@ export async function getTools(email) {
 }
 
 //function to add users to a tool table in SQL db based on email. users is an array of user objects [{email: email, name: name}, ... ]
-export async function addUsersToTool(users, tool) { 
-    try{
-        const {data} = await axios.post('https://tce-ai-api.azurewebsites.net/api/add-users-to-tool', { users, tool } );
+export async function addUsersToTool(users, tool) {
+    try {
+        const { data } = await axios.post('https://tce-ai-api.azurewebsites.net/api/add-users-to-tool', { users, tool });
         return data;
-    } catch(error){
+    } catch (error) {
         console.error('Error adding users to tool table:', error);
+        throw new Error('An error occurred while adding users to the tool table');
     }
 }
 
-//function to remove users from a tool table in SQL db based on email. users is an array of user objects [{email: email, name: name}, ... ]
-export async function removeUsersFromTool(users, tool) { 
-    try{
-        const {data} = await axios.post('https://tce-ai-api.azurewebsites.net/api/remove-users-from-tool', { users, tool } );
+//function to remove users from a tool table in SQL db based on email
+export async function removeUserFromTool(email, tool) {
+    try {
+        const { data } = await axios.post('https://tce-ai-api.azurewebsites.net/api/remove-user-from-tool', { email, tool });
         return data;
-    } catch(error){
-        console.error('Error removing users from tool table:', error);
+    } catch (error) {
+        console.error('Error removing user from tool table:', error);
+        throw new Error('An error occurred while removing user from the tool table');
     }
 }
 
