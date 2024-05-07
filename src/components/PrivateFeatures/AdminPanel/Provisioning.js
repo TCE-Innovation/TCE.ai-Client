@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { Table, TableBody, TableCell, TableContainer, TableHead, TableRow, Paper, Button, Box, FormControl, Select, MenuItem, Autocomplete, TextField } from '@mui/material';
+import { Table, TableBody, TableCell, TableContainer, TableHead, TableRow, Paper, Button, Box, FormControl, Select, MenuItem, Autocomplete, TextField, Typography } from '@mui/material';
 import { getUsersOfTool, removeUserFromTool, addUsersToTool } from '../../../data/SQL';
 import { getAllPersonnel } from '../../../data/Airtable';
 
@@ -80,9 +80,9 @@ const Provisioning = () => {
     );
 
     return (
-        <div style={{ width: '100%', display: 'flex', flexDirection: 'column', alignItems: 'center', marginTop: 20, backgroundColor: '#f5f5f5', borderRadius: '10px' }}>
+        <div style={{ width: '100%', display: 'flex', flexDirection: 'column', alignItems: 'center', marginTop: 10, backgroundColor: '#f5f5f5', borderRadius: '10px' }}>
             <Box sx={{ width: '70%', padding: 2 }}>
-                <FormControl fullWidth sx={{ marginBottom: '1rem', marginTop: '1rem' }}>
+                <FormControl fullWidth sx={{ marginBottom: '.5rem' }}>
                     <Select
                         value={selectedTool}
                         onChange={handleToolChange}
@@ -98,7 +98,7 @@ const Provisioning = () => {
 
                 {searched && (
                     <>
-                        <Box sx={{ display: 'flex', flexDirection: 'row', alignItems: 'center', marginBottom: '1rem' }}>
+                        <Box sx={{ display: 'flex', flexDirection: 'row', alignItems: 'center' }}>
                         <Autocomplete
                                 value={selectedUsers}
                                 onChange={(event, newValue) => setSelectedUsers(newValue)}
@@ -114,7 +114,7 @@ const Provisioning = () => {
                                 }
                                 noOptionsText={inputValue.length < 1 ? "Start typing to search" : "No options"}
                                 renderInput={(params) => <TextField {...params} label="Add User(s)" />}
-                                style={{ marginBottom: '.5rem', width: '85%', marginRight: '2vw'}}
+                                style={{ marginBottom: '1.5rem', width: '85%', marginRight: '2vw'}}
                             />
                             
                             <Button
@@ -125,14 +125,14 @@ const Provisioning = () => {
                                     backgroundColor: selectedUsers.length > 0 ? '#d7edd1' : 'gray', 
                                     color: selectedUsers.length > 0 ? 'green' : 'white', 
                                     border: selectedUsers.length > 0 ? '1px solid green' : 'white', 
-                                    marginBottom: '.5rem'
+                                    marginBottom: '1.5rem'
                                 }}
                             >
                                 Add
                             </Button>
                         </Box>
 
-                        <TableContainer component={Paper} style={{marginTop: '2.5vw', maxHeight: '23vw'}}>
+                        <TableContainer component={Paper} style={{marginTop: '1.5vw', marginBottom: '.5vw', maxHeight: '23vw'}}>
                             <Table stickyHeader>
                                 <TableHead>
                                     <TableRow>
@@ -168,6 +168,9 @@ const Provisioning = () => {
                                 </TableBody>
                             </Table>
                         </TableContainer>
+                        <Typography variant="h8">
+                            {users.length} / {personnelList.length} Users Provisioned
+                        </Typography>
                     </>
                 )}
             </Box>

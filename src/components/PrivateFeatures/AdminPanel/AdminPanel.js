@@ -14,7 +14,7 @@ function AdminPanel() {
     };
 
     const contentStyle = {
-        height: '700px',
+        height: '80vh',
         overflowY: 'auto',
     };
 
