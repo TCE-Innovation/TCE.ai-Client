@@ -48,7 +48,9 @@ const Provisioning = () => {
 
     const handleRemoveUser = async (email) => {
         await removeUserFromTool(email, toolNameMap[selectedTool]);
+        const removedUser = users.find(user => user.email === email);
         setUsers(prevUsers => prevUsers.filter(user => user.email !== email));
+        setPersonnelList(prevPersonnel => [...prevPersonnel, removedUser].sort((a, b) => a.name.localeCompare(b.name)));
     };
 
     const handleAddUser = async () => {
@@ -99,7 +101,7 @@ const Provisioning = () => {
                 {searched && (
                     <>
                         <Box sx={{ display: 'flex', flexDirection: 'row', alignItems: 'center' }}>
-                        <Autocomplete
+                            <Autocomplete
                                 value={selectedUsers}
                                 onChange={(event, newValue) => setSelectedUsers(newValue)}
                                 multiple
@@ -116,7 +118,7 @@ const Provisioning = () => {
                                 renderInput={(params) => <TextField {...params} label="Add User(s)" />}
                                 style={{ marginBottom: '2rem', width: '85%', marginRight: '2vw'}}
                             />
-                            
+
                             <Button
                                 variant="contained"
                                 onClick={handleAddUser}
@@ -169,7 +171,7 @@ const Provisioning = () => {
                             </Table>
                         </TableContainer>
                         <Typography variant="h8">
-                            {users.length} / {personnelList.length} Users Provisioned
+                            {users.length} Provisioned Users | {personnelList.length} Non-Provisioned Users
                         </Typography>
                     </>
                 )}
