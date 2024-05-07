@@ -7,7 +7,8 @@ const toolNameMap = {
     'Chatbot': 'chatbot',
     'Email Generator': 'email_generator',
     'Cable Run Optimizer': 'cable_run_optimizer',
-    'GO Tracker': 'go_tracker'
+    'GO Tracker': 'go_tracker',
+    'Tool Usage Statistics': 'tool_usage',
 };
 
 const Provisioning = () => {

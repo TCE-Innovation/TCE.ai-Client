@@ -29,7 +29,8 @@ const toolList = [
     'Email Generator',
     'Chatbot',
     'Cable Run Optimizer',
-    'GO Tracker'
+    'GO Tracker',
+    'Tool Usage Statistics',
 ]
 
 module.exports = {
