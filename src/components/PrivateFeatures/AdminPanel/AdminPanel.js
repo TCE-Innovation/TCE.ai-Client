@@ -32,7 +32,6 @@ function AdminPanel() {
                 <Button
                     variant={activeTab === 'monitor' ? 'contained' : 'outlined'}
                     onClick={() => handleTabChange('monitor')}
-                    disabled
                     style={activeTab === 'monitor' ? { backgroundColor: '#1b365f', color: 'white', marginLeft: 10 } : { backgroundColor: 'white', color: '#1b365f', border: '1px solid #1b365f', marginLeft: 10 }}
                 >
                     Monitor

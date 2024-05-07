@@ -9,6 +9,7 @@ import OpenSpace from "../../../img/PartnerImages/OpenSpace.png";
 import EZ from "../../../img/PartnerImages/EZ.png";
 import Matterport from "../../../img/PartnerImages/Matterport.png";
 import Oracle from "../../../img/PartnerImages/Oracle.png";
+//import PeakVisuals from "../../../img/PartnerImages/PeakVisuals.png";
 
 import IconButton from '@mui/material/IconButton';
 import EmailIcon from '@mui/icons-material/Email';
@@ -96,6 +97,15 @@ const partnerData = [
     contactEmail: "skadarpeta@tcelect.net",
     documents: []
   },
+  /*{
+    name: "Peak Visuals",
+    imgSrc: PeakVisuals,
+    description: "",
+    extraText: "",
+    contactName: "Jacob Shavel",
+    contactEmail: "jshavel@tcelect.net",
+    documents: []
+  },*/
   {
     name: "FieldWire",
     imgSrc: FieldWire,
