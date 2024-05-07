@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import TrainLoader from '../General/TrainLoader';
 
-const DataDashboard = () => {
+const ToolUsage = () => {
     const [iframeLoaded, setIframeLoaded] = useState(false);
 
     const handleIframeLoad = () => {
@@ -39,4 +39,4 @@ const DataDashboard = () => {
     );
 };
 
-export default DataDashboard;
+export default ToolUsage;

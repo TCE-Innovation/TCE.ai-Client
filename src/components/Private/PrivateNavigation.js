@@ -61,8 +61,8 @@ function ResponsiveAppBar() {
                 return 'Equipment Checkout';
             case 'sub-automation':
                 return 'Subcontractor Form Automation';
-            case 'data-dashboard':
-                return 'Data Dashboard';
+            case 'tool-usage':
+                return 'Tool Usage Statistics';
             case 'admin':
                 return 'Admin Panel';
             default:

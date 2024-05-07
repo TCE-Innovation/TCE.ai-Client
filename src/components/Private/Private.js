@@ -28,7 +28,7 @@ import GenerateEmails from "../PrivateFeatures/GenerateEmails";
 import GOTracker from '../PrivateFeatures/GOTracker';
 import PrivateNavigation from "../Private/PrivateNavigation";
 import SubAuto from "../PrivateFeatures/SubAuto/SubAuto";
-import DataDashboard from "../PrivateFeatures/DataDashboard";
+import ToolUsage from "../PrivateFeatures/ToolUsage";
 import Admin from '../PrivateFeatures/AdminPanel/AdminPanel';
 
 //AUTH
@@ -86,7 +86,7 @@ function PrivateContent() {
     'equipment-checkout': AssetTracker,
     'go-tracker': GOTracker,
     'sub-automation': SubAuto,
-    'data-dashboard': isAdmin ? DataDashboard : null, // Admin access only
+    'tool-usage': isAdmin ? ToolUsage : null, // Admin access only
     'admin': isAdmin ? Admin : null // Admin access only
   }), [isAdmin]); // Only recalculate if isAdmin changes
   

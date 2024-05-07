@@ -63,10 +63,10 @@ const PrivateListItems = ( {tool} ) => {
     if (adminList.includes(userName)) {
         listItems.push(
             {
-                to: '/private/data-dashboard', 
-                text: 'Data Dashboard',
+                to: '/private/tool-usage', 
+                text: 'Tool Usage Statistics',
                 icon: <DonutSmallOutlinedIcon />,
-                key: 'data-dashboard'
+                key: 'tool-usage'
             },
             {
                 to: '/private/admin', 
