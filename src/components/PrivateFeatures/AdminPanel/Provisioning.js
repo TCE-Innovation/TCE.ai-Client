@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { Table, TableBody, TableCell, TableContainer, TableHead, TableRow, Paper, Button, Box, FormControl, Select, MenuItem, Autocomplete, TextField, Typography } from '@mui/material';
-import { getUsersOfTool, removeUserFromTool, addUsersToTool } from '../../../data/SQL';
+import { getUsersOfTool, removeUserFromTool, addUsersToTool, removeAllUsersFromTool } from '../../../data/SQL';
 import { getAllPersonnel } from '../../../data/Airtable';
 
 const toolNameMap = {
@@ -17,7 +17,7 @@ const Provisioning = () => {
     const [personnelList, setPersonnelList] = useState([]);
     const [searched, setSearched] = useState(false);
     const [selectedUsers, setSelectedUsers] = useState([]);
-    const [inputValue, setInputValue] = useState(''); // Track the input value
+    const [inputValue, setInputValue] = useState('');
 
     useEffect(() => {
         const fetchUsers = async () => {
@@ -73,6 +73,31 @@ const Provisioning = () => {
         }
     };
 
+    const handleAddAll = async () => {
+        if (filteredPersonnelList.length > 0) {
+            try {
+                await addUsersToTool(filteredPersonnelList, toolNameMap[selectedTool]);
+                const updatedUsers = await getUsersOfTool(toolNameMap[selectedTool]);
+                setUsers(updatedUsers);
+                setPersonnelList([]);
+            } catch (error) {
+                console.error('Error adding all users:', error);
+            }
+        }
+    };
+
+    const handleRemoveAll = async () => {
+        if (users.length > 0) {
+            try {
+                await removeAllUsersFromTool(toolNameMap[selectedTool]);
+                setPersonnelList(prevPersonnel => [...prevPersonnel, ...users].sort((a, b) => a.name.localeCompare(b.name)));
+                setUsers([]);
+            } catch (error) {
+                console.error('Error removing all users:', error);
+            }
+        }
+    };
+
     const handleToolChange = (event) => {
         setSelectedTool(event.target.value);
     };
@@ -117,7 +142,7 @@ const Provisioning = () => {
                                 }
                                 noOptionsText={inputValue.length < 1 ? "Start typing to search" : "No options"}
                                 renderInput={(params) => <TextField {...params} label="Add User(s)" />}
-                                style={{ marginBottom: '2rem', width: '85%', marginRight: '2vw'}}
+                                style={{ marginBottom: '2rem', width: '67%', marginRight: '1vw'}}
                             />
 
                             <Button
@@ -128,10 +153,40 @@ const Provisioning = () => {
                                     backgroundColor: selectedUsers.length > 0 ? '#d7edd1' : 'gray', 
                                     color: selectedUsers.length > 0 ? 'green' : 'white', 
                                     border: selectedUsers.length > 0 ? '1px solid green' : 'white', 
-                                    marginBottom: '2rem'
+                                    marginBottom: '2rem',
+                                    marginRight: '1vw'
                                 }}
                             >
                                 Add
+                            </Button>
+
+                            <Button
+                                variant="contained"
+                                onClick={handleAddAll}
+                                disabled={filteredPersonnelList.length === 0}
+                                style={{
+                                    backgroundColor: filteredPersonnelList.length > 0 ? '#d7edd1' : 'gray',
+                                    color: filteredPersonnelList.length > 0 ? 'green' : 'white',
+                                    border: filteredPersonnelList.length > 0 ? '1px solid green' : 'white',
+                                    marginBottom: '2rem',
+                                    marginRight: '1vw'
+                                }}
+                            >
+                                Add All
+                            </Button>
+
+                            <Button
+                                variant="contained"
+                                onClick={handleRemoveAll}
+                                disabled={users.length === 0}
+                                style={{
+                                    backgroundColor: users.length > 0 ? '#fad9d9' : 'gray',
+                                    color: users.length > 0 ? 'red' : 'white',
+                                    border: users.length > 0 ? '1px solid red' : 'white',
+                                    marginBottom: '2rem'
+                                }}
+                            >
+                                Remove All
                             </Button>
                         </Box>
 

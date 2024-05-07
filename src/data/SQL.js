@@ -52,6 +52,17 @@ export async function removeUserFromTool(email, tool) {
     }
 }
 
+//function to remove users from a tool table in SQL db based on email
+export async function removeAllUsersFromTool(tool) {
+    try {
+        const { data } = await axios.post('https://tce-ai-api.azurewebsites.net/api/remove-all-users-from-tool', { tool });
+        return data;
+    } catch (error) {
+        console.error('Error removing all users from tool table:', error);
+        throw new Error('An error occurred while removing all users from the tool table');
+    }
+}
+
 //function to get all the users of a single tool
 export async function getUsersOfTool(tool) { 
     try{
