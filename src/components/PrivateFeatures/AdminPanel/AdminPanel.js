@@ -3,6 +3,7 @@ import Box from "@mui/material/Box";
 import Button from "@mui/material/Button";
 
 // COMPONENTS
+import Provisioning from './Provisioning';
 import Monitor from './Monitor';
 
 function AdminPanel() {
@@ -14,15 +15,24 @@ function AdminPanel() {
 
     const contentStyle = {
         height: '700px',
-        overflowY: 'auto', // Allows scrolling within the fixed size container if content overflows
+        overflowY: 'auto',
     };
 
     return (
         <Box>
             <Box sx={{ width: '100%', display: 'flex', justifyContent: 'flex-start' }}>
                 <Button
+                    variant={activeTab === 'provisioning' ? 'contained' : 'outlined'}
+                    onClick={() => handleTabChange('provisioning')}
+                    style={activeTab === 'provisioning' ? { backgroundColor: '#1b365f', color: 'white', marginLeft: 10 } : { backgroundColor: 'white', color: '#1b365f', border: '1px solid #1b365f', marginLeft: 10 }}
+                >
+                    Provisioning
+                </Button>
+
+                <Button
                     variant={activeTab === 'monitor' ? 'contained' : 'outlined'}
                     onClick={() => handleTabChange('monitor')}
+                    disabled
                     style={activeTab === 'monitor' ? { backgroundColor: '#1b365f', color: 'white', marginLeft: 10 } : { backgroundColor: 'white', color: '#1b365f', border: '1px solid #1b365f', marginLeft: 10 }}
                 >
                     Monitor
@@ -30,7 +40,8 @@ function AdminPanel() {
             </Box>
 
             <Box sx={contentStyle}>
-                 <Monitor />
+                {activeTab === 'provisioning' && <Provisioning />}
+                {activeTab === 'monitor' && <Monitor />}
             </Box>
         </Box>
     );

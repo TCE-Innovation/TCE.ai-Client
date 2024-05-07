@@ -29,14 +29,15 @@ export async function getTools(email) {
     }
 }
 
-//function to add users to a tool table in SQL db based on email. users is a user object {email: email, name: name}
-export async function addUserToTool(user, tool) {
+//function to add users to a tool table in SQL db based on email. users is an array of user objects [{email: email, name: name}, ...]
+export async function addUsersToTool(users, tool) {
     try {
-        const { data } = await axios.post('https://tce-ai-api.azurewebsites.net/api/add-user-to-tool', { user, tool });
+        const { data } = await axios.post('https://tce-ai-api.azurewebsites.net/api/add-users-to-tool', { users, tool });
+        console.log(users)
         return data;
     } catch (error) {
         console.error('Error adding user to tool table:', error);
-        throw new Error('An error occurred while adding user to the tool table');
+        throw new Error('An error occurred while adding users to the tool table');
     }
 }
 
