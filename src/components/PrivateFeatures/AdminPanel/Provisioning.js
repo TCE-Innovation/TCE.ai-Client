@@ -170,8 +170,8 @@ const Provisioning = () => {
                                 </TableBody>
                             </Table>
                         </TableContainer>
-                        <Typography variant="h8">
-                            {users.length} Provisioned Users | {personnelList.length} Non-Provisioned Users
+                        <Typography variant="subtitle1">
+                            {users.length} Provisioned Users | {filteredPersonnelList.length} Non-Provisioned Users
                         </Typography>
                     </>
                 )}
