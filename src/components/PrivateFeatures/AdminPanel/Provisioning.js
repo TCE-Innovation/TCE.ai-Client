@@ -114,7 +114,7 @@ const Provisioning = () => {
                                 }
                                 noOptionsText={inputValue.length < 1 ? "Start typing to search" : "No options"}
                                 renderInput={(params) => <TextField {...params} label="Add User(s)" />}
-                                style={{ marginBottom: '1.5rem', width: '85%', marginRight: '2vw'}}
+                                style={{ marginBottom: '2rem', width: '85%', marginRight: '2vw'}}
                             />
                             
                             <Button
@@ -125,14 +125,14 @@ const Provisioning = () => {
                                     backgroundColor: selectedUsers.length > 0 ? '#d7edd1' : 'gray', 
                                     color: selectedUsers.length > 0 ? 'green' : 'white', 
                                     border: selectedUsers.length > 0 ? '1px solid green' : 'white', 
-                                    marginBottom: '1.5rem'
+                                    marginBottom: '2rem'
                                 }}
                             >
                                 Add
                             </Button>
                         </Box>
 
-                        <TableContainer component={Paper} style={{marginTop: '1.5vw', marginBottom: '.5vw', maxHeight: '23vw'}}>
+                        <TableContainer component={Paper} style={{marginTop: '1.5vw', marginBottom: '1.5vw', maxHeight: '22vw'}}>
                             <Table stickyHeader>
                                 <TableHead>
                                     <TableRow>
