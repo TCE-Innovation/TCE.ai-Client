@@ -87,6 +87,17 @@ export async function getActiveProjects() {
     }    
 }
 
+//function to get PBI log data from airtable base
+export async function getPBILog() {
+    try{
+        const {data} = await axios.get('https://tce-ai-api.azurewebsites.net/api/get-pbi-log');
+        return data;
+    }
+    catch(error){
+        console.error('Error getting PBI Log:', error);
+    }    
+}
+
 //function to send private form data to airtable base
 export async function sendPrivateFormData(name, email, description) {
     try{
