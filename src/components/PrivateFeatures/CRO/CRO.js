@@ -421,7 +421,7 @@ const CRO = () => {
 
                         {/* Show slider if Conduit radio button selected */}
                         <div style={{ marginTop: '20px', marginLeft: '12px' }}>
-                            {runType === 'Conduit' && <RangeSlider value={conduitSizeRange} setValue={setConduitSizeRange} />}
+                            <RangeSlider value={conduitSizeRange} setValue={setConduitSizeRange} disabled={runType !== 'Conduit'} />
                         </div>
                     </div>
                                     

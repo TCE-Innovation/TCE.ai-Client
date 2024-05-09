@@ -28,7 +28,7 @@ function valuetext(value) {
 //   const handleConduitSizeRangeChange = (event, newValue) => {
 //     setConduitSizeRange(newValue);
 //   };
-export default function RangeSlider({ value, setValue }) {
+export default function RangeSlider({ value, setValue, disabled }) {
   const handleConduitSizeRangeChange = (event, newValue) => {
     setValue(newValue);
   };
@@ -36,9 +36,9 @@ export default function RangeSlider({ value, setValue }) {
   return (
     <Box sx={{ width: 340 }}>
 
-      <p style={{ marginLeft: '10px', marginTop: '-5px', marginBottom: '-5px', fontSize: '16px' }}>
-        Input Range of Potential Conduit Sizes:
-      </p>
+      <div style={{ marginLeft: '10px', marginTop: '-5px', marginBottom: '-5px', fontSize: '16px', height: '1em' }}>
+        {!disabled && 'Input Range of Potential Conduit Sizes:'}
+      </div>
 
       <Slider
         getAriaLabel={() => "Conduit Size Range"}
@@ -50,7 +50,7 @@ export default function RangeSlider({ value, setValue }) {
         marks={marks}
         min={0.75}
         max={6}
-        
+        disabled={disabled}
       />
 
     </Box>
