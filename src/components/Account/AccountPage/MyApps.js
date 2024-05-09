@@ -19,13 +19,14 @@ const Airtable = require('../../../img/PartnerImages/Airtable.png');
 const ezOffice = require('../../../img/PartnerImages/EZ.png');
 const OpenSpace = require('../../../img/PartnerImages/OpenSpace.png');
 const BambooHR = require('../../../img/PartnerImages/BambooHR.png');
+const CMIC = require('../../../img/PartnerImages/CMIC.png');
 
 function MyApps() {
     const { userApplications } = useContext(AuthContext);
     const [dialogOpen, setDialogOpen] = useState(false);
 
     // All possible applications
-    const allApplications = ['Procore', 'AirTable', 'EzOffice', 'OpenSpace', 'BambooHR', 'Test'];
+    const allApplications = ['Procore', 'AirTable', 'EzOffice', 'OpenSpace', 'BambooHR', 'CMIC', 'Test'];
 
     // User's applications as an array, excluding Bridgit
     const userAppsArray = userApplications.split(', ').filter(app => app !== 'Bridgit').concat('BambooHR');
@@ -36,7 +37,8 @@ function MyApps() {
         'AirTable': { image: Airtable, url: 'https://www.airtable.com' },
         'EzOffice': { image: ezOffice, url: 'https://tcelectric.ezofficeinventory.com/dashboard' },
         'OpenSpace': { image: OpenSpace, url: 'https://www.openspace.ai/orgs' },
-        'BambooHR': { image: BambooHR, url: 'https://iovino.bamboohr.com/home' }
+        'BambooHR': { image: BambooHR, url: 'https://iovino.bamboohr.com/home' },
+        'CMIC': { image: CMIC, url: 'https://enterprise.cmiccloudr12.com/cmicprod/SdMenu/AppSelector.jsp' },
     };
 
     const applicationArray = userAppsArray.map((app, index) => {
