@@ -1,5 +1,5 @@
 //REACT
-import React, {useState} from 'react';
+import React, {useState, useEffect} from 'react';
 // import { Input } from 'reactstrap';
 import { Link } from '@mui/material';
 
@@ -80,6 +80,7 @@ const CRO = () => {
     // const [showCableSizeSheet, setShowCableSizeSheet] = useState(false);
     const [runType, setRunType] = useState('');
     const [conduitSizeRange, setConduitSizeRange] = useState([0.75, 4]);
+    const [areResponsesRendered, setAreResponsesRendered] = useState(false);
 
     const [open, setOpen] = React.useState(false);
 
@@ -214,6 +215,12 @@ const CRO = () => {
         alignItems: 'center',
         height: '750px',
     };
+
+    useEffect(() => {
+        if (responses[0] || responses[1] || responses[2]) {
+            setAreResponsesRendered(true);
+        }
+    }, [responses]);
 
     return (
         
@@ -572,12 +579,12 @@ const CRO = () => {
 
                 {/* GENERATE CABLE RUN Box */}
                 <div style={{ margin: '20px' }}></div>
-                <div className="rounded-rectangle-1">
+                <div className={areResponsesRendered ? 'rounded-rectangle-2-expanded' : 'rounded-rectangle-2'}></div>
 
                 <Button
                             variant="contained"
                             color="success"
-                            style={{ marginTop: '15px', marginLeft: '20px', width: '325px' }}
+                            style={{ marginTop: areResponsesRendered ? '-180px' : '-95px', marginLeft: '0px', marginBottom: '10px', width: '325px' }}
                             size="large"
                             onClick={cro}
                             disabled={!(pullsheet && runType)}
@@ -596,6 +603,7 @@ const CRO = () => {
                     </>
                 ) : (
                     <>
+                        
                         {responses[0] && (
                         <>
                             <a
@@ -614,7 +622,7 @@ const CRO = () => {
                                 href={responses[1]}
                                 target="_blank"
                                 rel="noopener noreferrer"
-                                style={{ display: 'block', marginLeft: '10px', marginTop: '10px' }}
+                                style={{ display: 'block', marginLeft: '10px', marginTop: '10px', }}
                             >
                                 Click to download Cable Run Visualization
                             </a>
@@ -641,8 +649,7 @@ const CRO = () => {
 
                 )}
                 
-
-                </div>
+                {/* </div> */}
 
                 
             </Box>

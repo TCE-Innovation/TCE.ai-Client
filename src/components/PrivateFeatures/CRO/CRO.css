@@ -27,6 +27,56 @@
     text-align:center;
 }
 
+.rounded-rectangle-2 {
+    border-radius: 20px;
+    background-color: rgb(218, 218, 218);
+    padding: 20px;
+    margin: 10px;
+    width: 400px;
+    height: 120px;
+    margin-left: 40px;
+    margin-right: 40px;
+}
+
+.rounded-rectangle-2 .title {
+    font-size: 20px;
+    font-weight: bold;
+    text-align: center;
+    position: relative;
+    top: -10px;
+}
+
+.rounded-rectangle-2 .body {
+    color: black;
+    font-size: 16px;
+    text-align:center;
+}
+
+.rounded-rectangle-2-expanded {
+    border-radius: 20px;
+    background-color: rgb(218, 218, 218);
+    padding: 20px;
+    margin: 10px;
+    width: 400px;
+    height: 200px;
+    margin-left: 40px;
+    margin-right: 40px;
+}
+
+.rounded-rectangle-2-expanded .title {
+    font-size: 20px;
+    font-weight: bold;
+    text-align: center;
+    position: relative;
+    top: -10px;
+}
+
+.rounded-rectangle-2-expanded .body {
+    color: black;
+    font-size: 16px;
+    text-align:center;
+}
+
 
 .rounded-rectangle-3 {
     border-radius: 20px;
