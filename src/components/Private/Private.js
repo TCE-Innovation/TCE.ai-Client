@@ -154,7 +154,7 @@ function PrivateContent() {
             )}
           </Drawer>
         
-        <Box component="main" sx={{ marginTop: 5, flexGrow: 1, p: 3, ml: open ? 39 : 9 }}>
+        <Box component="main" sx={{ marginTop: 5, flexGrow: 1, p: 3, ml: open ? 33 : 9 }}>
             <ComponentToRender />
         </Box>
       </Box>
