@@ -81,12 +81,10 @@ export async function getApplications(email) {
     const cachedData = sessionStorage.getItem(sessionStorageKey);
 
     if (cachedData) {
-        console.log("Cached applications found")
         return JSON.parse(cachedData);
     }
     
     try{
-        console.log("No cached applications, getting from SQL")
         const {data} = await axios.post('https://tce-ai-api.azurewebsites.net/api/get-user-applications', { email } );
 
         sessionStorage.setItem(sessionStorageKey, JSON.stringify(data));
