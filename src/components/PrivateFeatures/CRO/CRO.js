@@ -580,6 +580,7 @@ const CRO = () => {
                             style={{ marginTop: '15px', marginLeft: '20px', width: '325px' }}
                             size="large"
                             onClick={cro}
+                            disabled={!(pullsheet && runType)}
                         >
                             <Typography variant="h5">GENERATE</Typography>
                 </Button>
