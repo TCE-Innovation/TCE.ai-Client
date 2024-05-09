@@ -63,6 +63,8 @@ function ResponsiveAppBar() {
                 return 'Subcontractor Form Automation';
             case 'tool-usage':
                 return 'Tool Usage Statistics';
+            case 'pbi-dashboards':
+                return 'Power BI Dashboards';
             case 'admin':
                 return 'Admin Panel';
             default:

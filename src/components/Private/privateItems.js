@@ -12,6 +12,7 @@ import RailwayAlertOutlinedIcon from '@mui/icons-material/RailwayAlertOutlined';
 import DevicesOtherIcon from '@mui/icons-material/DevicesOther';
 import ArticleOutlinedIcon from '@mui/icons-material/ArticleOutlined';
 import DonutSmallOutlinedIcon from '@mui/icons-material/DonutSmallOutlined';
+import InsertChartOutlinedIcon from '@mui/icons-material/InsertChartOutlined';
 import AdminPanelSettingsOutlinedIcon from '@mui/icons-material/AdminPanelSettingsOutlined';
 
 //CONTEXT
@@ -67,6 +68,12 @@ const PrivateListItems = ( {tool} ) => {
                 text: 'Tool Usage Statistics',
                 icon: <DonutSmallOutlinedIcon />,
                 key: 'tool-usage'
+            },
+            {
+                to: '/private/pbi-dashboards', 
+                text: 'Power BI Dashboards',
+                icon: <InsertChartOutlinedIcon />,
+                key: 'pbi-dashboards'
             },
             {
                 to: '/private/admin', 
