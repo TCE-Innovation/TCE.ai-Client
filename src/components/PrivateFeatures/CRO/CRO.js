@@ -1,5 +1,5 @@
 //REACT
-import React, {useState, useEffect} from 'react';
+import React, {useState} from 'react';
 // import { Input } from 'reactstrap';
 import { Link } from '@mui/material';
 
@@ -73,14 +73,14 @@ const BootstrapDialog = styled(Dialog)(({ theme }) => ({
 
 const CRO = () => {
     const [pullsheet, setPullsheet] = useState('');
-    const [cableSizes, setCableSizes] = useState('');
+    const [cableSizes, setCableSizes] = useState('standard');
     const [responses, setResponses] = useState('');
     const [loading, setLoading] = useState(false);
     const [error, setError] = useState('');
     // const [showCableSizeSheet, setShowCableSizeSheet] = useState(false);
     const [runType, setRunType] = useState('');
     const [conduitSizeRange, setConduitSizeRange] = useState([0.75, 4]);
-    const [areResponsesRendered, setAreResponsesRendered] = useState(false);
+    // const [areResponsesRendered, setAreResponsesRendered] = useState(false);
     const [isBoxExpanded, setIsBoxExpanded] = useState(false);
 
     const [open, setOpen] = React.useState(false);
@@ -217,11 +217,11 @@ const CRO = () => {
         height: '110px',
     };
 
-    useEffect(() => {
-        if (responses[0] || responses[1] || responses[2]) {
-            setAreResponsesRendered(true);
-        }
-    }, [responses]);
+    // useEffect(() => {
+    //     if (responses[0] || responses[1] || responses[2]) {
+    //         setAreResponsesRendered(true);
+    //     }
+    // }, [responses]);
 
     return (
         
@@ -471,7 +471,7 @@ const CRO = () => {
                         } arrow sx={{ fontSize: '2.5em' }}>
                             <InfoOutlinedIcon style={{ position: 'relative', top: -40, left: 330 }} />
                         </Tooltip>
-                        <FormControl style={{ marginTop: '-40px' }}>
+                        <FormControl style={{ marginTop: '10px', marginLeft: '-30px', marginBottom: '20px' }}>
                             <RadioGroup
                                 row
                                 aria-labelledby="select-cable-sizes"
@@ -497,11 +497,10 @@ const CRO = () => {
                                         </>
                                     }
                                 />
-                                <FormControlLabel value="custom" control={<Radio />} label="Upload custom cable sizes" />
+                                {/* <FormControlLabel value="custom" control={<Radio />} label="Upload custom cable sizes" /> */}
                             </RadioGroup>
                         </FormControl>
-
-                        {cableSizes === 'custom' && (
+                        
                             <>
                                 <label htmlFor="cableSizesInput">
                                     <Button
@@ -520,10 +519,13 @@ const CRO = () => {
                                     id="cableSizesInput"
                                     accept=".xlsx, .xls"
                                     style={{ display: 'none' }}
-                                    onChange={(e) => setCableSizes(e.target.files[0])}
+                                    onChange={(e) => {
+                                        setCableSizes('custom');         // Set cableSizes to 'custom'
+                                        setCableSizes(e.target.files[0]) // Call a function to handle the file upload
+                                    }}
                                 />
                             </>
-                        )}
+                        
                     </div>
                 </Box>
 
@@ -535,26 +537,7 @@ const CRO = () => {
 
                     <Tooltip title={
                             <Typography component="div" style={{ minWidth: '300px' }}>
-                                <ul>
-                                    <li>.xlsx format required</li>
-                                    <li>Required Columns:
-                                        <ul>
-                                            <li>Pull number</li>
-                                            <li>Size</li>
-                                            <li>Start Stationing</li>
-                                            <li>End Stationing</li>
-                                        </ul>
-                                    </li>
-                                    <li>Optional Columns:
-                                        <ul>
-                                            <li>Express</li>
-                                            <li>Trade</li>
-                                            <li>Coil Length</li>
-                                            <li>High Bend</li>
-                                            <li>Bottom/Top of Bundle</li>
-                                        </ul>
-                                    </li>
-                                </ul>
+                                Input your cables within the pull sheet template to be read properly by the tool
                                                     
                             </Typography>
                         } arrow sx={{ fontSize: '2.5em' }}>

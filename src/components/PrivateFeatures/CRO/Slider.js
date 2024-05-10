@@ -42,8 +42,8 @@ export default function RangeSlider({ value: initialValue = [0, 8], setValue, di
 
   return (
     <Box sx={{ width: 340 }}>
-      <div style={{ marginLeft: '10px', marginTop: '-5px', marginBottom: '0px', fontSize: '16px', height: '1em' }}>
-        {!disabled && 'Input Range of Potential Conduit Sizes:'}
+      <div style={{ marginLeft: '10px', marginTop: '-10px', marginBottom: '10px', fontSize: '16px', height: '1em' }}>
+        {!disabled && 'Input Range of Conduit Sizes:'}
       </div>
       <Slider
         getAriaLabel={() => "Conduit Size Range"}
