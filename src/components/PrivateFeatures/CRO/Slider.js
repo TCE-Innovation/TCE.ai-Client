@@ -24,14 +24,6 @@ function valuetext(value) {
   return mark ? `Number: ${mark.label}` : `Number: ${value}`;
 }
 
-// export default function RangeSlider(setValue, disabled) {
-//   const [value, setConduitSizeRange] = useState([0, 8]);
-
-//   const handleConduitSizeRangeChange = (event, newValue) => {
-//     setConduitSizeRange(newValue);
-//     setValue(newValue);
-//   };
-
 export default function RangeSlider({ value: initialValue = [0, 8], setValue, disabled }) {
   const [value, setConduitSizeRange] = useState([0, 8]);
 
@@ -42,9 +34,11 @@ export default function RangeSlider({ value: initialValue = [0, 8], setValue, di
 
   return (
     <Box sx={{ width: 340 }}>
-      <div style={{ marginLeft: '10px', marginTop: '-10px', marginBottom: '10px', fontSize: '16px', height: '1em' }}>
-        {!disabled && 'Input Range of Conduit Sizes:'}
-      </div>
+      <div style={{ marginLeft: '10px', marginTop: '-10px', marginBottom: '10px', 
+                    fontSize: '16px', height: '1em', color: disabled ? 'rgba(0, 0, 0, 0.38)' : 'rgba(0, 0, 0, 0.87)' }}>
+      Input Range of Conduit Sizes:
+    </div>
+
       <Slider
         getAriaLabel={() => "Conduit Size Range"}
         value={value}
@@ -56,7 +50,10 @@ export default function RangeSlider({ value: initialValue = [0, 8], setValue, di
         }}
         getAriaValueText={valuetext}
         step={null}
-        marks={marks}
+        marks={marks.map((mark) => ({
+          ...mark,
+          label: <span style={{ color: disabled ? 'rgba(0, 0, 0, 0.38)' : 'inherit' }}>{mark.label}</span>
+        }))}
         min={0}
         max={12}
         disabled={disabled}
