@@ -59,8 +59,8 @@ const BootstrapDialog = styled(Dialog)(({ theme }) => ({
     '& .MuiDialog-paper': {
         // width: '200vw',
         // height: '150vh',
-        maxWidth: '80%', // 80% of viewport width
-        height: '150vh'
+        maxWidth: '60%', // 80% of viewport width
+        height: '75vh'
     },
     '& .MuiDialogContent-root': {
       padding: theme.spacing(2),
@@ -73,13 +73,15 @@ const BootstrapDialog = styled(Dialog)(({ theme }) => ({
 
 const CRO = () => {
     const [pullsheet, setPullsheet] = useState('');
-    const [cableSizes, setCableSizes] = useState('');
+    const [cableSizes, setCableSizes] = useState('standard');
     const [responses, setResponses] = useState('');
     const [loading, setLoading] = useState(false);
     const [error, setError] = useState('');
     // const [showCableSizeSheet, setShowCableSizeSheet] = useState(false);
     const [runType, setRunType] = useState('');
     const [conduitSizeRange, setConduitSizeRange] = useState([0.75, 4]);
+    // const [areResponsesRendered, setAreResponsesRendered] = useState(false);
+    const [isBoxExpanded, setIsBoxExpanded] = useState(false);
 
     const [open, setOpen] = React.useState(false);
 
@@ -212,8 +214,14 @@ const CRO = () => {
         display: 'flex',
         justifyContent: 'center',
         alignItems: 'center',
-        height: '750px',
+        height: '110px',
     };
+
+    // useEffect(() => {
+    //     if (responses[0] || responses[1] || responses[2]) {
+    //         setAreResponsesRendered(true);
+    //     }
+    // }, [responses]);
 
     return (
         
@@ -293,10 +301,10 @@ const CRO = () => {
                         </AccordionSummary>
                         <AccordionDetails>
                         <Typography>
-                            Lorem ipsum dolor sit amet, consectetur adipiscing elit. Suspendisse
-                            malesuada lacus ex, sit amet blandit leo lobortis eget. Lorem ipsum dolor
-                            sit amet, consectetur adipiscing elit. Suspendisse malesuada lacus ex,
-                            sit amet blandit leo lobortis eget.
+                            Cables are added to conduit until the maximum fill of 40% for regular runs 
+                            or 35% for high bend runs is reached.
+                            If a potential cable wouldn't fit a conduit, all smaller cables are tested to
+                            see if they would fit. If no cables can be added to a conduit, a new conduit is created.
                         </Typography>
                         </AccordionDetails>
                     </Accordion>
@@ -306,10 +314,10 @@ const CRO = () => {
                         </AccordionSummary>
                         <AccordionDetails>
                         <Typography>
-                            Lorem ipsum dolor sit amet, consectetur adipiscing elit. Suspendisse
-                            malesuada lacus ex, sit amet blandit leo lobortis eget. Lorem ipsum dolor
-                            sit amet, consectetur adipiscing elit. Suspendisse malesuada lacus ex,
-                            sit amet blandit leo lobortis eget.
+                            Cables are added to bundle until the maximum bundle diameter of 6 inches or
+                            maximum bundle weight of 20 lb/ft is reached.
+                            If a potential cable wouldn't fit a bundle, all smaller cables are tested to
+                            see if they would fit. If no cables can be added to a bundle, a new bundle is created.
                         </Typography>
                         </AccordionDetails>
                     </Accordion>
@@ -348,17 +356,36 @@ const CRO = () => {
                             </Typography>
                         </AccordionDetails>
                     </Accordion>
-                    {/* <Accordion expanded={expanded === 'panel6'} onChange={handleChange('panel6')}>
+                    <Accordion expanded={expanded === 'panel6'} onChange={handleChange('panel6')}>
                         <AccordionSummary aria-controls="panel6d-content" id="panel6d-header">
-                            <Typography>Accordion 6</Typography>
+                            <Typography>What are the formatting requirements for the cable pull sheet?</Typography>
                         </AccordionSummary>
                         <AccordionDetails>
                             <Typography>
-                                Content for Accordion 6
+                            <ul>
+                                    <li>.xlsx format required</li>
+                                    <li>Required Columns:
+                                        <ul>
+                                            <li>Pull number</li>
+                                            <li>Size</li>
+                                            <li>Start Stationing</li>
+                                            <li>End Stationing</li>
+                                        </ul>
+                                    </li>
+                                    <li>Optional Columns:
+                                        <ul>
+                                            <li>Express</li>
+                                            <li>Trade</li>
+                                            <li>Coil Length</li>
+                                            <li>High Bend</li>
+                                            <li>Bottom/Top of Bundle</li>
+                                        </ul>
+                                    </li>
+                                </ul>
                             </Typography>
                         </AccordionDetails>
                     </Accordion>
-                    <Accordion expanded={expanded === 'panel7'} onChange={handleChange('panel7')}>
+                    {/* <Accordion expanded={expanded === 'panel7'} onChange={handleChange('panel7')}>
                         <AccordionSummary aria-controls="panel7d-content" id="panel7d-header">
                             <Typography>Accordion 7</Typography>
                         </AccordionSummary>
@@ -421,7 +448,7 @@ const CRO = () => {
 
                         {/* Show slider if Conduit radio button selected */}
                         <div style={{ marginTop: '20px', marginLeft: '12px' }}>
-                            {runType === 'Conduit' && <RangeSlider value={conduitSizeRange} setValue={setConduitSizeRange} />}
+                            <RangeSlider value={conduitSizeRange} setValue={setConduitSizeRange} disabled={runType !== 'Conduit'} />
                         </div>
                     </div>
                                     
@@ -444,7 +471,7 @@ const CRO = () => {
                         } arrow sx={{ fontSize: '2.5em' }}>
                             <InfoOutlinedIcon style={{ position: 'relative', top: -40, left: 330 }} />
                         </Tooltip>
-                        <FormControl style={{ marginTop: '-40px' }}>
+                        <FormControl style={{ marginTop: '10px', marginLeft: '-30px', marginBottom: '20px' }}>
                             <RadioGroup
                                 row
                                 aria-labelledby="select-cable-sizes"
@@ -470,11 +497,10 @@ const CRO = () => {
                                         </>
                                     }
                                 />
-                                <FormControlLabel value="custom" control={<Radio />} label="Upload custom cable sizes" />
+                                {/* <FormControlLabel value="custom" control={<Radio />} label="Upload custom cable sizes" /> */}
                             </RadioGroup>
                         </FormControl>
-
-                        {cableSizes === 'custom' && (
+                        
                             <>
                                 <label htmlFor="cableSizesInput">
                                     <Button
@@ -493,10 +519,13 @@ const CRO = () => {
                                     id="cableSizesInput"
                                     accept=".xlsx, .xls"
                                     style={{ display: 'none' }}
-                                    onChange={(e) => setCableSizes(e.target.files[0])}
+                                    onChange={(e) => {
+                                        setCableSizes('custom');         // Set cableSizes to 'custom'
+                                        setCableSizes(e.target.files[0]) // Call a function to handle the file upload
+                                    }}
                                 />
                             </>
-                        )}
+                        
                     </div>
                 </Box>
 
@@ -508,26 +537,7 @@ const CRO = () => {
 
                     <Tooltip title={
                             <Typography component="div" style={{ minWidth: '300px' }}>
-                                <ul>
-                                    <li>.xlsx format required</li>
-                                    <li>Required Columns:
-                                        <ul>
-                                            <li>Pull number</li>
-                                            <li>Size</li>
-                                            <li>Start Stationing</li>
-                                            <li>End Stationing</li>
-                                        </ul>
-                                    </li>
-                                    <li>Optional Columns:
-                                        <ul>
-                                            <li>Express</li>
-                                            <li>Trade</li>
-                                            <li>Coil Length</li>
-                                            <li>High Bend</li>
-                                            <li>Bottom/Top of Bundle</li>
-                                        </ul>
-                                    </li>
-                                </ul>
+                                Input your cables within the pull sheet template to be read properly by the tool
                                                     
                             </Typography>
                         } arrow sx={{ fontSize: '2.5em' }}>
@@ -569,32 +579,40 @@ const CRO = () => {
                     />
                         
                 </div>
+                
+                
 
                 {/* GENERATE CABLE RUN Box */}
                 <div style={{ margin: '20px' }}></div>
-                <div className="rounded-rectangle-1">
+                <div className={isBoxExpanded ? 'rounded-rectangle-2-expanded' : 'rounded-rectangle-2'}></div>
 
                 <Button
-                            variant="contained"
-                            color="success"
-                            style={{ marginTop: '15px', marginLeft: '20px', width: '325px' }}
-                            size="large"
-                            onClick={cro}
-                        >
-                            <Typography variant="h5">GENERATE</Typography>
+                    variant="contained"
+                    color="success"
+                    style={{ marginTop: isBoxExpanded ? '-180px' : '-95px', marginLeft: '0px', marginBottom: '10px', width: '325px' }}
+                    size="large"
+                    onClick={() => {
+                        setIsBoxExpanded(true); // Expand the box
+                        cro();                  // Run the cro function
+                    }}
+                    disabled={!(pullsheet && runType)}
+                >
+                    <Typography variant="h5">GENERATE</Typography>
                 </Button>
+
             
                 {loading ? (
                     <>
                         <div style={spinnerContainerStyle}>
                     <TrainLoader />
                 </div>
-                        <Typography variant="body2" mt={2}>
+                        <Typography variant="body2" mt={-2.5}>
                             Optimizing...
                         </Typography>
                     </>
                 ) : (
                     <>
+                        
                         {responses[0] && (
                         <>
                             <a
@@ -613,7 +631,7 @@ const CRO = () => {
                                 href={responses[1]}
                                 target="_blank"
                                 rel="noopener noreferrer"
-                                style={{ display: 'block', marginLeft: '10px', marginTop: '10px' }}
+                                style={{ display: 'block', marginLeft: '10px', marginTop: '10px', }}
                             >
                                 Click to download Cable Run Visualization
                             </a>
@@ -632,7 +650,7 @@ const CRO = () => {
                         </>
                         )}
                         {error && (
-                            <Typography variant="body2" color="error" mt={2}>
+                            <Typography variant="body2" color="error" mt={0.1}>
                                 {error}
                             </Typography>
                         )}
@@ -640,8 +658,7 @@ const CRO = () => {
 
                 )}
                 
-
-                </div>
+                {/* </div> */}
 
                 
             </Box>
