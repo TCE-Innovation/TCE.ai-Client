@@ -28,7 +28,7 @@ import GenerateEmails from "../PrivateFeatures/GenerateEmails";
 import GOTracker from '../PrivateFeatures/GOTracker';
 import PrivateNavigation from "../Private/PrivateNavigation";
 import SubAuto from "../PrivateFeatures/SubAuto/SubAuto";
-import PBIDashboards from '../PrivateFeatures/PBIDashboards';
+import ScheduleDashboards from '../PrivateFeatures/ScheduleDashboards';
 import ToolUsage from "../PrivateFeatures/ToolUsage";
 import Admin from '../PrivateFeatures/AdminPanel/AdminPanel';
 
@@ -87,7 +87,7 @@ function PrivateContent() {
     'equipment-checkout': AssetTracker,
     'go-tracker': GOTracker,
     'sub-automation': SubAuto,
-    'pbi-dashboards': PBIDashboards, 
+    'schedule-dashboards': ScheduleDashboards, 
     'tool-usage': isAdmin ? ToolUsage : null, // Admin access only
     'admin': isAdmin ? Admin : null // Admin access only
   }), [isAdmin]); // Only recalculate if isAdmin changes

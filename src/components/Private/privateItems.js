@@ -70,10 +70,10 @@ const PrivateListItems = ( {tool} ) => {
                 key: 'tool-usage'
             },
             {
-                to: '/private/pbi-dashboards', 
-                text: 'Power BI Dashboards',
+                to: '/private/schedule-dashboards', 
+                text: 'Schedule Dashboards',
                 icon: <InsertChartOutlinedIcon />,
-                key: 'pbi-dashboards'
+                key: 'schedule-dashboards'
             },
             {
                 to: '/private/admin', 

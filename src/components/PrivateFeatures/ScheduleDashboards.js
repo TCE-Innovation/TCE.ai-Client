@@ -3,7 +3,7 @@ import TrainLoader from '../General/TrainLoader';
 import { getPBILog } from '../../data/Airtable'; 
 import { FormControl, InputLabel, Select, MenuItem, Box } from '@mui/material';
 
-const PBIDashboards = () => {
+const ScheduleDashboards = () => {
     const [projects, setProjects] = useState({});
     const [selectedProject, setSelectedProject] = useState('');
     const [selectedMonth, setSelectedMonth] = useState('');
@@ -93,4 +93,4 @@ const PBIDashboards = () => {
     );
 };
 
-export default PBIDashboards;
+export default ScheduleDashboards;
