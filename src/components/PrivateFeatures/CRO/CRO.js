@@ -59,8 +59,8 @@ const BootstrapDialog = styled(Dialog)(({ theme }) => ({
     '& .MuiDialog-paper': {
         // width: '200vw',
         // height: '150vh',
-        maxWidth: '80%', // 80% of viewport width
-        height: '150vh'
+        maxWidth: '60%', // 80% of viewport width
+        height: '75vh'
     },
     '& .MuiDialogContent-root': {
       padding: theme.spacing(2),
@@ -300,10 +300,10 @@ const CRO = () => {
                         </AccordionSummary>
                         <AccordionDetails>
                         <Typography>
-                            Lorem ipsum dolor sit amet, consectetur adipiscing elit. Suspendisse
-                            malesuada lacus ex, sit amet blandit leo lobortis eget. Lorem ipsum dolor
-                            sit amet, consectetur adipiscing elit. Suspendisse malesuada lacus ex,
-                            sit amet blandit leo lobortis eget.
+                            Cables are added to conduit until the maximum fill of 40% for regular runs 
+                            or 35% for high bend runs is reached.
+                            If a potential cable wouldn't fit a conduit, all smaller cables are tested to
+                            see if they would fit. If no cables can be added to a conduit, a new conduit is created.
                         </Typography>
                         </AccordionDetails>
                     </Accordion>
@@ -313,10 +313,10 @@ const CRO = () => {
                         </AccordionSummary>
                         <AccordionDetails>
                         <Typography>
-                            Lorem ipsum dolor sit amet, consectetur adipiscing elit. Suspendisse
-                            malesuada lacus ex, sit amet blandit leo lobortis eget. Lorem ipsum dolor
-                            sit amet, consectetur adipiscing elit. Suspendisse malesuada lacus ex,
-                            sit amet blandit leo lobortis eget.
+                            Cables are added to bundle until the maximum bundle diameter of 6 inches or
+                            maximum bundle weight of 20 lb/ft is reached.
+                            If a potential cable wouldn't fit a bundle, all smaller cables are tested to
+                            see if they would fit. If no cables can be added to a bundle, a new bundle is created.
                         </Typography>
                         </AccordionDetails>
                     </Accordion>
@@ -355,17 +355,36 @@ const CRO = () => {
                             </Typography>
                         </AccordionDetails>
                     </Accordion>
-                    {/* <Accordion expanded={expanded === 'panel6'} onChange={handleChange('panel6')}>
+                    <Accordion expanded={expanded === 'panel6'} onChange={handleChange('panel6')}>
                         <AccordionSummary aria-controls="panel6d-content" id="panel6d-header">
-                            <Typography>Accordion 6</Typography>
+                            <Typography>What are the formatting requirements for the cable pull sheet?</Typography>
                         </AccordionSummary>
                         <AccordionDetails>
                             <Typography>
-                                Content for Accordion 6
+                            <ul>
+                                    <li>.xlsx format required</li>
+                                    <li>Required Columns:
+                                        <ul>
+                                            <li>Pull number</li>
+                                            <li>Size</li>
+                                            <li>Start Stationing</li>
+                                            <li>End Stationing</li>
+                                        </ul>
+                                    </li>
+                                    <li>Optional Columns:
+                                        <ul>
+                                            <li>Express</li>
+                                            <li>Trade</li>
+                                            <li>Coil Length</li>
+                                            <li>High Bend</li>
+                                            <li>Bottom/Top of Bundle</li>
+                                        </ul>
+                                    </li>
+                                </ul>
                             </Typography>
                         </AccordionDetails>
                     </Accordion>
-                    <Accordion expanded={expanded === 'panel7'} onChange={handleChange('panel7')}>
+                    {/* <Accordion expanded={expanded === 'panel7'} onChange={handleChange('panel7')}>
                         <AccordionSummary aria-controls="panel7d-content" id="panel7d-header">
                             <Typography>Accordion 7</Typography>
                         </AccordionSummary>
