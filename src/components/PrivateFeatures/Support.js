@@ -1,7 +1,7 @@
-import React, { useState, useContext, useEffect } from 'react';
+import React, { useState, useContext } from 'react';
 import { FormControl, TextField, Button, Select, MenuItem, InputLabel, ListSubheader } from '@mui/material';
 
-import { getActiveProjects, sendSupportFormData } from '../../data/Airtable';
+import { sendSupportFormData } from '../../data/Airtable';
 import { AuthContext } from "../../authentication/Auth";
 import TrainLoader from '../General/TrainLoader';
 
@@ -13,7 +13,6 @@ const Support = () => {
     const [problemDescription, setProblemDescription] = useState('');
     const [project, setProject] = useState('');
     const [isSubmitted, setIsSubmitted] = useState(false);
-    const [projectOptions, setProjectOptions] = useState({ Active: [], Bidding: [], Continuous: [] });
     const [isLoading, setIsLoading] = useState(false);
     const { userName, userEmail, userApplications, userTools, userProjects } = useContext(AuthContext);
 

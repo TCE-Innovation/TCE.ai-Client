@@ -40,7 +40,7 @@ const AssetForm = () => {
         };
 
         fetchProjectOptions();
-    }, []);
+    }, [userProjects]);
 
 
     //HANDLER FUNCTIONS
