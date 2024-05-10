@@ -16,51 +16,54 @@ const Provisioning = () => {
     const [selectedTool, setSelectedTool] = useState('');
     const [users, setUsers] = useState([]);
     const [personnelList, setPersonnelList] = useState([]);
-    const [searched, setSearched] = useState(false);
+    const [filteredPersonnelList, setFilteredPersonnelList] = useState([]);
     const [selectedUsers, setSelectedUsers] = useState([]);
     const [inputValue, setInputValue] = useState('');
+    const [searched, setSearched] = useState(false);
 
     useEffect(() => {
-        const fetchPersonnelList = async () => {
+        async function fetchPersonnelList() {
             try {
                 const personnel = await getAllPersonnel();
                 setPersonnelList(personnel);
+                setFilteredPersonnelList(personnel);  // Initialize with full list
             } catch (error) {
                 console.error('Error fetching personnel list:', error);
             }
-        };
+        }
         fetchPersonnelList();
     }, []);
 
     useEffect(() => {
-        const fetchUsers = async () => {
+        async function fetchUsers() {
             if (selectedTool) {
-                const sqlToolName = toolNameMap[selectedTool];
-                if (sqlToolName) {
+                setUsers([]);  // Clear previous users immediately when tool changes
+                setSearched(false);
+                try {
+                    const sqlToolName = toolNameMap[selectedTool];
                     const result = await getUsersOfTool(sqlToolName);
                     setUsers(result);
                     setSearched(true);
-                } else {
-                    console.error('Tool not found in map');
+                } catch (error) {
+                    console.error('Error fetching users for tool:', error);
+                    setSearched(true);
                 }
             }
-        };
+        }
         fetchUsers();
-    }, [selectedTool]);
+    }, [selectedTool]);  // Removed personnelList from dependency array
 
-    const handleToolChange = async (event) => {
+    useEffect(() => {
+        // Update filtered list only when users or personnel list is changed
+        const newFilteredPersonnel = personnelList.filter(person => 
+            !users.some(user => user.email === person.email));
+        setFilteredPersonnelList(newFilteredPersonnel);
+    }, [personnelList, users]);  // Separate useEffect to control update timing
+
+    const handleToolChange = (event) => {
         setSelectedTool(event.target.value);
-    };
-
-    const filteredPersonnelList = personnelList.filter(person =>
-        !users.some(user => user.email === person.email)
-    );
-
-    const handleRemoveUser = async (email) => {
-        await removeUserFromTool(email, toolNameMap[selectedTool]);
-        const removedUser = users.find(user => user.email === email);
-        setUsers(prevUsers => prevUsers.filter(user => user.email !== email));
-        setPersonnelList(prevPersonnel => [...prevPersonnel, removedUser].sort((a, b) => a.name.localeCompare(b.name)));
+        setSelectedUsers([]);
+        setInputValue('');
     };
 
     const handleAddUser = async () => {
@@ -69,30 +72,42 @@ const Provisioning = () => {
             const updatedUsers = await getUsersOfTool(toolNameMap[selectedTool]);
             setUsers(updatedUsers);
 
-            setPersonnelList(prevPersonnel =>
-                prevPersonnel.filter(person =>
-                    !selectedUsers.some(user => user.email === person.email)
-                )
-            );
-
+            const newPersonnelList = personnelList.filter(person => 
+                !selectedUsers.some(user => user.email === person.email));
+            setPersonnelList(newPersonnelList);
+            setFilteredPersonnelList(newPersonnelList);
             setSelectedUsers([]);
             setInputValue('');
+        }
+    };
+
+    const handleRemoveUser = async (email) => {
+        await removeUserFromTool(email, toolNameMap[selectedTool]);
+        const updatedUsers = users.filter(user => user.email !== email);
+        setUsers(updatedUsers);
+
+        const removedUser = personnelList.find(person => person.email === email);
+        if (removedUser) {
+            setPersonnelList([...personnelList, removedUser]);
+            setFilteredPersonnelList([...filteredPersonnelList, removedUser]);
         }
     };
 
     const handleAddAll = async () => {
         if (filteredPersonnelList.length > 0) {
             await addUsersToTool(filteredPersonnelList, toolNameMap[selectedTool]);
-            const updatedUsers = await getUsersOfTool(toolNameMap[selectedTool]);
-            setUsers(updatedUsers);
-            setPersonnelList([]);
+            setUsers(filteredPersonnelList);
+            setFilteredPersonnelList([]);
+            setPersonnelList(personnelList.filter(person => 
+                !filteredPersonnelList.some(user => user.email === person.email)));
         }
     };
 
     const handleRemoveAll = async () => {
         if (users.length > 0) {
             await removeAllUsersFromTool(toolNameMap[selectedTool]);
-            setPersonnelList(prevPersonnel => [...prevPersonnel, ...users].sort((a, b) => a.name.localeCompare(b.name)));
+            setPersonnelList([...personnelList, ...users]);
+            setFilteredPersonnelList([...personnelList, ...users]);
             setUsers([]);
         }
     };

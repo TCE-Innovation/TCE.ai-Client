@@ -9,7 +9,7 @@ import OpenSpace from "../../../img/PartnerImages/OpenSpace.png";
 import EZ from "../../../img/PartnerImages/EZ.png";
 import Matterport from "../../../img/PartnerImages/Matterport.png";
 import Oracle from "../../../img/PartnerImages/Oracle.png";
-//import PeakVisuals from "../../../img/PartnerImages/PeakVisuals.png";
+import PeakVisuals from "../../../img/PartnerImages/PeakVisual.png";
 
 import IconButton from '@mui/material/IconButton';
 import EmailIcon from '@mui/icons-material/Email';
@@ -21,18 +21,6 @@ import KeyboardArrowUpIcon from '@mui/icons-material/KeyboardArrowUp';
 import { Tooltip } from "@mui/material";
 
 const partnerData = [
-  {
-    name: "Airtable",
-    imgSrc: Airtable,
-    description: "A host for multiple internal applications for use across a wide range of workflows",
-    extraText: "Airtable assists various user groups and their specific needs, including TCIG, Estimating, Safety, Engineers, and Project Managers. TCIG and Estimating leverage Airtable's static database functionality to track internal assets and plan future bids, complementing their workflow with Bridgit Bench. The efficiency gains are further enhanced through Airtable's process logic and email automation, seamlessly integrated into multiple applications. The safety team benefits from automation in capturing track/safety certifications in a database and notifies safety managers of expiration dates, reducing downtime required for updating certifications which often have lead times of over three months.",
-    contactName: "Jacob Shavel",
-    contactEmail: "jshavel@tcelect.net",
-    documents: [
-      {title: "GO Tracker White Paper", url: "https://judlauent.sharepoint.com/:b:/s/TCEInnovation/ETEIqNwZPvFPsCP6KLnLxYIBjt_3LmFY_SAtRvYhBchi_Q?e=GgEatL", id: "go-tracker"},
-      {title: "GO Tracker SOP", url: "https://judlauent.sharepoint.com/:b:/s/TCEInnovation/EehYuVJdG9NJj_8Hp4_gqskBg8G5xFP0W6s7iQKaslYRDA?e=LL6t1E", id: "go-tracker-sop"}
-    ]
-  },
   {
     name: "ProCore",
     imgSrc: ProCore,
@@ -56,15 +44,26 @@ const partnerData = [
     supportLink: "https://support.openspace.ai/en/"
   },
   {
-    name: "Bridgit",
-    imgSrc: Bridgit,
-    description: "Transforms workforce data into insights that inform strategic and tactical business decisions",
-    extraText: "Bridgit Bench improves project management by seamlessly integrating project and individual employee data, enabling more precise timelines and workforce optimization. During the pre-construction phase, it facilitates the creation and assignment of role titles and streamlines the coordination of Key Personnel for Design-Build Projects. As projects transition into the active phase and employees are assigned to specific roles, Bridgit Bench ensures optimal allocation, preventing overwork, and strategically placing employees based on their qualifications, certifications, and project history to meet both their needs and the project's requirements.",
+    name: "Airtable",
+    imgSrc: Airtable,
+    description: "A host for multiple internal applications for use across a wide range of workflows",
+    extraText: "Airtable assists various user groups and their specific needs, including TCIG, Estimating, Safety, Engineers, and Project Managers. TCIG and Estimating leverage Airtable's static database functionality to track internal assets and plan future bids, complementing their workflow with Bridgit Bench. The efficiency gains are further enhanced through Airtable's process logic and email automation, seamlessly integrated into multiple applications. The safety team benefits from automation in capturing track/safety certifications in a database and notifies safety managers of expiration dates, reducing downtime required for updating certifications which often have lead times of over three months.",
     contactName: "Jacob Shavel",
     contactEmail: "jshavel@tcelect.net",
     documents: [
-      {title: "Bridgit White Paper", url: "https://judlauent.sharepoint.com/:b:/s/TCEInnovation/EQyO1dDTWFxDjvk9Gr5tN5YBQqF6b73gNlDd3jGcNjQ9Yg?e=Zp6Ply", id: "bridgit"},
+      {title: "GO Tracker White Paper", url: "https://judlauent.sharepoint.com/:b:/s/TCEInnovation/ETEIqNwZPvFPsCP6KLnLxYIBjt_3LmFY_SAtRvYhBchi_Q?e=GgEatL", id: "go-tracker"},
+      {title: "GO Tracker SOP", url: "https://judlauent.sharepoint.com/:b:/s/TCEInnovation/EehYuVJdG9NJj_8Hp4_gqskBg8G5xFP0W6s7iQKaslYRDA?e=LL6t1E", id: "go-tracker-sop"}
     ]
+  },
+  {
+    name: "Matterport",
+    imgSrc: Matterport,
+    description: "Capture and connect rooms to create detailed, interactive 3D spaces",
+    extraText: "By utilizing Matterport cameras in construction settings, the camera seamlessly converts physical environments into immersive 3D models. This digital recreation enables remote viewing from any location and allows for quick, accurate distance measurements. Whether applied indoors or outdoors, Matterport's 3D documentation system captures a visual snapshot at each project milestone, serving as a comprehensive record-keeping tool throughout the construction process.",
+    contactName: "Rory O'Neill",
+    contactEmail: "roneill@tcelect.net",
+    documents: [],
+    supportLink: ""
   },
   {
     name: "EZOfficeInventory",
@@ -79,16 +78,6 @@ const partnerData = [
     supportLink: "https://ezo.io/ezofficeinventory/knowledge-base/"
   },
   {
-    name: "Matterport",
-    imgSrc: Matterport,
-    description: "Capture and connect rooms to create detailed, interactive 3D spaces",
-    extraText: "By utilizing Matterport cameras in construction settings, the camera seamlessly converts physical environments into immersive 3D models. This digital recreation enables remote viewing from any location and allows for quick, accurate distance measurements. Whether applied indoors or outdoors, Matterport's 3D documentation system captures a visual snapshot at each project milestone, serving as a comprehensive record-keeping tool throughout the construction process.",
-    contactName: "Rory O'Neill",
-    contactEmail: "roneill@tcelect.net",
-    documents: [],
-    supportLink: ""
-  },
-  {
     name: "Oracle",
     imgSrc: Oracle,
     description: "Maximize efficiency and performance with an integrated project management solution",
@@ -97,15 +86,26 @@ const partnerData = [
     contactEmail: "skadarpeta@tcelect.net",
     documents: []
   },
-  /*{
+  {
+    name: "Bridgit",
+    imgSrc: Bridgit,
+    description: "Transforms workforce data into insights that inform strategic and tactical business decisions",
+    extraText: "Bridgit Bench improves project management by seamlessly integrating project and individual employee data, enabling more precise timelines and workforce optimization. During the pre-construction phase, it facilitates the creation and assignment of role titles and streamlines the coordination of Key Personnel for Design-Build Projects. As projects transition into the active phase and employees are assigned to specific roles, Bridgit Bench ensures optimal allocation, preventing overwork, and strategically placing employees based on their qualifications, certifications, and project history to meet both their needs and the project's requirements.",
+    contactName: "Jacob Shavel",
+    contactEmail: "jshavel@tcelect.net",
+    documents: [
+      {title: "Bridgit White Paper", url: "https://judlauent.sharepoint.com/:b:/s/TCEInnovation/EQyO1dDTWFxDjvk9Gr5tN5YBQqF6b73gNlDd3jGcNjQ9Yg?e=Zp6Ply", id: "bridgit"},
+    ]
+  },
+  {
     name: "Peak Visuals",
     imgSrc: PeakVisuals,
-    description: "",
-    extraText: "",
+    description: "Advanced aerial surveying and construction documentation",
+    extraText: "Peak Visuals specializes in drone surveying to capture high-resolution imagery of large outdoor areas for construction documentation and surveying. Leveraging state-of-the-art drone technology, Peak Visuals provides accurate, comprehensive site data that enhances project planning and monitoring. This service is essential for construction managers and engineers who require detailed aerial perspectives to guide decision-making and track project progress.",
     contactName: "Jacob Shavel",
     contactEmail: "jshavel@tcelect.net",
     documents: []
-  },*/
+  },
   {
     name: "FieldWire",
     imgSrc: FieldWire,
