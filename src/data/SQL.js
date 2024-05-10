@@ -3,19 +3,20 @@ import axios from 'axios';
 
 //_____________________________________________________ TOOL PROVISIONING FUNCTIONS ________________________________________________________
 
-//function to pull tools from SQL db based on email
+//function to pull tools from SQL db based on email (disabling cache for now)
 export async function getTools(email) { 
-    const sessionStorageKey = `tools-${email}`;
+    /*const sessionStorageKey = `tools-${email}`;
     const cachedData = sessionStorage.getItem(sessionStorageKey);
     
     if (cachedData) {
         return JSON.parse(cachedData);
-    }
+    }*/
     
     try{
         const {data} = await axios.post('https://tce-ai-api.azurewebsites.net/api/get-user-tools', { email } );
+        console.log(data);
 
-        sessionStorage.setItem(sessionStorageKey, JSON.stringify(data));
+        //sessionStorage.setItem(sessionStorageKey, JSON.stringify(data));
 
         return data;
     } catch(error){
