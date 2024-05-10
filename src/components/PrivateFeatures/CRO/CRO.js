@@ -81,6 +81,7 @@ const CRO = () => {
     const [runType, setRunType] = useState('');
     const [conduitSizeRange, setConduitSizeRange] = useState([0.75, 4]);
     const [areResponsesRendered, setAreResponsesRendered] = useState(false);
+    const [isBoxExpanded, setIsBoxExpanded] = useState(false);
 
     const [open, setOpen] = React.useState(false);
 
@@ -213,7 +214,7 @@ const CRO = () => {
         display: 'flex',
         justifyContent: 'center',
         alignItems: 'center',
-        height: '750px',
+        height: '110px',
     };
 
     useEffect(() => {
@@ -595,28 +596,34 @@ const CRO = () => {
                     />
                         
                 </div>
+                
+                
 
                 {/* GENERATE CABLE RUN Box */}
                 <div style={{ margin: '20px' }}></div>
-                <div className={areResponsesRendered ? 'rounded-rectangle-2-expanded' : 'rounded-rectangle-2'}></div>
+                <div className={isBoxExpanded ? 'rounded-rectangle-2-expanded' : 'rounded-rectangle-2'}></div>
 
                 <Button
-                            variant="contained"
-                            color="success"
-                            style={{ marginTop: areResponsesRendered ? '-180px' : '-95px', marginLeft: '0px', marginBottom: '10px', width: '325px' }}
-                            size="large"
-                            onClick={cro}
-                            disabled={!(pullsheet && runType)}
-                        >
-                            <Typography variant="h5">GENERATE</Typography>
+                    variant="contained"
+                    color="success"
+                    style={{ marginTop: isBoxExpanded ? '-180px' : '-95px', marginLeft: '0px', marginBottom: '10px', width: '325px' }}
+                    size="large"
+                    onClick={() => {
+                        setIsBoxExpanded(true); // Expand the box
+                        cro();                  // Run the cro function
+                    }}
+                    disabled={!(pullsheet && runType)}
+                >
+                    <Typography variant="h5">GENERATE</Typography>
                 </Button>
+
             
                 {loading ? (
                     <>
                         <div style={spinnerContainerStyle}>
                     <TrainLoader />
                 </div>
-                        <Typography variant="body2" mt={2}>
+                        <Typography variant="body2" mt={-2.5}>
                             Optimizing...
                         </Typography>
                     </>
@@ -660,7 +667,7 @@ const CRO = () => {
                         </>
                         )}
                         {error && (
-                            <Typography variant="body2" color="error" mt={2}>
+                            <Typography variant="body2" color="error" mt={0.1}>
                                 {error}
                             </Typography>
                         )}
