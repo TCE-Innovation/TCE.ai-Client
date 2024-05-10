@@ -14,7 +14,6 @@ export async function getTools(email) {
     
     try{
         const {data} = await axios.post('https://tce-ai-api.azurewebsites.net/api/get-user-tools', { email } );
-        console.log(data);
 
         //sessionStorage.setItem(sessionStorageKey, JSON.stringify(data));
 

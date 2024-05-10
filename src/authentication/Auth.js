@@ -69,10 +69,7 @@ export const AuthProvider = ({ children }) => {
       .catch((error) => console.error('Error fetching user applications:', error));
 
       getTools(email)
-      .then(tools => {
-          console.log('Fetched user tools:', tools);
-          setUserTools(tools);
-      })
+      .then(setUserTools)
       .catch((error) => console.error('Error fetching user tools:', error));
   }
 

@@ -15,7 +15,7 @@ const Support = () => {
     const [isSubmitted, setIsSubmitted] = useState(false);
     const [projectOptions, setProjectOptions] = useState({ Active: [], Bidding: [], Continuous: [] });
     const [isLoading, setIsLoading] = useState(false);
-    const { userName, userEmail } = useContext(AuthContext);
+    const { userName, userEmail, userApplications, userTools } = useContext(AuthContext);
 
     useEffect(() => {
         const fetchProjects = async () => {
@@ -147,15 +147,16 @@ const Support = () => {
                             onChange={handleInputChange}
                             required
                         >
-                            {["Procore", "OpenSpace", "Airtable"].map((tool, index) => (
-                                <MenuItem key={index} value={tool}>{tool}</MenuItem>
+                            {userApplications.split(', ').map((app, index) => (
+                                <MenuItem key={index} value={app}>{app}</MenuItem>
                             ))}
+
                             <ListSubheader>TCIG Tools</ListSubheader>
-                            {/* Example subsection options under TCIG.nyc */}
-                            {["Cable Run Optimizer", "ChatBot", "Equipment Checkout", "Subcontractor Forms", "General"].map((subTool, index) => (
-                                <MenuItem key={`tcig-${index}`} value={`TCIG.nyc - ${subTool}`}>{subTool}</MenuItem>
+                            {userTools.split(', ').map((tool, index) => (
+                                <MenuItem key={`tcig-${index}`} value={`TCIG.nyc - ${tool}`}>{tool}</MenuItem>
                             ))}
                         </Select>
+
                     </FormControl>
 
                     <FormControl fullWidth margin="normal">
