@@ -15,25 +15,7 @@ const Support = () => {
     const [isSubmitted, setIsSubmitted] = useState(false);
     const [projectOptions, setProjectOptions] = useState({ Active: [], Bidding: [], Continuous: [] });
     const [isLoading, setIsLoading] = useState(false);
-    const { userName, userEmail, userApplications, userTools } = useContext(AuthContext);
-
-    useEffect(() => {
-        const fetchProjects = async () => {
-            try {
-                const projects = await getActiveProjects();
-                const activeProjects = projects.filter(project => project.status === 'Active');
-                const biddingProjects = projects.filter(project => project.status === 'Bidding');
-                setProjectOptions({
-                    Active: activeProjects,
-                    Bidding: biddingProjects,
-                });
-            } catch (error) {
-                console.error('Error fetching projects:', error);
-            }
-        };
-
-        fetchProjects();
-    }, []);
+    const { userName, userEmail, userApplications, userTools, userProjects } = useContext(AuthContext);
 
     const handleInputChange = (event) => {
         const { name, value } = event.target;
@@ -126,13 +108,9 @@ const Support = () => {
                             required
                         >
                             <MenuItem value="Non-Project -1010">Non-Project - 1010</MenuItem>
-                            <ListSubheader>Active Projects</ListSubheader>
-                            {projectOptions.Active.map((proj) => (
-                                <MenuItem key={`Active-${proj.id}`} value={proj.name}>{proj.name}</MenuItem>
-                            ))}
-                            <ListSubheader>Pursuits</ListSubheader>
-                            {projectOptions.Bidding.map((proj) => (
-                                <MenuItem key={`Bidding-${proj.id}`} value={proj.name}>{proj.name}</MenuItem>
+                            <ListSubheader>My Project(s)</ListSubheader>
+                            {userProjects.map((proj) => (
+                                <MenuItem key={`Active-${proj.id}`} value={proj}>{proj}</MenuItem>
                             ))}
                         </Select>
                     </FormControl>
@@ -147,11 +125,12 @@ const Support = () => {
                             onChange={handleInputChange}
                             required
                         >
+                            <ListSubheader>My Applications</ListSubheader>
                             {userApplications.split(', ').map((app, index) => (
                                 <MenuItem key={index} value={app}>{app}</MenuItem>
                             ))}
 
-                            <ListSubheader>TCIG Tools</ListSubheader>
+                            <ListSubheader>My TCIG Tools</ListSubheader>
                             {userTools.split(', ').map((tool, index) => (
                                 <MenuItem key={`tcig-${index}`} value={`TCIG.nyc - ${tool}`}>{tool}</MenuItem>
                             ))}
