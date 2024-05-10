@@ -27,7 +27,6 @@ export async function getTools(email) {
 export async function addUsersToTool(users, tool) {
     try {
         const { data } = await axios.post('https://tce-ai-api.azurewebsites.net/api/add-users-to-tool', { users, tool });
-        console.log(users)
         return data;
     } catch (error) {
         console.error('Error adding user to tool table:', error);

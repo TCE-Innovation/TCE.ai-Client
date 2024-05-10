@@ -6,7 +6,7 @@ import { Navigate, Outlet, useLocation } from 'react-router-dom';
 import { useMsal } from "@azure/msal-react";
 import { getUserProfilePic } from '../data/Graph';
 import { getJobTitle, getProjects } from '../data/Airtable';
-import { getApplications } from '../data/SQL';
+import { getApplications, getTools } from '../data/SQL';
 
 export const AuthContext = createContext();
 
@@ -18,7 +18,7 @@ export const AuthProvider = ({ children }) => {
   const [userTitle, setUserTitle] = useState(null);
   const [userProjects, setUserProjects] = useState(null);
   const [userApplications, setUserApplications] = useState(null);
-  //const [userTools, setUserTools] = useState(null);
+  const [userTools, setUserTools] = useState(null);
   const [accessToken, setAccessToken] = useState(null);
 
   //get user account
@@ -68,9 +68,12 @@ export const AuthProvider = ({ children }) => {
       .then(setUserApplications)
       .catch((error) => console.error('Error fetching user applications:', error));
 
-    //getTools(email)
-    //  .then(setUserTools)
-    //  .catch((error) => console.error('Error fetching user tools:', error));
+      getTools(email)
+      .then(tools => {
+          console.log('Fetched user tools:', tools);
+          setUserTools(tools);
+      })
+      .catch((error) => console.error('Error fetching user tools:', error));
   }
 
   const loginContextValue = {
@@ -80,7 +83,7 @@ export const AuthProvider = ({ children }) => {
     userTitle,
     userProjects,
     userApplications,
-    //userTools,
+    userTools,
     accessToken
   };
 

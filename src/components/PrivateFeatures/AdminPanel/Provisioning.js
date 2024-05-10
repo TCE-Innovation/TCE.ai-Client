@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
-import { Table, TableBody, TableCell, TableContainer, TableHead, TableRow, Paper, Button, Box, FormControl, Select, MenuItem, Autocomplete, TextField, Typography } from '@mui/material';
-import { getUsersOfTool, removeUserFromTool, addUsersToTool, removeAllUsersFromTool } from '../../../data/SQL';
+import {Table, TableBody, TableCell, TableContainer, TableHead, TableRow, Paper, Button, Box, FormControl, Select, MenuItem, Autocomplete, TextField, Typography} from '@mui/material';
+import {getUsersOfTool, removeUserFromTool, addUsersToTool, removeAllUsersFromTool} from '../../../data/SQL';
 import { getAllPersonnel } from '../../../data/Airtable';
 
 const toolNameMap = {
@@ -9,6 +9,7 @@ const toolNameMap = {
     'Cable Run Optimizer': 'cable_run_optimizer',
     'GO Tracker': 'go_tracker',
     'Tool Usage Statistics': 'tool_usage',
+    'PBI Dashboards': 'pbi_dashboards',
 };
 
 const Provisioning = () => {
@@ -18,6 +19,18 @@ const Provisioning = () => {
     const [searched, setSearched] = useState(false);
     const [selectedUsers, setSelectedUsers] = useState([]);
     const [inputValue, setInputValue] = useState('');
+
+    useEffect(() => {
+        const fetchPersonnelList = async () => {
+            try {
+                const personnel = await getAllPersonnel();
+                setPersonnelList(personnel);
+            } catch (error) {
+                console.error('Error fetching personnel list:', error);
+            }
+        };
+        fetchPersonnelList();
+    }, []);
 
     useEffect(() => {
         const fetchUsers = async () => {
@@ -35,17 +48,13 @@ const Provisioning = () => {
         fetchUsers();
     }, [selectedTool]);
 
-    useEffect(() => {
-        const fetchPersonnelList = async () => {
-            try {
-                const personnel = await getAllPersonnel();
-                setPersonnelList(personnel);
-            } catch (error) {
-                console.error('Error fetching personnel list:', error);
-            }
-        };
-        fetchPersonnelList();
-    }, []);
+    const handleToolChange = async (event) => {
+        setSelectedTool(event.target.value);
+    };
+
+    const filteredPersonnelList = personnelList.filter(person =>
+        !users.some(user => user.email === person.email)
+    );
 
     const handleRemoveUser = async (email) => {
         await removeUserFromTool(email, toolNameMap[selectedTool]);
@@ -56,56 +65,37 @@ const Provisioning = () => {
 
     const handleAddUser = async () => {
         if (selectedUsers.length > 0) {
-            try {
-                await addUsersToTool(selectedUsers, toolNameMap[selectedTool]);
-                const updatedUsers = await getUsersOfTool(toolNameMap[selectedTool]);
-                setUsers(updatedUsers);
+            await addUsersToTool(selectedUsers, toolNameMap[selectedTool]);
+            const updatedUsers = await getUsersOfTool(toolNameMap[selectedTool]);
+            setUsers(updatedUsers);
 
-                setPersonnelList(prevPersonnel => prevPersonnel.filter(person =>
+            setPersonnelList(prevPersonnel =>
+                prevPersonnel.filter(person =>
                     !selectedUsers.some(user => user.email === person.email)
-                ));
+                )
+            );
 
-                setSelectedUsers([]);
-                setInputValue(''); // Reset the input value after adding users
-            } catch (error) {
-                console.error('Error adding user:', error);
-            }
+            setSelectedUsers([]);
+            setInputValue('');
         }
     };
 
     const handleAddAll = async () => {
         if (filteredPersonnelList.length > 0) {
-            try {
-                await addUsersToTool(filteredPersonnelList, toolNameMap[selectedTool]);
-                const updatedUsers = await getUsersOfTool(toolNameMap[selectedTool]);
-                setUsers(updatedUsers);
-                setPersonnelList([]);
-            } catch (error) {
-                console.error('Error adding all users:', error);
-            }
+            await addUsersToTool(filteredPersonnelList, toolNameMap[selectedTool]);
+            const updatedUsers = await getUsersOfTool(toolNameMap[selectedTool]);
+            setUsers(updatedUsers);
+            setPersonnelList([]);
         }
     };
 
     const handleRemoveAll = async () => {
         if (users.length > 0) {
-            try {
-                await removeAllUsersFromTool(toolNameMap[selectedTool]);
-                setPersonnelList(prevPersonnel => [...prevPersonnel, ...users].sort((a, b) => a.name.localeCompare(b.name)));
-                setUsers([]);
-            } catch (error) {
-                console.error('Error removing all users:', error);
-            }
+            await removeAllUsersFromTool(toolNameMap[selectedTool]);
+            setPersonnelList(prevPersonnel => [...prevPersonnel, ...users].sort((a, b) => a.name.localeCompare(b.name)));
+            setUsers([]);
         }
     };
-
-    const handleToolChange = (event) => {
-        setSelectedTool(event.target.value);
-    };
-
-    // Filter personnel list to exclude users who are already provisioned for the selected tool
-    const filteredPersonnelList = personnelList.filter(person =>
-        !users.some(user => user.email === person.email)
-    );
 
     return (
         <div style={{ width: '100%', display: 'flex', flexDirection: 'column', alignItems: 'center', marginTop: 10, backgroundColor: '#f5f5f5', borderRadius: '10px' }}>
@@ -142,17 +132,17 @@ const Provisioning = () => {
                                 }
                                 noOptionsText={inputValue.length < 1 ? "Start typing to search" : "No options"}
                                 renderInput={(params) => <TextField {...params} label="Add User(s)" />}
-                                style={{ marginBottom: '2rem', width: '67%', marginRight: '1vw'}}
+                                style={{ marginBottom: '2rem', width: '67%', marginRight: '1vw' }}
                             />
 
                             <Button
                                 variant="contained"
                                 onClick={handleAddUser}
                                 disabled={selectedUsers.length === 0}
-                                style={{ 
-                                    backgroundColor: selectedUsers.length > 0 ? '#d7edd1' : 'gray', 
-                                    color: selectedUsers.length > 0 ? 'green' : 'white', 
-                                    border: selectedUsers.length > 0 ? '1px solid green' : 'white', 
+                                style={{
+                                    backgroundColor: selectedUsers.length > 0 ? '#d7edd1' : 'gray',
+                                    color: selectedUsers.length > 0 ? 'green' : 'white',
+                                    border: selectedUsers.length > 0 ? '1px solid green' : 'white',
                                     marginBottom: '2rem',
                                     marginRight: '1vw'
                                 }}
