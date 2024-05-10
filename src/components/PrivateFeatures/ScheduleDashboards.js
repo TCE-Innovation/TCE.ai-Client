@@ -45,13 +45,13 @@ const ScheduleDashboards = () => {
     };
 
     return (
-        <div style={{ width: '100%', display: 'flex', flexDirection: "column", alignItems: 'center', marginTop: 20}}>
+        <div style={{ width: '100%', display: 'flex', flexDirection: "column"}}>
             {!iframeLoaded && (
                 <div style={{ position: 'fixed', top: '50%', left: '50%', transform: 'translate(-50%, -50%)', zIndex: 100 }}>
                     <TrainLoader />
                 </div>
             )}
-            <Box sx={{ width: '100%', display: 'flex', justifyContent: 'center', marginBottom: 2 }}>
+            <Box sx={{ width: '100%', display: 'flex', marginBottom: 2 }}>
                 <FormControl variant="standard" sx={{ m: 1, minWidth: 120 }}>
                     <InputLabel id="project-label">Project</InputLabel>
                     <Select
@@ -81,12 +81,12 @@ const ScheduleDashboards = () => {
                     </Select>
                 </FormControl>
             </Box>
-            <div style={{ display: iframeLoaded ? 'block' : 'none', width: '80%', maxWidth: '1000px', margin: 'auto' }}>
+            <div style={{ display: iframeLoaded ? 'block' : 'none', width: '100%', height: '75vh', margin: 'auto' }}>
                 <iframe
                     onLoad={handleIframeLoad}
                     src={iframeLink}
-                    style={{ width: '100%', height: '65vh', border: '1px solid #ccc', background: 'transparent' }}
-                    title="Data Dashboard"
+                    style={{ width: '100%', height: '100%', border: '1px solid #ccc', background: 'transparent' }}
+                    title="Schedule Dashboard"
                 ></iframe>
             </div>
         </div>
