@@ -20,6 +20,9 @@ const AssetForm = () => {
     const [projectOptions, setProjectOptions] = useState([]);
     const [initials, setInitials] = useState('');
 
+    //useContext for email
+    const { userName, userEmail, userProjects } = useContext(AuthContext);
+
     // Asynchronously fetch project options when the component mounts
     useEffect(() => {
         const fetchProjectOptions = async () => {
@@ -27,7 +30,7 @@ const AssetForm = () => {
                 const options = await getActiveProjects();
                 // Group projects by status
                 const groupedOptions = {
-                    Active: options.filter(o => o.status === 'Active'),
+                    Active: userProjects,
                     Bidding: options.filter(o => o.status === 'Bidding'),
                 };
                 setProjectOptions(groupedOptions);
@@ -38,9 +41,7 @@ const AssetForm = () => {
 
         fetchProjectOptions();
     }, []);
-    
-    //useContext for email
-    const { userName, userEmail } = useContext(AuthContext);
+
 
     //HANDLER FUNCTIONS
     const handleItemInputChange = (event) => {
@@ -150,7 +151,7 @@ const AssetForm = () => {
                                                 <MenuItem value="Non-Project - 1010">Non-Project - 1010</MenuItem>
                                                 <ListSubheader>Active Jobs</ListSubheader>
                                                 {projectOptions.Active?.map((option, index) => (
-                                                    <MenuItem key={index} value={option.name}>{option.name}</MenuItem>
+                                                    <MenuItem key={index} value={option}>{option}</MenuItem>
                                                 ))}
                                                 <ListSubheader>Pursuits</ListSubheader>
                                                 {projectOptions.Bidding?.map((option, index) => (
