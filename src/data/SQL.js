@@ -93,3 +93,43 @@ export async function getApplications(email) {
         console.error('Error fetching applications:', error);
     }
 }
+
+//function to pull job title from SQL db based on email
+export async function getProjects(email) { 
+    const sessionStorageKey = `projects-${email}`;
+    const cachedData = sessionStorage.getItem(sessionStorageKey);
+
+    if (cachedData) {
+        return JSON.parse(cachedData);
+    }
+    
+    try{
+        const {data} = await axios.post('https://tce-ai-api.azurewebsites.net/api/get-user-projects', { email } );
+
+        sessionStorage.setItem(sessionStorageKey, JSON.stringify(data));
+
+        return data;
+    } catch(error){
+        console.error('Error fetching projects:', error);
+    }
+}
+
+//function to pull job title from SQL db based on email
+export async function getJobTitle(email) { 
+    const sessionStorageKey = `jobTitle-${email}`;
+    const cachedData = sessionStorage.getItem(sessionStorageKey);
+
+    if (cachedData) {
+        return JSON.parse(cachedData);
+    }
+
+    try {
+        const {data} = await axios.post('https://tce-ai-api.azurewebsites.net/api/get-job-title', { email });
+
+        sessionStorage.setItem(sessionStorageKey, JSON.stringify(data));
+
+        return data;
+    } catch (error) {
+        console.error('Error fetching job title:', error);
+    }
+}

@@ -9,61 +9,58 @@ const toolNameMap = {
     'Cable Run Optimizer': 'cable_run_optimizer',
     'GO Tracker': 'go_tracker',
     'Tool Usage Statistics': 'tool_usage',
-    'Schedule Dashboards': 'pbi_dashboards',
+    'Schedule Dashboards': 'schedule_dashboards',
 };
 
 const Provisioning = () => {
     const [selectedTool, setSelectedTool] = useState('');
     const [users, setUsers] = useState([]);
     const [personnelList, setPersonnelList] = useState([]);
-    const [filteredPersonnelList, setFilteredPersonnelList] = useState([]);
+    const [searched, setSearched] = useState(false);
     const [selectedUsers, setSelectedUsers] = useState([]);
     const [inputValue, setInputValue] = useState('');
-    const [searched, setSearched] = useState(false);
 
     useEffect(() => {
-        async function fetchPersonnelList() {
+        const fetchPersonnelList = async () => {
             try {
                 const personnel = await getAllPersonnel();
                 setPersonnelList(personnel);
-                setFilteredPersonnelList(personnel);  // Initialize with full list
             } catch (error) {
                 console.error('Error fetching personnel list:', error);
             }
-        }
+        };
         fetchPersonnelList();
     }, []);
 
     useEffect(() => {
-        async function fetchUsers() {
+        const fetchUsers = async () => {
             if (selectedTool) {
-                setUsers([]);  // Clear previous users immediately when tool changes
-                setSearched(false);
-                try {
-                    const sqlToolName = toolNameMap[selectedTool];
+                const sqlToolName = toolNameMap[selectedTool];
+                if (sqlToolName) {
                     const result = await getUsersOfTool(sqlToolName);
                     setUsers(result);
                     setSearched(true);
-                } catch (error) {
-                    console.error('Error fetching users for tool:', error);
-                    setSearched(true);
+                } else {
+                    console.error('Tool not found in map');
                 }
             }
-        }
+        };
         fetchUsers();
-    }, [selectedTool]);  // Removed personnelList from dependency array
+    }, [selectedTool]);
 
-    useEffect(() => {
-        // Update filtered list only when users or personnel list is changed
-        const newFilteredPersonnel = personnelList.filter(person => 
-            !users.some(user => user.email === person.email));
-        setFilteredPersonnelList(newFilteredPersonnel);
-    }, [personnelList, users]);  // Separate useEffect to control update timing
-
-    const handleToolChange = (event) => {
+    const handleToolChange = async (event) => {
         setSelectedTool(event.target.value);
-        setSelectedUsers([]);
-        setInputValue('');
+    };
+
+    const filteredPersonnelList = personnelList.filter(person =>
+        !users.some(user => user.email === person.email)
+    );
+
+    const handleRemoveUser = async (email) => {
+        await removeUserFromTool(email, toolNameMap[selectedTool]);
+        const removedUser = users.find(user => user.email === email);
+        setUsers(prevUsers => prevUsers.filter(user => user.email !== email));
+        setPersonnelList(prevPersonnel => [...prevPersonnel, removedUser].sort((a, b) => a.name.localeCompare(b.name)));
     };
 
     const handleAddUser = async () => {
@@ -72,42 +69,30 @@ const Provisioning = () => {
             const updatedUsers = await getUsersOfTool(toolNameMap[selectedTool]);
             setUsers(updatedUsers);
 
-            const newPersonnelList = personnelList.filter(person => 
-                !selectedUsers.some(user => user.email === person.email));
-            setPersonnelList(newPersonnelList);
-            setFilteredPersonnelList(newPersonnelList);
+            setPersonnelList(prevPersonnel =>
+                prevPersonnel.filter(person =>
+                    !selectedUsers.some(user => user.email === person.email)
+                )
+            );
+
             setSelectedUsers([]);
             setInputValue('');
-        }
-    };
-
-    const handleRemoveUser = async (email) => {
-        await removeUserFromTool(email, toolNameMap[selectedTool]);
-        const updatedUsers = users.filter(user => user.email !== email);
-        setUsers(updatedUsers);
-
-        const removedUser = personnelList.find(person => person.email === email);
-        if (removedUser) {
-            setPersonnelList([...personnelList, removedUser]);
-            setFilteredPersonnelList([...filteredPersonnelList, removedUser]);
         }
     };
 
     const handleAddAll = async () => {
         if (filteredPersonnelList.length > 0) {
             await addUsersToTool(filteredPersonnelList, toolNameMap[selectedTool]);
-            setUsers(filteredPersonnelList);
-            setFilteredPersonnelList([]);
-            setPersonnelList(personnelList.filter(person => 
-                !filteredPersonnelList.some(user => user.email === person.email)));
+            const updatedUsers = await getUsersOfTool(toolNameMap[selectedTool]);
+            setUsers(updatedUsers);
+            setPersonnelList([]);
         }
     };
 
     const handleRemoveAll = async () => {
         if (users.length > 0) {
             await removeAllUsersFromTool(toolNameMap[selectedTool]);
-            setPersonnelList([...personnelList, ...users]);
-            setFilteredPersonnelList([...personnelList, ...users]);
+            setPersonnelList(prevPersonnel => [...prevPersonnel, ...users].sort((a, b) => a.name.localeCompare(b.name)));
             setUsers([]);
         }
     };

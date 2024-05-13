@@ -1,63 +1,6 @@
 //DEPENDENCIES
 import axios from 'axios';
 
-//function to pull job title from Airtable based on name
-export async function getJobTitle(name) { 
-    // Define a unique key for localStorage based on the function and parameters
-    const sessionStorageKey = `jobTitle-${name}`;
-
-    // Try to get the cached data from localStorage
-    //console.log("Checking for cached job title")
-    const cachedData = sessionStorage.getItem(sessionStorageKey);
-    if (cachedData) {
-        //console.log("Cached job title found")
-        // Parse and return the cached data if it exists
-        return JSON.parse(cachedData);
-    }
-
-    try {
-        //console.log("No cached job title, getting from Airtable")
-        // If no cached data, proceed with the API call
-        const {data} = await axios.post('https://tce-ai-api.azurewebsites.net/api/get-job-title', { name });
-
-        // Store the API response in sessionStorage for future use
-        sessionStorage.setItem(sessionStorageKey, JSON.stringify(data));
-
-        return data;
-    } catch (error) {
-        console.error('Error fetching job title:', error);
-    }
-}
-
-
-//function to pull job title from Airtable based on email
-export async function getProjects(email) { 
-    // Define a unique key for localStorage based on the function and parameters
-    const sessionStorageKey = `projects-${email}`;
-
-    // Try to get the cached data from localStorage
-    //console.log("Checking for cached projects")
-    const cachedData = sessionStorage.getItem(sessionStorageKey);
-    if (cachedData) {
-        //console.log("Cached projects found")
-        // Parse and return the cached data if it exists
-        return JSON.parse(cachedData);
-    }
-    
-    try{
-        //console.log("No cached projects, getting from Airtable")
-        // If no cached data, proceed with the API call
-        const {data} = await axios.post('https://tce-ai-api.azurewebsites.net/api/get-user-projects', { email } );
-
-        // Store the API response in localStorage for future use
-        sessionStorage.setItem(sessionStorageKey, JSON.stringify(data));
-
-        return data;
-    } catch(error){
-        console.error('Error fetching projects:', error);
-    }
-}
-
 //function to pull all personnel from Airtable in form of [{name: 'name', email: 'email'}, ...]
 export async function getAllPersonnel() { 
     try {
