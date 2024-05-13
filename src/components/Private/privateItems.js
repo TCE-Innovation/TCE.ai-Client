@@ -20,6 +20,7 @@ import { AuthContext } from "../../authentication/Auth";
 
 //ADMIN
 import { adminList } from '../../admin/lists';
+import { tempProvisionList } from '../../admin/lists';
 
 const PrivateListItems = ( {tool} ) => {
     const { userName } = useContext(AuthContext);
@@ -70,18 +71,23 @@ const PrivateListItems = ( {tool} ) => {
                 key: 'tool-usage'
             },
             {
-                to: '/private/schedule-dashboards', 
-                text: 'Schedule Dashboards',
-                icon: <InsertChartOutlinedIcon />,
-                key: 'schedule-dashboards'
-            },
-            {
                 to: '/private/admin', 
                 text: 'Admin Panel',
                 icon: <AdminPanelSettingsOutlinedIcon />,
                 key: 'admin'
             }
         );
+    }
+
+    if (tempProvisionList.includes(userName)) {
+        listItems.push(
+            {
+                to: '/private/schedule-dashboards', 
+                text: 'Schedule Dashboards',
+                icon: <InsertChartOutlinedIcon />,
+                key: 'schedule-dashboards'
+            }
+        )
     }
 
     return (
