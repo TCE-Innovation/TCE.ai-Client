@@ -108,7 +108,7 @@ const Support = () => {
                         >
                             <MenuItem value="Non-Project -1010">Non-Project - 1010</MenuItem>
                             <ListSubheader>My Project(s)</ListSubheader>
-                            {userProjects.map((proj) => (
+                            {userProjects.split(', ').map((proj) => (
                                 <MenuItem key={`Active-${proj.id}`} value={proj}>{proj}</MenuItem>
                             ))}
                         </Select>
