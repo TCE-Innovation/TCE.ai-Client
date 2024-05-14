@@ -23,7 +23,6 @@ import { adminList } from '../../admin/lists';
 
 const PrivateListItems = ({ tool }) => {
     const { userName, userTools } = useContext(AuthContext);
-    //console.log(userTools);
     const [selectedInnerItem, setSelectedInnerItem] = React.useState('home');
 
     React.useEffect(() => {
@@ -56,8 +55,6 @@ const PrivateListItems = ({ tool }) => {
         // { to: '/private/chat-bot', text: 'Chat Bot', icon: <ForumOutlinedIcon />, key: 'chat-bot' },
         { to: '/private/cable-run-optimizer', text: 'Cable Run Optimizer', icon: <SpokeOutlinedIcon />, key: 'cable-run-optimizer' },
         { to: '/private/go-tracker', text: 'GO Tracker', icon: <RailwayAlertOutlinedIcon />, key: 'go-tracker' },
-        { to: '/private/equipment-checkout', text: 'Equipment Checkout', icon: <DevicesOtherIcon />, key: 'equipment-checkout' },
-        { to: '/private/sub-automation', text: 'Subcontractor Forms', icon: <ArticleOutlinedIcon />, key: 'sub-automation' },
         { to: '/private/schedule-dashboards', text: 'Schedule Dashboards', icon: <InsertChartOutlinedIcon />, key: 'schedule-dashboards'},
         { to: '/private/tool-usage', text: 'Tool Usage Stats', icon: <DonutSmallOutlinedIcon />, key: 'tool-usage' }
     ];
@@ -83,16 +80,15 @@ const PrivateListItems = ({ tool }) => {
         );
     }
 
-    // Always include the "Home" item
-    const homeItem = {
-        to: '/private/home',
-        text: 'Home',
-        icon: <HomeOutlinedIcon />,
-        key: 'home'
-    };
+    // Always include the "Home", "Subcontractor Forms", and "Equipment Checkout" items
+    const alwaysIncludedItems = [
+        { to: '/private/home', text: 'Home', icon: <HomeOutlinedIcon />, key: 'home' },
+        { to: '/private/sub-automation', text: 'Subcontractor Forms', icon: <ArticleOutlinedIcon />, key: 'sub-automation' },
+        { to: '/private/equipment-checkout', text: 'Equipment Checkout', icon: <DevicesOtherIcon />, key: 'equipment-checkout' }
+    ];
 
-    // Prepend the "Home" item to the filtered list items
-    const finalListItems = [homeItem, ...filteredListItems];
+    // Combine always included items with the filtered list items
+    const finalListItems = [...alwaysIncludedItems, ...filteredListItems];
 
     return (
         <List component="nav">
