@@ -62,7 +62,7 @@ const Provisioning = () => {
 
         };
         filterPersonnel();
-    }, [users, selectedTool]);
+    }, [users, selectedTool, personnelList]);
 
     const handleToolChange = async (event) => {
         setSelectedTool(event.target.value);
