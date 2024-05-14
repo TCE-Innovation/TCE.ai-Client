@@ -19,6 +19,7 @@ import { projWithChatbot } from '../../admin/lists';
 const ChatBot = () => {
     const [project, setProject] = useState('hr');
     const { userProjects, userEmail } = useContext(AuthContext);
+    console.log(userProjects);
 
     const [loadingStates, setLoadingStates] = useState({
         p4: true,

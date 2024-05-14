@@ -22,7 +22,7 @@ import ExitToAppIcon from '@mui/icons-material/ExitToApp';
 import Home from '../PrivateFeatures/Home/Home';
 import PrivateListItems from "./privateItems";
 import CRO from '../PrivateFeatures/CRO/CRO';
-import ChatBot from '../PrivateFeatures/ChatBot';
+//import ChatBot from '../PrivateFeatures/ChatBot';
 import AssetTracker from '../PrivateFeatures/AssetTracker/AssetTracker';
 import GenerateEmails from "../PrivateFeatures/GenerateEmails";
 import GOTracker from '../PrivateFeatures/GOTracker';
@@ -83,7 +83,7 @@ function PrivateContent() {
     'home': Home,
     'generate-emails': GenerateEmails,
     'cable-run-optimizer': CRO,
-    'chat-bot': ChatBot,
+    //'chat-bot': ChatBot,
     'equipment-checkout': AssetTracker,
     'go-tracker': GOTracker,
     'sub-automation': SubAuto,
