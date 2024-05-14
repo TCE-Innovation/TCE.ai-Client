@@ -23,6 +23,7 @@ import { adminList } from '../../admin/lists';
 
 const PrivateListItems = ({ tool }) => {
     const { userName, userTools } = useContext(AuthContext);
+    //console.log(userTools);
     const [selectedInnerItem, setSelectedInnerItem] = React.useState('home');
 
     React.useEffect(() => {
@@ -51,14 +52,14 @@ const PrivateListItems = ({ tool }) => {
     };
 
     const listItems = [
-        { to: '/private/home', text: 'Home', icon: <HomeOutlinedIcon />, key: 'home' },
         { to: '/private/generate-emails', text: 'Email Generator', icon: <EmailOutlinedIcon />, key: 'generate-emails' },
         // { to: '/private/chat-bot', text: 'Chat Bot', icon: <ForumOutlinedIcon />, key: 'chat-bot' },
         { to: '/private/cable-run-optimizer', text: 'Cable Run Optimizer', icon: <SpokeOutlinedIcon />, key: 'cable-run-optimizer' },
         { to: '/private/go-tracker', text: 'GO Tracker', icon: <RailwayAlertOutlinedIcon />, key: 'go-tracker' },
         { to: '/private/equipment-checkout', text: 'Equipment Checkout', icon: <DevicesOtherIcon />, key: 'equipment-checkout' },
         { to: '/private/sub-automation', text: 'Subcontractor Forms', icon: <ArticleOutlinedIcon />, key: 'sub-automation' },
-        { to: '/private/schedule-dashboards', text: 'Schedule Dashboards', icon: <InsertChartOutlinedIcon />, key: 'schedule-dashboards' }
+        { to: '/private/schedule-dashboards', text: 'Schedule Dashboards', icon: <InsertChartOutlinedIcon />, key: 'schedule-dashboards'},
+        { to: '/private/tool-usage', text: 'Tool Usage Stats', icon: <DonutSmallOutlinedIcon />, key: 'tool-usage' }
     ];
 
     // Ensure userTools is a valid string, else default to an empty string
@@ -74,12 +75,6 @@ const PrivateListItems = ({ tool }) => {
     if (adminList.includes(userName)) {
         filteredListItems.push(
             {
-                to: '/private/tool-usage',
-                text: 'Tool Usage Statistics',
-                icon: <DonutSmallOutlinedIcon />,
-                key: 'tool-usage'
-            },
-            {
                 to: '/private/admin',
                 text: 'Admin Panel',
                 icon: <AdminPanelSettingsOutlinedIcon />,
@@ -88,9 +83,20 @@ const PrivateListItems = ({ tool }) => {
         );
     }
 
+    // Always include the "Home" item
+    const homeItem = {
+        to: '/private/home',
+        text: 'Home',
+        icon: <HomeOutlinedIcon />,
+        key: 'home'
+    };
+
+    // Prepend the "Home" item to the filtered list items
+    const finalListItems = [homeItem, ...filteredListItems];
+
     return (
         <List component="nav">
-            {filteredListItems.map(item => (
+            {finalListItems.map(item => (
                 <Link to={item.to} style={{ textDecoration: 'none', color: 'inherit' }} key={item.key}>
                     <ListItemButton style={getInnerItemStyle(item.key)} onClick={() => handleInnerItemClick(item.key)}>
                         {getIcon(item.icon, item.key)}
