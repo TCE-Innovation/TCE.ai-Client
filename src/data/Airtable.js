@@ -1,24 +1,6 @@
 //DEPENDENCIES
 import axios from 'axios';
 
-//function to pull all personnel from Airtable in form of [{name: 'name', email: 'email'}, ...]
-export async function getAllPersonnel() { 
-    try {
-        const { data } = await axios.get('https://tce-ai-api.azurewebsites.net/api/get-all-personnel');
-        
-        // Find the person with email 'stobin@tcelect.net' and set their name to 'Shane Tobin'
-        const personToUpdate = data.find(person => person.email === 'stobin@tcelect.net');
-        if (personToUpdate) {
-            personToUpdate.name = 'Shane Tobin';
-        }
-
-        return data;
-    } catch (error) {
-        console.error('Error fetching applications:', error);
-        return []; // Return an empty array or handle the error accordingly
-    }
-}
-
 //function to get project data from airtable base
 export async function getActiveProjects() {
     try{

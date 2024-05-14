@@ -3,20 +3,10 @@ import axios from 'axios';
 
 //_____________________________________________________ TOOL PROVISIONING FUNCTIONS ________________________________________________________
 
-//function to pull tools from SQL db based on email (disabling cache for now)
+//function to pull tools from SQL db based on email
 export async function getTools(email) { 
-    /*const sessionStorageKey = `tools-${email}`;
-    const cachedData = sessionStorage.getItem(sessionStorageKey);
-    
-    if (cachedData) {
-        return JSON.parse(cachedData);
-    }*/
-    
     try{
         const {data} = await axios.post('https://tce-ai-api.azurewebsites.net/api/get-user-tools', { email } );
-
-        //sessionStorage.setItem(sessionStorageKey, JSON.stringify(data));
-
         return data;
     } catch(error){
         console.error('Error fetching tools:', error);
@@ -94,7 +84,7 @@ export async function getApplications(email) {
     }
 }
 
-//function to pull job title from SQL db based on email
+//function to pull user projects from SQL db based on email
 export async function getProjects(email) { 
     const sessionStorageKey = `projects-${email}`;
     const cachedData = sessionStorage.getItem(sessionStorageKey);
@@ -114,7 +104,7 @@ export async function getProjects(email) {
     }
 }
 
-//function to pull job title from SQL db based on email
+//function to pull user job title from SQL db based on email
 export async function getJobTitle(email) { 
     const sessionStorageKey = `jobTitle-${email}`;
     const cachedData = sessionStorage.getItem(sessionStorageKey);
@@ -131,5 +121,30 @@ export async function getJobTitle(email) {
         return data;
     } catch (error) {
         console.error('Error fetching job title:', error);
+    }
+}
+
+
+
+
+
+
+//_____________________________________________________ GENERAL DATA FUNCTIONS ________________________________________________________
+
+//function to pull all personnel from Airtable in form of [{name: 'name', email: 'email'}, ...]
+export async function getAllPersonnel() { 
+    try {
+        const { data } = await axios.get('https://tce-ai-api.azurewebsites.net/api/get-all-personnel');
+        
+        // Find the person with email 'stobin@tcelect.net' and set their name to 'Shane Tobin'
+        const personToUpdate = data.find(person => person.email === 'stobin@tcelect.net');
+        if (personToUpdate) {
+            personToUpdate.name = 'Shane Tobin';
+        }
+
+        return data;
+    } catch (error) {
+        console.error('Error fetching applications:', error);
+        return []; // Return an empty array or handle the error accordingly
     }
 }

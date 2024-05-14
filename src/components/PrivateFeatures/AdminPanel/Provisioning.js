@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import {Table, TableBody, TableCell, TableContainer, TableHead, TableRow, Paper, Button, Box, FormControl, Select, MenuItem, Autocomplete, TextField, Typography} from '@mui/material';
 import {getUsersOfTool, removeUserFromTool, addUsersToTool, removeAllUsersFromTool} from '../../../data/SQL';
-import { getAllPersonnel } from '../../../data/Airtable';
+import { getAllPersonnel } from '../../../data/SQL';
 
 const toolNameMap = {
     'Chatbot': 'chatbot',
@@ -19,7 +19,9 @@ const Provisioning = () => {
     const [searched, setSearched] = useState(false);
     const [selectedUsers, setSelectedUsers] = useState([]);
     const [inputValue, setInputValue] = useState('');
+    const [filteredPersonnelList, setFilteredPersonnelList] = useState([]);
 
+    //get all personnel
     useEffect(() => {
         const fetchPersonnelList = async () => {
             try {
@@ -32,6 +34,7 @@ const Provisioning = () => {
         fetchPersonnelList();
     }, []);
 
+    //get the users of a specific tool
     useEffect(() => {
         const fetchUsers = async () => {
             if (selectedTool) {
@@ -48,13 +51,22 @@ const Provisioning = () => {
         fetchUsers();
     }, [selectedTool]);
 
+    useEffect(() => {
+        const filterPersonnel = async () => {
+            console.log("tool switch");
+            //get the list of personnel that are not in the currently selected tool
+            const filteredPersonnelList = personnelList.filter(person =>
+                !users.some(user => user.email === person.email)
+            );
+            setFilteredPersonnelList(filteredPersonnelList);
+
+        };
+        filterPersonnel();
+    }, [users, selectedTool]);
+
     const handleToolChange = async (event) => {
         setSelectedTool(event.target.value);
     };
-
-    const filteredPersonnelList = personnelList.filter(person =>
-        !users.some(user => user.email === person.email)
-    );
 
     const handleRemoveUser = async (email) => {
         await removeUserFromTool(email, toolNameMap[selectedTool]);
