@@ -148,3 +148,13 @@ export async function getAllPersonnel() {
         return []; // Return an empty array or handle the error accordingly
     }
 }
+
+//function to pull project team from SQL db
+export async function getProjectTeam(project) { 
+    try{
+        const {data} = await axios.post('https://tce-ai-api.azurewebsites.net/api/get-project-team', { project } );
+        return data;
+    } catch(error){
+        console.error('Error fetching project team:', error);
+    }
+}

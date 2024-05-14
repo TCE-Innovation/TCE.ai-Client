@@ -1,10 +1,10 @@
 import React, { useState, useEffect } from 'react';
-import {Table, TableBody, TableCell, TableContainer, TableHead, TableRow, Paper, Button, Box, FormControl, Select, MenuItem, Autocomplete, TextField, Typography} from '@mui/material';
-import {getUsersOfTool, removeUserFromTool, addUsersToTool, removeAllUsersFromTool} from '../../../data/SQL';
+import { Table, TableBody, TableCell, TableContainer, TableHead, TableRow, Paper, Button, Box, FormControl, Select, MenuItem, Autocomplete, TextField, Typography } from '@mui/material';
+import { getUsersOfTool, removeUserFromTool, addUsersToTool, removeAllUsersFromTool, getProjectTeam } from '../../../data/SQL';
 import { getAllPersonnel } from '../../../data/SQL';
+import { getActiveProjects } from '../../../data/Airtable';
 
 const toolNameMap = {
-    //'Chatbot': 'chatbot',
     'Email Generator': 'email_generator',
     'Cable Run Optimizer': 'cable_run_optimizer',
     'GO Tracker': 'go_tracker',
@@ -20,8 +20,11 @@ const Provisioning = () => {
     const [selectedUsers, setSelectedUsers] = useState([]);
     const [inputValue, setInputValue] = useState('');
     const [filteredPersonnelList, setFilteredPersonnelList] = useState([]);
+    const [activeProjects, setActiveProjects] = useState([]);
+    const [selectedProject, setSelectedProject] = useState('');
+    const [projectTeam, setProjectTeam] = useState([]);
 
-    //get all personnel
+    // Fetch all personnel
     useEffect(() => {
         const fetchPersonnelList = async () => {
             try {
@@ -34,7 +37,22 @@ const Provisioning = () => {
         fetchPersonnelList();
     }, []);
 
-    //get the users of a specific tool
+    // Fetch active projects
+    useEffect(() => {
+        const fetchActiveProjects = async () => {
+            try {
+                const projects = await getActiveProjects();
+                // Filter the projects to only include those with status 'Active'
+                const activeProjects = projects.filter(project => project.status === 'Active');
+                setActiveProjects(activeProjects);
+            } catch (error) {
+                console.error('Error fetching active projects:', error);
+            }
+        };
+        fetchActiveProjects();
+    }, []);
+
+    // Fetch users of a specific tool
     useEffect(() => {
         const fetchUsers = async () => {
             if (selectedTool) {
@@ -51,20 +69,19 @@ const Provisioning = () => {
         fetchUsers();
     }, [selectedTool]);
 
+    // Filter personnel
     useEffect(() => {
-        const filterPersonnel = async () => {
-            console.log("tool switch");
-            //get the list of personnel that are not in the currently selected tool
+        const filterPersonnel = () => {
+            // Get the list of personnel that are not in the currently selected tool
             const filteredPersonnelList = personnelList.filter(person =>
                 !users.some(user => user.email === person.email)
             );
             setFilteredPersonnelList(filteredPersonnelList);
-
         };
         filterPersonnel();
     }, [users, selectedTool, personnelList]);
 
-    const handleToolChange = async (event) => {
+    const handleToolChange = (event) => {
         setSelectedTool(event.target.value);
     };
 
@@ -109,6 +126,32 @@ const Provisioning = () => {
         }
     };
 
+    const handleProjectChange = async (event) => {
+        const projectName = event.target.value;
+        setSelectedProject(projectName);
+        const team = await getProjectTeam(projectName);
+        setProjectTeam(team || []);  // Ensure projectTeam is always an array
+    };
+
+    const handleAddProjectTeam = async () => {
+        if (projectTeam.length > 0) {
+            await addUsersToTool(projectTeam, toolNameMap[selectedTool]);
+            const updatedUsers = await getUsersOfTool(toolNameMap[selectedTool]);
+            setUsers(updatedUsers);
+
+            setPersonnelList(prevPersonnel =>
+                prevPersonnel.filter(person =>
+                    !projectTeam.some(user => user.email === person.email)
+                )
+            );
+
+            setSelectedUsers([]);
+            setInputValue('');
+            setProjectTeam([]);
+            setSelectedProject('');
+        }
+    };
+
     return (
         <div style={{ width: '100%', display: 'flex', flexDirection: 'column', alignItems: 'center', marginTop: 10, backgroundColor: '#f5f5f5', borderRadius: '10px' }}>
             <Box sx={{ width: '70%', padding: 2 }}>
@@ -144,8 +187,22 @@ const Provisioning = () => {
                                 }
                                 noOptionsText={inputValue.length < 1 ? "Start typing to search" : "No options"}
                                 renderInput={(params) => <TextField {...params} label="Add User(s)" />}
-                                style={{ marginBottom: '2rem', width: '67%', marginRight: '1vw' }}
+                                style={{ marginBottom: '2rem', width: '45%', marginRight: '1vw' }}
                             />
+
+                            <FormControl sx={{ marginBottom: '2rem', marginRight: '1vw', width: '20%' }}>
+                                <Select
+                                    value={selectedProject}
+                                    onChange={handleProjectChange}
+                                    displayEmpty
+                                    inputProps={{ 'aria-label': 'Add Project Team' }}
+                                >
+                                    <MenuItem value="" disabled>Add Project Team</MenuItem>
+                                    {activeProjects.map((project, index) => (
+                                        <MenuItem key={index} value={project.name}>{project.name}</MenuItem>
+                                    ))}
+                                </Select>
+                            </FormControl>
 
                             <Button
                                 variant="contained"
@@ -192,7 +249,26 @@ const Provisioning = () => {
                             </Button>
                         </Box>
 
-                        <TableContainer component={Paper} style={{marginTop: '1.5vw', marginBottom: '1.5vw', maxHeight: '22vw'}}>
+                        {selectedProject && projectTeam && projectTeam.length > 0 && (
+                            <Box sx={{ display: 'flex', alignItems: 'center', justifyContent: "center", marginBottom: '2rem' }}>
+                                <Typography variant="subtitle1" style={{ marginRight: '1vw' }}>
+                                    {projectTeam.length} users from project "{selectedProject}" will be added.
+                                </Typography>
+                                <Button
+                                    variant="contained"
+                                    onClick={handleAddProjectTeam}
+                                    style={{
+                                        backgroundColor: '#d7edd1',
+                                        color: 'green',
+                                        border: '1px solid green'
+                                    }}
+                                >
+                                    Add {projectTeam.length} Users
+                                </Button>
+                            </Box>
+                        )}
+
+                        <TableContainer component={Paper} style={{ marginTop: '1.5vw', marginBottom: '1.5vw', maxHeight: '22vw' }}>
                             <Table stickyHeader>
                                 <TableHead>
                                     <TableRow>
