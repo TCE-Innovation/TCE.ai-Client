@@ -24,14 +24,6 @@ const adminList = [
     'Rory O\'Neill',
 ]
 
-const tempProvisionList = [
-    'Matthew Bayne',
-    'Jacob Shavel',
-    'Patrick Besser',
-    'Rory O\'Neill',
-    'Sahul Kadarpeta'
-]
-
 //TOOLS
 const toolList = [
     'Email Generator',
@@ -45,8 +37,7 @@ module.exports = {
     allProjectsAccess,
     projWithChatbot, 
     adminList, 
-    toolList,
-    tempProvisionList
+    toolList
 }
 
 

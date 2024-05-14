@@ -6,7 +6,7 @@ import { List, ListItemButton, ListItemIcon, ListItemText } from '@mui/material'
 // ICONS
 import HomeOutlinedIcon from '@mui/icons-material/HomeOutlined';
 import EmailOutlinedIcon from '@mui/icons-material/EmailOutlined';
-//import ForumOutlinedIcon from '@mui/icons-material/ForumOutlined';
+// import ForumOutlinedIcon from '@mui/icons-material/ForumOutlined';
 import SpokeOutlinedIcon from '@mui/icons-material/SpokeOutlined';
 import RailwayAlertOutlinedIcon from '@mui/icons-material/RailwayAlertOutlined';
 import DevicesOtherIcon from '@mui/icons-material/DevicesOther';
@@ -15,15 +15,14 @@ import DonutSmallOutlinedIcon from '@mui/icons-material/DonutSmallOutlined';
 import InsertChartOutlinedIcon from '@mui/icons-material/InsertChartOutlined';
 import AdminPanelSettingsOutlinedIcon from '@mui/icons-material/AdminPanelSettingsOutlined';
 
-//CONTEXT
+// CONTEXT
 import { AuthContext } from "../../authentication/Auth";
 
-//ADMIN
+// ADMIN
 import { adminList } from '../../admin/lists';
-import { tempProvisionList } from '../../admin/lists';
 
-const PrivateListItems = ( {tool} ) => {
-    const { userName } = useContext(AuthContext);
+const PrivateListItems = ({ tool }) => {
+    const { userName, userTools } = useContext(AuthContext);
     const [selectedInnerItem, setSelectedInnerItem] = React.useState('home');
 
     React.useEffect(() => {
@@ -37,7 +36,7 @@ const PrivateListItems = ( {tool} ) => {
     const getInnerItemStyle = (item) => ({
         backgroundColor: selectedInnerItem === item ? '#1b365f' : 'transparent',
         color: selectedInnerItem === item ? 'white' : 'grey',
-        borderRadius:'10px',
+        borderRadius: '10px',
         marginLeft: "10px",
         marginRight: "10px",
         paddingLeft: "14px",
@@ -54,24 +53,34 @@ const PrivateListItems = ( {tool} ) => {
     const listItems = [
         { to: '/private/home', text: 'Home', icon: <HomeOutlinedIcon />, key: 'home' },
         { to: '/private/generate-emails', text: 'Email Generator', icon: <EmailOutlinedIcon />, key: 'generate-emails' },
-        //{ to: '/private/chat-bot', text: 'Chat Bot', icon: <ForumOutlinedIcon />, key: 'chat-bot' },
+        // { to: '/private/chat-bot', text: 'Chat Bot', icon: <ForumOutlinedIcon />, key: 'chat-bot' },
         { to: '/private/cable-run-optimizer', text: 'Cable Run Optimizer', icon: <SpokeOutlinedIcon />, key: 'cable-run-optimizer' },
         { to: '/private/go-tracker', text: 'GO Tracker', icon: <RailwayAlertOutlinedIcon />, key: 'go-tracker' },
         { to: '/private/equipment-checkout', text: 'Equipment Checkout', icon: <DevicesOtherIcon />, key: 'equipment-checkout' },
         { to: '/private/sub-automation', text: 'Subcontractor Forms', icon: <ArticleOutlinedIcon />, key: 'sub-automation' },
+        { to: '/private/schedule-dashboards', text: 'Schedule Dashboards', icon: <InsertChartOutlinedIcon />, key: 'schedule-dashboards' }
     ];
+
+    // Ensure userTools is a valid string, else default to an empty string
+    const validUserTools = userTools || '';
+
+    // Split the userTools string into an array
+    const userToolsArray = validUserTools.split(',').map(tool => tool.trim());
+
+    // Filter the listItems based on userToolsArray
+    let filteredListItems = listItems.filter(item => userToolsArray.includes(item.text));
 
     // Add admin specific items conditionally
     if (adminList.includes(userName)) {
-        listItems.push(
+        filteredListItems.push(
             {
-                to: '/private/tool-usage', 
+                to: '/private/tool-usage',
                 text: 'Tool Usage Statistics',
                 icon: <DonutSmallOutlinedIcon />,
                 key: 'tool-usage'
             },
             {
-                to: '/private/admin', 
+                to: '/private/admin',
                 text: 'Admin Panel',
                 icon: <AdminPanelSettingsOutlinedIcon />,
                 key: 'admin'
@@ -79,20 +88,9 @@ const PrivateListItems = ( {tool} ) => {
         );
     }
 
-    if (tempProvisionList.includes(userName)) {
-        listItems.push(
-            {
-                to: '/private/schedule-dashboards', 
-                text: 'Schedule Dashboards',
-                icon: <InsertChartOutlinedIcon />,
-                key: 'schedule-dashboards'
-            }
-        )
-    }
-
     return (
         <List component="nav">
-            {listItems.map(item => (
+            {filteredListItems.map(item => (
                 <Link to={item.to} style={{ textDecoration: 'none', color: 'inherit' }} key={item.key}>
                     <ListItemButton style={getInnerItemStyle(item.key)} onClick={() => handleInnerItemClick(item.key)}>
                         {getIcon(item.icon, item.key)}
