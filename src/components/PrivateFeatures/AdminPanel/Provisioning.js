@@ -4,6 +4,10 @@ import { getUsersOfTool, removeUserFromTool, addUsersToTool, removeAllUsersFromT
 import { getAllPersonnel } from '../../../data/SQL';
 import { getActiveProjects } from '../../../data/Airtable';
 
+import { IconButton } from '@mui/material';
+import ClearIcon from '@mui/icons-material/Clear';
+
+
 const toolNameMap = {
     'Email Generator': 'email_generator',
     'Cable Run Optimizer': 'cable_run_optimizer',
@@ -152,6 +156,11 @@ const Provisioning = () => {
         }
     };
 
+    const handleCancelProjectSelection = () => {
+        setSelectedProject('');
+        setProjectTeam([]);
+    };
+
     return (
         <div style={{ width: '100%', display: 'flex', flexDirection: 'column', alignItems: 'center', marginTop: 10, backgroundColor: '#f5f5f5', borderRadius: '10px' }}>
             <Box sx={{ width: '70%', padding: 2 }}>
@@ -265,6 +274,16 @@ const Provisioning = () => {
                                 >
                                     Add {projectTeam.length} Users
                                 </Button>
+                                <IconButton
+                                    onClick={handleCancelProjectSelection}
+                                    style={{
+                                        backgroundColor: 'transparent',
+                                        color: 'black',
+                                        marginLeft: '1vw'
+                                    }}
+                                >
+                                    <ClearIcon />
+                                </IconButton>
                             </Box>
                         )}
 
