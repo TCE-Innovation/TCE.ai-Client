@@ -1,7 +1,10 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useContext } from 'react';
 import TrainLoader from '../General/TrainLoader';
 import { getPBILog } from '../../data/Airtable'; 
 import { FormControl, InputLabel, Select, MenuItem, Box } from '@mui/material';
+
+import { AuthContext } from "../../authentication/Auth";
+
 
 const ScheduleDashboards = () => {
     const [projects, setProjects] = useState({});
@@ -9,6 +12,11 @@ const ScheduleDashboards = () => {
     const [selectedMonth, setSelectedMonth] = useState('');
     const [iframeLoaded, setIframeLoaded] = useState(false);
     const [iframeLink, setIframeLink] = useState('');
+
+    const { userDashboards } = useContext(AuthContext);
+    console.log(userDashboards);
+
+    //need to make sure i handle if the user has no dashboards (either set to none default or if its empty, make it none here)
 
     useEffect(() => {
         const fetchProjects = async () => {

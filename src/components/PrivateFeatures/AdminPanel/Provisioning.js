@@ -2,12 +2,10 @@ import React, { useState, useEffect } from 'react';
 import { Table, TableBody, TableCell, TableContainer, TableHead, TableRow, Paper, Button, Box, FormControl, Select, MenuItem, Autocomplete, TextField, Typography, Dialog, DialogActions, DialogContent, DialogContentText, DialogTitle } from '@mui/material';
 import { getUsersOfTool, removeUserFromTool, addUsersToTool, removeAllUsersFromTool, getProjectTeam, updateUserProject, getUserProjectSD } from '../../../data/SQL';
 import { getAllPersonnel } from '../../../data/SQL';
-import { getActiveProjects } from '../../../data/Airtable';
+import { getActiveProjects, getPBILog } from '../../../data/Airtable';
 
 import { IconButton } from '@mui/material';
 import ClearIcon from '@mui/icons-material/Clear';
-import { scheduleDashboardProjects } from '../../../admin/lists';
-
 
 const toolNameMap = {
     'Email Generator': 'email_generator',
@@ -31,6 +29,7 @@ const Provisioning = () => {
     const [openAddAllDialog, setOpenAddAllDialog] = useState(false);
     const [openRemoveAllDialog, setOpenRemoveAllDialog] = useState(false);
     const [userProjects, setUserProjects] = useState({});
+    const [dashboardProjects, setDashboardProjects] = useState([]);
 
     // Fetch all personnel
     useEffect(() => {
@@ -111,6 +110,24 @@ const Provisioning = () => {
         fetchUserProjects();
     }, []);
 
+// Fetch project options for scheduling dashboard
+useEffect(() => {
+    const fetchProjects = async () => {
+        try {
+            const data = await getPBILog();
+            let projectOptions = Object.keys(data);
+            
+            projectOptions = ["All", "None", ...projectOptions];
+
+            setDashboardProjects(projectOptions);
+            console.log(data);
+        } catch (error) {
+            console.error('Error fetching projects:', error);
+        }
+    };
+    fetchProjects();
+}, []);
+
     const handleRemoveUser = async (email) => {
         await removeUserFromTool(email, toolNameMap[selectedTool]);
         const removedUser = users.find(user => user.email === email);
@@ -183,7 +200,7 @@ const Provisioning = () => {
 
     const handleAddProjectTeam = async () => {
         if (projectTeam.length > 0) {
-            const projectToAdd = scheduleDashboardProjects.includes(selectedProject) ? selectedProject : 'None';
+            const projectToAdd = dashboardProjects.includes(selectedProject) ? selectedProject : 'None';
             await addUsersToTool(projectTeam, toolNameMap[selectedTool], projectToAdd);
             const updatedUsers = await getUsersOfTool(toolNameMap[selectedTool]);
             setUsers(updatedUsers);
@@ -404,7 +421,7 @@ const Provisioning = () => {
                                                                 inputProps={{ 'aria-label': 'Select Project' }}
                                                             >
                                                                 <MenuItem value="" disabled>Select Project</MenuItem>
-                                                                {scheduleDashboardProjects.map((project, index) => (
+                                                                {dashboardProjects.map((project, index) => (
                                                                     <MenuItem key={index} value={project}>{project}</MenuItem>
                                                                 ))}
                                                             </Select>

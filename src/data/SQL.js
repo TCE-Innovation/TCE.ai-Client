@@ -78,7 +78,16 @@ export async function getUserProjectSD() {
     }
 }
 
-
+// function to fetch user projects from the schedule_dashboards table
+export async function getUserDashboardSD(email) {
+    try {
+        const { data } = await axios.post('https://tce-ai-api.azurewebsites.net/api/sd-get-user-dashboards', { email });
+        return data;
+    } catch (error) {
+        console.error('Error fetching user dashboards:', error);
+        throw new Error('An error occurred while fetching user dashboards');
+    }
+}
 
 
 
