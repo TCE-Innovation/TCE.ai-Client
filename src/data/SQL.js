@@ -82,6 +82,7 @@ export async function getUserProjectSD() {
 export async function getUserDashboardSD(email) {
     try {
         const { data } = await axios.post('https://tce-ai-api.azurewebsites.net/api/sd-get-user-dashboards', { email });
+        console.log(email);
         return data;
     } catch (error) {
         console.error('Error fetching user dashboards:', error);

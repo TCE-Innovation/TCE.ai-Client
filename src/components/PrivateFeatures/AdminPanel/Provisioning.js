@@ -116,11 +116,8 @@ useEffect(() => {
         try {
             const data = await getPBILog();
             let projectOptions = Object.keys(data);
-            
             projectOptions = ["All", "None", ...projectOptions];
-
             setDashboardProjects(projectOptions);
-            console.log(data);
         } catch (error) {
             console.error('Error fetching projects:', error);
         }
@@ -137,7 +134,7 @@ useEffect(() => {
 
     const handleAddUser = async () => {
         if (selectedUsers.length > 0) {
-            await addUsersToTool(selectedUsers, toolNameMap[selectedTool]);
+            await addUsersToTool(selectedUsers, toolNameMap[selectedTool], 'None');
             const updatedUsers = await getUsersOfTool(toolNameMap[selectedTool]);
             setUsers(updatedUsers);
 
@@ -415,7 +412,7 @@ useEffect(() => {
                                                     <TableCell>
                                                         <FormControl fullWidth>
                                                             <Select
-                                                                value={userProjects[user.email] || ''}
+                                                                value={userProjects[user.email] || 'None'}
                                                                 onChange={(event) => handleUserProjectChange(user.email, event.target.value)}
                                                                 displayEmpty
                                                                 inputProps={{ 'aria-label': 'Select Project' }}

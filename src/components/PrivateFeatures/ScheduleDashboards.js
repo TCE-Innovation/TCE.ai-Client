@@ -2,7 +2,7 @@ import React, { useState, useEffect, useContext } from 'react';
 import TrainLoader from '../General/TrainLoader';
 import { getPBILog } from '../../data/Airtable'; 
 import { getUserDashboardSD } from '../../data/SQL';
-import { FormControl, InputLabel, Select, MenuItem, Box } from '@mui/material';
+import { FormControl, InputLabel, Select, MenuItem, Box, Typography } from '@mui/material';
 
 import { AuthContext } from "../../authentication/Auth";
 
@@ -22,12 +22,13 @@ const ScheduleDashboards = () => {
             try {
                 const data = await getUserDashboardSD(userEmail);
                 setUserDashboards(data);
+                console.log(data);
             } catch (error) {
                 console.error('Error fetching dashboards:', error);
             }
         };
         fetchDashboards();
-    }, []);
+    }, [userEmail]);
 
     useEffect(() => {
         const fetchProjects = async () => {
@@ -39,7 +40,7 @@ const ScheduleDashboards = () => {
                 if (userDashboards === "All") {
                     // If userDashboards is "All", use all project keys
                 } else if (userDashboards === "None") {
-                    projectKeys = ["None"];
+                    projectKeys = []; // No projects to display
                 } else {
                     projectKeys = projectKeys.filter(project => userDashboards.includes(project));
                 }
@@ -86,52 +87,65 @@ const ScheduleDashboards = () => {
 
     return (
         <div style={{ width: '100%', display: 'flex', flexDirection: "column" }}>
-            {!iframeLoaded && (
+            {!iframeLoaded && userDashboards !== "None" && (
                 <div style={{ position: 'fixed', top: '50%', left: '50%', transform: 'translate(-50%, -50%)', zIndex: 100 }}>
                     <TrainLoader />
                 </div>
             )}
-            <Box sx={{ width: '100%', display: 'flex', marginBottom: 2 }}>
-                <FormControl variant="standard" sx={{ m: 1, minWidth: 120 }}>
-                    <InputLabel id="project-label">Project</InputLabel>
-                    <Select
-                        labelId="project-label"
-                        id="project-select"
-                        value={selectedProject}
-                        onChange={handleProjectChange}
-                        label="Project"
-                    >
-                        {projectOptions.map((project) => (
-                            <MenuItem key={project} value={project}>{project}</MenuItem>
-                        ))}
-                    </Select>
-                </FormControl>
-                {selectedProject && selectedProject !== "None" && (
-                    <FormControl variant="standard" sx={{ m: 1, minWidth: 120 }}>
-                        <InputLabel id="month-label">Month</InputLabel>
-                        <Select
-                            labelId="month-label"
-                            id="month-select"
-                            value={selectedMonth}
-                            onChange={handleMonthChange}
-                            label="Month"
-                        >
-                            {projects[selectedProject]?.map((record) => (
-                                <MenuItem key={record.month} value={record.month}>{record.month}</MenuItem>
-                            ))}
-                        </Select>
-                    </FormControl>
-                )}
-            </Box>
-            {iframeLink && (
-                <div style={{ display: iframeLoaded ? 'block' : 'none', width: '100%', height: '75vh', margin: 'auto' }}>
-                    <iframe
-                        onLoad={handleIframeLoad}
-                        src={iframeLink}
-                        style={{ width: '100%', height: '100%', border: '1px solid #ccc', background: 'transparent' }}
-                        title="Schedule Dashboard"
-                    ></iframe>
+            {userDashboards === "None" ? (
+                <div style={{ position: 'fixed', top: '50%', left: '50%', transform: 'translate(-50%, -50%)', zIndex: 100 }}>
+                    <Typography variant="h6" align="center" color="error">
+                        You do not have any schedule dashboards provisioned to you.
+                    </Typography>
+                    <Typography variant="h6" align="center">
+                        Please reach out to an administrator.
+                    </Typography>
                 </div>
+            ) : (
+                <>
+                    <Box sx={{ width: '100%', display: 'flex', marginBottom: 2 }}>
+                        <FormControl variant="standard" sx={{ m: 1, minWidth: 120 }}>
+                            <InputLabel id="project-label">Project</InputLabel>
+                            <Select
+                                labelId="project-label"
+                                id="project-select"
+                                value={selectedProject}
+                                onChange={handleProjectChange}
+                                label="Project"
+                            >
+                                {projectOptions.map((project) => (
+                                    <MenuItem key={project} value={project}>{project}</MenuItem>
+                                ))}
+                            </Select>
+                        </FormControl>
+                        {selectedProject && (
+                            <FormControl variant="standard" sx={{ m: 1, minWidth: 120 }}>
+                                <InputLabel id="month-label">Month</InputLabel>
+                                <Select
+                                    labelId="month-label"
+                                    id="month-select"
+                                    value={selectedMonth}
+                                    onChange={handleMonthChange}
+                                    label="Month"
+                                >
+                                    {projects[selectedProject]?.map((record) => (
+                                        <MenuItem key={record.month} value={record.month}>{record.month}</MenuItem>
+                                    ))}
+                                </Select>
+                            </FormControl>
+                        )}
+                    </Box>
+                    {iframeLink && (
+                        <div style={{ display: iframeLoaded ? 'block' : 'none', width: '100%', height: '75vh', margin: 'auto' }}>
+                            <iframe
+                                onLoad={handleIframeLoad}
+                                src={iframeLink}
+                                style={{ width: '100%', height: '100%', border: '1px solid #ccc', background: 'transparent' }}
+                                title="Schedule Dashboard"
+                            ></iframe>
+                        </div>
+                    )}
+                </>
             )}
         </div>
     );
