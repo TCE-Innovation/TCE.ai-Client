@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { Table, TableBody, TableCell, TableContainer, TableHead, TableRow, Paper, Button, Box, FormControl, Select, MenuItem, Autocomplete, TextField, Typography } from '@mui/material';
+import { Table, TableBody, TableCell, TableContainer, TableHead, TableRow, Paper, Button, Box, FormControl, Select, MenuItem, Autocomplete, TextField, Typography, Dialog, DialogActions, DialogContent, DialogContentText, DialogTitle } from '@mui/material';
 import { getUsersOfTool, removeUserFromTool, addUsersToTool, removeAllUsersFromTool, getProjectTeam } from '../../../data/SQL';
 import { getAllPersonnel } from '../../../data/SQL';
 import { getActiveProjects } from '../../../data/Airtable';
@@ -27,6 +27,8 @@ const Provisioning = () => {
     const [activeProjects, setActiveProjects] = useState([]);
     const [selectedProject, setSelectedProject] = useState('');
     const [projectTeam, setProjectTeam] = useState([]);
+    const [openAddAllDialog, setOpenAddAllDialog] = useState(false);
+    const [openRemoveAllDialog, setOpenRemoveAllDialog] = useState(false);
 
     // Fetch all personnel
     useEffect(() => {
@@ -113,21 +115,35 @@ const Provisioning = () => {
         }
     };
 
-    const handleAddAll = async () => {
-        if (filteredPersonnelList.length > 0) {
-            await addUsersToTool(filteredPersonnelList, toolNameMap[selectedTool]);
-            const updatedUsers = await getUsersOfTool(toolNameMap[selectedTool]);
-            setUsers(updatedUsers);
-            setPersonnelList([]);
-        }
+    const handleOpenAddAllDialog = () => {
+        setOpenAddAllDialog(true);
     };
 
-    const handleRemoveAll = async () => {
-        if (users.length > 0) {
-            await removeAllUsersFromTool(toolNameMap[selectedTool]);
-            setPersonnelList(prevPersonnel => [...prevPersonnel, ...users].sort((a, b) => a.name.localeCompare(b.name)));
-            setUsers([]);
-        }
+    const handleCloseAddAllDialog = () => {
+        setOpenAddAllDialog(false);
+    };
+
+    const handleConfirmAddAll = async () => {
+        await addUsersToTool(filteredPersonnelList, toolNameMap[selectedTool]);
+        const updatedUsers = await getUsersOfTool(toolNameMap[selectedTool]);
+        setUsers(updatedUsers);
+        setPersonnelList([]);
+        setOpenAddAllDialog(false);
+    };
+
+    const handleOpenRemoveAllDialog = () => {
+        setOpenRemoveAllDialog(true);
+    };
+
+    const handleCloseRemoveAllDialog = () => {
+        setOpenRemoveAllDialog(false);
+    };
+
+    const handleConfirmRemoveAll = async () => {
+        await removeAllUsersFromTool(toolNameMap[selectedTool]);
+        setPersonnelList(prevPersonnel => [...prevPersonnel, ...users].sort((a, b) => a.name.localeCompare(b.name)));
+        setUsers([]);
+        setOpenRemoveAllDialog(false);
     };
 
     const handleProjectChange = async (event) => {
@@ -181,6 +197,20 @@ const Provisioning = () => {
                 {searched && (
                     <>
                         <Box sx={{ display: 'flex', flexDirection: 'row', alignItems: 'center' }}>
+                        <FormControl sx={{ marginBottom: '2rem', marginRight: '1vw', width: '20%' }}>
+                                <Select
+                                    value={selectedProject}
+                                    onChange={handleProjectChange}
+                                    displayEmpty
+                                    inputProps={{ 'aria-label': 'Add Project Team' }}
+                                >
+                                    <MenuItem value="" disabled>Add Project Team</MenuItem>
+                                    {activeProjects.map((project, index) => (
+                                        <MenuItem key={index} value={project.name}>{project.name}</MenuItem>
+                                    ))}
+                                </Select>
+                            </FormControl>
+
                             <Autocomplete
                                 value={selectedUsers}
                                 onChange={(event, newValue) => setSelectedUsers(newValue)}
@@ -199,20 +229,6 @@ const Provisioning = () => {
                                 style={{ marginBottom: '2rem', width: '45%', marginRight: '1vw' }}
                             />
 
-                            <FormControl sx={{ marginBottom: '2rem', marginRight: '1vw', width: '20%' }}>
-                                <Select
-                                    value={selectedProject}
-                                    onChange={handleProjectChange}
-                                    displayEmpty
-                                    inputProps={{ 'aria-label': 'Add Project Team' }}
-                                >
-                                    <MenuItem value="" disabled>Add Project Team</MenuItem>
-                                    {activeProjects.map((project, index) => (
-                                        <MenuItem key={index} value={project.name}>{project.name}</MenuItem>
-                                    ))}
-                                </Select>
-                            </FormControl>
-
                             <Button
                                 variant="contained"
                                 onClick={handleAddUser}
@@ -230,7 +246,7 @@ const Provisioning = () => {
 
                             <Button
                                 variant="contained"
-                                onClick={handleAddAll}
+                                onClick={handleOpenAddAllDialog}
                                 disabled={filteredPersonnelList.length === 0}
                                 style={{
                                     backgroundColor: filteredPersonnelList.length > 0 ? '#d7edd1' : 'gray',
@@ -245,7 +261,7 @@ const Provisioning = () => {
 
                             <Button
                                 variant="contained"
-                                onClick={handleRemoveAll}
+                                onClick={handleOpenRemoveAllDialog}
                                 disabled={users.length === 0}
                                 style={{
                                     backgroundColor: users.length > 0 ? '#fad9d9' : 'gray',
@@ -257,6 +273,42 @@ const Provisioning = () => {
                                 Remove All
                             </Button>
                         </Box>
+
+                        <Dialog
+                            open={openAddAllDialog}
+                            onClose={handleCloseAddAllDialog}
+                            aria-labelledby="add-all-dialog-title"
+                            aria-describedby="add-all-dialog-description"
+                        >
+                            <DialogTitle id="add-all-dialog-title">Confirm Add All</DialogTitle>
+                            <DialogContent>
+                                <DialogContentText id="add-all-dialog-description">
+                                    Are you sure you want to add {filteredPersonnelList.length} people to {selectedTool}?
+                                </DialogContentText>
+                            </DialogContent>
+                            <DialogActions>
+                                <Button onClick={handleCloseAddAllDialog} style={{color:"#1b365f"}}>Cancel</Button>
+                                <Button onClick={handleConfirmAddAll} style={{color:"#1b365f"}}>Confirm</Button>
+                            </DialogActions>
+                        </Dialog>
+
+                        <Dialog
+                            open={openRemoveAllDialog}
+                            onClose={handleCloseRemoveAllDialog}
+                            aria-labelledby="remove-all-dialog-title"
+                            aria-describedby="remove-all-dialog-description"
+                        >
+                            <DialogTitle id="remove-all-dialog-title">Confirm Remove All</DialogTitle>
+                            <DialogContent>
+                                <DialogContentText id="remove-all-dialog-description">
+                                    Are you sure you want to remove all {users.length} users from {selectedTool}?
+                                </DialogContentText>
+                            </DialogContent>
+                            <DialogActions>
+                                <Button onClick={handleCloseRemoveAllDialog} style={{color:"#1b365f"}}>Cancel</Button>
+                                <Button onClick={handleConfirmRemoveAll} style={{color:"#1b365f"}}>Confirm</Button>
+                            </DialogActions>
+                        </Dialog>
 
                         {selectedProject && projectTeam && projectTeam.length > 0 && (
                             <Box sx={{ display: 'flex', alignItems: 'center', justifyContent: "center", marginBottom: '2rem' }}>
