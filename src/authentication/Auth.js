@@ -5,7 +5,7 @@ import { Navigate, Outlet, useLocation } from 'react-router-dom';
 //AUTH
 import { useMsal } from "@azure/msal-react";
 import { getUserProfilePic } from '../data/Graph';
-import { getApplications, getTools, getJobTitle, getProjects, getUserDashboardSD } from '../data/SQL';
+import { getApplications, getTools, getJobTitle, getProjects } from '../data/SQL';
 
 export const AuthContext = createContext();
 
@@ -18,7 +18,6 @@ export const AuthProvider = ({ children }) => {
   const [userProjects, setUserProjects] = useState(null);
   const [userApplications, setUserApplications] = useState(null);
   const [userTools, setUserTools] = useState(null);
-  const [userDashboards, setUserDashboards] = useState(null);
   const [accessToken, setAccessToken] = useState(null);
 
   //get user account
@@ -71,10 +70,6 @@ export const AuthProvider = ({ children }) => {
     getTools(email)
       .then(setUserTools)
       .catch((error) => console.error('Error fetching user tools:', error));
-
-    getUserDashboardSD(email)
-      .then(setUserDashboards)
-      .catch((error) => console.error('Error fetching user schedule dashboards:', error));
   }
 
   const loginContextValue = {
@@ -85,7 +80,6 @@ export const AuthProvider = ({ children }) => {
     userProjects,
     userApplications,
     userTools,
-    userDashboards,
     accessToken
   };
 
