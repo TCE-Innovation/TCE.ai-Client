@@ -1,11 +1,12 @@
 import React, { useState, useEffect } from 'react';
 import { Table, TableBody, TableCell, TableContainer, TableHead, TableRow, Paper, Button, Box, FormControl, Select, MenuItem, Autocomplete, TextField, Typography, Dialog, DialogActions, DialogContent, DialogContentText, DialogTitle } from '@mui/material';
-import { getUsersOfTool, removeUserFromTool, addUsersToTool, removeAllUsersFromTool, getProjectTeam } from '../../../data/SQL';
+import { getUsersOfTool, removeUserFromTool, addUsersToTool, removeAllUsersFromTool, getProjectTeam, updateUserProject, getUserProjectSD } from '../../../data/SQL';
 import { getAllPersonnel } from '../../../data/SQL';
 import { getActiveProjects } from '../../../data/Airtable';
 
 import { IconButton } from '@mui/material';
 import ClearIcon from '@mui/icons-material/Clear';
+import { scheduleDashboardProjects } from '../../../admin/lists';
 
 
 const toolNameMap = {
@@ -29,6 +30,7 @@ const Provisioning = () => {
     const [projectTeam, setProjectTeam] = useState([]);
     const [openAddAllDialog, setOpenAddAllDialog] = useState(false);
     const [openRemoveAllDialog, setOpenRemoveAllDialog] = useState(false);
+    const [userProjects, setUserProjects] = useState({});
 
     // Fetch all personnel
     useEffect(() => {
@@ -91,6 +93,24 @@ const Provisioning = () => {
         setSelectedTool(event.target.value);
     };
 
+    // Fetch user project for scheduling dashboard
+    useEffect(() => {
+        const fetchUserProjects = async () => {
+            try {
+                const projects = await getUserProjectSD();
+                const projectMap = projects.reduce((acc, project) => {
+                    acc[project.email] = project.projects;
+                    return acc;
+                }, {});
+                setUserProjects(projectMap);
+            } catch (error) {
+                console.error('Error fetching user projects:', error);
+            }
+        };
+
+        fetchUserProjects();
+    }, []);
+
     const handleRemoveUser = async (email) => {
         await removeUserFromTool(email, toolNameMap[selectedTool]);
         const removedUser = users.find(user => user.email === email);
@@ -141,40 +161,51 @@ const Provisioning = () => {
 
     const handleConfirmRemoveAll = async () => {
         await removeAllUsersFromTool(toolNameMap[selectedTool]);
-        setPersonnelList(prevPersonnel => [...prevPersonnel, ...users].sort((a, b) => a.name.localeCompare(b.name)));
         setUsers([]);
+        setPersonnelList(personnelList);
         setOpenRemoveAllDialog(false);
     };
 
     const handleProjectChange = async (event) => {
-        const projectName = event.target.value;
-        setSelectedProject(projectName);
-        const team = await getProjectTeam(projectName);
-        setProjectTeam(team || []);  // Ensure projectTeam is always an array
-    };
-
-    const handleAddProjectTeam = async () => {
-        if (projectTeam.length > 0) {
-            await addUsersToTool(projectTeam, toolNameMap[selectedTool]);
-            const updatedUsers = await getUsersOfTool(toolNameMap[selectedTool]);
-            setUsers(updatedUsers);
-
-            setPersonnelList(prevPersonnel =>
-                prevPersonnel.filter(person =>
-                    !projectTeam.some(user => user.email === person.email)
-                )
-            );
-
-            setSelectedUsers([]);
-            setInputValue('');
-            setProjectTeam([]);
-            setSelectedProject('');
+        setSelectedProject(event.target.value);
+        try {
+            const team = await getProjectTeam(event.target.value);
+            setProjectTeam(team);
+        } catch (error) {
+            console.error('Error fetching project team:', error);
         }
     };
 
     const handleCancelProjectSelection = () => {
         setSelectedProject('');
         setProjectTeam([]);
+    };
+
+    const handleAddProjectTeam = async () => {
+        if (projectTeam.length > 0) {
+            const projectToAdd = scheduleDashboardProjects.includes(selectedProject) ? selectedProject : 'None';
+            await addUsersToTool(projectTeam, toolNameMap[selectedTool], projectToAdd);
+            const updatedUsers = await getUsersOfTool(toolNameMap[selectedTool]);
+            setUsers(updatedUsers);
+    
+            setPersonnelList(prevPersonnel =>
+                prevPersonnel.filter(person =>
+                    !projectTeam.some(user => user.email === person.email)
+                )
+            );
+    
+            setSelectedProject('');
+            setProjectTeam([]);
+        }
+    };
+
+    const handleUserProjectChange = async (email, project) => {
+        try {
+            await updateUserProject(email, project);
+            setUserProjects(prevProjects => ({ ...prevProjects, [email]: project }));
+        } catch (error) {
+            console.error('Error updating user project:', error);
+        }
     };
 
     return (
@@ -253,7 +284,8 @@ const Provisioning = () => {
                                     color: filteredPersonnelList.length > 0 ? 'green' : 'white',
                                     border: filteredPersonnelList.length > 0 ? '1px solid green' : 'white',
                                     marginBottom: '2rem',
-                                    marginRight: '1vw'
+                                    marginRight: '1vw',
+                                    whiteSpace:'nowrap'
                                 }}
                             >
                                 Add All
@@ -267,7 +299,8 @@ const Provisioning = () => {
                                     backgroundColor: users.length > 0 ? '#fad9d9' : 'gray',
                                     color: users.length > 0 ? 'red' : 'white',
                                     border: users.length > 0 ? '1px solid red' : 'white',
-                                    marginBottom: '2rem'
+                                    marginBottom: '2rem',
+                                    whiteSpace:'nowrap'
                                 }}
                             >
                                 Remove All
@@ -345,6 +378,7 @@ const Provisioning = () => {
                                     <TableRow>
                                         <TableCell>Name</TableCell>
                                         <TableCell>Email</TableCell>
+                                        {selectedTool === 'Schedule Dashboards' && <TableCell>Project</TableCell>}
                                         <TableCell>Action</TableCell>
                                     </TableRow>
                                 </TableHead>
@@ -360,6 +394,23 @@ const Provisioning = () => {
                                             <TableRow key={index}>
                                                 <TableCell>{user.name}</TableCell>
                                                 <TableCell>{user.email}</TableCell>
+                                                {selectedTool === 'Schedule Dashboards' && (
+                                                    <TableCell>
+                                                        <FormControl fullWidth>
+                                                            <Select
+                                                                value={userProjects[user.email] || ''}
+                                                                onChange={(event) => handleUserProjectChange(user.email, event.target.value)}
+                                                                displayEmpty
+                                                                inputProps={{ 'aria-label': 'Select Project' }}
+                                                            >
+                                                                <MenuItem value="" disabled>Select Project</MenuItem>
+                                                                {scheduleDashboardProjects.map((project, index) => (
+                                                                    <MenuItem key={index} value={project}>{project}</MenuItem>
+                                                                ))}
+                                                            </Select>
+                                                        </FormControl>
+                                                    </TableCell>
+                                                )}
                                                 <TableCell>
                                                     <Button
                                                         variant="contained"

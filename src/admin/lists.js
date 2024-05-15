@@ -33,11 +33,21 @@ const toolList = [
     'Tool Usage Statistics',
 ]
 
+//SCHEDULE DASHBOARD PROJECTS
+const scheduleDashboardProjects = [
+    'ADA Package 4',
+    'Crosstown CBTC',
+    '8 Stations - ADA Package 2',
+    'All',
+    'None'
+]
+
 module.exports = {
     allProjectsAccess,
     projWithChatbot, 
     adminList, 
-    toolList
+    toolList,
+    scheduleDashboardProjects
 }
 
 

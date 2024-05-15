@@ -13,10 +13,10 @@ export async function getTools(email) {
     }
 }
 
-//function to add users to a tool table in SQL db based on email. users is an array of user objects [{email: email, name: name}, ...]
-export async function addUsersToTool(users, tool) {
+// function to add users to a tool table in SQL db based on email. users is an array of user objects [{email: email, name: name}, ...]
+export async function addUsersToTool(users, tool, project = null) {
     try {
-        const { data } = await axios.post('https://tce-ai-api.azurewebsites.net/api/add-users-to-tool', { users, tool });
+        const { data } = await axios.post('https://tce-ai-api.azurewebsites.net/api/add-users-to-tool', { users, tool, project });
         return data;
     } catch (error) {
         console.error('Error adding user to tool table:', error);
@@ -56,6 +56,27 @@ export async function getUsersOfTool(tool) {
     }
 }
 
+// function to update project selection for a user in the schedule_dashboards table
+export async function updateUserProject(email, project) {
+    try {
+        const { data } = await axios.post('https://tce-ai-api.azurewebsites.net/api/sd-update-user-project', { email, project });
+        return data;
+    } catch (error) {
+        console.error('Error updating user project:', error);
+        throw new Error('An error occurred while updating user project');
+    }
+}
+
+// function to fetch user projects from the schedule_dashboards table
+export async function getUserProjectSD() {
+    try {
+        const { data } = await axios.get('https://tce-ai-api.azurewebsites.net/api/sd-get-user-project');
+        return data;
+    } catch (error) {
+        console.error('Error fetching user project:', error);
+        throw new Error('An error occurred while fetching user project');
+    }
+}
 
 
 
