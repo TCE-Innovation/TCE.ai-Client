@@ -12,6 +12,17 @@ export async function getActiveProjects() {
     }    
 }
 
+//function to get project data from airtable base
+export async function getUsageLog() {
+    try{
+        const {data} = await axios.get('https://tce-ai-api.azurewebsites.net/api/get-usage-log');
+        return data;
+    }
+    catch(error){
+        console.error('Error getting usage log:', error);
+    }    
+}
+
 //function to get PBI log data from airtable base
 export async function getPBILog() {
     try{
