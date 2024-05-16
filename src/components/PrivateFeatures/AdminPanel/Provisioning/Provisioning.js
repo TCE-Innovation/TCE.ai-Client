@@ -213,7 +213,7 @@ const Provisioning = () => {
     };
 
     return (
-        <div style={{ width: '100%', display: 'flex', flexDirection: 'column', alignItems: 'center', marginTop: 10, backgroundColor: '#f5f5f5', borderRadius: '10px' }}>
+        <div style={{ width: '100%', display: 'flex', flexDirection: 'column', alignItems: 'center', marginTop: ".5vw", backgroundColor: '#f5f5f5', borderRadius: '10px' }}>
             <Box sx={{ width: '70%', padding: 2 }}>
                 <ToolSelect selectedTool={selectedTool} handleToolChange={handleToolChange} toolNameMap={toolNameMap} />
 

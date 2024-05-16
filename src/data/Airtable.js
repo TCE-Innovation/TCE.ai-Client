@@ -13,14 +13,16 @@ export async function getActiveProjects() {
 }
 
 //function to get project data from airtable base
-export async function getUsageLog() {
-    try{
-        const {data} = await axios.get('https://tce-ai-api.azurewebsites.net/api/get-usage-log');
+export async function getUsageLog(sortField = 'Last Login', sortDirection = 'desc') {
+    try {
+        const { data } = await axios.get(`https://tce-ai-api.azurewebsites.net/api/get-usage-log`, {
+            params: { sortField, sortDirection }
+        });
         return data;
-    }
-    catch(error){
+    } catch (error) {
         console.error('Error getting usage log:', error);
-    }    
+        throw error;
+    }
 }
 
 //function to get PBI log data from airtable base
