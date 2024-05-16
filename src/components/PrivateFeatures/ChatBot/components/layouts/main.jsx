@@ -46,6 +46,7 @@ const Wrapper = styled.div`
     overflow: hidden;
     max-width: 850px;
     margin: 0 auto;
+    transition: all 0.5s linear;
   }
   .tooltip {
     position: absolute;

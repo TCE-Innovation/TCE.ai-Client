@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useRef, useState } from "react";
 
 import styled from "styled-components";
 
@@ -19,7 +19,11 @@ const Conversations = () => {
   } = useConversation();
   const [isCollapsed, setIsCollapsed] = useState(false);
 
-  const toggleCollapse = () => setIsCollapsed((prev) => !prev);
+  const toggleCollapse = () => {
+    setIsCollapsed((prev) => !prev);
+  };
+
+  const conversationsRef = useRef(null);
 
   const actions = [
     {
@@ -32,6 +36,27 @@ const Conversations = () => {
   return (
     <>
       <Wrapper>
+        <div
+          className={`conversations ${isCollapsed ? "slide-left" : ""}`}
+          ref={conversationsRef}
+        >
+          <CreateConversation />
+          <div className="conversation-list">
+            {conversations.length ? (
+              conversations.map((conversation) => (
+                <Conversation
+                  key={conversation.id}
+                  {...conversation}
+                  active={conversation.id === currentConversation}
+                  setConversation={setCurrentConversation}
+                  deleteConversation={deleteConversation(conversation.id)}
+                />
+              ))
+            ) : (
+              <div className="empty-conversation">no conversations</div>
+            )}
+          </div>
+        </div>
         {isCollapsed ? (
           <>
             {actions.map((action) => {
@@ -47,26 +72,7 @@ const Conversations = () => {
               );
             })}
           </>
-        ) : (
-          <div className="conversations">
-            <CreateConversation />
-            <div className="conversation-list">
-              {conversations.length ? (
-                conversations.map((conversation) => (
-                  <Conversation
-                    key={conversation.id}
-                    {...conversation}
-                    active={conversation.id === currentConversation}
-                    setConversation={setCurrentConversation}
-                    deleteConversation={deleteConversation(conversation.id)}
-                  />
-                ))
-              ) : (
-                <div className="empty-conversation">no conversations</div>
-              )}
-            </div>
-          </div>
-        )}
+        ) : null}
       </Wrapper>
       <div
         className="collapse-handle tooltip-container"
@@ -91,6 +97,12 @@ const Wrapper = styled.div`
     display: flex;
     flex-direction: column;
     gap: 0.5em;
+    transition: transform 0.2s ease-in;
+    &.slide-left {
+      z-index: 1;
+      position: absolute;
+      transform: translateX(calc(-100% - 2em));
+    }
   }
   .empty-conversation {
     text-align: center;
