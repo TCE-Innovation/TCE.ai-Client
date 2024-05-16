@@ -8,7 +8,8 @@ const ProjectTeam = ({
     handleProjectChange,
     projectTeam,
     handleAddProjectTeam,
-    handleCancelProjectSelection
+    handleCancelProjectSelection,
+    isDisabled
 }) => {
     return (
         <>
@@ -19,6 +20,7 @@ const ProjectTeam = ({
                         onChange={handleProjectChange}
                         displayEmpty
                         inputProps={{ 'aria-label': 'Add Project Team' }}
+                        disabled={isDisabled}
                     >
                         <MenuItem value="" disabled>Add Project Team</MenuItem>
                         {activeProjects.map((project, index) => (

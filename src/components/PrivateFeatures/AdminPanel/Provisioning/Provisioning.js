@@ -236,6 +236,7 @@ const Provisioning = () => {
                                 noOptionsText={inputValue.length < 1 ? "Start typing to search" : "No options"}
                                 renderInput={(params) => <TextField {...params} label="Add User(s)" />}
                                 style={{ marginBottom: '2rem', width: '40%', marginRight: '1vw' }}
+                                disabled={filteredPersonnelList.length === 0}
                             />
                             
                             <ProjectTeam
@@ -245,6 +246,7 @@ const Provisioning = () => {
                                 projectTeam={projectTeam}
                                 handleAddProjectTeam={handleAddProjectTeam}
                                 handleCancelProjectSelection={handleCancelProjectSelection}
+                                isDisabled={filteredPersonnelList.length === 0}
                             />
                         </Box>
                             <Button
