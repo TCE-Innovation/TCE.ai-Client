@@ -54,7 +54,6 @@ const PrivateListItems = ({ tool }) => {
         { to: '/private/generate-emails', text: 'Email Generator', icon: <EmailOutlinedIcon />, key: 'generate-emails' },
         // { to: '/private/chat-bot', text: 'Chat Bot', icon: <ForumOutlinedIcon />, key: 'chat-bot' },
         { to: '/private/cable-run-optimizer', text: 'Cable Run Optimizer', icon: <SpokeOutlinedIcon />, key: 'cable-run-optimizer' },
-        { to: '/private/go-tracker', text: 'GO Tracker', icon: <RailwayAlertOutlinedIcon />, key: 'go-tracker' },
         { to: '/private/schedule-dashboards', text: 'Schedule Dashboards', icon: <InsertChartOutlinedIcon />, key: 'schedule-dashboards'},
         { to: '/private/tool-usage', text: 'Tool Usage Stats', icon: <DonutSmallOutlinedIcon />, key: 'tool-usage' }
     ];
@@ -80,11 +79,12 @@ const PrivateListItems = ({ tool }) => {
         );
     }
 
-    // Always include the "Home", "Subcontractor Forms", and "Equipment Checkout" items
+    // Always include the "Home", "Subcontractor Forms", and "Equipment Checkout", and "GO Tracker" items
     const alwaysIncludedItems = [
         { to: '/private/home', text: 'Home', icon: <HomeOutlinedIcon />, key: 'home' },
         { to: '/private/sub-automation', text: 'Subcontractor Forms', icon: <ArticleOutlinedIcon />, key: 'sub-automation' },
-        { to: '/private/equipment-checkout', text: 'Equipment Checkout', icon: <DevicesOtherIcon />, key: 'equipment-checkout' }
+        { to: '/private/equipment-checkout', text: 'Equipment Checkout', icon: <DevicesOtherIcon />, key: 'equipment-checkout' },
+        { to: '/private/go-tracker', text: 'GO Tracker', icon: <RailwayAlertOutlinedIcon />, key: 'go-tracker' },
     ];
 
     // Combine always included items with the filtered list items

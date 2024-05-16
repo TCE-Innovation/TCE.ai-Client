@@ -86,7 +86,7 @@ function PrivateContent() {
   };
 
   // Always available tools
-  const alwaysAvailableTools = useMemo(() => ['home', 'sub-automation', 'equipment-checkout', 'admin'], []);
+  const alwaysAvailableTools = useMemo(() => ['home', 'sub-automation', 'equipment-checkout', 'go-tracker', 'admin'], []);
 
   // Split the userTools string into an array
   const userToolsArray = (userTools || '').split(',').map(tool => tool.trim());

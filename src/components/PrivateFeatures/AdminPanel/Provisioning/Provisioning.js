@@ -10,7 +10,6 @@ import ProjectTeam from './ProjectTeam';
 const toolNameMap = {
     'Email Generator': 'email_generator',
     'Cable Run Optimizer': 'cable_run_optimizer',
-    'GO Tracker': 'go_tracker',
     'Schedule Dashboards': 'schedule_dashboards',
     'Tool Usage Stats': 'tool_usage',
 };
