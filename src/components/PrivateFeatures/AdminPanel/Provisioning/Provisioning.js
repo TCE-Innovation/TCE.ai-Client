@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { Box, Autocomplete, TextField, Button, Typography } from '@mui/material';
+import { Box, Autocomplete, TextField, Button } from '@mui/material';
 import { getUsersOfTool, removeUserFromTool, addUsersToTool, removeAllUsersFromTool, getProjectTeam, updateUserProject, getUserProjectSD, getAllPersonnel } from '../../../../data/SQL';
 import { getActiveProjects, getPBILog } from '../../../../data/Airtable';
 import ToolSelect from './ToolSelect';
@@ -220,78 +220,80 @@ const Provisioning = () => {
 
                 {searched && (
                     <>
-                        <ProjectTeam
-                            activeProjects={activeProjects}
-                            selectedProject={selectedProject}
-                            handleProjectChange={handleProjectChange}
-                            projectTeam={projectTeam}
-                            handleAddProjectTeam={handleAddProjectTeam}
-                            handleCancelProjectSelection={handleCancelProjectSelection}
-                        />
+                        <Box sx={{ display: 'flex', flexDirection: 'row', alignItems: 'center' }}>
+                            <Autocomplete
+                                value={selectedUsers}
+                                onChange={(event, newValue) => setSelectedUsers(newValue)}
+                                multiple
+                                options={filteredPersonnelList}
+                                getOptionLabel={(option) => option.name}
+                                inputValue={inputValue}
+                                onInputChange={(event, newInputValue) => setInputValue(newInputValue)}
+                                filterOptions={(options, state) =>
+                                    state.inputValue.length >= 1
+                                        ? options.filter(option => option.name.toLowerCase().includes(state.inputValue.toLowerCase()))
+                                        : []
+                                }
+                                noOptionsText={inputValue.length < 1 ? "Start typing to search" : "No options"}
+                                renderInput={(params) => <TextField {...params} label="Add User(s)" />}
+                                style={{ marginBottom: '2rem', width: '40%', marginRight: '1vw' }}
+                            />
+                            
+                            <ProjectTeam
+                                activeProjects={activeProjects}
+                                selectedProject={selectedProject}
+                                handleProjectChange={handleProjectChange}
+                                projectTeam={projectTeam}
+                                handleAddProjectTeam={handleAddProjectTeam}
+                                handleCancelProjectSelection={handleCancelProjectSelection}
+                            />
+                        </Box>
+                            <Button
+                                variant="contained"
+                                onClick={handleAddUser}
+                                disabled={selectedUsers.length === 0}
+                                style={{
+                                    backgroundColor: selectedUsers.length > 0 ? '#d7edd1' : 'gray',
+                                    color: selectedUsers.length > 0 ? 'green' : 'white',
+                                    border: selectedUsers.length > 0 ? '1px solid green' : 'white',
+                                    marginBottom: '2rem',
+                                    marginRight: '1vw'
+                                }}
+                            >
+                                Add Selected User(s)
+                            </Button>
 
-                        <Autocomplete
-                            value={selectedUsers}
-                            onChange={(event, newValue) => setSelectedUsers(newValue)}
-                            multiple
-                            options={filteredPersonnelList}
-                            getOptionLabel={(option) => option.name}
-                            inputValue={inputValue}
-                            onInputChange={(event, newInputValue) => setInputValue(newInputValue)}
-                            filterOptions={(options, state) =>
-                                state.inputValue.length >= 1
-                                    ? options.filter(option => option.name.toLowerCase().includes(state.inputValue.toLowerCase()))
-                                    : []
-                            }
-                            noOptionsText={inputValue.length < 1 ? "Start typing to search" : "No options"}
-                            renderInput={(params) => <TextField {...params} label="Add User(s)" />}
-                            style={{ marginBottom: '2rem', width: '45%', marginRight: '1vw' }}
-                        />
+                            <Button
+                                variant="contained"
+                                onClick={handleOpenAddAllDialog}
+                                disabled={filteredPersonnelList.length === 0}
+                                style={{
+                                    backgroundColor: filteredPersonnelList.length > 0 ? '#d7edd1' : 'gray',
+                                    color: filteredPersonnelList.length > 0 ? 'green' : 'white',
+                                    border: filteredPersonnelList.length > 0 ? '1px solid green' : 'white',
+                                    marginBottom: '2rem',
+                                    marginRight: '1vw',
+                                    whiteSpace: 'nowrap'
+                                }}
+                            >
+                                Add All Users
+                            </Button>
 
-                        <Button
-                            variant="contained"
-                            onClick={handleAddUser}
-                            disabled={selectedUsers.length === 0}
-                            style={{
-                                backgroundColor: selectedUsers.length > 0 ? '#d7edd1' : 'gray',
-                                color: selectedUsers.length > 0 ? 'green' : 'white',
-                                border: selectedUsers.length > 0 ? '1px solid green' : 'white',
-                                marginBottom: '2rem',
-                                marginRight: '1vw'
-                            }}
-                        >
-                            Add
-                        </Button>
-
-                        <Button
-                            variant="contained"
-                            onClick={handleOpenAddAllDialog}
-                            disabled={filteredPersonnelList.length === 0}
-                            style={{
-                                backgroundColor: filteredPersonnelList.length > 0 ? '#d7edd1' : 'gray',
-                                color: filteredPersonnelList.length > 0 ? 'green' : 'white',
-                                border: filteredPersonnelList.length > 0 ? '1px solid green' : 'white',
-                                marginBottom: '2rem',
-                                marginRight: '1vw',
-                                whiteSpace: 'nowrap'
-                            }}
-                        >
-                            Add All
-                        </Button>
-
-                        <Button
-                            variant="contained"
-                            onClick={handleOpenRemoveAllDialog}
-                            disabled={users.length === 0}
-                            style={{
-                                backgroundColor: users.length > 0 ? '#fad9d9' : 'gray',
-                                color: users.length > 0 ? 'red' : 'white',
-                                border: users.length > 0 ? '1px solid red' : 'white',
-                                marginBottom: '2rem',
-                                whiteSpace: 'nowrap'
-                            }}
-                        >
-                            Remove All
-                        </Button>
+                            <Button
+                                variant="contained"
+                                onClick={handleOpenRemoveAllDialog}
+                                disabled={users.length === 0}
+                                style={{
+                                    backgroundColor: users.length > 0 ? '#fad9d9' : 'gray',
+                                    color: users.length > 0 ? 'red' : 'white',
+                                    border: users.length > 0 ? '1px solid red' : 'white',
+                                    marginBottom: '2rem',
+                                    whiteSpace: 'nowrap'
+                                }}
+                            >
+                                Remove All Users
+                            </Button>
+                        
 
                         <AddUserDialog
                             open={openAddAllDialog}
@@ -316,11 +318,9 @@ const Provisioning = () => {
                             userProjects={userProjects}
                             handleUserProjectChange={handleUserProjectChange}
                             dashboardProjects={dashboardProjects}
+                            provisionedCount={users.length}
+                            nonProvisionedCount={filteredPersonnelList.length}
                         />
-
-                        <Typography variant="subtitle1">
-                            {users.length} Provisioned Users | {filteredPersonnelList.length} Non-Provisioned Users
-                        </Typography>
                     </>
                 )}
             </Box>

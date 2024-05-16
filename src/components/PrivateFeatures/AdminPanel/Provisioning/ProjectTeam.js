@@ -1,5 +1,5 @@
 import React from 'react';
-import { Box, FormControl, Select, MenuItem, Typography, Button, IconButton } from '@mui/material';
+import { Box, FormControl, Select, MenuItem, Button, IconButton } from '@mui/material';
 import ClearIcon from '@mui/icons-material/Clear';
 
 const ProjectTeam = ({
@@ -12,8 +12,8 @@ const ProjectTeam = ({
 }) => {
     return (
         <>
-            <Box sx={{ display: 'flex', flexDirection: 'row', alignItems: 'center' }}>
-                <FormControl sx={{ marginBottom: '2rem', marginRight: '1vw', width: '20%' }}>
+            <Box sx={{ display: 'flex', flexDirection: 'row', alignItems: 'center', width: '40%'}}>
+                <FormControl sx={{ marginBottom: '2rem', marginRight: '1vw', width: '100%' }}>
                     <Select
                         value={selectedProject}
                         onChange={handleProjectChange}
@@ -29,16 +29,14 @@ const ProjectTeam = ({
             </Box>
             {selectedProject && projectTeam && projectTeam.length > 0 && (
                 <Box sx={{ display: 'flex', alignItems: 'center', justifyContent: "center", marginBottom: '2rem' }}>
-                    <Typography variant="subtitle1" style={{ marginRight: '1vw' }}>
-                        {projectTeam.length} users from project "{selectedProject}" will be added.
-                    </Typography>
                     <Button
                         variant="contained"
                         onClick={handleAddProjectTeam}
                         style={{
                             backgroundColor: '#d7edd1',
                             color: 'green',
-                            border: '1px solid green'
+                            border: '1px solid green',
+                            marginLeft: '.5vw'
                         }}
                     >
                         Add {projectTeam.length} Users
@@ -48,7 +46,7 @@ const ProjectTeam = ({
                         style={{
                             backgroundColor: 'transparent',
                             color: 'black',
-                            marginLeft: '1vw'
+                            marginLeft: '.5vw'
                         }}
                     >
                         <ClearIcon />
