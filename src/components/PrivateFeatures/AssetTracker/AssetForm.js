@@ -22,7 +22,7 @@ const AssetForm = () => {
 
     // useContext for email
     const { userName, userEmail, userProjects } = useContext(AuthContext);
-    
+
     // Asynchronously fetch project options when the component mounts
     useEffect(() => {
         const fetchProjectOptions = async () => {
@@ -147,7 +147,7 @@ const AssetForm = () => {
                                     required
                                 >
                                     <MenuItem value="Non-Project - 1010">Non-Project - 1010</MenuItem>
-                                    <ListSubheader>Active Jobs</ListSubheader>
+                                    <ListSubheader>My Active Jobs</ListSubheader>
                                     {Array.isArray(projectOptions.Active) && projectOptions.Active.map((option, index) => (
                                         <MenuItem key={index} value={option}>{option}</MenuItem>
                                     ))}
