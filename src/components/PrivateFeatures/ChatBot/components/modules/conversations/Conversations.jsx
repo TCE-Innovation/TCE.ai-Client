@@ -3,60 +3,29 @@ import React, { useState } from "react";
 import styled from "styled-components";
 
 import Conversation from "./Conversation";
+import CreateConversation from "./CreateConversation";
 
 import { EditIcon, LeftIcon, RightIcon } from "../../icons";
 
-const dummy = [
-  {
-    id: 0,
-    title: "New Chat",
-    body: "e omnis iste natus error sit voluptatem accusantium doloremque laudantium, totam rem aperiam, eaque ipsa quae ab illo inventore veritatis et quasi architecto beatae vitae dicta sunt explicabo. Nemo enim ipsam voluptatem quia voluptas sit aspernatur aut odit aut fugit, sed quia consequuntur magni dolores eos qui ratione voluptatem sequi nesciunt. Neque porro quisquam est, qui dolorem ipsum quia dolor sit amet, consectetur, adipisci velit, sed quia non numquam eius modi tempora incidunt ut labore et dolore magnam aliquam quaerat voluptatem. Ut enim ad minima veniam, quis nostrum exercitationem ullam corporis suscipit laboriosam, nisi ut aliquid ex ea commodi consequatur? Quis autem vel eum iu",
-  },
-  {
-    id: 1,
-    title: "New Chat 2",
-    body: "Lorem ipsum dolor sit a",
-  },
-  {
-    id: 2,
-    title: "New Chat 3",
-    body: "Lorem ipsum dolor sit a",
-  },
-  {
-    id: 3,
-    title: "New Chat 4",
-    body: "Lorem ipsum dolor sit a",
-  },
-];
+import { useConversation } from "../../../hooks";
 
 const Conversations = () => {
-  const [conversations, setConversations] = useState([...dummy]);
+  const {
+    conversations,
+    currentConversation,
+    createConversation,
+    deleteConversation,
+    setCurrentConversation,
+  } = useConversation();
   const [isCollapsed, setIsCollapsed] = useState(false);
-  const [currentConversation, setCurrentConversation] = useState(dummy[0].id);
 
   const toggleCollapse = () => setIsCollapsed((prev) => !prev);
-
-  const createConversation = () => {
-    const id = conversations.length;
-    setConversations((prev) => [
-      { title: "New Chat", body: "Empty", id },
-      ...prev,
-    ]);
-    setCurrentConversation(id);
-  };
-
-  const deleteConversation = (id) => (e) => {
-    e.stopPropagation();
-    const target = conversations.find((c) => c.id !== id)?.id || null;
-    setConversations((prev) => prev.filter((c) => c.id !== id));
-    setCurrentConversation(target);
-  };
 
   const actions = [
     {
       title: "Create new chat",
       icon: EditIcon,
-      hander: createConversation,
+      handler: createConversation,
     },
   ];
 
@@ -70,7 +39,7 @@ const Conversations = () => {
                 <div
                   key={action.title}
                   className="action-button tooltip-container"
-                  onClick={action.hander}
+                  onClick={action.handler}
                 >
                   <action.icon />
                   <div className="tooltip">{action.title}</div>
@@ -80,16 +49,7 @@ const Conversations = () => {
           </>
         ) : (
           <div className="conversations">
-            <div className="create-new-chat">
-              <span>Create new chat</span>
-              <span
-                className="edit-button tooltip-container"
-                onClick={createConversation}
-              >
-                <EditIcon />
-                <div className="tooltip">Create new chat</div>
-              </span>
-            </div>
+            <CreateConversation />
             <div className="conversation-list">
               {conversations.length ? (
                 conversations.map((conversation) => (

@@ -32,7 +32,7 @@ const Wrapper = styled.div`
 
     .collapse-handle {
       position: absolute;
-      left: 100%;
+      left: calc(100% + 5px);
       color: var(--chatbot-grey);
       cursor: pointer;
       top: 50%;
@@ -44,7 +44,7 @@ const Wrapper = styled.div`
     border: 1px solid var(--chatbot-grey);
     border-radius: 1em;
     overflow: hidden;
-    max-width: 60vw;
+    max-width: 850px;
     margin: 0 auto;
   }
   .tooltip {
