@@ -1,5 +1,5 @@
 import React, { useState, useEffect, useRef } from 'react';
-import { Table, TableBody, TableCell, TableContainer, TableHead, TableRow, Paper, TextField, Box, Typography, IconButton } from '@mui/material';
+import { Table, TableBody, TableCell, TableContainer, TableHead, TableRow, Paper, TextField, Box, Typography, IconButton, CircularProgress } from '@mui/material';
 import RefreshIcon from '@mui/icons-material/Refresh';
 import { getUsageLog } from '../../../data/Airtable';
 
@@ -7,10 +7,12 @@ const Monitor = () => {
     const [usageLog, setUsageLog] = useState([]);
     const [searchQuery, setSearchQuery] = useState('');
     const [sortConfig, setSortConfig] = useState({ sortField: 'Last Login', sortDirection: 'desc' });
+    const [loading, setLoading] = useState(false);
     const tableContainerRef = useRef(null);
     const logRefs = useRef([]);
 
     const fetchData = async (sortField = 'Last Login', sortDirection = 'desc') => {
+        setLoading(true);
         try {
             const data = await getUsageLog(sortField, sortDirection);
             console.log(data);
@@ -18,6 +20,7 @@ const Monitor = () => {
         } catch (error) {
             console.error('Error fetching usage log:', error);
         }
+        setLoading(false);
     };
 
     useEffect(() => {
@@ -70,38 +73,44 @@ const Monitor = () => {
                 </Box>
             </Box>
             <TableContainer component={Paper} ref={tableContainerRef} style={{ maxHeight: '30vw' }}>
-                <Table stickyHeader>
-                    <TableHead>
-                        <TableRow>
-                            <TableCell onClick={() => handleSortChange('Name')}>
-                                Name {sortConfig.sortField === 'Name' ? (sortConfig.sortDirection === 'asc' ? '↑' : '↓') : ''}
-                            </TableCell>
-                            <TableCell onClick={() => handleSortChange('Last Login')}>
-                                Last Login {sortConfig.sortField === 'Last Login' ? (sortConfig.sortDirection === 'asc' ? '↑' : '↓') : ''}
-                            </TableCell>
-                            <TableCell onClick={() => handleSortChange('Login Count')}>
-                                Login Count {sortConfig.sortField === 'Login Count' ? (sortConfig.sortDirection === 'asc' ? '↑' : '↓') : ''}
-                            </TableCell>
-                        </TableRow>
-                    </TableHead>
-                    <TableBody>
-                        {filteredUsageLog.length === 0 ? (
+                {loading ? (
+                    <Box display="flex" justifyContent="center" alignItems="center" height="30vw">
+                        <CircularProgress />
+                    </Box>
+                ) : (
+                    <Table stickyHeader>
+                        <TableHead>
                             <TableRow>
-                                <TableCell colSpan={3} align="center">
-                                    No Users Found
+                                <TableCell onClick={() => handleSortChange('Name')}>
+                                    Name {sortConfig.sortField === 'Name' ? (sortConfig.sortDirection === 'asc' ? '↑' : '↓') : ''}
+                                </TableCell>
+                                <TableCell onClick={() => handleSortChange('Last Login')}>
+                                    Last Login {sortConfig.sortField === 'Last Login' ? (sortConfig.sortDirection === 'asc' ? '↑' : '↓') : ''}
+                                </TableCell>
+                                <TableCell onClick={() => handleSortChange('Login Count')}>
+                                    Login Count {sortConfig.sortField === 'Login Count' ? (sortConfig.sortDirection === 'asc' ? '↑' : '↓') : ''}
                                 </TableCell>
                             </TableRow>
-                        ) : (
-                            filteredUsageLog.map((log, index) => (
-                                <TableRow key={index} ref={el => logRefs.current[index] = el}>
-                                    <TableCell>{log.name}</TableCell>
-                                    <TableCell>{log.last_login}</TableCell>
-                                    <TableCell>{log.login_count}</TableCell>
+                        </TableHead>
+                        <TableBody>
+                            {filteredUsageLog.length === 0 ? (
+                                <TableRow>
+                                    <TableCell colSpan={3} align="center">
+                                        No Users Found
+                                    </TableCell>
                                 </TableRow>
-                            ))
-                        )}
-                    </TableBody>
-                </Table>
+                            ) : (
+                                filteredUsageLog.map((log, index) => (
+                                    <TableRow key={index} ref={el => logRefs.current[index] = el}>
+                                        <TableCell>{log.name}</TableCell>
+                                        <TableCell>{log.last_login}</TableCell>
+                                        <TableCell>{log.login_count}</TableCell>
+                                    </TableRow>
+                                ))
+                            )}
+                        </TableBody>
+                    </Table>
+                )}
             </TableContainer>
         </Box>
     );
