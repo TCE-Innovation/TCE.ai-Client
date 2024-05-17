@@ -19,6 +19,15 @@ const UserTable = ({ users, handleRemoveUser, selectedTool, userProjects, handle
         }
     }, [searchQuery, users]);
 
+    // Sort users so that those with 'None' projects are at the top
+    const sortedUsers = [...users].sort((a, b) => {
+        const projectA = userProjects[a.email] || 'None';
+        const projectB = userProjects[b.email] || 'None';
+        if (projectA === 'None' && projectB !== 'None') return -1;
+        if (projectA !== 'None' && projectB === 'None') return 1;
+        return 0;
+    });
+
     return (
         <Box>
             <Box display="flex" justifyContent="space-between" alignItems="center" marginBottom=".5vw">
@@ -45,45 +54,59 @@ const UserTable = ({ users, handleRemoveUser, selectedTool, userProjects, handle
                         </TableRow>
                     </TableHead>
                     <TableBody>
-                        {users.length === 0 ? (
+                        {sortedUsers.length === 0 ? (
                             <TableRow>
-                                <TableCell colSpan={3} align="center">
+                                <TableCell colSpan={selectedTool === 'Schedule Dashboards' ? 4 : 3} align="center">
                                     No Users in this Tool
                                 </TableCell>
                             </TableRow>
                         ) : (
-                            users.map((user, index) => (
-                                <TableRow key={index} ref={el => userRefs.current[index] = el}>
-                                    <TableCell>{user.name}</TableCell>
-                                    <TableCell>{user.email}</TableCell>
-                                    {selectedTool === 'Schedule Dashboards' && (
-                                        <TableCell>
-                                            <FormControl fullWidth>
-                                                <Select
-                                                    value={userProjects[user.email] || 'None'}
-                                                    onChange={(event) => handleUserProjectChange(user.email, event.target.value)}
-                                                    displayEmpty
-                                                    inputProps={{ 'aria-label': 'Select Project' }}
-                                                >
-                                                    <MenuItem value="" disabled>Select Project</MenuItem>
-                                                    {dashboardProjects.map((project, index) => (
-                                                        <MenuItem key={index} value={project}>{project}</MenuItem>
-                                                    ))}
-                                                </Select>
-                                            </FormControl>
+                            sortedUsers.map((user, index) => {
+                                const isProjectNone = userProjects[user.email] === 'None';
+                                return (
+                                    <TableRow
+                                        key={index}
+                                        ref={el => userRefs.current[index] = el}
+                                        style={{
+                                            backgroundColor: selectedTool === 'Schedule Dashboards' && isProjectNone ? 'white' : 'inherit',
+                                            color: selectedTool === 'Schedule Dashboards' && isProjectNone ? 'red' : 'inherit'
+                                        }}
+                                    >
+                                        <TableCell style={{ color: selectedTool === 'Schedule Dashboards' && isProjectNone ? 'red' : 'inherit' }}>
+                                            {user.name}
                                         </TableCell>
-                                    )}
-                                    <TableCell>
-                                        <Button
-                                            variant="contained"
-                                            onClick={() => handleRemoveUser(user.email)}
-                                            style={{ backgroundColor: '#fad9d9', color: 'red', border: '1px solid red' }}
-                                        >
-                                            Remove
-                                        </Button>
-                                    </TableCell>
-                                </TableRow>
-                            ))
+                                        <TableCell style={{ color: selectedTool === 'Schedule Dashboards' && isProjectNone ? 'red' : 'inherit' }}>
+                                            {user.email}
+                                        </TableCell>
+                                        {selectedTool === 'Schedule Dashboards' && (
+                                            <TableCell>
+                                                <FormControl fullWidth>
+                                                    <Select
+                                                        value={userProjects[user.email] || 'None'}
+                                                        onChange={(event) => handleUserProjectChange(user.email, event.target.value)}
+                                                        displayEmpty
+                                                        inputProps={{ 'aria-label': 'Select Project' }}
+                                                    >
+                                                        <MenuItem value="" disabled>Select Project</MenuItem>
+                                                        {dashboardProjects.map((project, index) => (
+                                                            <MenuItem key={index} value={project}>{project}</MenuItem>
+                                                        ))}
+                                                    </Select>
+                                                </FormControl>
+                                            </TableCell>
+                                        )}
+                                        <TableCell>
+                                            <Button
+                                                variant="contained"
+                                                onClick={() => handleRemoveUser(user.email)}
+                                                style={{ backgroundColor: '#fad9d9', color: 'red', border: '1px solid red' }}
+                                            >
+                                                Remove
+                                            </Button>
+                                        </TableCell>
+                                    </TableRow>
+                                );
+                            })
                         )}
                     </TableBody>
                 </Table>
