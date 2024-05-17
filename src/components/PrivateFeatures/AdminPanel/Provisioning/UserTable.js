@@ -3,6 +3,7 @@ import { Table, TableBody, TableCell, TableContainer, TableHead, TableRow, Paper
 
 const UserTable = ({ users, handleRemoveUser, selectedTool, userProjects, handleUserProjectChange, dashboardProjects, provisionedCount, nonProvisionedCount }) => {
     const [searchQuery, setSearchQuery] = useState('');
+    const [flashColor, setFlashColor] = useState({});
     const tableContainerRef = useRef(null);
     const userRefs = useRef([]);
 
@@ -18,6 +19,20 @@ const UserTable = ({ users, handleRemoveUser, selectedTool, userProjects, handle
             }
         }
     }, [searchQuery, users]);
+
+    useEffect(() => {
+        const interval = setInterval(() => {
+            setFlashColor(prev => {
+                const newFlashColor = {};
+                users.forEach(user => {
+                    newFlashColor[user.email] = !prev[user.email];
+                });
+                return newFlashColor;
+            });
+        }, 1000); // Change color every 1000ms
+
+        return () => clearInterval(interval); // Cleanup interval on component unmount
+    }, [users]);
 
     // Sort users so that those with 'None' projects are at the top
     const sortedUsers = [...users].sort((a, b) => {
@@ -65,17 +80,20 @@ const UserTable = ({ users, handleRemoveUser, selectedTool, userProjects, handle
                                 const isProjectNone = userProjects[user.email] === 'None';
                                 return (
                                     <TableRow
-                                        key={index}
+                                        key={user.email}
                                         ref={el => userRefs.current[index] = el}
                                         style={{
-                                            backgroundColor: selectedTool === 'Schedule Dashboards' && isProjectNone ? 'white' : 'inherit',
-                                            color: selectedTool === 'Schedule Dashboards' && isProjectNone ? 'red' : 'inherit'
+                                            backgroundColor: selectedTool === 'Schedule Dashboards' && isProjectNone ? 'white' : 'inherit'
                                         }}
                                     >
-                                        <TableCell style={{ color: selectedTool === 'Schedule Dashboards' && isProjectNone ? 'red' : 'inherit' }}>
+                                        <TableCell style={{
+                                            color: selectedTool === 'Schedule Dashboards' && isProjectNone ? (flashColor[user.email] ? 'red' : 'black') : 'inherit'
+                                        }}>
                                             {user.name}
                                         </TableCell>
-                                        <TableCell style={{ color: selectedTool === 'Schedule Dashboards' && isProjectNone ? 'red' : 'inherit' }}>
+                                        <TableCell style={{
+                                            color: selectedTool === 'Schedule Dashboards' && isProjectNone ? (flashColor[user.email] ? 'red' : 'black') : 'inherit'
+                                        }}>
                                             {user.email}
                                         </TableCell>
                                         {selectedTool === 'Schedule Dashboards' && (
