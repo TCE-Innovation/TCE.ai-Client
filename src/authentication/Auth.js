@@ -5,8 +5,7 @@ import { Navigate, Outlet, useLocation } from 'react-router-dom';
 //AUTH
 import { useMsal } from "@azure/msal-react";
 import { getUserProfilePic } from '../data/Graph';
-import { getJobTitle, getProjects } from '../data/Airtable';
-import { getApplications, getTools } from '../data/SQL';
+import { getApplications, getTools, getJobTitle, getProjects } from '../data/SQL';
 
 export const AuthContext = createContext();
 
@@ -56,7 +55,7 @@ export const AuthProvider = ({ children }) => {
       .then(setUserPic)
       .catch((error) => console.error('Error fetching user profile picture:', error));
 
-    getJobTitle(name)
+    getJobTitle(email)
       .then(setUserTitle)
       .catch((error) => console.error('Error fetching user job title:', error));
 
@@ -68,7 +67,7 @@ export const AuthProvider = ({ children }) => {
       .then(setUserApplications)
       .catch((error) => console.error('Error fetching user applications:', error));
 
-      getTools(email)
+    getTools(email)
       .then(setUserTools)
       .catch((error) => console.error('Error fetching user tools:', error));
   }

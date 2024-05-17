@@ -1,20 +1,109 @@
-import React from 'react';
+import React, { useState, useEffect, useRef } from 'react';
+import { Table, TableBody, TableCell, TableContainer, TableHead, TableRow, Paper, TextField, Box, Typography, IconButton } from '@mui/material';
+import RefreshIcon from '@mui/icons-material/Refresh';
+import { getUsageLog } from '../../../data/Airtable';
 
 const Monitor = () => {
-   
+    const [usageLog, setUsageLog] = useState([]);
+    const [searchQuery, setSearchQuery] = useState('');
+    const [sortConfig, setSortConfig] = useState({ sortField: 'Last Login', sortDirection: 'desc' });
+    const tableContainerRef = useRef(null);
+    const logRefs = useRef([]);
+
+    const fetchData = async (sortField = 'Last Login', sortDirection = 'desc') => {
+        try {
+            const data = await getUsageLog(sortField, sortDirection);
+            console.log(data);
+            setUsageLog(data);
+        } catch (error) {
+            console.error('Error fetching usage log:', error);
+        }
+    };
+
+    useEffect(() => {
+        fetchData(sortConfig.sortField, sortConfig.sortDirection);
+    }, [sortConfig]);
+
+    const handleSearchChange = (event) => {
+        setSearchQuery(event.target.value);
+    };
+
+    useEffect(() => {
+        if (searchQuery) {
+            const index = usageLog.findIndex(log => log.name.toLowerCase().includes(searchQuery.toLowerCase()));
+            if (index !== -1 && logRefs.current[index]) {
+                logRefs.current[index].scrollIntoView({ behavior: 'smooth', block: 'center' });
+            }
+        }
+    }, [searchQuery, usageLog]);
+
+    const handleSortChange = (field) => {
+        setSortConfig(prevConfig => {
+            const isAsc = prevConfig.sortField === field && prevConfig.sortDirection === 'asc';
+            return {
+                sortField: field,
+                sortDirection: isAsc ? 'desc' : 'asc'
+            };
+        });
+    };
+
+    const filteredUsageLog = usageLog.filter(log => 
+        log.name.toLowerCase().includes(searchQuery.toLowerCase())
+    );
+
     return (
-        <div style={{ width: '100%', display: 'flex', flexDirection: 'column', alignItems: 'center', marginTop: 20 }}>
-           <iframe 
-                class="airtable-embed" 
-                title="Monitor"
-                src="https://airtable.com/embed/appfF7QtyV8ahG0OT/shraLazZw6W12QaG4?backgroundColor=pinkDusty&viewControls=on" 
-                frameborder="0" 
-                onmousewheel="" 
-                width="100%" 
-                height="533" 
-                style={{background: 'transparent', border: '1px solid #ccc'}}
-            ></iframe>
-        </div>
+        <Box style={{ backgroundColor: "#f5f5f5", padding: "2vw", marginTop: '.5vw', borderRadius: "1vw" }}>
+            <Box display="flex" justifyContent="space-between" alignItems="center" marginBottom=".5vw">
+                <TextField
+                    label="Search Users"
+                    value={searchQuery}
+                    onChange={handleSearchChange}
+                    style={{ width: '70%' }}
+                />
+                <Box marginLeft="1vw" display="flex" alignItems="center">
+                    <Typography variant="body1" style={{ marginRight: '1vw' }}>
+                        Users Logged: {filteredUsageLog.length}
+                    </Typography>
+                    <IconButton onClick={() => fetchData(sortConfig.sortField, sortConfig.sortDirection)} color="primary">
+                        <RefreshIcon />
+                    </IconButton>
+                </Box>
+            </Box>
+            <TableContainer component={Paper} ref={tableContainerRef} style={{ maxHeight: '30vw' }}>
+                <Table stickyHeader>
+                    <TableHead>
+                        <TableRow>
+                            <TableCell onClick={() => handleSortChange('Name')}>
+                                Name {sortConfig.sortField === 'Name' ? (sortConfig.sortDirection === 'asc' ? '↑' : '↓') : ''}
+                            </TableCell>
+                            <TableCell onClick={() => handleSortChange('Last Login')}>
+                                Last Login {sortConfig.sortField === 'Last Login' ? (sortConfig.sortDirection === 'asc' ? '↑' : '↓') : ''}
+                            </TableCell>
+                            <TableCell onClick={() => handleSortChange('Login Count')}>
+                                Login Count {sortConfig.sortField === 'Login Count' ? (sortConfig.sortDirection === 'asc' ? '↑' : '↓') : ''}
+                            </TableCell>
+                        </TableRow>
+                    </TableHead>
+                    <TableBody>
+                        {filteredUsageLog.length === 0 ? (
+                            <TableRow>
+                                <TableCell colSpan={3} align="center">
+                                    No Users Found
+                                </TableCell>
+                            </TableRow>
+                        ) : (
+                            filteredUsageLog.map((log, index) => (
+                                <TableRow key={index} ref={el => logRefs.current[index] = el}>
+                                    <TableCell>{log.name}</TableCell>
+                                    <TableCell>{log.last_login}</TableCell>
+                                    <TableCell>{log.login_count}</TableCell>
+                                </TableRow>
+                            ))
+                        )}
+                    </TableBody>
+                </Table>
+            </TableContainer>
+        </Box>
     );
 };
 

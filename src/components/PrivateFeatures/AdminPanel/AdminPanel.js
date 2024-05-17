@@ -3,7 +3,7 @@ import Box from "@mui/material/Box";
 import Button from "@mui/material/Button";
 
 // COMPONENTS
-import Provisioning from './Provisioning';
+import Provisioning from './Provisioning/Provisioning';
 import Monitor from './Monitor';
 
 function AdminPanel() {

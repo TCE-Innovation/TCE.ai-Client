@@ -9,18 +9,18 @@ import style from './assetForm.module.css';
 import '../submitbutton.css'
 
 const AssetForm = () => {
-    //STATES
+    // STATES
     const [isSubmitted, setIsSubmitted] = useState(false);
     const [isLoading, setIsLoading] = useState(false); 
     const [item, setItem] = useState('');
     const [project, setProject] = useState('');
     const [reason, setReason] = useState('');
-    const [dateNeeded, setDateNeeded] = useState(null);     //maybe a date picker or initialize date as today's date
+    const [dateNeeded, setDateNeeded] = useState(null);
     const [dateReturn, setDateReturn] = useState(null);
-    const [projectOptions, setProjectOptions] = useState([]);
+    const [projectOptions, setProjectOptions] = useState({ Active: [], Bidding: [] });
     const [initials, setInitials] = useState('');
 
-    //useContext for email
+    // useContext for email
     const { userName, userEmail, userProjects } = useContext(AuthContext);
 
     // Asynchronously fetch project options when the component mounts
@@ -30,7 +30,7 @@ const AssetForm = () => {
                 const options = await getActiveProjects();
                 // Group projects by status
                 const groupedOptions = {
-                    Active: userProjects,
+                    Active: [userProjects],
                     Bidding: options.filter(o => o.status === 'Bidding'),
                 };
                 setProjectOptions(groupedOptions);
@@ -42,8 +42,7 @@ const AssetForm = () => {
         fetchProjectOptions();
     }, [userProjects]);
 
-
-    //HANDLER FUNCTIONS
+    // HANDLER FUNCTIONS
     const handleItemInputChange = (event) => {
         setItem(event.target.value);
     };
@@ -91,20 +90,20 @@ const AssetForm = () => {
         setItem('');
         setProject('');
         setReason('');
-        setDateNeeded(''); // Set this to an initial value if needed
-        setDateReturn('');
+        setDateNeeded(null); // Set this to an initial value if needed
+        setDateReturn(null);
+        setInitials('');
     };
 
-    //dont forget to handle signature before submit
+    // Check if the button should be disabled
     const isButtonDisabled = 
         item.trim() === '' || 
         project.trim() === '' || 
         reason.trim() === '' || 
-        dateNeeded === '' || 
-        dateReturn === '';
+        dateNeeded === null || 
+        dateReturn === null;
 
-
-    //make request to azure function app to fetch options from airtable
+    // Options for items
     const itemOptions = [
         "Matterport Pro2", 
         "Matterport Pro3",
@@ -115,118 +114,115 @@ const AssetForm = () => {
     ]; 
 
     return (
-            <div className={style.formContainer}>
-                {isLoading ? (
-                    <CircularProgress style={{ display: 'block', margin: '0 auto' }} />
-                ) :
-                !isSubmitted ? (
-                        <div className="form-container">
-                            <div>
-                                    <Box display="flex" flexDirection="row">
-                                        <FormControl style={{color: "black", backgroundColor: "white", margin: "8px", width: "50%", marginBottom: "20px"}}>
-                                            <InputLabel id="item-label">Item Needed</InputLabel>
-                                            <Select
-                                                labelId="item-label"
-                                                id="item"
-                                                value={item}
-                                                onChange={handleItemInputChange}
-                                                label="Item Needed"
-                                                required
-                                            >
-                                                {itemOptions.map((option, index) => (
-                                                    <MenuItem key={index} value={option}>{option}</MenuItem>
-                                                ))}
-                                            </Select>
-                                        </FormControl>
-                                        <FormControl style={{color: "black", backgroundColor: "white", margin: "8px", width: "50%", marginBottom: "20px"}}>
-                                            <InputLabel id="project-label">Project</InputLabel>
-                                            <Select
-                                                labelId="project-label"
-                                                id="project"
-                                                value={project}
-                                                onChange={handleProjectInputChange}
-                                                label="Project"
-                                                required
-                                            >
-                                                <MenuItem value="Non-Project - 1010">Non-Project - 1010</MenuItem>
-                                                <ListSubheader>Active Jobs</ListSubheader>
-                                                {projectOptions.Active?.map((option, index) => (
-                                                    <MenuItem key={index} value={option}>{option}</MenuItem>
-                                                ))}
-                                                <ListSubheader>Pursuits</ListSubheader>
-                                                {projectOptions.Bidding?.map((option, index) => (
-                                                    <MenuItem key={index} value={option.name}>{option.name}</MenuItem>
-                                                ))}
-                                            </Select>
-                                        </FormControl>
-                                    </Box>
-                                    <Box display="flex" flexDirection="row">
-                                        <TextField
-                                            id="reason"
-                                            label="Intended Use - For Record Keeping Purposes"
-                                            multiline
-                                            value={reason}
-                                            onChange={handleReasonInputChange}
-                                            style={{color: "black", backgroundColor: "white", margin: "8px", width: "100%"}}
-                                        />
-                                    </Box>
-                                    <Box display="flex" flexDirection="row">
-                                            <LocalizationProvider dateAdapter={AdapterDateFns}>
-                                                <DatePicker
-                                                    label="Date Needed"
-                                                    sx=  {{width: "25%", marginBottom: "28px", marginLeft: "8px", marginTop: "25px"}}
-                                                    value={dateNeeded}
-                                                    onChange={setDateNeeded}
-                                                    renderInput={(params) => <TextField {...params} sx={{ }} />}
-                                                />
-                                            </LocalizationProvider>
-                                            <LocalizationProvider dateAdapter={AdapterDateFns}>
-                                                <DatePicker
-                                                    label="Return Date"
-                                                    sx=  {{width: "25%", marginBottom: "28px", marginLeft: "8px", marginTop: "25px"}}
-                                                    value={dateReturn}
-                                                    onChange={setDateReturn}
-                                                    renderInput={(params) => <TextField {...params} sx={{}} />}
-                                                />
-                                            </LocalizationProvider>
-                                            <TextField
-                                                id="initials"
-                                                label="Initials"
-                                                multiline
-                                                value={initials}
-                                                onChange={handleInitialInputChange}
-                                                sx= {{width: "25%", marginBottom: "28px", marginLeft: "8px", marginTop: "25px"}}
-                                            />
-
-                                            <button onClick={handleSubmit}
-                                                    className='buttonColored'
-                                                    style={{width: "5vw", height: '2.7vw', marginTop: "25px", marginLeft: "38px"}}
-                                                    disabled={isButtonDisabled}>
-                                                Submit
-                                            </button>
-                                    </Box>
-
-                            </div>
-                        </div>
-                    ) : (
-                        <div className="form-container">
-                            <div style={{textAlign:"center", color:"#1b365f"}}>
-                                <div>Thank you for your submission. A TCIG team member will follow up with you.</div>
-                                <Button style={{ 
-                                            width: "15vw", 
-                                            marginTop: "1vw", 
-                                            fontSize: ".9vw",
-                                            color: "#1b365f",
-                                            borderColor: "#1b365f",
-                                            fontWeight: "500",
-                                        }} 
-                                        onClick={handleNewSubmission}>
-                                    Submit another request
-                                </Button>
-                            </div>
-                        </div>
-                    )}
+        <div className={style.formContainer}>
+            {isLoading ? (
+                <CircularProgress style={{ display: 'block', margin: '0 auto' }} />
+            ) : !isSubmitted ? (
+                <div className="form-container">
+                    <div>
+                        <Box display="flex" flexDirection="row">
+                            <FormControl style={{color: "black", backgroundColor: "white", margin: "8px", width: "50%", marginBottom: "20px"}}>
+                                <InputLabel id="item-label">Item Needed</InputLabel>
+                                <Select
+                                    labelId="item-label"
+                                    id="item"
+                                    value={item}
+                                    onChange={handleItemInputChange}
+                                    label="Item Needed"
+                                    required
+                                >
+                                    {itemOptions.map((option, index) => (
+                                        <MenuItem key={index} value={option}>{option}</MenuItem>
+                                    ))}
+                                </Select>
+                            </FormControl>
+                            <FormControl style={{color: "black", backgroundColor: "white", margin: "8px", width: "50%", marginBottom: "20px"}}>
+                                <InputLabel id="project-label">Project</InputLabel>
+                                <Select
+                                    labelId="project-label"
+                                    id="project"
+                                    value={project}
+                                    onChange={handleProjectInputChange}
+                                    label="Project"
+                                    required
+                                >
+                                    <MenuItem value="Non-Project - 1010">Non-Project - 1010</MenuItem>
+                                    <ListSubheader>My Active Jobs</ListSubheader>
+                                    {Array.isArray(projectOptions.Active) && projectOptions.Active.map((option, index) => (
+                                        <MenuItem key={index} value={option}>{option}</MenuItem>
+                                    ))}
+                                    <ListSubheader>Pursuits</ListSubheader>
+                                    {Array.isArray(projectOptions.Bidding) && projectOptions.Bidding.map((option, index) => (
+                                        <MenuItem key={index} value={option.name}>{option.name}</MenuItem>
+                                    ))}
+                                </Select>
+                            </FormControl>
+                        </Box>
+                        <Box display="flex" flexDirection="row">
+                            <TextField
+                                id="reason"
+                                label="Intended Use - For Record Keeping Purposes"
+                                multiline
+                                value={reason}
+                                onChange={handleReasonInputChange}
+                                style={{color: "black", backgroundColor: "white", margin: "8px", width: "100%"}}
+                            />
+                        </Box>
+                        <Box display="flex" flexDirection="row">
+                            <LocalizationProvider dateAdapter={AdapterDateFns}>
+                                <DatePicker
+                                    label="Date Needed"
+                                    sx=  {{width: "25%", marginBottom: "28px", marginLeft: "8px", marginTop: "25px"}}
+                                    value={dateNeeded}
+                                    onChange={setDateNeeded}
+                                    renderInput={(params) => <TextField {...params} sx={{ }} />}
+                                />
+                            </LocalizationProvider>
+                            <LocalizationProvider dateAdapter={AdapterDateFns}>
+                                <DatePicker
+                                    label="Return Date"
+                                    sx=  {{width: "25%", marginBottom: "28px", marginLeft: "8px", marginTop: "25px"}}
+                                    value={dateReturn}
+                                    onChange={setDateReturn}
+                                    renderInput={(params) => <TextField {...params} sx={{}} />}
+                                />
+                            </LocalizationProvider>
+                            <TextField
+                                id="initials"
+                                label="Initials"
+                                multiline
+                                value={initials}
+                                onChange={handleInitialInputChange}
+                                sx= {{width: "25%", marginBottom: "28px", marginLeft: "8px", marginTop: "25px"}}
+                            />
+                            <button onClick={handleSubmit}
+                                className='buttonColored'
+                                style={{width: "5vw", height: '2.7vw', marginTop: "25px", marginLeft: "38px"}}
+                                disabled={isButtonDisabled}>
+                                Submit
+                            </button>
+                        </Box>
                     </div>
+                </div>
+            ) : (
+                <div className="form-container">
+                    <div style={{textAlign:"center", color:"#1b365f"}}>
+                        <div>Thank you for your submission. A TCIG team member will follow up with you.</div>
+                        <Button style={{ 
+                            width: "15vw", 
+                            marginTop: "1vw", 
+                            fontSize: ".9vw",
+                            color: "#1b365f",
+                            borderColor: "#1b365f",
+                            fontWeight: "500",
+                        }} 
+                        onClick={handleNewSubmission}>
+                            Submit another request
+                        </Button>
+                    </div>
+                </div>
+            )}
+        </div>
     );
 };
 

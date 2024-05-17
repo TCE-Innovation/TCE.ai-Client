@@ -24,10 +24,8 @@ const ToolUsage = () => {
                 </div>
             )}
             <div style={{ display: iframeLoaded ? 'block' : 'none' }}>
-                <script src="https://static.airtable.com/js/embed/embed_snippet_v1.js"></script>
                 <iframe
                     onLoad={handleIframeLoad}
-                    className="airtable-embed airtable-dynamic-height"
                     src="https://app.powerbi.com/reportEmbed?reportId=3b0298ad-530a-40b9-b337-911f35150e8d&autoAuth=true&ctid=3539293e-58fa-4bab-a02e-18dc57fa9737"
                     width="100%"
                     height="750px"
