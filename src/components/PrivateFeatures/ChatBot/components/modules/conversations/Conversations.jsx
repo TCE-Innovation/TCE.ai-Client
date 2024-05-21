@@ -7,7 +7,9 @@ import CreateConversation from "./CreateConversation";
 
 import { EditIcon, LeftIcon, RightIcon } from "../../icons";
 
-import { useConversation } from "../../../hooks";
+import { useConversation, useStorage } from "../../../hooks";
+
+import { Loader } from "../../common";
 
 const Conversations = () => {
   const {
@@ -17,7 +19,10 @@ const Conversations = () => {
     deleteConversation,
     setCurrentConversation,
   } = useConversation();
-  const [isCollapsed, setIsCollapsed] = useState(false);
+  const [isCollapsed, setIsCollapsed] = useStorage(
+    "CHATBOT-SIDEBAR-STATE",
+    false
+  );
 
   const toggleCollapse = () => {
     setIsCollapsed((prev) => !prev);
@@ -137,6 +142,7 @@ const Wrapper = styled.div`
     }
   }
   .conversation-list {
+    position: relative;
     border-radius: 1em;
     background-color: white;
     padding: 0.5em;

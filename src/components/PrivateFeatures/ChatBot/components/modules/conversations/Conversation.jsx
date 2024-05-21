@@ -17,11 +17,11 @@ const Conversation = ({
       <div className="conversation-header" onClick={() => setConversation(id)}>
         <span className="conversation-title">{title}</span>
         <div>
-          {active && (
+          {active ? (
             <span className="delete-button" onClick={deleteConversation}>
               <DeleteIcon color="inherit" />
             </span>
-          )}
+          ) : null}
         </div>
       </div>
       <div className="conversation-body">{body}</div>

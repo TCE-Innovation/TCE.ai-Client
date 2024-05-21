@@ -2,6 +2,7 @@ import React from "react";
 import Layout from "../../layouts/main";
 
 import ConversationContext from "../../contexts/Conversation";
+import MessageContext from "../../contexts/Message";
 
 import { ChatModule, ConversationsModule } from "../../modules";
 
@@ -10,7 +11,9 @@ const index = () => {
     <ConversationContext>
       <Layout>
         <ConversationsModule />
-        <ChatModule />
+        <MessageContext>
+          <ChatModule />
+        </MessageContext>
       </Layout>
     </ConversationContext>
   );
