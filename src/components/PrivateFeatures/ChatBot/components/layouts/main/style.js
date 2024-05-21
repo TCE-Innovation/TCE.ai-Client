@@ -1,20 +1,6 @@
-import React, { Children } from "react";
-
 import styled from "styled-components";
 
-const MainLayout = ({ children }) => {
-  const [Conversations, Chat] = Children.toArray(children);
-  return (
-    <Wrapper>
-      <div className="conversation-wrapper">{Conversations}</div>
-      <div className="chat-wrapper">{Chat}</div>
-    </Wrapper>
-  );
-};
-
-export default MainLayout;
-
-const Wrapper = styled.div`
+export default styled.div`
   --chatbot-primary: #1c469d;
   --chatbot-secondary: #ffcf00;
   --chatbot-text-secondary: #6f7e95;

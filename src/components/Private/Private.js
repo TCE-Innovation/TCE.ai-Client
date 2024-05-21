@@ -20,6 +20,7 @@ import PrivateListItems from "./privateItems";
 import PrivateNavigation from "./PrivateNavigation";
 import CRO from '../PrivateFeatures/CRO/CRO';
 import AssetTracker from '../PrivateFeatures/AssetTracker/AssetTracker';
+import ChatBot from '../PrivateFeatures/ChatBot';
 import GenerateEmails from "../PrivateFeatures/GenerateEmails";
 import GOTracker from '../PrivateFeatures/GOTracker';
 import SubAuto from "../PrivateFeatures/SubAuto/SubAuto";
@@ -83,10 +84,11 @@ function PrivateContent() {
     'Subcontractor Forms': 'sub-automation',
     'Schedule Dashboards': 'schedule-dashboards',
     'Tool Usage Stats': 'tool-usage',
+    'Chat Bot': 'chat-bot'
   };
 
   // Always available tools
-  const alwaysAvailableTools = useMemo(() => ['home', 'sub-automation', 'equipment-checkout', 'go-tracker', 'admin'], []);
+  const alwaysAvailableTools = useMemo(() => ['home', 'sub-automation', 'equipment-checkout', 'go-tracker', 'admin','chat-bot'], []);
 
   // Split the userTools string into an array
   const userToolsArray = (userTools || '').split(',').map(tool => tool.trim());
@@ -101,6 +103,7 @@ function PrivateContent() {
     'cable-run-optimizer': CRO,
     'equipment-checkout': AssetTracker,
     'go-tracker': GOTracker,
+    'chat-bot': ChatBot,
     'sub-automation': SubAuto,
     'schedule-dashboards': ScheduleDashboards,
     'tool-usage': ToolUsage,
