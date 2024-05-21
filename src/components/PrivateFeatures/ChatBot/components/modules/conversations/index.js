@@ -1,1 +1,1 @@
-export { default as SideBar } from "./Conversations";
+export { default as SideBar } from "./Conversations/Conversations";
