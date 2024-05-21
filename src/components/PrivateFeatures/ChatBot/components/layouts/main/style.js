@@ -6,8 +6,10 @@ export default styled.div`
   --chatbot-text-secondary: #6f7e95;
   --chatbot-text-primary: #2b2b2b;
   --chatbot-grey: #bfc6d0;
-  --chatbot-light-grey: #EFF1F3;
+  --chatbot-light-grey: #eff1f3;
   --chatbot-background: #ffffffcc;
+
+  --chatbot-border-radius: 12px;
 
   display: flex;
   height: 84vh;
@@ -98,18 +100,18 @@ export default styled.div`
     border: none;
   }
   *::-webkit-scrollbar {
-    width: .75em;
+    width: 0.75em;
   }
   *::-webkit-scrollbar-track {
     background-color: var(--chatbot-light-grey);
-    border-radius: .5em;
+    border-radius: var(--chatbot-border-radius);
   }
-  
+
   *::-webkit-scrollbar-thumb {
     background-color: var(--chatbot-grey);
-    border-radius: .5em;
+    border-radius: var(--chatbot-border-radius);
   }
-  
+
   *::-webkit-scrollbar-button {
     display: none;
   }

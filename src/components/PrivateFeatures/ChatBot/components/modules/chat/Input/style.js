@@ -1,23 +1,6 @@
-import React from "react";
 import styled from "styled-components";
 
-import { SendIcon } from "../../icons";
-
-const ChatInput = () => {
-  return (
-    <Wrapper>
-      <div className="input-container">
-        <input placeholder="Type your message here" />
-      </div>
-      <button className="chat-button send-button tooltip-container">
-        <SendIcon />
-        <div className="tooltip align-top">Send Message</div>
-      </button>
-    </Wrapper>
-  );
-};
-
-const Wrapper = styled.div`
+export default styled.div`
   --input-container-size: 3em;
   display: flex;
   gap: 0.5em;
@@ -28,7 +11,7 @@ const Wrapper = styled.div`
     }
     flex: 1;
     border: 1px solid var(--chatbot-grey);
-    border-radius: 0.25em;
+    border-radius: calc(.66 * var(--chatbot-border-radius));
     padding: 0.25em;
     padding-left: 1em;
     &:focus-within {
@@ -45,9 +28,7 @@ const Wrapper = styled.div`
     display: none;
     background-color: var(--chatbot-primary);
     align-self: stretch;
-    border-radius: 0.25em;
+    border-radius: calc(.66 * var(--chatbot-border-radius));
     width: var(--input-container-size);
   }
 `;
-
-export default ChatInput;

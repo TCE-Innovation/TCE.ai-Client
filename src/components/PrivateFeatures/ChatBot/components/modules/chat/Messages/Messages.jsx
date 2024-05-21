@@ -1,9 +1,9 @@
 import React from "react";
 
-import Message from "./Message";
+import Message from "../Message/Message";
 
-import { useMessage } from "../../../hooks";
-import { Loader } from "../../common";
+import { useMessage } from "../../../../hooks";
+import { Loader } from "../../../common";
 
 const Messages = () => {
   const { messages, loadingMessages } = useMessage();
