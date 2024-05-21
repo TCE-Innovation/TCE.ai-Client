@@ -3,6 +3,7 @@ import { Table, TableBody, TableCell, TableContainer, TableHead, TableRow, Paper
 
 const UserTable = ({ users, handleRemoveUser, selectedTool, userProjects, handleUserProjectChange, dashboardProjects, provisionedCount, nonProvisionedCount }) => {
     const [searchQuery, setSearchQuery] = useState('');
+    const [flashColor, setFlashColor] = useState({});
     const tableContainerRef = useRef(null);
     const userRefs = useRef([]);
 
@@ -18,6 +19,29 @@ const UserTable = ({ users, handleRemoveUser, selectedTool, userProjects, handle
             }
         }
     }, [searchQuery, users]);
+
+    useEffect(() => {
+        const interval = setInterval(() => {
+            setFlashColor(prev => {
+                const newFlashColor = {};
+                users.forEach(user => {
+                    newFlashColor[user.email] = !prev[user.email];
+                });
+                return newFlashColor;
+            });
+        }, 1000); // Change color every 1000ms
+
+        return () => clearInterval(interval); // Cleanup interval on component unmount
+    }, [users]);
+
+    // Sort users so that those with 'None' projects are at the top
+    const sortedUsers = [...users].sort((a, b) => {
+        const projectA = userProjects[a.email] || 'None';
+        const projectB = userProjects[b.email] || 'None';
+        if (projectA === 'None' && projectB !== 'None') return -1;
+        if (projectA !== 'None' && projectB === 'None') return 1;
+        return 0;
+    });
 
     return (
         <Box>
@@ -45,45 +69,62 @@ const UserTable = ({ users, handleRemoveUser, selectedTool, userProjects, handle
                         </TableRow>
                     </TableHead>
                     <TableBody>
-                        {users.length === 0 ? (
+                        {sortedUsers.length === 0 ? (
                             <TableRow>
-                                <TableCell colSpan={3} align="center">
+                                <TableCell colSpan={selectedTool === 'Schedule Dashboards' ? 4 : 3} align="center">
                                     No Users in this Tool
                                 </TableCell>
                             </TableRow>
                         ) : (
-                            users.map((user, index) => (
-                                <TableRow key={index} ref={el => userRefs.current[index] = el}>
-                                    <TableCell>{user.name}</TableCell>
-                                    <TableCell>{user.email}</TableCell>
-                                    {selectedTool === 'Schedule Dashboards' && (
-                                        <TableCell>
-                                            <FormControl fullWidth>
-                                                <Select
-                                                    value={userProjects[user.email] || 'None'}
-                                                    onChange={(event) => handleUserProjectChange(user.email, event.target.value)}
-                                                    displayEmpty
-                                                    inputProps={{ 'aria-label': 'Select Project' }}
-                                                >
-                                                    <MenuItem value="" disabled>Select Project</MenuItem>
-                                                    {dashboardProjects.map((project, index) => (
-                                                        <MenuItem key={index} value={project}>{project}</MenuItem>
-                                                    ))}
-                                                </Select>
-                                            </FormControl>
+                            sortedUsers.map((user, index) => {
+                                const isProjectNone = userProjects[user.email] === 'None';
+                                return (
+                                    <TableRow
+                                        key={user.email}
+                                        ref={el => userRefs.current[index] = el}
+                                        style={{
+                                            backgroundColor: selectedTool === 'Schedule Dashboards' && isProjectNone ? 'white' : 'inherit'
+                                        }}
+                                    >
+                                        <TableCell style={{
+                                            color: selectedTool === 'Schedule Dashboards' && isProjectNone ? (flashColor[user.email] ? 'red' : 'black') : 'inherit'
+                                        }}>
+                                            {user.name}
                                         </TableCell>
-                                    )}
-                                    <TableCell>
-                                        <Button
-                                            variant="contained"
-                                            onClick={() => handleRemoveUser(user.email)}
-                                            style={{ backgroundColor: '#fad9d9', color: 'red', border: '1px solid red' }}
-                                        >
-                                            Remove
-                                        </Button>
-                                    </TableCell>
-                                </TableRow>
-                            ))
+                                        <TableCell style={{
+                                            color: selectedTool === 'Schedule Dashboards' && isProjectNone ? (flashColor[user.email] ? 'red' : 'black') : 'inherit'
+                                        }}>
+                                            {user.email}
+                                        </TableCell>
+                                        {selectedTool === 'Schedule Dashboards' && (
+                                            <TableCell>
+                                                <FormControl fullWidth>
+                                                    <Select
+                                                        value={userProjects[user.email] || 'None'}
+                                                        onChange={(event) => handleUserProjectChange(user.email, event.target.value)}
+                                                        displayEmpty
+                                                        inputProps={{ 'aria-label': 'Select Project' }}
+                                                    >
+                                                        <MenuItem value="" disabled>Select Project</MenuItem>
+                                                        {dashboardProjects.map((project, index) => (
+                                                            <MenuItem key={index} value={project}>{project}</MenuItem>
+                                                        ))}
+                                                    </Select>
+                                                </FormControl>
+                                            </TableCell>
+                                        )}
+                                        <TableCell>
+                                            <Button
+                                                variant="contained"
+                                                onClick={() => handleRemoveUser(user.email)}
+                                                style={{ backgroundColor: '#fad9d9', color: 'red', border: '1px solid red' }}
+                                            >
+                                                Remove
+                                            </Button>
+                                        </TableCell>
+                                    </TableRow>
+                                );
+                            })
                         )}
                     </TableBody>
                 </Table>

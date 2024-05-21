@@ -13,7 +13,6 @@
   .carouselCard img {
     width: 11vw;
     height: 11vw;
-    margin-left: 2vw;
     transition: transform 0.3s ease;
     align-items: center;
     justify-content: center;

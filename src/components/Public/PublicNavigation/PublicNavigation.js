@@ -77,14 +77,14 @@ function ResponsiveAppBar() {
             const scrollPosition = mainContainer.scrollTop;
             const viewportHeight = window.innerHeight;
     
-            console.log("Scroll position: ", scrollPosition);  // Debug log
+            //console.log("Scroll position: ", scrollPosition);  // Debug log
     
             if (scrollPosition > viewportHeight) {
-                console.log("Switch to white logo and login color");  // Debug log
+                //console.log("Switch to white logo and login color");  // Debug log
                 setCurrentLogo(whiteLogo);
                 setLoginColor(whiteLoginColor);
             } else {
-                console.log("Switch to original logo and login color");  // Debug log
+                //console.log("Switch to original logo and login color");  // Debug log
                 setCurrentLogo(logo);
                 setLoginColor(originalLoginColor);
             }
