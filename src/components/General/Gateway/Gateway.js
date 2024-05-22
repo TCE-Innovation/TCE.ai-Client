@@ -1,7 +1,7 @@
 import React from 'react';
 import { createTheme, ThemeProvider, Box, Button, GlobalStyles, Typography } from '@mui/material';
-import backgroundImage from '../../../img/Public/city.webp';
-import logo from '../../../img/Utils/logo.png';
+import backgroundImage from '../../../img/Public/tunnelPic.webp';
+import logo from '../../../img/Utils/whiteLogo.png';
 import { useMicrosoftSignIn } from "../../Account/LoginFunc";
 import styles from './gateway.module.css';
 
@@ -29,12 +29,10 @@ function Gateway() {
         }}
       />
         <Box className={styles.mainContainer}>
-            <Box className={styles.textBox}>
-                <img src={logo} alt="logo" className={styles.smallLogo} />
-                <Typography variant="h1" component="h1" gutterBottom sx={{ fontSize: '1.8vw', textAlign:"center", color: '#1b365f', }}>
-                    Welcome to the home of the <br/> TC Innovation Group
+                <Typography variant="h1" component="h1" gutterBottom className={styles.text}>
+                    Welcome to the home of <br/> the TCE Innovation Group
                 </Typography>
-            </Box>
+                <img src={logo} alt="TCE Innovation Group Logo" className={styles.smallLogo} />
             <Box className={styles.buttonBox}>
                 <Button
                     fullWidth
@@ -56,11 +54,11 @@ function Gateway() {
                         '&:hover': { borderWidth: '.3vw', borderColor: '#003eab', backgroundColor: 'rgba(255, 255, 255, 0.9)', transform: 'scale(1.05)' }, 
                     }}
                 >
-                    Sign in to the private site
+                    Employee Sign In
                 </Button>
 
-                <Typography variant="h1" component="h1" gutterBottom sx={{ fontSize: '1.4vw', textAlign:"center", marginTop: ".3vw", color: 'white' }}>
-                    
+                <Typography variant="h1" component="h1" gutterBottom sx={{ fontSize: '1.4vw', textAlign:"center", marginTop: "1vw", color: 'white' }}>
+                    OR
                 </Typography>
 
                 <Button
