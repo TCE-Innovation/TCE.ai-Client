@@ -6,7 +6,10 @@ export default styled.div`
   --chatbot-text-secondary: #6f7e95;
   --chatbot-text-primary: #2b2b2b;
   --chatbot-grey: #bfc6d0;
+  --chatbot-light-grey: #eff1f3;
   --chatbot-background: #ffffffcc;
+
+  --chatbot-border-radius: 12px;
 
   display: flex;
   height: 84vh;
@@ -23,13 +26,12 @@ export default styled.div`
       cursor: pointer;
       top: 50%;
       transform: translateY(-50%);
+      z-index: 1000;
     }
   }
   .chat-wrapper {
     flex: 1;
-    border: 1px solid var(--chatbot-grey);
-    border-radius: 1em;
-    overflow: hidden;
+    // overflow: hidden;
     max-width: 850px;
     margin: 0 auto;
     transition: all 0.5s linear;
@@ -49,6 +51,28 @@ export default styled.div`
     pointer-events: none;
     width: max-content;
     padding: 0.25em 0.5em;
+    &.align-top {
+      top: 0%;
+      left: 50%;
+      transform: translate(-50%, calc(-100% - 1em));
+      &::before {
+        border-right-color: transparent;
+        border-top-color: white;
+        left: 50%;
+        top: 100%;
+        transform: translate(-50%, 0%);
+      }
+    }
+    &.align-left {
+      left: calc(-100% - 1em);
+
+      &::before {
+        border-right-color: transparent;
+        border-left-color: white;
+        transform: translate(0%, -50%);
+        left: 100%;
+      }
+    }
   }
   .tooltip-container {
     position: relative;
@@ -59,7 +83,7 @@ export default styled.div`
     z-index: 10;
     pointer-events: none;
     user-select: none;
-    content: " ";
+    content: "";
     border: 5px solid transparent;
     left: 0;
     opacity: inherit;
@@ -69,5 +93,26 @@ export default styled.div`
   }
   .tooltip-container:hover .tooltip {
     opacity: 1;
+  }
+  .chat-button {
+    background: none;
+    outline: none;
+    border: none;
+  }
+  *::-webkit-scrollbar {
+    width: 0.75em;
+  }
+  *::-webkit-scrollbar-track {
+    background-color: var(--chatbot-light-grey);
+    border-radius: var(--chatbot-border-radius);
+  }
+
+  *::-webkit-scrollbar-thumb {
+    background-color: var(--chatbot-grey);
+    border-radius: var(--chatbot-border-radius);
+  }
+
+  *::-webkit-scrollbar-button {
+    display: none;
   }
 `;

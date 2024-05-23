@@ -1,2 +1,2 @@
-export { Chat as ChatModule } from "./chat";
-export { SideBar as ConversationsModule } from "./conversations";
+export { default as ChatModule } from "./chat";
+export { default as ConversationsModule } from "./conversations";

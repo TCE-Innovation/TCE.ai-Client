@@ -38,11 +38,11 @@ export default styled.div`
     background-color: white;
     display: flex;
     font-size: 1.1em;
-    padding: 0.5em 1.25em;
+    padding: 0.75em 1.25em;
     font-weight: bold;
     justify-content: space-between;
     align-items: center;
-    border-radius: 1em;
+    border-radius: var(--chatbot-border-radius);
     border: 1px solid var(--chatbot-grey);
     .edit-button {
       color: var(--chatbot-grey);
@@ -50,7 +50,7 @@ export default styled.div`
   }
   .conversation-list {
     position: relative;
-    border-radius: 1em;
+    border-radius: var(--chatbot-border-radius);
     background-color: white;
     padding: 0.5em;
     overflow: hidden auto;

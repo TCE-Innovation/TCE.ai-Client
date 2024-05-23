@@ -1,13 +1,11 @@
 import React from 'react'
 
-// todo
-
-const Chat = () => {
+const index = ({children}) => {
   return (
     <div>
-      chat
+      
     </div>
   )
 }
 
-export default Chat
+export default index
