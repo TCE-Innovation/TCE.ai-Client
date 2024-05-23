@@ -16,7 +16,7 @@ const Chat = () => {
     if (!loadingMessages && messages.length) {
       scrollIntoView();
     }
-  }, [loadingMessages, messages]);
+  }, [loadingMessages, messages, scrollIntoView]);
 
   return (
     <Wrapper>

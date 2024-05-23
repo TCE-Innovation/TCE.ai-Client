@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
 
-export default (key, value = null) => {
+const useStorage = (key, value = null) => {
   const [val, setVal] = useState(() => {
     const item = localStorage.getItem(key);
     if (item === null) return value;
@@ -21,3 +21,5 @@ export default (key, value = null) => {
 
   return [val, update, destroy];
 };
+
+export default useStorage
