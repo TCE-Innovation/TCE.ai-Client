@@ -1,4 +1,4 @@
-import React, { useRef, useState } from "react";
+import React, { useRef } from "react";
 
 import Conversation from "../Conversation/Conversation";
 import CreateConversation from "../CreateConversation";
@@ -8,8 +8,6 @@ import Wrapper from "./style";
 import { EditIcon, LeftIcon, RightIcon } from "../../../icons";
 
 import { useConversation, useStorage } from "../../../../hooks";
-
-import { Loader } from "../../../common";
 
 const Conversations = () => {
   const {
