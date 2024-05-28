@@ -7,6 +7,8 @@ import { useMessage, useScroll } from "../../../../hooks";
 
 import Wrapper from "./style";
 
+// import DocumentModal from "../../document/Modal";
+
 const Chat = () => {
   const { messages, loadingMessages } = useMessage();
 
