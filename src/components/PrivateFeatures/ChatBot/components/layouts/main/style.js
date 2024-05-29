@@ -101,6 +101,7 @@ export default styled.div`
   }
   *::-webkit-scrollbar {
     width: 0.75em;
+    height: 0.75em;
   }
   *::-webkit-scrollbar-track {
     background-color: var(--chatbot-light-grey);

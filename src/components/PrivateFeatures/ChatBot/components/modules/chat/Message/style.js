@@ -17,6 +17,9 @@ export default styled.div`
       line-height: 2em;
     }
   }
+  .document-open-btn {
+    color: var(--chatbot-primary);
+  }
   .author-avatar {
     font-size: var(--size);
     position: relative;
