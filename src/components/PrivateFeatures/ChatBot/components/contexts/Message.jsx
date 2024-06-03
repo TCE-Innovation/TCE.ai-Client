@@ -27,7 +27,11 @@ const MessageProvider = ({ children }) => {
   const createMessage = ({ isAI, body, id, citations }) => {
     const newMessage = { isAI, body, id };
     if (isAI && citations) newMessage["citations"] = citations;
-    setMessages((prev) => [...prev, newMessage]);
+    setMessages((prev) => {
+      const updateMessages = [...prev, newMessage];
+      saveMessagesToArchieve(currentConversation, updateMessages);
+      return updateMessages;
+    });
   };
 
   const saveMessagesToArchieve = (key, messages) => {

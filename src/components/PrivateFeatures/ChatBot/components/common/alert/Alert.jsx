@@ -16,7 +16,7 @@ const Alert = ({ message, type }) => {
   useEffect(() => {
     if (!ref.current) return;
     ref.current.classList.add("show");
-  }, [ref.current]);
+  }, []);
 
   return (
     <Wrapper>
