@@ -16,6 +16,7 @@ const useFeedback = (messageId) => {
     });
     if (!success) return createAlert({ message, type: "danger" });
     setIsEnabledLike(true);
+    setIsEnabledDisLike(false);
   };
   const handleDisLike = async () => {
     if (enabledDisLike || !messageId) return;
@@ -25,6 +26,7 @@ const useFeedback = (messageId) => {
     });
     if (!success) return createAlert({ message, type: "danger" });
     setIsEnabledDisLike(true);
+    setIsEnabledLike(false);
   };
 
   return {
