@@ -1,53 +1,58 @@
- @keyframes fadeIn {
-    from { opacity: 0; }
-    to { opacity: 1; }
-  }
-  
-  @keyframes sizeGrow {
-    from { transform: scale(0.5); }
-    to { transform: scale(1); }
-  }
+@keyframes fadeIn {
+  from { opacity: 0; }
+  to { opacity: 1; }
+}
 
-  .smallLogo {
-    height: 4vw;
-    width: 8vw;
-    margin-bottom: 1vw;
-    cursor: default;
-  }
-  
-  .mainContainer {
-    display: flex;
-    flex-grow: 1;
-    flex-direction: column;
-    align-items: center;
-    justify-content: center;
-  }
-  
-  .textBox {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    background-color: rgba(255, 255, 255, 0.9);
-    height: 14vw;
-    width: 26vw;
-    padding: 2vw;
-    border-radius: .5vw;
-    box-shadow: 0px 0px 20px 0px rgba(0, 0, 0, 0.75);
-    margin-top: 30vh;
-    animation: fadeIn 1s ease-in-out 0.5s forwards, 
-    sizeGrow 1s ease-in-out 0.5s forwards;
-  }
+@keyframes sizeGrow {
+  from { transform: scale(0.5); }
+  to { transform: scale(1); }
+}
 
-  .buttonBox {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    height: 10vw;
-    width: 26vw;
-    padding: 1vw;
-    margin-top: 2vw;
-    border-radius: .5vw;
-    animation: fadeIn 1s ease-in-out 0.5s forwards, 
-    sizeGrow 1s ease-in-out 0.5s forwards;
-  }
+.smallLogo {
+  position: absolute;
+  bottom: 2vw;
+  left: 2vw;
+  height: 8vw;
+  width: 16vw;
+  margin-bottom: 1vw;
+  cursor: default;
+  opacity: 0;
+  transform: scale(0.5);
+  animation: fadeIn 1s ease-in-out 0.5s forwards, sizeGrow 1s ease-in-out 0.5s forwards;
+}
 
+.mainContainer {
+  display: flex;
+  flex-grow: 1;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+}
+
+.buttonBox {
+  position: absolute;
+  bottom: 2vw;
+  right: 2vw;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  height: 10vw;
+  width: 26vw;
+  border-radius: .5vw;
+  opacity: 0;
+  transform: scale(0.5);
+  animation: fadeIn 1s ease-in-out 0.5s forwards, sizeGrow 1s ease-in-out 0.5s forwards;
+}
+
+.text {
+  position: absolute;
+  top: 2vw;
+  left: 2vw;
+  font-size: 6vw;
+  text-align: left;
+  color: white;
+  text-shadow: 5px 5px 5px black;
+  opacity: 0;
+  transform: scale(0.5);
+  animation: fadeIn 1s ease-in-out 0.5s forwards, sizeGrow 1s ease-in-out 0.5s forwards;
+}
