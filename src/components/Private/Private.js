@@ -25,6 +25,7 @@ import GOTracker from '../PrivateFeatures/GOTracker';
 import SubAuto from "../PrivateFeatures/SubAuto/SubAuto";
 import ScheduleDashboards from '../PrivateFeatures/ScheduleDashboards';
 import ToolUsage from "../PrivateFeatures/ToolUsage";
+import PrintingRequest from '../PrivateFeatures/3dPrinting/3dPrinting';
 import Admin from '../PrivateFeatures/AdminPanel/AdminPanel';
 
 // AUTH
@@ -83,10 +84,11 @@ function PrivateContent() {
     'Subcontractor Forms': 'sub-automation',
     'Schedule Dashboards': 'schedule-dashboards',
     'Tool Usage Stats': 'tool-usage',
+    '3D Printing Request': '3d-printing-request',
   };
 
   // Always available tools
-  const alwaysAvailableTools = useMemo(() => ['home', 'sub-automation', 'equipment-checkout', 'go-tracker', 'admin'], []);
+  const alwaysAvailableTools = useMemo(() => ['home', 'sub-automation', 'equipment-checkout', 'go-tracker', '3d-printing-request', 'admin'], []);
 
   // Split the userTools string into an array
   const userToolsArray = (userTools || '').split(',').map(tool => tool.trim());
@@ -104,6 +106,7 @@ function PrivateContent() {
     'sub-automation': SubAuto,
     'schedule-dashboards': ScheduleDashboards,
     'tool-usage': ToolUsage,
+    '3d-printing-request': PrintingRequest,
     'admin': isAdmin ? Admin : null // Admin access only
   }), [isAdmin]);
 
