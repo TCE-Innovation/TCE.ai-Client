@@ -1,21 +1,26 @@
 import React, { useState, useEffect } from 'react';
-import { FormControl, TextField, Button, Box, Select, InputLabel, MenuItem, CircularProgress } from '@mui/material';
+import { FormControl, TextField, Button, Box, Select, InputLabel, CircularProgress } from '@mui/material';
 // import { getProjects } from '../../data/api'; // Assuming you have an API function to fetch projects
 // import style from './simpleForm.module.css'; // Assuming you have some CSS for styling
-// import Typography from '@mui/material/Typography';
-// import style from './3dPrinting.module.css';
+import Typography from '@mui/material/Typography';
+import style from './3dPrinting.module.css';
+import { LocalizationProvider, DatePicker } from '@mui/x-date-pickers';
+import { AdapterDateFns } from '@mui/x-date-pickers/AdapterDateFns';
 
 
-import ZBracketCuraImage from '../../../img/Request3DPrintingImages/z_bracket_real.png';
-import ZBracketRealImage from '../../../img/Request3DPrintingImages/z_bracket_cura.png';
+import ZBracketCuraImage from '../../../img/Request3DPrintingImages/z_bracket_cura.png';
+import ZBracketRealImage from '../../../img/Request3DPrintingImages/z_bracket_real.png';
+import StairTreadCuraImage from '../../../img/Request3DPrintingImages/stair_tread_cura.png';
+import StairTreadRealImage from '../../../img/Request3DPrintingImages/stair_tread_real.png';
 
 const PrintingRequest = () => {
     // STATES
     const [isSubmitted, setIsSubmitted] = useState(false);
     const [isLoading, setIsLoading] = useState(false); 
     const [subject, setSubject] = useState('');
+    const [dateNeeded, setDateNeeded] = useState(null);
     const [project, setProject] = useState('');
-    const [projectOptions, setProjectOptions] = useState([]);
+    // const [projectOptions, setProjectOptions] = useState([]);
 
     // Asynchronously fetch project options when the component mounts
     useEffect(() => {
@@ -61,12 +66,40 @@ const PrintingRequest = () => {
     const isButtonDisabled = subject.trim() === '' || project.trim() === '';
 
     return (
-
         <>
-        <div style={{ display: 'flex', justifyContent: 'space-between', marginTop: '20px' }}>
-            <img src={ZBracketCuraImage} alt="Z Bracket Cura" style={{ width: '200px', height: '200px', marginRight: '-200px' }} />
-            <img src={ZBracketRealImage} alt="Z Bracket Real" style={{ width: '200px', height: '200px' }} />    
-        </div>
+
+    <Box display="flex" flexDirection="row" justifyContent="center" alignItems="center" mb={3}>
+            <div className={style.formDescription}>
+                If you have long lead equipment that you would like to get a 3D printed model of, please submit this form and Rory will reach out to confirm your request and coordinate handoff.
+                3D prints are limited to an area of 17.7 x 15.7 x 15.7 inches.
+            </div>
+
+
+    </Box>
+
+
+    <Box display="flex" flexDirection="row" justifyContent="center" alignItems="center" mb={3}>
+        <Box display="flex" flexDirection="column" alignItems="center" mx={1}>
+            <div style={{ display: 'flex', justifyContent: 'center', marginTop: '20px' }}>
+                <img src={ZBracketCuraImage} alt="Z Bracket Cura" style={{ width: '200px', height: '200px', margin: '0 10px' }} />
+                <img src={ZBracketRealImage} alt="Z Bracket Real" style={{ width: '200px', height: '200px', margin: '0 10px' }} />    
+            </div>
+            <Typography variant="h6" style={{ fontStyle: "italic", marginTop: "5px" }}>
+                Messenger Z-Bracket
+            </Typography>
+        </Box>
+
+        <Box display="flex" flexDirection="column" alignItems="center" mx={1}>
+            <div style={{ display: 'flex', justifyContent: 'center', marginTop: '20px' }}>
+                <img src={StairTreadCuraImage} alt="Stair Tread Cura" style={{ width: '200px', height: '200px', margin: '0 10px' }} />
+                <img src={StairTreadRealImage} alt="Stair Tread Real" style={{ width: '200px', height: '200px', margin: '0 10px' }} />    
+            </div>
+            <Typography variant="h6" style={{ fontStyle: "italic", marginTop: "5px" }}>
+                Stair Tread
+            </Typography>
+        </Box>
+    </Box>
+
 
 
         <div style={{ padding: '20px', maxWidth: '600px', margin: '0 auto' }}>
@@ -77,14 +110,8 @@ const PrintingRequest = () => {
             ) : !isSubmitted ? (
                 <div className="form-container">
                     <Box display="flex" flexDirection="column" alignItems="center">
-                        <TextField
-                            id="subject"
-                            label="Subject"
-                            value={subject}
-                            onChange={handleSubjectInputChange}
-                            style={{ margin: "8px", width: "50%", marginBottom: "20px" }}
-                        />
-                        <FormControl style={{ margin: "8px", width: "50%", marginBottom: "20px" }}>
+                        
+                        <FormControl style={{ margin: "8px", width: "70%", marginBottom: "20px" }}>
                             <InputLabel id="project-label">Project</InputLabel>
                             <Select
                                 labelId="project-label"
@@ -94,11 +121,36 @@ const PrintingRequest = () => {
                                 label="Project"
                                 required
                             >
-                                {projectOptions.map((option, index) => (
+                                {/* {projectOptions.map((option, index) => (
                                     <MenuItem key={index} value={option.name}>{option.name}</MenuItem>
-                                ))}
+                                ))} */}
                             </Select>
                         </FormControl>
+
+                        <TextField
+                            id="subject"
+                            label="Description of item to 3D print"
+                            value={subject}
+                            onChange={handleSubjectInputChange}
+                            style={{ margin: "8px", width: "70%", marginBottom: "20px" }}
+                        />
+
+                        <TextField
+                            id="subject"
+                            label="Reason for 3D print request"
+                            value={subject}
+                            onChange={handleSubjectInputChange}
+                            style={{ margin: "8px", width: "70%", marginBottom: "20px" }}
+                        />
+                        <LocalizationProvider dateAdapter={AdapterDateFns}>
+                                <DatePicker
+                                    label="Date Needed"
+                                    sx=  {{width: "70%", marginBottom: "28px", marginLeft: "0px", margin: "8px"}}
+                                    value={dateNeeded}
+                                    onChange={setDateNeeded}
+                                    renderInput={(params) => <TextField {...params} sx={{ }} />}
+                                />
+                        </LocalizationProvider>
                         <Button
                             onClick={handleSubmit}
                             variant="contained"
