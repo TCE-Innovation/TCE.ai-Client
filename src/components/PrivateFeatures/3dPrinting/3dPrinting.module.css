@@ -1,0 +1,103 @@
+.formContainer {
+    display: flex;
+    flex-direction: column;
+}
+
+.formDescription {
+    color: #1b365f;;
+    font-family: Helvetica;
+    font-size: 1.2vw;
+    font-weight: 700;
+    letter-spacing: 0;
+    line-height: normal;
+    text-align: center;
+    padding-left: 2vw;
+    padding-right: 2vw;
+}
+
+.input {
+    color: black;
+    background-color: white;
+    margin: 8px; 
+    width: 50%;
+    margin-bottom: 20px;
+}
+
+.inputWide {
+    color: black;
+    background-color: white;
+    margin: 8px; /* margin: 1px adjusted to 8px for standard CSS */
+    width: 100%;
+}
+
+.input:hover {
+    background-color: white;
+}
+
+.input .Mui-focused label {
+    color: black;
+}
+
+.button {
+    color: #1b365f;
+    border-color: #1b365f;
+    border-radius: 20px;
+    font-weight: 500;
+    margin-right: 8px; /* marginRight: 1px adjusted to 8px for standard CSS */
+    background-color: transparent;
+    margin-left: 8%;
+    width: 10%;
+    height: 10%;
+    margin-top: 2.5%;
+}
+
+.button:hover {
+    color: #1b365f;
+    border-color: #1b365f;
+    border-width: 2px;
+}
+
+.button.Mui-disabled {
+    background-color: transparent;
+    border-color: #666666;
+    color: #666666;
+}
+
+.postButton {
+    color: #1b365f;
+    border-color: #1b365f;
+    border-radius: 20px;
+    font-weight: 500;
+    margin-right: 8px; /* marginRight: 1px adjusted to 8px for standard CSS */
+    background-color: transparent;
+    width: 20%;
+    margin-top: 40px;
+}
+
+.postButton:hover {
+    color: #1b365f;
+    border-color: #1b365f;
+    border-width: 2px;
+}
+
+.box {
+    text-align: center;
+    margin-top: 20px; /* mt: 5 adjusted for standard CSS */
+    margin-bottom: 40px; /* mb: 10 adjusted for standard CSS */
+    color: black;
+    font-size: 24px;
+}
+
+.datePicker {
+    width: 25%;
+    margin-bottom: 28px; 
+    margin-left: 8px;
+    margin-top: 28px;
+}
+
+.initial {
+    width: 25%;
+    margin-bottom: 28px; 
+    margin-left: 8px;
+    margin-top: 28px;
+}

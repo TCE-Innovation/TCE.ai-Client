@@ -25,7 +25,7 @@ import GOTracker from '../PrivateFeatures/GOTracker';
 import SubAuto from "../PrivateFeatures/SubAuto/SubAuto";
 import ScheduleDashboards from '../PrivateFeatures/ScheduleDashboards';
 import ToolUsage from "../PrivateFeatures/ToolUsage";
-import PrintingRequest from '../PrivateFeatures/3dPrinting';
+import PrintingRequest from '../PrivateFeatures/3dPrinting/3dPrinting';
 import Admin from '../PrivateFeatures/AdminPanel/AdminPanel';
 
 // AUTH
