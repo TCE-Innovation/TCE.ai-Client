@@ -6,8 +6,7 @@ import ChatMessages from "../Messages/Messages";
 import { useMessage, useScroll } from "../../../../hooks";
 
 import Wrapper from "./style";
-
-// import DocumentModal from "../../document/Modal";
+import { Alerts } from "../../../common";
 
 const Chat = () => {
   const { messages, loadingMessages } = useMessage();
@@ -22,6 +21,7 @@ const Chat = () => {
 
   return (
     <Wrapper>
+      <Alerts />
       {!loadingMessages && !messages.length && (
         <>
           <h1 className="welcome-text">

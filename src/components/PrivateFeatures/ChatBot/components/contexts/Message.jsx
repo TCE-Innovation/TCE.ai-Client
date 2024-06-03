@@ -3,69 +3,83 @@ import React, {
   useContext as _useContext,
   useState,
   useEffect,
+  useRef,
 } from "react";
 
-const dummy = [
-  {
-    text: "Lorem ipsum dolor sit a",
-  },
-  {
-    text: "e omnis iste natus error sit voluptatem accusantium doloremque laudantium, totam rem aperiam, eaque ipsa quae ab illo inventore veritatis et quasi architecto beatae vitae dicta sunt explicabo. Nemo enim ipsam voluptatem quia voluptas sit aspernatur aut odit aut fugit, sed quia consequuntur magni dolores eos qui ratione voluptatem sequi nesciunt. Neque porro quisquam est, qui dolorem ipsum quia dolor sit amet, consectetur, adipisci velit, sed quia non numquam eius modi tempora incidunt ut labore et dolore magnam aliquam quaerat voluptatem. Ut enim ad minima veniam, quis nostrum exercitationem ullam corporis suscipit laboriosam, nisi ut aliquid ex ea commodi consequatur? Quis autem vel eum iu",
-  },
-  {
-    text: "Lorem ipsum dolor sit a",
-  },
-  {
-    text: "Lorem ipsum dolor sit a",
-  },
-  {
-    text: "Lorem ipsum dolor sit a",
-  },
-  {
-    text: "Lorem ipsum dolor sit a",
-  },
-  {
-    text: "Lorem ipsum dolor sit a",
-  },
-  {
-    text: "Lorem ipsum dolor sit a",
-  },
-  {
-    text: "Lorem ipsum dolor sit a",
-  },
-  {
-    text: "Lorem ipsum dolor sit a",
-  },
-];
+import { messageService } from "../../services";
+
+import { genRandomId } from "../../utils/uuid";
+
+import useConversation from "../../hooks/useConversation";
+import useAlert from "../../hooks/useAlert";
 
 const MessageContext = createContext();
 
 const MessageProvider = ({ children }) => {
-  const [loading, setLoading] = useState(true);
+  const [loading, setLoading] = useState(false);
   const [sendingMessage, setSendingMessage] = useState(false);
   const [messages, setMessages] = useState([]);
+  const { currentConversation } = useConversation();
+  const { createAlert } = useAlert();
 
-  const createMessage = (message) => {
-    setMessages((prev) => [...prev, message]);
+  const messageArchieves = useRef({});
+
+  const createMessage = ({ isAI, body, id, citations }) => {
+    const newMessage = { isAI, body, id };
+    if (isAI && citations) newMessage["citations"] = citations;
+    setMessages((prev) => [...prev, newMessage]);
   };
 
-  // simulate fetch
-  useEffect(() => {
-    setTimeout(() => {
-      setMessages(
-        dummy.map((item, i) => ({ body: item.text, isAI: i % 2 !== 0, id: i }))
-      );
-      setLoading(false);
-    }, 2000);
-  }, []);
+  const saveMessagesToArchieve = (key, messages) => {
+    messageArchieves.current = {
+      ...messageArchieves.current,
+      [key]: messages,
+    };
+  };
 
-  // simulate send
-  const sendMessage = (message) => {
-    createMessage(message);
+  const loadMessagesFromArchieve = (conversationId) => {
+    const archievedMessages = messageArchieves.current[conversationId];
+    if (archievedMessages) {
+      setMessages(archievedMessages);
+      return true;
+    }
+    return false;
+  };
+
+  useEffect(() => {
+    const getMessages = async (id) => {
+      if (!id) return;
+      const success = loadMessagesFromArchieve(id);
+      if (success) return;
+      setLoading(true);
+      const _messages = await messageService.getMessages(id);
+      setLoading(false);
+      if (!_messages) return;
+      saveMessagesToArchieve(id, _messages);
+      setMessages(_messages);
+    };
+    getMessages(currentConversation);
+  }, [currentConversation]);
+
+  const sendMessage = async (message) => {
+    if (!currentConversation) return;
     setSendingMessage(true);
-    setTimeout(() => {
-      setSendingMessage(false);
-    }, 3000);
+    createMessage({ isAI: false, body: message, id: genRandomId() });
+    const {
+      success,
+      data,
+      message: _message,
+    } = await messageService.createMessage({
+      conversationId: currentConversation,
+      message,
+    });
+    if (success) {
+      const { message, citations, id } = data;
+      createMessage({ isAI: true, body: message, id, citations });
+    } else {
+      createAlert({ message: _message, type: "danger" });
+    }
+    setSendingMessage(false);
   };
 
   return (

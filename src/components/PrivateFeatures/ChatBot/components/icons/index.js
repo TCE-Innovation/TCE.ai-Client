@@ -11,3 +11,4 @@ export { ReactComponent as LoadingIcon } from "../../assets/svg/loading.svg";
 export { ReactComponent as ErrorIcon } from "../../assets/svg/cross-circle.svg";
 export { ReactComponent as MinusIcon } from "../../assets/svg/minus.svg";
 export { ReactComponent as PlusIcon } from "../../assets/svg/plus.svg";
+export { ReactComponent as BotLoadingIcon } from "../../assets/svg/bot-loading-animation.svg";

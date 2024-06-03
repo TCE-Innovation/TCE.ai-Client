@@ -4,7 +4,6 @@ export default styled(({ active, ...rest }) => <div {...rest} />)`
   position: absolute;
   top: 0;
   left: 0;
-  padding: 5em 0;
   pointer-events: none;
   user-select: none;
   z-index: 1;
