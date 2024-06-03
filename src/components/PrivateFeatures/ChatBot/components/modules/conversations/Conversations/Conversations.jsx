@@ -9,8 +9,6 @@ import { EditIcon, LeftIcon, RightIcon } from "../../../icons";
 
 import { useConversation, useStorage } from "../../../../hooks";
 
-import { Loader } from "../../../common";
-
 const Conversations = () => {
   const {
     conversations,

@@ -12,7 +12,7 @@ const Message = ({ body, id, isAI, citations, showfeedbackbuttons = true }) => {
   return (
     <Wrapper>
       <div className="author-avatar" data-name={displayName[0].toUpperCase()}>
-        {isAI ? <img src={botImg} /> : null}
+        {isAI ? <img alt={"bot"} src={botImg} /> : null}
       </div>
       <div className="message-container">
         <div className="author">{displayName}</div>
