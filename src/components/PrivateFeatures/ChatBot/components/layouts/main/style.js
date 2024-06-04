@@ -8,8 +8,18 @@ export default styled.div`
   --chatbot-grey: #bfc6d0;
   --chatbot-light-grey: #eff1f3;
   --chatbot-background: #ffffffcc;
+  --chatbot-red: #bc1c21;
+  --chatbot-light-red: #fef3f3;
 
   --chatbot-border-radius: 12px;
+
+  .inter-font {
+    font-family: "Inter", sans-serif;
+    font-optical-sizing: auto;
+    font-weight: 400;
+    font-style: normal;
+    font-variation-settings: "slnt" 0;
+  }
 
   display: flex;
   height: 84vh;
@@ -31,6 +41,7 @@ export default styled.div`
   }
   .chat-wrapper {
     flex: 1;
+    position: relative;
     // overflow: hidden;
     max-width: 850px;
     margin: 0 auto;

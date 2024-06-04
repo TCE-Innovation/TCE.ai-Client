@@ -2,50 +2,78 @@ import React, {
   createContext,
   useContext as _useContext,
   useState,
+  useEffect,
+  useLayoutEffect,
 } from "react";
 
-import { genRandomId } from "../../utils/uuid";
-
-const dummy = [
-  {
-    id: genRandomId(),
-    title: "New Chat",
-    body: "e omnis iste natus error sit voluptatem accusantium doloremque laudantium, totam rem aperiam, eaque ipsa quae ab illo inventore veritatis et quasi architecto beatae vitae dicta sunt explicabo. Nemo enim ipsam voluptatem quia voluptas sit aspernatur aut odit aut fugit, sed quia consequuntur magni dolores eos qui ratione voluptatem sequi nesciunt. Neque porro quisquam est, qui dolorem ipsum quia dolor sit amet, consectetur, adipisci velit, sed quia non numquam eius modi tempora incidunt ut labore et dolore magnam aliquam quaerat voluptatem. Ut enim ad minima veniam, quis nostrum exercitationem ullam corporis suscipit laboriosam, nisi ut aliquid ex ea commodi consequatur? Quis autem vel eum iu",
-  },
-  {
-    id: genRandomId(),
-    title: "New Chat 2",
-    body: "Lorem ipsum dolor sit a",
-  },
-  {
-    id: genRandomId(),
-    title: "New Chat 3",
-    body: "Lorem ipsum dolor sit a",
-  },
-  {
-    id: genRandomId(),
-    title: "New Chat 4",
-    body: "Lorem ipsum dolor sit a",
-  },
-];
+import { conversationService } from "../../services";
+import useStorage from "../../hooks/useStorage";
+import useAlert from "../../hooks/useAlert";
 
 const ConversationContext = createContext();
 
-const ConversationProvider = ({ children }) => {
-  const [conversations, setConversations] = useState([...dummy]);
-  const [currentConversation, setCurrentConversation] = useState(dummy[0].id);
+export const useContext = () => _useContext(ConversationContext);
 
-  const createConversation = () => {
-    const id = genRandomId();
+const ConversationProvider = ({ children }) => {
+  const [loading, setLoading] = useState(true);
+  const [isDeleting, setIsDeleting] = useState(false);
+  const [isCreating, setIsCreating] = useState(false);
+
+  const [conversations, setConversations] = useState([]);
+  const [currentConversation, setCurrentConversation, reset] = useStorage(
+    "CHATBOT_CURRENT_CONVERSATION",
+    null
+  );
+
+  const { createAlert } = useAlert();
+
+  useLayoutEffect(() => {
+    if (!currentConversation || !conversations.length) return;
+    const isValid = conversations.some(
+      (c) => c.id.toString() === currentConversation.toString()
+    );
+    if (!isValid) {
+      reset();
+    }
+  }, [conversations, currentConversation, reset]);
+
+  const createConversation = async () => {
+    if (loading || isCreating) return;
+    setIsCreating(true);
+    const conversationId = await conversationService.createConversation();
+    setIsCreating(false);
+    if (!conversationId) return;
     setConversations((prev) => [
-      { title: "New Chat", body: "Empty", id },
+      { title: "New Chat", id: conversationId },
       ...prev,
     ]);
-    setCurrentConversation(id);
+    setCurrentConversation(conversationId);
   };
 
-  const deleteConversation = (id) => (e) => {
+  useEffect(() => {
+    const getAllConversations = async () => {
+      const conversations = await conversationService.getConversations();
+      if (conversations) {
+        setConversations(
+          conversations.map((c) => ({
+            title: c.name,
+            id: c.conversation_id,
+            body: "Empty",
+          }))
+        );
+      }
+      setLoading(false);
+    };
+    getAllConversations();
+  }, []);
+
+  const deleteConversation = (id) => async (e) => {
+    if (isDeleting) return;
     e.stopPropagation();
+    setIsDeleting(true);
+    const { message } = await conversationService.deleteConversation(id);
+    createAlert({ message });
+    setIsDeleting(false);
     const target = conversations.find((c) => c.id !== id)?.id || null;
     setConversations((prev) => prev.filter((c) => c.id !== id));
     setCurrentConversation(target);
@@ -59,13 +87,14 @@ const ConversationProvider = ({ children }) => {
         createConversation,
         deleteConversation,
         setCurrentConversation,
+        loadingConversations: loading,
+        isDeletingConversation: isDeleting,
+        isCreatingConversation: isCreating,
       }}
     >
       {children}
     </ConversationContext.Provider>
   );
 };
-
-export const useContext = () => _useContext(ConversationContext);
 
 export default ConversationProvider;

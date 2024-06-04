@@ -3,19 +3,22 @@ import Layout from "../../layouts/main";
 
 import ConversationContext from "../../contexts/Conversation";
 import MessageContext from "../../contexts/Message";
+import AlertContext from "../../contexts/Alert";
 
 import { ChatModule, ConversationsModule } from "../../modules";
 
 const index = () => {
   return (
-    <ConversationContext>
-      <Layout>
-        <ConversationsModule />
+    <AlertContext>
+      <ConversationContext>
         <MessageContext>
-          <ChatModule />
+          <Layout>
+            <ConversationsModule />
+            <ChatModule />
+          </Layout>
         </MessageContext>
-      </Layout>
-    </ConversationContext>
+      </ConversationContext>
+    </AlertContext>
   );
 };
 

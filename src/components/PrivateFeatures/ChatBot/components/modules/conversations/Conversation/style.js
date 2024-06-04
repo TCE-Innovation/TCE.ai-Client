@@ -25,6 +25,9 @@ export default styled(({ active, ...rest }) => <div {...rest} />)`
   .conversation-title {
     font-weight: bold;
     flex: 1;
+    white-space: nowrap;
+    text-overflow: ellipsis;
+    overflow: hidden;
     color: ${(props) =>
       props.active ? "white" : "var(--chatbot-text-primary)"};
   }

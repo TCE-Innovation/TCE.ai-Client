@@ -8,14 +8,16 @@ import Wrapper from "./style";
 import { EditIcon, LeftIcon, RightIcon } from "../../../icons";
 
 import { useConversation, useStorage } from "../../../../hooks";
+import { Loader } from "../../../common";
 
 const Conversations = () => {
   const {
     conversations,
     currentConversation,
     createConversation,
-    deleteConversation,
     setCurrentConversation,
+    loadingConversations: loading,
+    isCreatingConversation,
   } = useConversation();
   const [isCollapsed, setIsCollapsed] = useStorage(
     "CHATBOT-SIDEBAR-STATE",
@@ -45,17 +47,35 @@ const Conversations = () => {
         >
           <CreateConversation />
           <div className="conversation-list">
-            {conversations.length ? (
+            {isCreatingConversation && (
+              <div
+                style={{
+                  position: "relative",
+                  pointerEvents: "none",
+                  userSelect: "none",
+                }}
+              >
+                <Loader size={3} />
+                <Conversation
+                  active={false}
+                  setConversation={() => {}}
+                  title={<>&zwnj;</>}
+                  id={null}
+                />
+              </div>
+            )}
+            {loading ? (
+              <Loader />
+            ) : conversations.length ? (
               conversations.map((conversation) => (
                 <Conversation
                   key={conversation.id}
                   {...conversation}
                   active={conversation.id === currentConversation}
                   setConversation={setCurrentConversation}
-                  deleteConversation={deleteConversation(conversation.id)}
                 />
               ))
-            ) : (
+            ) : isCreatingConversation ? null : (
               <div className="empty-conversation">no conversations</div>
             )}
           </div>

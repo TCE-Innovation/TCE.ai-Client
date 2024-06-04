@@ -10,16 +10,7 @@ import "@react-pdf-viewer/core/lib/styles/index.css";
 
 import Wrapper from "./style";
 
-// const URL = "https://pdfobject.com/pdf/sample.pdf";
-
-// 65 pages
-const URL =
-  "https://chatdocstorage.blob.core.windows.net/chatbot-fulton/S48019%20-%20Vol%205%20PRDC01.06%20-%20%20EITF%20Open%20Interface%20Spec.pdf";
-// const URL =
-//   // 300+ pages
-//   "https://chatdocstorage.blob.core.windows.net/chatbot-fulton/S48019%20Vol%205%20PRDC09%20-%20Appendix%20B%20-%20MW-1%20Manual.pdf";
-
-const DocumentView = ({ onClose }) => {
+const DocumentView = ({ onClose, pdfURL, title }) => {
   const { plugins, pageControl, workerUrl, handleDocumentLoad } = useDocument([
     "approved",
   ]);
@@ -28,7 +19,7 @@ const DocumentView = ({ onClose }) => {
     <Wrapper>
       <div className="document-container">
         <DocumentHeader
-          title={URL}
+          title={title}
           currentPage={pageControl.CurrentPageLabel}
           jumpToNextPage={pageControl.jumpToNextPage}
           jumpToPreviousPage={pageControl.jumpToPreviousPage}
@@ -41,7 +32,7 @@ const DocumentView = ({ onClose }) => {
               renderLoader={(percentage) => (
                 <RenderLoader progress={percentage} />
               )}
-              fileUrl={URL}
+              fileUrl={pdfURL}
               plugins={plugins}
               defaultScale={0.7790375}
               initialPage={1}

@@ -8,6 +8,7 @@ export default styled.div`
   align-items: flex-start;
   .message-container {
     flex: 1;
+    margin-right: 1.5em;
     .author {
       font-weight: bolder;
       font-size: var(--size);
@@ -64,9 +65,12 @@ export default styled.div`
       padding: 0.5em;
       border-radius: 50%;
       color: var(--chatbot-grey);
-      &:hover {
+      &:hover:not(.settled) {
         color: var(--chatbot-primary);
         background-color: var(--chatbot-grey);
+      }
+      &.settled {
+        color: var(--chatbot-primary);
       }
     }
   }

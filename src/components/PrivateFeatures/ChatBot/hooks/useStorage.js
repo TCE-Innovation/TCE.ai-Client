@@ -1,10 +1,10 @@
-import { useEffect, useState } from "react";
+import { useCallback, useEffect, useState } from "react";
 
 const useStorage = (key, value = null) => {
   const [val, setVal] = useState(() => {
-    const item = localStorage.getItem(key);
-    if (item === null) return value;
-    return JSON.parse(item);
+    let item = localStorage.getItem(key);
+    item = item ? JSON.parse(item) : value;
+    return item;
   });
 
   useEffect(() => {
@@ -15,11 +15,11 @@ const useStorage = (key, value = null) => {
     setVal(data);
   };
 
-  const destroy = () => {
+  const destroy = useCallback(() => {
     localStorage.removeItem(key);
-  };
+  }, [key]);
 
   return [val, update, destroy];
 };
 
-export default useStorage
+export default useStorage;
