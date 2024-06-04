@@ -19,6 +19,7 @@ const PrintingRequest = () => {
     const [isSubmitted, setIsSubmitted] = useState(false);
     const [isLoading, setIsLoading] = useState(false); 
     const [subject, setSubject] = useState('');
+    const [reason, setReason] = useState('');
     const [dateNeeded, setDateNeeded] = useState(null);
     const [projectOptions, setProjectOptions] = useState({ Active: [], Bidding: [] });
     const [project, setProject] = useState('');
