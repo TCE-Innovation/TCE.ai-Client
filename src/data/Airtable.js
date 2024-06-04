@@ -36,6 +36,17 @@ export async function getPBILog() {
     }    
 }
 
+//function to get overview dashboard link from airtable base
+export async function getOverviewDashboardLink() {
+    try{
+        const {data} = await axios.get('https://tce-ai-api.azurewebsites.net/api/get-overview-dashboard-link');
+        return data;
+    }
+    catch(error){
+        console.error('Error getting Overview Dashboard Link:', error);
+    }    
+}
+
 //function to send private form data to airtable base
 export async function sendPrivateFormData(name, email, description) {
     try{

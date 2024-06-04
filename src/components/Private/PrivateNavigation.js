@@ -65,6 +65,8 @@ function ResponsiveAppBar() {
                 return 'Tool Usage Statistics';
             case 'schedule-dashboards':
                 return 'Schedule Dashboards';
+            case 'overview-dashboard':
+                return 'Overview Dashboard';
             case 'admin':
                 return 'Admin Panel';
             default:

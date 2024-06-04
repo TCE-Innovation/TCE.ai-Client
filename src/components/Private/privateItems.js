@@ -13,6 +13,7 @@ import DevicesOtherIcon from '@mui/icons-material/DevicesOther';
 import ArticleOutlinedIcon from '@mui/icons-material/ArticleOutlined';
 import DonutSmallOutlinedIcon from '@mui/icons-material/DonutSmallOutlined';
 import InsertChartOutlinedIcon from '@mui/icons-material/InsertChartOutlined';
+import DataThresholdingOutlinedIcon from '@mui/icons-material/DataThresholdingOutlined';
 import AdminPanelSettingsOutlinedIcon from '@mui/icons-material/AdminPanelSettingsOutlined';
 
 // CONTEXT
@@ -55,6 +56,7 @@ const PrivateListItems = ({ tool }) => {
         // { to: '/private/chat-bot', text: 'Chat Bot', icon: <ForumOutlinedIcon />, key: 'chat-bot' },
         { to: '/private/cable-run-optimizer', text: 'Cable Run Optimizer', icon: <SpokeOutlinedIcon />, key: 'cable-run-optimizer' },
         { to: '/private/schedule-dashboards', text: 'Schedule Dashboards', icon: <InsertChartOutlinedIcon />, key: 'schedule-dashboards'},
+        { to: '/private/overview-dashboard', text: 'Overview Dashboard', icon: <DataThresholdingOutlinedIcon />, key: 'overview-dashboard'},
         { to: '/private/tool-usage', text: 'Tool Usage Stats', icon: <DonutSmallOutlinedIcon />, key: 'tool-usage' }
     ];
 
