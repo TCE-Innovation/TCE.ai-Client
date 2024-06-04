@@ -82,24 +82,31 @@ const PrintingRequest = () => {
     <Box display="flex" flexDirection="row" justifyContent="center" alignItems="center" mb={3}>
             <div className={style.formDescription}>
                 If you have long lead equipment that you would like to get a 3D printed model of, please submit this form and Rory will reach out to confirm your request and coordinate handoff.
-                3D prints are limited to an area of 17.7 x 15.7 x 15.7 inches.
+                
             </div>
+    </Box>
+
+    <Box display="flex" flexDirection="row" justifyContent="center" alignItems="center" mb={3}>
+        <div className={style.formDescription}>
+            Past 3D Prints:                 
+        </div>
     </Box>
 
     {/* IMAGES */}
     <Box display="flex" flexDirection="row" justifyContent="center" alignItems="center" mb={3}>
+
         <Box display="flex" flexDirection="column" alignItems="center" mx={1}>
-            <div style={{ display: 'flex', justifyContent: 'center', marginTop: '20px' }}>
+            <div style={{ display: 'flex', justifyContent: 'center', marginTop: '-15px' }}>
                 <img src={ZBracketCuraImage} alt="Z Bracket Cura" style={{ width: '200px', height: '200px', margin: '0 10px' }} />
                 <img src={ZBracketRealImage} alt="Z Bracket Real" style={{ width: '200px', height: '200px', margin: '0 10px' }} />    
             </div>
             <Typography variant="h6" style={{ fontStyle: "italic", marginTop: "5px" }}>
-                Messenger Z-Bracket
+                Z Messenger Bracket
             </Typography>
         </Box>
 
         <Box display="flex" flexDirection="column" alignItems="center" mx={1}>
-            <div style={{ display: 'flex', justifyContent: 'center', marginTop: '20px' }}>
+            <div style={{ display: 'flex', justifyContent: 'center', marginTop: '-15px' }}>
                 <img src={StairTreadCuraImage} alt="Stair Tread Cura" style={{ width: '200px', height: '200px', margin: '0 10px' }} />
                 <img src={StairTreadRealImage} alt="Stair Tread Real" style={{ width: '200px', height: '200px', margin: '0 10px' }} />    
             </div>
@@ -141,6 +148,10 @@ const PrintingRequest = () => {
                             ))}
                         </Select>
                     </FormControl>
+                    
+                    <Typography variant="body2" style={{ color: 'red', marginTop: '-10px', width: '70%', textAlign: 'center' }}>
+                        * Print size must be within 17.7" x 15.7" x 15.7"
+                    </Typography>
 
                     <TextField
                         id="subject"
