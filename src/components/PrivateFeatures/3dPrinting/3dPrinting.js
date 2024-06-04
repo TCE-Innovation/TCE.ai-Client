@@ -7,18 +7,19 @@ import Typography from '@mui/material/Typography';
 import style from './3dPrinting.module.css';
 import { LocalizationProvider, DatePicker } from '@mui/x-date-pickers';
 import { AdapterDateFns } from '@mui/x-date-pickers/AdapterDateFns';
-import { sendAssetFormData, getActiveProjects } from '../../../data/Airtable';
+import { send3dPrintingFormData, getActiveProjects } from '../../../data/Airtable';
 
 import ZBracketCuraImage from '../../../img/Request3DPrintingImages/z_bracket_cura.png';
 import ZBracketRealImage from '../../../img/Request3DPrintingImages/z_bracket_real.png';
 import StairTreadCuraImage from '../../../img/Request3DPrintingImages/stair_tread_cura.png';
 import StairTreadRealImage from '../../../img/Request3DPrintingImages/stair_tread_real.png';
+// import { set } from 'date-fns';
 
 const PrintingRequest = () => {
     // STATES
     const [isSubmitted, setIsSubmitted] = useState(false);
     const [isLoading, setIsLoading] = useState(false); 
-    const [subject, setSubject] = useState('');
+    const [item, setItem] = useState('');
     const [reason, setReason] = useState('');
     const [dateNeeded, setDateNeeded] = useState(null);
     const [projectOptions, setProjectOptions] = useState({ Active: [], Bidding: [] });
@@ -26,7 +27,7 @@ const PrintingRequest = () => {
     // const [projectOptions, setProjectOptions] = useState([]);
 
     // useContext for email
-    const { userName, userEmail, userProjects } = useContext(AuthContext);
+    const {userEmail, userProjects } = useContext(AuthContext);
 
     // Asynchronously fetch project options when the component mounts
     useEffect(() => {
@@ -48,8 +49,12 @@ const PrintingRequest = () => {
     }, [userProjects]);
 
     // HANDLER FUNCTIONS
-    const handleSubjectInputChange = (event) => {
-        setSubject(event.target.value);
+    const handleItemInputChange = (event) => {
+        setItem(event.target.value);
+    };
+
+    const handleReasonInputChange = (event) => {
+        setReason(event.target.value);
     };
     
     const handleProjectInputChange = (event) => {
@@ -59,32 +64,53 @@ const PrintingRequest = () => {
     const handleSubmit = () => {
         setIsLoading(true);
         
-        console.log(subject, project);
-        // Simulate an API call
-        setTimeout(() => {
-            setIsSubmitted(true);
-            setIsLoading(false);
-        }, 1000);
+        console.log(item, project);
+        
+        send3dPrintingFormData(item, reason, project, dateNeeded, userEmail)
+            .then(() => {
+                setIsSubmitted(true);
+            })
+            .catch(error => {
+                console.error('Error submitting form data:', error);
+            })
+            .finally(() => {
+                setIsLoading(false); // Stop loading regardless of the outcome
+            });
     };
 
     const handleNewSubmission = () => {
         setIsSubmitted(false);
-        setSubject('');
+        setItem('');
         setProject('');
+        setDateNeeded(null);
+        setReason('');
     };
 
     // Check if the button should be disabled
-    const isButtonDisabled = subject.trim() === '' || project.trim() === '';
+    const isButtonDisabled = item.trim() === '' || project.trim() === '';
 
     return (
         <>
 
     {/* OPENING TEXT */}
-    <Box display="flex" flexDirection="row" justifyContent="center" alignItems="center" mb={3}>
-            <div className={style.formDescription}>
-                If you have long lead equipment that you would like to get a 3D printed model of, please submit this form and Rory will reach out to confirm your request and coordinate handoff.
-                
-            </div>
+    <Box display="flex" flexDirection="column" justifyContent="center" alignItems="center" mb={3}>
+        <div className={style.formDescription} style={{ textAlign: 'left' }}>
+            Prototyping with 3D printing offers significant value in the construction industry, 
+            particularly when developing custom brackets and materials. 
+            This technology allows for rapid iteration and testing, 
+            ensuring that the designs fit precisely and function as intended before committing to mass production. 
+            By creating accurate physical models, engineers and craft labor can review and refine the ease of installation, 
+            identifying potential issues and making adjustments early in the process. 
+            This not only enhances the overall quality and performance of the final product but also reduces the risk of costly errors and delays.                 
+        </div>
+        <div className={style.formDescription} style={{ textAlign: 'left', marginTop: '20px' }}>
+            In order to request a 3D print, please fill out the form below. 
+            After submitting your request, Rory will reach out to you to discuss the details of your requested print and coordinate handoff.
+        </div>
+
+        <div className={style.formDescription} style={{ textAlign: 'left', marginTop: '20px' }}>
+            Please note: prints beyond 17.7" x 15.7" x 15.7" will be printed in multiple parts, which may take longer.
+        </div>
     </Box>
 
     <Box display="flex" flexDirection="row" justifyContent="center" alignItems="center" mb={3}>
@@ -150,23 +176,23 @@ const PrintingRequest = () => {
                         </Select>
                     </FormControl>
                     
-                    <Typography variant="body2" style={{ color: 'red', marginTop: '-10px', width: '70%', textAlign: 'center' }}>
+                    {/* <Typography variant="body2" style={{ color: 'red', marginTop: '-10px', width: '70%', textAlign: 'center' }}>
                         * Print size must be within 17.7" x 15.7" x 15.7"
-                    </Typography>
+                    </Typography> */}
 
                     <TextField
-                        id="subject"
+                        id="item"
                         label="Description of item to 3D print"
-                        value={subject}
-                        onChange={handleSubjectInputChange}
+                        value={item}
+                        onChange={handleItemInputChange}
                         style={{ margin: "8px", width: "70%", marginBottom: "20px" }}
                     />
 
                     <TextField
-                        id="subject"
+                        id="reason"
                         label="Reason for 3D print request"
-                        value={subject}
-                        onChange={handleSubjectInputChange}
+                        value={reason}
+                        onChange={handleReasonInputChange}
                         style={{ margin: "8px", width: "70%", marginBottom: "20px" }}
                     />
                     <LocalizationProvider dateAdapter={AdapterDateFns}>
