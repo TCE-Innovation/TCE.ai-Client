@@ -66,7 +66,7 @@ const PrivateListItems = ({ tool }) => {
     },
     {
       to: "/private/chat-bot",
-      text: "Chat Bot",
+      text: "Chatbot",
       icon: <ForumOutlinedIcon />,
       key: "chat-bot",
     },
