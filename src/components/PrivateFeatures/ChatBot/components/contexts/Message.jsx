@@ -11,7 +11,7 @@ import { messageService } from "../../services";
 import { genRandomId } from "../../utils/uuid";
 
 import useConversation from "../../hooks/useConversation";
-import useAlert from "../../hooks/useAlert";
+import useGlobal from "../../hooks/useGlobal";
 
 const MessageContext = createContext();
 
@@ -20,7 +20,7 @@ const MessageProvider = ({ children }) => {
   const [sendingMessage, setSendingMessage] = useState(false);
   const [messages, setMessages] = useState([]);
   const { currentConversation } = useConversation();
-  const { createAlert } = useAlert();
+  const { createAlert } = useGlobal();
 
   const messageArchieves = useRef({});
 
@@ -53,17 +53,22 @@ const MessageProvider = ({ children }) => {
   useEffect(() => {
     const getMessages = async (id) => {
       if (!id) return;
-      const success = loadMessagesFromArchieve(id);
-      if (success) return;
+      const loadSuccess = loadMessagesFromArchieve(id);
+      if (loadSuccess) return;
       setLoading(true);
-      const _messages = await messageService.getMessages(id);
+      const {
+        data: _messages,
+        success,
+        message,
+      } = await messageService.getMessages(id);
       setLoading(false);
+      if (!success) createAlert({ message, type: "danger" });
       if (!_messages) return;
       saveMessagesToArchieve(id, _messages);
       setMessages(_messages);
     };
     getMessages(currentConversation);
-  }, [currentConversation]);
+  }, [currentConversation, createAlert]);
 
   const sendMessage = async (message) => {
     if (!currentConversation) return;

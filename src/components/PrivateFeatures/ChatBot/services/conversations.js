@@ -3,11 +3,11 @@ import { client } from "../http";
 const route = "/user/conversations";
 
 export const getConversations = async () => {
-  const { data, success } = await client.get(route);
+  const { data, success, message } = await client.get(route);
   if (success) {
-    return data;
+    return { data, success: true };
   } else {
-    return null;
+    return { data: null, success: false, message };
   }
 };
 

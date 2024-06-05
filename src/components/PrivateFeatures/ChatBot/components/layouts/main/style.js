@@ -23,7 +23,7 @@ export default styled.div`
 
   display: flex;
   height: 84vh;
-  gap: 1em;
+  gap: 2em;
   border-radius: 1em;
   .conversation-wrapper {
     position: relative;
@@ -42,14 +42,13 @@ export default styled.div`
   .chat-wrapper {
     flex: 1;
     position: relative;
-    // overflow: hidden;
-    max-width: 850px;
-    margin: 0 auto;
+    padding: 0 5em;
     transition: all 0.5s linear;
   }
   .tooltip {
     position: absolute;
     top: 50%;
+    text-transform: capitalize;
     left: calc(100% + 1em);
     transform: translateY(-50%);
     border-radius: 0.25em;

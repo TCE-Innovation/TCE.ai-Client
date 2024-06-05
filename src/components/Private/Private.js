@@ -1,5 +1,5 @@
 import React, { useContext, useEffect, useMemo } from 'react';
-import { useParams, useNavigate } from 'react-router-dom';
+import { useParams, useNavigate, useLocation } from 'react-router-dom';
 import { styled, createTheme, ThemeProvider } from '@mui/material/styles';
 import CssBaseline from '@mui/material/CssBaseline';
 import MuiDrawer from '@mui/material/Drawer';
@@ -73,6 +73,7 @@ function PrivateContent() {
 
   const { userName, userTools } = useContext(AuthContext);
   const isAdmin = adminList.includes(userName);
+  const location = useLocation()
 
   // Mapping full names of tools to their URL ends
   const toolNameMap = {
@@ -131,7 +132,7 @@ function PrivateContent() {
         </header>
       </div>
 
-      <Box sx={{ display: 'flex' }}>
+      <Box sx={{ display: 'flex', backgroundColor:location.pathname.endsWith("chat-bot") ? "rgb(248, 241, 215)" : "" }}>
         <CssBaseline />
         <Drawer variant="permanent" open={open}>
           <Toolbar

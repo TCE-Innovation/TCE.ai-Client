@@ -28,7 +28,6 @@ export default styled.div`
     border-radius: 0.25em;
     display: flex;
     justify-content: center;
-    border: 1px solid var(--chatbot-grey);
     align-items: center;
   }
   display: flex;
@@ -43,7 +42,6 @@ export default styled.div`
     justify-content: space-between;
     align-items: center;
     border-radius: var(--chatbot-border-radius);
-    border: 1px solid var(--chatbot-grey);
     .edit-button {
       color: var(--chatbot-grey);
     }
@@ -55,7 +53,6 @@ export default styled.div`
     padding: 0.5em;
     overflow: hidden auto;
     flex: 1;
-    border: 1px solid var(--chatbot-grey);
     .conversation.active {
       color: white;
       background-color: var(--chatbot-primary);

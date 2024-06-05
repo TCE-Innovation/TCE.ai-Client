@@ -2,7 +2,6 @@ import styled from "styled-components";
 
 export default styled.div`
   display: flex;
-  border: 1px solid var(--chatbot-grey);
   border-radius: var(--chatbot-border-radius);
   background-color: var(--chatbot-background);
   flex-direction: column;
@@ -29,5 +28,15 @@ export default styled.div`
       border: none;
       outline: none;
     }
+  }
+  .chatbot-live-status {
+    position: absolute;
+    top: 0;
+    right: 0;
+    background-color: var(--chatbot-secondary);
+    border-radius: 0.25em;
+    padding: 0.25em 0.5em;
+    font-weight: 600;
+    color: var(--chatbot-text-primary);
   }
 `;

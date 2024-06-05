@@ -3,10 +3,10 @@ import Alert from "../alert/Alert";
 
 import Wrapper from "./style";
 
-import { useAlert } from "../../../hooks";
+import { useGlobal } from "../../../hooks";
 
 const Alerts = () => {
-  const { alerts, handleRemoveAlert } = useAlert();
+  const { alerts, handleRemoveAlert } = useGlobal();
   return (
     <Wrapper duration={3}>
       <div className="alert-container">

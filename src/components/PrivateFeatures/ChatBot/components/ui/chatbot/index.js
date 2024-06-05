@@ -3,13 +3,13 @@ import Layout from "../../layouts/main";
 
 import ConversationContext from "../../contexts/Conversation";
 import MessageContext from "../../contexts/Message";
-import AlertContext from "../../contexts/Alert";
+import GlobalContext from "../../contexts/Global";
 
 import { ChatModule, ConversationsModule } from "../../modules";
 
 const index = () => {
   return (
-    <AlertContext>
+    <GlobalContext>
       <ConversationContext>
         <MessageContext>
           <Layout>
@@ -18,7 +18,7 @@ const index = () => {
           </Layout>
         </MessageContext>
       </ConversationContext>
-    </AlertContext>
+    </GlobalContext>
   );
 };
 

@@ -8,7 +8,7 @@ import React, {
 
 import { conversationService } from "../../services";
 import useStorage from "../../hooks/useStorage";
-import useAlert from "../../hooks/useAlert";
+import useGlobal from "../../hooks/useGlobal";
 
 const ConversationContext = createContext();
 
@@ -25,7 +25,7 @@ const ConversationProvider = ({ children }) => {
     null
   );
 
-  const { createAlert } = useAlert();
+  const { createAlert } = useGlobal();
 
   useLayoutEffect(() => {
     if (!currentConversation || !conversations.length) return;
@@ -52,27 +52,33 @@ const ConversationProvider = ({ children }) => {
 
   useEffect(() => {
     const getAllConversations = async () => {
-      const conversations = await conversationService.getConversations();
+      const {
+        data: conversations,
+        success,
+        message,
+      } = await conversationService.getConversations();
+      if (!success) {
+        createAlert({ message, type: "danger" });
+      }
       if (conversations) {
         setConversations(
           conversations.map((c) => ({
             title: c.name,
             id: c.conversation_id,
-            body: "Empty",
           }))
         );
       }
       setLoading(false);
     };
     getAllConversations();
-  }, []);
+  }, [createAlert]);
 
   const deleteConversation = (id) => async (e) => {
     if (isDeleting) return;
     e.stopPropagation();
     setIsDeleting(true);
     const { message } = await conversationService.deleteConversation(id);
-    createAlert({ message });
+    createAlert({ message, type: "danger" });
     setIsDeleting(false);
     const target = conversations.find((c) => c.id !== id)?.id || null;
     setConversations((prev) => prev.filter((c) => c.id !== id));
