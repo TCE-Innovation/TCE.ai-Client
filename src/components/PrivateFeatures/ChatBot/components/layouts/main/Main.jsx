@@ -1,13 +1,20 @@
 import React, { Children } from "react";
 
 import Wrapper from "./style";
+import { useGlobal } from "../../../hooks";
 
 const MainLayout = ({ children }) => {
   const [Conversations, Chat] = Children.toArray(children);
+  const { conversationsCollapsed: isCollapsed } = useGlobal();
   return (
     <Wrapper>
       <div className="conversation-wrapper">{Conversations}</div>
-      <div className="chat-wrapper">{Chat}</div>
+      <div
+        className="chat-wrapper"
+        style={{ paddingInline: !isCollapsed ? "0" : "5em" }}
+      >
+        {Chat}
+      </div>
     </Wrapper>
   );
 };
