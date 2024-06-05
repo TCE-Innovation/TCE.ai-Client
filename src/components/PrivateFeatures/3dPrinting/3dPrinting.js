@@ -108,10 +108,109 @@ const PrintingRequest = () => {
             After submitting your request, Rory will reach out to you to discuss the details of your requested print and coordinate handoff.
         </div>
 
-        <div className={style.formDescription} style={{ textAlign: 'left', marginTop: '20px' }}>
+        {/* <div className={style.formDescription} style={{ textAlign: 'left', marginTop: '20px' }}>
             Please note: prints beyond 17.7" x 15.7" x 15.7" will be printed in multiple parts, which may take longer.
-        </div>
+        </div> */}
     </Box>
+
+    
+
+
+    {/* FORM */}
+    <div style={{ padding: '20px', maxWidth: '1200px', margin: '0 auto' }}>
+
+        {isLoading ? (
+            <CircularProgress style={{ display: 'block', margin: '0 auto' }} />
+        ) : !isSubmitted ? (
+            <div className="form-container">
+                <Box display="flex" flexDirection="column" alignItems="center">
+            <Box display="flex" flexDirection="row" justifyContent="space-between" width="100%">
+              <FormControl style={{ margin: "0px", width: "47%", marginLeft: "20px" }}>
+                <InputLabel id="project-label">Project</InputLabel>
+                <Select
+                  labelId="project-label"
+                  id="project"
+                  value={project}
+                  onChange={handleProjectInputChange}
+                  label="Project"
+                  required
+                >
+                  <MenuItem value="Non-Project - 1010">Non-Project - 1010</MenuItem>
+                  <ListSubheader>My Active Jobs</ListSubheader>
+                  {Array.isArray(projectOptions.Active) && projectOptions.Active.map((option, index) => (
+                    <MenuItem key={index} value={option}>{option}</MenuItem>
+                  ))}
+                  <ListSubheader>Pursuits</ListSubheader>
+                  {Array.isArray(projectOptions.Bidding) && projectOptions.Bidding.map((option, index) => (
+                    <MenuItem key={index} value={option.name}>{option.name}</MenuItem>
+                  ))}
+                </Select>
+              </FormControl>
+              <Box style={{ paddingLeft: "150px" }}>
+              <LocalizationProvider dateAdapter={AdapterDateFns}>
+                <DatePicker
+                  label="Date Needed"
+                  value={dateNeeded}
+                  onChange={setDateNeeded}
+                  renderInput={(params) => <TextField {...params} style={{ marginTop: "10px", width: "40%", paddingRight: "150px" }} />}
+                />
+              </LocalizationProvider>
+              </Box>
+            </Box>
+
+            <Box display="flex" flexDirection="row" justifyContent="space-between" width="100%">
+              <TextField
+                id="item"
+                label="Description of item to 3D print"
+                value={item}
+                onChange={handleItemInputChange}
+                style={{ margin: "20px", width: "70%" }}
+              />
+
+              <TextField
+                id="reason"
+                label="Reason for 3D print request"
+                value={reason}
+                onChange={handleReasonInputChange}
+                style={{ margin: "20px", width: "70%", marginLeft: "10px"}}
+              />
+            </Box>
+            
+            <Typography variant="body2" style={{ color: 'red', marginTop: '5px', width: '70%', textAlign: 'center' }}>
+                * Please note: prints beyond 17.7" x 15.7" x 15.7" will be printed in multiple pieces, which may take longer.
+
+            </Typography>
+
+            <Button
+              onClick={handleSubmit}
+              variant="contained"
+              color="primary"
+              style={{ width: "50%", marginTop: "20px" }}
+              disabled={isButtonDisabled}
+            >
+              Submit
+            </Button>
+          </Box>
+            </div>
+        ) : (
+            <div className="form-container" style={{ textAlign: "center", color: "#1b365f" }}>
+                <div>Thank you for your submission.</div>
+                <Button
+                    onClick={handleNewSubmission}
+                    variant="outlined"
+                    style={{ 
+                        width: "50%", 
+                        marginTop: "20px",
+                        color: "#1b365f",
+                        borderColor: "#1b365f",
+                        fontWeight: "500",
+                    }}
+                >
+                    Submit another request
+                </Button>
+            </div>
+        )}
+    </div>
 
     <Box display="flex" flexDirection="row" justifyContent="center" alignItems="center" mb={3}>
         <div className={style.formDescription}>
@@ -142,98 +241,6 @@ const PrintingRequest = () => {
             </Typography>
         </Box>
     </Box>
-
-
-    {/* FORM */}
-    <div style={{ padding: '20px', maxWidth: '600px', margin: '0 auto' }}>
-
-        
-        {isLoading ? (
-            <CircularProgress style={{ display: 'block', margin: '0 auto' }} />
-        ) : !isSubmitted ? (
-            <div className="form-container">
-                <Box display="flex" flexDirection="column" alignItems="center">
-                    
-                    <FormControl style={{ margin: "8px", width: "70%", marginBottom: "20px" }}>
-                        <InputLabel id="project-label">Project</InputLabel>
-                        <Select
-                            labelId="project-label"
-                            id="project"
-                            value={project}
-                            onChange={handleProjectInputChange}
-                            label="Project"
-                            required
-                            >
-                            <MenuItem value="Non-Project - 1010">Non-Project - 1010</MenuItem>
-                            <ListSubheader>My Active Jobs</ListSubheader>
-                            {Array.isArray(projectOptions.Active) && projectOptions.Active.map((option, index) => (
-                                <MenuItem key={index} value={option}>{option}</MenuItem>
-                            ))}
-                            <ListSubheader>Pursuits</ListSubheader>
-                            {Array.isArray(projectOptions.Bidding) && projectOptions.Bidding.map((option, index) => (
-                                <MenuItem key={index} value={option.name}>{option.name}</MenuItem>
-                            ))}
-                        </Select>
-                    </FormControl>
-                    
-                    {/* <Typography variant="body2" style={{ color: 'red', marginTop: '-10px', width: '70%', textAlign: 'center' }}>
-                        * Print size must be within 17.7" x 15.7" x 15.7"
-                    </Typography> */}
-
-                    <TextField
-                        id="item"
-                        label="Description of item to 3D print"
-                        value={item}
-                        onChange={handleItemInputChange}
-                        style={{ margin: "8px", width: "70%", marginBottom: "20px" }}
-                    />
-
-                    <TextField
-                        id="reason"
-                        label="Reason for 3D print request"
-                        value={reason}
-                        onChange={handleReasonInputChange}
-                        style={{ margin: "8px", width: "70%", marginBottom: "20px" }}
-                    />
-                    <LocalizationProvider dateAdapter={AdapterDateFns}>
-                            <DatePicker
-                                label="Date Needed"
-                                sx=  {{width: "70%", marginBottom: "28px", marginLeft: "0px", margin: "8px"}}
-                                value={dateNeeded}
-                                onChange={setDateNeeded}
-                                renderInput={(params) => <TextField {...params} sx={{ }} />}
-                            />
-                    </LocalizationProvider>
-                    <Button
-                        onClick={handleSubmit}
-                        variant="contained"
-                        color="primary"
-                        style={{ width: "50%", marginTop: "20px" }}
-                        disabled={isButtonDisabled}
-                    >
-                        Submit
-                    </Button>
-                </Box>
-            </div>
-        ) : (
-            <div className="form-container" style={{ textAlign: "center", color: "#1b365f" }}>
-                <div>Thank you for your submission.</div>
-                <Button
-                    onClick={handleNewSubmission}
-                    variant="outlined"
-                    style={{ 
-                        width: "50%", 
-                        marginTop: "20px",
-                        color: "#1b365f",
-                        borderColor: "#1b365f",
-                        fontWeight: "500",
-                    }}
-                >
-                    Submit another request
-                </Button>
-            </div>
-        )}
-    </div>
 
     </>
     );
