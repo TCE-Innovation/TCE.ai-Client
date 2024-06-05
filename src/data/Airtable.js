@@ -92,6 +92,17 @@ export async function sendSupportFormData(formData) {
     }    
 }
 
+//function to send 3D printing form data to airtable base
+export async function send3dPrintingFormData(item, reason, project, dateNeeded, email) {
+    try{
+        const {data} = await axios.post('https://tce-ai-api.azurewebsites.net/api/send-3d-printing-form', { item, reason, project, dateNeeded, email } );
+        return data;
+    }
+    catch(error){
+        console.error('Error sending asset form data:', error);
+    }    
+}
+
 //function to log when someone has signed into the site
 export async function updateUserLog(name) {
     try{
