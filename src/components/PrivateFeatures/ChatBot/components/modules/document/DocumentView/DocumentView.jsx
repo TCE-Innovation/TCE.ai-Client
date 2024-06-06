@@ -1,22 +1,23 @@
 import React from "react";
 import { Viewer, Worker } from "@react-pdf-viewer/core";
+import "@react-pdf-viewer/core/lib/styles/index.css";
 
 import DocumentHeader from "./DocumentHeader";
 import RenderLoader from "./RenderLoader";
 
-import { useDocument } from "../../../../hooks";
-
-import "@react-pdf-viewer/core/lib/styles/index.css";
+import { useDocument, useOutsideClick } from "../../../../hooks";
 
 import Wrapper from "./style";
 
-const DocumentView = ({ onClose, pdfURL, title }) => {
+const DocumentView = ({ onClose, pdfURL, title, highlightedText }) => {
   const { plugins, pageControl, workerUrl, handleDocumentLoad } = useDocument([
-    "approved",
+    highlightedText,
   ]);
 
+  const { targetRef } = useOutsideClick({ onClickOutside: onClose });
+
   return (
-    <Wrapper>
+    <Wrapper ref={targetRef}>
       <div className="document-container">
         <DocumentHeader
           title={title}
@@ -34,8 +35,7 @@ const DocumentView = ({ onClose, pdfURL, title }) => {
               )}
               fileUrl={pdfURL}
               plugins={plugins}
-              defaultScale={0.7790375}
-              initialPage={1}
+              defaultScale={1}
               onDocumentLoad={handleDocumentLoad}
             />
           </Worker>

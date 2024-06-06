@@ -26,6 +26,7 @@ const Citation = ({ highlightedText, pageNumber, url, title }) => {
       <DocumentModal
         pdfURL={url}
         title={title}
+        highlightedText={highlightedText}
         show={show}
         onClose={() => setShow(false)}
       />

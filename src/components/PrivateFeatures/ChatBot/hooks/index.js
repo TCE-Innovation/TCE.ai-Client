@@ -5,3 +5,4 @@ export { default as useScroll } from "./useScroll";
 export { default as useDocument } from "./useDocument";
 export { default as useGlobal } from "./useGlobal";
 export { default as useFeedback } from "./useFeedback";
+export { default as useOutsideClick } from "./useOutsideClick";

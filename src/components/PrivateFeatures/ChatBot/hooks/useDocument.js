@@ -45,6 +45,8 @@ const useDocument = (highlights = []) => {
     renderHighlights,
   });
 
+  const { highlight } = searchPluginInstance;
+
   const updateMatchPage = (offset) => {
     const currentPageIndex = currentMatchPageRef.current;
     const newPageIndex = currentPageIndex + offset;
@@ -54,12 +56,11 @@ const useDocument = (highlights = []) => {
       currentMatchPageRef.current =
         newPageIndex % uniquePageMatcheIndices.length;
     const page = uniquePageMatcheIndices[currentMatchPageRef.current];
-    jumpToMatch(page);
+    jumpToPage(page);
   };
 
-  const { highlight, jumpToMatch } = searchPluginInstance;
-
-  const { CurrentPageLabel, NumberOfPages } = pageNavigationPluginInstance;
+  const { CurrentPageLabel, NumberOfPages, jumpToPage } =
+    pageNavigationPluginInstance;
 
   const handleDocumentLoad = () => {
     setTimeout(async () => {

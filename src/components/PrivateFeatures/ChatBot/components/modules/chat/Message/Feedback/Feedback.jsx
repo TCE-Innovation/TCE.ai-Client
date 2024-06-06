@@ -15,7 +15,7 @@ const Feedback = ({ messageId }) => {
         }`}
       >
         <LikeIcon />
-        {!enabledLike && <div className="tooltip align-top">like</div>}
+        <div className="tooltip align-top">like</div>
       </button>
       <button
         onClick={handleDisLike}
@@ -24,7 +24,7 @@ const Feedback = ({ messageId }) => {
         }`}
       >
         <DisLikeIcon />
-        {!enabledDisLike && <div className="tooltip align-top">dislike</div>}
+        <div className="tooltip align-top">dislike</div>
       </button>
     </div>
   );
