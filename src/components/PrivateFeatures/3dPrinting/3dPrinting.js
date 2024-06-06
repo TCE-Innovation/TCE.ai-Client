@@ -203,7 +203,7 @@ const PrintingRequest = () => {
                     </Box>
 
                     <Typography variant="body2" style={{ color: 'red', marginTop: '-5px', marginBottom: '5px', marginRight: '240px', width: '70%', textAlign: 'center' }}>
-                        * Please note: prints beyond 17.7" x 15.7" x 15.7" will be printed in multiple pieces, which may take longer.
+                        * Please note: requests beyond 17.7" x 15.7" x 15.7" will be printed in multiple pieces, which may take longer.
                     </Typography>
             </Box>
                 </div>
@@ -235,14 +235,14 @@ const PrintingRequest = () => {
             </Box>
 
             {/* IMAGES */}
-            <Box display="flex" flexDirection="row" justifyContent="center" alignItems="center" mb={3}>
+            <Box display="flex" flexDirection="row" justifyContent="center" alignItems="center" mb={3} sx={{marginTop: '-10px'}}>
 
                 <Box display="flex" flexDirection="column" alignItems="center" mx={1}>
                     <div style={{ display: 'flex', justifyContent: 'center', marginTop: '-15px' }}>
                         <img src={ZBracketCuraImage} alt="Z Bracket Cura" style={{ width: '200px', height: '200px', margin: '0 10px' }} />
                         <img src={ZBracketRealImage} alt="Z Bracket Real" style={{ width: '200px', height: '200px', margin: '0 10px' }} />    
                     </div>
-                    <Typography variant="h6" style={{ fontStyle: "italic", marginTop: "5px" }}>
+                    <Typography variant="h6" style={{ fontStyle: "italic", marginTop: "5px", fontSize: '1em' }}>
                         Z Messenger Bracket
                     </Typography>
                 </Box>
@@ -252,7 +252,7 @@ const PrintingRequest = () => {
                         <img src={StairTreadCuraImage} alt="Stair Tread Cura" style={{ width: '200px', height: '200px', margin: '0 10px' }} />
                         <img src={StairTreadRealImage} alt="Stair Tread Real" style={{ width: '200px', height: '200px', margin: '0 10px' }} />    
                     </div>
-                    <Typography variant="h6" style={{ fontStyle: "italic", marginTop: "5px" }}>
+                    <Typography variant="h6" style={{ fontStyle: "italic", marginTop: "5px", fontSize: '1em' }}>
                         Stair Tread
                     </Typography>
                 </Box>
