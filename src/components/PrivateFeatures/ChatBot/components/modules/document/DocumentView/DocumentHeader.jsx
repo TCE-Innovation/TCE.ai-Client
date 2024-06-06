@@ -1,6 +1,6 @@
 import React from "react";
 
-import { CloseIcon, MinusIcon, PlusIcon } from "../../../icons";
+import { CloseIcon, LeftIcon, RightIcon } from "../../../icons";
 
 const DocumentHeader = ({
   title,
@@ -29,14 +29,14 @@ const DocumentHeader = ({
           className="chat-button tooltip-container"
           onClick={jumpToPreviousPage}
         >
-          <MinusIcon />
+          <LeftIcon />
           <div className="tooltip align-top">previous</div>
         </button>
         <button
           className="chat-button tooltip-container"
           onClick={jumpToNextPage}
         >
-          <PlusIcon />
+          <RightIcon />
           <div className="tooltip align-top">next</div>
         </button>
       </div>

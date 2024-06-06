@@ -9,10 +9,7 @@ const MainLayout = ({ children }) => {
   return (
     <Wrapper>
       <div className="conversation-wrapper">{Conversations}</div>
-      <div
-        className="chat-wrapper"
-        style={{ paddingInline: !isCollapsed ? "0" : "5em" }}
-      >
+      <div className={`chat-wrapper ${isCollapsed ? "collapsed" : ""}`}>
         {Chat}
       </div>
     </Wrapper>

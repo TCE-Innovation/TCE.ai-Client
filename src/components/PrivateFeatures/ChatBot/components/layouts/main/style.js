@@ -42,6 +42,9 @@ export default styled.div`
   .chat-wrapper {
     flex: 1;
     position: relative;
+    &.collapsed {
+      padding-inline: 5em;
+    }
   }
   .tooltip {
     position: absolute;

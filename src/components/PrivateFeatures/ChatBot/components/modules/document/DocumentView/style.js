@@ -9,11 +9,10 @@ export default styled.div`
   justify-content: center;
   align-items: center;
   .document-container {
-    // background-color: #ffffff;
     display: flex;
     flex-direction: column;
     width: 800px;
-    height: 680px;
+    height: calc(0.95 * 100vmin);
     gap: 1em;
     position: relative;
     border-radius: var(--chatbot-border-radius);
@@ -38,7 +37,8 @@ export default styled.div`
     }
     & .document-page-numeric {
       display: inline-block;
-      padding: 0 0.25em;
+      min-height: 2.5em;
+      min-width: 2.5em;
       margin: 0 0.25em;
       text-align: center;
     }
@@ -54,6 +54,7 @@ export default styled.div`
     }
     & .document-navigation {
       display: flex;
+      gap: 2em;
       align-items: center;
       & button {
         display: flex;
@@ -73,7 +74,6 @@ export default styled.div`
   .document-body {
     padding: 0.5em;
     overflow: hidden;
-    // height: 680px;
     background-color: white;
     border-radius: 0.5em;
     flex: 1;
@@ -81,17 +81,4 @@ export default styled.div`
   .rpv-core__page-layer::after {
     box-shadow: none !important;
   }
-  // .rpv-core__text-layer-text {
-  //   color: black;
-  // }
-  // .rpv-core__text-layer {
-  //   opacity: 1;
-  // }
-  // .rpv-core__text-layer-text {
-  //   font-family: "Inter", sans-serif !important;
-  //   font-weight: 400 !important;
-  //   line-height: 20px !important;
-  //   font-style: normal !important;
-  //   font-variation-settings: "slnt" 0 !important;
-  // }
 `;

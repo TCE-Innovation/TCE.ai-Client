@@ -10,13 +10,14 @@ import { Overlay } from "../../common";
 //   // 300+ pages
 //   "https://chatdocstorage.blob.core.windows.net/chatbot-fulton/S48019%20Vol%205%20PRDC09%20-%20Appendix%20B%20-%20MW-1%20Manual.pdf";
 
-const Modal = ({ pdfURL, title, ...modalProps }) => {
+const Modal = ({ pdfURL, title, highlightedText, ...modalProps }) => {
   if (!modalProps.show) return null;
   return (
     <Overlay>
       <DocumentView
         pdfURL={pdfURL}
         title={title}
+        highlightedText={highlightedText}
         onClose={modalProps.onClose}
       />
     </Overlay>
