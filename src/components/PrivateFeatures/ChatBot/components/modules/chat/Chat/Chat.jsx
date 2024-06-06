@@ -21,6 +21,7 @@ const Chat = () => {
 
   return (
     <Wrapper>
+      <div className="chatbot-live-status">Live</div>
       <Alerts />
       {!loadingMessages && !messages.length && (
         <>

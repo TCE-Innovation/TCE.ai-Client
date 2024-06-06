@@ -1,12 +1,12 @@
 import { useState } from "react";
 
 import { feedbackService } from "../services";
-import useAlert from "./useAlert";
+import useGlobal from "./useGlobal";
 
 const useFeedback = (messageId) => {
   const [enabledLike, setIsEnabledLike] = useState(false);
   const [enabledDisLike, setIsEnabledDisLike] = useState(false);
-  const { createAlert } = useAlert();
+  const { createAlert } = useGlobal();
 
   const handleLike = async () => {
     if (enabledLike || !messageId) return;

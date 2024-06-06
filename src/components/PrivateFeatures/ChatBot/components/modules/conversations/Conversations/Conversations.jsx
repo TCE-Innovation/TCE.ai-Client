@@ -7,7 +7,7 @@ import Wrapper from "./style";
 
 import { EditIcon, LeftIcon, RightIcon } from "../../../icons";
 
-import { useConversation, useStorage } from "../../../../hooks";
+import { useConversation, useGlobal } from "../../../../hooks";
 import { Loader } from "../../../common";
 
 const Conversations = () => {
@@ -19,10 +19,10 @@ const Conversations = () => {
     loadingConversations: loading,
     isCreatingConversation,
   } = useConversation();
-  const [isCollapsed, setIsCollapsed] = useStorage(
-    "CHATBOT-SIDEBAR-STATE",
-    false
-  );
+  const {
+    conversationsCollapsed: isCollapsed,
+    setIsConversationsCollapsed: setIsCollapsed,
+  } = useGlobal();
 
   const toggleCollapse = () => {
     setIsCollapsed((prev) => !prev);
@@ -76,7 +76,7 @@ const Conversations = () => {
                 />
               ))
             ) : isCreatingConversation ? null : (
-              <div className="empty-conversation">no conversations</div>
+              <div className="empty-conversation">No conversations</div>
             )}
           </div>
         </div>

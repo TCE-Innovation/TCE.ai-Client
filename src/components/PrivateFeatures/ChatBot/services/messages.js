@@ -14,7 +14,7 @@ const formatCitations = (citations) => {
 };
 
 export const getMessages = async (conversationId) => {
-  const { data, success } = await client.get(route, {
+  const { data, success, message } = await client.get(route, {
     conversation_id: conversationId,
   });
   if (success) {
@@ -38,10 +38,18 @@ export const getMessages = async (conversationId) => {
         };
       }
     };
-    if (!Array.isArray(data)) return null;
-    return data.map(parseMessage);
+    if (!Array.isArray(data))
+      return { data: null, success: false, message: "invalid response!" };
+    return {
+      data: data.map(parseMessage),
+      success,
+    };
   } else {
-    return null;
+    return {
+      data: null,
+      success,
+      message,
+    };
   }
 };
 

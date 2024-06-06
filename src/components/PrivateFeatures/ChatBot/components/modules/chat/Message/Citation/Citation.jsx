@@ -11,7 +11,7 @@ const Citation = ({ highlightedText, pageNumber, url, title }) => {
   return (
     <Wrapper>
       <div className="citation-line">
-        <div>{highlightedText} -</div>
+        <div>{title} -</div>
         <div>Page {pageNumber} -</div>
         <div>
           <button
@@ -19,7 +19,7 @@ const Citation = ({ highlightedText, pageNumber, url, title }) => {
             onClick={() => setShow(true)}
           >
             <DocumentIcon />
-            <div className="tooltip align-top">view document</div>
+            <div className="tooltip align-top">View document</div>
           </button>
         </div>
       </div>
