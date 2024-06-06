@@ -24,6 +24,7 @@ import GenerateEmails from "../PrivateFeatures/GenerateEmails";
 import GOTracker from '../PrivateFeatures/GOTracker';
 import SubAuto from "../PrivateFeatures/SubAuto/SubAuto";
 import ScheduleDashboards from '../PrivateFeatures/ScheduleDashboards';
+import OverviewDashboard from '../PrivateFeatures/OverviewDashboard';
 import ToolUsage from "../PrivateFeatures/ToolUsage";
 import PrintingRequest from '../PrivateFeatures/3dPrinting/3dPrinting';
 import Admin from '../PrivateFeatures/AdminPanel/AdminPanel';
@@ -85,6 +86,7 @@ function PrivateContent() {
     'Schedule Dashboards': 'schedule-dashboards',
     'Tool Usage Stats': 'tool-usage',
     '3D Printing Request': '3d-printing-request',
+    'Overview Dashboard': 'overview-dashboard',
   };
 
   // Always available tools
@@ -105,6 +107,7 @@ function PrivateContent() {
     'go-tracker': GOTracker,
     'sub-automation': SubAuto,
     'schedule-dashboards': ScheduleDashboards,
+    'overview-dashboard': OverviewDashboard,
     'tool-usage': ToolUsage,
     '3d-printing-request': PrintingRequest,
     'admin': isAdmin ? Admin : null // Admin access only

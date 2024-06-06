@@ -11,6 +11,7 @@ const toolNameMap = {
     'Email Generator': 'email_generator',
     'Cable Run Optimizer': 'cable_run_optimizer',
     'Schedule Dashboards': 'schedule_dashboards',
+    'Overview Dashboard': 'overview_dashboard',
     'Tool Usage Stats': 'tool_usage',
 };
 
@@ -124,7 +125,7 @@ const Provisioning = () => {
 
     const handleAddUser = async () => {
         if (selectedUsers.length > 0) {
-            await addUsersToTool(selectedUsers, toolNameMap[selectedTool], 'None');
+            await addUsersToTool(selectedUsers, toolNameMap[selectedTool], null);
             const updatedUsers = await getUsersOfTool(toolNameMap[selectedTool]);
             setUsers(updatedUsers);
 
@@ -187,7 +188,7 @@ const Provisioning = () => {
 
     const handleAddProjectTeam = async () => {
         if (projectTeam.length > 0) {
-            const projectToAdd = dashboardProjects.includes(selectedProject) ? selectedProject : 'None';
+            const projectToAdd = dashboardProjects.includes(selectedProject) ? selectedProject : null;
             await addUsersToTool(projectTeam, toolNameMap[selectedTool], projectToAdd);
             const updatedUsers = await getUsersOfTool(toolNameMap[selectedTool]);
             setUsers(updatedUsers);

@@ -16,7 +16,9 @@ export async function getTools(email) {
 // function to add users to a tool table in SQL db based on email. users is an array of user objects [{email: email, name: name}, ...]
 export async function addUsersToTool(users, tool, project = null) {
     try {
+        console.log(users, tool, project);
         const { data } = await axios.post('https://tce-ai-api.azurewebsites.net/api/add-users-to-tool', { users, tool, project });
+        console.log(data);
         return data;
     } catch (error) {
         console.error('Error adding user to tool table:', error);
@@ -82,7 +84,6 @@ export async function getUserProjectSD() {
 export async function getUserDashboardSD(email) {
     try {
         const { data } = await axios.post('https://tce-ai-api.azurewebsites.net/api/sd-get-user-dashboards', { email });
-        console.log(email);
         return data;
     } catch (error) {
         console.error('Error fetching user dashboards:', error);
