@@ -114,18 +114,36 @@ const PrintingRequest = () => {
     </Box>
 
     
-
-
     {/* FORM */}
-    <div style={{ padding: '20px', maxWidth: '1200px', margin: '0 auto' }}>
+    <div style={{ marginTop: '-10px', maxWidth: '1200px', margin: '0 auto' }}>
 
         {isLoading ? (
             <CircularProgress style={{ display: 'block', margin: '0 auto' }} />
         ) : !isSubmitted ? (
             <div className="form-container">
                 <Box display="flex" flexDirection="column" alignItems="center">
-            <Box display="flex" flexDirection="row" justifyContent="space-between" width="100%">
-              <FormControl style={{ margin: "0px", width: "47%", marginLeft: "20px" }}>
+
+
+                <Box display="flex" flexDirection="row" justifyContent="space-between" width="100%">
+                    <TextField
+                        id="item"
+                        label="Description of item to 3D print"
+                        value={item}
+                        onChange={handleItemInputChange}
+                        style={{ margin: "10px", width: "70%", marginLeft: "130px" }}
+                    />
+                </Box>
+
+                <TextField
+                    id="reason"
+                    label="Reason for 3D print request"
+                    value={reason}
+                    onChange={handleReasonInputChange}
+                    style={{ margin: "20px", width: "70%", marginLeft: "-77px", marginBottom: "30px"}}
+                />
+
+            <Box display="flex" flexDirection="row" justifyContent="space-between" width="100%" sx={{ marginLeft: '170px' }}>
+              <FormControl style={{ margin: "0px", width: "46%", marginLeft: "45px" }}>
                 <InputLabel id="project-label">Project</InputLabel>
                 <Select
                   labelId="project-label"
@@ -146,37 +164,21 @@ const PrintingRequest = () => {
                   ))}
                 </Select>
               </FormControl>
-              <Box style={{ paddingLeft: "150px" }}>
+              <Box style={{ paddingLeft: "5px", marginRight: '315px' }}>
               <LocalizationProvider dateAdapter={AdapterDateFns}>
                 <DatePicker
                   label="Date Needed"
                   value={dateNeeded}
                   onChange={setDateNeeded}
-                  renderInput={(params) => <TextField {...params} style={{ marginTop: "10px", width: "40%", paddingRight: "150px" }} />}
+                  renderInput={(params) => <TextField {...params} style={{ marginTop: "10px", marginLeft: "85px", width: "40%", paddingRight: "50px" }} />}
                 />
               </LocalizationProvider>
               </Box>
             </Box>
 
-            <Box display="flex" flexDirection="row" justifyContent="space-between" width="100%">
-              <TextField
-                id="item"
-                label="Description of item to 3D print"
-                value={item}
-                onChange={handleItemInputChange}
-                style={{ margin: "20px", width: "70%" }}
-              />
-
-              <TextField
-                id="reason"
-                label="Reason for 3D print request"
-                value={reason}
-                onChange={handleReasonInputChange}
-                style={{ margin: "20px", width: "70%", marginLeft: "10px"}}
-              />
-            </Box>
+     
             
-            <Typography variant="body2" style={{ color: 'red', marginTop: '5px', width: '70%', textAlign: 'center' }}>
+            <Typography variant="body2" style={{ color: 'red', marginTop: '10px', marginBottom: '-5px', width: '70%', textAlign: 'center' }}>
                 * Please note: prints beyond 17.7" x 15.7" x 15.7" will be printed in multiple pieces, which may take longer.
 
             </Typography>
@@ -185,7 +187,7 @@ const PrintingRequest = () => {
               onClick={handleSubmit}
               variant="contained"
               color="primary"
-              style={{ width: "50%", marginTop: "20px" }}
+              style={{ width: "50%", marginTop: "20px", marginBottom: "20px" }}
               disabled={isButtonDisabled}
             >
               Submit
