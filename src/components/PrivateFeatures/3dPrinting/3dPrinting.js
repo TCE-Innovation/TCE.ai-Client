@@ -137,7 +137,7 @@ const PrintingRequest = () => {
         <div style={{ marginTop: '-20px', maxWidth: '1200px', margin: '0 auto' }}>
 
             {isLoading ? (
-                <CircularProgress style={{ display: 'block', margin: '0 auto' }} />
+                <CircularProgress style={{ display: 'block', margin: '0 auto', marginRight: "700px" }} />
             ) : !isSubmitted ? (
                 <div className="form-container">
                     <Box display="flex" flexDirection="column" alignItems="center">
@@ -244,7 +244,7 @@ const PrintingRequest = () => {
                     
                 </div>
             ) : (
-                <div className="form-container" style={{ textAlign: "center", color: "#1b365f" }}>
+                <div className="form-container" style={{ textAlign: "center", color: "#1b365f", marginRight: "220px" }}>
                     <div>Thank you for your submission.</div>
                     <Button
                         onClick={handleNewSubmission}
