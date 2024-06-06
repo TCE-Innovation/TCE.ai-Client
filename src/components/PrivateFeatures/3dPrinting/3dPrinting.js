@@ -96,7 +96,7 @@ const PrintingRequest = () => {
     {/* OPENING TEXT */}
     <Box display="flex" flexDirection="column" justifyContent="center" alignItems="center" mb={3}>
         <div className={style.formDescription} style={{ textAlign: 'left', marginTop: "5px", fontSize: '1.3em' }}>
-            Prototyping with 3D printing offers significant value in the construction industry, 
+            PPrototyping with 3D printing offers significant value in the construction industry, 
             particularly when developing custom brackets and materials. 
             This technology allows for rapid iteration and testing, 
             ensuring that the designs fit precisely and function as intended before committing to mass production. 

@@ -66,7 +66,7 @@ function ResponsiveAppBar() {
             case 'schedule-dashboards':
                 return 'Schedule Dashboards';
             case '3d-printing-request':
-                return '3D Printing Request';
+                return 'Request 3D Printing';
             case 'admin':
                 return 'Admin Panel';
             default:
