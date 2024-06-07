@@ -93,20 +93,27 @@ export async function sendSupportFormData(formData) {
 }
 
 //function to send 3D printing form data to airtable base
-export async function send3dPrintingFormData(item, reason, project, dateNeeded, email) {
+export async function send3dPrintingFormData(formData) {
     try {
-        let formData = { item, reason, project, dateNeeded, email };
-        
-        // if (file !== undefined) {
-        //     formData.file = file;
-        // }
-        
+        // let formData = { item, reason, project, dateNeeded, email, file };
+        const { file } = formData;
+
+        console.log("In airtable function: ")
+        if (file)
+            console.log(file.name)
+        else
+            console.log("No file in airtable function")
+
+        console.log("FORM DATA:")
+        console.log(formData)
         const { data } = await axios.post('https://tce-ai-api.azurewebsites.net/api/send-3d-printing-form', formData);
 
         return data;
     } catch (error) {
-        console.error('Error sending asset form data:', error);
-    }    
+        console.error('Error sending 3D printing form data:', error);
+    }
+    
+    
 }
 
 //function to log when someone has signed into the site

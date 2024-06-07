@@ -57,7 +57,8 @@ const PrintingRequest = () => {
     };
 
     const handleReasonInputChange = (event) => {
-        setReason(event.target.value);
+        setReason(event.target.value);      
+
     };
     
     const handleProjectInputChange = (event) => {
@@ -72,30 +73,36 @@ const PrintingRequest = () => {
         const formattedDateNeeded = dateNeeded ? format(dateNeeded, 'M/d/yyyy') : '';
         
         console.log(item, project);
+
+        let formData = {};
         
+        // const formData = { item, reason, project, formattedDateNeeded, userEmail };
         if (file) {
-            send3dPrintingFormData(item, reason, project, formattedDateNeeded, userEmail, file)
-                .then(() => {
-                    setIsSubmitted(true);
-                })
-                .catch(error => {
-                    console.error('Error submitting form data:', error);
-                })
-                .finally(() => {
-                    setIsLoading(false); // Stop loading regardless of the outcome
-                });
-        } else {
-            send3dPrintingFormData(item, reason, project, formattedDateNeeded, userEmail)
-                .then(() => {
-                    setIsSubmitted(true);
-                })
-                .catch(error => {
-                    console.error('Error submitting form data:', error);
-                })
-                .finally(() => {
-                    setIsLoading(false); // Stop loading regardless of the outcome
-                });
+            formData = { item, reason, project, formattedDateNeeded, userEmail, file };
+
+            // formData.file = file;
+            console.log("In handle submit:")
+            console.log(file.name)
         }
+        else{
+            setFile(null)
+            formData = { item, reason, project, formattedDateNeeded, userEmail, file };
+
+            // formData.file = null;
+            console.log('No file uploaded')
+        }
+
+        send3dPrintingFormData(formData)
+            .then(() => {
+                setIsSubmitted(true);
+            })
+            .catch(error => {
+                console.error('Error submitting form data:', error);
+            })
+            .finally(() => {
+                setIsLoading(false); // Stop loading regardless of the outcome
+            });
+
     };
 
     const handleNewSubmission = () => {
