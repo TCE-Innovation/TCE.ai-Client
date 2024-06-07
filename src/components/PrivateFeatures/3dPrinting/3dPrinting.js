@@ -15,6 +15,7 @@ import ZBracketRealImage from '../../../img/Request3DPrintingImages/z_bracket_re
 import StairTreadCuraImage from '../../../img/Request3DPrintingImages/stair_tread_cura.png';
 import StairTreadRealImage from '../../../img/Request3DPrintingImages/stair_tread_real.png';
 // import { set } from 'date-fns';
+import { format } from 'date-fns';
 
 const PrintingRequest = () => {
     // STATES
@@ -67,11 +68,13 @@ const PrintingRequest = () => {
     
     const handleSubmit = () => {
         setIsLoading(true);
+
+        const formattedDateNeeded = dateNeeded ? format(dateNeeded, 'M/d/yyyy') : '';
         
         console.log(item, project);
         
         if (file) {
-            send3dPrintingFormData(item, reason, project, dateNeeded, userEmail, file)
+            send3dPrintingFormData(item, reason, project, formattedDateNeeded, userEmail, file)
                 .then(() => {
                     setIsSubmitted(true);
                 })
@@ -82,7 +85,7 @@ const PrintingRequest = () => {
                     setIsLoading(false); // Stop loading regardless of the outcome
                 });
         } else {
-            send3dPrintingFormData(item, reason, project, dateNeeded, userEmail)
+            send3dPrintingFormData(item, reason, project, formattedDateNeeded, userEmail)
                 .then(() => {
                     setIsSubmitted(true);
                 })
@@ -105,7 +108,11 @@ const PrintingRequest = () => {
     };
 
     // Check if the button should be disabled
-    const isButtonDisabled = item.trim() === '' || project.trim() === '' || dateNeeded === null;
+    const isButtonDisabled = 
+    item.trim() === '' || 
+    reason.trim() === '' ||
+    project.trim() === '' || 
+    dateNeeded === null;
 
     return (
         <>

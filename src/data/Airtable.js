@@ -93,15 +93,16 @@ export async function sendSupportFormData(formData) {
 }
 
 //function to send 3D printing form data to airtable base
-export async function send3dPrintingFormData(item, reason, project, dateNeeded, email, file) {
+export async function send3dPrintingFormData(item, reason, project, dateNeeded, email) {
     try {
         let formData = { item, reason, project, dateNeeded, email };
         
-        if (file !== undefined) {
-            formData.file = file;
-        }
+        // if (file !== undefined) {
+        //     formData.file = file;
+        // }
         
         const { data } = await axios.post('https://tce-ai-api.azurewebsites.net/api/send-3d-printing-form', formData);
+
         return data;
     } catch (error) {
         console.error('Error sending asset form data:', error);
