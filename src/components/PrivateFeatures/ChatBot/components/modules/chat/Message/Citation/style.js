@@ -5,7 +5,8 @@ export default styled.div`
     display: flex;
     gap: 0.75em;
     align-items: center;
-    margin-top: 2em;
+    // margin-top: 2em;
     margin-right: 2em;
+    color: var(--chatbot-grey);
   }
 `;

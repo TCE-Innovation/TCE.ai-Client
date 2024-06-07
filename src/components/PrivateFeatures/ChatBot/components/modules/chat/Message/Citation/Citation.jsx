@@ -11,8 +11,8 @@ const Citation = ({ highlightedText, pageNumber, url, title }) => {
   return (
     <Wrapper>
       <div className="citation-line">
-        <div>{title} -</div>
-        <div>Page {pageNumber} -</div>
+        <div style={{ marginRight: "auto" }}>{title}</div>
+        <div>Page {pageNumber}</div>
         <div>
           <button
             className="chat-button document-open-btn tooltip-container"
@@ -28,6 +28,7 @@ const Citation = ({ highlightedText, pageNumber, url, title }) => {
         title={title}
         highlightedText={highlightedText}
         show={show}
+        pageNumber={pageNumber}
         onClose={() => setShow(false)}
       />
     </Wrapper>

@@ -18,10 +18,15 @@ const Message = ({ body, id, isAI, citations, showfeedbackbuttons = true }) => {
         <div className="author">{displayName}</div>
         <div className="message-body inter-font">
           <div>{body}</div>
-          {citations &&
-            citations.map(({ id, ...citation }, i) => (
-              <Citation key={citation.id + "-" + i} {...citation} />
-            ))}
+          {citations && (
+            <div className="citations-wrapper">
+              {citations.map(({ id, ...citation }, i) => (
+                <div key={citation.id + "-" + i}>
+                  <Citation {...citation} />
+                </div>
+              ))}
+            </div>
+          )}
         </div>
         {isAI && showfeedbackbuttons ? <Feedback messageId={id} /> : null}
       </div>

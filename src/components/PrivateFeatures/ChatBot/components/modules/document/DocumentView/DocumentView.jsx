@@ -9,10 +9,18 @@ import { useDocument, useOutsideClick } from "../../../../hooks";
 
 import Wrapper from "./style";
 
-const DocumentView = ({ onClose, pdfURL, title, highlightedText }) => {
-  const { plugins, pageControl, workerUrl, handleDocumentLoad } = useDocument([
-    highlightedText,
-  ]);
+const DocumentView = ({
+  onClose,
+  pdfURL,
+  title,
+  highlightedText,
+  pageNumber,
+}) => {
+  const textToHighight = highlightedText.split(" ").slice(0, 5).join(" ");
+  const { plugins, pageControl, workerUrl, handleDocumentLoad } = useDocument(
+    [textToHighight],
+    pageNumber
+  );
 
   const { targetRef } = useOutsideClick({ onClickOutside: onClose });
 
