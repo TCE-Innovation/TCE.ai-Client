@@ -105,7 +105,7 @@ const PrintingRequest = () => {
     };
 
     // Check if the button should be disabled
-    const isButtonDisabled = item.trim() === '' || project.trim() === '';
+    const isButtonDisabled = item.trim() === '' || project.trim() === '' || dateNeeded === null;
 
     return (
         <>
@@ -205,7 +205,7 @@ const PrintingRequest = () => {
                             <Button
                                 variant="contained"
                                 startIcon={<Upload />}
-                                style={{ marginTop: '5px', marginLeft: '50px', width: '418px', height: '50px', marginRight: '-150px' }}
+                                style={{ marginTop: '5px', marginLeft: '50px', width: '419px', height: '50px', marginRight: '-150px' }}
                                 size="medium"
                                 onClick={() => {
                                     document.getElementById('file').click();
@@ -228,7 +228,7 @@ const PrintingRequest = () => {
                                 onClick={handleSubmit}
                                 variant="contained"
                                 color="primary"
-                                style={{ width: "21.5%", height: '50px', marginTop: "5px", marginBottom: "20px", marginRight: "455px" }}
+                                style={{ width: "21.3%", height: '50px', marginTop: "5px", marginBottom: "20px", marginRight: "455px" }}
                                 disabled={isButtonDisabled}
                                 >
                                 Submit
