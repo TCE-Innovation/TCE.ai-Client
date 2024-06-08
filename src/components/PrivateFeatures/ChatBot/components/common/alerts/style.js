@@ -22,7 +22,7 @@ export default styled(({ duration, ...rest }) => <div {...rest} />)`
   .alert-container {
     position: absolute;
     left: 50%;
-    top: 0px;
+    top: 8px;
     transform: translateX(-50%);
     z-index: 99999999999;
     display: flex;

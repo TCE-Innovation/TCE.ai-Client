@@ -18,6 +18,16 @@ export default styled.div`
       line-height: 2em;
     }
   }
+  .citations-wrapper {
+    border-top: 1px solid var(--chatbot-grey);
+    margin-top: 1.5em;
+    > * {
+      padding: 0.75em 0;
+    }
+    > :not(:last-child) {
+      border-bottom: 1px solid var(--chatbot-light-grey);
+    }
+  }
   .document-open-btn {
     color: var(--chatbot-primary);
   }

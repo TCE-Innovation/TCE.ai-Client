@@ -10,13 +10,6 @@ import {
 
 const msalInstance = new PublicClientApplication(msalConfig);
 
-const account = msalInstance.getAllAccounts()[0];
-
-const request = {
-  scopes: [...loginRequest.scopes, "openid", "profile"],
-  account,
-};
-
 const initialize = async () => {
   await msalInstance.initialize();
 };
@@ -25,6 +18,11 @@ export const requestAccessToken = () => {
   return new Promise((res) => {
     setTimeout(async () => {
       await initialize();
+      const account = msalInstance.getAllAccounts()[0];
+      const request = {
+        scopes: [...loginRequest.scopes, "openid", "profile"],
+        account,
+      };
       try {
         const result = await msalInstance.acquireTokenSilent(request);
         res(result.accessToken);
@@ -35,11 +33,11 @@ export const requestAccessToken = () => {
             return response.accessToken;
           } catch (err) {
             console.error(err);
-            res(null);
+            return res(null);
           }
         } else {
           console.error(err);
-          res(null);
+          return res(null);
         }
       }
     }, 0);

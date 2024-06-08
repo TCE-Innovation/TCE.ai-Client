@@ -3,7 +3,7 @@ import { version } from "pdfjs-dist";
 import { pageNavigationPlugin } from "@react-pdf-viewer/page-navigation";
 import { searchPlugin } from "@react-pdf-viewer/search";
 
-const renderHighlights = (props) => {
+const renderHighlights = (pageNumber) => (props) => {
   return (
     <div
       style={{
@@ -15,34 +15,38 @@ const renderHighlights = (props) => {
         zIndex: "9999999999",
       }}
     >
-      {props.highlightAreas.map((area) => {
-        return (
-          <div
-            key={`${area.top}-${area.left}`}
-            style={{
-              ...props.getCssProperties(area),
-              display: "flex",
-              justifyContent: "center",
-              alignItems: "center",
-              fontSize: "calc(var(--scale-factor)*10.00px)",
-              position: "absolute",
-              backgroundColor: "var(--chatbot-secondary)",
-            }}
-          >
-            {area.keywordStr}
-          </div>
-        );
-      })}
+      {props.highlightAreas
+        .filter(
+          (area) =>
+            area.pageIndex === pageNumber - 1 && area.keywordStr !== "None"
+        )
+        .map((area) => {
+          return (
+            <div
+              key={`${area.top}-${area.left}`}
+              style={{
+                ...props.getCssProperties(area),
+                display: "flex",
+                justifyContent: "center",
+                alignItems: "center",
+                fontSize: "calc(var(--scale-factor)*10.00px)",
+                position: "absolute",
+                opacity: 0.5,
+                backgroundColor: "var(--chatbot-secondary)",
+              }}
+            />
+          );
+        })}
     </div>
   );
 };
 
-const useDocument = (highlights = []) => {
+const useDocument = (highlights = [], pageNumber) => {
   const [uniquePageMatcheIndices, setUniquePageMatchIndices] = useState([]);
   const currentMatchPageRef = useRef(0);
   const pageNavigationPluginInstance = pageNavigationPlugin();
   const searchPluginInstance = searchPlugin({
-    renderHighlights,
+    renderHighlights: renderHighlights(pageNumber),
   });
 
   const { highlight } = searchPluginInstance;
@@ -64,16 +68,19 @@ const useDocument = (highlights = []) => {
 
   const handleDocumentLoad = () => {
     setTimeout(async () => {
-      const groups = await Promise.all(
-        highlights.flatMap((keyword) =>
-          highlight({ keyword, matchCase: false, wholeWords: false })
-        )
-      );
-      setUniquePageMatchIndices([
-        ...new Set(
-          groups.flatMap((matches) => matches.map((match) => match.pageIndex))
-        ),
-      ]);
+      highlight(
+        highlights.map((keyword) => ({
+          keyword,
+          multiline: true,
+          wholeWords: false,
+          matchCase: false,
+          exec: (word) => word !== "None",
+        }))
+      ).then(() => {
+        jumpToPage(pageNumber - 1);
+      });
+
+      setUniquePageMatchIndices([pageNumber - 1]);
     }, 0);
   };
 
