@@ -20,9 +20,9 @@ const Message = ({ body, id, isAI, citations, showfeedbackbuttons = true }) => {
         <div className="author">{displayName}</div>
         <div className="message-body inter-font">
           <div>
-            <Markdown>{body}</Markdown>
+            {typeof body === 'string' ? <Markdown>{body}</Markdown> : body}
           </div>
-          {citations && (
+          {citations?.length > 0 && (
             <div className="citations-wrapper">
               {citations.map(({ id, ...citation }, i) => (
                 <div key={citation.id + "-" + i}>

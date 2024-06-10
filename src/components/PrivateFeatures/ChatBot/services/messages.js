@@ -4,13 +4,15 @@ import { genRandomId } from "../utils/uuid";
 const route = "/user/messages";
 
 const formatCitations = (citations) => {
-  return citations.map((c) => ({
-    highlightedText: c.highlighted_text,
-    pageNumber: c.page_number,
-    title: c.title,
-    url: c.url,
-    id: genRandomId(),
-  }));
+  return (
+    citations?.map((c) => ({
+      highlightedText: c.highlighted_text,
+      pageNumber: c.page_number,
+      title: c.title,
+      url: c.url,
+      id: genRandomId(),
+    })) ?? []
+  );
 };
 
 export const getMessages = async (conversationId) => {
