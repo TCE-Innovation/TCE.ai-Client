@@ -5,6 +5,8 @@ import botImg from "../../../../assets/images/bot.png";
 import Citation from "./Citation";
 import Feedback from "./Feedback";
 
+import { Markdown } from "../../../common";
+
 import Wrapper from "./style";
 
 const Message = ({ body, id, isAI, citations, showfeedbackbuttons = true }) => {
@@ -17,7 +19,9 @@ const Message = ({ body, id, isAI, citations, showfeedbackbuttons = true }) => {
       <div className="message-container">
         <div className="author">{displayName}</div>
         <div className="message-body inter-font">
-          <div>{body}</div>
+          <div>
+            <Markdown>{body}</Markdown>
+          </div>
           {citations && (
             <div className="citations-wrapper">
               {citations.map(({ id, ...citation }, i) => (
