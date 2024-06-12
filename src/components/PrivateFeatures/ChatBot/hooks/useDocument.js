@@ -41,13 +41,18 @@ const renderHighlights = (pageNumber) => (props) => {
   );
 };
 
-const useDocument = (highlights = [], pageNumber) => {
+const useDocument = (textToHighlight, pageNumber) => {
   const [uniquePageMatcheIndices, setUniquePageMatchIndices] = useState([]);
   const currentMatchPageRef = useRef(0);
   const pageNavigationPluginInstance = pageNavigationPlugin();
   const searchPluginInstance = searchPlugin({
+    enableShortcuts: false,
     renderHighlights: renderHighlights(pageNumber),
   });
+
+  const highlights = Array.isArray(textToHighlight)
+    ? textToHighlight
+    : [textToHighlight];
 
   const { highlight } = searchPluginInstance;
 

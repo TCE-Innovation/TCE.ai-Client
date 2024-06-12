@@ -24,12 +24,12 @@ export const getMessages = async (conversationId) => {
       const isUser = message.user || null;
       if (!isUser) {
         const { bot, message_id } = message;
-        const { ai_response, citations } = bot;
+        const { ai_response, citations, error = null } = bot;
         return {
           isAI: true,
-          body: ai_response,
+          body: error ?? ai_response,
           id: message_id,
-          citations: formatCitations(citations),
+          citations: formatCitations(citations || []),
         };
       } else {
         const { user, message_id } = message;
@@ -71,7 +71,7 @@ export const createMessage = async (payload) => {
       success,
       data: {
         message: ai_response,
-        citations: formatCitations(citations),
+        citations: formatCitations(citations || []),
         id: message_id,
       },
       message: responseMessage,

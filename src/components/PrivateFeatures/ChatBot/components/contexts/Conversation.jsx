@@ -20,6 +20,7 @@ const ConversationProvider = ({ children }) => {
   const [isCreating, setIsCreating] = useState(false);
 
   const [conversations, setConversations] = useState([]);
+
   const [currentConversation, setCurrentConversation, reset] = useStorage(
     "CHATBOT_CURRENT_CONVERSATION",
     null

@@ -36,21 +36,17 @@ export default styled.div`
     position: relative;
     height: 1.5em;
     width: 1.5em;
+    text-align: center;
     border-radius: 50%;
     font-weight: bolder;
-    background-color: var(--chatbot-secondary);
+    &.user-avatar {
+      background-color: var(--chatbot-secondary);
+    }
     color: black;
     user-select: none;
     pointer-events: none;
     overflow: hidden;
     z-index: 0;
-
-    & img {
-      width: 100%;
-      height: 100%;
-      object-fit: contain;
-      display: block;
-    }
 
     &::before {
       position: absolute;
