@@ -1,4 +1,4 @@
-import React from "react";
+import React, { isValidElement } from "react";
 
 import botImg from "../../../../assets/images/bot.png";
 
@@ -13,16 +13,17 @@ const Message = ({ body, id, isAI, citations, showfeedbackbuttons = true }) => {
   const displayName = isAI ? "Chat" : "You";
   return (
     <Wrapper>
-      <div className="author-avatar" data-name={displayName[0].toUpperCase()}>
+      <div
+        className={`author-avatar ${!isAI ? "user-avatar" : ""}`}
+        data-name={!isAI ? displayName[0].toUpperCase() : ""}
+      >
         {isAI ? <img alt={"bot"} src={botImg} /> : null}
       </div>
       <div className="message-container">
         <div className="author">{displayName}</div>
         <div className="message-body inter-font">
-          <div>
-            {typeof body === 'string' ? <Markdown>{body}</Markdown> : body}
-          </div>
-          {citations?.length > 0 && (
+          <div>{isValidElement(body) ? body : <Markdown>{body}</Markdown>}</div>
+          {!!citations?.length && (
             <div className="citations-wrapper">
               {citations.map(({ id, ...citation }, i) => (
                 <div key={citation.id + "-" + i}>

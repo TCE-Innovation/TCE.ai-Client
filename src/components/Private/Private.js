@@ -132,7 +132,7 @@ function PrivateContent() {
         </header>
       </div>
 
-      <Box sx={{ display: 'flex', backgroundColor:location.pathname.endsWith("chat-bot") ? "rgb(248, 241, 215)" : "" }}>
+      <Box sx={{ display: 'flex', backgroundColor:location.pathname.includes("chat-bot") ? "rgb(248, 241, 215)" : "" }}>
         <CssBaseline />
         <Drawer variant="permanent" open={open}>
           <Toolbar

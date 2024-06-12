@@ -16,9 +16,8 @@ const DocumentView = ({
   highlightedText,
   pageNumber,
 }) => {
-  const textToHighight = highlightedText.split(" ").slice(0, 5).join(" ");
   const { plugins, pageControl, workerUrl, handleDocumentLoad } = useDocument(
-    [textToHighight],
+    highlightedText,
     pageNumber
   );
 
@@ -42,6 +41,8 @@ const DocumentView = ({
                 <RenderLoader progress={percentage} />
               )}
               fileUrl={pdfURL}
+              enableSmoothScroll={false}
+              initialPage={pageNumber - 1}
               plugins={plugins}
               defaultScale={1}
               onDocumentLoad={handleDocumentLoad}
