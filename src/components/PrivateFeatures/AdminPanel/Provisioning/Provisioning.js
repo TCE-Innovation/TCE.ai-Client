@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { Box, Autocomplete, TextField, Button } from '@mui/material';
-import { getUsersOfTool, removeUserFromTool, addUsersToTool, removeAllUsersFromTool, getProjectTeam, updateUserProject, getUserProjectSD, getAllPersonnel } from '../../../../data/SQL';
+import { getUsersOfTool, removeUserFromTool, addUsersToTool, removeAllUsersFromTool, getProjectTeam, updateUserProject, getEmailsAndProjects, getAllPersonnel } from '../../../../data/SQL';
 import { getActiveProjects, getPBILog } from '../../../../data/Airtable';
 import ToolSelect from './ToolSelect';
 import UserTable from './UserTable';
@@ -88,20 +88,23 @@ const Provisioning = () => {
     };
 
     useEffect(() => {
-        const fetchUserProjects = async () => {
-            try {
-                const projects = await getUserProjectSD();
-                const projectMap = projects.reduce((acc, project) => {
-                    acc[project.email] = project.projects;
-                    return acc;
-                }, {});
-                setUserProjects(projectMap);
-            } catch (error) {
-                console.error('Error fetching user projects:', error);
-            }
-        };
-        fetchUserProjects();
-    }, []);
+        if (selectedTool) {
+            const fetchUserProjects = async () => {
+                try {
+                    const projects = await getEmailsAndProjects(toolNameMap[selectedTool]);
+                    const projectMap = projects.reduce((acc, project) => {
+                        acc[project.email] = project.projects;
+                        return acc;
+                    }, {});
+                    setUserProjects(projectMap);
+                } catch (error) {
+                    console.error('Error fetching user projects:', error);
+                }
+            };
+            fetchUserProjects();
+        }
+    }, [selectedTool]);
+    
 
     useEffect(() => {
         const fetchProjects = async () => {
