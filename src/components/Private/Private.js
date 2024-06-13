@@ -27,6 +27,7 @@ import ScheduleDashboards from '../PrivateFeatures/ScheduleDashboards';
 import OverviewDashboard from '../PrivateFeatures/OverviewDashboard';
 import ToolUsage from "../PrivateFeatures/ToolUsage";
 import PrintingRequest from '../PrivateFeatures/3dPrinting/3dPrinting';
+import DroneCaptures from '../PrivateFeatures/DroneCaptures';
 import Admin from '../PrivateFeatures/AdminPanel/AdminPanel';
 
 // AUTH
@@ -87,6 +88,7 @@ function PrivateContent() {
     'Tool Usage Stats': 'tool-usage',
     '3D Printing Request': '3d-printing-request',
     'Overview Dashboard': 'overview-dashboard',
+    'Drone Captures': 'drone-captures'
   };
 
   // Always available tools
@@ -110,6 +112,7 @@ function PrivateContent() {
     'overview-dashboard': OverviewDashboard,
     'tool-usage': ToolUsage,
     '3d-printing-request': PrintingRequest,
+    'drone-captures': DroneCaptures, 
     'admin': isAdmin ? Admin : null // Admin access only
   }), [isAdmin]);
 
