@@ -69,10 +69,11 @@ export async function updateUserProject(email, project) {
     }
 }
 
-// function to fetch user projects from the schedule_dashboards table
-export async function getUserProjectSD() {
+// getUserProjectSD() <-- old name
+// function to fetch emails and projects from table
+export async function getEmailsAndProjects(table) {
     try {
-        const { data } = await axios.get('https://tce-ai-api.azurewebsites.net/api/sd-get-user-project');
+        const { data } = await axios.get('https://tce-ai-api.azurewebsites.net/api/sd-get-user-project', { table });
         return data;
     } catch (error) {
         console.error('Error fetching user project:', error);
@@ -80,18 +81,17 @@ export async function getUserProjectSD() {
     }
 }
 
-// function to fetch user projects from the schedule_dashboards table
-export async function getUserDashboardSD(email) {
+// getUserDashboardSD(email) <-- old name
+// function to fetch a users projects in table
+export async function getUserProjects(email, table) {
     try {
-        const { data } = await axios.post('https://tce-ai-api.azurewebsites.net/api/sd-get-user-dashboards', { email });
+        const { data } = await axios.post('https://tce-ai-api.azurewebsites.net/api/sd-get-user-dashboards', { email, table });
         return data;
     } catch (error) {
         console.error('Error fetching user dashboards:', error);
         throw new Error('An error occurred while fetching user dashboards');
     }
 }
-
-
 
 
 //_____________________________________________________ USER DATA FUNCTIONS ________________________________________________________
