@@ -13,6 +13,7 @@ const toolNameMap = {
     'Schedule Dashboards': 'schedule_dashboards',
     'Overview Dashboard': 'overview_dashboard',
     'Tool Usage Stats': 'tool_usage',
+    'Drone Captures': 'drone_captures'
 };
 
 const Provisioning = () => {
