@@ -65,6 +65,19 @@ const PrintingRequest = () => {
         setProject(event.target.value);
     };
 
+    const handleFileInputChange = (event) => {
+        const file = event.target.files[0];
+        const reader = new FileReader();
+    
+        reader.onload = () => {
+            const dataURL = reader.result;
+            setFile(dataURL);
+        };
+    
+        reader.readAsDataURL(file);
+    };
+    
+
 
     
     const handleSubmit = () => {
@@ -107,11 +120,11 @@ const PrintingRequest = () => {
 
     const handleNewSubmission = () => {
         setIsSubmitted(false);
-        setItem('');
-        setProject('');
-        setDateNeeded(null);
-        setReason('');
-        setFile(null);
+        // setItem('');
+        // setProject('');
+        // setDateNeeded(null);
+        // setReason('');
+        // setFile(null);
     };
 
     // Check if the button should be disabled
@@ -232,9 +245,9 @@ const PrintingRequest = () => {
                         <input
                             type="file"
                             id="file"
-                            accept=".dwg, .stl"
+                            accept=".dwg, .stl, .pdf"
                             style={{ display: 'none' }} // Hide the file input
-                            onChange={(e) => setFile(e.target.files[0])}
+                            onChange={handleFileInputChange}
                             
                         />
 
