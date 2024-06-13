@@ -245,7 +245,7 @@ const PrintingRequest = () => {
                         <input
                             type="file"
                             id="file"
-                            accept=".dwg, .stl, .pdf"
+                            accept=".stl"
                             style={{ display: 'none' }} // Hide the file input
                             onChange={handleFileInputChange}
                             
