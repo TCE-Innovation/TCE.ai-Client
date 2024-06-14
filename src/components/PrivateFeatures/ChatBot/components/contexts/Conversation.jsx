@@ -41,9 +41,13 @@ const ConversationProvider = ({ children }) => {
   const createConversation = async () => {
     if (loading || isCreating) return;
     setIsCreating(true);
-    const conversationId = await conversationService.createConversation();
+    const {
+      data: conversationId,
+      success,
+      message,
+    } = await conversationService.createConversation();
     setIsCreating(false);
-    if (!conversationId) return;
+    if (!success || !conversationId) return createAlert({ message, type: "danger" });
     setConversations((prev) => [
       { title: "New Chat", id: conversationId },
       ...prev,
