@@ -6,7 +6,7 @@ import axios from 'axios';
 //function to pull tools from SQL db based on email
 export async function getTools(email) { 
     try{
-        const {data} = await axios.get('https://tce-ai-api.azurewebsites.net/api/get-user-tools', { email } );
+        const {data} = await axios.post('https://tce-ai-api.azurewebsites.net/api/get-user-tools', { email } );
         return data;
     } catch(error){
         console.error('Error fetching tools:', error);
@@ -51,7 +51,7 @@ export async function removeAllUsersFromTool(tool) {
 //function to get all the users of a single tool
 export async function getUsersOfTool(tool) { 
     try{
-        const {data} = await axios.get('https://tce-ai-api.azurewebsites.net/api/get-users-of-tool', { tool } );
+        const {data} = await axios.post('https://tce-ai-api.azurewebsites.net/api/get-users-of-tool', { tool } );
         return data;
     } catch(error){
         console.error('Error getting users of tool:', error);
@@ -83,7 +83,7 @@ export async function getUserProjectSD() {
 // function to fetch user projects from the schedule_dashboards table
 export async function getUserDashboardSD(email) {
     try {
-        const { data } = await axios.get('https://tce-ai-api.azurewebsites.net/api/sd-get-user-dashboards', { email });
+        const { data } = await axios.post('https://tce-ai-api.azurewebsites.net/api/sd-get-user-dashboards', { email });
         return data;
     } catch (error) {
         console.error('Error fetching user dashboards:', error);
@@ -106,7 +106,7 @@ export async function getApplications(email) {
     }
     
     try{
-        const {data} = await axios.get('https://tce-ai-api.azurewebsites.net/api/get-user-applications', { email } );
+        const {data} = await axios.post('https://tce-ai-api.azurewebsites.net/api/get-user-applications', { email } );
 
         sessionStorage.setItem(sessionStorageKey, JSON.stringify(data));
 
@@ -126,7 +126,7 @@ export async function getProjects(email) {
     }
     
     try{
-        const {data} = await axios.get('https://tce-ai-api.azurewebsites.net/api/get-user-projects', { email } );
+        const {data} = await axios.post('https://tce-ai-api.azurewebsites.net/api/get-user-projects', { email } );
 
         sessionStorage.setItem(sessionStorageKey, JSON.stringify(data));
 
@@ -146,7 +146,7 @@ export async function getJobTitle(email) {
     }
 
     try {
-        const {data} = await axios.get('https://tce-ai-api.azurewebsites.net/api/get-job-title', { email });
+        const {data} = await axios.post('https://tce-ai-api.azurewebsites.net/api/get-job-title', { email });
 
         sessionStorage.setItem(sessionStorageKey, JSON.stringify(data));
 
@@ -184,7 +184,7 @@ export async function getAllPersonnel() {
 //function to pull project team from SQL db
 export async function getProjectTeam(project) { 
     try{
-        const {data} = await axios.get('https://tce-ai-api.azurewebsites.net/api/get-project-team', { project } );
+        const {data} = await axios.post('https://tce-ai-api.azurewebsites.net/api/get-project-team', { project } );
         return data;
     } catch(error){
         console.error('Error fetching project team:', error);
