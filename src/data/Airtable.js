@@ -99,8 +99,11 @@ export async function send3dPrintingFormData(formData) {
         const { file } = formData;
 
         console.log("In airtable function: ")
-        if (file)
+        if (file){
             console.log(file.name)
+            console.log(file)
+            console.log(typeof(file)) // should be string
+        }
         else
             console.log("No file in airtable function")
 
