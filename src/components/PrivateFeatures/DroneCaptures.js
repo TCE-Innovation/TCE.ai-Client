@@ -1,14 +1,14 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useContext } from 'react';
 import TrainLoader from '../General/TrainLoader';
 import { FormControl, InputLabel, Select, MenuItem, Box } from '@mui/material';
+import { getUserProjects } from '../../data/SQL'; // Import the getUserProjects function
+import { AuthContext } from "../../authentication/Auth";
 
-// define the possible locations at each Project
 const projectLocationMap = {
     '207th Street Yard': ['Yard'],
     'Rockaways': ['North', 'West', 'East']
 };
 
-// maps each location to the embed URL that should be displayed
 const locationIFrameMap = {
     'North': '<iframe style="width: calc(100% - 50px); height: calc(100vh - 50px); margin: 10px;" src="https://cloud.pix4d.com/project/embed/1877194-21583576bc254bd1b4c10a926d35b5e5/" frameborder="0" allowfullscreen></iframe>',
     'West': '<iframe style="width: calc(100% - 50px); height: calc(100vh - 50px); margin: 10px;" src="https://cloud.pix4d.com/project/embed/1869741-9bcc232a350e46ee8f7b98256995ab88/" frameborder="0" allowfullscreen></iframe>',
@@ -16,28 +16,41 @@ const locationIFrameMap = {
     'Yard': '<iframe style="width: calc(100% - 50px); height: calc(100vh - 50px); margin: 10px;" src="https://cloud.pix4d.com/project/embed/1878517-0701e39043844f67b1f23dad1bf26f25/" frameborder="0" allowfullscreen></iframe>',
 };
 
-
 const DroneCaptures = () => {
     const [selectedProject, setSelectedProject] = useState('');
     const [selectedLocation, setSelectedLocation] = useState('');
     const [locations, setLocations] = useState([]);
     const [iframeLoaded, setIframeLoaded] = useState(false);
     const [iframeLink, setIframeLink] = useState('');
+    const [filteredProjects, setFilteredProjects] = useState([]); // Define filteredProjects state
+    const { userEmail } = useContext(AuthContext);
 
     useEffect(() => {
-        // Select the first project by default
-        setSelectedProject(Object.keys(projectLocationMap)[0]);
-    }, []);
+        async function fetchUserProjects() {
+            try {
+                const projects = await getUserProjects(userEmail, 'drone_captures');
+                let filteredProjects;
+                if (projects === "All") {
+                    filteredProjects = Object.keys(projectLocationMap);
+                } else {
+                    filteredProjects = Object.keys(projectLocationMap).filter(project => projects.includes(project));
+                }
+                setFilteredProjects(filteredProjects); // Set filteredProjects state
+                setSelectedProject(filteredProjects[0]); // Select the first project by default
+            } catch (error) {
+                console.error('Error fetching user projects:', error);
+            }
+        }
+
+        fetchUserProjects();
+    }, [userEmail]);
 
     useEffect(() => {
-        // Update locations when the selected project changes
         setLocations(projectLocationMap[selectedProject] || []);
-        // Select the first location by default
         setSelectedLocation(projectLocationMap[selectedProject]?.[0] || '');
     }, [selectedProject]);
 
     useEffect(() => {
-        // Update the iframeLink when the selected location changes
         setIframeLink(locationIFrameMap[selectedLocation] || '');
     }, [selectedLocation]);
 
@@ -70,12 +83,12 @@ const DroneCaptures = () => {
                         onChange={handleProjectChange}
                         label="Project"
                     >
-                        {Object.keys(projectLocationMap).map((project) => (
+                        {filteredProjects.map((project) => ( // Use filteredProjects here
                             <MenuItem key={project} value={project}>{project}</MenuItem>
                         ))}
                     </Select>
                 </FormControl>
-                {locations.length > 0 && (
+                {locations.length > 1 && (
                     <FormControl variant="standard" sx={{ m: 1, minWidth: 120 }}>
                         <InputLabel id="location-label">Location</InputLabel>
                         <Select
