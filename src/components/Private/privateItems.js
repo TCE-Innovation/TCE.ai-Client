@@ -16,6 +16,7 @@ import InsertChartOutlinedIcon from '@mui/icons-material/InsertChartOutlined';
 import DataThresholdingOutlinedIcon from '@mui/icons-material/DataThresholdingOutlined';
 import AdminPanelSettingsOutlinedIcon from '@mui/icons-material/AdminPanelSettingsOutlined';
 import PrintOutlinedIcon from '@mui/icons-material/PrintOutlined';
+import SatelliteAltIcon from '@mui/icons-material/SatelliteAlt';
 
 // CONTEXT
 import { AuthContext } from "../../authentication/Auth";
@@ -59,7 +60,8 @@ const PrivateListItems = ({ tool }) => {
         { to: '/private/cable-run-optimizer', text: 'Cable Run Optimizer', icon: <SpokeOutlinedIcon />, key: 'cable-run-optimizer' },
         { to: '/private/schedule-dashboards', text: 'Schedule Dashboards', icon: <InsertChartOutlinedIcon />, key: 'schedule-dashboards'},
         { to: '/private/overview-dashboard', text: 'Overview Dashboard', icon: <DataThresholdingOutlinedIcon />, key: 'overview-dashboard'},
-        { to: '/private/tool-usage', text: 'Tool Usage Stats', icon: <DonutSmallOutlinedIcon />, key: 'tool-usage' }
+        { to: '/private/tool-usage', text: 'Tool Usage Stats', icon: <DonutSmallOutlinedIcon />, key: 'tool-usage' }, 
+        { to: '/private/drone-captures', text: 'Drone Captures', icon: <SatelliteAltIcon />, key: 'drone-captures' }
     ];
 
     // Ensure userTools is a valid string, else default to an empty string
