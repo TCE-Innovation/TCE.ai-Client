@@ -20,7 +20,9 @@ const ScheduleDashboards = () => {
     useEffect(() => {
         const fetchDashboards = async () => {
             try {
+              
                 const data = await getUserProjects(userEmail, 'schedule_dashboards');
+
                 setUserDashboards(data);
                 console.log(data);
             } catch (error) {

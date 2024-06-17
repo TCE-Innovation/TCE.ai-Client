@@ -53,6 +53,7 @@ const PrivateListItems = ({ tool }) => {
         return <ListItemIcon style={getIconColor(itemKey)}>{iconComponent}</ListItemIcon>;
     };
 
+    //provisionable items
     const listItems = [
         { to: '/private/generate-emails', text: 'Email Generator', icon: <EmailOutlinedIcon />, key: 'generate-emails' },
         // { to: '/private/chat-bot', text: 'Chat Bot', icon: <ForumOutlinedIcon />, key: 'chat-bot' },

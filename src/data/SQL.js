@@ -67,7 +67,6 @@ export async function updateUserProject(email, project, table) {
     }
 }
 
-// getUserProjectSD() <-- old name
 // function to fetch emails and projects from table
 export async function getEmailsAndProjects(table) {
     try {
@@ -79,7 +78,7 @@ export async function getEmailsAndProjects(table) {
     }
 }
 
-// getUserDashboardSD(email) <-- old name
+
 // function to fetch a users projects in table
 export async function getUserProjects(email, table) {
     try {

@@ -98,7 +98,9 @@ const Provisioning = () => {
         if (selectedTool) {
             const fetchUserProjects = async () => {
                 try {
+
                     const projects = await getEmailsAndProjects(toolNameMap[selectedTool]);
+
                     const projectMap = projects.reduce((acc, project) => {
                         acc[project.email] = project.projects;
                         return acc;
