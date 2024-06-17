@@ -10,10 +10,10 @@ const projectLocationMap = {
 };
 
 const locationIFrameMap = {
-    'North': '<iframe style="width: calc(100% - 50px); height: calc(100vh - 50px); margin: 10px;" src="https://cloud.pix4d.com/project/embed/1877194-21583576bc254bd1b4c10a926d35b5e5/" frameborder="0" allowfullscreen></iframe>',
-    'West': '<iframe style="width: calc(100% - 50px); height: calc(100vh - 50px); margin: 10px;" src="https://cloud.pix4d.com/project/embed/1869741-9bcc232a350e46ee8f7b98256995ab88/" frameborder="0" allowfullscreen></iframe>',
-    'East': '<iframe style="width: calc(100% - 50px); height: calc(100vh - 50px); margin: 10px;" src="https://cloud.pix4d.com/project/embed/1869711-de6bf6526fd4493abc7320fcaa7f094b/" frameborder="0" allowfullscreen></iframe>',
-    'Yard': '<iframe style="width: calc(100% - 50px); height: calc(100vh - 50px); margin: 10px;" src="https://cloud.pix4d.com/project/embed/1878517-0701e39043844f67b1f23dad1bf26f25/" frameborder="0" allowfullscreen></iframe>',
+    'North': '<iframe style="width: 100%; height: 100vh; margin: 10px;" src="https://cloud.pix4d.com/project/embed/1877194-21583576bc254bd1b4c10a926d35b5e5/" frameborder="0" allowfullscreen></iframe>',
+    'West': '<iframe style="width: 100%; height: 100vh; margin: 10px;" src="https://cloud.pix4d.com/project/embed/1869741-9bcc232a350e46ee8f7b98256995ab88/" frameborder="0" allowfullscreen></iframe>',
+    'East': '<iframe style="width: 100%; height: 100vh; margin: 10px;" src="https://cloud.pix4d.com/project/embed/1869711-de6bf6526fd4493abc7320fcaa7f094b/" frameborder="0" allowfullscreen></iframe>',
+    'Yard': '<iframe style="width: 100%; height: 100vh; margin: 10px;" src="https://cloud.pix4d.com/project/embed/1878517-0701e39043844f67b1f23dad1bf26f25/" frameborder="0" allowfullscreen></iframe>',
 };
 
 const DroneCaptures = () => {
@@ -106,7 +106,7 @@ const DroneCaptures = () => {
                 )}
             </Box>
             {iframeLink && (
-                <div style={{ display: iframeLoaded ? 'block' : 'none', width: '100%', height: '65vh', margin: 'auto' }}>
+                <div style={{ display: iframeLoaded ? 'block' : 'none', width: '100%', height: '75vh', margin: 'auto' }}>
                     <iframe
                         onLoad={handleIframeLoad}
                         srcDoc={iframeLink} // Use srcDoc instead of src to directly embed the HTML content
