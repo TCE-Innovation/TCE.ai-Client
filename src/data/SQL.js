@@ -59,9 +59,9 @@ export async function getUsersOfTool(tool) {
 }
 
 // function to update project selection for a user in the schedule_dashboards table
-export async function updateUserProject(email, project) {
+export async function updateUserProject(email, project, table) {
     try {
-        const { data } = await axios.post('https://tce-ai-api.azurewebsites.net/api/sd-update-user-project', { email, project });
+        const { data } = await axios.post('https://tce-ai-api.azurewebsites.net/api/sd-update-user-project', { email, project, table });
         return data;
     } catch (error) {
         console.error('Error updating user project:', error);

@@ -209,7 +209,7 @@ const Provisioning = () => {
 
     const handleUserProjectChange = async (email, project) => {
         try {
-            await updateUserProject(email, project);
+            await updateUserProject(email, project, toolNameMap[selectedTool]);
             setUserProjects(prevProjects => ({ ...prevProjects, [email]: project }));
         } catch (error) {
             console.error('Error updating user project:', error);
