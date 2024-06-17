@@ -70,9 +70,9 @@ export async function updateUserProject(email, project) {
 }
 
 // function to fetch user projects from the schedule_dashboards table
-export async function getUserProjectSD() {
+export async function getUserProjectSD(table) {
     try {
-        const { data } = await axios.get('https://tce-ai-api.azurewebsites.net/api/sd-get-user-project');
+        const { data } = await axios.get('https://tce-ai-api.azurewebsites.net/api/sd-get-user-project', { table });
         return data;
     } catch (error) {
         console.error('Error fetching user project:', error);
@@ -81,9 +81,9 @@ export async function getUserProjectSD() {
 }
 
 // function to fetch user projects from the schedule_dashboards table
-export async function getUserDashboardSD(email) {
+export async function getUserDashboardSD(email, table) {
     try {
-        const { data } = await axios.post('https://tce-ai-api.azurewebsites.net/api/sd-get-user-dashboards', { email });
+        const { data } = await axios.post('https://tce-ai-api.azurewebsites.net/api/sd-get-user-dashboards', { email, table });
         return data;
     } catch (error) {
         console.error('Error fetching user dashboards:', error);

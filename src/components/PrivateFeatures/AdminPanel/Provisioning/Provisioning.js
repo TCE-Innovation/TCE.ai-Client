@@ -88,20 +88,22 @@ const Provisioning = () => {
     };
 
     useEffect(() => {
-        const fetchUserProjects = async () => {
-            try {
-                const projects = await getUserProjectSD();
-                const projectMap = projects.reduce((acc, project) => {
-                    acc[project.email] = project.projects;
-                    return acc;
-                }, {});
-                setUserProjects(projectMap);
-            } catch (error) {
-                console.error('Error fetching user projects:', error);
-            }
-        };
-        fetchUserProjects();
-    }, []);
+        if (selectedTool) {
+            const fetchUserProjects = async () => {
+                try {
+                    const projects = await getUserProjectSD(toolNameMap[selectedTool]);
+                    const projectMap = projects.reduce((acc, project) => {
+                        acc[project.email] = project.projects || 'None';
+                        return acc;
+                    }, {});
+                    setUserProjects(projectMap);
+                } catch (error) {
+                    console.error('Error fetching user projects:', error);
+                }
+            };
+            fetchUserProjects();
+        }
+    }, [selectedTool]);
 
     useEffect(() => {
         const fetchProjects = async () => {
