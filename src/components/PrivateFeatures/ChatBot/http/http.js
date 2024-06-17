@@ -1,5 +1,5 @@
 import axios from "axios";
-import { requestAccessToken } from "../utils/auth";
+import { getAccessToken } from "../utils/auth";
 
 const baseURL =
   process.env.REACT_APP_CHATBOT_API_URL ||
@@ -14,7 +14,7 @@ export const httpClient = axios.create({
 let token = null;
 
 httpClient.interceptors.request.use(async (config) => {
-  token = token || (await requestAccessToken());
+  token = token || (await getAccessToken());
   config.headers["Authorization"] = `Bearer ${token}`;
   return config;
 });
