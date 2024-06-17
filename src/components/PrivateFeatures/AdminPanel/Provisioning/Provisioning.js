@@ -93,7 +93,7 @@ const Provisioning = () => {
                 try {
                     const projects = await getUserProjectSD(toolNameMap[selectedTool]);
                     const projectMap = projects.reduce((acc, project) => {
-                        acc[project.email] = project.projects || 'None';
+                        acc[project.email] = project.projects;
                         return acc;
                     }, {});
                     setUserProjects(projectMap);
