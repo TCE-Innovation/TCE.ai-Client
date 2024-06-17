@@ -72,7 +72,7 @@ export async function updateUserProject(email, project, table) {
 // function to fetch user projects from the schedule_dashboards table
 export async function getUserProjectSD(table) {
     try {
-        const { data } = await axios.get('https://tce-ai-api.azurewebsites.net/api/sd-get-user-project', { table });
+        const { data } = await axios.post('https://tce-ai-api.azurewebsites.net/api/sd-get-user-project', { table });
         return data;
     } catch (error) {
         console.error('Error fetching user project:', error);
