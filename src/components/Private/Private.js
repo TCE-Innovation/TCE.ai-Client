@@ -28,6 +28,7 @@ import OverviewDashboard from '../PrivateFeatures/OverviewDashboard';
 import ToolUsage from "../PrivateFeatures/ToolUsage";
 import PrintingRequest from '../PrivateFeatures/3dPrinting/3dPrinting';
 import DroneCaptures from '../PrivateFeatures/DroneCaptures';
+import Clearance from '../PrivateFeatures/Clearance/Clearance';
 import Admin from '../PrivateFeatures/AdminPanel/AdminPanel';
 
 // AUTH
@@ -88,11 +89,12 @@ function PrivateContent() {
     'Tool Usage Stats': 'tool-usage',
     '3D Printing Request': '3d-printing-request',
     'Overview Dashboard': 'overview-dashboard',
-    'Drone Captures': 'drone-captures'
+    'Drone Captures': 'drone-captures',
+    'LLLE Clearance Calculator': 'clearance-calculator',
   };
 
   // Always available tools
-  const alwaysAvailableTools = useMemo(() => ['home', 'sub-automation', 'equipment-checkout', 'go-tracker', '3d-printing-request', 'admin'], []);
+  const alwaysAvailableTools = useMemo(() => ['home', 'sub-automation', 'equipment-checkout', 'go-tracker', '3d-printing-request', 'clearance-calculator', 'admin'], []);
 
   // Split the userTools string into an array
   const userToolsArray = (userTools || '').split(',').map(tool => tool.trim());
@@ -112,7 +114,8 @@ function PrivateContent() {
     'overview-dashboard': OverviewDashboard,
     'tool-usage': ToolUsage,
     '3d-printing-request': PrintingRequest,
-    'drone-captures': DroneCaptures, 
+    'drone-captures': DroneCaptures,
+    'clearance-calculator': Clearance,
     'admin': isAdmin ? Admin : null // Admin access only
   }), [isAdmin]);
 

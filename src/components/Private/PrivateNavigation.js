@@ -69,6 +69,8 @@ function ResponsiveAppBar() {
                 return 'Request 3D Printing';
             case 'drone-captures':
                 return 'Drone Captures';
+            case 'clearance-calculator': 
+                return 'LLLE Clearance Calculator'
             case 'admin':
                 return 'Admin Panel';
             default:
