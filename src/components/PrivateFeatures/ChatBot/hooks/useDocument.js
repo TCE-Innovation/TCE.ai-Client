@@ -50,10 +50,6 @@ const useDocument = (textToHighlight, pageNumber) => {
     renderHighlights: renderHighlights(pageNumber),
   });
 
-  const highlights = Array.isArray(textToHighlight)
-    ? textToHighlight
-    : [textToHighlight];
-
   const { highlight } = searchPluginInstance;
 
   const updateMatchPage = (offset) => {
@@ -71,15 +67,47 @@ const useDocument = (textToHighlight, pageNumber) => {
   const { CurrentPageLabel, NumberOfPages, jumpToPage } =
     pageNavigationPluginInstance;
 
-  const handleDocumentLoad = () => {
+  const extractLines = (textContent) => {
+    const items = [];
+    textContent.forEach((item) => {
+      items.push(item.str.toLowerCase());
+      if (item.hasEOL) items.push("\n");
+    });
+    const textString = items.join("");
+    const lines = textString.split("\n");
+    return lines;
+  };
+
+  const filterLines = (lines, pattern) => {
+    // sets minimum threshold to 60% of words match as a trait to successful line match on a given highlight text input
+    // tweak this value in order to fluctuate the highlight frequency
+    const accuracy = 0.65;
+    // constraint for evaluating a matched word in a given line
+    const isExcluded = (target) => target.length <= 3;
+    const patterns = pattern.toLowerCase().split(/\s+/);
+
+    return lines.filter((line) => {
+      const wordArray = line.split(/\s+/).filter((word) => !isExcluded(word));
+      const matches = wordArray.filter((word) =>
+        patterns.some((pattern) => pattern === word)
+      );
+      const matchRatio = matches.length / wordArray.length;
+      return matchRatio >= accuracy;
+    });
+  };
+
+  const handleDocumentLoad = async (ev) => {
+    const page = await ev.doc.getPage(pageNumber);
+    const textContent = (await page.getTextContent()).items;
+    const isHighlightedTextArray = Array.isArray(textToHighlight);
+    const lines = isHighlightedTextArray ? [] : extractLines(textContent);
+    const filteredLines = isHighlightedTextArray
+      ? []
+      : filterLines(lines, textToHighlight);
     setTimeout(async () => {
       highlight(
-        highlights.map((keyword) => ({
-          keyword,
-          multiline: true,
-          wholeWords: false,
-          matchCase: false,
-          exec: (word) => word !== "None",
+        filteredLines.map((line) => ({
+          keyword: line,
         }))
       ).then(() => {
         jumpToPage(pageNumber - 1);
