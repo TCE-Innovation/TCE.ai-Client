@@ -3,13 +3,11 @@ import React, {
   useContext as _useContext,
   useState,
   useCallback,
-  useEffect,
 } from "react";
-
-import { getAccessToken, getUserProfilePic } from "../../utils/auth";
 
 import { genRandomId } from "../../utils/uuid";
 import useStorage from "../../hooks/useStorage";
+import useAuth from "../../hooks/useAuth";
 
 const GlobalContext = createContext();
 
@@ -17,20 +15,12 @@ export const useContext = () => _useContext(GlobalContext);
 
 const GlobalContextProvider = ({ children }) => {
   const [alerts, setAlerts] = useState([]);
-  const [userProfileUrl, setUserProfileUrl] = useState("");
+  const { userPic } = useAuth();
 
   const [conversationsCollapsed, setIsConversationsCollapsed] = useStorage(
     "CHATBOT-SIDEBAR-STATE",
     false
   );
-
-  useEffect(() => {
-    (async () => {
-      const token = await getAccessToken();
-      const url = await getUserProfilePic(token);
-      setUserProfileUrl(url);
-    })();
-  }, []);
 
   const createAlert = useCallback(({ message, type }) => {
     if (!message) return;
@@ -46,7 +36,7 @@ const GlobalContextProvider = ({ children }) => {
       value={{
         createAlert,
         alerts,
-        userProfileUrl,
+        userProfileUrl: userPic,
         handleRemoveAlert,
         conversationsCollapsed,
         setIsConversationsCollapsed,

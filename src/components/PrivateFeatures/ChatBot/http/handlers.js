@@ -8,13 +8,15 @@ export const responseHandler = (response) => {
 
 export const errorHandler = (error) => {
   const defaultErrorMessage = "Something went wrong!";
-  const errorMessage = JSON.stringify(
-    error?.response?.data || defaultErrorMessage
-  );
+  const errorObject = error?.response?.data;
+  const errorMessage = JSON.stringify(errorObject || defaultErrorMessage);
   console.error(errorMessage);
   return {
     data: null,
     success: false,
-    message: errorMessage.length > 50 ? defaultErrorMessage : errorMessage,
+    message:
+      errorMessage.length > 50
+        ? defaultErrorMessage
+        : errorObject?.error || defaultErrorMessage,
   };
 };

@@ -11,10 +11,8 @@ export const httpClient = axios.create({
   baseURL,
 });
 
-let token = null;
-
 httpClient.interceptors.request.use(async (config) => {
-  token = token || (await getAccessToken());
+  const token = await getAccessToken();
   config.headers["Authorization"] = `Bearer ${token}`;
   return config;
 });

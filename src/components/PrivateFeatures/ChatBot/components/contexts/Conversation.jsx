@@ -47,7 +47,8 @@ const ConversationProvider = ({ children }) => {
       message,
     } = await conversationService.createConversation();
     setIsCreating(false);
-    if (!success || !conversationId) return createAlert({ message, type: "danger" });
+    if (!success || !conversationId)
+      return createAlert({ message, type: "danger" });
     setConversations((prev) => [
       { title: "New Chat", id: conversationId },
       ...prev,
@@ -63,7 +64,7 @@ const ConversationProvider = ({ children }) => {
         message,
       } = await conversationService.getConversations();
       if (!success) {
-        createAlert({ message, type: "danger" });
+        createAlert({ message: message, type: "danger" });
       }
       if (conversations) {
         setConversations(
