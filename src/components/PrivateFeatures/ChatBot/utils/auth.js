@@ -12,18 +12,8 @@ export { getUserProfilePic } from "../../../../data/Graph";
 
 const msalInstance = new PublicClientApplication(msalConfig);
 
-const CHATBOT_ACCESS_TOKEN_KEY = "CHATBOT_ACCESS_TOKEN";
-
 const initialize = async () => {
   await msalInstance.initialize();
-};
-
-const setAccessToken = (token) => {
-  localStorage.setItem(CHATBOT_ACCESS_TOKEN_KEY, JSON.stringify(token));
-};
-
-const clearAccessToken = () => {
-  localStorage.removeItem(CHATBOT_ACCESS_TOKEN_KEY);
 };
 
 export const requestAccessToken = () => {
@@ -58,14 +48,10 @@ export const requestAccessToken = () => {
 
 export const getAccessToken = () => {
   return new Promise(async (res, rej) => {
-    let token = localStorage.getItem(CHATBOT_ACCESS_TOKEN_KEY);
-    if (token) return res(JSON.parse(token));
     try {
-      token = await requestAccessToken();
-      setAccessToken(token);
+      const token = await requestAccessToken();
       res(token);
     } catch (err) {
-      clearAccessToken();
       rej(err);
     }
   });
