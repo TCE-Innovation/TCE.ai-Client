@@ -10,6 +10,13 @@ import { LocalizationProvider, DatePicker } from '@mui/x-date-pickers';
 import { AdapterDateFns } from '@mui/x-date-pickers/AdapterDateFns';
 import { send3dPrintingFormData, getActiveProjects } from '../../../data/Airtable';
 
+// Past prints pop up
+import FilterRoundedIcon from '@mui/icons-material/FilterRounded';
+import Dialog from '@mui/material/Dialog';
+import DialogActions from '@mui/material/DialogActions';
+import DialogContent from '@mui/material/DialogContent';
+import DialogTitle from '@mui/material/DialogTitle';
+
 import ZBracketCuraImage from '../../../img/Request3DPrintingImages/z_bracket_cura.png';
 import ZBracketRealImage from '../../../img/Request3DPrintingImages/z_bracket_real.png';
 import StairTreadCuraImage from '../../../img/Request3DPrintingImages/stair_tread_cura.png';
@@ -29,8 +36,32 @@ const PrintingRequest = () => {
     const [project, setProject] = useState('');
     const [file, setFile] = useState(null);
 
+    const [faqDialogOpen, setFaqDialogOpen] = useState(false);
+    const imageWidth = '250px';
+    const imageHeight = '250px';
+
+
     // useContext for email
     const {userEmail, userProjects } = useContext(AuthContext);
+
+
+    // Pop up box
+    const [isBoxExpanded, setIsBoxExpanded] = useState(false);
+
+    const [open, setOpen] = React.useState(false);
+
+    const handleClickOpen = () => {
+      setOpen(true);
+    };
+    const handleClose = () => {
+      setOpen(false);
+    };
+
+    const [expanded, setExpanded] = React.useState('panel1');
+  
+    const handleChange = (panel) => (event, newExpanded) => {
+        setExpanded(newExpanded ? panel : false);
+    };
 
     // Asynchronously fetch project options when the component mounts
     useEffect(() => {
@@ -77,7 +108,14 @@ const PrintingRequest = () => {
         reader.readAsDataURL(file);
     };
     
-
+    const handleFaqOpen = () => {
+        setFaqDialogOpen(true);
+    };
+    
+    const handleFaqClose = () => {
+        setFaqDialogOpen(false);
+    };
+    
 
     
     const handleSubmit = () => {
@@ -138,8 +176,8 @@ const PrintingRequest = () => {
         <>
 
     {/* OPENING TEXT */}
-    <Box display="flex" flexDirection="column" justifyContent="center" alignItems="center" mb={3}>
-        <div className={style.formDescription} style={{ textAlign: 'left', marginTop: "5px", fontSize: '1.3em' }}>
+    <Box display="flex" flexDirection="column" justifyContent="center" alignItems="center" mb={3} style={{ transform: 'translateX(-20px)' }}>
+        <div className={style.formDescription} style={{ textAlign: 'left', marginTop: "25px", fontSize: '1.3em', maxWidth: '80%' }}>
             Prototyping with 3D printing offers significant value in the construction industry, 
             particularly when developing custom brackets and materials. 
             This technology allows for rapid iteration and testing, 
@@ -148,51 +186,121 @@ const PrintingRequest = () => {
             identifying potential issues and making adjustments early in the process. 
             This not only enhances the overall quality and performance of the final product but also reduces the risk of costly errors and delays.                 
         </div>
-        <div className={style.formDescription} style={{ textAlign: 'left', marginTop: '20px', marginRight: '23px', fontSize: '1.3em' }}>
+        <div className={style.formDescription} style={{ textAlign: 'left', marginTop: '20px', marginRight: '0px', fontSize: '1.3em', maxWidth: '80%' }}>
             
-            After submitting your print request via the form below, Rory will reach out to you to discuss the details of your requested print and coordinate handoff.
+            After submitting your print request via the form below, a team member will reach out to you to discuss the details of your requested print and coordinate handoff.
+            
         </div>
 
-        {/* <div className={style.formDescription} style={{ textAlign: 'left', marginTop: '20px' }}>
-            Please note: prints beyond 17.7" x 15.7" x 15.7" will be printed in multiple parts, which may take longer.
-        </div> */}
-    </Box>
+        <Button
+            variant="contained"
+            startIcon={<FilterRoundedIcon />}
+            style={{ marginLeft: '0px', marginTop: '20px', marginBottom: '20px', backgroundColor: '#003EAB'}}
+            onClick={handleFaqOpen}
+        >
+            Click here for examples of past uses
+        </Button>
+
+        <Dialog 
+        open={faqDialogOpen} 
+        onClose={handleFaqClose}
+        fullWidth
+        maxWidth="md"
+        >
+            <DialogTitle style={{ textAlign: 'center', fontSize: '1.6rem', fontWeight: 'bold' }}>Past Use Examples</DialogTitle>
+            <DialogContent dividers style={{ height: '600px'}}>
+                <Typography variant="body1">
+                <Box display="flex" flexDirection="column" justifyContent="center" alignItems="center" mb={3} sx={{ marginTop: '23px', marginBottom: '-50px' , marginLeft: '-250px' }}>
+                    <Box display="flex" flexDirection="row" justifyContent="center" alignItems="center" mb={3}>
+                        {/* <div className={style.formDescription}>
+                            Past 3D Prints:                 
+                        </div> */}
+                    </Box>
+
+                    
+                    <Box display="flex" flexDirection="column" justifyContent="center" alignItems="center" mb={3} sx={{marginTop: '-15px', marginLeft: '150px'}}>
+                    
+                        <Box display="flex" flexDirection="row" alignItems="center" mx={1} sx={{marginLeft: '10px'}}>
+                            <div style={{ display: 'flex', justifyContent: 'center', marginTop: '-15px' }}>
+                                <img src={StairTreadCuraImage} alt="Z Bracket Cura" style={{ width: imageWidth, height: imageHeight, margin: '0 10px' }} />
+                                <img src={StairTreadRealImage} alt="Z Bracket Real" style={{ width: imageWidth, height: imageHeight, margin: '0 10px' }} />    
+                            </div>
+                            <Box display="flex" flexDirection="column" alignItems="center" mx={1} sx={{marginRight: '-90px', marginLeft: '20px', marginTop: '50px'}}>
+
+                                <Typography variant="h6" style={{ fontWeight: "bold", marginTop: "-70px", marginLeft: '-30px', marginBottom: '5px',  fontSize: '1.2em' }}>
+                                    Stair Tread
+                                </Typography>
+                                <Typography variant="body1" style={{ fontSize: '1.0em', maxWidth: '275px', lineHeight: '2' }}>
+                                    Used for Package 4, this 3D printed stair tread
+                                    was used to verify the fitting of stair treads, which are long lead items, on new stairs being installed
+                                    in compliance with MTA and ADA requirements.
+                                </Typography>
+                            </Box>
+
+                        </Box>
+
+                        <Box display="flex" flexDirection="row" alignItems="center" mx={1} sx={{marginTop: '50px'}}>
+                            <div style={{ display: 'flex', justifyContent: 'center', marginTop: '-15px' }}>
+                                <img src={ZBracketCuraImage} alt="Stair Tread Cura" style={{ width: imageWidth, height: imageHeight, margin: '0 10px' }} />
+                                <img src={ZBracketRealImage} alt="Stair Tread Real" style={{ width: imageWidth, height: imageHeight, margin: '0 10px' }} />    
+                            </div>
+                            <Box display="flex" flexDirection="column" alignItems="center" mx={1} sx={{marginRight: '-90px', marginLeft: '20px', marginTop: '50px'}}>
+
+                                <Typography variant="h6" style={{ fontWeight: "bold", marginTop: "-70px", marginLeft: '-20px', marginBottom: '5px', fontSize: '1.2em' }}>
+                                    Z Messenger Bracket
+                                </Typography>
+                                <Typography variant="body1" style={{ fontSize: '1.0em', maxWidth: '275px', lineHeight: '2' }}>
+                                    Used for Crosstown, this 3D printed bracket
+                                    was used to verify the future installation of brackets, which are long lead items, for messenger bundles.
+
+                                </Typography>
+                            </Box>
+                        </Box>
+                    </Box>
+                </Box>
+                </Typography>
+            </DialogContent>
+            <DialogActions>
+                <Button onClick={handleFaqClose} color="primary">
+                    Close
+                </Button>
+            </DialogActions>
+        </Dialog>
+
     
-    {/* FORM */}
-    <div style={{ marginLeft: '150px'}}>
-        
-        <div style={{ marginTop: '-20px', maxWidth: '1200px', margin: '0 auto' }}>
+    
+        {/* FORM */}
+        {/* <div style={{ marginTop: '-20px', marginLeft: '9vw', maxWidth: '700px', margin: '0 auto' }}> */}
 
             {isLoading ? (
                 <CircularProgress style={{ display: 'block', margin: '0 auto', marginRight: "700px" }} />
             ) : !isSubmitted ? (
+                
                 <div className="form-container">
-                    <Box display="flex" flexDirection="column" alignItems="center">
-                        {/* DESCRIPTION FIELD */}
-                        <Box display="flex" flexDirection="row" justifyContent="space-between" width="100%">
+                    <div>
+                        <Box display="flex" flexDirection="column">
+                            {/* DESCRIPTION FIELD */}
                             <TextField
                                 id="item"
                                 label="Description of item to 3D print"
                                 value={item}
                                 onChange={handleItemInputChange}
-                                style={{ margin: "10px", width: "58%", marginLeft: "130px", marginBottom: "-5px" }}
+                                style={{ margin: "10px", width: "100%" }}
+                            />
+
+                            {/* REASON FIELD */}
+                            <TextField
+                                id="reason"
+                                label="Reason for 3D print request"
+                                value={reason}
+                                onChange={handleReasonInputChange}
+                                style={{ margin: "10px", width: "100%"}}
                             />
                         </Box>
 
-                        {/* REASON FIELD */}
-                        <TextField
-                            id="reason"
-                            label="Reason for 3D print request"
-                            value={reason}
-                            onChange={handleReasonInputChange}
-                            style={{ margin: "20px", width: "58%", marginLeft: "-222px", marginBottom: "15px"}}
-                        />
-                    </Box>
-                    <Box display="flex" flexDirection="column" justifyContent="space-between" width="100%" sx={{ marginLeft: '-85px' }}>
-
-                        <Box display="flex" flexDirection="row" justifyContent="space-between" width="100%" sx={{ marginLeft: '170px' }}>
+                        <Box display="flex" flexDirection="row" width="100%" sx={{ marginLeft: '10px', marginTop: '10px' }}>
                             {/* PROJECT DROP DOWN MENU */}
-                            <FormControl style={{ margin: "0px", width: "35%", marginLeft: "45px" }}>
+                            <FormControl style={{ margin: "0px", width: "65%", marginRight: "20px" }}>
                                 <InputLabel id="project-label">Project</InputLabel>
                                 <Select
                                 labelId="project-label"
@@ -215,24 +323,22 @@ const PrintingRequest = () => {
                             </FormControl
                             >
                             {/* DATE NEEDED */}
-                            <Box style={{ paddingLeft: "5px", marginRight: '458px' }}>
                                 <LocalizationProvider dateAdapter={AdapterDateFns}>
                                     <DatePicker
                                     label="Date Needed"
                                     value={dateNeeded}
                                     onChange={setDateNeeded}
-                                    renderInput={(params) => <TextField {...params} style={{ marginTop: "10px", marginLeft: "185px", width: "20%", paddingRight: "50px" }} />}
+                                    renderInput={(params) => <TextField {...params} style={{ marginTop: "10px", marginLeft: "0px", width: "20%", paddingRight: "0px" }} />}
                                     />
                                 </LocalizationProvider>
-                            </Box>
                         </Box>
 
-                        <Box display="flex" flexDirection="row" justifyContent="space-between" width="100%" sx={{ marginLeft: '165px', marginTop: '10px' }}>
-                        <label htmlFor="file">
+                        <Box display="flex" flexDirection="row" width="100%" sx={{ marginLeft: '10px', marginTop: '10px' }}>
+                            <label htmlFor="file">
                             <Button
                                 variant="contained"
                                 startIcon={<Upload />}
-                                style={{ marginTop: '5px', marginLeft: '50px', width: '419px', height: '50px', marginRight: '-150px' }}
+                                style={{ marginTop: '5px', marginLeft: '0px', width: '433px', height: '50px', marginRight: '0px', backgroundColor: '#003EAB' }}
                                 size="medium"
                                 onClick={() => {
                                     document.getElementById('file').click();
@@ -240,35 +346,34 @@ const PrintingRequest = () => {
                             >
                                 Optional: Upload .stl or .dwg file
                             </Button>
-                        </label>
+                            </label>
 
-                        <input
-                            type="file"
-                            id="file"
-                            accept=".stl"
-                            style={{ display: 'none' }} // Hide the file input
-                            onChange={handleFileInputChange}
-                            
-                        />
+                            <input
+                                type="file"
+                                id="file"
+                                accept=".stl"
+                                style={{ display: 'none' }} // Hide the file input
+                                onChange={handleFileInputChange}
+                                
+                            />
 
                             <Button
                                 onClick={handleSubmit}
                                 variant="contained"
                                 color="primary"
-                                style={{ width: "21.3%", height: '50px', marginTop: "5px", marginBottom: "20px", marginRight: "455px" }}
+                                style={{ width: "40%", height: '50px', marginTop: "5px", marginBottom: "20px", marginLeft: "20px", backgroundColor: isButtonDisabled ? '#ccc' : '#003EAB' }}
                                 disabled={isButtonDisabled}
+                                
                                 >
                                 Submit
                             </Button>
                         </Box>
-
                         
-                    </Box>
-                    
-                    <Typography variant="body2" style={{ color: 'red', marginTop: '-5px', marginBottom: '5px', marginLeft: '60px', width: '70%', textAlign: 'center' }}>
-                        * Please note: requests beyond 17" x 15" x 15" will be printed in multiple pieces, which may take longer.
+                        
+                    </div>
+                    <Typography variant="body2" style={{ color: 'red', marginTop: '0px', marginBottom: '5px', marginRight: '0px', width: '110%', paddingLeft: '10px' }}>
+                        * Please note: items beyond 17" x 15" x 15" will be printed in multiple parts, which may take longer.
                     </Typography>
-                    
                 </div>
             ) : (
                 <div className="form-container" style={{ textAlign: "center", color: "#1b365f", marginRight: "220px" }}>
@@ -288,41 +393,8 @@ const PrintingRequest = () => {
                     </Button>
                 </div>
             )}
-        </div>
-
-        {/* IMAGES */}
-        <Box display="flex" flexDirection="column" justifyContent="center" alignItems="center" mb={3} sx={{ marginTop: '20px', marginLeft: '-220px' }}>
-            <Box display="flex" flexDirection="row" justifyContent="center" alignItems="center" mb={3}>
-                {/* <div className={style.formDescription}>
-                    Past 3D Prints:                 
-                </div> */}
-            </Box>
-
-            
-            <Box display="flex" flexDirection="row" justifyContent="center" alignItems="center" mb={3} sx={{marginTop: '-10px'}}>
-
-                <Box display="flex" flexDirection="column" alignItems="center" mx={1}>
-                    <div style={{ display: 'flex', justifyContent: 'center', marginTop: '-15px' }}>
-                        <img src={ZBracketCuraImage} alt="Z Bracket Cura" style={{ width: '200px', height: '200px', margin: '0 10px' }} />
-                        <img src={ZBracketRealImage} alt="Z Bracket Real" style={{ width: '200px', height: '200px', margin: '0 10px' }} />    
-                    </div>
-                    <Typography variant="h6" style={{ fontStyle: "italic", marginTop: "5px", fontSize: '1em' }}>
-                        Z Messenger Bracket
-                    </Typography>
-                </Box>
-
-                <Box display="flex" flexDirection="column" alignItems="center" mx={1}>
-                    <div style={{ display: 'flex', justifyContent: 'center', marginTop: '-15px' }}>
-                        <img src={StairTreadCuraImage} alt="Stair Tread Cura" style={{ width: '200px', height: '200px', margin: '0 10px' }} />
-                        <img src={StairTreadRealImage} alt="Stair Tread Real" style={{ width: '200px', height: '200px', margin: '0 10px' }} />    
-                    </div>
-                    <Typography variant="h6" style={{ fontStyle: "italic", marginTop: "5px", fontSize: '1em' }}>
-                        Stair Tread
-                    </Typography>
-                </Box>
-            </Box>
-        </Box>
-        </div>
+        {/* </div> */}
+    </Box>
     </>
     );
 };

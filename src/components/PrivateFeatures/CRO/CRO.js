@@ -96,7 +96,7 @@ const CRO = () => {
   
     const handleChange = (panel) => (event, newExpanded) => {
         setExpanded(newExpanded ? panel : false);
-      };
+    };
       
     
 
@@ -133,7 +133,7 @@ const CRO = () => {
         setError('');
         
         // Append user info to FormData to be sent to backend
-        const formData = new FormData();
+        const formData = new FormData();    
         
         try {
             // This will be a file
@@ -278,10 +278,9 @@ const CRO = () => {
                     aria-labelledby="customized-dialog-title"
                     open={open}
                 >
-                    <DialogTitle sx={{ m: 0, p: 2 }} id="customized-dialog-title">
-                    Frequently Asked Questions
-                    </DialogTitle>
-                    <IconButton
+                    <DialogTitle style={{ textAlign: 'center' }}>Frequently Asked Questions</DialogTitle>
+
+                    {/* <IconButton
                     aria-label="close"
                     onClick={handleClose}
                     sx={{
@@ -292,7 +291,7 @@ const CRO = () => {
                     }}
                     >
                     <CloseIcon />
-                    </IconButton>
+                    </IconButton> */}
                     <DialogContent dividers>
                     <div>
                     <Accordion expanded={expanded === 'panel1'} onChange={handleChange('panel1')}>
@@ -408,9 +407,9 @@ const CRO = () => {
                     </div>
                     </DialogContent>
                     <DialogActions>
-                    {/* <Button autoFocus onClick={handleClose}>
-                        x
-                    </Button> */}
+                    <Button autoFocus onClick={handleClose}>
+                        Close
+                    </Button>
                     </DialogActions>
                 </BootstrapDialog>
                 {/* </div> */}

@@ -91,7 +91,7 @@ const PrivateListItems = ({ tool }) => {
         { to: '/private/sub-automation', text: 'Subcontractor Forms', icon: <ArticleOutlinedIcon />, key: 'sub-automation' },
         { to: '/private/equipment-checkout', text: 'Equipment Checkout', icon: <DevicesOtherIcon />, key: 'equipment-checkout' },
         { to: '/private/go-tracker', text: 'GO Tracker', icon: <RailwayAlertOutlinedIcon />, key: 'go-tracker' },
-        { to: '/private/3d-printing-request', text: 'Request 3D Printing', icon: <PrintOutlinedIcon />, key: '3d-printing-request' },
+        { to: '/private/3d-printing-request', text: '3D Protoyping', icon: <PrintOutlinedIcon />, key: '3d-printing-request' },
     ];
 
     // Combine always included items with the filtered list items
