@@ -371,6 +371,7 @@ const PrintingRequest = () => {
                         
                         
                     </div>
+                    {/* warning text */}
                     <Typography variant="body2" style={{ color: 'red', marginTop: '0px', marginBottom: '5px', marginRight: '0px', width: '110%', paddingLeft: '10px' }}>
                         * Please note: items beyond 17" x 15" x 15" will be printed in multiple parts, which may take longer.
                     </Typography>
