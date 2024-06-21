@@ -195,7 +195,7 @@ const PrintingRequest = () => {
         <Button
             variant="contained"
             startIcon={<FilterRoundedIcon />}
-            style={{ marginLeft: '-40px', marginTop: '30px', backgroundColor: '#003EAB'}}
+            style={{ marginLeft: '0px', marginTop: '20px', marginBottom: '20px', backgroundColor: '#003EAB'}}
             onClick={handleFaqOpen}
         >
             Click here for examples of past uses
@@ -207,7 +207,7 @@ const PrintingRequest = () => {
         fullWidth
         maxWidth="md"
         >
-            <DialogTitle style={{ textAlign: 'center', fontSize: '1.6rem', fontWeight: 'bold' }}>Past 3D Protoyping Uses</DialogTitle>
+            <DialogTitle style={{ textAlign: 'center', fontSize: '1.6rem', fontWeight: 'bold' }}>Past Use Examples</DialogTitle>
             <DialogContent dividers style={{ height: '600px'}}>
                 <Typography variant="body1">
                 <Box display="flex" flexDirection="column" justifyContent="center" alignItems="center" mb={3} sx={{ marginTop: '23px', marginBottom: '-50px' , marginLeft: '-250px' }}>
@@ -267,43 +267,40 @@ const PrintingRequest = () => {
             </DialogActions>
         </Dialog>
 
-    </Box>
     
-    {/* FORM */}
-    <div style={{ marginLeft: '150px'}}>
-        
-        <div style={{ marginTop: '-20px', maxWidth: '1200px', margin: '0 auto' }}>
+    
+        {/* FORM */}
+        {/* <div style={{ marginTop: '-20px', marginLeft: '9vw', maxWidth: '700px', margin: '0 auto' }}> */}
 
             {isLoading ? (
                 <CircularProgress style={{ display: 'block', margin: '0 auto', marginRight: "700px" }} />
             ) : !isSubmitted ? (
+                
                 <div className="form-container">
-                    <Box display="flex" flexDirection="column" alignItems="center">
-                        {/* DESCRIPTION FIELD */}
-                        <Box display="flex" flexDirection="row" justifyContent="space-between" width="100%">
+                    <div>
+                        <Box display="flex" flexDirection="column">
+                            {/* DESCRIPTION FIELD */}
                             <TextField
                                 id="item"
                                 label="Description of item to 3D print"
                                 value={item}
                                 onChange={handleItemInputChange}
-                                style={{ margin: "10px", width: "58%", marginLeft: "130px", marginBottom: "-5px" }}
+                                style={{ margin: "10px", width: "100%" }}
+                            />
+
+                            {/* REASON FIELD */}
+                            <TextField
+                                id="reason"
+                                label="Reason for 3D print request"
+                                value={reason}
+                                onChange={handleReasonInputChange}
+                                style={{ margin: "10px", width: "100%"}}
                             />
                         </Box>
 
-                        {/* REASON FIELD */}
-                        <TextField
-                            id="reason"
-                            label="Reason for 3D print request"
-                            value={reason}
-                            onChange={handleReasonInputChange}
-                            style={{ margin: "20px", width: "58%", marginLeft: "-222px", marginBottom: "15px"}}
-                        />
-                    </Box>
-                    <Box display="flex" flexDirection="column" justifyContent="space-between" width="100%" sx={{ marginLeft: '-85px' }}>
-
-                        <Box display="flex" flexDirection="row" justifyContent="space-between" width="100%" sx={{ marginLeft: '170px' }}>
+                        <Box display="flex" flexDirection="row" width="100%" sx={{ marginLeft: '10px', marginTop: '10px' }}>
                             {/* PROJECT DROP DOWN MENU */}
-                            <FormControl style={{ margin: "0px", width: "35%", marginLeft: "45px" }}>
+                            <FormControl style={{ margin: "0px", width: "65%", marginRight: "20px" }}>
                                 <InputLabel id="project-label">Project</InputLabel>
                                 <Select
                                 labelId="project-label"
@@ -326,24 +323,22 @@ const PrintingRequest = () => {
                             </FormControl
                             >
                             {/* DATE NEEDED */}
-                            <Box style={{ paddingLeft: "5px", marginRight: '458px' }}>
                                 <LocalizationProvider dateAdapter={AdapterDateFns}>
                                     <DatePicker
                                     label="Date Needed"
                                     value={dateNeeded}
                                     onChange={setDateNeeded}
-                                    renderInput={(params) => <TextField {...params} style={{ marginTop: "10px", marginLeft: "185px", width: "20%", paddingRight: "50px" }} />}
+                                    renderInput={(params) => <TextField {...params} style={{ marginTop: "10px", marginLeft: "0px", width: "20%", paddingRight: "0px" }} />}
                                     />
                                 </LocalizationProvider>
-                            </Box>
                         </Box>
 
-                        <Box display="flex" flexDirection="row" justifyContent="space-between" width="100%" sx={{ marginLeft: '165px', marginTop: '10px' }}>
-                        <label htmlFor="file">
+                        <Box display="flex" flexDirection="row" width="100%" sx={{ marginLeft: '10px', marginTop: '10px' }}>
+                            <label htmlFor="file">
                             <Button
                                 variant="contained"
                                 startIcon={<Upload />}
-                                style={{ marginTop: '5px', marginLeft: '50px', width: '419px', height: '50px', marginRight: '-150px', backgroundColor: '#003EAB' }}
+                                style={{ marginTop: '5px', marginLeft: '0px', width: '433px', height: '50px', marginRight: '0px', backgroundColor: '#003EAB' }}
                                 size="medium"
                                 onClick={() => {
                                     document.getElementById('file').click();
@@ -351,36 +346,33 @@ const PrintingRequest = () => {
                             >
                                 Optional: Upload .stl or .dwg file
                             </Button>
-                        </label>
+                            </label>
 
-                        <input
-                            type="file"
-                            id="file"
-                            accept=".stl"
-                            style={{ display: 'none' }} // Hide the file input
-                            onChange={handleFileInputChange}
-                            
-                        />
+                            <input
+                                type="file"
+                                id="file"
+                                accept=".stl"
+                                style={{ display: 'none' }} // Hide the file input
+                                onChange={handleFileInputChange}
+                                
+                            />
 
                             <Button
                                 onClick={handleSubmit}
                                 variant="contained"
                                 color="primary"
-                                style={{ width: "21.3%", height: '50px', marginTop: "5px", marginBottom: "20px", marginRight: "455px", backgroundColor: isButtonDisabled ? '#ccc' : '#003EAB' }}
+                                style={{ width: "40%", height: '50px', marginTop: "5px", marginBottom: "20px", marginLeft: "20px", backgroundColor: isButtonDisabled ? '#ccc' : '#003EAB' }}
                                 disabled={isButtonDisabled}
                                 
                                 >
                                 Submit
                             </Button>
                         </Box>
-
                         
-                    </Box>
-                    
-                    <Typography variant="body2" style={{ color: 'red', marginTop: '-5px', marginBottom: '5px', marginLeft: '60px', width: '70%', textAlign: 'center' }}>
-                        * Please note: requests beyond 17" x 15" x 15" will be printed in multiple pieces, which may take longer.
-                    </Typography>
-                    
+                        <Typography variant="body2" style={{ color: 'red', marginTop: '-5px', marginBottom: '5px', marginLeft: '60px', width: '70%', textAlign: 'center' }}>
+                            * Please note: requests beyond 17" x 15" x 15" will be printed in multiple pieces, which may take longer.
+                        </Typography>
+                    </div>
                 </div>
             ) : (
                 <div className="form-container" style={{ textAlign: "center", color: "#1b365f", marginRight: "220px" }}>
@@ -400,11 +392,8 @@ const PrintingRequest = () => {
                     </Button>
                 </div>
             )}
-        </div>
-
-        {/* IMAGES */}
-
-        </div>
+        {/* </div> */}
+    </Box>
     </>
     );
 };
