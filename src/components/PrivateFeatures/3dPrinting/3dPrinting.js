@@ -10,6 +10,13 @@ import { LocalizationProvider, DatePicker } from '@mui/x-date-pickers';
 import { AdapterDateFns } from '@mui/x-date-pickers/AdapterDateFns';
 import { send3dPrintingFormData, getActiveProjects } from '../../../data/Airtable';
 
+// Past prints pop up
+import FilterRoundedIcon from '@mui/icons-material/FilterRounded';
+import Dialog from '@mui/material/Dialog';
+import DialogActions from '@mui/material/DialogActions';
+import DialogContent from '@mui/material/DialogContent';
+import DialogTitle from '@mui/material/DialogTitle';
+
 import ZBracketCuraImage from '../../../img/Request3DPrintingImages/z_bracket_cura.png';
 import ZBracketRealImage from '../../../img/Request3DPrintingImages/z_bracket_real.png';
 import StairTreadCuraImage from '../../../img/Request3DPrintingImages/stair_tread_cura.png';
@@ -29,8 +36,30 @@ const PrintingRequest = () => {
     const [project, setProject] = useState('');
     const [file, setFile] = useState(null);
 
+    const [faqDialogOpen, setFaqDialogOpen] = useState(false);
+
+
     // useContext for email
     const {userEmail, userProjects } = useContext(AuthContext);
+
+
+    // Pop up box
+    const [isBoxExpanded, setIsBoxExpanded] = useState(false);
+
+    const [open, setOpen] = React.useState(false);
+
+    const handleClickOpen = () => {
+      setOpen(true);
+    };
+    const handleClose = () => {
+      setOpen(false);
+    };
+
+    const [expanded, setExpanded] = React.useState('panel1');
+  
+    const handleChange = (panel) => (event, newExpanded) => {
+        setExpanded(newExpanded ? panel : false);
+    };
 
     // Asynchronously fetch project options when the component mounts
     useEffect(() => {
@@ -77,7 +106,14 @@ const PrintingRequest = () => {
         reader.readAsDataURL(file);
     };
     
-
+    const handleFaqOpen = () => {
+        setFaqDialogOpen(true);
+    };
+    
+    const handleFaqClose = () => {
+        setFaqDialogOpen(false);
+    };
+    
 
     
     const handleSubmit = () => {
@@ -138,7 +174,7 @@ const PrintingRequest = () => {
         <>
 
     {/* OPENING TEXT */}
-    <Box display="flex" flexDirection="column" justifyContent="center" alignItems="center" mb={3}>
+    <Box display="flex" flexDirection="column" justifyContent="center" alignItems="center" mb={3} style={{ transform: 'translateX(-20px)' }}>
         <div className={style.formDescription} style={{ textAlign: 'left', marginTop: "5px", fontSize: '1.3em', maxWidth: '80%' }}>
             Prototyping with 3D printing offers significant value in the construction industry, 
             particularly when developing custom brackets and materials. 
@@ -153,9 +189,30 @@ const PrintingRequest = () => {
             After submitting your print request via the form below, a team member will reach out to you to discuss the details of your requested print and coordinate handoff.
         </div>
 
-        {/* <div className={style.formDescription} style={{ textAlign: 'left', marginTop: '20px' }}>
-            Please note: prints beyond 17.7" x 15.7" x 15.7" will be printed in multiple parts, which may take longer.
-        </div> */}
+        <Button
+            variant="contained"
+            startIcon={<FilterRoundedIcon />}
+            style={{ marginLeft: '-20px', marginTop: '30px', backgroundColor: '#003EAB'}}
+            onClick={handleFaqOpen}
+        >
+            Click here for examples of past uses
+        </Button>
+
+        <Dialog open={faqDialogOpen} onClose={handleFaqClose}>
+            <DialogTitle>FAQ</DialogTitle>
+            <DialogContent>
+                <Typography variant="body1">
+                    {/* Add your FAQ content here */}
+                    This is the FAQ dialog content.
+                </Typography>
+            </DialogContent>
+            <DialogActions>
+                <Button onClick={handleFaqClose} color="primary">
+                    Close
+                </Button>
+            </DialogActions>
+        </Dialog>
+
     </Box>
     
     {/* FORM */}
@@ -232,7 +289,7 @@ const PrintingRequest = () => {
                             <Button
                                 variant="contained"
                                 startIcon={<Upload />}
-                                style={{ marginTop: '5px', marginLeft: '50px', width: '419px', height: '50px', marginRight: '-150px' }}
+                                style={{ marginTop: '5px', marginLeft: '50px', width: '419px', height: '50px', marginRight: '-150px', backgroundColor: '#003EAB' }}
                                 size="medium"
                                 onClick={() => {
                                     document.getElementById('file').click();
@@ -255,8 +312,9 @@ const PrintingRequest = () => {
                                 onClick={handleSubmit}
                                 variant="contained"
                                 color="primary"
-                                style={{ width: "21.3%", height: '50px', marginTop: "5px", marginBottom: "20px", marginRight: "455px" }}
+                                style={{ width: "21.3%", height: '50px', marginTop: "5px", marginBottom: "20px", marginRight: "455px", backgroundColor: isButtonDisabled ? '#ccc' : '#003EAB' }}
                                 disabled={isButtonDisabled}
+                                
                                 >
                                 Submit
                             </Button>

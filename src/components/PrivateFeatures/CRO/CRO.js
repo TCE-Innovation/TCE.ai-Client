@@ -96,7 +96,7 @@ const CRO = () => {
   
     const handleChange = (panel) => (event, newExpanded) => {
         setExpanded(newExpanded ? panel : false);
-      };
+    };
       
     
 
@@ -133,7 +133,7 @@ const CRO = () => {
         setError('');
         
         // Append user info to FormData to be sent to backend
-        const formData = new FormData();
+        const formData = new FormData();    
         
         try {
             // This will be a file
