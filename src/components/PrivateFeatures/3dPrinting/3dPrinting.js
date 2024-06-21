@@ -37,6 +37,8 @@ const PrintingRequest = () => {
     const [file, setFile] = useState(null);
 
     const [faqDialogOpen, setFaqDialogOpen] = useState(false);
+    const imageWidth = '250px';
+    const imageHeight = '250px';
 
 
     // useContext for email
@@ -175,7 +177,7 @@ const PrintingRequest = () => {
 
     {/* OPENING TEXT */}
     <Box display="flex" flexDirection="column" justifyContent="center" alignItems="center" mb={3} style={{ transform: 'translateX(-20px)' }}>
-        <div className={style.formDescription} style={{ textAlign: 'left', marginTop: "5px", fontSize: '1.3em', maxWidth: '80%' }}>
+        <div className={style.formDescription} style={{ textAlign: 'left', marginTop: "25px", fontSize: '1.3em', maxWidth: '80%' }}>
             Prototyping with 3D printing offers significant value in the construction industry, 
             particularly when developing custom brackets and materials. 
             This technology allows for rapid iteration and testing, 
@@ -187,23 +189,75 @@ const PrintingRequest = () => {
         <div className={style.formDescription} style={{ textAlign: 'left', marginTop: '20px', marginRight: '0px', fontSize: '1.3em', maxWidth: '80%' }}>
             
             After submitting your print request via the form below, a team member will reach out to you to discuss the details of your requested print and coordinate handoff.
+            
         </div>
 
         <Button
             variant="contained"
             startIcon={<FilterRoundedIcon />}
-            style={{ marginLeft: '-20px', marginTop: '30px', backgroundColor: '#003EAB'}}
+            style={{ marginLeft: '-40px', marginTop: '30px', backgroundColor: '#003EAB'}}
             onClick={handleFaqOpen}
         >
             Click here for examples of past uses
         </Button>
 
-        <Dialog open={faqDialogOpen} onClose={handleFaqClose}>
-            <DialogTitle>FAQ</DialogTitle>
-            <DialogContent>
+        <Dialog 
+        open={faqDialogOpen} 
+        onClose={handleFaqClose}
+        fullWidth
+        maxWidth="md"
+        >
+            <DialogTitle style={{ textAlign: 'center', fontSize: '1.6rem', fontWeight: 'bold' }}>Past 3D Protoyping Uses</DialogTitle>
+            <DialogContent dividers style={{ height: '600px'}}>
                 <Typography variant="body1">
-                    {/* Add your FAQ content here */}
-                    This is the FAQ dialog content.
+                <Box display="flex" flexDirection="column" justifyContent="center" alignItems="center" mb={3} sx={{ marginTop: '23px', marginBottom: '-50px' , marginLeft: '-250px' }}>
+                    <Box display="flex" flexDirection="row" justifyContent="center" alignItems="center" mb={3}>
+                        {/* <div className={style.formDescription}>
+                            Past 3D Prints:                 
+                        </div> */}
+                    </Box>
+
+                    
+                    <Box display="flex" flexDirection="column" justifyContent="center" alignItems="center" mb={3} sx={{marginTop: '-15px', marginLeft: '150px'}}>
+                    
+                        <Box display="flex" flexDirection="row" alignItems="center" mx={1} sx={{marginLeft: '10px'}}>
+                            <div style={{ display: 'flex', justifyContent: 'center', marginTop: '-15px' }}>
+                                <img src={StairTreadCuraImage} alt="Z Bracket Cura" style={{ width: imageWidth, height: imageHeight, margin: '0 10px' }} />
+                                <img src={StairTreadRealImage} alt="Z Bracket Real" style={{ width: imageWidth, height: imageHeight, margin: '0 10px' }} />    
+                            </div>
+                            <Box display="flex" flexDirection="column" alignItems="center" mx={1} sx={{marginRight: '-90px', marginLeft: '20px', marginTop: '50px'}}>
+
+                                <Typography variant="h6" style={{ fontWeight: "bold", marginTop: "-70px", marginLeft: '-40px', fontSize: '1.2em' }}>
+                                    Stair Tread
+                                </Typography>
+                                <Typography variant="body1" style={{ fontSize: '1.0em', maxWidth: '275px', lineHeight: '2' }}>
+                                    Used for Package 4, this
+                                    was used to verify the fitting of stair treads, which are long lead items, on new stairs being installed
+                                    in compliance with MTA and ADA requirements.
+                                </Typography>
+                            </Box>
+
+                        </Box>
+
+                        <Box display="flex" flexDirection="row" alignItems="center" mx={1} sx={{marginTop: '50px'}}>
+                            <div style={{ display: 'flex', justifyContent: 'center', marginTop: '-15px' }}>
+                                <img src={ZBracketCuraImage} alt="Stair Tread Cura" style={{ width: imageWidth, height: imageHeight, margin: '0 10px' }} />
+                                <img src={ZBracketRealImage} alt="Stair Tread Real" style={{ width: imageWidth, height: imageHeight, margin: '0 10px' }} />    
+                            </div>
+                            <Box display="flex" flexDirection="column" alignItems="center" mx={1} sx={{marginRight: '-90px', marginLeft: '20px', marginTop: '50px'}}>
+
+                                <Typography variant="h6" style={{ fontWeight: "bold", marginTop: "-70px", marginLeft: '-40px' , fontSize: '1.2em' }}>
+                                    Z Messenger Bracket
+                                </Typography>
+                                <Typography variant="body1" style={{ fontSize: '1.0em', maxWidth: '275px', lineHeight: '2' }}>
+                                    Used for Crosstown, this 3D printed bracket
+                                    was used to verify the future installation of brackets, which are long lead items, for messenger bundles.
+
+                                </Typography>
+                            </Box>
+                        </Box>
+                    </Box>
+                </Box>
                 </Typography>
             </DialogContent>
             <DialogActions>
@@ -349,37 +403,7 @@ const PrintingRequest = () => {
         </div>
 
         {/* IMAGES */}
-        <Box display="flex" flexDirection="column" justifyContent="center" alignItems="center" mb={3} sx={{ marginTop: '20px', marginLeft: '-220px' }}>
-            <Box display="flex" flexDirection="row" justifyContent="center" alignItems="center" mb={3}>
-                {/* <div className={style.formDescription}>
-                    Past 3D Prints:                 
-                </div> */}
-            </Box>
 
-            
-            <Box display="flex" flexDirection="row" justifyContent="center" alignItems="center" mb={3} sx={{marginTop: '-10px'}}>
-
-                <Box display="flex" flexDirection="column" alignItems="center" mx={1}>
-                    <div style={{ display: 'flex', justifyContent: 'center', marginTop: '-15px' }}>
-                        <img src={ZBracketCuraImage} alt="Z Bracket Cura" style={{ width: '200px', height: '200px', margin: '0 10px' }} />
-                        <img src={ZBracketRealImage} alt="Z Bracket Real" style={{ width: '200px', height: '200px', margin: '0 10px' }} />    
-                    </div>
-                    <Typography variant="h6" style={{ fontStyle: "italic", marginTop: "5px", fontSize: '1em' }}>
-                        Z Messenger Bracket
-                    </Typography>
-                </Box>
-
-                <Box display="flex" flexDirection="column" alignItems="center" mx={1}>
-                    <div style={{ display: 'flex', justifyContent: 'center', marginTop: '-15px' }}>
-                        <img src={StairTreadCuraImage} alt="Stair Tread Cura" style={{ width: '200px', height: '200px', margin: '0 10px' }} />
-                        <img src={StairTreadRealImage} alt="Stair Tread Real" style={{ width: '200px', height: '200px', margin: '0 10px' }} />    
-                    </div>
-                    <Typography variant="h6" style={{ fontStyle: "italic", marginTop: "5px", fontSize: '1em' }}>
-                        Stair Tread
-                    </Typography>
-                </Box>
-            </Box>
-        </Box>
         </div>
     </>
     );
