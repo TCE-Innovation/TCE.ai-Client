@@ -4,8 +4,7 @@ export default styled.div`
   height: 100%;
   .conversations {
     height: 100%;
-    width: 30vw;
-    max-width: 300px;
+    width: 20vw;
     display: flex;
     flex-direction: column;
     gap: 0.5em;
