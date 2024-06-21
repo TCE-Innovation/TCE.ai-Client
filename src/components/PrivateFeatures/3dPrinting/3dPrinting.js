@@ -46,22 +46,22 @@ const PrintingRequest = () => {
 
 
     // Pop up box
-    const [isBoxExpanded, setIsBoxExpanded] = useState(false);
+    // const [isBoxExpanded, setIsBoxExpanded] = useState(false);
 
-    const [open, setOpen] = React.useState(false);
+    // const [open, setOpen] = React.useState(false);
 
-    const handleClickOpen = () => {
-      setOpen(true);
-    };
-    const handleClose = () => {
-      setOpen(false);
-    };
+    // const handleClickOpen = () => {
+    //   setOpen(true);
+    // };
+    // const handleClose = () => {
+    //   setOpen(false);
+    // };
 
-    const [expanded, setExpanded] = React.useState('panel1');
+    // const [expanded, setExpanded] = React.useState('panel1');
   
-    const handleChange = (panel) => (event, newExpanded) => {
-        setExpanded(newExpanded ? panel : false);
-    };
+    // const handleChange = (panel) => (event, newExpanded) => {
+    //     setExpanded(newExpanded ? panel : false);
+    // };
 
     // Asynchronously fetch project options when the component mounts
     useEffect(() => {
