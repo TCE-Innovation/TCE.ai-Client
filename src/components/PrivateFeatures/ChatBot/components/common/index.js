@@ -4,3 +4,4 @@ export { default as Alert } from "./alert";
 export { default as Alerts } from "./alerts";
 export { default as Modal } from "./modal";
 export { default as Markdown } from "./markdown";
+export { default as Select } from "./select";

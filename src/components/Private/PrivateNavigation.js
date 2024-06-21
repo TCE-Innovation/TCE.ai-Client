@@ -52,7 +52,7 @@ function ResponsiveAppBar() {
             case 'generate-emails':
                 return 'Generate an Email';
             case 'chat-bot':
-                return 'Chat Bot';   
+                return 'Chatbot - BETA';   
             case 'cable-run-optimizer':
                 return 'Cable Run Optimizer';
             case 'go-tracker':
