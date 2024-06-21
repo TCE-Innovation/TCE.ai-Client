@@ -139,7 +139,7 @@ const PrintingRequest = () => {
 
     {/* OPENING TEXT */}
     <Box display="flex" flexDirection="column" justifyContent="center" alignItems="center" mb={3}>
-        <div className={style.formDescription} style={{ textAlign: 'left', marginTop: "5px", fontSize: '1.3em' }}>
+        <div className={style.formDescription} style={{ textAlign: 'left', marginTop: "5px", fontSize: '1.3em', maxWidth: '80%' }}>
             Prototyping with 3D printing offers significant value in the construction industry, 
             particularly when developing custom brackets and materials. 
             This technology allows for rapid iteration and testing, 
@@ -148,9 +148,9 @@ const PrintingRequest = () => {
             identifying potential issues and making adjustments early in the process. 
             This not only enhances the overall quality and performance of the final product but also reduces the risk of costly errors and delays.                 
         </div>
-        <div className={style.formDescription} style={{ textAlign: 'left', marginTop: '20px', marginRight: '23px', fontSize: '1.3em' }}>
+        <div className={style.formDescription} style={{ textAlign: 'left', marginTop: '20px', marginRight: '0px', fontSize: '1.3em', maxWidth: '80%' }}>
             
-            After submitting your print request via the form below, Rory will reach out to you to discuss the details of your requested print and coordinate handoff.
+            After submitting your print request via the form below, a team member will reach out to you to discuss the details of your requested print and coordinate handoff.
         </div>
 
         {/* <div className={style.formDescription} style={{ textAlign: 'left', marginTop: '20px' }}>
