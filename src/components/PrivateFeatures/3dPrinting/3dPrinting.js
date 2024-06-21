@@ -369,10 +369,11 @@ const PrintingRequest = () => {
                             </Button>
                         </Box>
                         
-                        <Typography variant="body2" style={{ color: 'red', marginTop: '-5px', marginBottom: '5px', marginLeft: '60px', width: '70%', textAlign: 'center' }}>
-                            * Please note: requests beyond 17" x 15" x 15" will be printed in multiple pieces, which may take longer.
-                        </Typography>
+                        
                     </div>
+                    <Typography variant="body2" style={{ color: 'red', marginTop: '0px', marginBottom: '5px', marginRight: '0px', width: '110%', paddingLeft: '10px' }}>
+                        * Please note: items beyond 17" x 15" x 15" will be printed in multiple parts, which may take longer.
+                    </Typography>
                 </div>
             ) : (
                 <div className="form-container" style={{ textAlign: "center", color: "#1b365f", marginRight: "220px" }}>
