@@ -227,11 +227,11 @@ const PrintingRequest = () => {
                             </div>
                             <Box display="flex" flexDirection="column" alignItems="center" mx={1} sx={{marginRight: '-90px', marginLeft: '20px', marginTop: '50px'}}>
 
-                                <Typography variant="h6" style={{ fontWeight: "bold", marginTop: "-70px", marginLeft: '-40px', fontSize: '1.2em' }}>
+                                <Typography variant="h6" style={{ fontWeight: "bold", marginTop: "-70px", marginLeft: '-30px', marginBottom: '5px',  fontSize: '1.2em' }}>
                                     Stair Tread
                                 </Typography>
                                 <Typography variant="body1" style={{ fontSize: '1.0em', maxWidth: '275px', lineHeight: '2' }}>
-                                    Used for Package 4, this
+                                    Used for Package 4, this 3D printed stair tread
                                     was used to verify the fitting of stair treads, which are long lead items, on new stairs being installed
                                     in compliance with MTA and ADA requirements.
                                 </Typography>
@@ -246,7 +246,7 @@ const PrintingRequest = () => {
                             </div>
                             <Box display="flex" flexDirection="column" alignItems="center" mx={1} sx={{marginRight: '-90px', marginLeft: '20px', marginTop: '50px'}}>
 
-                                <Typography variant="h6" style={{ fontWeight: "bold", marginTop: "-70px", marginLeft: '-40px' , fontSize: '1.2em' }}>
+                                <Typography variant="h6" style={{ fontWeight: "bold", marginTop: "-70px", marginLeft: '-20px', marginBottom: '5px', fontSize: '1.2em' }}>
                                     Z Messenger Bracket
                                 </Typography>
                                 <Typography variant="body1" style={{ fontSize: '1.0em', maxWidth: '275px', lineHeight: '2' }}>
