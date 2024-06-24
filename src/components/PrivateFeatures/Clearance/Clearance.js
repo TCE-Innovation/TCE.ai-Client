@@ -13,20 +13,21 @@ const Clearance = () => {
   const [SUPER, setSUPER] = useState(0); // Field for Super Elevation 
   const [R, setR] = useState(0); // Field for R - Radius (in inches)
   const [SE, setSE] = useState(0); // Field for SE - Super Elevation Excess (in inches)
-  const [EE, setEE] = useState(0); // Field for EE - Edge Excess (in inches)
+  const [EE, setEE] = useState(0); // Field for EE - End Excess (in inches)
   const [CE, setCE] = useState(0); // Field for CE - Center Excess (in inches)
   const [LLLEMinReq, setLLLEMinReq] = useState(33.875); // Field for LLLE Minimum Requirement (in inches)
-  const [LLLEClearance, setLLLEClearance] = useState(-33.875); // Field for calculated LLLE Clearance (in inches)
+  const [LLLEClearance, setLLLEClearance] = useState(0); // Field for calculated LLLE Clearance (in inches)
+  const [clearance, setClearance] = useState(LLLEClearance - LLLEMinReq);
   const [divMaxH, setDivMaxH] = useState(145.625); 
   const [hStep] = useState(0.125);
   const [dStep] = useState(0.125);
-  const [moStep] = useState(0.1);
+  const [moStep] = useState(0.125);
   const [superStep] = useState(0.125);
   const [A_height_to_clearance, setATranslate] = useState({0:33.875});
   const [B_height_to_clearance, setBTranslate] = useState({0:35.125});
 
   const isClearanceGreater = LLLEClearance > LLLEMinReq;
-  const clearanceClassName = `value-box ${isClearanceGreater ? 'greater-clearance' : 'lesser-clearance'}`
+  const clearanceClassName = `${isClearanceGreater ? 'greater-clearance' : 'lesser-clearance'}`
 
   const findNearestKey = (map, key) => {
     const keys = Object.keys(map).map(Number).sort((a, b) => a - b);
@@ -36,32 +37,24 @@ const Clearance = () => {
 
   const handleHChange = (event) => {
     let newH = event.target.value;
-    setH(newH);
-    if (division === 'A Division (IRT)') {
-      if (A_height_to_clearance.hasOwnProperty(newH) && newH >= -0.5 && newH <= 145.625) {
-        setLLLEMinReq(A_height_to_clearance[newH]);
-      } else if (newH >= -0.5 && newH <= 145.625) {
-        setLLLEMinReq(findNearestKey(A_height_to_clearance, newH));
-      }
-    } else if (division === 'B Division (IND / BMT)') {
-      if (B_height_to_clearance.hasOwnProperty(newH) && newH >= -0.5 && newH <= 148.625) {
-        setLLLEMinReq(B_height_to_clearance[newH]);
-      } else if (newH >= -0.5 && newH <= 145.625) {
-        setLLLEMinReq(findNearestKey(B_height_to_clearance, newH));
-      }
+    if (newH > divMaxH) {
+      newH = divMaxH;
     }
+    setH(formatNumber(newH));
+  }
+
+  const formatNumber = (number) => {
+    let num;
+    try {
+      num = number.toFixed(3)
+    } catch (error) {
+      num = number;
+    }
+    return num
   }
 
   const handleDChange = (event) => {
     setD(event.target.value);
-  }
-
-  const handleTrackTypeChange = (event) => {
-    setTrackType(event.target.value);
-  }
-
-  const handleDirectionChange = (event) => {
-    setDirection(event.target.value);
   }
 
   const handleMOChange = (event) => {
@@ -72,14 +65,10 @@ const Clearance = () => {
     setSUPER(event.target.value);
   }
 
-  // Function to handle click on track type tabs
   const handleTrackTypeClick = (type) => {
     if (type === 'tangent') {
-      // If 'tangent' is clicked, disable direction selection
       setTrackType('tangent');
-      setDirection('');
     } else {
-      // Otherwise, set track type and enable direction selection
       setTrackType('curve');
     }
   };
@@ -98,42 +87,126 @@ const Clearance = () => {
     setDivMaxH(newDivMaxH);
   };
 
-  const updateCalcs = () => {
-    let r, se, ee, ce, llleclearance;
-    if (MO !== 0) {
-      r = (1.5 * 2500) / MO;
-    } else {
-      r = 0;
-    }
-    if (direction === 'IN') {
-      se = (SUPER * H) / 56.5;
-      if (R !== 0) {
-        ce = 4374 / R;
-      } else { ce = 0; }
-      llleclearance = D - se - ce;
-    } else if (direction === 'OUT') {
-      se = (-SUPER * H) / 56.5;
-      if (R !== 0) {
-        ee = 4374 / R;
-      } else { ee = 0; }
-      llleclearance = D + SE - EE
-    }
-    setR(r);
-    setSE(se);
-    setEE(ee);
-    setCE(ce);
-    setLLLEClearance(llleclearance);
-  }
-
   useEffect(() => {
+    const updateCalcs = () => {
+
+      // Define calculations to update and later be set
+      let r, se, ee, ce, minreq, llleclearance, clearance;
+
+      // Update the LLLE Min Req based on new division (if there is one)
+      if (division === 'A Division (IRT)') {
+        if (A_height_to_clearance.hasOwnProperty(H) && H >= -0.5 && H <= 145.625) {
+          minreq = A_height_to_clearance[H];
+        } else if (H >= -0.5 && H <= 145.625) {
+          minreq = findNearestKey(A_height_to_clearance, H);
+        }
+      } else if (division === 'B Division (IND / BMT)') {
+        if (B_height_to_clearance.hasOwnProperty(H) && H >= -0.5 && H <= 148.625) {
+          minreq = B_height_to_clearance[H];
+        } else if (H >= -0.5 && H <= 145.625) {
+          minreq = findNearestKey(B_height_to_clearance, H);
+        }
+      }
+
+      // TANGENT TRACK CALCULATIONS
+      if (trackType === 'tangent') {
+        r = 0;
+        ee = 0;
+        ce = 0;
+
+        // calc SE based on side of track
+        if (direction === 'IN' || direction === "OUT") {
+          se = (SUPER * H) / 56.5;
+        } else {
+          se = 0;
+        }
+
+        // calc clearance based on D, se
+        if (direction === 'IN') {
+          llleclearance = parseFloat(D) - parseFloat(se);
+        } else if (direction === 'OUT') {
+          llleclearance = parseFloat(D) + parseFloat(se); 
+        } else {
+          llleclearance = parseFloat(D);
+        }
+      
+      // CURVED TRACK CALCULATIONS
+      } else {
+        if (MO !== 0) {
+          r = (1.5 * 2500) / MO;
+        } else {
+          r = 0;
+        }
+
+        if (!(isFinite(r))) {
+          r = 0;
+        }
+
+        // Calculate se based on direction and SUPER
+        if (direction === 'IN' || direction === 'OUT') {
+          se = (SUPER * H) / 56.5;
+        } else {
+          se = 0;
+        }
+
+        // Calculate ce and ee based on r and direction
+        if (r !== 0 && division === "A Division (IRT)") {
+          if (direction === 'IN') {
+            ce = 1944 / R;
+            ee = 0;
+          } else if (direction === 'OUT') {
+            ee = 1512 / R;
+            ce = 0;
+          } else {
+            ce = 0;
+            ee = 0;
+          }
+        } else if (r !== 0 && division === "B Division (IND / BMT)") {
+          if (direction === 'IN') {
+            ce = 4374 / R;
+            ee = 0;
+          } else if (direction === 'OUT') {
+            ee = 2945 / R;
+            ce = 0;
+          } else {
+            ce = 0;
+            ee = 0;
+          }
+        } else {
+          ce = 0;
+          ee = 0;
+        }
+        
+        // Calculate llleclearance based on direction
+        if (direction === 'IN') {
+          llleclearance = parseFloat(D) - parseFloat(se) - parseFloat(ce);
+        } else if (direction === 'OUT') {
+          llleclearance = parseFloat(D) + parseFloat(se) - parseFloat(ee);
+        } else {
+          llleclearance = parseFloat(D);
+        }
+
+      }
+  
+      clearance = llleclearance - minreq;
+
+      // Update state values
+      setR(r);
+      setSE(se);
+      setEE(ee);
+      setCE(ce);
+      setLLLEMinReq(minreq);
+      setLLLEClearance(parseFloat(llleclearance));
+      setClearance(clearance);
+    };
+
     updateCalcs();
-  }, [division, H, D, trackType, direction, MO, SUPER])
+  }, [division, H, D, trackType, direction, MO, SUPER, R, SE, EE, CE]);
 
   useEffect(() => {
     if (division === 'A Division (IRT)') {
       if (A_height_to_clearance.hasOwnProperty(H) && H >= -0.5 && H <= 145.625) {
         setLLLEMinReq(A_height_to_clearance[H]);
-        console.log(H);
       } else if (H >= -0.5 && H <= 145.625) {
         setLLLEMinReq(findNearestKey(A_height_to_clearance, H));
       }
@@ -144,7 +217,7 @@ const Clearance = () => {
         setLLLEMinReq(findNearestKey(B_height_to_clearance, H));
       }
     }
-  }, [division]);
+  }, [division, A_height_to_clearance, B_height_to_clearance, H]);
 
   useEffect(() => {
     const filePath = '/tor_gor_translations.xlsx';
@@ -218,20 +291,18 @@ const Clearance = () => {
               <div className={`slider ${trackType === 'curve' ? 'slide-right' : 'slide-left'}`}></div>
             </div>
 
-            <div className={`small-pill-selector ${trackType === 'tangent' ? 'disabled' : ''}`}>
+            <div className="small-pill-selector">
               <div
                 className={`tab ${direction === 'IN' ? 'active' : ''}`}
                 onClick={() => setDirection('IN')}
-                disabled={trackType === 'tangent'} // Disable clicks when trackType is 'tangent'
               >
-                Inside of Curve
+                {trackType !== 'tangent' ? 'Inside of Curve' : 'Side of Lower Rail'}
               </div>
               <div
                 className={`tab ${direction === 'OUT' ? 'active' : ''}`}
                 onClick={() => setDirection('OUT')}
-                disabled={trackType === 'tangent'} // Disable clicks when trackType is 'tangent'
               >
-                Outside of Curve
+                {trackType !== 'tangent' ? 'Outside of Curve' : 'Side of Higher Rail'}
               </div>
               <div className={`slider ${direction === 'OUT' ? 'slide-right' : 'slide-left'}`}></div>
             </div>
@@ -244,7 +315,7 @@ const Clearance = () => {
               label="Equipment Height from Top of Rail"
               type="number"
               id="height-tor"
-              value={H}
+              value={formatNumber(H)}
               inputProps={{
                 min: -0.5,
                 precision: 3,
@@ -279,7 +350,7 @@ const Clearance = () => {
               style={{ width: '90%' }}
             />
           </div>
-          <div className="box box3">
+          <div className={`box box3 ${trackType === 'tangent' ? 'inactive-field' : ''}`}>
             <TextField
               label="Middle Ordinate (M.O.)"
               type="number"
@@ -293,6 +364,7 @@ const Clearance = () => {
               }}
               InputProps={{
                 style: { textAlign: 'center' },
+                endAdornment: <InputAdornment position="end">in.</InputAdornment>
               }}
               onChange={handleMOChange}
               style={{ width: '90%' }}
@@ -300,7 +372,7 @@ const Clearance = () => {
           </div>
           <div className="box box4">
             <TextField
-              label="Super Elevation"
+              label="Super Elevation (S.E.)"
               type="number"
               id="super-elevation"
               value={SUPER}
@@ -321,34 +393,138 @@ const Clearance = () => {
         </div>
       </div>
       <div className="clearance-container">
-        <h2>
-          Calculated Values
+        <h2 className={clearanceClassName}>
+          Clearance Calculations 
         </h2>
         <div id="container">
           <div className="inner-container">
             <div className="item">
-              <div className="title">Radius</div>
-              <input type="text" className="value-box" value={R} readOnly />
+              <TextField
+                label="Radius"
+                type="number"
+                value={R.toFixed(0)}
+                InputProps={{
+                  style: { textAlign: 'center' },
+                  endAdornment: <InputAdornment position="end">ft.</InputAdornment>, 
+                  disableUnderline: true,
+                  inputProps: {
+                    readOnly: true,
+                    style: { textAlign: 'center', cursor: 'default' }
+                  }
+                }}
+                style={{ width: '90%' }}
+                disabled={`${trackType === 'tangent' ? 'true': ''}`}
+                readOnly
+              />
             </div>
             <div className="item">
-              <div className="title">Super Elevation Excess</div>
-              <input type="text" className="value-box" value={SE} readOnly />
+              <TextField
+                label="S.E. Excess"
+                type="number"
+                value={SE.toFixed(3)}
+                InputProps={{
+                  style: { textAlign: 'center' },
+                  endAdornment: <InputAdornment position="end">in.</InputAdornment>, 
+                  disableUnderline: true,
+                  inputProps: {
+                    readOnly: true,
+                    style: { textAlign: 'center', cursor: 'default' }
+                  }
+                }}
+                style={{ width: '90%' }}
+                readOnly
+              />
             </div>
             <div className="item">
-              <div className="title">Edge Excess</div>
-              <input type="text" className="value-box" value={EE} readOnly />
+              <TextField
+                label="End Excess"
+                type="number"
+                value={EE.toFixed(3)}
+                InputProps={{
+                  style: { textAlign: 'center' },
+                  endAdornment: <InputAdornment position="end">in.</InputAdornment>, 
+                  disableUnderline: true,
+                  inputProps: {
+                    readOnly: true,
+                    style: { textAlign: 'center', cursor: 'default' }
+                  }
+                }}
+                style={{ width: '90%' }}
+                disabled={`${trackType === 'tangent' ? 'true': ''}`}
+                readOnly
+              />
             </div>
             <div className="item">
-              <div className="title">Center Excess</div>
-              <input type="text" className="value-box" value={CE} readOnly />
+              <TextField
+                label="Center Excess"
+                type="number"
+                value={CE.toFixed(3)}
+                InputProps={{
+                  style: { textAlign: 'center' },
+                  endAdornment: <InputAdornment position="end">in.</InputAdornment>, 
+                  disableUnderline: true,
+                  inputProps: {
+                    readOnly: true,
+                    style: { textAlign: 'center', cursor: 'default' }
+                  }
+                }}
+                style={{ width: '90%' }}
+                disabled={`${trackType === 'tangent' ? 'true': ''}`}
+                readOnly
+              />
             </div>
             <div className="item">
-              <div className="title">LLLE Minimum Requirement</div>
-              <input type="text" className="value-box" value={LLLEMinReq} readOnly />
+              <TextField
+                label="LLLE Minimum Requirement"
+                type="number"
+                value={formatNumber(LLLEMinReq)}
+                InputProps={{
+                  style: { textAlign: 'center' },
+                  endAdornment: <InputAdornment position="end">in.</InputAdornment>, 
+                  disableUnderline: true,
+                  inputProps: {
+                    readOnly: true,
+                    style: { textAlign: 'center', cursor: 'default' }
+                  }
+                }}
+                style={{ width: '90%' }}
+                readOnly
+              />
             </div>
             <div className="item">
-              <div className="title">LLLE Clearance</div>
-              <input type="text" className={clearanceClassName} value={LLLEClearance} readOnly />
+              <TextField
+                label="LLLE Clearance"
+                type="number"
+                value={LLLEClearance.toFixed(3)}
+                InputProps={{
+                  style: { textAlign: 'center' },
+                  endAdornment: <InputAdornment position="end">in.</InputAdornment>, 
+                  disableUnderline: true,
+                  inputProps: {
+                    readOnly: true,
+                    style: { textAlign: 'center', cursor: 'default' }
+                  }
+                }}
+                style={{ width: '90%' }}
+                readOnly
+              />
+            </div>
+            <div className="item">
+              <TextField
+                label="Clearance"
+                type="number"
+                value={clearance.toFixed(3)}
+                InputProps={{
+                  style: { textAlign: 'center' },
+                  endAdornment: <InputAdornment position="end">in.</InputAdornment>, 
+                  disableUnderline: true,
+                  inputProps: {
+                    readOnly: true,
+                    style: { textAlign: 'center', cursor: 'default' }
+                  }
+                }}
+                style={{ width: '90%' }}
+              />
             </div>
           </div>
         </div>
