@@ -25,7 +25,10 @@ import GenerateEmails from "../PrivateFeatures/GenerateEmails";
 import GOTracker from '../PrivateFeatures/GOTracker';
 import SubAuto from "../PrivateFeatures/SubAuto/SubAuto";
 import ScheduleDashboards from '../PrivateFeatures/ScheduleDashboards';
+import OverviewDashboard from '../PrivateFeatures/OverviewDashboard';
 import ToolUsage from "../PrivateFeatures/ToolUsage";
+import PrintingRequest from '../PrivateFeatures/3dPrinting/3dPrinting';
+import DroneCaptures from '../PrivateFeatures/DroneCaptures';
 import Admin from '../PrivateFeatures/AdminPanel/AdminPanel';
 
 // AUTH
@@ -85,11 +88,14 @@ function PrivateContent() {
     'Subcontractor Forms': 'sub-automation',
     'Schedule Dashboards': 'schedule-dashboards',
     'Tool Usage Stats': 'tool-usage',
+    '3D Printing Request': '3d-printing-request',
+    'Overview Dashboard': 'overview-dashboard',
+    'Drone Captures': 'drone-captures',
     'Chat Bot': 'chat-bot'
   };
 
   // Always available tools
-  const alwaysAvailableTools = useMemo(() => ['home', 'sub-automation', 'equipment-checkout', 'go-tracker', 'admin','chat-bot'], []);
+  const alwaysAvailableTools = useMemo(() => ['home', 'sub-automation', 'equipment-checkout', 'go-tracker', '3d-printing-request', 'admin','chat-bot'], []);
 
   // Split the userTools string into an array
   const userToolsArray = (userTools || '').split(',').map(tool => tool.trim());
@@ -107,7 +113,10 @@ function PrivateContent() {
     'chat-bot': ChatBot,
     'sub-automation': SubAuto,
     'schedule-dashboards': ScheduleDashboards,
+    'overview-dashboard': OverviewDashboard,
     'tool-usage': ToolUsage,
+    '3d-printing-request': PrintingRequest,
+    'drone-captures': DroneCaptures, 
     'admin': isAdmin ? Admin : null // Admin access only
   }), [isAdmin]);
 

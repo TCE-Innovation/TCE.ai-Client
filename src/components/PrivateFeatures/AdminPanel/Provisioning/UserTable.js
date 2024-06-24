@@ -43,6 +43,19 @@ const UserTable = ({ users, handleRemoveUser, selectedTool, userProjects, handle
         return 0;
     });
 
+    // All tools that require a project column
+    const requiresProjectColumn = [
+        'Schedule Dashboards',
+        'Drone Captures',
+    ]
+
+    // Projects that are in PIX4D
+    const droneProjects = [
+        'All', // all available drone projects
+        '207th Street Yard', 
+        'Rockaways',
+    ]
+
     return (
         <Box>
             <Box display="flex" justifyContent="space-between" alignItems="center" marginBottom=".5vw">
@@ -64,14 +77,14 @@ const UserTable = ({ users, handleRemoveUser, selectedTool, userProjects, handle
                         <TableRow>
                             <TableCell>Name</TableCell>
                             <TableCell>Email</TableCell>
-                            {selectedTool === 'Schedule Dashboards' && <TableCell>Project</TableCell>}
+                            {requiresProjectColumn.includes(selectedTool) && <TableCell>Project</TableCell>}
                             <TableCell>Action</TableCell>
                         </TableRow>
                     </TableHead>
                     <TableBody>
                         {sortedUsers.length === 0 ? (
                             <TableRow>
-                                <TableCell colSpan={selectedTool === 'Schedule Dashboards' ? 4 : 3} align="center">
+                                <TableCell colSpan={requiresProjectColumn.includes(selectedTool) ? 4 : 3} align="center">
                                     No Users in this Tool
                                 </TableCell>
                             </TableRow>
@@ -83,20 +96,20 @@ const UserTable = ({ users, handleRemoveUser, selectedTool, userProjects, handle
                                         key={user.email}
                                         ref={el => userRefs.current[index] = el}
                                         style={{
-                                            backgroundColor: selectedTool === 'Schedule Dashboards' && isProjectNone ? 'white' : 'inherit'
+                                            backgroundColor: requiresProjectColumn.includes(selectedTool)  && isProjectNone ? 'white' : 'inherit'
                                         }}
                                     >
                                         <TableCell style={{
-                                            color: selectedTool === 'Schedule Dashboards' && isProjectNone ? (flashColor[user.email] ? 'red' : 'black') : 'inherit'
+                                            color: requiresProjectColumn.includes(selectedTool) && isProjectNone ? (flashColor[user.email] ? 'red' : 'black') : 'inherit'
                                         }}>
                                             {user.name}
                                         </TableCell>
                                         <TableCell style={{
-                                            color: selectedTool === 'Schedule Dashboards' && isProjectNone ? (flashColor[user.email] ? 'red' : 'black') : 'inherit'
+                                            color: requiresProjectColumn.includes(selectedTool) && isProjectNone ? (flashColor[user.email] ? 'red' : 'black') : 'inherit'
                                         }}>
                                             {user.email}
                                         </TableCell>
-                                        {selectedTool === 'Schedule Dashboards' && (
+                                        { requiresProjectColumn.includes(selectedTool) && (
                                             <TableCell>
                                                 <FormControl fullWidth>
                                                     <Select
@@ -106,9 +119,17 @@ const UserTable = ({ users, handleRemoveUser, selectedTool, userProjects, handle
                                                         inputProps={{ 'aria-label': 'Select Project' }}
                                                     >
                                                         <MenuItem value="" disabled>Select Project</MenuItem>
-                                                        {dashboardProjects.map((project, index) => (
-                                                            <MenuItem key={index} value={project}>{project}</MenuItem>
-                                                        ))}
+                                                        {selectedTool === 'Schedule Dashboards' ? (
+                                                            // dynamically get list of projects for Schedule Dashboard
+                                                            dashboardProjects.map((project, index) => (
+                                                                <MenuItem key={index} value={project}>{project}</MenuItem>
+                                                            ))
+                                                        ) : (
+                                                            // dynamically get list of projects for Drone Captures
+                                                            droneProjects.map((project, index) => (
+                                                                <MenuItem key={index} value={project}>{project}</MenuItem>
+                                                            ))
+                                                        )}
                                                     </Select>
                                                 </FormControl>
                                             </TableCell>

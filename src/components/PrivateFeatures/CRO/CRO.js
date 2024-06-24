@@ -43,9 +43,9 @@ import DialogTitle from '@mui/material/DialogTitle';
 // import MenuItem from '@mui/material/MenuItem';
 // import Select, { SelectChangeEvent } from '@mui/material/Select';
 // import Switch from '@mui/material/Switch';
-import CloseIcon from '@mui/icons-material/Close';
+// import CloseIcon from '@mui/icons-material/Close';
 import { styled } from '@mui/material/styles';
-import IconButton from '@mui/material/IconButton';
+// import IconButton from '@mui/material/IconButton';
 // import MuiAccordion, { AccordionProps } from '@mui/material/Accordion';
 // import MuiAccordionSummary, {
 //   AccordionSummaryProps,
@@ -96,7 +96,7 @@ const CRO = () => {
   
     const handleChange = (panel) => (event, newExpanded) => {
         setExpanded(newExpanded ? panel : false);
-      };
+    };
       
     
 
@@ -133,7 +133,7 @@ const CRO = () => {
         setError('');
         
         // Append user info to FormData to be sent to backend
-        const formData = new FormData();
+        const formData = new FormData();    
         
         try {
             // This will be a file
@@ -278,10 +278,9 @@ const CRO = () => {
                     aria-labelledby="customized-dialog-title"
                     open={open}
                 >
-                    <DialogTitle sx={{ m: 0, p: 2 }} id="customized-dialog-title">
-                    Frequently Asked Questions
-                    </DialogTitle>
-                    <IconButton
+                    <DialogTitle style={{ textAlign: 'center' }}>Frequently Asked Questions</DialogTitle>
+
+                    {/* <IconButton
                     aria-label="close"
                     onClick={handleClose}
                     sx={{
@@ -292,7 +291,7 @@ const CRO = () => {
                     }}
                     >
                     <CloseIcon />
-                    </IconButton>
+                    </IconButton> */}
                     <DialogContent dividers>
                     <div>
                     <Accordion expanded={expanded === 'panel1'} onChange={handleChange('panel1')}>
@@ -408,9 +407,9 @@ const CRO = () => {
                     </div>
                     </DialogContent>
                     <DialogActions>
-                    {/* <Button autoFocus onClick={handleClose}>
-                        x
-                    </Button> */}
+                    <Button autoFocus onClick={handleClose}>
+                        Close
+                    </Button>
                     </DialogActions>
                 </BootstrapDialog>
                 {/* </div> */}
@@ -555,7 +554,6 @@ const CRO = () => {
                         </Button>
                     </a>
 
-
                     <label htmlFor="pullsheetInput">
                         <Button
                             variant="contained"
@@ -569,6 +567,7 @@ const CRO = () => {
                             Upload Pull Sheet
                         </Button>
                     </label>
+
                     <input
                         type="file"
                         id="pullsheetInput"

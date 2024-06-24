@@ -9,16 +9,19 @@ import {
 } from "@mui/material";
 
 // ICONS
-import HomeOutlinedIcon from "@mui/icons-material/HomeOutlined";
-import EmailOutlinedIcon from "@mui/icons-material/EmailOutlined";
-import ForumOutlinedIcon from "@mui/icons-material/ForumOutlined";
-import SpokeOutlinedIcon from "@mui/icons-material/SpokeOutlined";
-import RailwayAlertOutlinedIcon from "@mui/icons-material/RailwayAlertOutlined";
-import DevicesOtherIcon from "@mui/icons-material/DevicesOther";
-import ArticleOutlinedIcon from "@mui/icons-material/ArticleOutlined";
-import DonutSmallOutlinedIcon from "@mui/icons-material/DonutSmallOutlined";
-import InsertChartOutlinedIcon from "@mui/icons-material/InsertChartOutlined";
-import AdminPanelSettingsOutlinedIcon from "@mui/icons-material/AdminPanelSettingsOutlined";
+import HomeOutlinedIcon from '@mui/icons-material/HomeOutlined';
+import EmailOutlinedIcon from '@mui/icons-material/EmailOutlined';
+import ForumOutlinedIcon from '@mui/icons-material/ForumOutlined';
+import SpokeOutlinedIcon from '@mui/icons-material/SpokeOutlined';
+import RailwayAlertOutlinedIcon from '@mui/icons-material/RailwayAlertOutlined';
+import DevicesOtherIcon from '@mui/icons-material/DevicesOther';
+import ArticleOutlinedIcon from '@mui/icons-material/ArticleOutlined';
+import DonutSmallOutlinedIcon from '@mui/icons-material/DonutSmallOutlined';
+import InsertChartOutlinedIcon from '@mui/icons-material/InsertChartOutlined';
+import DataThresholdingOutlinedIcon from '@mui/icons-material/DataThresholdingOutlined';
+import AdminPanelSettingsOutlinedIcon from '@mui/icons-material/AdminPanelSettingsOutlined';
+import PrintOutlinedIcon from '@mui/icons-material/PrintOutlined';
+import SatelliteAltIcon from '@mui/icons-material/SatelliteAlt';
 
 // CONTEXT
 import { AuthContext } from "../../authentication/Auth";
@@ -47,59 +50,58 @@ const PrivateListItems = ({ tool }) => {
     paddingLeft: "14px",
   });
 
-  const getIconColor = (item) => ({
-    color: selectedInnerItem === item ? "white" : "inherit",
-  });
+    const getIconColor = (item) => ({
+        color: selectedInnerItem === item ? 'white' : 'inherit',
+    });
 
-  const getIcon = (iconComponent, itemKey) => {
-    return (
-      <ListItemIcon style={getIconColor(itemKey)}>{iconComponent}</ListItemIcon>
-    );
-  };
+    const getIcon = (iconComponent, itemKey) => {
+        return <ListItemIcon style={getIconColor(itemKey)}>{iconComponent}</ListItemIcon>;
+    };
 
-  const listItems = [
-    {
-      to: "/private/generate-emails",
-      text: "Email Generator",
-      icon: <EmailOutlinedIcon />,
-      key: "generate-emails",
-    },
-    {
-      to: "/private/chat-bot",
-      text: "Chatbot",
-      icon: <ForumOutlinedIcon />,
-      key: "chat-bot",
-    },
-    {
-      to: "/private/cable-run-optimizer",
-      text: "Cable Run Optimizer",
-      icon: <SpokeOutlinedIcon />,
-      key: "cable-run-optimizer",
-    },
-    {
-      to: "/private/schedule-dashboards",
-      text: "Schedule Dashboards",
-      icon: <InsertChartOutlinedIcon />,
-      key: "schedule-dashboards",
-    },
-    {
-      to: "/private/tool-usage",
-      text: "Tool Usage Stats",
-      icon: <DonutSmallOutlinedIcon />,
-      key: "tool-usage",
-    },
-  ];
+    //provisionable items
+    const listItems = [
+        { to: '/private/generate-emails', text: 'Email Generator', icon: <EmailOutlinedIcon />, key: 'generate-emails' },
+        // { to: '/private/chat-bot', text: 'Chat Bot', icon: <ForumOutlinedIcon />, key: 'chat-bot' },
+        { to: '/private/cable-run-optimizer', text: 'Cable Run Optimizer', icon: <SpokeOutlinedIcon />, key: 'cable-run-optimizer' },
+        { to: '/private/schedule-dashboards', text: 'Schedule Dashboards', icon: <InsertChartOutlinedIcon />, key: 'schedule-dashboards'},
+        { to: '/private/overview-dashboard', text: 'Overview Dashboard', icon: <DataThresholdingOutlinedIcon />, key: 'overview-dashboard'},
+        { to: '/private/tool-usage', text: 'Tool Usage Stats', icon: <DonutSmallOutlinedIcon />, key: 'tool-usage' }, 
+        { to: '/private/drone-captures', text: 'Drone Captures', icon: <SatelliteAltIcon />, key: 'drone-captures' }
+    ];
 
-  // Ensure userTools is a valid string, else default to an empty string
-  const validUserTools = userTools || "";
+    // Ensure userTools is a valid string, else default to an empty string
+    const validUserTools = userTools || '';
 
-  // Split the userTools string into an array
-  const userToolsArray = validUserTools.split(",").map((tool) => tool.trim());
+    // Split the userTools string into an array
+    const userToolsArray = validUserTools.split(',').map(tool => tool.trim());
 
-  // Filter the listItems based on userToolsArray
-  let filteredListItems = listItems.filter((item) =>
-    userToolsArray.includes(item.text)
-  );
+    // Filter the listItems based on userToolsArray
+    let filteredListItems = listItems.filter(item => userToolsArray.includes(item.text));
+
+    // Add admin specific items conditionally
+    if (adminList.includes(userName)) {
+        filteredListItems.push(
+            {
+                to: '/private/admin',
+                text: 'Admin Panel',
+                icon: <AdminPanelSettingsOutlinedIcon />,
+                key: 'admin'
+            }
+        );
+    }
+
+    // Always include the "Home", "Subcontractor Forms", and "Equipment Checkout", and "GO Tracker" items
+    const alwaysIncludedItems = [
+        { to: '/private/home', text: 'Home', icon: <HomeOutlinedIcon />, key: 'home' },
+        { to: '/private/sub-automation', text: 'Subcontractor Forms', icon: <ArticleOutlinedIcon />, key: 'sub-automation' },
+        { to: '/private/equipment-checkout', text: 'Equipment Checkout', icon: <DevicesOtherIcon />, key: 'equipment-checkout' },
+        { to: '/private/go-tracker', text: 'GO Tracker', icon: <RailwayAlertOutlinedIcon />, key: 'go-tracker' },
+        { to: '/private/3d-printing-request', text: '3D Protoyping', icon: <PrintOutlinedIcon />, key: '3d-printing-request' },
+        { to: '/private/chat-bot', text: 'Chat Bot', icon: <ForumOutlinedIcon />, key: 'chat-bot' }
+    ];
+
+    // Combine always included items with the filtered list items
+    const finalListItems = [...alwaysIncludedItems, ...filteredListItems];
 
   // Add admin specific items conditionally
   if (adminList.includes(userName)) {
@@ -110,37 +112,6 @@ const PrivateListItems = ({ tool }) => {
       key: "admin",
     });
   }
-
-  // Always include the "Home", "Subcontractor Forms", and "Equipment Checkout", and "GO Tracker" items
-  const alwaysIncludedItems = [
-    {
-      to: "/private/home",
-      text: "Home",
-      icon: <HomeOutlinedIcon />,
-      key: "home",
-    },
-    {
-      to: "/private/sub-automation",
-      text: "Subcontractor Forms",
-      icon: <ArticleOutlinedIcon />,
-      key: "sub-automation",
-    },
-    {
-      to: "/private/equipment-checkout",
-      text: "Equipment Checkout",
-      icon: <DevicesOtherIcon />,
-      key: "equipment-checkout",
-    },
-    {
-      to: "/private/go-tracker",
-      text: "GO Tracker",
-      icon: <RailwayAlertOutlinedIcon />,
-      key: "go-tracker",
-    },
-  ];
-
-  // Combine always included items with the filtered list items
-  const finalListItems = [...alwaysIncludedItems, ...filteredListItems];
 
   return (
     <List component="nav">

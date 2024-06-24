@@ -14,7 +14,7 @@ export async function getTools(email) {
 }
 
 // function to add users to a tool table in SQL db based on email. users is an array of user objects [{email: email, name: name}, ...]
-export async function addUsersToTool(users, tool, project = null) {
+export async function addUsersToTool(users, tool, project = 'None') {
     try {
         const { data } = await axios.post('https://tce-ai-api.azurewebsites.net/api/add-users-to-tool', { users, tool, project });
         return data;
@@ -57,9 +57,9 @@ export async function getUsersOfTool(tool) {
 }
 
 // function to update project selection for a user in the schedule_dashboards table
-export async function updateUserProject(email, project) {
+export async function updateUserProject(email, project, table) {
     try {
-        const { data } = await axios.post('https://tce-ai-api.azurewebsites.net/api/sd-update-user-project', { email, project });
+        const { data } = await axios.post('https://tce-ai-api.azurewebsites.net/api/sd-update-user-project', { email, project, table });
         return data;
     } catch (error) {
         console.error('Error updating user project:', error);
@@ -67,10 +67,10 @@ export async function updateUserProject(email, project) {
     }
 }
 
-// function to fetch user projects from the schedule_dashboards table
-export async function getUserProjectSD() {
+// function to fetch emails and projects from table
+export async function getEmailsAndProjects(table) {
     try {
-        const { data } = await axios.get('https://tce-ai-api.azurewebsites.net/api/sd-get-user-project');
+        const { data } = await axios.post('https://tce-ai-api.azurewebsites.net/api/sd-get-user-project', { table });
         return data;
     } catch (error) {
         console.error('Error fetching user project:', error);
@@ -78,19 +78,17 @@ export async function getUserProjectSD() {
     }
 }
 
-// function to fetch user projects from the schedule_dashboards table
-export async function getUserDashboardSD(email) {
+
+// function to fetch a users projects in table
+export async function getUserProjects(email, table) {
     try {
-        const { data } = await axios.post('https://tce-ai-api.azurewebsites.net/api/sd-get-user-dashboards', { email });
-        console.log(email);
+        const { data } = await axios.post('https://tce-ai-api.azurewebsites.net/api/sd-get-user-dashboards', { email, table });
         return data;
     } catch (error) {
         console.error('Error fetching user dashboards:', error);
         throw new Error('An error occurred while fetching user dashboards');
     }
 }
-
-
 
 
 //_____________________________________________________ USER DATA FUNCTIONS ________________________________________________________

@@ -65,6 +65,10 @@ function ResponsiveAppBar() {
                 return 'Tool Usage Statistics';
             case 'schedule-dashboards':
                 return 'Schedule Dashboards';
+            case '3d-printing-request':
+                return '3D Prototyping';
+            case 'drone-captures':
+                return 'Drone Captures';
             case 'admin':
                 return 'Admin Panel';
             default:
