@@ -1,77 +1,47 @@
 .clearance-container {
-  padding: 15px;
+  padding-left: 15px;
+  padding-right: 15px;
+  padding-bottom: 10px;
+  padding-top: 10px;
   background-color: #f0f0f0;
   border: 1px solid #ccc;
   border-radius: 10px;
   margin-bottom: 20px;
 }
 
-.small-pill-selector.disabled {
-  pointer-events: none; 
-  opacity: 0.5; 
-}
-
-.inactive-field {
-    opacity: 0.5;
-    pointer-events: none;
-    background-color: #f0f0f0;
+.description {
+    color: #1b365f;;
+    font-family: Helvetica;
+    font-size: 1.2vw;
+    font-weight: 500;
+    letter-spacing: 0;
+    line-height: normal;
+    text-align: center;
+    padding-left: 2vw;
+    padding-right: 2vw;
+    padding-bottom: 10px;
 }
 
 .section-container {
   margin-bottom: 20px;
 }
 
-.grid2x2 {
-    min-height: 100%;
-    display: flex;
-    flex-wrap: wrap;
-    flex-direction: row;
-}
-.grid2x2 > div {
-  display: flex; 
-  flex-basis: calc(50% - 40px);  
-  justify-content: center;
-  align-items: center; 
-  flex-direction: column;
-}
-
-.box {
-    background-color: #f0f0f0;
-    margin: 20px;
-    border-radius: 10px;
-}
-
-.input-field {
+.small-pill-selector {
+  width: calc(33% - 10px);
   display: flex;
-  align-items: center;
-  justify-content: flex-start; 
+  font-family: Arial, Helvetica, sans-serif;
   position: relative;
   overflow: hidden;
-}
-
-.input-field label {
-  display: inline-flex;
-  align-items: center;
-}
-
-.input-field .unit {
-  margin-left: 5px;
-  align-items: center;
-  font-weight: bold;
-}
-
-.pill-selector {
-  display: flex;
-  position: relative;
-  overflow: hidden;
-  border-radius: 30px;
-  background-color: #fff;
-  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+  border-radius: 20px;
+  background-color: #f1f1f1;
+  box-shadow: 0 0 5px rgba(0, 0, 0, 0.1);
+  color: #b1b1b1;
 }
 
 .tab {
   flex-grow: 1;
-  padding: 12px 0;
+  padding-top: 5px;
+  padding-bottom: 5px;
   text-align: center;
   cursor: pointer;
   transition: background-color 0.3s, color 0.3s;
@@ -81,7 +51,7 @@
 
 .tab.active {
   background-color: rgb(175, 175, 175);
-  color: white;
+  color: rgb(255, 255, 255);
 }
 
 .slider {
@@ -96,7 +66,7 @@
 }
 
 .slide-left {
-  transform: translateX(0);
+  transform: translateX(0%);
 }
 
 .slide-right {
@@ -108,127 +78,15 @@
   justify-content: space-between;
 }
 
-.small-pill-selector {
-  width: calc(50% - 10px); /* Adjusted width to fit two selectors side by side */
-  display: flex;
-  position: relative;
-  overflow: hidden;
-  border-radius: 30px;
-  background-color: #fff;
-  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
-}
-
 h2 {
   text-align: center;
   font-style: italic;
-  font-size: 1.2em;
-  background-color: #ffffcc;
+  font-weight: 600;
+  font-size: 1.25em;
+  background-color: transparent;
   padding: 5px;
   border-radius: 5px;
-  margin-bottom: 20px;
-}
-
-.custom-number-input {
-  font-family: 'IBM Plex Sans', sans-serif;
-  font-weight: 400;
-  border-radius: 8px;
-  color: #1c2025;
-  background: #f0f0f0;
-  display: grid;
-  grid-template-columns: auto 19px; 
-  grid-template-rows: 1fr 1fr;
-  overflow: hidden;
-  column-gap: 4px;
-  padding: 4px;
-}
-
-.custom-number-input.focused {
-  border-color: #3399ff; 
-  box-shadow: 0 0 0 3px rgba(0, 123, 255, 0.3);
-}
-
-.custom-number-input:hover {
-  border-color: #3399ff;
-}
-
-.custom-number-input:focus-visible {
-  outline: 0;
-}
-
-.custom-number-input input {
-  font-size: 0.875rem;
-  font-family: inherit;
-  font-weight: 400;
-  line-height: 1.5;
-  grid-column: 1/2;
-  grid-row: 1/3;
-  color: #1c2025; 
-  background: inherit;
-  border: none;
-  border-radius: inherit;
-  padding: 8px 12px;
-  outline: 0;
-  text-align: right;
-  width: 80px;
-  border: 1px solid #ccc;
-}
-
-.custom-number-input button {
-  display: flex;
-  flex-flow: row nowrap;
-  justify-content: center;
-  align-items: center;
-  appearance: none;
-  padding: 0;
-  width: 19px;
-  height: 19px;
-  font-family: system-ui, sans-serif;
-  font-size: 0.875rem;
-  line-height: 1;
-  box-sizing: border-box;
-  background: #fff;
-  border: 0;
-  color: #1c2025; 
-  transition-property: all;
-  transition-timing-function: cubic-bezier(0.4, 0, 0.2, 1);
-  transition-duration: 120ms;
-}
-
-.custom-number-input button:hover {
-  background: #f3f6f9; 
-  cursor: pointer;
-}
-
-.custom-number-input .incrementButton {
-  grid-column: 2/3; 
-  grid-row: 1/2; 
-  border-top-left-radius: 8px;
-  border-top-right-radius: 8px;
-  border-bottom-left-radius: 0px;
-  border-bottom-right-radius: 0px;
-}
-
-.custom-number-input .incrementButton:hover {
-  background: #3399ff; 
-  color: #fff; 
-}
-
-.custom-number-input .decrementButton {
-  grid-column: 2/3; 
-  grid-row: 2/3; 
-  border-top-left-radius: 0px;
-  border-top-right-radius: 0px;
-  border-bottom-left-radius: 8px;
-  border-bottom-right-radius: 8px;
-}
-
-.custom-number-input .decrementButton:hover {
-  background: #3399ff; 
-  color: #fff;
-}
-
-.custom-number-input .arrow {
-  transform: translateY(-1px);
+  margin-bottom: 15px;
 }
 
 #container {
@@ -247,41 +105,40 @@ h2 {
 .item {
   flex: 1;
   text-align: center;
+  padding-top: 15px;
+  padding-bottom: 5px;
 }
 
-.title {
-  font-weight: 500;
-  white-space: nowrap; 
-  margin-bottom: 6px;
-}
-
-.value-box {
-  width: 100px; /* Adjust width as needed */
-  padding: 5px;
-  font-weight: 600;
+.calculated-item {
+  flex: 1;
   text-align: center;
-  font-size: 16px;
-  border: 1px solid #ccc;
-  border-radius: 4px;
-  background-color: #f0f0f0;
+  padding-top: 15px;
+  padding-bottom: 10px;
+}
+
+.calculations {
+  text-align: center;
+  font-style: italic;
+  font-weight: 600;
+  font-size: 1.25em;
+  background-color: transparent;
+  padding: 5px;
+  border-radius: 5px;
+  margin-bottom: 10px;
 }
 
 .greater-clearance {
-  background-color: lightgreen; /* Green background for greater clearance */
-  text-align: center;
-  font-style: italic;
-  font-size: 1.2em;
-  padding: 5px;
-  border-radius: 5px;
+  background-color: rgb(221, 255, 221); /* Green background for greater clearance */
+  padding: 15px;
+  border: 1px solid #ccc;
+  border-radius: 10px;
   margin-bottom: 20px;
 }
 
 .lesser-clearance {
-  background-color: lightcoral; /* Red background for lesser clearance */
-  text-align: center;
-  font-style: italic;
-  font-size: 1.2em;
-  padding: 5px;
-  border-radius: 5px;
+  background-color: rgb(255, 217, 217); /* Red background for lesser clearance */
+  padding: 15px;
+  border: 1px solid #ccc;
+  border-radius: 10px;
   margin-bottom: 20px;
 }
