@@ -281,7 +281,7 @@ const PrintingRequest = () => {
             {/* <CircularProgress style={{ display: 'block', margin: '0 auto', marginRight: "790px" }} /> */}
 
             {isLoading ? (
-                <CircularProgress style={{ display: 'block', margin: '0 auto', marginRight: "790px" }} />
+                <CircularProgress style={{ display: 'block', margin: '0 auto', marginRight: "785px", marginTop: "20px" }} />
             ) : !isSubmitted ? (
                 
                 <div className="form-container">
@@ -382,13 +382,13 @@ const PrintingRequest = () => {
                     
                 </div>
             ) : (
-                <div className="form-container" style={{ textAlign: "center", color: "#1b365f", marginRight: "220px" }}>
+                <div className="form-container" style={{ textAlign: "center", color: "#1b365f", marginRight: "0px", marginTop: '20px' }}>
                     <div>Thank you for your submission.</div>
                     <Button
                         onClick={handleNewSubmission}
                         variant="outlined"
                         style={{ 
-                            width: "50%", 
+                            width: "80%", 
                             marginTop: "20px",
                             color: "#1b365f",
                             borderColor: "#1b365f",
