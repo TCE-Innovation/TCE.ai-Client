@@ -18,6 +18,7 @@ const ConversationProvider = ({ children }) => {
   const [loading, setLoading] = useState(true);
   const [isDeleting, setIsDeleting] = useState(false);
   const [isCreating, setIsCreating] = useState(false);
+  const [isEditing, setIsEditing] = useState(false);
 
   const [conversations, setConversations] = useState([]);
 
@@ -30,8 +31,9 @@ const ConversationProvider = ({ children }) => {
 
   useLayoutEffect(() => {
     if (!currentConversation || !conversations.length) return;
+    if (parseInt(currentConversation)) return reset();
     const isValid = conversations.some(
-      (c) => c.id.toString() === currentConversation.toString()
+      (c) => c.id.toString() === currentConversation.id.toString()
     );
     if (!isValid) {
       reset();
@@ -49,11 +51,35 @@ const ConversationProvider = ({ children }) => {
     setIsCreating(false);
     if (!success || !conversationId)
       return createAlert({ message, type: "danger" });
-    setConversations((prev) => [
-      { title: "New Chat", id: conversationId },
-      ...prev,
-    ]);
-    setCurrentConversation(conversationId);
+    const newConversationObject = { title: "New Chat", id: conversationId };
+    setConversations((prev) => [newConversationObject, ...prev]);
+    setCurrentConversation({ ...newConversationObject });
+  };
+
+  const editConversation = async ({ name, id }) => {
+    if (isEditing || !currentConversation) return;
+    setIsEditing(true);
+    const { success, message } = await conversationService.editConversation({
+      conversationId: currentConversation.id,
+      name,
+    });
+    createAlert({ message, type: success ? "info" : "danger" });
+    setIsEditing(false);
+    if (!success) return;
+    setConversations((prev) =>
+      prev.map((conversation) => {
+        if (conversation.id === id) {
+          return {
+            ...conversation,
+            title: name,
+          };
+        }
+        return conversation;
+      })
+    );
+    if (id === currentConversation.id) {
+      setCurrentConversation({ ...currentConversation, title: name });
+    }
   };
 
   useEffect(() => {
@@ -86,7 +112,7 @@ const ConversationProvider = ({ children }) => {
     const { message } = await conversationService.deleteConversation(id);
     createAlert({ message, type: "danger" });
     setIsDeleting(false);
-    const target = conversations.find((c) => c.id !== id)?.id || null;
+    const target = conversations.find((c) => c.id !== id) || null;
     setConversations((prev) => prev.filter((c) => c.id !== id));
     setCurrentConversation(target);
   };
@@ -98,10 +124,12 @@ const ConversationProvider = ({ children }) => {
         currentConversation,
         createConversation,
         deleteConversation,
+        editConversation,
         setCurrentConversation,
         loadingConversations: loading,
         isDeletingConversation: isDeleting,
         isCreatingConversation: isCreating,
+        isEditingConversation: isEditing,
       }}
     >
       {children}

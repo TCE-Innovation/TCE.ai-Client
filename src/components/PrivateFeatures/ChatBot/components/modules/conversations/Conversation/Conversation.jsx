@@ -1,8 +1,8 @@
 import React, { useState } from "react";
 
-import { DeleteIcon } from "../../../icons";
+import { DeleteIcon, EditIcon } from "../../../icons";
 
-import { DeleteConversationModal } from "../Modal";
+import { DeleteConversationModal, EditConversationModal } from "../Modal";
 
 import { useConversation, useMessage } from "../../../../hooks";
 
@@ -10,33 +10,61 @@ import Wrapper from "./style";
 
 const Conversation = ({ title, id, active, setConversation }) => {
   const [showDeleteModal, setShowDeleteModal] = useState(false);
-  const { isDeletingConversation } = useConversation();
+  const [showEditModal, setShowEditModal] = useState(false);
+  const { isDeletingConversation, isEditingConversation } = useConversation();
   const { sendingMessage } = useMessage();
 
-  const handleOpenModal = () => {
+  const handleOpenDeleteModal = () => {
     if (isDeletingConversation || sendingMessage) return;
     setShowDeleteModal(true);
   };
 
+  const handleOpenEditModal = () => {
+    if (isEditingConversation) return;
+    setShowEditModal(true);
+  };
+
   return (
-    <Wrapper active={active}>
-      <div className="conversation-header" onClick={() => setConversation(id)}>
-        <span className="conversation-title">{title}</span>
-        <div style={{ position: "relative" }}>
-          {isDeletingConversation ? null : active ? (
-            <span className="delete-button" onClick={handleOpenModal}>
-              <DeleteIcon color="inherit" />
-            </span>
-          ) : null}
+    <>
+      <Wrapper active={active}>
+        <div
+          className="conversation-header"
+          onClick={() => setConversation({ id, title })}
+        >
+          <span className="conversation-title">{title}</span>
+          <div style={{ position: "relative" }}>
+            {isEditingConversation ? null : active ? (
+              <span
+                className="edit-button tooltip-container"
+                onClick={handleOpenEditModal}
+              >
+                <EditIcon color="inherit" />
+                <div className="tooltip align-top">edit</div>
+              </span>
+            ) : null}
+            {isDeletingConversation ? null : active ? (
+              <span
+                className="delete-button tooltip-container"
+                onClick={handleOpenDeleteModal}
+              >
+                <DeleteIcon color="inherit" />
+                <div className="tooltip align-top">delete</div>
+              </span>
+            ) : null}
+          </div>
         </div>
-      </div>
+      </Wrapper>
       <DeleteConversationModal
         id={id}
         onClose={() => setShowDeleteModal(false)}
         show={showDeleteModal}
-        key={id}
       />
-    </Wrapper>
+      <EditConversationModal
+        conversation={{ title, id }}
+        onClose={() => setShowEditModal(false)}
+        show={showEditModal}
+      />
+    </>
   );
 };
 

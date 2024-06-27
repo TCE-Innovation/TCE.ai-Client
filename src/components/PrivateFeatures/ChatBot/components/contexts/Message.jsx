@@ -25,11 +25,12 @@ const MessageProvider = ({ children }) => {
   const messageArchieves = useRef({});
 
   const createMessage = ({ isAI, body, id, citations }) => {
+    if(!currentConversation) return;
     const newMessage = { isAI, body, id };
     if (isAI && citations) newMessage["citations"] = citations;
     setMessages((prev) => {
       const updateMessages = [...prev, newMessage];
-      saveMessagesToArchieve(currentConversation, updateMessages);
+      saveMessagesToArchieve(currentConversation.id, updateMessages);
       return updateMessages;
     });
   };
@@ -51,8 +52,9 @@ const MessageProvider = ({ children }) => {
   };
 
   useEffect(() => {
-    const getMessages = async (id) => {
-      if (!id) return;
+    const getMessages = async (conversation) => {
+      if (!conversation) return;
+      const {id} = conversation;
       const loadSuccess = loadMessagesFromArchieve(id);
       if (loadSuccess) return;
       setLoading(true);
@@ -79,7 +81,7 @@ const MessageProvider = ({ children }) => {
       data,
       message: _message,
     } = await messageService.createMessage({
-      conversationId: currentConversation,
+      conversationId: currentConversation.id,
       message,
     });
     if (success) {

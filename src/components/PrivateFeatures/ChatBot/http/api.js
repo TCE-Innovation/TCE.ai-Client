@@ -21,6 +21,14 @@ const api = {
     const route = parseRoute(url, query);
     return httpClient.delete(route).then(responseHandler).catch(errorHandler);
   },
+  update: (url, params = {}) => {
+    const { data = {}, query = {} } = params;
+    const route = parseRoute(url, query);
+    return httpClient
+      .put(route, data)
+      .then(responseHandler)
+      .catch(errorHandler);
+  },
 };
 
 export default api;

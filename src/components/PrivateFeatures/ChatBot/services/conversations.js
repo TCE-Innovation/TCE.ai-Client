@@ -53,3 +53,22 @@ export const deleteConversation = async (conversationId) => {
     message,
   };
 };
+
+export const editConversation = async (params) => {
+  const { conversationId, name } = params;
+  const { data, success, message } = await client.update(route, {
+    data: { name },
+    query: { conversation_id: conversationId },
+  });
+  if (success) {
+    const { success: successMessage } = data;
+    return {
+      success,
+      message: successMessage,
+    };
+  }
+  return {
+    success,
+    message,
+  };
+};

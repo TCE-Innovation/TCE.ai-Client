@@ -2,6 +2,9 @@ import styled from "styled-components";
 
 export default styled(({ active, ...rest }) => <div {...rest} />)`
   padding: 0.5em 1em;
+  position: ${(props) => (props.active ? "sticky" : "unset")};
+  top: 0;
+  bottom: 0;
   margin-bottom: 0.25em;
   border-radius: 0.5em;
   &:has(.conversation-title:hover) {
@@ -18,8 +21,10 @@ export default styled(({ active, ...rest }) => <div {...rest} />)`
     justify-content: space-between;
     align-items: center;
 
-    .delete-button {
+    .delete-button,
+    .edit-button {
       color: var(--chatbot-grey);
+      // display: inline-flex;
     }
   }
   .conversation-title {
