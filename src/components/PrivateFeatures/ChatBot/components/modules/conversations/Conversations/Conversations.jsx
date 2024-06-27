@@ -73,7 +73,7 @@ const Conversations = () => {
                 <Conversation
                   key={conversation.id}
                   {...conversation}
-                  active={conversation.id === currentConversation}
+                  active={conversation.id === currentConversation?.id}
                   setConversation={setCurrentConversation}
                 />
               ))
