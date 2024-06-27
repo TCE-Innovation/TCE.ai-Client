@@ -18,7 +18,7 @@ const EditConversation = ({ conversation, show, onClose }) => {
   useEffect(() => {
     if (!conversation?.id) return;
     setConversationName(conversation.title);
-  }, [conversation]);
+  }, [conversation?.id, conversation?.title]);
 
   const isValid = useMemo(() => {
     setShowValidation(false);
@@ -29,9 +29,7 @@ const EditConversation = ({ conversation, show, onClose }) => {
     setShowValidation(true);
     if (!isValid) return;
     await editConversation({ name, id: conversation.id });
-    setTimeout(() => {
-      onClose();
-    }, 500);
+    onClose();
   };
 
   if (!show) return null;

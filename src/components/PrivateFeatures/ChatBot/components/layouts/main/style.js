@@ -84,6 +84,19 @@ export default styled.div`
         left: 100%;
       }
     }
+    &.align-bottom {
+      top: calc(100% + 1em);
+      left: 50%;
+      transform: translate(-50%, 0%);
+
+      &::before {
+        border-right-color: transparent;
+        border-bottom-color: white;
+        transform: translate(-50%, -100%);
+        top: 0%;
+        left: 50%;
+      }
+    }
   }
   .tooltip-container {
     position: relative;
