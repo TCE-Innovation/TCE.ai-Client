@@ -136,9 +136,6 @@ const Clearance = () => {
       setState('INPUT');
 
       // reset all inputs to defaults / empty
-      /*setDivision('A Division');
-      setTrackType('curve');
-      setDirection('IN');*/
       setH(' ');
       setD(' ');
       setMO(' ');
