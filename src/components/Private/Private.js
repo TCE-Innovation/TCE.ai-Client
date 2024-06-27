@@ -163,7 +163,7 @@ function PrivateContent() {
           <Divider />
           {open ? (
             <Button
-              sx={{ m: 2 }}
+              sx={{ mb: 8 }}
               onClick={handlePublicNavigate}
               style={{ color: 'grey' }}
             >
