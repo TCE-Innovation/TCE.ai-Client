@@ -6,7 +6,6 @@ import ToolSelect from './ToolSelect';
 import UserTable from './UserTable';
 import AddUserDialog from './AddUserDialog';
 import ProjectTeam from './ProjectTeam';
-// import { Ls } from 'dayjs';
 
 const toolNameMap = {
     'Email Generator': 'email_generator',
@@ -14,7 +13,7 @@ const toolNameMap = {
     'Schedule Dashboards': 'schedule_dashboards',
     'Overview Dashboard': 'overview_dashboard',
     'Tool Usage Stats': 'tool_usage',
-    'Drone Captures': 'drone_captures'
+    'Drone Captures': 'drone_captures',
 };
 
 // map project team names to their projects specifically for drone captures
