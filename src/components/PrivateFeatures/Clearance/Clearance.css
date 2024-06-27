@@ -2,12 +2,61 @@
   padding-left: 15px;
   padding-right: 15px;
   padding-bottom: 10px;
-  padding-top: 10px;
+  padding-top: 5px;
   background-color: #f0f0f0;
   border: 1px solid #ccc;
   border-radius: 10px;
   margin-bottom: 20px;
 }
+
+.clearance-container.okay{
+  background-color: rgb(221, 255, 221); /* Green background for greater clearance */
+}
+
+.clearance-container.bad{
+  background-color: rgb(255, 217, 217); /* Red background for lesser clearance */
+}
+
+.clearance-container.disabled{
+  background-color: #f0f0f0;
+  pointer-events: none;
+  opacity: 0.4;
+}
+
+.input-container {
+  padding-left: 15px;
+  padding-right: 15px;
+  padding-bottom: 10px;
+  padding-top: 5px;
+  background-color: #f0f0f0;
+  border: 1px solid #ccc;
+  border-radius: 10px;
+  margin-bottom: 20px;
+}
+
+.intermediate-container {
+  padding-left: 15px;
+  padding-right: 15px;
+  padding-bottom: 10px;
+  padding-top: 5px;
+  background-color: #fffebd;
+  border: 1px solid #ccc;
+  border-radius: 10px;
+  margin-bottom: 20px;
+}
+
+.intermediate-container.disabled {
+  background-color: #f0f0f0;
+  pointer-events: none;
+  opacity: 0.4;
+}
+
+.input-container.disabled input, 
+.input-container.disabled select {
+  background-color: #f0f0f0;
+  color: #999;
+}
+
 
 .description {
     color: #1b365f;;
@@ -26,6 +75,10 @@
   margin-bottom: 20px;
 }
 
+.section-container.results {
+  opacity: 0.5
+}
+
 .small-pill-selector {
   width: calc(33% - 10px);
   display: flex;
@@ -36,6 +89,10 @@
   background-color: #f1f1f1;
   box-shadow: 0 0 5px rgba(0, 0, 0, 0.1);
   color: #b1b1b1;
+}
+
+.small-pill-selector.results { 
+  pointer-events: none;
 }
 
 .tab {
@@ -78,7 +135,7 @@
   justify-content: space-between;
 }
 
-h2 {
+.subtitle {
   text-align: center;
   font-style: italic;
   font-weight: 600;
@@ -86,7 +143,12 @@ h2 {
   background-color: transparent;
   padding: 5px;
   border-radius: 5px;
-  margin-bottom: 15px;
+  margin-bottom: 10px;
+  margin-top: 0px;
+}
+
+.subtitle.results {
+  opacity: 0.5;
 }
 
 #container {
@@ -109,6 +171,10 @@ h2 {
   padding-bottom: 5px;
 }
 
+.item.results{
+  opacity: 0.5;
+}
+
 .calculated-item {
   flex: 1;
   text-align: center;
@@ -124,7 +190,7 @@ h2 {
   background-color: transparent;
   padding: 5px;
   border-radius: 5px;
-  margin-bottom: 10px;
+  margin-bottom: 5px;
 }
 
 .greater-clearance {

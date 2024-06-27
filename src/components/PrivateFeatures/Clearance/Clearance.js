@@ -1,21 +1,21 @@
 import React, { useState, useEffect } from 'react';
 import './Clearance.css'; // Import CSS file
-import { TextField, InputAdornment } from '@mui/material';
+import { TextField, InputAdornment, Button } from '@mui/material';
 import * as XLSX from 'xlsx';
 
 const Clearance = () => {
-  const [division, setDivision] = useState('A Division (IRT)');
-  const [H, setH] = useState(0); // Field for H (in inches)
-  const [D, setD] = useState(0); // Field for D (in inches)
+  const [division, setDivision] = useState('A Division');
+  const [H, setH] = useState(' '); // Field for H (in inches)
+  const [D, setD] = useState(' '); // Field for D (in inches)
   const [trackType, setTrackType] = useState('curve'); // Tab selection for track type
   const [direction, setDirection] = useState('IN'); // Tab selection for direction
-  const [MO, setMO] = useState(0); // Field for MO (in inches)
-  const [SUPER, setSUPER] = useState(0); // Field for Super Elevation 
+  const [MO, setMO] = useState(' '); // Field for MO (in inches)
+  const [SUPER, setSUPER] = useState(' '); // Field for Super Elevation 
   const [R, setR] = useState(0); // Field for R - Radius (in inches)
   const [SE, setSE] = useState(0); // Field for SE - Super Elevation Excess (in inches)
   const [EE, setEE] = useState(0); // Field for EE - End Excess (in inches)
   const [CE, setCE] = useState(0); // Field for CE - Center Excess (in inches)
-  const [LLLEMinReq, setLLLEMinReq] = useState(33.875); // Field for LLLE Minimum Requirement (in inches)
+  const [LLLEMinReq, setLLLEMinReq] = useState(0); // Field for LLLE Minimum Requirement (in inches)
   const [LLLEClearance, setLLLEClearance] = useState(0); // Field for calculated LLLE Clearance (in inches)
   const [clearance, setClearance] = useState(LLLEClearance - LLLEMinReq);
   const [divMaxH, setDivMaxH] = useState(145.625); 
@@ -25,9 +25,10 @@ const Clearance = () => {
   const [superStep] = useState(0.125);
   const [A_height_to_clearance, setATranslate] = useState({0:33.875});
   const [B_height_to_clearance, setBTranslate] = useState({0:35.125});
+  const [calculateEnabled, setCalculateEnabled] = useState(false);
+  const [state, setState] = useState("INPUT") // [INPUT, RESULTS]
 
-  const isClearanceGreater = LLLEClearance > LLLEMinReq;
-  const clearanceClassName = `${isClearanceGreater ? 'greater-clearance' : 'lesser-clearance'}`
+  const isClearanceGreater = clearance > 0;
 
   const findNearestKey = (map, key) => {
     const keys = Object.keys(map).map(Number).sort((a, b) => a - b);
@@ -36,17 +37,26 @@ const Clearance = () => {
   };
 
   const handleHChange = (event) => {
-    let newH = event.target.value;
-    if (newH > divMaxH) {
-      newH = divMaxH;
+    let { value } = event.target;
+    const floatValue = parseFloat(value);
+    // Regular expression to allow up to 3 digits after decimal
+    const regex = /^-?\d*\.?\d{0,3}$/;
+    if (value === '' || (regex.test(value) && floatValue >= -0.5 && floatValue <= divMaxH)) {
+      if (value === '') { setH(' ') }
+      else { setH(value) }
+    } else {
+      if (floatValue < -0.5) {
+        setH('-0.5')
+      } else if (floatValue > divMaxH) {
+        setH(divMaxH.toString());
+      } else { setH(value) }
     }
-    setH(formatNumber(newH));
-  }
+  };
 
-  const formatNumber = (number) => {
+  const formatNumber = (number, precision) => {
     let num;
     try {
-      num = number.toFixed(3)
+      num = number.toFixed(precision)
     } catch (error) {
       num = number;
     }
@@ -54,16 +64,49 @@ const Clearance = () => {
   }
 
   const handleDChange = (event) => {
-    setD(event.target.value);
-  }
+    let { value } = event.target;
+    const floatValue = parseFloat(value);
+    // Regular expression to allow up to 3 digits after decimal
+    const regex = /^-?\d*\.?\d{0,3}$/;
+    if (value === '' || (regex.test(value) && floatValue >= 0)) {
+      if (value === '') { setD(' ') }
+      else { setD(value) }
+    } else {
+      if (floatValue < 0) {
+        setD('0')
+      } else { setD(value) }
+    }
+  };
 
   const handleMOChange = (event) => {
-    setMO(event.target.value);
-  }
+    let { value } = event.target;
+    const floatValue = parseFloat(value);
+    // Regular expression to allow up to 3 digits after decimal
+    const regex = /^-?\d*\.?\d{0,3}$/;
+    if (value === '' || (regex.test(value) && floatValue >= 0)) {
+      if (value === '') { setMO(' ') }
+      else { setMO(value) }
+    } else {
+      if (floatValue < 0) {
+        setMO('0')
+      } else { setMO(value) }
+    }
+  };
 
   const handleSUPERChange = (event) => {
-    setSUPER(event.target.value);
-  }
+    let { value } = event.target;
+    const floatValue = parseFloat(value);
+    // Regular expression to allow up to 3 digits after decimal
+    const regex = /^-?\d*\.?\d{0,3}$/;
+    if (value === '' || (regex.test(value) && floatValue >= 0)) {
+      if (value === '') { setSUPER(' ') }
+      else { setSUPER(value) }
+    } else {
+      if (floatValue < 0) {
+        setSUPER('0')
+      } else { setSUPER(value) }
+    }
+  };
 
   const handleTrackTypeClick = (type) => {
     if (type === 'tangent') {
@@ -77,36 +120,64 @@ const Clearance = () => {
     let newDivision;
     let newDivMaxH; 
     if (new_div === 'A') {
-      newDivision = 'A Division (IRT)';
+      newDivision = 'A Division';
       newDivMaxH = 145.625;
     } else if (new_div === 'B') {
-      newDivision = 'B Division (IND / BMT)';
+      newDivision = 'B Division';
       newDivMaxH = 148.4375;
     }
     setDivision(newDivision);
     setDivMaxH(newDivMaxH);
   };
 
-  useEffect(() => {
-    const updateCalcs = () => {
+  const updateCalcs = () => {
+
+    if (state === 'RESULTS') {
+      setState('INPUT');
+
+      // reset all inputs to defaults / empty
+      /*setDivision('A Division');
+      setTrackType('curve');
+      setDirection('IN');*/
+      setH(' ');
+      setD(' ');
+      setMO(' ');
+      setSUPER(' ');
+
+      // reset all calculations to 0s
+      setR(0);
+      setSE(0.000);
+      setEE(0.000);
+      setCE(0.000);
+      setLLLEMinReq(0.000);
+      setLLLEClearance(0.000);
+      setClearance(0.000);
+
+    } else if (state === 'INPUT') {
+      setState('RESULTS')
 
       // Define calculations to update and later be set
       let r, se, ee, ce, minreq, llleclearance, clearance;
 
       // Update the LLLE Min Req based on new division (if there is one)
-      if (division === 'A Division (IRT)') {
+      if (division === 'A Division') {
         if (A_height_to_clearance.hasOwnProperty(H) && H >= -0.5 && H <= 145.625) {
           minreq = A_height_to_clearance[H];
         } else if (H >= -0.5 && H <= 145.625) {
           minreq = findNearestKey(A_height_to_clearance, H);
         }
-      } else if (division === 'B Division (IND / BMT)') {
+      } else if (division === 'B Division') {
         if (B_height_to_clearance.hasOwnProperty(H) && H >= -0.5 && H <= 148.625) {
           minreq = B_height_to_clearance[H];
-        } else if (H >= -0.5 && H <= 145.625) {
+        } else if (H >= -0.5 && H <= 148.4375) {
           minreq = findNearestKey(B_height_to_clearance, H);
         }
       }
+
+      if (H === ' ') { setH(0) }
+      else if (D === ' ') { setD(0) }
+      else if (MO === ' ') { setMO(0) }
+      else if (SUPER === ' ') { setSUPER(0) }
 
       // TANGENT TRACK CALCULATIONS
       if (trackType === 'tangent') {
@@ -115,25 +186,25 @@ const Clearance = () => {
         ce = 0;
 
         // calc SE based on side of track
-        if (direction === 'IN' || direction === "OUT") {
+        if (direction === 'IN') {
+          se = (-1 * SUPER * H) / 56.5;
+        } else if (direction === "OUT") {
           se = (SUPER * H) / 56.5;
         } else {
           se = 0;
         }
 
         // calc clearance based on D, se
-        if (direction === 'IN') {
-          llleclearance = parseFloat(D) - parseFloat(se);
-        } else if (direction === 'OUT') {
-          llleclearance = parseFloat(D) + parseFloat(se); 
+        if (direction === 'IN' || direction === 'OUT') {
+          llleclearance = parseFloat(minreq) + parseFloat(se);
         } else {
-          llleclearance = parseFloat(D);
+          llleclearance = parseFloat(minreq);
         }
       
       // CURVED TRACK CALCULATIONS
       } else {
         if (MO !== 0) {
-          r = (1.5 * 2500) / MO;
+          r = (1.5 * 2500) / parseFloat(MO);
         } else {
           r = 0;
         }
@@ -143,30 +214,32 @@ const Clearance = () => {
         }
 
         // Calculate se based on direction and SUPER
-        if (direction === 'IN' || direction === 'OUT') {
-          se = (SUPER * H) / 56.5;
+        if (direction === 'IN') {
+          se = (parseFloat(SUPER) * parseFloat(H)) / 56.5;
+        } else if (direction === "OUT") {
+          se = (-1 * parseFloat(SUPER) * parseFloat(H)) / 56.5;
         } else {
           se = 0;
         }
 
         // Calculate ce and ee based on r and direction
-        if (r !== 0 && division === "A Division (IRT)") {
+        if (r !== 0 && division === "A Division") {
           if (direction === 'IN') {
-            ce = 1944 / R;
+            ce = 1944 / r;
             ee = 0;
           } else if (direction === 'OUT') {
-            ee = 1512 / R;
+            ee = 1512 / r;
             ce = 0;
           } else {
             ce = 0;
             ee = 0;
           }
-        } else if (r !== 0 && division === "B Division (IND / BMT)") {
+        } else if (r !== 0 && division === "B Division") {
           if (direction === 'IN') {
-            ce = 4374 / R;
+            ce = 4374 / r;
             ee = 0;
           } else if (direction === 'OUT') {
-            ee = 2945 / R;
+            ee = 2945 / r;
             ce = 0;
           } else {
             ce = 0;
@@ -178,17 +251,14 @@ const Clearance = () => {
         }
         
         // Calculate llleclearance based on direction
-        if (direction === 'IN') {
-          llleclearance = parseFloat(D) - parseFloat(se) - parseFloat(ce);
-        } else if (direction === 'OUT') {
-          llleclearance = parseFloat(D) + parseFloat(se) - parseFloat(ee);
+        if (direction === 'IN' || direction === 'OUT') {
+          llleclearance = parseFloat(minreq) + parseFloat(se) + parseFloat(ce) + parseFloat(ee);
         } else {
-          llleclearance = parseFloat(D);
+          llleclearance = parseFloat(minreq);
         }
-
       }
-  
-      clearance = llleclearance - minreq;
+
+      clearance = D - llleclearance
 
       // Update state values
       setR(r);
@@ -198,26 +268,37 @@ const Clearance = () => {
       setLLLEMinReq(minreq);
       setLLLEClearance(parseFloat(llleclearance));
       setClearance(clearance);
+
+    }
+  };
+
+  // Check if have enough data to make calculation
+  useEffect(() => {
+
+    const isNumeric = (value) => {
+      return typeof value === 'number' || !isNaN(parseFloat(value))
+    }
+
+    const canCalculate = () => {
+      if (trackType === 'curve') {
+        if (isNumeric(H) && isNumeric(D) && isNumeric(MO) && isNumeric(SUPER)) {
+          setCalculateEnabled(true)
+        } else {
+          setCalculateEnabled(false)
+        }
+      } else if (trackType === 'tangent') {
+        if (isNumeric(H) && isNumeric(D) && isNumeric(SUPER)) {
+          setCalculateEnabled(true)
+        } else {
+          setCalculateEnabled(false)
+        }
+      } else {
+        setCalculateEnabled(false)
+      }
     };
 
-    updateCalcs();
-  }, [division, H, D, trackType, direction, MO, SUPER, R, SE, EE, CE]);
-
-  useEffect(() => {
-    if (division === 'A Division (IRT)') {
-      if (A_height_to_clearance.hasOwnProperty(H) && H >= -0.5 && H <= 145.625) {
-        setLLLEMinReq(A_height_to_clearance[H]);
-      } else if (H >= -0.5 && H <= 145.625) {
-        setLLLEMinReq(findNearestKey(A_height_to_clearance, H));
-      }
-    } else if (division === 'B Division (IND / BMT)') {
-      if (B_height_to_clearance.hasOwnProperty(H) && H >= -0.5 && H <= 148.625) {
-        setLLLEMinReq(B_height_to_clearance[H]);
-      } else if (H >= -0.5 && H <= 145.625) {
-        setLLLEMinReq(findNearestKey(B_height_to_clearance, H));
-      }
-    }
-  }, [division, A_height_to_clearance, B_height_to_clearance, H]);
+    canCalculate()
+  }, [H, D, MO, SUPER, trackType]);
 
   useEffect(() => {
     const filePath = '/tor_gor_translations.xlsx';
@@ -251,31 +332,32 @@ const Clearance = () => {
 
   return (
     <div>
-      <div className="clearance-container">
-        <h2>
-          Please input values into all applicable fields below.
+      <div className="description">
+        This tool calculates LLLE clearance given field measurements by executing all required value lookups and calculations. 
+        Input your measurements and specifications, select "CALCULATE"; then, view the intermediate calculations and final results. 
+      </div>
+      <div className="input-container">
+        <h2 className={`subtitle ${state === 'RESULTS' ? 'results' : ''}`}>
+          Inputs
         </h2>
-        <div className="section-container">
-          <div className="pill-selector">
-            <div
-              className={`tab ${division === 'A Division (IRT)' ? 'active' : ''}`}
-              onClick={() => handleDivisionChange('A')}
-            >
-              A Division (IRT)
-            </div>
-            <div
-              className={`tab ${division === 'B Division (IND / BMT)' ? 'active' : ''}`}
-              onClick={() => handleDivisionChange('B')}
-            >
-              B Division (IND / BMT)
-            </div>
-            <div className={`slider ${division === 'B Division (IND / BMT)' ? 'slide-right' : 'slide-left'}`}></div>
-          </div>
-        </div>
-
-        <div className="section-container">
+        <div className={`section-container ${state === 'RESULTS' ? 'results' : ''}`}>
           <div className="side-by-side">
-            <div className="small-pill-selector">
+            <div className={`small-pill-selector ${state === 'RESULTS' ? 'results' : ''}`}>
+              <div
+                className={`tab ${division === 'A Division' ? 'active' : ''}`}
+                onClick={() => handleDivisionChange('A')}
+              >
+                A Division
+              </div>
+              <div
+                className={`tab ${division === 'B Division' ? 'active' : ''}`}
+                onClick={() => handleDivisionChange('B')}
+              >
+                B Division
+              </div>
+              <div className={`slider ${division === 'B Division' ? 'slide-right' : 'slide-left'}`}></div>
+            </div>
+            <div className={`small-pill-selector ${state === 'RESULTS' ? 'results' : ''}`}>
               <div
                 className={`tab ${trackType === 'tangent' ? 'active' : ''}`}
                 onClick={() => handleTrackTypeClick('tangent')}
@@ -290,8 +372,7 @@ const Clearance = () => {
               </div>
               <div className={`slider ${trackType === 'curve' ? 'slide-right' : 'slide-left'}`}></div>
             </div>
-
-            <div className="small-pill-selector">
+            <div className={`small-pill-selector ${state === 'RESULTS' ? 'results' : ''}`}>
               <div
                 className={`tab ${direction === 'IN' ? 'active' : ''}`}
                 onClick={() => setDirection('IN')}
@@ -309,100 +390,126 @@ const Clearance = () => {
           </div>
         </div>
 
-        <div className="grid2x2">
-          <div className="box box1">
-            <TextField
-              label="Equipment Height from Top of Rail"
-              type="number"
-              id="height-tor"
-              value={formatNumber(H)}
-              inputProps={{
-                min: -0.5,
-                precision: 3,
-                max: divMaxH,
-                step: hStep,
-              }}
-              InputProps={{
-                style: { textAlign: 'center' },
-                endAdornment: <InputAdornment position="end">in.</InputAdornment>
-              }}
-              onChange={handleHChange}
-              style={{ width: '90%' }}
-            />
-          </div>
-          <div className="box box2">
-            <TextField
-              label="Equipment Distance from Gauge of Rail"
-              type="number"
-              id="height-gor"
-              value={D}
-              inputProps={{
-                min: 0,
-                precision: 2,
-                max: 1000, // arbitrary max value
-                step: dStep,
-              }}
-              InputProps={{
-                style: { textAlign: 'center' },
-                endAdornment: <InputAdornment position="end">in.</InputAdornment>
-              }}
-              onChange={handleDChange}
-              style={{ width: '90%' }}
-            />
-          </div>
-          <div className={`box box3 ${trackType === 'tangent' ? 'inactive-field' : ''}`}>
-            <TextField
-              label="Middle Ordinate (M.O.)"
-              type="number"
-              id="middle-ordinate"
-              value={MO}
-              inputProps={{
-                min: 0,
-                precision: 2,
-                max: 1000, // arbitrary max value
-                step: moStep,
-              }}
-              InputProps={{
-                style: { textAlign: 'center' },
-                endAdornment: <InputAdornment position="end">in.</InputAdornment>
-              }}
-              onChange={handleMOChange}
-              style={{ width: '90%' }}
-            />
-          </div>
-          <div className="box box4">
-            <TextField
-              label="Super Elevation (S.E.)"
-              type="number"
-              id="super-elevation"
-              value={SUPER}
-              inputProps={{
-                min: 0,
-                precision: 2,
-                max: 1000, // arbitrary max value
-                step: superStep,
-              }}
-              InputProps={{
-                style: { textAlign: 'center' },
-                endAdornment: <InputAdornment position="end">in.</InputAdornment>
-              }}
-              onChange={handleSUPERChange}
-              style={{ width: '90%' }}
-            />
+        <div id="container">
+          <div className="inner-container">
+            <div className={`item ${state === 'RESULTS' ? 'results' : ''}`}>
+              <TextField
+                label="Height from Top of Rail"
+                type="number"
+                id="height-tor"
+                value={formatNumber(H, 3)}
+                inputProps={{
+                  min: -0.5,
+                  precision: 3,
+                  max: divMaxH,
+                  step: hStep,
+                  style: { textAlign: 'center' }
+                }}
+                InputProps={{
+                  endAdornment: <InputAdornment position="end">in.</InputAdornment>
+                }}
+                onChange={handleHChange}
+                disabled={`${state === 'RESULTS' ? 'true': ''}`}
+                style={{ width: '90%' }}
+              />
+            </div>
+            <div className={`item ${state === 'RESULTS' ? 'results' : ''}`}>
+              <TextField
+                label="Distance from Gauge of Rail"
+                type="number"
+                id="height-gor"
+                value={D}
+                inputProps={{
+                  min: 0,
+                  precision: 2,
+                  max: 1000, // arbitrary max value
+                  step: dStep,
+                  style: { textAlign: 'center' }
+                }}
+                InputProps={{
+                  endAdornment: <InputAdornment position="end">in.</InputAdornment>
+                }}
+                onChange={handleDChange}
+                disabled={`${state === 'RESULTS' ? 'true': ''}`}
+                style={{ width: '90%' }}
+              />
+            </div>
+            <div className={`item ${state === 'RESULTS' ? 'results' : ''}`}>
+              <TextField
+                label="Middle Ordinate"
+                type="number"
+                id="middle-ordinate"
+                value={MO}
+                inputProps={{
+                  min: 0,
+                  precision: 2,
+                  max: 1000, // arbitrary max value
+                  step: moStep,
+                  style: { textAlign: 'center' }
+                }}
+                InputProps={{
+                  endAdornment: <InputAdornment position="end">in.</InputAdornment>
+                }}
+                disabled={`${trackType === 'tangent' || state === 'RESULTS' ? 'true': ''}`}
+                onChange={handleMOChange}
+                style={{ width: '90%' }}
+                sx={{
+                  opacity: trackType === 'tangent' ? 0.3 : 1, 
+                  '&:disabled': {
+                   opacity: 0.3, 
+                  },
+                }}
+              />
+            </div>
+            <div className={`item ${state === 'RESULTS' ? 'results' : ''}`}>
+              <TextField
+                label="Super Elevation"
+                type="number"
+                id="super-elevation"
+                value={SUPER}
+                inputProps={{
+                  min: 0,
+                  precision: 2,
+                  max: 1000, // arbitrary max value
+                  step: superStep,
+                  style: { textAlign: 'center' }
+                }}
+                InputProps={{
+                  endAdornment: <InputAdornment position="end">in.</InputAdornment>
+                }}
+                onChange={handleSUPERChange}
+                disabled={`${state === 'RESULTS' ? 'true': ''}`}
+                style={{ width: '90%' }}
+              />
+            </div>
+            <div className="item">
+              <Button
+                variant="contained"
+                size="large"
+                disabled={`${calculateEnabled === false ? 'true': ''}`}
+                onClick={updateCalcs}
+                sx={{
+                  width: "90%",
+                  height: "100%",
+                }}
+              >
+                {state === "INPUT" ? 'Calculate' : 'Reset'}
+              </Button>
+            </div>
           </div>
         </div>
       </div>
-      <div className="clearance-container">
-        <h2 className={clearanceClassName}>
-          Clearance Calculations 
+      <div className={`intermediate-container ${state === 'INPUT' ? 'disabled' : ''}`}>
+        <h2 className="calculations"> 
+          Intermediate Calculations
         </h2>
         <div id="container">
           <div className="inner-container">
-            <div className="item">
+            <div className="calculated-item">
               <TextField
                 label="Radius"
                 type="number"
-                value={R.toFixed(0)}
+                value={R.toFixed(3)}
                 InputProps={{
                   style: { textAlign: 'center' },
                   endAdornment: <InputAdornment position="end">ft.</InputAdornment>, 
@@ -412,14 +519,14 @@ const Clearance = () => {
                     style: { textAlign: 'center', cursor: 'default' }
                   }
                 }}
-                style={{ width: '90%' }}
+                style={{ width: '95%' }}
                 disabled={`${trackType === 'tangent' ? 'true': ''}`}
                 readOnly
               />
             </div>
-            <div className="item">
+            <div className="calculated-item">
               <TextField
-                label="S.E. Excess"
+                label="Super Elevation Excess"
                 type="number"
                 value={SE.toFixed(3)}
                 InputProps={{
@@ -431,11 +538,11 @@ const Clearance = () => {
                     style: { textAlign: 'center', cursor: 'default' }
                   }
                 }}
-                style={{ width: '90%' }}
+                style={{ width: '95%' }}
                 readOnly
               />
             </div>
-            <div className="item">
+            <div className="calculated-item">
               <TextField
                 label="End Excess"
                 type="number"
@@ -449,12 +556,12 @@ const Clearance = () => {
                     style: { textAlign: 'center', cursor: 'default' }
                   }
                 }}
-                style={{ width: '90%' }}
+                style={{ width: '95%' }}
                 disabled={`${trackType === 'tangent' ? 'true': ''}`}
                 readOnly
               />
             </div>
-            <div className="item">
+            <div className="calculated-item">
               <TextField
                 label="Center Excess"
                 type="number"
@@ -468,16 +575,29 @@ const Clearance = () => {
                     style: { textAlign: 'center', cursor: 'default' }
                   }
                 }}
-                style={{ width: '90%' }}
+                style={{ width: '95%' }}
                 disabled={`${trackType === 'tangent' ? 'true': ''}`}
                 readOnly
               />
             </div>
-            <div className="item">
+          </div>
+        </div>
+      </div>
+      <div className={`clearance-container ${isClearanceGreater === true ? 'okay' : 'bad'} ${state === 'INPUT' ? 'disabled' : ''}`}>
+        <h2 className="calculations">
+          Results 
+        </h2>
+        <div id="container">
+          <div className="inner-container">
+          </div>
+        </div>
+        <div id="container">
+          <div className="inner-container">
+            <div className="calculated-item">
               <TextField
-                label="LLLE Minimum Requirement"
+                label="LLLE Minimum Requirement (Before Excess)"
                 type="number"
-                value={formatNumber(LLLEMinReq)}
+                value={formatNumber(LLLEMinReq, 4)}
                 InputProps={{
                   style: { textAlign: 'center' },
                   endAdornment: <InputAdornment position="end">in.</InputAdornment>, 
@@ -487,13 +607,13 @@ const Clearance = () => {
                     style: { textAlign: 'center', cursor: 'default' }
                   }
                 }}
-                style={{ width: '90%' }}
+                style={{ width: '95%' }}
                 readOnly
               />
             </div>
-            <div className="item">
+            <div className="calculated-item">
               <TextField
-                label="LLLE Clearance"
+                label="LLLE Minimum Requirement (Accounting for Excess)"
                 type="number"
                 value={LLLEClearance.toFixed(3)}
                 InputProps={{
@@ -505,13 +625,13 @@ const Clearance = () => {
                     style: { textAlign: 'center', cursor: 'default' }
                   }
                 }}
-                style={{ width: '90%' }}
+                style={{ width: '95%' }}
                 readOnly
               />
             </div>
-            <div className="item">
+            <div className="calculated-item">
               <TextField
-                label="Clearance"
+                label="Calculated Clearance"
                 type="number"
                 value={clearance.toFixed(3)}
                 InputProps={{
@@ -523,7 +643,7 @@ const Clearance = () => {
                     style: { textAlign: 'center', cursor: 'default' }
                   }
                 }}
-                style={{ width: '90%' }}
+                style={{ width: '95%' }}
               />
             </div>
           </div>
