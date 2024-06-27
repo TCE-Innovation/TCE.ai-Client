@@ -1,10 +1,10 @@
-import React, { useState } from "react";
+import React, { useLayoutEffect, useState } from "react";
 
 import { DeleteIcon, EditIcon } from "../../../icons";
 
 import { DeleteConversationModal, EditConversationModal } from "../Modal";
 
-import { useConversation, useMessage } from "../../../../hooks";
+import { useConversation, useMessage, useScroll } from "../../../../hooks";
 
 import Wrapper from "./style";
 
@@ -13,6 +13,7 @@ const Conversation = ({ title, id, active, setConversation }) => {
   const [showEditModal, setShowEditModal] = useState(false);
   const { isDeletingConversation, isEditingConversation } = useConversation();
   const { sendingMessage } = useMessage();
+  const { containerRef, scrollIntoView } = useScroll();
 
   const handleOpenDeleteModal = () => {
     if (isDeletingConversation || sendingMessage) return;
@@ -24,22 +25,27 @@ const Conversation = ({ title, id, active, setConversation }) => {
     setShowEditModal(true);
   };
 
+  useLayoutEffect(() => {
+    scrollIntoView();
+  }, [scrollIntoView]);
+
   return (
     <>
       <Wrapper active={active}>
         <div
           className="conversation-header"
+          ref={containerRef}
           onClick={() => setConversation({ id, title })}
         >
           <span className="conversation-title">{title}</span>
-          <div style={{ position: "relative" }}>
+          <div className="conversation-tools">
             {isEditingConversation ? null : active ? (
               <span
                 className="edit-button tooltip-container"
                 onClick={handleOpenEditModal}
               >
                 <EditIcon color="inherit" />
-                <div className="tooltip align-top">edit</div>
+                <div className="tooltip align-bottom">edit</div>
               </span>
             ) : null}
             {isDeletingConversation ? null : active ? (
@@ -48,7 +54,7 @@ const Conversation = ({ title, id, active, setConversation }) => {
                 onClick={handleOpenDeleteModal}
               >
                 <DeleteIcon color="inherit" />
-                <div className="tooltip align-top">delete</div>
+                <div className="tooltip align-bottom">delete</div>
               </span>
             ) : null}
           </div>

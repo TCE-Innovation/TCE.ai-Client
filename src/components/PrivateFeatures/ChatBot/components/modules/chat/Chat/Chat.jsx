@@ -11,13 +11,13 @@ import { Alerts } from "../../../common";
 const Chat = () => {
   const { messages, loadingMessages } = useMessage();
 
-  const { containerRef, scrollIntoView } = useScroll();
+  const { containerRef, scrollBottom } = useScroll();
 
   useLayoutEffect(() => {
     if (!loadingMessages && messages.length) {
-      scrollIntoView();
+      scrollBottom();
     }
-  }, [loadingMessages, messages, scrollIntoView]);
+  }, [loadingMessages, messages, scrollBottom]);
 
   return (
     <Wrapper>
