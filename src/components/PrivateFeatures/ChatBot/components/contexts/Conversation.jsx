@@ -112,9 +112,8 @@ const ConversationProvider = ({ children }) => {
     const { message } = await conversationService.deleteConversation(id);
     createAlert({ message, type: "danger" });
     setIsDeleting(false);
-    const target = conversations.find((c) => c.id !== id) || null;
     setConversations((prev) => prev.filter((c) => c.id !== id));
-    setCurrentConversation(target);
+    setCurrentConversation(null);
   };
 
   return (
