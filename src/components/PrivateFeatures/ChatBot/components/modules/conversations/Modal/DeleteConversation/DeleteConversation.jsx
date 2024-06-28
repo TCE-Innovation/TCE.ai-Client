@@ -1,7 +1,7 @@
 import React from "react";
 
 import { Overlay, Modal, Loader } from "../../../../common";
-import { useConversation } from "../../../../../hooks";
+import { useConversation, useMessage } from "../../../../../hooks";
 
 const DeleteLoader = () => {
   return (
@@ -14,6 +14,7 @@ const DeleteLoader = () => {
 
 const DeleteConversation = ({ id, show, onClose }) => {
   const { deleteConversation, isDeletingConversation } = useConversation();
+  const { clearMessageCache } = useMessage();
 
   const handleClose = () => {
     if (isDeletingConversation) return;
@@ -22,11 +23,15 @@ const DeleteConversation = ({ id, show, onClose }) => {
 
   const handleSubmit = (id) => {
     const handler = deleteConversation(id);
-    return (e) => {
-      handler(e);
-      setTimeout(() => {
+    return async (e) => {
+      try {
+        await handler(e);
+        clearMessageCache(id);
+      } catch (err) {
+        console.error(err);
+      } finally {
         onClose();
-      }, 500);
+      }
     };
   };
 

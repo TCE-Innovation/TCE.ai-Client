@@ -1,4 +1,4 @@
-import React, { useLayoutEffect, useState } from "react";
+import React, { useLayoutEffect, useRef, useState } from "react";
 
 import { DeleteIcon, EditIcon } from "../../../icons";
 
@@ -25,9 +25,15 @@ const Conversation = ({ title, id, active, setConversation }) => {
     setShowEditModal(true);
   };
 
+  const mountRef = useRef(false);
+
   useLayoutEffect(() => {
-    scrollIntoView();
-  }, [scrollIntoView]);
+    if (mountRef.current) return;
+    if (active) {
+      scrollIntoView();
+    }
+    mountRef.current = true;
+  }, [scrollIntoView, active]);
 
   return (
     <>

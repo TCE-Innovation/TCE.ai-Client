@@ -25,7 +25,7 @@ const MessageProvider = ({ children }) => {
   const messageArchieves = useRef({});
 
   const createMessage = ({ isAI, body, id, citations }) => {
-    if(!currentConversation) return;
+    if (!currentConversation) return;
     const newMessage = { isAI, body, id };
     if (isAI && citations) newMessage["citations"] = citations;
     setMessages((prev) => {
@@ -51,10 +51,15 @@ const MessageProvider = ({ children }) => {
     return false;
   };
 
+  const clearMessageCache = (conversationId) => {
+    setMessages([]);
+    saveMessagesToArchieve(conversationId, null);
+  };
+
   useEffect(() => {
     const getMessages = async (conversation) => {
       if (!conversation) return;
-      const {id} = conversation;
+      const { id } = conversation;
       const loadSuccess = loadMessagesFromArchieve(id);
       if (loadSuccess) return;
       setLoading(true);
@@ -99,6 +104,7 @@ const MessageProvider = ({ children }) => {
         messages,
         setMessages,
         sendMessage,
+        clearMessageCache,
         loadingMessages: loading,
         sendingMessage,
         createMessage,
