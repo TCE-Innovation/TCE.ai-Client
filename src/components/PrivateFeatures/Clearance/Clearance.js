@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import './Clearance.css'; // Import CSS file
 import { TextField, InputAdornment, Button } from '@mui/material';
-import * as XLSX from 'xlsx';
+import { calculateClearance } from '../../../data/General';
 
 const Clearance = () => {
   const [division, setDivision] = useState('A Division');
@@ -19,23 +19,13 @@ const Clearance = () => {
   const [LLLEClearance, setLLLEClearance] = useState(0); // Field for calculated LLLE Clearance (in inches)
   const [clearance, setClearance] = useState(LLLEClearance - LLLEMinReq);
   const [divMaxH, setDivMaxH] = useState(145.625); 
-  const [hStep] = useState(0.125);
-  const [dStep] = useState(0.125);
-  const [moStep] = useState(0.125);
-  const [superStep] = useState(0.125);
-  const [A_height_to_clearance, setATranslate] = useState({0:33.875});
-  const [B_height_to_clearance, setBTranslate] = useState({0:35.125});
+  const [step] = useState(0.125); // standard step size for measurements (1/8")
   const [calculateEnabled, setCalculateEnabled] = useState(false);
   const [state, setState] = useState("INPUT") // [INPUT, RESULTS]
 
   const isClearanceGreater = clearance > 0;
 
-  const findNearestKey = (map, key) => {
-    const keys = Object.keys(map).map(Number).sort((a, b) => a - b);
-    let nearestKey = keys.reduce((prev, curr) => Math.abs(curr - key) < Math.abs(prev - key) ? curr : prev);
-    return map[nearestKey];
-  };
-
+  // function to handle and properly format changes to the Height input
   const handleHChange = (event) => {
     let { value } = event.target;
     const floatValue = parseFloat(value);
@@ -45,94 +35,79 @@ const Clearance = () => {
       if (value === '') { setH(' ') }
       else { setH(value) }
     } else {
-      if (floatValue < -0.5) {
-        setH('-0.5')
-      } else if (floatValue > divMaxH) {
-        setH(divMaxH.toString());
-      } else { setH(value) }
+      if (floatValue < -0.5) { setH('-0.5'); } 
+      else if (floatValue > divMaxH) { setH(divMaxH.toString()); } 
+      else { setH(value); }
     }
   };
 
+  // function to return a number formatted to a specific precision
   const formatNumber = (number, precision) => {
     let num;
-    try {
-      num = number.toFixed(precision)
-    } catch (error) {
-      num = number;
-    }
+    try { 
+      num = number.toFixed(precision);
+      num = parseFloat(num).toString();
+    } catch (error) { num = number; }
     return num
-  }
+  };
 
+  // generalized function used to handle changes and maintain required formatting
+  const formatInput = (value) => {
+    const floatValue = parseFloat(value);
+    let result;
+    // Regular expression to allow up to 3 digits after decimal
+    const regex = /^-?\d*\.?\d{0,3}$/;
+    if (value === '' || (regex.test(value) && floatValue >= 0)) {
+      if (value === '') { result = ' '; }
+      else { result = value; }
+    } else {
+      if (floatValue < 0) { result = '0'; } 
+      else { result = value; }
+    }
+    return result;
+  };
+
+  // function to handle changes to Distance (from GOR) input 
   const handleDChange = (event) => {
     let { value } = event.target;
-    const floatValue = parseFloat(value);
-    // Regular expression to allow up to 3 digits after decimal
-    const regex = /^-?\d*\.?\d{0,3}$/;
-    if (value === '' || (regex.test(value) && floatValue >= 0)) {
-      if (value === '') { setD(' ') }
-      else { setD(value) }
-    } else {
-      if (floatValue < 0) {
-        setD('0')
-      } else { setD(value) }
-    }
+    setD(formatInput(value));
   };
 
+  // function to handle changes to Middle Ordinate input 
   const handleMOChange = (event) => {
     let { value } = event.target;
-    const floatValue = parseFloat(value);
-    // Regular expression to allow up to 3 digits after decimal
-    const regex = /^-?\d*\.?\d{0,3}$/;
-    if (value === '' || (regex.test(value) && floatValue >= 0)) {
-      if (value === '') { setMO(' ') }
-      else { setMO(value) }
-    } else {
-      if (floatValue < 0) {
-        setMO('0')
-      } else { setMO(value) }
-    }
+    setMO(formatInput(value));
   };
 
+  // function to handle changes to Super Elevation input 
   const handleSUPERChange = (event) => {
     let { value } = event.target;
-    const floatValue = parseFloat(value);
-    // Regular expression to allow up to 3 digits after decimal
-    const regex = /^-?\d*\.?\d{0,3}$/;
-    if (value === '' || (regex.test(value) && floatValue >= 0)) {
-      if (value === '') { setSUPER(' ') }
-      else { setSUPER(value) }
-    } else {
-      if (floatValue < 0) {
-        setSUPER('0')
-      } else { setSUPER(value) }
-    }
+    setSUPER(formatInput(value));
   };
 
+  // function to handle toggle between track types
   const handleTrackTypeClick = (type) => {
-    if (type === 'tangent') {
-      setTrackType('tangent');
-    } else {
-      setTrackType('curve');
-    }
+    if (type === 'tangent') { setTrackType('tangent'); } 
+    else { setTrackType('curve'); }
   };
 
+  // function to handle toggle between divisions
   const handleDivisionChange = (new_div) => {
-    let newDivision;
-    let newDivMaxH; 
     if (new_div === 'A') {
-      newDivision = 'A Division';
-      newDivMaxH = 145.625;
+      setDivision('A Division');
+      setDivMaxH(145.625);
     } else if (new_div === 'B') {
-      newDivision = 'B Division';
-      newDivMaxH = 148.4375;
+      setDivision('B Division');
+      setDivMaxH(148.4375);
     }
-    setDivision(newDivision);
-    setDivMaxH(newDivMaxH);
   };
 
-  const updateCalcs = () => {
+  // function to make calculations by calling API or reset calculator
+  const makeCalcs = () => {
 
+    // "RESET" was clicked: Clear Everything
     if (state === 'RESULTS') {
+
       setState('INPUT');
 
       // reset all inputs to defaults / empty
@@ -142,7 +117,7 @@ const Clearance = () => {
       setSUPER(' ');
 
       // reset all calculations to 0s
-      setR(0);
+      setR(0.000);
       setSE(0.000);
       setEE(0.000);
       setCE(0.000);
@@ -150,122 +125,34 @@ const Clearance = () => {
       setLLLEClearance(0.000);
       setClearance(0.000);
 
+    // "CALCULATE" was clicked: Perform Calculations
     } else if (state === 'INPUT') {
+
       setState('RESULTS')
 
-      // Define calculations to update and later be set
-      let r, se, ee, ce, minreq, llleclearance, clearance;
+      // prepare data format for backend API call
+      if (H === ' ') { setH(0); }
+      else if (D === ' ') { setD(0); }
+      else if (MO === ' ') { setMO(0); }
+      else if (SUPER === ' ') { setSUPER(0); }
 
-      // Update the LLLE Min Req based on new division (if there is one)
-      if (division === 'A Division') {
-        if (A_height_to_clearance.hasOwnProperty(H) && H >= -0.5 && H <= 145.625) {
-          minreq = A_height_to_clearance[H];
-        } else if (H >= -0.5 && H <= 145.625) {
-          minreq = findNearestKey(A_height_to_clearance, H);
-        }
-      } else if (division === 'B Division') {
-        if (B_height_to_clearance.hasOwnProperty(H) && H >= -0.5 && H <= 148.625) {
-          minreq = B_height_to_clearance[H];
-        } else if (H >= -0.5 && H <= 148.4375) {
-          minreq = findNearestKey(B_height_to_clearance, H);
-        }
-      }
-
-      if (H === ' ') { setH(0) }
-      else if (D === ' ') { setD(0) }
-      else if (MO === ' ') { setMO(0) }
-      else if (SUPER === ' ') { setSUPER(0) }
-
-      // TANGENT TRACK CALCULATIONS
-      if (trackType === 'tangent') {
-        r = 0;
-        ee = 0;
-        ce = 0;
-
-        // calc SE based on side of track
-        if (direction === 'IN') {
-          se = (-1 * SUPER * H) / 56.5;
-        } else if (direction === "OUT") {
-          se = (SUPER * H) / 56.5;
-        } else {
-          se = 0;
-        }
-
-        // calc clearance based on D, se
-        if (direction === 'IN' || direction === 'OUT') {
-          llleclearance = parseFloat(minreq) + parseFloat(se);
-        } else {
-          llleclearance = parseFloat(minreq);
-        }
-      
-      // CURVED TRACK CALCULATIONS
-      } else {
-        if (MO !== 0) {
-          r = (1.5 * 2500) / parseFloat(MO);
-        } else {
-          r = 0;
-        }
-
-        if (!(isFinite(r))) {
-          r = 0;
-        }
-
-        // Calculate se based on direction and SUPER
-        if (direction === 'IN') {
-          se = (parseFloat(SUPER) * parseFloat(H)) / 56.5;
-        } else if (direction === "OUT") {
-          se = (-1 * parseFloat(SUPER) * parseFloat(H)) / 56.5;
-        } else {
-          se = 0;
-        }
-
-        // Calculate ce and ee based on r and direction
-        if (r !== 0 && division === "A Division") {
-          if (direction === 'IN') {
-            ce = 1944 / r;
-            ee = 0;
-          } else if (direction === 'OUT') {
-            ee = 1512 / r;
-            ce = 0;
-          } else {
-            ce = 0;
-            ee = 0;
-          }
-        } else if (r !== 0 && division === "B Division") {
-          if (direction === 'IN') {
-            ce = 4374 / r;
-            ee = 0;
-          } else if (direction === 'OUT') {
-            ee = 2945 / r;
-            ce = 0;
-          } else {
-            ce = 0;
-            ee = 0;
-          }
-        } else {
-          ce = 0;
-          ee = 0;
-        }
-        
-        // Calculate llleclearance based on direction
-        if (direction === 'IN' || direction === 'OUT') {
-          llleclearance = parseFloat(minreq) + parseFloat(se) + parseFloat(ce) + parseFloat(ee);
-        } else {
-          llleclearance = parseFloat(minreq);
-        }
-      }
-
-      clearance = D - llleclearance
-
-      // Update state values
-      setR(r);
-      setSE(se);
-      setEE(ee);
-      setCE(ce);
-      setLLLEMinReq(minreq);
-      setLLLEClearance(parseFloat(llleclearance));
-      setClearance(clearance);
-
+      // make call to backend API to perform calculation
+      const input_object = { division, trackType, direction, H, D, MO, SUPER };
+      calculateClearance(input_object)
+        .then((response) => {
+          const { r, se, ee, ce, minreq, llleclearance, clearance } = response.result_object;
+          // update state variables with calcualted values
+          setR(r);
+          setSE(se);
+          setEE(ee);
+          setCE(ce);
+          setLLLEMinReq(minreq);
+          setLLLEClearance(parseFloat(llleclearance));
+          setClearance(clearance);
+        })
+        .catch((error) => {
+          console.error("Error:", error)
+        })
     }
   };
 
@@ -274,59 +161,23 @@ const Clearance = () => {
 
     const isNumeric = (value) => {
       return typeof value === 'number' || !isNaN(parseFloat(value))
-    }
+    };
 
     const canCalculate = () => {
       if (trackType === 'curve') {
         if (isNumeric(H) && isNumeric(D) && isNumeric(MO) && isNumeric(SUPER)) {
-          setCalculateEnabled(true)
-        } else {
-          setCalculateEnabled(false)
-        }
+          setCalculateEnabled(true);
+        } else { setCalculateEnabled(false); }
       } else if (trackType === 'tangent') {
         if (isNumeric(H) && isNumeric(D) && isNumeric(SUPER)) {
-          setCalculateEnabled(true)
-        } else {
-          setCalculateEnabled(false)
-        }
-      } else {
-        setCalculateEnabled(false)
-      }
+          setCalculateEnabled(true);
+        } else { setCalculateEnabled(false); }
+      } else { setCalculateEnabled(false); }
     };
 
-    canCalculate()
+    canCalculate();
   }, [H, D, MO, SUPER, trackType]);
-
-  useEffect(() => {
-    const filePath = '/tor_gor_translations.xlsx';
-    const fetchDataFromExcel = async () => {
-      try {
-        const response = await fetch(filePath);
-        const arrayBuffer = await response.arrayBuffer();
-        const workbook = XLSX.read(arrayBuffer, { type: 'buffer' });
-
-        const a_div_data = XLSX.utils.sheet_to_json(workbook.Sheets['A_Division']);
-        const b_div_data = XLSX.utils.sheet_to_json(workbook.Sheets['B_Division']);
-
-        const divA_height_to_clearance = {};
-        const divB_height_to_clearance = {};
-
-        a_div_data.forEach(row => {
-          divA_height_to_clearance[row['Height']] = row['Clearance'];
-        });
-        setATranslate(divA_height_to_clearance);
-
-        b_div_data.forEach(row => {
-          divB_height_to_clearance[row['Height']] = row['Clearance'];
-        });
-        setBTranslate(divB_height_to_clearance);
-      } catch (error) {
-        console.error('Error reading Excel file:', error);
-      }
-    };
-    fetchDataFromExcel();
-  }, []);
-
+  
   return (
     <div>
       <div className="description">
@@ -399,7 +250,7 @@ const Clearance = () => {
                   min: -0.5,
                   precision: 3,
                   max: divMaxH,
-                  step: hStep,
+                  step: step,
                   style: { textAlign: 'center' }
                 }}
                 InputProps={{
@@ -420,7 +271,7 @@ const Clearance = () => {
                   min: 0,
                   precision: 2,
                   max: 1000, // arbitrary max value
-                  step: dStep,
+                  step: step,
                   style: { textAlign: 'center' }
                 }}
                 InputProps={{
@@ -441,7 +292,7 @@ const Clearance = () => {
                   min: 0,
                   precision: 2,
                   max: 1000, // arbitrary max value
-                  step: moStep,
+                  step: step,
                   style: { textAlign: 'center' }
                 }}
                 InputProps={{
@@ -468,7 +319,7 @@ const Clearance = () => {
                   min: 0,
                   precision: 2,
                   max: 1000, // arbitrary max value
-                  step: superStep,
+                  step: step,
                   style: { textAlign: 'center' }
                 }}
                 InputProps={{
@@ -484,7 +335,7 @@ const Clearance = () => {
                 variant="contained"
                 size="large"
                 disabled={`${calculateEnabled === false ? 'true': ''}`}
-                onClick={updateCalcs}
+                onClick={makeCalcs}
                 sx={{
                   width: "90%",
                   height: "100%",
@@ -506,7 +357,7 @@ const Clearance = () => {
               <TextField
                 label="Radius"
                 type="number"
-                value={R.toFixed(3)}
+                value={formatNumber(R,3)}
                 InputProps={{
                   style: { textAlign: 'center' },
                   endAdornment: <InputAdornment position="end">ft.</InputAdornment>, 
@@ -525,7 +376,7 @@ const Clearance = () => {
               <TextField
                 label="Super Elevation Excess"
                 type="number"
-                value={SE.toFixed(3)}
+                value={formatNumber(SE,3)}
                 InputProps={{
                   style: { textAlign: 'center' },
                   endAdornment: <InputAdornment position="end">in.</InputAdornment>, 
@@ -543,7 +394,7 @@ const Clearance = () => {
               <TextField
                 label="End Excess"
                 type="number"
-                value={EE.toFixed(3)}
+                value={formatNumber(EE,3)}
                 InputProps={{
                   style: { textAlign: 'center' },
                   endAdornment: <InputAdornment position="end">in.</InputAdornment>, 
@@ -562,7 +413,7 @@ const Clearance = () => {
               <TextField
                 label="Center Excess"
                 type="number"
-                value={CE.toFixed(3)}
+                value={formatNumber(CE,3)}
                 InputProps={{
                   style: { textAlign: 'center' },
                   endAdornment: <InputAdornment position="end">in.</InputAdornment>, 
@@ -612,7 +463,7 @@ const Clearance = () => {
               <TextField
                 label="LLLE Minimum Requirement (Accounting for Excess)"
                 type="number"
-                value={LLLEClearance.toFixed(3)}
+                value={formatNumber(LLLEClearance,4)}
                 InputProps={{
                   style: { textAlign: 'center' },
                   endAdornment: <InputAdornment position="end">in.</InputAdornment>, 
@@ -630,7 +481,7 @@ const Clearance = () => {
               <TextField
                 label="Calculated Clearance"
                 type="number"
-                value={clearance.toFixed(3)}
+                value={formatNumber(clearance,4)}
                 InputProps={{
                   style: { textAlign: 'center' },
                   endAdornment: <InputAdornment position="end">in.</InputAdornment>, 
