@@ -34,7 +34,7 @@ registerRoute(
     return true;
   },
   new StaleWhileRevalidate({
-    cacheName: 'app-cache',
+    cacheName: 'clearance-calculator-cache',
     plugins: [
       new ExpirationPlugin({
         maxEntries: 100, // Adjust as necessary
