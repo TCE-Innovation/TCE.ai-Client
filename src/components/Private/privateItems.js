@@ -17,6 +17,7 @@ import DataThresholdingOutlinedIcon from '@mui/icons-material/DataThresholdingOu
 import AdminPanelSettingsOutlinedIcon from '@mui/icons-material/AdminPanelSettingsOutlined';
 import PrintOutlinedIcon from '@mui/icons-material/PrintOutlined';
 import SatelliteAltIcon from '@mui/icons-material/SatelliteAlt';
+import PercentIcon from '@mui/icons-material/Percent';
 
 // CONTEXT
 import { AuthContext } from "../../authentication/Auth";
@@ -61,7 +62,7 @@ const PrivateListItems = ({ tool }) => {
         { to: '/private/schedule-dashboards', text: 'Schedule Dashboards', icon: <InsertChartOutlinedIcon />, key: 'schedule-dashboards'},
         { to: '/private/overview-dashboard', text: 'Overview Dashboard', icon: <DataThresholdingOutlinedIcon />, key: 'overview-dashboard'},
         { to: '/private/tool-usage', text: 'Tool Usage Stats', icon: <DonutSmallOutlinedIcon />, key: 'tool-usage' }, 
-        { to: '/private/drone-captures', text: 'Drone Captures', icon: <SatelliteAltIcon />, key: 'drone-captures' }
+        { to: '/private/drone-captures', text: 'Drone Captures', icon: <SatelliteAltIcon />, key: 'drone-captures' },
     ];
 
     // Ensure userTools is a valid string, else default to an empty string
@@ -85,13 +86,15 @@ const PrivateListItems = ({ tool }) => {
         );
     }
 
-    // Always include the "Home", "Subcontractor Forms", and "Equipment Checkout", and "GO Tracker" items
+    // Always include the following items (non-provisionable)
     const alwaysIncludedItems = [
         { to: '/private/home', text: 'Home', icon: <HomeOutlinedIcon />, key: 'home' },
         { to: '/private/sub-automation', text: 'Subcontractor Forms', icon: <ArticleOutlinedIcon />, key: 'sub-automation' },
         { to: '/private/equipment-checkout', text: 'Equipment Checkout', icon: <DevicesOtherIcon />, key: 'equipment-checkout' },
         { to: '/private/go-tracker', text: 'GO Tracker', icon: <RailwayAlertOutlinedIcon />, key: 'go-tracker' },
-        { to: '/private/3d-printing-request', text: '3D Protoyping', icon: <PrintOutlinedIcon />, key: '3d-printing-request' },
+        { to: '/private/3d-printing-request', text: 'Request 3D Printing', icon: <PrintOutlinedIcon />, key: '3d-printing-request' },
+        { to: '/private/clearance-calculator', text: 'Clearance Calculator', icon: <PercentIcon />, key: 'clearance-calculator' },
+
     ];
 
     // Combine always included items with the filtered list items
