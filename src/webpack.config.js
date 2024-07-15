@@ -1,5 +1,3 @@
-// webpack.config.js
-
 const { WorkboxPlugin } = require('workbox-webpack-plugin');
 
 module.exports = {
@@ -13,7 +11,7 @@ module.exports = {
       runtimeCaching: [
         {
           urlPattern: '/clearance-calculator',
-          handler: 'CacheFirst',
+          handler: 'StaleWhileRevalidate',
           options: {
             cacheName: 'clearance-calculator-cache',
           },
