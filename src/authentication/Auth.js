@@ -6,6 +6,7 @@ import { Navigate, Outlet, useLocation } from 'react-router-dom';
 import { useMsal } from "@azure/msal-react";
 import { getUserProfilePic } from '../data/Graph';
 import { getApplications, getTools, getJobTitle, getProjects } from '../data/SQL';
+import { isMobile } from 'react-device-detect';
 
 export const AuthContext = createContext();
 
@@ -18,7 +19,13 @@ export const AuthProvider = ({ children }) => {
   const [userProjects, setUserProjects] = useState(null);
   const [userApplications, setUserApplications] = useState(null);
   const [userTools, setUserTools] = useState(null);
+  const [deviceType, setDeviceType] = useState(null);
   const [accessToken, setAccessToken] = useState(null);
+
+  //detect device type on component mount
+  useEffect(() => {
+    setDeviceType(isMobile ? 'mobile' : 'desktop');
+  }, []);
 
   //get user account
   useEffect(() => {
@@ -80,8 +87,12 @@ export const AuthProvider = ({ children }) => {
     userProjects,
     userApplications,
     userTools,
+    deviceType,
     accessToken
   };
+
+  // Log the loginContextValue object
+  //console.log('loginContextValue:', loginContextValue);
 
   return (
     <AuthContext.Provider value={loginContextValue}>
