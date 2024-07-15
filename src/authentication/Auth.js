@@ -1,12 +1,9 @@
-//REACT
 import React, { useState, useEffect, createContext } from 'react';
 import { Navigate, Outlet, useLocation } from 'react-router-dom';
-
-//AUTH
 import { useMsal } from "@azure/msal-react";
 import { getUserProfilePic } from '../data/Graph';
 import { getApplications, getTools, getJobTitle, getProjects } from '../data/SQL';
-import { isMobile } from 'react-device-detect';
+import { isMobile, isTablet } from 'react-device-detect'; // Import isMobile and isTablet from react-device-detect
 
 export const AuthContext = createContext();
 
@@ -19,39 +16,42 @@ export const AuthProvider = ({ children }) => {
   const [userProjects, setUserProjects] = useState(null);
   const [userApplications, setUserApplications] = useState(null);
   const [userTools, setUserTools] = useState(null);
-  const [deviceType, setDeviceType] = useState(null);
+  const [deviceType, setDeviceType] = useState('desktop'); // Default to desktop
   const [accessToken, setAccessToken] = useState(null);
 
-  //detect device type on component mount
+  // Detect device type on component mount
   useEffect(() => {
-    setDeviceType(isMobile ? 'mobile' : 'desktop');
+    if (isMobile) {
+      setDeviceType('mobile');
+    } else if (isTablet) {
+      setDeviceType('tablet');
+    } else {
+      setDeviceType('desktop');
+    }
   }, []);
 
-  //get user account
+  // Get user account
   useEffect(() => {
     const getAccount = async () => {
-      try{
-        const activeAccount = accounts[0]; 
+      try {
+        const activeAccount = accounts[0];
         setTimeout(async () => {
           if (activeAccount) {
             const response = await instance.acquireTokenSilent({
               account: activeAccount,
-              scopes: ["openid", "profile", "User.Read", "Mail.Send"], 
+              scopes: ["openid", "profile", "User.Read", "Mail.Send"],
             });
             fetchAndSetUserDetails(response.accessToken, response.account.name, response.account.username);
           }
         }, 0);
-
-      } catch(error){
-            console.error('Error fetching user details:', error);
+      } catch (error) {
+        console.error('Error fetching user details:', error);
       };
     }
-    
     getAccount();
-    
   }, [accounts, instance]);
 
-  //function to fetch user details
+  // Function to fetch user details
   function fetchAndSetUserDetails(accessToken, name, email) {
     email = email.toLowerCase();
     setUserName(name);
@@ -90,9 +90,6 @@ export const AuthProvider = ({ children }) => {
     deviceType,
     accessToken
   };
-
-  // Log the loginContextValue object
-  //console.log('loginContextValue:', loginContextValue);
 
   return (
     <AuthContext.Provider value={loginContextValue}>
