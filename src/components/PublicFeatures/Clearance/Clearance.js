@@ -1,7 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import './Clearance.css'; // Import CSS file
 import { TextField, InputAdornment, Button } from '@mui/material';
-import * as XLSX from 'xlsx';
 
 const Clearance = () => {
   const [division, setDivision] = useState('A Division');
@@ -301,34 +300,29 @@ const Clearance = () => {
   }, [H, D, MO, SUPER, trackType]);
 
   useEffect(() => {
-    const filePath = './tor_gor_translations.xlsx';
-    const fetchDataFromExcel = async () => {
+    const fetchData = async () => {
       try {
-        const response = await fetch(filePath);
-        const arrayBuffer = await response.arrayBuffer();
-        const workbook = XLSX.read(arrayBuffer, { type: 'buffer' });
+        const response = await fetch('/translations.json'); 
+        if (!response.ok) {
+          throw new Error('Failed to fetch translations.json');
+        }
+        const jsonData = await response.json();
 
-        const a_div_data = XLSX.utils.sheet_to_json(workbook.Sheets['A_Division']);
-        const b_div_data = XLSX.utils.sheet_to_json(workbook.Sheets['B_Division']);
+        // Extract the mappings
+        const divA_height_to_clearance = jsonData.A_Division || {};
+        const divB_height_to_clearance = jsonData.B_Division || {};
 
-        const divA_height_to_clearance = {};
-        const divB_height_to_clearance = {};
-
-        a_div_data.forEach(row => {
-          divA_height_to_clearance[row['Height']] = row['Clearance'];
-        });
+        // Set the state with the mappings
         setATranslate(divA_height_to_clearance);
-
-        b_div_data.forEach(row => {
-          divB_height_to_clearance[row['Height']] = row['Clearance'];
-        });
         setBTranslate(divB_height_to_clearance);
+
       } catch (error) {
-        console.error('Error reading Excel file:', error);
+        console.error('Error fetching or parsing translations.json:', error);
       }
     };
-    fetchDataFromExcel();
-  }, []);
+    
+    fetchData();
+  }, []); 
 
   return (
     <div className="calculator-container">
