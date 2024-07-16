@@ -27,10 +27,12 @@
     "react-slick": "^0.29.0",
     "remark-breaks": "^4.0.0",
     "slick-carousel": "^1.8.1",
+    "source-map-explorer": "^2.5.3",
     "styled-components": "^6.1.6",
     "xlsx": "^0.18.5"
   },
   "scripts": {
+    "analyze": "source-map-explorer 'build/static/js/*.js'",
     "start": "react-scripts start",
     "build": "react-scripts build",
     "test": "react-scripts test",
