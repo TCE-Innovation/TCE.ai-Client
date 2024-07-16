@@ -1,6 +1,10 @@
+/* Mobile   - max-width: 640px  (0    - 640 ) */
+/* Tablets  - max-width: 1000px (641  - 1000) */
+/* Computer - min-width: 1001px (1001 - inf ) */
+
 .calculator-container {
   width: 90%;
-  height: 90vh; /* 90% of the viewport height */
+  height: 90%; /* 90% of the viewport height */
   margin: auto; /* Centers the div horizontally */
   display: flex;
   flex-direction: column;
@@ -217,4 +221,55 @@
   border: 1px solid #ccc;
   border-radius: 10px;
   margin-bottom: 20px;
+}
+
+/* Media Queries */
+@media (max-width: 1000px) {
+  .side-by-side {
+    flex-wrap: wrap; /* Pills vertically stacked */
+    flex-direction: column;
+    align-items: center;
+  }
+
+  .small-pill-selector {
+    margin-top: 10px;
+    margin-bottom: 10px;
+    width: calc(100% - 10px);
+  }
+
+  .inner-container {
+    flex-wrap: wrap; /* Input boxes and results stacked */
+    justify-content: space-around;
+    width: 100%;
+  }
+
+  .item {
+    flex-basis: calc(50% - 10px);
+    text-align: center;
+    padding-top: 10px;
+    padding-bottom: 10px;
+    box-sizing: border-box;
+  }
+
+  .calculated-item {
+    flex-basis: calc(50% - 10px);
+    text-align: center;
+    padding-top: 10px;
+    padding-bottom: 10px;
+    box-sizing: border-box;
+  }
+
+  .description {
+    font-size: 2.4vw;
+  }
+
+  .intermediate-container .inner-container,
+  .clearance-container .inner-container {
+    flex-wrap: wrap; /* Intermediate calculations and results items stacked */
+  }
+
+  .intermediate-container .inner-container .calculated-item,
+  .clearance-container .inner-container .calculated-item {
+    width: calc(50% - 10px); /* Two items per row */
+  }
 }
