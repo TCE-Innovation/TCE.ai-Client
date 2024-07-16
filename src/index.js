@@ -15,7 +15,7 @@ import { MsalProvider } from '@azure/msal-react';
 import { msalConfig } from './authentication/authConfig';
 
 //SERVICE WORKER
-import { register } from './serviceWorkerRegistration';
+// import { register } from './serviceWorkerRegistration';
 
 const msalInstance = new PublicClientApplication(msalConfig);
 const root = createRoot(document.getElementById('root'));
@@ -31,4 +31,16 @@ if (window.location.hash !== '') {
 }
 
 // Register the service worker for caching data
-register();
+// register();
+
+if ('service-worker' in navigator) {
+  navigator.serviceWorker.register(`${process.env.PUBLIC_URL}/service-worker.js`)
+  .then(registration => {
+    console.log('Service Worker registered:', registration);
+  })
+  .catch(error => {
+    console.error('Service Worker registration failed:', error);
+  });
+} else {
+  console.error('Service workers are not supported.')
+}
