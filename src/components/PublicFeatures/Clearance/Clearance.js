@@ -328,8 +328,7 @@ const Clearance = () => {
     <div className="calculator-container">
       <div>
         <div className="description">
-          This tool calculates LLLE clearance given field measurements by executing all required value lookups and calculations. 
-          Input your measurements and specifications, select "CALCULATE"; then, view the intermediate calculations and final results. 
+          Input your measurements and conditions; then, select "CALCULATE" to see the results. 
         </div>
         <div className="input-container">
           <h2 className={`subtitle ${state === 'RESULTS' ? 'results' : ''}`}>
