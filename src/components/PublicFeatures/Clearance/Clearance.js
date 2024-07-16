@@ -328,7 +328,8 @@ const Clearance = () => {
     <div className="calculator-container">
       <div>
         <div className="description">
-          Input your measurements and conditions; then, select "CALCULATE" to see the results. 
+          Input your measurements and conditions. <br />
+          Then, select "CALCULATE" to see the results. 
         </div>
         <div className="input-container">
           <h2 className={`subtitle ${state === 'RESULTS' ? 'results' : ''}`}>
