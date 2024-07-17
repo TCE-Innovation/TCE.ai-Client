@@ -1,11 +1,11 @@
 {
     "name": "Clearance Calculator",
-    "short_name": "Clearance Calculator",
+    "short_name": "LLLE Calculator",
     "description": "TCIG LLLE Clearance Calculator Tool",
     "start_url": "./apps/clearance-calculator",
     "display": "fullscreen",
-    "background_color": "#1B365F",
-    "theme_color": "#1B365F",
+    "background_color": "#B4D8F7",
+    "theme_color": "#B4D8F7",
     "orientation": "portrait",
     "icons": [
         {
