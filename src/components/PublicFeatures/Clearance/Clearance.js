@@ -26,6 +26,8 @@ const Clearance = () => {
   const [B_height_to_clearance, setBTranslate] = useState({0:35.125});
   const [calculateEnabled, setCalculateEnabled] = useState(false);
   const [state, setState] = useState("INPUT") // [INPUT, RESULTS]
+  const [res1Label, setRes1Label] = useState('LLLE Minimum Requirement (Before Excess)')
+  const [res2Label, setRes2Label] = useState('LLLE Minimum Requirement (Accounting for Excess)')
 
   const isClearanceGreater = clearance > 0;
 
@@ -324,13 +326,23 @@ const Clearance = () => {
     fetchData();
   }, []); 
 
+  useEffect(() => {
+    const handleResize = () => {
+      if (window.innerWidth < 1000) {
+        setRes1Label("LLLE (without Excess)");
+        setRes2Label("LLLE (with Excess)");
+      } else {
+        setRes1Label("LLLE Minimum Requirement (Before Excess)");
+        setRes2Label("LLLE Minimum Requirement (Accounting for Excess)");
+      }
+    }
+    window.addEventListener('resize', handleResize);
+    return () => window.removeEventListener('resize', handleResize);
+  }, []);
+
   return (
     <div className="calculator-container">
       <div>
-        <div className="description">
-          Input your measurements and conditions. <br />
-          Then, select "CALCULATE" to see the results. 
-        </div>
         <div className="input-container">
           <h2 className={`subtitle ${state === 'RESULTS' ? 'results' : ''}`}>
             Inputs
@@ -405,7 +417,7 @@ const Clearance = () => {
                   }}
                   onChange={handleHChange}
                   disabled={state === 'RESULTS'}
-                  style={{ width: '90%' }}
+                  style={{ width: '100%' }}
                 />
               </div>
               <div className={`item ${state === 'RESULTS' ? 'results' : ''}`}>
@@ -426,7 +438,7 @@ const Clearance = () => {
                   }}
                   onChange={handleDChange}
                   disabled={state === 'RESULTS'}
-                  style={{ width: '90%' }}
+                  style={{ width: '100%' }}
                 />
               </div>
               <div className={`item ${state === 'RESULTS' ? 'results' : ''}`}>
@@ -447,7 +459,7 @@ const Clearance = () => {
                   }}
                   disabled={trackType === 'tangent' || state === 'RESULTS'}
                   onChange={handleMOChange}
-                  style={{ width: '90%' }}
+                  style={{ width: '100%' }}
                   sx={{
                     opacity: trackType === 'tangent' ? 0.3 : 1, 
                     '&:disabled': {
@@ -474,7 +486,7 @@ const Clearance = () => {
                   }}
                   onChange={handleSUPERChange}
                   disabled={state === 'RESULTS'}
-                  style={{ width: '90%' }}
+                  style={{ width: '100%' }}
                 />
               </div>
               <div className="item">
@@ -484,9 +496,13 @@ const Clearance = () => {
                   disabled={calculateEnabled === false}
                   onClick={updateCalcs}
                   sx={{
-                    width: "90%",
+                    width: "100%",
                     height: "100%",
-                  }}
+                    backgroundColor: calculateEnabled ? '#1D469E' : '#D3D3D3', 
+                    '&:hover': {
+                      backgroundColor: calculateEnabled ? '#173880' : '#1D469E', 
+                    },
+                    }}
                 >
                   {state === "INPUT" ? 'Calculate' : 'Reset'}
                 </Button>
@@ -513,7 +529,7 @@ const Clearance = () => {
                       style: { textAlign: 'center', cursor: 'default' }
                     }
                   }}
-                  style={{ width: '95%' }}
+                  style={{ width: '100%' }}
                   disabled={trackType === 'tangent'}
                   readOnly
                 />
@@ -531,7 +547,7 @@ const Clearance = () => {
                       style: { textAlign: 'center', cursor: 'default' }
                     }
                   }}
-                  style={{ width: '95%' }}
+                  style={{ width: '100%' }}
                   readOnly
                 />
               </div>
@@ -548,7 +564,7 @@ const Clearance = () => {
                       style: { textAlign: 'center', cursor: 'default' }
                     }
                   }}
-                  style={{ width: '95%' }}
+                  style={{ width: '100%' }}
                   disabled={trackType === 'tangent'}
                   readOnly
                 />
@@ -566,7 +582,7 @@ const Clearance = () => {
                       style: { textAlign: 'center', cursor: 'default' }
                     }
                   }}
-                  style={{ width: '95%' }}
+                  style={{ width: '100%' }}
                   disabled={trackType === 'tangent'}
                   readOnly
                 />
@@ -580,13 +596,9 @@ const Clearance = () => {
           </h2>
           <div id="container">
             <div className="inner-container">
-            </div>
-          </div>
-          <div id="container">
-            <div className="inner-container">
               <div className="calculated-item">
                 <TextField
-                  label="LLLE Minimum Requirement (Before Excess)"
+                  label={res1Label}
                   type="number"
                   value={formatNumber(LLLEMinReq, 4)}
                   InputProps={{
@@ -597,13 +609,13 @@ const Clearance = () => {
                       style: { textAlign: 'center', cursor: 'default' }
                     }
                   }}
-                  style={{ width: '95%' }}
+                  style={{ width: '100%' }}
                   readOnly
                 />
               </div>
               <div className="calculated-item">
                 <TextField
-                  label="LLLE Minimum Requirement (Accounting for Excess)"
+                  label={res2Label}
                   type="number"
                   value={LLLEClearance.toFixed(3)}
                   InputProps={{
@@ -614,7 +626,7 @@ const Clearance = () => {
                       style: { textAlign: 'center', cursor: 'default' }
                     }
                   }}
-                  style={{ width: '95%' }}
+                  style={{ width: '100%' }}
                   readOnly
                 />
               </div>
@@ -631,7 +643,7 @@ const Clearance = () => {
                       style: { textAlign: 'center', cursor: 'default' }
                     }
                   }}
-                  style={{ width: '95%' }}
+                  style={{ width: '100%' }}
                 />
               </div>
             </div>
