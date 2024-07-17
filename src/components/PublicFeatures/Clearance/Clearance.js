@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import './Clearance.css'; // Import CSS file
 import { TextField, InputAdornment, Button } from '@mui/material';
+import { isMobile, isTablet } from 'react-device-detect';
 
 const Clearance = () => {
   const [division, setDivision] = useState('A Division');
@@ -328,7 +329,7 @@ const Clearance = () => {
 
   useEffect(() => {
     const handleResize = () => {
-      if (window.innerWidth < 1000) {
+      if (isMobile || isTablet) {
         setRes1Label("LLLE (without Excess)");
         setRes2Label("LLLE (with Excess)");
       } else {
@@ -341,7 +342,7 @@ const Clearance = () => {
   }, []);
 
   return (
-    <div className="calculator-container">
+    <div className="calculator-container" style={{ backgroundColor: isMobile || isTablet ? '#B4D8F7' : 'transparent' }}>
       <div>
         <div className="input-container">
           <h2 className={`subtitle ${state === 'RESULTS' ? 'results' : ''}`}>
