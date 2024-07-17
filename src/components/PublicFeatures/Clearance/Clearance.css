@@ -1,6 +1,8 @@
-/* Mobile   - max-width: 640px  (0    - 640 ) */
-/* Tablets  - max-width: 1000px (641  - 1000) */
-/* Computer - min-width: 1001px (1001 - inf ) */
+body {
+  padding-top: constant(safe-area-inset-top); /* iOS 11.2+ */
+  padding-top: env(safe-area-inset-top); /* iOS 11.0-11.1 */
+  background-color: '#F1FFFF'; /* Set your background color */
+}
 
 .calculator-container {
   width: 95%;
@@ -167,7 +169,7 @@
   flex: 1;
   text-align: center;
   padding-top: 15px;
-  padding-bottom: 5px;
+  padding-bottom: 10px;
   padding-left: 5px;
   padding-right: 5px;
 }
@@ -245,14 +247,14 @@
     flex-basis: calc(50% - 10px);
     text-align: center;
     box-sizing: border-box;
-    padding-top: 0px;
+    padding-top: 5px;
     padding-bottom: 10px;
   }
 
   .calculated-item {
     flex-basis: calc(50% - 10px);
     text-align: center;
-    padding-top: 0px;
+    padding-top: 5px;
     padding-bottom: 15px;
     box-sizing: border-box;
   }

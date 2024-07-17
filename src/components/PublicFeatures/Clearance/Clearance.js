@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import './Clearance.css'; // Import CSS file
 import { TextField, InputAdornment, Button } from '@mui/material';
-import { isBrowser, isMobile, isTablet } from 'react-device-detect';
+import { isBrowser } from 'react-device-detect';
 
 const Clearance = () => {
   const [division, setDivision] = useState('A Division');
@@ -342,7 +342,7 @@ const Clearance = () => {
   }, []);
 
   return (
-    <div className="calculator-container" style={{ backgroundColor: isMobile || isTablet ? '#B4D8F7' : 'transparent' }}>
+    <div className="calculator-container" style={{ backgroundColor: '#F1FFFF' }}>
       <div>
         <div className="input-container">
           <div className={`section-container ${state === 'RESULTS' ? 'results' : ''}`}>
