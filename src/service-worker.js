@@ -15,6 +15,7 @@ clientsClaim();
 const longTermUrls = [
   '/icons/TCE_192.png',
   '/icons/TCE_512.png',
+  '/icons/apple-touch-icon.png',
   '/icons/favicon.ico',
   '/translations.json',
 ]
