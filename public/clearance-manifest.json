@@ -1,6 +1,6 @@
 {
     "name": "Clearance Calculator",
-    "short_name": "LLLE Calculator",
+    "short_name": "Clearance",
     "description": "TCIG LLLE Clearance Calculator Tool",
     "start_url": "./apps/clearance-calculator",
     "display": "fullscreen",
