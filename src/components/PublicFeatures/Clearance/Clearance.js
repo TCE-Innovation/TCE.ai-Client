@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import './Clearance.css'; // Import CSS file
 import { TextField, InputAdornment, Button } from '@mui/material';
-import { isMobile, isTablet } from 'react-device-detect';
+import { isBrowser, isMobile, isTablet } from 'react-device-detect';
 
 const Clearance = () => {
   const [division, setDivision] = useState('A Division');
@@ -27,8 +27,8 @@ const Clearance = () => {
   const [B_height_to_clearance, setBTranslate] = useState({0:35.125});
   const [calculateEnabled, setCalculateEnabled] = useState(false);
   const [state, setState] = useState("INPUT") // [INPUT, RESULTS]
-  const [res1Label, setRes1Label] = useState('LLLE Minimum Requirement (Before Excess)')
-  const [res2Label, setRes2Label] = useState('LLLE Minimum Requirement (Accounting for Excess)')
+  const [res1Label, setRes1Label] = useState('LLLE (without Excess)')
+  const [res2Label, setRes2Label] = useState('LLLE (with Excess)')
 
   const isClearanceGreater = clearance > 0;
 
@@ -329,12 +329,12 @@ const Clearance = () => {
 
   useEffect(() => {
     const handleResize = () => {
-      if (isMobile || isTablet) {
-        setRes1Label("LLLE (without Excess)");
-        setRes2Label("LLLE (with Excess)");
-      } else {
+      if (isBrowser) {
         setRes1Label("LLLE Minimum Requirement (Before Excess)");
         setRes2Label("LLLE Minimum Requirement (Accounting for Excess)");
+      } else {
+        setRes1Label("LLLE (without Excess)");
+        setRes2Label("LLLE (with Excess)");
       }
     }
     window.addEventListener('resize', handleResize);
@@ -345,9 +345,6 @@ const Clearance = () => {
     <div className="calculator-container" style={{ backgroundColor: isMobile || isTablet ? '#B4D8F7' : 'transparent' }}>
       <div>
         <div className="input-container">
-          <h2 className={`subtitle ${state === 'RESULTS' ? 'results' : ''}`}>
-            Inputs
-          </h2>
           <div className={`section-container ${state === 'RESULTS' ? 'results' : ''}`}>
             <div className="side-by-side">
               <div className={`small-pill-selector ${state === 'RESULTS' ? 'results' : ''}`}>
@@ -511,9 +508,9 @@ const Clearance = () => {
             </div>
           </div>
         </div>
-        <div className={`intermediate-container ${state === 'INPUT' ? 'disabled' : ''}`}>
+        <div className={`result-container ${isClearanceGreater === true ? 'okay' : 'bad'} ${state === 'INPUT' ? 'disabled' : ''}`}>
           <h2 className="calculations"> 
-            Intermediate Calculations
+            Calculated Values and Results
           </h2>
           <div id="container">
             <div className="inner-container">
@@ -590,11 +587,6 @@ const Clearance = () => {
               </div>
             </div>
           </div>
-        </div>
-        <div className={`clearance-container ${isClearanceGreater === true ? 'okay' : 'bad'} ${state === 'INPUT' ? 'disabled' : ''}`}>
-          <h2 className="calculations">
-            Results 
-          </h2>
           <div id="container">
             <div className="inner-container">
               <div className="calculated-item">
