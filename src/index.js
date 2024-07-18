@@ -14,6 +14,9 @@ import { PublicClientApplication } from '@azure/msal-browser';
 import { MsalProvider } from '@azure/msal-react';
 import { msalConfig } from './authentication/authConfig';
 
+//SERVICE WORKER
+import { register } from './serviceWorkerRegistration';
+
 const msalInstance = new PublicClientApplication(msalConfig);
 const root = createRoot(document.getElementById('root'));
 
@@ -26,3 +29,6 @@ root.render(
       <App />
     </MsalProvider>
 )};
+
+// Register the service worker for caching data
+register();
