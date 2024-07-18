@@ -8,6 +8,7 @@ import Private from "../Private/Private";
 import Public from "../Public/Public";
 import Document from "../PublicFeatures/Publications/Document";
 import Gateway from './Gateway/Gateway';
+import Clearance from '../PublicFeatures/Clearance/Clearance';
 
 //AUTH
 import { AuthenticatedRoute, UnauthenticatedRoute, AuthProvider } from "../../authentication/Auth";
@@ -17,7 +18,7 @@ function App() {
         <AuthProvider>
             <Router>
                 <Routes>
-                    <Route path="/" element={<UnauthenticatedRoute />}>
+                    <Route path='/' element={<UnauthenticatedRoute />}>
                         <Route index element={<Gateway />} /> 
                     </Route>
 
@@ -25,9 +26,11 @@ function App() {
 
                     <Route exact path='/document' element={<Document />} />
                     
-                    <Route path="/sign-in" element={<UnauthenticatedRoute />}>
+                    <Route path='/sign-in' element={<UnauthenticatedRoute />}>
                         <Route index element={<SignIn />} />
                     </Route>
+
+                    <Route path='/apps/clearance-calculator' element={<Clearance />} />
 
                     <Route path='/private/:tool' element={<AuthenticatedRoute />}>
                         <Route index element={<Private />} />
