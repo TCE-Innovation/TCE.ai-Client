@@ -1,6 +1,30 @@
 {
     "routes": [
       {
+        "route": "/icons/TCE_192.png",
+        "allowedRoles": ["anonymous"]
+      },
+      {
+        "route": "/icons/TCE_512.png",
+        "allowedRoles": ["anonymous"]
+      },
+      {
+        "route": "/icons/apple-touch-icon.png",
+        "allowedRoles": ["anonymous"]
+      },
+      {
+        "route": "clearance-manifest.json",
+        "allowedRoles": ["anonymous"]
+      },
+      {
+        "route": "translations.json",
+        "allowedRoles": ["anonymous"]
+      },
+      {
+        "route": "/service-worker.js",
+        "allowedRoles": ["anonymous"]
+      },
+      {
         "route": "/icons/favicon.ico",
         "allowedRoles": ["anonymous"]
       },
