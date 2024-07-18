@@ -27,11 +27,6 @@ const Clearance = () => {
   const [B_height_to_clearance, setBTranslate] = useState({0:35.125});
   const [calculateEnabled, setCalculateEnabled] = useState(false);
   const [state, setState] = useState("INPUT") // [INPUT, RESULTS]
-  const [res1Label, setRes1Label] = useState('LLLE (without Excess)')
-  const [res2Label, setRes2Label] = useState('LLLE (with Excess)')
-  const [seLabel, setSELabel] = useState('Super Elev. Excess')
-  const [torLabel, setTORLabel] = useState('Height from Top of Rail')
-  const [gorLabel, setGORLabel] = useState('Distance from Gauge of Rail')
   const [showMobileWarning, setShowMobileWarning] = useState(false);
 
   const isClearanceGreater = clearance > 0;
@@ -337,26 +332,6 @@ const Clearance = () => {
     fetchData();
   }, []); 
 
-  useEffect(() => {
-    const handleResize = () => {
-      if (isBrowser) {
-        setRes1Label("LLLE Minimum Requirement (Before Excess)");
-        setRes2Label("LLLE Minimum Requirement (Accounting for Excess)");
-        setSELabel("Super Elevation Excess")
-        setTORLabel("Height from Top of Rail")
-        setGORLabel("Distance from Gauge of Rail")
-      } else {
-        setRes1Label("LLLE (without Excess)");
-        setRes2Label("LLLE (with Excess)");
-        setSELabel("Super Elev. Excess")
-        setTORLabel("Height from TOR")
-        setGORLabel("Distance from GOR")
-      }
-    }
-    window.addEventListener('resize', handleResize);
-    return () => window.removeEventListener('resize', handleResize);
-  }, []);
-
   return (
     <div className="calculator-container" style={{ backgroundColor: '#F1FFFF' }}>
       {showMobileWarning && (
@@ -432,7 +407,7 @@ const Clearance = () => {
               <div className="inner-container">
                 <div className={`item ${state === 'RESULTS' ? 'results' : ''}`}>
                   <TextField
-                    label={torLabel}
+                    label="Height from TOR"
                     type="number"
                     id="height-tor"
                     value={formatNumber(H, 3)}
@@ -453,7 +428,7 @@ const Clearance = () => {
                 </div>
                 <div className={`item ${state === 'RESULTS' ? 'results' : ''}`}>
                   <TextField
-                    label={gorLabel}
+                    label="Distance from GOR"
                     type="number"
                     id="height-gor"
                     value={D}
@@ -567,7 +542,7 @@ const Clearance = () => {
                 </div>
                 <div className="calculated-item">
                   <TextField
-                    label={seLabel}
+                    label="Super Elev. Excess"
                     type="number"
                     value={SE.toFixed(3)}
                     InputProps={{
@@ -624,7 +599,7 @@ const Clearance = () => {
               <div className="inner-container">
                 <div className="calculated-item">
                   <TextField
-                    label={res1Label}
+                    label="LLLE (without Excess)"
                     type="number"
                     value={formatNumber(LLLEMinReq, 4)}
                     InputProps={{
@@ -641,7 +616,7 @@ const Clearance = () => {
                 </div>
                 <div className="calculated-item">
                   <TextField
-                    label={res2Label}
+                    label="LLLE (with Excess)"
                     type="number"
                     value={LLLEClearance.toFixed(3)}
                     InputProps={{
