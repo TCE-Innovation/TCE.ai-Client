@@ -4,7 +4,7 @@ import { TextField, InputAdornment, Button } from '@mui/material';
 import { isBrowser } from 'react-device-detect';
 
 const Clearance = () => {
-  const [division, setDivision] = useState('A Division');
+  const [division, setDivision] = useState('B Division');
   const [H, setH] = useState(' '); // Field for H (in inches)
   const [D, setD] = useState(' '); // Field for D (in inches)
   const [trackType, setTrackType] = useState('curve'); // Tab selection for track type
@@ -29,6 +29,10 @@ const Clearance = () => {
   const [state, setState] = useState("INPUT") // [INPUT, RESULTS]
   const [res1Label, setRes1Label] = useState('LLLE (without Excess)')
   const [res2Label, setRes2Label] = useState('LLLE (with Excess)')
+  const [seLabel, setSELabel] = useState('Super Elev. Excess')
+  const [torLabel, setTORLabel] = useState('Height from Top of Rail')
+  const [gorLabel, setGORLabel] = useState('Distance from Gauge of Rail')
+  const [showMobileWarning, setShowMobileWarning] = useState(false);
 
   const isClearanceGreater = clearance > 0;
 
@@ -274,6 +278,12 @@ const Clearance = () => {
     }
   };
 
+  useEffect(() => {
+    if (isBrowser) {
+      setShowMobileWarning(true);
+    }
+  }, []);
+
   // Check if have enough data to make calculation
   useEffect(() => {
 
@@ -332,9 +342,15 @@ const Clearance = () => {
       if (isBrowser) {
         setRes1Label("LLLE Minimum Requirement (Before Excess)");
         setRes2Label("LLLE Minimum Requirement (Accounting for Excess)");
+        setSELabel("Super Elevation Excess")
+        setTORLabel("Height from Top of Rail")
+        setGORLabel("Distance from Gauge of Rail")
       } else {
         setRes1Label("LLLE (without Excess)");
         setRes2Label("LLLE (with Excess)");
+        setSELabel("Super Elev. Excess")
+        setTORLabel("Height from TOR")
+        setGORLabel("Distance from GOR")
       }
     }
     window.addEventListener('resize', handleResize);
@@ -343,306 +359,324 @@ const Clearance = () => {
 
   return (
     <div className="calculator-container" style={{ backgroundColor: '#F1FFFF' }}>
-      <div>
-        <div className="input-container">
-          <div className={`section-container ${state === 'RESULTS' ? 'results' : ''}`}>
-            <div className="side-by-side">
-              <div className={`small-pill-selector ${state === 'RESULTS' ? 'results' : ''}`}>
-                <div
-                  className={`tab ${division === 'A Division' ? 'active' : ''}`}
-                  onClick={() => handleDivisionChange('A')}
-                >
-                  A Division
+      {showMobileWarning && (
+        <div className="mobile-warning-popup">
+          <div className="popup-content">
+            <h2>This page is designed for mobile viewing!</h2>
+            <p>
+              To use the calculator on your computer or learn how to download the tool on your mobile device, visit{' '}
+              <a href="https://tcig.nyc/private/clearance-calculator" target="_blank" rel="noopener noreferrer">
+                tcig.nyc/private/clearance-calculator
+              </a>
+            </p>
+          </div>
+        </div>
+      )}
+      {!showMobileWarning && (
+        <div>
+          <div className="input-container">
+            <h2 className="calculations"> 
+              Clearance Calculator
+            </h2>
+            <div className={`section-container ${state === 'RESULTS' ? 'results' : ''}`}>
+              <div className="side-by-side">
+                <div className={`small-pill-selector ${state === 'RESULTS' ? 'results' : ''}`}>
+                  <div
+                    className={`tab ${division === 'A Division' ? 'active' : ''}`}
+                    onClick={() => handleDivisionChange('A')}
+                  >
+                    A Division
+                  </div>
+                  <div
+                    className={`tab ${division === 'B Division' ? 'active' : ''}`}
+                    onClick={() => handleDivisionChange('B')}
+                  >
+                    B Division
+                  </div>
+                  <div className={`slider ${division === 'B Division' ? 'slide-right' : 'slide-left'}`}></div>
                 </div>
-                <div
-                  className={`tab ${division === 'B Division' ? 'active' : ''}`}
-                  onClick={() => handleDivisionChange('B')}
-                >
-                  B Division
+                <div className={`small-pill-selector ${state === 'RESULTS' ? 'results' : ''}`}>
+                  <div
+                    className={`tab ${trackType === 'tangent' ? 'active' : ''}`}
+                    onClick={() => handleTrackTypeClick('tangent')}
+                  >
+                    Tangent Track
+                  </div>
+                  <div
+                    className={`tab ${trackType === 'curve' ? 'active' : ''}`}
+                    onClick={() => handleTrackTypeClick('curve')}
+                  >
+                    Curved Track
+                  </div>
+                  <div className={`slider ${trackType === 'curve' ? 'slide-right' : 'slide-left'}`}></div>
                 </div>
-                <div className={`slider ${division === 'B Division' ? 'slide-right' : 'slide-left'}`}></div>
-              </div>
-              <div className={`small-pill-selector ${state === 'RESULTS' ? 'results' : ''}`}>
-                <div
-                  className={`tab ${trackType === 'tangent' ? 'active' : ''}`}
-                  onClick={() => handleTrackTypeClick('tangent')}
-                >
-                  Tangent Track
+                <div className={`small-pill-selector ${state === 'RESULTS' ? 'results' : ''}`}>
+                  <div
+                    className={`tab ${direction === 'IN' ? 'active' : ''}`}
+                    onClick={() => setDirection('IN')}
+                  >
+                    {trackType !== 'tangent' ? 'Inside of Curve' : 'Side of Lower Rail'}
+                  </div>
+                  <div
+                    className={`tab ${direction === 'OUT' ? 'active' : ''}`}
+                    onClick={() => setDirection('OUT')}
+                  >
+                    {trackType !== 'tangent' ? 'Outside of Curve' : 'Side of Higher Rail'}
+                  </div>
+                  <div className={`slider ${direction === 'OUT' ? 'slide-right' : 'slide-left'}`}></div>
                 </div>
-                <div
-                  className={`tab ${trackType === 'curve' ? 'active' : ''}`}
-                  onClick={() => handleTrackTypeClick('curve')}
-                >
-                  Curved Track
-                </div>
-                <div className={`slider ${trackType === 'curve' ? 'slide-right' : 'slide-left'}`}></div>
-              </div>
-              <div className={`small-pill-selector ${state === 'RESULTS' ? 'results' : ''}`}>
-                <div
-                  className={`tab ${direction === 'IN' ? 'active' : ''}`}
-                  onClick={() => setDirection('IN')}
-                >
-                  {trackType !== 'tangent' ? 'Inside of Curve' : 'Side of Lower Rail'}
-                </div>
-                <div
-                  className={`tab ${direction === 'OUT' ? 'active' : ''}`}
-                  onClick={() => setDirection('OUT')}
-                >
-                  {trackType !== 'tangent' ? 'Outside of Curve' : 'Side of Higher Rail'}
-                </div>
-                <div className={`slider ${direction === 'OUT' ? 'slide-right' : 'slide-left'}`}></div>
               </div>
             </div>
-          </div>
 
-          <div id="container">
-            <div className="inner-container">
-              <div className={`item ${state === 'RESULTS' ? 'results' : ''}`}>
-                <TextField
-                  label="Height from Top of Rail"
-                  type="number"
-                  id="height-tor"
-                  value={formatNumber(H, 3)}
-                  inputProps={{
-                    min: -0.5,
-                    precision: 3,
-                    max: divMaxH,
-                    step: hStep,
-                    style: { textAlign: 'center' }
-                  }}
-                  InputProps={{
-                    endAdornment: <InputAdornment position="end">in.</InputAdornment>
-                  }}
-                  onChange={handleHChange}
-                  disabled={state === 'RESULTS'}
-                  style={{ width: '100%' }}
-                />
-              </div>
-              <div className={`item ${state === 'RESULTS' ? 'results' : ''}`}>
-                <TextField
-                  label="Distance from Gauge of Rail"
-                  type="number"
-                  id="height-gor"
-                  value={D}
-                  inputProps={{
-                    min: 0,
-                    precision: 2,
-                    max: 1000, // arbitrary max value
-                    step: dStep,
-                    style: { textAlign: 'center' }
-                  }}
-                  InputProps={{
-                    endAdornment: <InputAdornment position="end">in.</InputAdornment>
-                  }}
-                  onChange={handleDChange}
-                  disabled={state === 'RESULTS'}
-                  style={{ width: '100%' }}
-                />
-              </div>
-              <div className={`item ${state === 'RESULTS' ? 'results' : ''}`}>
-                <TextField
-                  label="Middle Ordinate"
-                  type="number"
-                  id="middle-ordinate"
-                  value={MO}
-                  inputProps={{
-                    min: 0,
-                    precision: 2,
-                    max: 1000, // arbitrary max value
-                    step: moStep,
-                    style: { textAlign: 'center' }
-                  }}
-                  InputProps={{
-                    endAdornment: <InputAdornment position="end">in.</InputAdornment>
-                  }}
-                  disabled={trackType === 'tangent' || state === 'RESULTS'}
-                  onChange={handleMOChange}
-                  style={{ width: '100%' }}
-                  sx={{
-                    opacity: trackType === 'tangent' ? 0.3 : 1, 
-                    '&:disabled': {
-                    opacity: 0.3, 
-                    },
-                  }}
-                />
-              </div>
-              <div className={`item ${state === 'RESULTS' ? 'results' : ''}`}>
-                <TextField
-                  label="Super Elevation"
-                  type="number"
-                  id="super-elevation"
-                  value={SUPER}
-                  inputProps={{
-                    min: 0,
-                    precision: 2,
-                    max: 1000, // arbitrary max value
-                    step: superStep,
-                    style: { textAlign: 'center' }
-                  }}
-                  InputProps={{
-                    endAdornment: <InputAdornment position="end">in.</InputAdornment>
-                  }}
-                  onChange={handleSUPERChange}
-                  disabled={state === 'RESULTS'}
-                  style={{ width: '100%' }}
-                />
-              </div>
-              <div className="item">
-                <Button
-                  variant="contained"
-                  size="large"
-                  disabled={calculateEnabled === false}
-                  onClick={updateCalcs}
-                  sx={{
-                    width: "100%",
-                    height: "100%",
-                    backgroundColor: calculateEnabled ? '#1D469E' : '#D3D3D3', 
-                    '&:hover': {
-                      backgroundColor: calculateEnabled ? '#173880' : '#1D469E', 
-                    },
+            <div id="container">
+              <div className="inner-container">
+                <div className={`item ${state === 'RESULTS' ? 'results' : ''}`}>
+                  <TextField
+                    label={torLabel}
+                    type="number"
+                    id="height-tor"
+                    value={formatNumber(H, 3)}
+                    inputProps={{
+                      min: -0.5,
+                      precision: 3,
+                      max: divMaxH,
+                      step: hStep,
+                      style: { textAlign: 'center' }
                     }}
-                >
-                  {state === "INPUT" ? 'Calculate' : 'Reset'}
-                </Button>
+                    InputProps={{
+                      endAdornment: <InputAdornment position="end">in.</InputAdornment>
+                    }}
+                    onChange={handleHChange}
+                    disabled={state === 'RESULTS'}
+                    style={{ width: '100%' }}
+                  />
+                </div>
+                <div className={`item ${state === 'RESULTS' ? 'results' : ''}`}>
+                  <TextField
+                    label={gorLabel}
+                    type="number"
+                    id="height-gor"
+                    value={D}
+                    inputProps={{
+                      min: 0,
+                      precision: 2,
+                      max: 1000, // arbitrary max value
+                      step: dStep,
+                      style: { textAlign: 'center' }
+                    }}
+                    InputProps={{
+                      endAdornment: <InputAdornment position="end">in.</InputAdornment>
+                    }}
+                    onChange={handleDChange}
+                    disabled={state === 'RESULTS'}
+                    style={{ width: '100%' }}
+                  />
+                </div>
+                <div className={`item ${state === 'RESULTS' ? 'results' : ''}`}>
+                  <TextField
+                    label="Middle Ordinate"
+                    type="number"
+                    id="middle-ordinate"
+                    value={MO}
+                    inputProps={{
+                      min: 0,
+                      precision: 2,
+                      max: 1000, // arbitrary max value
+                      step: moStep,
+                      style: { textAlign: 'center' }
+                    }}
+                    InputProps={{
+                      endAdornment: <InputAdornment position="end">in.</InputAdornment>
+                    }}
+                    disabled={trackType === 'tangent' || state === 'RESULTS'}
+                    onChange={handleMOChange}
+                    style={{ width: '100%' }}
+                    sx={{
+                      opacity: trackType === 'tangent' ? 0.3 : 1, 
+                      '&:disabled': {
+                      opacity: 0.3, 
+                      },
+                    }}
+                  />
+                </div>
+                <div className={`item ${state === 'RESULTS' ? 'results' : ''}`}>
+                  <TextField
+                    label="Super Elevation"
+                    type="number"
+                    id="super-elevation"
+                    value={SUPER}
+                    inputProps={{
+                      min: 0,
+                      precision: 2,
+                      max: 1000, // arbitrary max value
+                      step: superStep,
+                      style: { textAlign: 'center' }
+                    }}
+                    InputProps={{
+                      endAdornment: <InputAdornment position="end">in.</InputAdornment>
+                    }}
+                    onChange={handleSUPERChange}
+                    disabled={state === 'RESULTS'}
+                    style={{ width: '100%' }}
+                  />
+                </div>
+                <div className="item">
+                  <Button
+                    variant="contained"
+                    size="large"
+                    disabled={calculateEnabled === false}
+                    onClick={updateCalcs}
+                    sx={{
+                      width: "100%",
+                      height: "100%",
+                      backgroundColor: calculateEnabled ? '#1D469E' : '#D3D3D3', 
+                      '&:hover': {
+                        backgroundColor: calculateEnabled ? '#173880' : '#1D469E', 
+                      },
+                      }}
+                  >
+                    {state === "INPUT" ? 'Calculate' : 'Reset'}
+                  </Button>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div className={`result-container ${isClearanceGreater === true ? 'okay' : 'bad'} ${state === 'INPUT' ? 'disabled' : ''}`}>
+            <h2 className="calculations"> 
+              Calculated Values and Results
+            </h2>
+            <div id="container">
+              <div className="inner-container">
+                <div className="calculated-item">
+                  <TextField
+                    label="Radius"
+                    type="number"
+                    value={R.toFixed(3)}
+                    InputProps={{
+                      style: { textAlign: 'center' },
+                      endAdornment: <InputAdornment position="end">ft.</InputAdornment>, 
+                      inputProps: {
+                        readOnly: true,
+                        style: { textAlign: 'center', cursor: 'default' }
+                      }
+                    }}
+                    style={{ width: '100%' }}
+                    disabled={trackType === 'tangent'}
+                    readOnly
+                  />
+                </div>
+                <div className="calculated-item">
+                  <TextField
+                    label={seLabel}
+                    type="number"
+                    value={SE.toFixed(3)}
+                    InputProps={{
+                      style: { textAlign: 'center' },
+                      endAdornment: <InputAdornment position="end">in.</InputAdornment>, 
+                      inputProps: {
+                        readOnly: true,
+                        style: { textAlign: 'center', cursor: 'default' }
+                      }
+                    }}
+                    style={{ width: '100%' }}
+                    readOnly
+                  />
+                </div>
+                <div className="calculated-item">
+                  <TextField
+                    label="End Excess"
+                    type="number"
+                    value={EE.toFixed(3)}
+                    InputProps={{
+                      style: { textAlign: 'center' },
+                      endAdornment: <InputAdornment position="end">in.</InputAdornment>, 
+                      inputProps: {
+                        readOnly: true,
+                        style: { textAlign: 'center', cursor: 'default' }
+                      }
+                    }}
+                    style={{ width: '100%' }}
+                    disabled={trackType === 'tangent'}
+                    readOnly
+                  />
+                </div>
+                <div className="calculated-item">
+                  <TextField
+                    label="Center Excess"
+                    type="number"
+                    value={CE.toFixed(3)}
+                    InputProps={{
+                      style: { textAlign: 'center' },
+                      endAdornment: <InputAdornment position="end">in.</InputAdornment>, 
+                      inputProps: {
+                        readOnly: true,
+                        style: { textAlign: 'center', cursor: 'default' }
+                      }
+                    }}
+                    style={{ width: '100%' }}
+                    disabled={trackType === 'tangent'}
+                    readOnly
+                  />
+                </div>
+              </div>
+            </div>
+            <div id="container">
+              <div className="inner-container">
+                <div className="calculated-item">
+                  <TextField
+                    label={res1Label}
+                    type="number"
+                    value={formatNumber(LLLEMinReq, 4)}
+                    InputProps={{
+                      style: { textAlign: 'center' },
+                      endAdornment: <InputAdornment position="end">in.</InputAdornment>, 
+                      inputProps: {
+                        readOnly: true,
+                        style: { textAlign: 'center', cursor: 'default' }
+                      }
+                    }}
+                    style={{ width: '100%' }}
+                    readOnly
+                  />
+                </div>
+                <div className="calculated-item">
+                  <TextField
+                    label={res2Label}
+                    type="number"
+                    value={LLLEClearance.toFixed(3)}
+                    InputProps={{
+                      style: { textAlign: 'center' },
+                      endAdornment: <InputAdornment position="end">in.</InputAdornment>, 
+                      inputProps: {
+                        readOnly: true,
+                        style: { textAlign: 'center', cursor: 'default' }
+                      }
+                    }}
+                    style={{ width: '100%' }}
+                    readOnly
+                  />
+                </div>
+                <div className="calculated-item">
+                  <TextField
+                    label="Calculated Clearance"
+                    type="number"
+                    value={clearance.toFixed(3)}
+                    InputProps={{
+                      style: { textAlign: 'center' },
+                      endAdornment: <InputAdornment position="end">in.</InputAdornment>, 
+                      inputProps: {
+                        readOnly: true,
+                        style: { textAlign: 'center', cursor: 'default' }
+                      }
+                    }}
+                    style={{ width: '100%' }}
+                  />
+                </div>
               </div>
             </div>
           </div>
         </div>
-        <div className={`result-container ${isClearanceGreater === true ? 'okay' : 'bad'} ${state === 'INPUT' ? 'disabled' : ''}`}>
-          <h2 className="calculations"> 
-            Calculated Values and Results
-          </h2>
-          <div id="container">
-            <div className="inner-container">
-              <div className="calculated-item">
-                <TextField
-                  label="Radius"
-                  type="number"
-                  value={R.toFixed(3)}
-                  InputProps={{
-                    style: { textAlign: 'center' },
-                    endAdornment: <InputAdornment position="end">ft.</InputAdornment>, 
-                    inputProps: {
-                      readOnly: true,
-                      style: { textAlign: 'center', cursor: 'default' }
-                    }
-                  }}
-                  style={{ width: '100%' }}
-                  disabled={trackType === 'tangent'}
-                  readOnly
-                />
-              </div>
-              <div className="calculated-item">
-                <TextField
-                  label="Super Elevation Excess"
-                  type="number"
-                  value={SE.toFixed(3)}
-                  InputProps={{
-                    style: { textAlign: 'center' },
-                    endAdornment: <InputAdornment position="end">in.</InputAdornment>, 
-                    inputProps: {
-                      readOnly: true,
-                      style: { textAlign: 'center', cursor: 'default' }
-                    }
-                  }}
-                  style={{ width: '100%' }}
-                  readOnly
-                />
-              </div>
-              <div className="calculated-item">
-                <TextField
-                  label="End Excess"
-                  type="number"
-                  value={EE.toFixed(3)}
-                  InputProps={{
-                    style: { textAlign: 'center' },
-                    endAdornment: <InputAdornment position="end">in.</InputAdornment>, 
-                    inputProps: {
-                      readOnly: true,
-                      style: { textAlign: 'center', cursor: 'default' }
-                    }
-                  }}
-                  style={{ width: '100%' }}
-                  disabled={trackType === 'tangent'}
-                  readOnly
-                />
-              </div>
-              <div className="calculated-item">
-                <TextField
-                  label="Center Excess"
-                  type="number"
-                  value={CE.toFixed(3)}
-                  InputProps={{
-                    style: { textAlign: 'center' },
-                    endAdornment: <InputAdornment position="end">in.</InputAdornment>, 
-                    inputProps: {
-                      readOnly: true,
-                      style: { textAlign: 'center', cursor: 'default' }
-                    }
-                  }}
-                  style={{ width: '100%' }}
-                  disabled={trackType === 'tangent'}
-                  readOnly
-                />
-              </div>
-            </div>
-          </div>
-          <div id="container">
-            <div className="inner-container">
-              <div className="calculated-item">
-                <TextField
-                  label={res1Label}
-                  type="number"
-                  value={formatNumber(LLLEMinReq, 4)}
-                  InputProps={{
-                    style: { textAlign: 'center' },
-                    endAdornment: <InputAdornment position="end">in.</InputAdornment>, 
-                    inputProps: {
-                      readOnly: true,
-                      style: { textAlign: 'center', cursor: 'default' }
-                    }
-                  }}
-                  style={{ width: '100%' }}
-                  readOnly
-                />
-              </div>
-              <div className="calculated-item">
-                <TextField
-                  label={res2Label}
-                  type="number"
-                  value={LLLEClearance.toFixed(3)}
-                  InputProps={{
-                    style: { textAlign: 'center' },
-                    endAdornment: <InputAdornment position="end">in.</InputAdornment>, 
-                    inputProps: {
-                      readOnly: true,
-                      style: { textAlign: 'center', cursor: 'default' }
-                    }
-                  }}
-                  style={{ width: '100%' }}
-                  readOnly
-                />
-              </div>
-              <div className="calculated-item">
-                <TextField
-                  label="Calculated Clearance"
-                  type="number"
-                  value={clearance.toFixed(3)}
-                  InputProps={{
-                    style: { textAlign: 'center' },
-                    endAdornment: <InputAdornment position="end">in.</InputAdornment>, 
-                    inputProps: {
-                      readOnly: true,
-                      style: { textAlign: 'center', cursor: 'default' }
-                    }
-                  }}
-                  style={{ width: '100%' }}
-                />
-              </div>
-            </div>
-          </div>
-        </div>
-      </div>
+      )}
     </div>
   );
 };
