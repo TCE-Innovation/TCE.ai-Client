@@ -179,7 +179,7 @@ const Clearance = () => {
   }, [H, D, MO, SUPER, trackType]);
   
   return (
-    <div>
+    <div className="home">
       <div className="description">
         This tool calculates LLLE clearance given field measurements by executing all required value lookups and calculations. 
         Input your measurements and specifications, select "CALCULATE"; then, view the intermediate calculations and final results. 
