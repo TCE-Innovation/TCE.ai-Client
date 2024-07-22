@@ -33,24 +33,23 @@ const styles = `
         text-align: center;
     }
 
-    body {
-        padding-top: constant(safe-area-inset-top); /* iOS 11.2+ */
-        padding-top: env(safe-area-inset-top); /* iOS 11.0-11.1 */
-        background-color: #F1FFFF; /* Set your background color */
+    .spinnerContainerStyle {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        height: 110px;
     }
 `;
 
 // Popup component for mobile warning
 const MobileWarningPopup = () => (
-    <div className="train-div">
-        <div className="mobile-warning-popup">
-            <div className="popup-content">
-                <h2>Mobile site under construction!</h2>
-                <p>View this page from a computer to access the tools.</p>
-            <div style={{ display: 'flex', justifyContent: 'center'}}>
-                <TrainLoader />
-            </div>
-            </div>
+    <div className="mobile-warning-popup">
+        <div className="popup-content">
+            <h2>Mobile site under construction!</h2>
+            <p>View this page from a computer to access the tools.</p>
+        </div>
+        <div className="spinnerContainerStyle">
+            <TrainLoader />
         </div>
     </div>
 );
@@ -67,7 +66,7 @@ function App() {
     }, []);
 
     // Conditional rendering logic for mobile warning
-    if ((isMobile || isTablet) && !window.location.pathname.startsWith('/apps/clearance-calculator')) {
+    if ((!isMobile || isTablet) && !window.location.pathname.startsWith('/apps/clearance-calculator')) {
         return <MobileWarningPopup />;
     }
 
