@@ -333,7 +333,7 @@ const Clearance = () => {
   }, []); 
 
   return (
-    <div className="pwa-calculator-container" style={{ backgroundColor: '#F1FFFF' }}>
+    <div className="pwa-calculator-container">
       {showMobileWarning && (
         <div className="pwa-mobile-warning-popup">
           <div className="pwa-popup-content">
