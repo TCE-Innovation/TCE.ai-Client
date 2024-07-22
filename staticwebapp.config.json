@@ -29,6 +29,14 @@
         "allowedRoles": ["anonymous"]
       },
       {
+        "route": "/images/blurred_subway_map.png",
+        "allowedRoles": ["anonymous"]
+      },
+      {
+        "route": "/images/gears.gif",
+        "allowedRoles": ["anonymous"]
+      },
+      {
         "route": "/manifest.json",
         "allowedRoles": ["anonymous"]
       },
