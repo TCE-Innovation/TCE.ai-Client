@@ -11,6 +11,7 @@
 
 .instruction-container {
   width: 100%; 
+  height: 68vh;
   margin-bottom: 10px;
   background-color: white;
   padding: 10px;
@@ -235,4 +236,18 @@
   border: 1px solid #ccc;
   border-radius: 10px;
   margin-bottom: 20px;
+}
+
+#dialog-title {
+    color: #1b365f;;
+    font-family: Helvetica;
+    font-size: 1.8vw;
+    font-weight: 500;
+    letter-spacing: 0;
+    line-height: normal;
+    text-align: center;
+    align-items: center;
+    padding-left: 5px;
+    padding-right: 5px;
+    margin: auto;
 }
