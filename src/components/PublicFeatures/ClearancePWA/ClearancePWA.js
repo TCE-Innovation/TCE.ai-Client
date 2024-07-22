@@ -331,21 +331,87 @@ const Clearance = () => {
     
     fetchData();
   }, []); 
+  
+  // CSS Styles for the Mobile Warning Popup
+  const mobileWarningStyles = `
+  /* Assuming this is in a CSS file linked to your React component */
+  body {
+      background-image: url('/images/blurred_subway_map.png'); 
+      background-size: cover; 
+      background-position: center; 
+      height: 100vh; 
+      margin: 0; 
+      display: flex;
+      justify-content: center;
+      align-items: center;
+  }
+
+  .mobile-warning {
+      background-color: rgba(255, 255, 255, 0.50); 
+      padding: 50px;
+      border: 1px solid #ccc;
+      box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+      z-index: 1000;
+      display: flex;
+      flex-direction: column; 
+      align-items: center;
+      min-height: 10vh; 
+      min-width: 10vw; 
+  }
+
+  .popup-content h2 {
+      font-size: 38px; 
+      font-weight: bold; 
+  }
+
+  .popup-content p {
+      font-size: 16px; 
+  }
+
+  .popup-content {
+      text-align: center;
+  }
+
+  .container-style {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      padding-top: 10px;
+      height: 200px;
+      transform: rotate(180deg);
+  }
+  `;
+  
+  // Popup component for mobile warning
+  const MobileWarningPopup = () => (
+      <div className="mobile-warning">
+          <div className="popup-content">
+              <h2>This page is designed for mobile viewing.</h2>
+              <p>
+                To use the calculator on your computer or learn how to download the tool on your mobile device, visit{' '}
+                <a href="https://tcig.nyc/private/clearance-calculator" target="_blank" rel="noopener noreferrer">
+                  tcig.nyc/private/clearance-calculator
+                </a>
+              </p>
+          </div>
+      </div>
+  );
+
+  React.useEffect(() => {
+    if ((isBrowser) && window.location.pathname.startsWith('/apps/clearance-calculator')) {
+        const styleTag = document.createElement('style');
+        styleTag.textContent = mobileWarningStyles;
+        document.head.appendChild(styleTag);
+        return () => {
+            document.head.removeChild(styleTag);
+        };
+    }
+  });
 
   return (
     <div className="pwa-calculator-container">
       {showMobileWarning && (
-        <div className="pwa-mobile-warning-popup">
-          <div className="pwa-popup-content">
-            <h2>This page is designed for mobile viewing!</h2>
-            <p>
-              To use the calculator on your computer or learn how to download the tool on your mobile device, visit{' '}
-              <a href="https://tcig.nyc/private/clearance-calculator" target="_blank" rel="noopener noreferrer">
-                tcig.nyc/private/clearance-calculator
-              </a>
-            </p>
-          </div>
-        </div>
+        <MobileWarningPopup />
       )}
       {!showMobileWarning && (
         <div>
