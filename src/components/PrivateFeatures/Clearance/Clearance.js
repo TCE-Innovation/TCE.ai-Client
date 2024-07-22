@@ -212,7 +212,7 @@ const Clearance = () => {
         <div className="description-container">
           <div className="description">
             {!showInstructions ? 'This tool calculates LLLE clearance given field measurements. Input your measurements and specifications, select "CALCULATE"; then, view the intermediate calculations and final results.' : 
-            'To setup the TCIG Clearance Calculator tool on your phone follow the steps below.'
+            'To setup the TCIG Clearance Calculator tool on your mobile device follow the steps below.'
             }
           </div>
           <Button
