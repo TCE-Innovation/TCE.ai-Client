@@ -9,7 +9,7 @@ import Private from "../Private/Private";
 import Public from "../Public/Public";
 import Document from "../PublicFeatures/Publications/Document";
 import Gateway from './Gateway/Gateway';
-import Clearance from '../PublicFeatures/Clearance/Clearance';
+import ClearancePWA from '../PublicFeatures/ClearancePWA/ClearancePWA';
 
 //AUTH
 import { AuthenticatedRoute, UnauthenticatedRoute, AuthProvider } from "../../authentication/Auth";
@@ -30,7 +30,7 @@ body {
 
 .mobile-warning {
     background-color: rgba(255, 255, 255, 0.50); 
-    padding: 50px;
+    padding: 25px;
     border: 1px solid #ccc;
     box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
     z-index: 1000;
@@ -42,12 +42,12 @@ body {
 }
 
 .popup-content h2 {
-    font-size: 38px; 
+    font-size: 32px; 
     font-weight: bold; 
 }
 
 .popup-content p {
-    font-size: 16px; 
+    font-size: 14px; 
 }
 
 .popup-content {
@@ -59,7 +59,7 @@ body {
     justify-content: center;
     align-items: center;
     padding-top: 10px;
-    height: 200px;
+    height: 120px;
     transform: rotate(180deg);
 }
 `;
@@ -78,7 +78,7 @@ const MobileWarningPopup = () => (
 );
 
 function App() {
-     // Inject the CSS styles into the document head conditionally
+    // Inject the CSS styles into the document head conditionally
     React.useEffect(() => {
         if ((isMobile || isTablet) && !window.location.pathname.startsWith('/apps/clearance-calculator')) {
             const styleTag = document.createElement('style');
@@ -112,7 +112,7 @@ function App() {
                         <Route index element={<SignIn />} />
                     </Route>
 
-                    <Route path="/apps/clearance-calculator" element={<Clearance />} />
+                    <Route path="/apps/clearance-calculator" element={<ClearancePWA />} />
 
                     <Route path='/private/:tool' element={<AuthenticatedRoute />}>
                         <Route index element={<Private />} />
