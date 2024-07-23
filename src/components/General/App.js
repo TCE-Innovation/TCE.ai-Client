@@ -30,7 +30,7 @@ body {
 
 .mobile-warning {
     background-color: rgba(255, 255, 255, 0.50); 
-    padding: 50px;
+    padding: 25px;
     border: 1px solid #ccc;
     box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
     z-index: 1000;
@@ -42,12 +42,12 @@ body {
 }
 
 .popup-content h2 {
-    font-size: 38px; 
+    font-size: 32px; 
     font-weight: bold; 
 }
 
 .popup-content p {
-    font-size: 16px; 
+    font-size: 14px; 
 }
 
 .popup-content {
@@ -59,7 +59,7 @@ body {
     justify-content: center;
     align-items: center;
     padding-top: 10px;
-    height: 200px;
+    height: 120px;
     transform: rotate(180deg);
 }
 `;
@@ -80,7 +80,7 @@ const MobileWarningPopup = () => (
 function App() { 
     // Inject the CSS styles into the document head conditionally
     React.useEffect(() => {
-        if ((isMobile || isTablet) && !window.location.pathname.startsWith('/apps/clearance-calculator')) {
+        if ((!isMobile || isTablet) && !window.location.pathname.startsWith('/apps/clearance-calculator')) {
             const styleTag = document.createElement('style');
             styleTag.textContent = styles;
             document.head.appendChild(styleTag);
@@ -91,7 +91,7 @@ function App() {
     }, []);
 
     // Conditional rendering logic for mobile warning
-    if ((isMobile || isTablet) && !window.location.pathname.startsWith('/apps/clearance-calculator')) {
+    if ((!isMobile || isTablet) && !window.location.pathname.startsWith('/apps/clearance-calculator')) {
         return <MobileWarningPopup />;
     }
 
