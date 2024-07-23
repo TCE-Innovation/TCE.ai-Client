@@ -145,6 +145,7 @@
 .tab.active {
   background-color: rgb(86, 86, 86);
   color: rgb(255, 255, 255);
+  font-weight: 700;
 }
 
 .slider {

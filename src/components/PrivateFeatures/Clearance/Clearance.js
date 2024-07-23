@@ -42,6 +42,17 @@ const Clearance = () => {
     setDialogOpen(false);
   }
 
+  // Function to handle the Download of the iOS instructions PDF
+  const handleDownloadPDF = () => {
+    const downloadUrl = '/downloads/ClearanceCalculatorSetup.pdf'; 
+    const link = document.createElement('a');
+    link.href = downloadUrl;
+    link.setAttribute('download', 'Clearance Calculator Setup.pdf'); 
+    document.body.appendChild(link);
+    link.click();
+    document.body.removeChild(link);
+  }
+
   // function to handle and properly format changes to the Height input
   const handleHChange = (event) => {
     let { value } = event.target;
@@ -213,7 +224,7 @@ const Clearance = () => {
       <div>
         <div className="description-container">
           <div className="description">
-            The following guide explains how to setup the Clearance Calculator on your mobile device.
+            Follow this guide to set up the Clearance Calculator on your mobile device.
           </div>
         </div>
         <PWAInstructions />
@@ -222,7 +233,7 @@ const Clearance = () => {
       <div>
         <div className="description-container">
           <div className="description">
-            This tool calculates LLLE clearance given field measurements. Input your measurements and specifications, select "CALCULATE"; then, view the intermediate calculations and final results.
+            This tool calculates LLLE clearance based on field measurements. Input your measurements and specifications, click "CALCULATE", and view the calculated values and results.
           </div>
           <Button
             className="offline-button"
@@ -257,8 +268,11 @@ const Clearance = () => {
                 <PWAInstructions />
               </DialogContentText>
             </DialogContent>
-            <DialogActions>
+            <DialogActions style={{ display: 'flex', justifyContent: 'space-between' }}>
               {/* Close button in the dialog */}
+              <Button onClick={handleDownloadPDF} color="primary">
+                Download as PDF
+              </Button>
               <Button onClick={handleClose} color="primary">
                 Close
               </Button>
@@ -421,6 +435,10 @@ const Clearance = () => {
                     sx={{
                       width: "90%",
                       height: "100%",
+                      backgroundColor: '#003EAB', 
+                      '&:hover': {
+                        backgroundColor: '#00328A', 
+                      },
                     }}
                   >
                     {state === "INPUT" ? 'Calculate' : 'Reset'}
