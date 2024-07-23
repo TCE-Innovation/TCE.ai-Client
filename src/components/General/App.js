@@ -80,7 +80,7 @@ const MobileWarningPopup = () => (
 function App() { 
     // Inject the CSS styles into the document head conditionally
     React.useEffect(() => {
-        if ((!isMobile || isTablet) && !window.location.pathname.startsWith('/apps/clearance-calculator')) {
+        if ((isMobile || isTablet) && !window.location.pathname.startsWith('/apps/clearance-calculator')) {
             const styleTag = document.createElement('style');
             styleTag.textContent = styles;
             document.head.appendChild(styleTag);
@@ -91,7 +91,7 @@ function App() {
     }, []);
 
     // Conditional rendering logic for mobile warning
-    if ((!isMobile || isTablet) && !window.location.pathname.startsWith('/apps/clearance-calculator')) {
+    if ((isMobile || isTablet) && !window.location.pathname.startsWith('/apps/clearance-calculator')) {
         return <MobileWarningPopup />;
     }
 
