@@ -570,11 +570,11 @@ const Clearance = () => {
                     sx={{
                       width: "100%",
                       height: "100%",
-                      backgroundColor: calculateEnabled ? '#1D469E' : '#D3D3D3', 
+                      backgroundColor: calculateEnabled ? '#003EAB' : '#D3D3D3', 
                       '&:hover': {
-                        backgroundColor: calculateEnabled ? '#173880' : '#1D469E', 
+                        backgroundColor: calculateEnabled ? '#00328A' : '#1D469E', 
                       },
-                      }}
+                    }}
                   >
                     {state === "INPUT" ? 'Calculate' : 'Reset'}
                   </Button>
