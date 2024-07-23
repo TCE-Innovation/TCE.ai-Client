@@ -33,6 +33,10 @@
         "allowedRoles": ["anonymous"]
       },
       {
+        "route": "/downloads/ClearanceCalculatorSetup.pdf",
+        "allowedRoles": ["anonymous"]
+      },
+      {
         "route": "/images/gears.gif",
         "allowedRoles": ["anonymous"]
       },
