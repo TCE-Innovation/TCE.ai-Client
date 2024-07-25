@@ -3,7 +3,7 @@
 import { clientsClaim } from 'workbox-core';
 import { ExpirationPlugin } from 'workbox-expiration';
 import { registerRoute } from 'workbox-routing';
-import { StaleWhileRevalidate, CacheFirst } from 'workbox-strategies';
+import { StaleWhileRevalidate } from 'workbox-strategies';
 
 // Required to keep somewhere in file, but we don't want to use...
 // eslint-disable-next-line no-unused-vars
@@ -12,72 +12,38 @@ const ignored = self.__WB_MANIFEST;
 self.skipWaiting()
 clientsClaim();
 
-const longTermUrls = [
-  '/icons/TCE_192.png',
-  '/icons/TCE_512.png',
-  '/icons/apple-touch-icon.png',
-  '/icons/favicon.ico',
-  '/translations.json',
+// define URLs to cache  
+const urls = [
+  '/',
 ]
 
-// define specific URLs to cache  
-const shortTermUrls = [
-  '/apps/clearance-calculator',
-  '/clearance-manifest.json',
-  '/static/js/bundle.js',
-  '/service-worker.js',
-]
-
-// Set up App Shell-style routing to cache shortTermUrls
+// Set up App Shell-style routing to cache urls 
 registerRoute(
   ({ request, url }) => {
 
     // eslint-disable-next-line no-unused-vars
     const ignored = request;
 
-    // Check if url.pathname starts with any URL in shortTermUrls
-    if (shortTermUrls.some(cacheUrl => url.pathname.startsWith(cacheUrl))) {
+    // don't cache subway map, because only shown on web (not essential for tool)
+    if (url.pathname.startsWith('/images/blurred_subway_map.png')) { return false; }
+
+    // Check if url.pathname starts with any URL in urls
+    if (urls.some(cacheUrl => url.pathname.startsWith(cacheUrl))) {
       return true;
     }
 
     if (url.pathname.startsWith('/static/css/main.')) { return true; }
     if (url.pathname.startsWith('/static/js/main.')) { return true; }
 
-    // Do not cache if not in shortTermUrls...
+    // Do not cache if not in urls...
     return false;
   },
   new StaleWhileRevalidate({
-    cacheName: 'DynamicClearanceCache',
+    cacheName: 'CalculatorCache',
     plugins: [
       new ExpirationPlugin({
         maxEntries: 100, // Adjust as necessary
-        maxAgeSeconds: 100 * 365 * 24 * 60 * 60, // 100 year
-      }),
-    ]
-  })
-);
-
-// Set up App Shell-style routing to cache longTermUrls
-registerRoute(
-  ({ request, url }) => {
-
-    // eslint-disable-next-line no-unused-vars
-    const ignored = request;
-
-    // Check if url.pathname starts with any URL in longTermUrls
-    if (longTermUrls.some(cacheUrl => url.pathname.startsWith(cacheUrl))) {
-      return true;
-    }
-
-    // Do not cache if not in urlsToCache...
-    return false;
-  },
-  new CacheFirst({
-    cacheName: 'StaticClearanceCache',
-    plugins: [
-      new ExpirationPlugin({
-        maxEntries: 100, // Adjust as necessary
-        maxAgeSeconds: 100 * 365 * 24 * 60 * 60, // 100 year
+        maxAgeSeconds: 100 * 365 * 24 * 60 * 60, // 100 years
       }),
     ]
   })
