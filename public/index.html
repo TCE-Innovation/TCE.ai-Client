@@ -6,10 +6,8 @@
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <meta name="theme-color" content="#000000" />
     <meta name="description" content="TCE Innovation Headquarters - Home of the TCE Innovation Group"/>
-    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
-    <meta name="apple-mobile-web-app-title" content="Clearance">
     <meta name="theme-color" content="#F1FFFF" />
-
+    <title>TCE Innovation Group</title>
 
     <!-- link -->
     <link rel="icon" href="%PUBLIC_URL%/icons/favicon.ico" />
@@ -19,27 +17,7 @@
     <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&display=swap" rel="stylesheet">
     <link href="https://fonts.googleapis.com/css2?family=Inter&display=swap" rel="stylesheet">
     <link rel="apple-touch-icon" href="/icons/apple-touch-icon.png">
-
-
-    <!-- Dynamically set title -->
-    <script>
-      var currentUrl = window.location.href;
-      let title = "TCE Innovation Group"
-      if (currentUrl.includes("/apps/clearance-calculator")) {
-        title = "Clearance Calculator"
-      }
-      document.write('<title>' + title + '</title>');
-    </script>
-
-    <!-- Dynamically set manifest -->
-    <script>
-      var currentUrl = window.location.href;
-      let manifest = "%PUBLIC_URL%/manifest.json"
-      if (currentUrl.includes("/apps/clearance-calculator")) {
-        manifest = "%PUBLIC_URL%/clearance-manifest.json"
-      }
-      document.write('<link rel="manifest" href="' + manifest + '">');
-    </script>
+    <link rel="manifest" href="%PUBLIC_URL%/manifest.json">
 
   </head>
 
