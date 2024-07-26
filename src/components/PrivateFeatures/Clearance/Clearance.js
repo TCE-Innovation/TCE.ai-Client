@@ -208,7 +208,7 @@ const Clearance = () => {
   const PWAInstructions = () => (
     <div className='instruction-container'>
       <iframe 
-        src="https://scribehow.com/embed/Mobile_Process_7192024__iTcb6P1hQbqAR-HuR4CVHg?as=scrollable&skipIntro=true&removeLogo=true" 
+        src="https://scribehow.com/embed/iOS_Clearance_Calculator_Setup__jgcVEhoATXyXwc_cBRrsHg?as=scrollable&skipIntro=true&removeLogo=true"
         width="100%" 
         height="100%" 
         allowfullscreen 
