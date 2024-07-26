@@ -9,7 +9,6 @@ import Private from "../Private/Private";
 import Public from "../Public/Public";
 import Document from "../PublicFeatures/Publications/Document";
 import Gateway from './Gateway/Gateway';
-import ClearancePWA from '../PublicFeatures/ClearancePWA/ClearancePWA';
 
 //AUTH
 import { AuthenticatedRoute, UnauthenticatedRoute, AuthProvider } from "../../authentication/Auth";
@@ -80,7 +79,7 @@ const MobileWarningPopup = () => (
 function App() { 
     // Inject the CSS styles into the document head conditionally
     React.useEffect(() => {
-        if ((isMobile || isTablet) && !window.location.pathname.startsWith('/apps/clearance-calculator')) {
+        if (isMobile || isTablet) {
             const styleTag = document.createElement('style');
             styleTag.textContent = styles;
             document.head.appendChild(styleTag);
@@ -91,7 +90,7 @@ function App() {
     }, []);
 
     // Conditional rendering logic for mobile warning
-    if ((isMobile || isTablet) && !window.location.pathname.startsWith('/apps/clearance-calculator')) {
+    if (isMobile || isTablet) {
         return <MobileWarningPopup />;
     }
 
@@ -111,8 +110,6 @@ function App() {
                     <Route path='/sign-in' element={<UnauthenticatedRoute />}>
                         <Route index element={<SignIn />} />
                     </Route>
-
-                    <Route path='/apps/clearance-calculator' element={<ClearancePWA />} />
 
                     <Route path='/private/:tool' element={<AuthenticatedRoute />}>
                         <Route index element={<Private />} />
