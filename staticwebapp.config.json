@@ -9,19 +9,7 @@
         "allowedRoles": ["anonymous"]
       },
       {
-        "route": "/icons/apple-touch-icon.png",
-        "allowedRoles": ["anonymous"]
-      },
-      {
-        "route": "clearance-manifest.json",
-        "allowedRoles": ["anonymous"]
-      },
-      {
         "route": "translations.json",
-        "allowedRoles": ["anonymous"]
-      },
-      {
-        "route": "/service-worker.js",
         "allowedRoles": ["anonymous"]
       },
       {
