@@ -29,10 +29,6 @@
         "allowedRoles": ["anonymous"]
       },
       {
-        "route": "/images/gears.gif",
-        "allowedRoles": ["anonymous"]
-      },
-      {
         "route": "/manifest.json",
         "allowedRoles": ["anonymous"]
       },
