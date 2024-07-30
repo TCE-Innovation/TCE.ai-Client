@@ -37,7 +37,7 @@ const ScheduleDashboards = () => {
             try {
                 const data = await getPBILog();
                 setProjects(data);
-
+    
                 let projectKeys = Object.keys(data);
                 if (userDashboards === "All") {
                     // If userDashboards is "All", use all project keys
@@ -46,15 +46,18 @@ const ScheduleDashboards = () => {
                 } else {
                     projectKeys = projectKeys.filter(project => userDashboards.includes(project));
                 }
-
+    
                 setProjectOptions(projectKeys);
-
+    
                 if (projectKeys.length > 0) {
                     const firstProject = projectKeys[0] !== "None" ? projectKeys[0] : "";
                     setSelectedProject(firstProject);
                     if (firstProject) {
-                        setSelectedMonth(data[firstProject][0].month);
-                        setIframeLink(data[firstProject][0].link);
+                        const months = data[firstProject].map(record => record.month);
+                        const mostRecentMonth = months[months.length - 1];
+                        setSelectedMonth(mostRecentMonth);
+                        const mostRecentRecord = data[firstProject].find(record => record.month === mostRecentMonth);
+                        setIframeLink(mostRecentRecord.link);
                     }
                 }
             } catch (error) {
@@ -63,6 +66,7 @@ const ScheduleDashboards = () => {
         };
         fetchProjects();
     }, [userDashboards]);
+    
 
     const handleProjectChange = (event) => {
         setSelectedProject(event.target.value);

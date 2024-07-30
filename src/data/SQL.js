@@ -14,7 +14,7 @@ export async function getTools(email) {
 }
 
 // function to add users to a tool table in SQL db based on email. users is an array of user objects [{email: email, name: name}, ...]
-export async function addUsersToTool(users, tool, project = 'None') {
+export async function addUsersToTool(users, tool, project) {
     try {
         const { data } = await axios.post('https://tce-ai-api.azurewebsites.net/api/add-users-to-tool', { users, tool, project });
         return data;

@@ -29,6 +29,7 @@ import OverviewDashboard from '../PrivateFeatures/OverviewDashboard';
 import ToolUsage from "../PrivateFeatures/ToolUsage";
 import PrintingRequest from '../PrivateFeatures/3dPrinting/3dPrinting';
 import DroneCaptures from '../PrivateFeatures/DroneCaptures';
+import Clearance from '../PrivateFeatures/Clearance/Clearance';
 import Admin from '../PrivateFeatures/AdminPanel/AdminPanel';
 
 // AUTH
@@ -91,11 +92,12 @@ function PrivateContent() {
     '3D Printing Request': '3d-printing-request',
     'Overview Dashboard': 'overview-dashboard',
     'Drone Captures': 'drone-captures',
-    'Chat Bot': 'chat-bot'
+    'Chat Bot': 'chat-bot',
+    'LLLE Clearance Calculator': 'clearance-calculator',
   };
 
   // Always available tools
-  const alwaysAvailableTools = useMemo(() => ['home', 'sub-automation', 'equipment-checkout', 'go-tracker', '3d-printing-request', 'admin','chat-bot'], []);
+  const alwaysAvailableTools = useMemo(() => ['home', 'sub-automation', 'equipment-checkout', 'go-tracker', '3d-printing-request', 'admin', 'clearance-calculator','chat-bot'], []);
 
   // Split the userTools string into an array
   const userToolsArray = (userTools || '').split(',').map(tool => tool.trim());
@@ -116,7 +118,8 @@ function PrivateContent() {
     'overview-dashboard': OverviewDashboard,
     'tool-usage': ToolUsage,
     '3d-printing-request': PrintingRequest,
-    'drone-captures': DroneCaptures, 
+    'drone-captures': DroneCaptures,
+    'clearance-calculator': Clearance,
     'admin': isAdmin ? Admin : null // Admin access only
   }), [isAdmin]);
 
@@ -164,7 +167,7 @@ function PrivateContent() {
           <Divider />
           {open ? (
             <Button
-              sx={{ m: 2 }}
+              sx={{ mb: 8 }}
               onClick={handlePublicNavigate}
               style={{ color: 'grey' }}
             >

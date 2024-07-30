@@ -9,22 +9,6 @@
         "allowedRoles": ["anonymous"]
       },
       {
-        "route": "/icons/apple-touch-icon.png",
-        "allowedRoles": ["anonymous"]
-      },
-      {
-        "route": "clearance-manifest.json",
-        "allowedRoles": ["anonymous"]
-      },
-      {
-        "route": "images/blurred_subway_map.png",
-        "allowedRoles": ["anonymous"]
-      },
-      {
-        "route": "images/gears.gif",
-        "allowedRoles": ["anonymous"]
-      },
-      {
         "route": "translations.json",
         "allowedRoles": ["anonymous"]
       },
@@ -33,7 +17,15 @@
         "allowedRoles": ["anonymous"]
       },
       {
-        "route": "/service-worker.js",
+        "route": "/images/blurred_subway_map.png",
+        "allowedRoles": ["anonymous"]
+      },
+      {
+        "route": "/downloads/ClearanceCalculatorSetup.pdf",
+        "allowedRoles": ["anonymous"]
+      },
+      {
+        "route": "/images/gears.gif",
         "allowedRoles": ["anonymous"]
       },
       {

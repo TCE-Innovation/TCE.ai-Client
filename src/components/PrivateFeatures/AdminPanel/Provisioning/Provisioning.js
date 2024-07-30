@@ -6,7 +6,6 @@ import ToolSelect from './ToolSelect';
 import UserTable from './UserTable';
 import AddUserDialog from './AddUserDialog';
 import ProjectTeam from './ProjectTeam';
-// import { Ls } from 'dayjs';
 
 const toolNameMap = {
     'Email Generator': 'email_generator',
@@ -14,8 +13,13 @@ const toolNameMap = {
     'Schedule Dashboards': 'schedule_dashboards',
     'Overview Dashboard': 'overview_dashboard',
     'Tool Usage Stats': 'tool_usage',
-    'Drone Captures': 'drone_captures'
+    'Drone Captures': 'drone_captures',
 };
+
+const toolsWithTeamOption = [
+    'Schedule Dashboards',
+    'Drone Captures',
+];
 
 // map project team names to their projects specifically for drone captures
 const teamProjectMap = {
@@ -98,7 +102,6 @@ const Provisioning = () => {
         if (selectedTool) {
             const fetchUserProjects = async () => {
                 try {
-
                     const projects = await getEmailsAndProjects(toolNameMap[selectedTool]);
 
                     const projectMap = projects.reduce((acc, project) => {
@@ -110,7 +113,9 @@ const Provisioning = () => {
                     console.error('Error fetching user projects:', error);
                 }
             };
-            fetchUserProjects();
+            if (toolsWithTeamOption.includes(selectedTool)) {
+                fetchUserProjects();
+            }
         }
     }, [selectedTool]);
 
@@ -142,18 +147,22 @@ const Provisioning = () => {
                 default_provisions = "None";
             } else if (selectedTool === "Drone Captures") {
                 default_provisions = "All";
+            } else {
+                default_provisions = null;
             }
             await addUsersToTool(selectedUsers, toolNameMap[selectedTool], default_provisions);
             const updatedUsers = await getUsersOfTool(toolNameMap[selectedTool]);
             setUsers(updatedUsers)
 
-            // set user projects accurately by referencing the DB
-            const projects = await getEmailsAndProjects(toolNameMap[selectedTool]);
-            const projectMap = projects.reduce((acc, project) => {
-                acc[project.email] = project.projects;
-                return acc;
-            }, {});
-            setUserProjects(projectMap);
+            if (selectedTool in toolsWithTeamOption) {
+                // set user projects accurately by referencing the DB
+                const projects = await getEmailsAndProjects(toolNameMap[selectedTool]);
+                const projectMap = projects.reduce((acc, project) => {
+                    acc[project.email] = project.projects;
+                    return acc;
+                }, {});
+                setUserProjects(projectMap);
+            }
 
             setPersonnelList(prevPersonnel =>
                 prevPersonnel.filter(person =>
