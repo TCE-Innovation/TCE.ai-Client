@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import './Clearance.css'; // Import CSS file
+import './ClearancePWA.css'; // Import CSS file
 import { TextField, InputAdornment, Button } from '@mui/material';
 import { isBrowser } from 'react-device-detect';
 
@@ -331,81 +331,147 @@ const Clearance = () => {
     
     fetchData();
   }, []); 
+  
+  // CSS Styles for the Mobile Warning Popup
+  const mobileWarningStyles = `
+  /* Assuming this is in a CSS file linked to your React component */
+  body {
+      background-image: url('/images/blurred_subway_map.png'); 
+      background-size: cover; 
+      background-position: center; 
+      height: 100vh; 
+      margin: 0; 
+      display: flex;
+      justify-content: center;
+      align-items: center;
+  }
+
+  .mobile-warning {
+      background-color: rgba(255, 255, 255, 0.50); 
+      padding: 50px;
+      border: 1px solid #ccc;
+      box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+      z-index: 1000;
+      display: flex;
+      flex-direction: column; 
+      align-items: center;
+      min-height: 10vh; 
+      min-width: 10vw; 
+  }
+
+  .popup-content h2 {
+      font-size: 38px; 
+      font-weight: bold; 
+  }
+
+  .popup-content p {
+      font-size: 16px; 
+  }
+
+  .popup-content {
+      text-align: center;
+  }
+
+  .container-style {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      padding-top: 10px;
+      height: 200px;
+      transform: rotate(180deg);
+  }
+  `;
+  
+  // Popup component for mobile warning
+  const MobileWarningPopup = () => (
+      <div className="mobile-warning">
+          <div className="popup-content">
+              <h2>This page is designed for mobile viewing.</h2>
+              <p>
+                To use the calculator on your computer or learn how to download the tool on your mobile device, visit{' '}
+                <a href="https://tcig.nyc/private/clearance-calculator" target="_blank" rel="noopener noreferrer">
+                  tcig.nyc/private/clearance-calculator
+                </a>
+              </p>
+          </div>
+      </div>
+  );
+
+  React.useEffect(() => {
+    if ((isBrowser) && window.location.pathname.startsWith('/apps/clearance-calculator')) {
+        const styleTag = document.createElement('style');
+        styleTag.textContent = mobileWarningStyles;
+        document.head.appendChild(styleTag);
+        return () => {
+            document.head.removeChild(styleTag);
+        };
+    }
+  });
 
   return (
-    <div className="calculator-container" style={{ backgroundColor: '#F1FFFF' }}>
+    <div className="pwa-calculator-container">
       {showMobileWarning && (
-        <div className="mobile-warning-popup">
-          <div className="popup-content">
-            <h2>This page is designed for mobile viewing!</h2>
-            <p>
-              To use the calculator on your computer or learn how to download the tool on your mobile device, visit{' '}
-              <a href="https://tcig.nyc/private/clearance-calculator" target="_blank" rel="noopener noreferrer">
-                tcig.nyc/private/clearance-calculator
-              </a>
-            </p>
-          </div>
-        </div>
+        <MobileWarningPopup />
       )}
       {!showMobileWarning && (
         <div>
-          <div className="input-container">
-            <h2 className="calculations"> 
+          <div className="pwa-input-container">
+            <h2 className="pwa-calculations"> 
               Clearance Calculator
             </h2>
-            <div className={`section-container ${state === 'RESULTS' ? 'results' : ''}`}>
-              <div className="side-by-side">
-                <div className={`small-pill-selector ${state === 'RESULTS' ? 'results' : ''}`}>
+            <div className={`pwa-section-container ${state === 'RESULTS' ? 'results' : ''}`}>
+              <div className="pwa-side-by-side">
+                <div className={`pwa-small-pill-selector ${state === 'RESULTS' ? 'results' : ''}`}>
                   <div
-                    className={`tab ${division === 'A Division' ? 'active' : ''}`}
+                    className={`pwa-tab ${division === 'A Division' ? 'active' : ''}`}
                     onClick={() => handleDivisionChange('A')}
                   >
                     A Division
                   </div>
                   <div
-                    className={`tab ${division === 'B Division' ? 'active' : ''}`}
+                    className={`pwa-tab ${division === 'B Division' ? 'active' : ''}`}
                     onClick={() => handleDivisionChange('B')}
                   >
                     B Division
                   </div>
-                  <div className={`slider ${division === 'B Division' ? 'slide-right' : 'slide-left'}`}></div>
+                  <div className={`pwa-slider ${division === 'B Division' ? 'slide-right' : 'slide-left'}`}></div>
                 </div>
-                <div className={`small-pill-selector ${state === 'RESULTS' ? 'results' : ''}`}>
+                <div className={`pwa-small-pill-selector ${state === 'RESULTS' ? 'results' : ''}`}>
                   <div
-                    className={`tab ${trackType === 'tangent' ? 'active' : ''}`}
+                    className={`pwa-tab ${trackType === 'tangent' ? 'active' : ''}`}
                     onClick={() => handleTrackTypeClick('tangent')}
                   >
                     Tangent Track
                   </div>
                   <div
-                    className={`tab ${trackType === 'curve' ? 'active' : ''}`}
+                    className={`pwa-tab ${trackType === 'curve' ? 'active' : ''}`}
                     onClick={() => handleTrackTypeClick('curve')}
                   >
                     Curved Track
                   </div>
-                  <div className={`slider ${trackType === 'curve' ? 'slide-right' : 'slide-left'}`}></div>
+                  <div className={`pwa-slider ${trackType === 'curve' ? 'slide-right' : 'slide-left'}`}></div>
                 </div>
-                <div className={`small-pill-selector ${state === 'RESULTS' ? 'results' : ''}`}>
+                <div className={`pwa-small-pill-selector ${state === 'RESULTS' ? 'results' : ''}`}>
                   <div
-                    className={`tab ${direction === 'IN' ? 'active' : ''}`}
+                    className={`pwa-tab ${direction === 'IN' ? 'active' : ''}`}
                     onClick={() => setDirection('IN')}
                   >
                     {trackType !== 'tangent' ? 'Inside of Curve' : 'Side of Lower Rail'}
                   </div>
                   <div
-                    className={`tab ${direction === 'OUT' ? 'active' : ''}`}
+                    className={`pwa-tab ${direction === 'OUT' ? 'active' : ''}`}
                     onClick={() => setDirection('OUT')}
                   >
                     {trackType !== 'tangent' ? 'Outside of Curve' : 'Side of Higher Rail'}
                   </div>
-                  <div className={`slider ${direction === 'OUT' ? 'slide-right' : 'slide-left'}`}></div>
+                  <div className={`pwa-slider ${direction === 'OUT' ? 'slide-right' : 'slide-left'}`}></div>
                 </div>
               </div>
             </div>
 
             <div id="container">
-              <div className="inner-container">
-                <div className={`item ${state === 'RESULTS' ? 'results' : ''}`}>
+              <div className="pwa-inner-container">
+                <div className={`pwa-item ${state === 'RESULTS' ? 'results' : ''}`}>
                   <TextField
                     label="Height from TOR"
                     type="number"
@@ -426,7 +492,7 @@ const Clearance = () => {
                     style={{ width: '100%' }}
                   />
                 </div>
-                <div className={`item ${state === 'RESULTS' ? 'results' : ''}`}>
+                <div className={`pwa-item ${state === 'RESULTS' ? 'results' : ''}`}>
                   <TextField
                     label="Distance from GOR"
                     type="number"
@@ -447,7 +513,7 @@ const Clearance = () => {
                     style={{ width: '100%' }}
                   />
                 </div>
-                <div className={`item ${state === 'RESULTS' ? 'results' : ''}`}>
+                <div className={`pwa-item ${state === 'RESULTS' ? 'results' : ''}`}>
                   <TextField
                     label="Middle Ordinate"
                     type="number"
@@ -474,7 +540,7 @@ const Clearance = () => {
                     }}
                   />
                 </div>
-                <div className={`item ${state === 'RESULTS' ? 'results' : ''}`}>
+                <div className={`pwa-item ${state === 'RESULTS' ? 'results' : ''}`}>
                   <TextField
                     label="Super Elevation"
                     type="number"
@@ -495,7 +561,7 @@ const Clearance = () => {
                     style={{ width: '100%' }}
                   />
                 </div>
-                <div className="item">
+                <div className="pwa-item">
                   <Button
                     variant="contained"
                     size="large"
@@ -504,11 +570,11 @@ const Clearance = () => {
                     sx={{
                       width: "100%",
                       height: "100%",
-                      backgroundColor: calculateEnabled ? '#1D469E' : '#D3D3D3', 
+                      backgroundColor: calculateEnabled ? '#003EAB' : '#D3D3D3', 
                       '&:hover': {
-                        backgroundColor: calculateEnabled ? '#173880' : '#1D469E', 
+                        backgroundColor: calculateEnabled ? '#00328A' : '#1D469E', 
                       },
-                      }}
+                    }}
                   >
                     {state === "INPUT" ? 'Calculate' : 'Reset'}
                   </Button>
@@ -516,13 +582,13 @@ const Clearance = () => {
               </div>
             </div>
           </div>
-          <div className={`result-container ${isClearanceGreater === true ? 'okay' : 'bad'} ${state === 'INPUT' ? 'disabled' : ''}`}>
-            <h2 className="calculations"> 
+          <div className={`pwa-result-container ${isClearanceGreater === true ? 'okay' : 'bad'} ${state === 'INPUT' ? 'disabled' : ''}`}>
+            <h2 className="pwa-calculations"> 
               Calculated Values and Results
             </h2>
             <div id="container">
-              <div className="inner-container">
-                <div className="calculated-item">
+              <div className="pwa-inner-container">
+                <div className="pwa-calculated-item">
                   <TextField
                     label="Radius"
                     type="number"
@@ -540,7 +606,7 @@ const Clearance = () => {
                     readOnly
                   />
                 </div>
-                <div className="calculated-item">
+                <div className="pwa-calculated-item">
                   <TextField
                     label="Super Elev. Excess"
                     type="number"
@@ -557,7 +623,7 @@ const Clearance = () => {
                     readOnly
                   />
                 </div>
-                <div className="calculated-item">
+                <div className="pwa-calculated-item">
                   <TextField
                     label="End Excess"
                     type="number"
@@ -575,7 +641,7 @@ const Clearance = () => {
                     readOnly
                   />
                 </div>
-                <div className="calculated-item">
+                <div className="pwa-calculated-item">
                   <TextField
                     label="Center Excess"
                     type="number"
@@ -596,8 +662,8 @@ const Clearance = () => {
               </div>
             </div>
             <div id="container">
-              <div className="inner-container">
-                <div className="calculated-item">
+              <div className="pwa-inner-container">
+                <div className="pwa-calculated-item">
                   <TextField
                     label="LLLE (without Excess)"
                     type="number"
@@ -614,7 +680,7 @@ const Clearance = () => {
                     readOnly
                   />
                 </div>
-                <div className="calculated-item">
+                <div className="pwa-calculated-item">
                   <TextField
                     label="LLLE (with Excess)"
                     type="number"
@@ -631,7 +697,7 @@ const Clearance = () => {
                     readOnly
                   />
                 </div>
-                <div className="calculated-item">
+                <div className="pwa-calculated-item">
                   <TextField
                     label="Calculated Clearance"
                     type="number"

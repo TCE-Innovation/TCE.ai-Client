@@ -1,10 +1,9 @@
 body {
   padding-top: constant(safe-area-inset-top); /* iOS 11.2+ */
   padding-top: env(safe-area-inset-top); /* iOS 11.0-11.1 */
-  background-color: #F1FFFF; /* Set your background color */
 }
 
-.mobile-warning-popup {
+.pwa-mobile-warning-popup {
   position: fixed;
   top: 50%;
   left: 50%;
@@ -16,11 +15,11 @@ body {
   z-index: 1000;
 }
 
-.popup-content {
+.pwa-popup-content {
   text-align: center;
 }
 
-.calculator-container {
+.pwa-calculator-container {
   margin: auto; /* Centers the div horizontally */
   display: flex;
   flex-direction: column;
@@ -30,7 +29,7 @@ body {
   height: 100%; 
 }
 
-.result-container {
+.pwa-result-container {
   padding-left: 15px;
   padding-right: 15px;
   margin-top: 10px;
@@ -46,21 +45,21 @@ body {
   flex-wrap: wrap;
 }
 
-.result-container.okay{
+.pwa-result-container.okay{
   background-color: rgb(221, 255, 221); /* Green background for greater clearance */
 }
 
-.result-container.bad{
+.pwa-result-container.bad{
   background-color: rgb(255, 217, 217); /* Red background for lesser clearance */
 }
 
-.result-container.disabled{
+.pwa-result-container.disabled{
   background-color: #f0f0f0;
   pointer-events: none;
   opacity: 0.4;
 }
 
-.input-container {
+.pwa-input-container {
   padding-left: 15px;
   padding-right: 15px;
   border: 1px solid #ccc;
@@ -75,21 +74,21 @@ body {
   background-color: transparent;
 }
 
-.input-container.disabled input, 
-.input-container.disabled select {
+.pwa-input-container.disabled input, 
+.pwa-input-container.disabled select {
   background-color: #f0f0f0;
   color: #999;
 }
 
-.section-container {
+.pwa-section-container {
   margin-bottom: 20px;
 }
 
-.section-container.results {
+.pwa-section-container.results {
   opacity: 0.5
 }
 
-.small-pill-selector {
+.pwa-small-pill-selector {
   width: calc(33% - 10px);
   display: flex;
   font-family: Arial, Helvetica, sans-serif;
@@ -105,11 +104,11 @@ body {
   width: calc(100%);
 }
 
-.small-pill-selector.results { 
+.pwa-small-pill-selector.results { 
   pointer-events: none;
 }
 
-.tab {
+.pwa-tab {
   flex-grow: 1;
   padding-top: 5px;
   padding-bottom: 5px;
@@ -120,31 +119,32 @@ body {
   z-index: 1;
 }
 
-.tab.active {
-  background-color: rgb(175, 175, 175);
+.pwa-tab.active {
+  background-color: rgb(86, 86, 86);
+  font-weight: 700;
   color: rgb(255, 255, 255);
 }
 
-.slider {
+.pwa-slider {
   position: absolute;
   top: 0;
   left: 0;
   width: 50%;
   height: 100%;
-  background-color: rgb(175, 175, 175);
+  background-color:rgb(86, 86, 86);
   z-index: 0;
   transition: transform 0.3s ease;
 }
 
-.slide-left {
+.pwa-slide-left {
   transform: translateX(0%);
 }
 
-.slide-right {
+.pwa-slide-right {
   transform: translateX(100%);
 }
 
-.side-by-side {
+.pwa-side-by-side {
   display: flex;
   justify-content: space-between;
   flex-wrap: wrap; /* Pills vertically stacked */
@@ -152,21 +152,21 @@ body {
   align-items: center;
 }
 
-#container {
+#pwa-container {
   display: flex;
   justify-content: center;
   align-items: center;
   height: 100%; 
 }
 
-.inner-container {
+.pwa-inner-container {
   display: flex;
   width: 100%; 
   flex-wrap: wrap; /* Input boxes and results stacked */
   justify-content: space-around;
 }
 
-.item {
+.pwa-item {
   flex: 1;
   text-align: center;
   padding-left: 5px;
@@ -177,11 +177,11 @@ body {
   padding-bottom: 10px;
 }
 
-.item.results{
+.pwa-item.results{
   opacity: 0.5;
 }
 
-.calculated-item {
+.pwa-calculated-item {
   flex: 1;
   text-align: center;
   padding-left: 5px;
@@ -192,10 +192,8 @@ body {
   box-sizing: border-box;
 }
 
-.calculations {
+.pwa-calculations {
   text-align: center;
-  font-style: italic;
-  font-weight: 600;
   font-size: 1.25em;
   background-color: transparent;
   padding: 5px;
@@ -203,12 +201,12 @@ body {
   margin-bottom: 5px;
 }
 
-.result-container .inner-container,
-.result-container .inner-container {
+.pwa-result-container .pwa-inner-container,
+.pwa-result-container .pwa-inner-container {
   flex-wrap: wrap; /* Intermediate calculations and results items stacked */
 }
 
-.result-container .inner-container .calculated-item,
-.result-container .inner-container .calculated-item {
+.pwa-result-container .pwa-inner-container .pwa-calculated-item,
+.pwa-result-container .pwa-inner-container .pwa-calculated-item {
   width: calc(50% - 10px); /* Two items per row */
 }
