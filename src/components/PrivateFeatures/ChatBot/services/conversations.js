@@ -34,9 +34,9 @@ export const createConversation = async (projectId = 9) => {
   }
 };
 
-export const deleteConversation = async (conversationId) => {
+export const deleteConversation = async (conversationId, projectId = 9) => {
   const result = await client.remove(route, {
-    query: { conversation_id: conversationId },
+    query: { conversation_id: conversationId, project_id: projectId },
   });
   const { data, success, message } = result;
   if (success) {
@@ -55,10 +55,10 @@ export const deleteConversation = async (conversationId) => {
 };
 
 export const editConversation = async (params) => {
-  const { conversationId, name } = params;
+  const { conversationId, name, projectId = 9 } = params;
   const { data, success, message } = await client.update(route, {
     data: { name },
-    query: { conversation_id: conversationId },
+    query: { conversation_id: conversationId, project_id: projectId },
   });
   if (success) {
     const { success: successMessage } = data;
