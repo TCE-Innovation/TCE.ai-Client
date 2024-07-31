@@ -302,41 +302,38 @@ const CRO = () => {
                     <div>
                     <Accordion expanded={expanded === 'panel1'} onChange={handleChange('panel1')}>
                         <AccordionSummary aria-controls="panel1d-content" id="panel1d-header">
-                        <Typography>How does the logic work for creating conduits?</Typography>
+                        <Typography>How do I differente between separate rows of conduits entering the same side of a pull box?</Typography>
                         </AccordionSummary>
                         <AccordionDetails>
                         <Typography>
-                            Cables are added to conduit until the maximum fill of 40% for regular runs 
-                            or 35% for high bend runs is reached.
-                            If a potential cable wouldn't fit a conduit, all smaller cables are tested to
-                            see if they would fit. If no cables can be added to a conduit, a new conduit is created.
+                            Add a row number after the label for the side that the conduit is entering or exiting the pull box. 
+                            For example, assume a pull box where six conduits will enter side A of a pull box. 
+                            Three conduits that are to share a row will be denoted as A1, and the other three conduits within their own row will be denoted as A2.
                         </Typography>
                         </AccordionDetails>
                     </Accordion>
                     <Accordion expanded={expanded === 'panel2'} onChange={handleChange('panel2')}>
                         <AccordionSummary aria-controls="panel2d-content" id="panel2d-header">
-                        <Typography>How does the logic work for creating messenger bundles?</Typography>
+                        <Typography>What type of pull boxes are supported by this tool?</Typography>
                         </AccordionSummary>
                         <AccordionDetails>
                         <Typography>
-                            Cables are added to bundle until the maximum bundle diameter of 6 inches or
-                            maximum bundle weight of 20 lb/ft is reached.
-                            If a potential cable wouldn't fit a bundle, all smaller cables are tested to
-                            see if they would fit. If no cables can be added to a bundle, a new bundle is created.
+                            Straight and angle pulls
                         </Typography>
                         </AccordionDetails>
                     </Accordion>
-                    <Accordion expanded={expanded === 'panel3'} onChange={handleChange('panel3')}>
+                     <Accordion expanded={expanded === 'panel3'} onChange={handleChange('panel3')}>
                         <AccordionSummary aria-controls="panel3d-content" id="panel3d-header">
-                        <Typography>What information is relevant for cable sizes?</Typography>
+                        <Typography>Can this tool size multiple pull boxes within an Excel sheet?</Typography>
                         </AccordionSummary>
                         <AccordionDetails>
                         <Typography>
-                            For conduit, the diameter is used. For messenger bundles, the diameter and weight is used.
+                            Yes, to do so you can have a separate "Pull Box" columnn 
+                            with pull box labels/numbers to assign conduits to specific pull boxes.
                         </Typography>
                         </AccordionDetails>
                     </Accordion>
-                    <Accordion expanded={expanded === 'panel4'} onChange={handleChange('panel4')}>
+                    {/*<Accordion expanded={expanded === 'panel4'} onChange={handleChange('panel4')}>
                     <AccordionSummary aria-controls="panel4d-content" id="panel4d-header">
                     <Typography>How is the diameter of messenger bundles calculated?</Typography>
                     </AccordionSummary>
@@ -389,7 +386,7 @@ const CRO = () => {
                                 </ul>
                             </Typography>
                         </AccordionDetails>
-                    </Accordion>
+                    </Accordion> */}
                     {/* <Accordion expanded={expanded === 'panel7'} onChange={handleChange('panel7')}>
                         <AccordionSummary aria-controls="panel7d-content" id="panel7d-header">
                             <Typography>Accordion 7</Typography>
@@ -423,116 +420,7 @@ const CRO = () => {
 
                 {/* Box to set direction to row for Run Type Selection 
                 and Cable Size Selection to be stacked horizontally */}
-                <Box
-                    sx={{
-                        display: 'flex',
-                        flexDirection: 'row',
-                        alignItems: 'center',
-                        justifyContent: 'flex-start',
-                        marginBottom: 4,
-                        backgroundColor: 'transparent',
-                    }}
-                >   
-                    {/* Run Type Selection box */}
-                    <div className="rounded-rectangle-1">
-                        <div className="title">Select Run Type</div>
-                        <FormControl>
-                            <RadioGroup
-                                row
-                                aria-labelledby="select-cable-run-type"
-                                name="conduit-messenger-selection"
-                                value={runType}
-                                onChange={handleRunTypeChange}
-                                style={{ marginLeft: '40px' }}
-                            >
-                                {/* Radio Buttons to Selects Run Type */}
-                                <FormControlLabel value="Conduit" control={<Radio />} label="Conduit" />
-                                <FormControlLabel value="Messenger" control={<Radio />} label="Messenger Bundle" />
-                            </RadioGroup>
-                        </FormControl>
-
-                        {/* Show slider if Conduit radio button selected */}
-                        <div style={{ marginTop: '20px', marginLeft: '12px' }}>
-                            <RangeSlider value={conduitSizeRange} setValue={setConduitSizeRange} disabled={runType !== 'Conduit'} />
-                        </div>
-                    </div>
-                                    
-                    {/* Cable Size Selection box */}
-                    <div className="rounded-rectangle-1">
-                        <div className="title">Choose Cable Sizes</div>
-                        <Tooltip title={
-                            <Typography noWrap={false}>
-                                If you are using custom cable sizes, then you must {" "}  
-                                 <Link 
-                                    href="https://tceaiblob.blob.core.windows.net/cro/Cable%20Sizes.xlsx?sp=r&st=2024-05-03T15:21:21Z&se=2050-05-03T23:21:21Z&sv=2022-11-02&sr=b&sig=mFQQaFmy2Hz%2Bppt0s1zrJjbQlfzZpz1BVqiTRMw5wvw%3D" // Set the URL here
-                                    style={{ color: 'blue', textDecoration: 'underline', cursor: 'pointer' }}
-                                    target="_blank"
-                                    rel="noopener noreferrer"
-                                >
-                                     download the default cables sizes Excel
-                                </Link>
-                                {" "}and edit the cable sizes to match your project.
-                            </Typography>
-                        } arrow sx={{ fontSize: '2.5em' }}>
-                            <InfoOutlinedIcon style={{ position: 'relative', top: -40, left: 330 }} />
-                        </Tooltip>
-                        <FormControl style={{ marginTop: '10px', marginLeft: '-30px', marginBottom: '20px' }}>
-                            <RadioGroup
-                                row
-                                aria-labelledby="select-cable-sizes"
-                                name="cable-size-selection"
-                                value={cableSizes}
-                                onChange={handleCableSizesChange}
-                                style={{ marginLeft: '60px' }}
-                            >
-                                <FormControlLabel
-                                    value="standard"
-                                    control={<Radio />}
-                                    label={
-                                        <>
-                                            Use{' '}
-                                            <Link
-                                                href="https://judlauent.sharepoint.com/:x:/s/TCEInnovation/EURdOokWyJJHlbIbEP30nAABJkBs5a53xp3VMeFYUtVtrg?e=ediMR2" // Set the URL here
-                                                style={{ color: 'blue', textDecoration: 'underline', cursor: 'pointer' }}
-                                                target="_blank"
-                                                rel="noopener noreferrer"
-                                            >
-                                                default cable sizes
-                                            </Link>
-                                        </>
-                                    }
-                                />
-                                {/* <FormControlLabel value="custom" control={<Radio />} label="Upload custom cable sizes" /> */}
-                            </RadioGroup>
-                        </FormControl>
-                        
-                            <>
-                                <label htmlFor="cableSizesInput">
-                                    <Button
-                                        variant="contained"
-                                        startIcon={<Upload />}
-                                        style={{ marginTop: '8px', marginLeft: '45px' }}
-                                        onClick={() => {
-                                            document.getElementById('cableSizesInput').click();
-                                        }}
-                                    >
-                                        Upload Custom Cable Sizes
-                                    </Button>
-                                </label>
-                                <input
-                                    type="file"
-                                    id="cableSizesInput"
-                                    accept=".xlsx, .xls"
-                                    style={{ display: 'none' }}
-                                    onChange={(e) => {
-                                        setCableSizes('custom');         // Set cableSizes to 'custom'
-                                        setCableSizes(e.target.files[0]) // Call a function to handle the file upload
-                                    }}
-                                />
-                            </>
-                        
-                    </div>
-                </Box>
+                
 
                 {/* Upload Pull Sheet box. 
                 Wider than previous boxes*/}
@@ -541,9 +429,8 @@ const CRO = () => {
                     <div class="title">Upload Pull Sheet</div>
 
                     <Tooltip title={
-                            <Typography component="div" style={{ minWidth: '300px' }}>
-                                Input your cables within the pull sheet template to be read properly by the tool
-                                                    
+                            <Typography component="div" style={{ maxWidth: '280px' }}>
+                                In order for the tool to work properly, download and use the template                                                    
                             </Typography>
                         } arrow sx={{ fontSize: '2.5em' }}>
                             <InfoOutlinedIcon style={{ position: 'relative', top: -45, left: 810 }} />
