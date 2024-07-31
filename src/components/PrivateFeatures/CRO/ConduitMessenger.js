@@ -53,7 +53,7 @@ import { styled } from '@mui/material/styles';
 // import MuiAccordionDetails from '@mui/material/AccordionDetails';
 
 import RangeSlider from "./Slider"
-import './ConduitMessenger.css';
+import './CRO.css';
 
 const BootstrapDialog = styled(Dialog)(({ theme }) => ({
     '& .MuiDialog-paper': {
@@ -92,7 +92,7 @@ const CRO = () => {
       setOpen(false);
     };
 
-    const [expanded, setExpanded] = React.useState('panel1');
+    const [expanded, setExpanded] = React.useState('');
   
     const handleChange = (panel) => (event, newExpanded) => {
         setExpanded(newExpanded ? panel : false);
@@ -254,8 +254,9 @@ const CRO = () => {
                     
                     style={{ 
                         paddingBottom: '10px', 
-                        marginLeft: '350px', // Increase marginLeft from 250px to 300px
-                        marginRight: '25px'
+                        marginLeft: '400px', // Increase marginLeft from 250px to 300px
+                        marginRight: '25px',
+                        whitespace: 'nowrap'
                     }}
                 >
                     The Cable Run Optimizer generates conduit or messenger bundle cable runs.
@@ -301,70 +302,9 @@ const CRO = () => {
                     </IconButton> */}
                     <DialogContent dividers>
                     <div>
-                    <Accordion expanded={expanded === 'panel1'} onChange={handleChange('panel1')}>
-                        <AccordionSummary aria-controls="panel1d-content" id="panel1d-header">
-                        <Typography>How does the logic work for creating conduits?</Typography>
-                        </AccordionSummary>
-                        <AccordionDetails>
-                        <Typography>
-                            Cables are added to conduit until the maximum fill of 40% for regular runs 
-                            or 35% for high bend runs is reached.
-                            If a potential cable wouldn't fit a conduit, all smaller cables are tested to
-                            see if they would fit. If no cables can be added to a conduit, a new conduit is created.
-                        </Typography>
-                        </AccordionDetails>
-                    </Accordion>
-                    <Accordion expanded={expanded === 'panel2'} onChange={handleChange('panel2')}>
-                        <AccordionSummary aria-controls="panel2d-content" id="panel2d-header">
-                        <Typography>How does the logic work for creating messenger bundles?</Typography>
-                        </AccordionSummary>
-                        <AccordionDetails>
-                        <Typography>
-                            Cables are added to bundle until the maximum bundle diameter of 6 inches or
-                            maximum bundle weight of 20 lb/ft is reached.
-                            If a potential cable wouldn't fit a bundle, all smaller cables are tested to
-                            see if they would fit. If no cables can be added to a bundle, a new bundle is created.
-                        </Typography>
-                        </AccordionDetails>
-                    </Accordion>
-                    <Accordion expanded={expanded === 'panel3'} onChange={handleChange('panel3')}>
-                        <AccordionSummary aria-controls="panel3d-content" id="panel3d-header">
-                        <Typography>What information is relevant for cable sizes?</Typography>
-                        </AccordionSummary>
-                        <AccordionDetails>
-                        <Typography>
-                            For conduit, the diameter is used. For messenger bundles, the diameter and weight is used.
-                        </Typography>
-                        </AccordionDetails>
-                    </Accordion>
-                    <Accordion expanded={expanded === 'panel4'} onChange={handleChange('panel4')}>
-                    <AccordionSummary aria-controls="panel4d-content" id="panel4d-header">
-                    <Typography>How is the diameter of messenger bundles calculated?</Typography>
-                    </AccordionSummary>
-                    <AccordionDetails>
-                    <Typography>
-                        The diameter calculation is a rough approximation. 
-                        The outermost cable that is placed within the bundle is used to dicatate 
-                        the diameter approximation of the bundle. So if the outermost cable in a bundle 
-                        is placed two inches away from the center, and its radius is 0.5 inches so the outermost distance 
-                        of a cable from the center is 2.5 inches, then the diameter is said to be about 5 inches.
-                    </Typography>
-                    </AccordionDetails>
-                    </Accordion>
-                    <Accordion expanded={expanded === 'panel5'} onChange={handleChange('panel5')}>
-                        <AccordionSummary aria-controls="panel5d-content" id="panel5d-header">
-                            <Typography>How would I get a cable to be put at the bottom of the bundle?</Typography>
-                        </AccordionSummary>
-                        <AccordionDetails>
-                            <Typography>
-                            Within your pull sheet, you can add a column called "Bottom/Top of Bundle" and
-                            set the value to "Bottom" for the cable you want to be placed at the bottom of the bundle.
-                            </Typography>
-                        </AccordionDetails>
-                    </Accordion>
                     <Accordion expanded={expanded === 'panel6'} onChange={handleChange('panel6')}>
                         <AccordionSummary aria-controls="panel6d-content" id="panel6d-header">
-                            <Typography>What are the formatting requirements for the cable pull sheet?</Typography>
+                            <Typography style={{ fontWeight: 'bold' }}>What are the formatting requirements for the cable pull sheet?</Typography>
                         </AccordionSummary>
                         <AccordionDetails>
                             <Typography>
@@ -391,6 +331,73 @@ const CRO = () => {
                             </Typography>
                         </AccordionDetails>
                     </Accordion>
+
+                    <Accordion expanded={expanded === 'panel1'} onChange={handleChange('panel1')}>
+                        <AccordionSummary aria-controls="panel1d-content" id="panel1d-header">
+                        <Typography style={{ fontWeight: 'bold' }}>How does the logic work for creating conduits?</Typography>
+                        </AccordionSummary>
+                        <AccordionDetails>
+                        <Typography>
+                            Cables are added to conduit until the maximum fill of 40% for regular runs 
+                            or 35% for high bend runs is reached.
+                            If a potential cable wouldn't fit a conduit, all smaller cables are tested to
+                            see if they would fit. If no cables can be added to a conduit, a new conduit is created.
+                        </Typography>
+                        </AccordionDetails>
+                    </Accordion>
+
+                    <Accordion expanded={expanded === 'panel2'} onChange={handleChange('panel2')}>
+                        <AccordionSummary aria-controls="panel2d-content" id="panel2d-header">
+                        <Typography style={{ fontWeight: 'bold' }}>How does the logic work for creating messenger bundles?</Typography>
+                        </AccordionSummary>
+                        <AccordionDetails>
+                        <Typography>
+                            Cables are added to bundle until the maximum bundle diameter of 6 inches or
+                            maximum bundle weight of 20 lb/ft is reached.
+                            If a potential cable wouldn't fit a bundle, all smaller cables are tested to
+                            see if they would fit. If no cables can be added to a bundle, a new bundle is created.
+                        </Typography>
+                        </AccordionDetails>
+                    </Accordion>
+
+                    <Accordion expanded={expanded === 'panel3'} onChange={handleChange('panel3')}>
+                        <AccordionSummary aria-controls="panel3d-content" id="panel3d-header">
+                        <Typography style={{ fontWeight: 'bold' }}>What information is relevant for cable sizes?</Typography>
+                        </AccordionSummary>
+                        <AccordionDetails>
+                        <Typography>
+                            For conduit, the diameter is used. For messenger bundles, the diameter and weight is used.
+                        </Typography>
+                        </AccordionDetails>
+                    </Accordion>
+                    
+                    <Accordion expanded={expanded === 'panel4'} onChange={handleChange('panel4')}>
+                    <AccordionSummary aria-controls="panel4d-content" id="panel4d-header">
+                    <Typography style={{ fontWeight: 'bold' }}>How is the diameter of messenger bundles calculated?</Typography>
+                    </AccordionSummary>
+                    <AccordionDetails>
+                    <Typography>
+                        The diameter calculation is a rough approximation. 
+                        The outermost cable that is placed within the bundle is used to dicatate 
+                        the diameter approximation of the bundle. So if the outermost cable in a bundle 
+                        is placed two inches away from the center, and its radius is 0.5 inches so the outermost distance 
+                        of a cable from the center is 2.5 inches, then the diameter is said to be about 5 inches.
+                    </Typography>
+                    </AccordionDetails>
+                    </Accordion>
+
+                    <Accordion expanded={expanded === 'panel5'} onChange={handleChange('panel5')} >
+                        <AccordionSummary aria-controls="panel5d-content" id="panel5d-header">
+                            <Typography style={{ fontWeight: 'bold' }}>How would I get a cable to be put at the bottom of the bundle?</Typography>
+                        </AccordionSummary>
+                        <AccordionDetails>
+                            <Typography>
+                            Within your pull sheet, you can add a column called "Bottom/Top of Bundle" and
+                            set the value to "Bottom" for the cable you want to be placed at the bottom of the bundle.
+                            </Typography>
+                        </AccordionDetails>
+                    </Accordion>
+                    
                     {/* <Accordion expanded={expanded === 'panel7'} onChange={handleChange('panel7')}>
                         <AccordionSummary aria-controls="panel7d-content" id="panel7d-header">
                             <Typography>Accordion 7</Typography>
@@ -430,11 +437,11 @@ const CRO = () => {
                         flexDirection: 'row',
                         alignItems: 'center',
                         justifyContent: 'flex-start',
-                        marginBottom: 4,
+                        marginBottom: '10px',
                         marginTop: "10px",
                         backgroundColor: 'transparent',
                     }}
-                >   
+                    >   
                     {/* Run Type Selection box */}
                     <div className="rounded-rectangle-1">
                         <div className="title">Select Run Type</div>
@@ -586,17 +593,15 @@ const CRO = () => {
                     />
                         
                 </div>
-                
-                
-
+                                
                 {/* GENERATE CABLE RUN Box */}
-                <div style={{ margin: '20px' }}></div>
+                <div style={{ margin: '10px' }}></div>
                 <div className={isBoxExpanded ? 'rounded-rectangle-2-expanded' : 'rounded-rectangle-2'}></div>
 
                 <Button
                     variant="contained"
                     color="success"
-                    style={{ marginTop: isBoxExpanded ? '-180px' : '-95px', marginLeft: '0px', marginBottom: '10px', width: '325px' }}
+                    style={{ marginTop: isBoxExpanded ? '-180px' : '-95px', marginLeft: '0px', marginBottom: '30px', width: '325px' }}
                     size="large"
                     onClick={() => {
                         setIsBoxExpanded(true); // Expand the box
@@ -617,7 +622,7 @@ const CRO = () => {
                             Optimizing...
                         </Typography>
                     </>
-                ) : (
+                    ) : (
                     <>
                         
                         {responses[0] && (
@@ -668,6 +673,11 @@ const CRO = () => {
                 {/* </div> */}
 
                 
+            </Box>
+
+            <Box sx={{ marginBottom: '20px' }}>
+
+
             </Box>
         </Box>
     );

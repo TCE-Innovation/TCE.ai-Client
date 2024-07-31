@@ -52,14 +52,11 @@ import { styled } from '@mui/material/styles';
 // } from '@mui/material/AccordionSummary';
 // import MuiAccordionDetails from '@mui/material/AccordionDetails';
 
-import RangeSlider from "./Slider"
-import './ConduitMessenger.css';
-
 const BootstrapDialog = styled(Dialog)(({ theme }) => ({
     '& .MuiDialog-paper': {
         // width: '200vw',
         // height: '150vh',
-        maxWidth: '60%', // 80% of viewport width
+        maxWidth: '60%',
         height: '75vh'
     },
     '& .MuiDialogContent-root': {
@@ -73,16 +70,10 @@ const BootstrapDialog = styled(Dialog)(({ theme }) => ({
 
 const CRO = () => {
     const [pullsheet, setPullsheet] = useState('');
-    const [cableSizes, setCableSizes] = useState('standard');
     const [responses, setResponses] = useState('');
     const [loading, setLoading] = useState(false);
     const [error, setError] = useState('');
-    // const [showCableSizeSheet, setShowCableSizeSheet] = useState(false);
-    // const [runType, setRunType] = useState('');
-    const [conduitSizeRange, setConduitSizeRange] = useState([0.75, 4]);
-    // const [areResponsesRendered, setAreResponsesRendered] = useState(false);
     const [isBoxExpanded, setIsBoxExpanded] = useState(false);
-
     const [open, setOpen] = React.useState(false);
 
     const handleClickOpen = () => {
@@ -92,45 +83,18 @@ const CRO = () => {
       setOpen(false);
     };
 
-    const [expanded, setExpanded] = React.useState('panel1');
+    const [expanded, setExpanded] = React.useState('');
   
     const handleChange = (panel) => (event, newExpanded) => {
         setExpanded(newExpanded ? panel : false);
     };
       
-    
-
-    // Pass the state and the setter function as props to the Slider component
-    <RangeSlider value={conduitSizeRange} setValue={setConduitSizeRange} />
-
-    // const handleRunTypeChange = (event) => {
-    //     setRunType(event.target.value);
-    //   };
-
-    // const handleCableSizesChange = (event) => {
-    //     setCableSizes(event.target.value);
-    // };
-
-    // const handleFAQClickOpen = () => {
-    //     openFAQ(true);
-    // };
-
-    // const handleFAQClickClose = () => {
-    //     openFAQ(false);
-    // };
 
     const cro = async () => {
         if (!pullsheet) {
             setError('Pull Sheet excel file must be provided.');
             return;
         }
-
-        //allowing no cable size sheet to be passed, if none then use standard cable sizes
-        if (!cableSizes) {
-            setCableSizes('standard');
-        }
-        setLoading(true);
-        setError('');
         
         // Append user info to FormData to be sent to backend
         const formData = new FormData();    
@@ -142,35 +106,6 @@ const CRO = () => {
         catch (error) {
             console.log("PULLSHEET:",error)
             setError('Failed to read pull sheet.');
-        }
-
-        // try{
-        //     // This may be a file or the string 'standard'
-        //     formData.append('cableSizes', cableSizes);
-        // }
-        // catch (error) {
-        //     console.log("CABLESIZES:",error)
-        //     setError('Failed to read cable sizes.');
-        // }
-
-        // try{
-        //     // This will be a string
-        //     formData.append('runType', runType)
-        // }
-        // catch (error) {
-        //     console.log("RUNTYPE:",error)
-        //     setError('Failed to read run type.');
-        // }
-
-        try{
-            // conduitSizeRange is an array, first index is the lower value
-            formData.append('conduitSizeRangeLower', conduitSizeRange[0])
-            formData.append('conduitSizeRangeHigher', conduitSizeRange[1])
-            
-        }
-        catch (error) {
-            console.log("CONDUIT_RANGE:",error)
-            setError('Failed to read conduit size range.');
         }
 
         try{
@@ -254,7 +189,7 @@ const CRO = () => {
                     
                     style={{ 
                         paddingBottom: '10px', 
-                        marginLeft: '350px' // Increase marginLeft from 250px to 300px
+                        marginLeft: '400px', // Increase marginLeft from 250px to 300px
                     }}
                 >
                     The Pull Box Sizer generates pull box dimensions based on an input conduit list.
@@ -283,6 +218,12 @@ const CRO = () => {
                     onClose={handleClose}
                     aria-labelledby="customized-dialog-title"
                     open={open}
+                    sx={{
+                        '& .MuiPaper-root': {
+                            maxHeight: '500px', // Adjust as needed
+                            overflow: 'auto',
+                        },
+                    }}
                 >
                     <DialogTitle style={{ textAlign: 'center' }}>Frequently Asked Questions</DialogTitle>
 
@@ -302,7 +243,7 @@ const CRO = () => {
                     <div>
                     <Accordion expanded={expanded === 'panel1'} onChange={handleChange('panel1')}>
                         <AccordionSummary aria-controls="panel1d-content" id="panel1d-header">
-                        <Typography>How do I differente between separate rows of conduits entering the same side of a pull box?</Typography>
+                        <Typography style={{ fontWeight: 'bold' }}>How do I differentiate between separate rows of conduits entering the same side of a pull box?</Typography>
                         </AccordionSummary>
                         <AccordionDetails>
                         <Typography>
@@ -312,9 +253,10 @@ const CRO = () => {
                         </Typography>
                         </AccordionDetails>
                     </Accordion>
+
                     <Accordion expanded={expanded === 'panel2'} onChange={handleChange('panel2')}>
                         <AccordionSummary aria-controls="panel2d-content" id="panel2d-header">
-                        <Typography>What type of pull boxes are supported by this tool?</Typography>
+                        <Typography style={{ fontWeight: 'bold' }}>What type of pull boxes are supported by this tool?</Typography>
                         </AccordionSummary>
                         <AccordionDetails>
                         <Typography>
@@ -322,9 +264,10 @@ const CRO = () => {
                         </Typography>
                         </AccordionDetails>
                     </Accordion>
+
                      <Accordion expanded={expanded === 'panel3'} onChange={handleChange('panel3')}>
                         <AccordionSummary aria-controls="panel3d-content" id="panel3d-header">
-                        <Typography>Can this tool size multiple pull boxes within an Excel sheet?</Typography>
+                        <Typography style={{ fontWeight: 'bold' }}>Can this tool size multiple pull boxes within an Excel sheet?</Typography>
                         </AccordionSummary>
                         <AccordionDetails>
                         <Typography>
@@ -387,26 +330,7 @@ const CRO = () => {
                             </Typography>
                         </AccordionDetails>
                     </Accordion> */}
-                    {/* <Accordion expanded={expanded === 'panel7'} onChange={handleChange('panel7')}>
-                        <AccordionSummary aria-controls="panel7d-content" id="panel7d-header">
-                            <Typography>Accordion 7</Typography>
-                        </AccordionSummary>
-                        <AccordionDetails>
-                            <Typography>
-                                Content for Accordion 7
-                            </Typography>
-                        </AccordionDetails>
-                    </Accordion>
-                    <Accordion expanded={expanded === 'panel8'} onChange={handleChange('panel8')}>
-                        <AccordionSummary aria-controls="panel8d-content" id="panel8d-header">
-                            <Typography>Accordion 8</Typography>
-                        </AccordionSummary>
-                        <AccordionDetails>
-                            <Typography>
-                                Content for Accordion 8
-                            </Typography>
-                        </AccordionDetails>
-                    </Accordion> */}
+         
                     </div>
                     </DialogContent>
                     <DialogActions>
@@ -436,6 +360,7 @@ const CRO = () => {
                                 style={{ color: 'blue', textDecoration: 'underline', cursor: 'pointer' }}
                                 target="_blank"
                                 rel="noopener noreferrer"
+                                // link through generating SAS 
                             >
                                 download
                             </Link>
@@ -491,7 +416,7 @@ const CRO = () => {
                 <Button
                     variant="contained"
                     color="success"
-                    style={{ marginTop: isBoxExpanded ? '-180px' : '-95px', marginLeft: '0px', marginBottom: '10px', width: '325px' }}
+                    style={{ marginTop: isBoxExpanded ? '-180px' : '-95px', marginLeft: '0px', marginBottom: '30px', width: '325px' }}
                     size="large"
                     onClick={() => {
                         setIsBoxExpanded(true); // Expand the box
@@ -564,7 +489,11 @@ const CRO = () => {
 
                 
             </Box>
+
+            <Box sx={{ marginBottom: '40px' }}></Box>
         </Box>
+
+        
     );
 };
 
