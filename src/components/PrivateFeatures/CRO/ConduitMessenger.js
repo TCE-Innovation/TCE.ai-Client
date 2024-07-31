@@ -461,7 +461,7 @@ const CRO = () => {
                         </FormControl>
 
                         {/* Show slider if Conduit radio button selected */}
-                        <div style={{ marginTop: '20px', marginLeft: '12px' }}>
+                        <div style={{ marginTop: '20px', marginLeft: '25px' }}>
                             <RangeSlider value={conduitSizeRange} setValue={setConduitSizeRange} disabled={runType !== 'Conduit'} />
                         </div>
                     </div>
@@ -520,7 +520,7 @@ const CRO = () => {
                                     <Button
                                         variant="contained"
                                         startIcon={<Upload />}
-                                        style={{ marginTop: '8px', marginLeft: '45px' }}
+                                        style={{ marginTop: '8px', marginLeft: '50px' }}
                                         onClick={() => {
                                             document.getElementById('cableSizesInput').click();
                                         }}
