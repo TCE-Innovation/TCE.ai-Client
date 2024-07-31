@@ -266,7 +266,13 @@ const CRO = () => {
                 <Button
                     variant="contained"
                     startIcon={<QuizIcon />}
-                    style={{ marginLeft: '290px', marginTop: '-px', backgroundColor: '#8B5A73'}}
+                    style={{ 
+                        marginLeft: '290px', 
+                        marginTop: '-px', 
+                        backgroundColor: '#8B5A73',
+                        width: '110px', // Set the fixed width
+                        height: '42px', // Set the fixed height
+                    }}
                     onClick={handleClickOpen}
                 >
                     FAQ
