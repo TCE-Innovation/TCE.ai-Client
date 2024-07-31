@@ -251,10 +251,11 @@ const CRO = () => {
                 <Typography
                     variant="body2"
                     fontSize="20px"
-                    align="center"
+                    
                     style={{ 
                         paddingBottom: '10px', 
-                        marginLeft: '350px' // Increase marginLeft from 250px to 300px
+                        marginLeft: '350px', // Increase marginLeft from 250px to 300px
+                        marginRight: '25px'
                     }}
                 >
                     The Cable Run Optimizer is for generating conduit or messenger bundle cable runs.

@@ -251,13 +251,13 @@ const CRO = () => {
                 <Typography
                     variant="body2"
                     fontSize="20px"
-                    align="center"
+                    
                     style={{ 
                         paddingBottom: '10px', 
                         marginLeft: '350px' // Increase marginLeft from 250px to 300px
                     }}
                 >
-                    The cCable Run Optimizer is for generating conduit or messenger bundle cable runs.
+                    The Pull Box Sizer is for generating pull box dimensions based on an input conduit list.
                 </Typography>
 
 
