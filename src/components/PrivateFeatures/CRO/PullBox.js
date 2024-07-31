@@ -410,7 +410,7 @@ const CRO = () => {
                 
 
                 {/* GENERATE CABLE RUN Box */}
-                <div style={{ margin: '20px' }}></div>
+                <div style={{ margin: '10px' }}></div>
                 <div className={isBoxExpanded ? 'rounded-rectangle-2-expanded' : 'rounded-rectangle-2'}></div>
 
                 <Button
