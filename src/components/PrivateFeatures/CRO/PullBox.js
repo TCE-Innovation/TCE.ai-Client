@@ -10,10 +10,10 @@ import Button from '@mui/material/Button';
 import Typography from '@mui/material/Typography';
 import TrainLoader from '../../General/TrainLoader';
 // Radio buttons for selecting run type
-import Radio from '@mui/material/Radio';
-import RadioGroup from '@mui/material/RadioGroup';
-import FormControlLabel from '@mui/material/FormControlLabel';
-import FormControl from '@mui/material/FormControl';
+// import Radio from '@mui/material/Radio';
+// import RadioGroup from '@mui/material/RadioGroup';
+// import FormControlLabel from '@mui/material/FormControlLabel';
+// import FormControl from '@mui/material/FormControl';
 
 // Icons
 import Upload from '@mui/icons-material/Upload';
@@ -78,7 +78,7 @@ const CRO = () => {
     const [loading, setLoading] = useState(false);
     const [error, setError] = useState('');
     // const [showCableSizeSheet, setShowCableSizeSheet] = useState(false);
-    const [runType, setRunType] = useState('');
+    // const [runType, setRunType] = useState('');
     const [conduitSizeRange, setConduitSizeRange] = useState([0.75, 4]);
     // const [areResponsesRendered, setAreResponsesRendered] = useState(false);
     const [isBoxExpanded, setIsBoxExpanded] = useState(false);
@@ -103,13 +103,13 @@ const CRO = () => {
     // Pass the state and the setter function as props to the Slider component
     <RangeSlider value={conduitSizeRange} setValue={setConduitSizeRange} />
 
-    const handleRunTypeChange = (event) => {
-        setRunType(event.target.value);
-      };
+    // const handleRunTypeChange = (event) => {
+    //     setRunType(event.target.value);
+    //   };
 
-    const handleCableSizesChange = (event) => {
-        setCableSizes(event.target.value);
-    };
+    // const handleCableSizesChange = (event) => {
+    //     setCableSizes(event.target.value);
+    // };
 
     // const handleFAQClickOpen = () => {
     //     openFAQ(true);
@@ -144,23 +144,23 @@ const CRO = () => {
             setError('Failed to read pull sheet.');
         }
 
-        try{
-            // This may be a file or the string 'standard'
-            formData.append('cableSizes', cableSizes);
-        }
-        catch (error) {
-            console.log("CABLESIZES:",error)
-            setError('Failed to read cable sizes.');
-        }
+        // try{
+        //     // This may be a file or the string 'standard'
+        //     formData.append('cableSizes', cableSizes);
+        // }
+        // catch (error) {
+        //     console.log("CABLESIZES:",error)
+        //     setError('Failed to read cable sizes.');
+        // }
 
-        try{
-            // This will be a string
-            formData.append('runType', runType)
-        }
-        catch (error) {
-            console.log("RUNTYPE:",error)
-            setError('Failed to read run type.');
-        }
+        // try{
+        //     // This will be a string
+        //     formData.append('runType', runType)
+        // }
+        // catch (error) {
+        //     console.log("RUNTYPE:",error)
+        //     setError('Failed to read run type.');
+        // }
 
         try{
             // conduitSizeRange is an array, first index is the lower value
@@ -257,7 +257,7 @@ const CRO = () => {
                         marginLeft: '350px' // Increase marginLeft from 250px to 300px
                     }}
                 >
-                    The Pull Box Sizer is for generating pull box dimensions based on an input conduit list.
+                    The Pull Box Sizer generates pull box dimensions based on an input conduit list.
                 </Typography>
 
 
@@ -426,24 +426,34 @@ const CRO = () => {
                 Wider than previous boxes*/}
                 <div style={{ margin: '5px' }}></div>
                 <div class="rounded-rectangle-3">
-                    <div class="title">Upload Pull Sheet</div>
+                    <div class="title">Upload Conduit List</div>
 
                     <Tooltip title={
                             <Typography component="div" style={{ maxWidth: '280px' }}>
-                                In order for the tool to work properly, download and use the template                                                    
-                            </Typography>
+                            In order for the tool to work properly, {" "}
+                            <Link 
+                                href="https://tceaiblob.blob.core.windows.net/cro/Conduit%20List%20TEMPLATE.xlsx?sp=r&st=2024-07-31T18:31:08Z&se=2030-01-02T03:31:08Z&spr=https&sv=2022-11-02&sr=b&sig=7ndgvoRAPmJEmuq7xJZb73GoYOhDf%2BNhUEYJIGgbZok%3D" // Set the URL here
+                                style={{ color: 'blue', textDecoration: 'underline', cursor: 'pointer' }}
+                                target="_blank"
+                                rel="noopener noreferrer"
+                            >
+                                download
+                            </Link>
+                            {" "}and use the template.
+                        </Typography>
+                        
                         } arrow sx={{ fontSize: '2.5em' }}>
                             <InfoOutlinedIcon style={{ position: 'relative', top: -45, left: 810 }} />
                     </Tooltip>
 
-                    <a href="https://tceaiblob.blob.core.windows.net/cro/Cable%20Pull%20Sheet%20Template.xlsx?sp=r&st=2024-05-03T13:54:51Z&se=2050-05-03T21:54:51Z&sv=2022-11-02&sr=b&sig=GMWzScbnQ0QHQHbAHgRC%2BCenfeBJxwucXY3eAE6fRCQ%3D">
+                    <a href="https://tceaiblob.blob.core.windows.net/cro/Conduit%20List%20TEMPLATE.xlsx?sp=r&st=2024-07-31T18:31:08Z&se=2030-01-02T03:31:08Z&spr=https&sv=2022-11-02&sr=b&sig=7ndgvoRAPmJEmuq7xJZb73GoYOhDf%2BNhUEYJIGgbZok%3D">
                         <Button
                             variant="contained"
                             startIcon={<Download />}
                             style={{ marginTop: '5px', marginLeft: '0px', width: '350px', backgroundColor: '#8B5A73'}}
                             size="large"
                         >
-                            Download Pull Sheet template
+                            Download Required template
                         </Button>
                     </a>
 
@@ -457,7 +467,7 @@ const CRO = () => {
                                 document.getElementById('pullsheetInput').click();
                             }}
                         >
-                            Upload Pull Sheet
+                            Upload Conduit List
                         </Button>
                     </label>
 
@@ -487,7 +497,7 @@ const CRO = () => {
                         setIsBoxExpanded(true); // Expand the box
                         cro();                  // Run the cro function
                     }}
-                    disabled={!(pullsheet && runType)}
+                    disabled={!(pullsheet)}
                 >
                     <Typography variant="h5">GENERATE</Typography>
                 </Button>

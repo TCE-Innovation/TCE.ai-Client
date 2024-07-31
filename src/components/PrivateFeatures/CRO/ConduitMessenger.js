@@ -258,7 +258,7 @@ const CRO = () => {
                         marginRight: '25px'
                     }}
                 >
-                    The Cable Run Optimizer is for generating conduit or messenger bundle cable runs.
+                    The Cable Run Optimizer generates conduit or messenger bundle cable runs.
                 </Typography>
 
 
@@ -431,6 +431,7 @@ const CRO = () => {
                         alignItems: 'center',
                         justifyContent: 'flex-start',
                         marginBottom: 4,
+                        marginTop: "10px",
                         backgroundColor: 'transparent',
                     }}
                 >   
