@@ -7,3 +7,4 @@ export { default as useGlobal } from "./useGlobal";
 export { default as useFeedback } from "./useFeedback";
 export { default as useOutsideClick } from "./useOutsideClick";
 export { default as useAuth } from "./useAuth";
+export { default as useQueryParam } from "./useQueryParam";

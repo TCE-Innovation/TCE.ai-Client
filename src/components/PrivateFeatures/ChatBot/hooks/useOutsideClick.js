@@ -6,7 +6,7 @@ const useOutsideClick = ({ onClickOutside }) => {
   useEffect(() => {
     const handler = (e) => {
       const currentTarget = e.target;
-      const isOutsideClick = currentTarget.contains(targetRef.current);
+      const isOutsideClick = !targetRef.current.contains(currentTarget);
       if (isOutsideClick) {
         onClickOutside?.();
       }
@@ -15,7 +15,7 @@ const useOutsideClick = ({ onClickOutside }) => {
     return () => {
       document.removeEventListener("click", handler);
     };
-  }, [onClickOutside]);
+  }, []);
 
   return {
     targetRef,

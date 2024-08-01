@@ -1,0 +1,48 @@
+import React from "react";
+
+import { Overlay, Modal } from "../../../../../common";
+
+import { useContext } from "../../../../../contexts/FormContext";
+
+import Form from "./Form";
+
+const AddDocument = ({ show, onClose }) => {
+  const { submitHandler } = useContext();
+  if (!show) return null;
+
+  const handleSubmit = (values) => {
+    const formdata = new FormData();
+    formdata.append("file", values.document);
+    formdata.append("project_id", values.projectId);
+    console.log(formdata);
+  };
+
+  return (
+    <Overlay>
+      <Modal
+        onCancel={onClose}
+        title="Add Document to Project Name"
+        buttonLabels={{
+          submit: "Add Document",
+        }}
+        onSubmit={submitHandler(handleSubmit)}
+        styles={{
+          submit: {
+            color: "white",
+            backgroundColor: "var(--chatbot-primary)",
+          },
+          cancel: {
+            color: "black",
+            backgroundColor: "transparent",
+          },
+        }}
+      >
+        <div className="projects-modal-wrapper">
+          <Form />
+        </div>
+      </Modal>
+    </Overlay>
+  );
+};
+
+export default AddDocument;

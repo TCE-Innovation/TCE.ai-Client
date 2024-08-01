@@ -2,6 +2,7 @@ import React, { useRef } from "react";
 
 import Conversation from "../Conversation/Conversation";
 import CreateConversation from "../CreateConversation";
+import AdminButton from "../AdminButton";
 
 import Wrapper from "./style";
 
@@ -79,6 +80,7 @@ const Conversations = () => {
               <div className="empty-conversation">No conversations</div>
             )}
           </div>
+          <AdminButton />
         </div>
         {isCollapsed ? (
           <>

@@ -30,6 +30,7 @@ const Modal = ({
           ) : (
             <div className="chatbot-modal-buttons">
               <button
+                type="button"
                 onClick={onCancel}
                 style={styles.cancel}
                 className={`chat-button modal-cancel-btn`}
@@ -37,6 +38,7 @@ const Modal = ({
                 {buttonLabels.cancel || buttonLabelsDefault.cancel}
               </button>
               <button
+                type="button"
                 onClick={onSubmit}
                 style={styles.submit}
                 className={`chat-button modal-submit-btn`}

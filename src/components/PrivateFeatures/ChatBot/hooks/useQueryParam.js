@@ -5,6 +5,23 @@ const useQueryParam = () => {
   const [params, setParams] = useState({});
   const location = useLocation();
 
+  const push = (query) => {
+    const newParams = { ...params, ...query };
+    const search = ["?", new URLSearchParams(newParams).toString()].join("");
+    let newUrl =
+      window.location.protocol +
+      "//" +
+      window.location.host +
+      location.pathname +
+      search;
+    window.history.pushState({ path: newUrl }, "", newUrl);
+    setParams(newParams);
+  };
+
+  const getQuery = (key) => {
+    return params[key] || "";
+  };
+
   useEffect(() => {
     var queryParams = new URLSearchParams(location.search);
     setParams(
@@ -17,7 +34,7 @@ const useQueryParam = () => {
     );
   }, [location]);
 
-  return params;
+  return { params, push, getQuery };
 };
 
 export default useQueryParam;

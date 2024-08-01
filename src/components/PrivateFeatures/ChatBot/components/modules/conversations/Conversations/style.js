@@ -29,6 +29,9 @@ export default styled.div`
     justify-content: center;
     align-items: center;
   }
+  .chatbot-admin-button {
+    color: var(--chatbot-grey);
+  }
   display: flex;
   flex-direction: column;
   gap: 0.5em;
@@ -44,6 +47,9 @@ export default styled.div`
     .edit-button {
       color: var(--chatbot-grey);
     }
+  }
+  .chatbot-admin-button {
+    cursor: pointer;
   }
   .conversation-list {
     position: relative;
