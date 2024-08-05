@@ -21,7 +21,7 @@ const ScheduleDashboards = () => {
         const fetchDashboards = async () => {
             try {
               
-                const data = await getUserProjectsArray(userEmail, 'schedule_dashboards_new');
+                const data = await getUserProjectsArray(userEmail, 'schedule_dashboards');
                 setUserDashboards(data);
             } catch (error) {
                 console.error('Error fetching dashboards:', error);
