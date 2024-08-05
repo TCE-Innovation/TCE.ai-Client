@@ -4,7 +4,9 @@ const adminList = [
     'Jacob Shavel',
     'Patrick Besser',
     'Rory O\'Neill',
-    'Steven DeFalco'
+    'Steven DeFalco',
+    'Christopher Kruger',
+    'Chris Kruger'
 ]
 
 //TOOLS
