@@ -26,7 +26,7 @@ import { AuthContext } from "../../authentication/Auth";
 import { adminList } from '../../admin/lists';
 
 const PrivateListItems = ({ tool }) => {
-    const { userName, userTools } = useContext(AuthContext);
+    const { userEmail, userTools } = useContext(AuthContext);
     const [selectedInnerItem, setSelectedInnerItem] = React.useState('home');
 
     React.useEffect(() => {
@@ -75,7 +75,7 @@ const PrivateListItems = ({ tool }) => {
     let filteredListItems = listItems.filter(item => userToolsArray.includes(item.text));
 
     // Add admin specific items conditionally
-    if (adminList.includes(userName)) {
+    if (adminList.includes(userEmail)) {
         filteredListItems.push(
             {
                 to: '/private/admin',

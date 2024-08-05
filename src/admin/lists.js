@@ -1,12 +1,11 @@
 // ADMINS
 const adminList = [
-    'Matthew Bayne',
-    'Jacob Shavel',
-    'Patrick Besser',
-    'Rory O\'Neill',
-    'Steven DeFalco',
-    'Christopher Kruger',
-    'Chris Kruger'
+    'mbayne@tcelect.net',
+    'jshavel@tcelect.net',
+    'pbesser@tcelect.net',
+    'roneill@tcelect.net',
+    'sdefalco@tcelect.net',
+    'ckruger@tcelect.net'
 ]
 
 //TOOLS
