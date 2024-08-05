@@ -13,7 +13,7 @@ const ProjectTeam = ({
 }) => {
     return (
         <>
-            <Box sx={{ display: 'flex', flexDirection: 'row', alignItems: 'center', width: '50%'}}>
+            <Box sx={{ display: 'flex', flexDirection: 'row', alignItems: 'center', width: '30%'}}>
                 <FormControl sx={{ marginBottom: '2rem', marginRight: '1vw', width: '100%' }}>
                     <Select
                         value={selectedProject}
@@ -38,7 +38,9 @@ const ProjectTeam = ({
                             backgroundColor: '#d7edd1',
                             color: 'green',
                             border: '1px solid green',
-                            marginLeft: '.5vw'
+                            marginLeft: '.5vw',
+                            paddingTop: '2px',
+                            paddingBottom: '2px'
                         }}
                     >
                         Add {projectTeam.length} Users
