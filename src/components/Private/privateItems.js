@@ -90,7 +90,7 @@ const PrivateListItems = ({ tool }) => {
     // Always include the following items (non-provisionable)
     const alwaysIncludedItems = [
         { to: '/private/home', text: 'Home', icon: <HomeOutlinedIcon />, key: 'home' },
-        { to: '/private/trainings', text: 'Trainings', icon: <SchoolIcon />, key: 'trainings' },
+        { to: '/private/training', text: 'Tool Training', icon: <SchoolIcon />, key: 'training' },
         { to: '/private/sub-automation', text: 'Subcontractor Forms', icon: <ArticleOutlinedIcon />, key: 'sub-automation' },
         { to: '/private/equipment-checkout', text: 'Equipment Checkout', icon: <DevicesOtherIcon />, key: 'equipment-checkout' },
         { to: '/private/go-tracker', text: 'GO Tracker', icon: <RailwayAlertOutlinedIcon />, key: 'go-tracker' },

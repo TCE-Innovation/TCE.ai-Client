@@ -73,8 +73,8 @@ function ResponsiveAppBar() {
                 return 'LLLE Clearance Calculator'
             case 'admin':
                 return 'Admin Panel';
-            case 'trainings':
-                return 'Trainings';
+            case 'training':
+                return 'Tool Training';
             default:
                 return 'TCE Innovation Group';  
         }
