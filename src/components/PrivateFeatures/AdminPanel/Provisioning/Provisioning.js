@@ -7,7 +7,7 @@ import UserTable from './UserTable';
 import AddUserDialog from './AddUserDialog';
 import ProjectTeam from './ProjectTeam';
 
-const toolNameMap = {
+const tableNameMap = {
     'Email Generator': 'email_generator',
     'Cable Run Optimizer': 'cable_run_optimizer',
     'Schedule Dashboards': 'schedule_dashboards',
@@ -16,15 +16,24 @@ const toolNameMap = {
     'Drone Captures': 'drone_captures',
 };
 
-const toolsWithTeamOption = [
+const toolsWithProjectOption = [
     'Schedule Dashboards',
     'Drone Captures',
 ];
 
-// map project team names to their projects specifically for drone captures
-const teamProjectMap = {
+// map project team names to name of their Drone Captures Project name
+const projectTeamToDroneProjectMap = {
     '207th St Rail Yard': '207th Street Yard',
     'Rockaway Line Resilience & Rehab': 'Rockaways',
+}
+
+// map project team names to name of their Schedule Dashboard Project name
+const projectTeamToDashboardMap = {
+    '8th Ave Structural Improvements': '8th Avenue Line (C-48731)',
+    'Crosstown CBTC': 'Crosstown CBTC (S-48012)',
+    'Rockaway Line Resilience & Rehab': 'Rockaway Resiliency (C-35327)',
+    'ADA Package 4': 'ADA Package 4 (A-37139)',
+    'DB PACIS Upgrades; Canarsie Line': 'Canarsie PACIS (W-32808)',
 }
 
 const Provisioning = () => {
@@ -40,8 +49,144 @@ const Provisioning = () => {
     const [projectTeam, setProjectTeam] = useState([]);
     const [openAddAllDialog, setOpenAddAllDialog] = useState(false);
     const [openRemoveAllDialog, setOpenRemoveAllDialog] = useState(false);
-    const [userProjects, setUserProjects] = useState({});
+    const [userProjects, setUserProjects] = useState([]);
     const [dashboardProjects, setDashboardProjects] = useState([]);
+    const [tableName, setTableName] = useState(null);
+    const [defaultProjects, setDefaultProjects] = useState(null);
+
+    /* 
+    function to split comma-separated string into indidivual items
+        use: "project1, project2" --> ["project1", "project2"]
+    */
+    const splitString = str => str ? str.split(',').map(s => s.trim()) : [];
+
+    const handleToolChange = (event) => {
+        setSelectedTool(event.target.value);
+    };
+
+    const handleRemoveUser = async (email) => {
+        await removeUserFromTool(email, tableName);
+        const removedUser = users.find(user => user.email === email);
+        setUsers(prevUsers => prevUsers.filter(user => user.email !== email));
+        setPersonnelList(prevPersonnel => [...prevPersonnel, removedUser].sort((a, b) => a.name.localeCompare(b.name)));
+    };
+
+    const handleAddUser = async () => {
+        if (selectedUsers.length > 0) {
+            await addUsersToTool(selectedUsers, tableName, defaultProjects);
+            const updatedUsers = await getUsersOfTool(tableName);
+            setUsers(updatedUsers)
+
+            // if (selectedTool in toolsWithProjectOption) {
+            if (toolsWithProjectOption.includes(selectedTool)) {
+                // set user projects accurately by referencing the DB
+                const projects = await getEmailsAndProjects(tableName);
+                setUserProjects(projects);
+            }
+
+            setPersonnelList(prevPersonnel =>
+                prevPersonnel.filter(person =>
+                    !selectedUsers.some(user => user.email === person.email)
+                )
+            );
+
+            setSelectedUsers([]);
+            setInputValue('');
+        }
+    };
+
+    const handleOpenAddAllDialog = () => {
+        setOpenAddAllDialog(true);
+    };
+
+    const handleCloseAddAllDialog = () => {
+        setOpenAddAllDialog(false);
+    };
+
+    const handleConfirmAddAll = async () => {
+        await addUsersToTool(selectedUsers, tableName, defaultProjects);
+        const updatedUsers = await getUsersOfTool(tableName);
+        setUsers(updatedUsers);
+        setPersonnelList([]);
+        setOpenAddAllDialog(false);
+    };
+
+    const handleOpenRemoveAllDialog = () => {
+        setOpenRemoveAllDialog(true);
+    };
+
+    const handleCloseRemoveAllDialog = () => {
+        setOpenRemoveAllDialog(false);
+    };
+
+    const handleConfirmRemoveAll = async () => {
+        await removeAllUsersFromTool(tableName);
+        setUsers([]);
+        setPersonnelList(personnelList);
+        setOpenRemoveAllDialog(false);
+    };
+
+    const handleProjectChange = async (event) => {
+        setSelectedProject(event.target.value);
+        try {
+            const team = await getProjectTeam(event.target.value);
+            setProjectTeam(team);
+        } catch (error) {
+            console.error('Error fetching project team:', error);
+        }
+    };
+
+    const handleCancelProjectSelection = () => {
+        setSelectedProject('');
+        setProjectTeam([]);
+    };
+
+    const handleAddProjectTeam = async () => {
+        if (projectTeam.length > 0) {
+            let projectToAdd;
+            if (selectedTool === "Schedule Dashboards") {
+                const formattedProject = projectTeamToDashboardMap[selectedProject.trim()]
+                if (dashboardProjects.includes(formattedProject)) {
+                    projectToAdd = formattedProject
+                } else { projectToAdd = defaultProjects; }
+            } else if (selectedTool === "Drone Captures") {
+                const formattedProject = projectTeamToDroneProjectMap[selectedProject.trim()]
+                if (selectedProject.trim() in projectTeamToDroneProjectMap) {
+                    projectToAdd = formattedProject
+                } else { projectToAdd = defaultProjects; }
+            }
+            await addUsersToTool(projectTeam, tableName, projectToAdd);
+            const updatedUsers = await getUsersOfTool(tableName);
+            setUsers(updatedUsers)
+
+            // set user projects accurately by referencing the DB
+            const projects = await getEmailsAndProjects(tableName);
+            setUserProjects(projects);
+
+            setPersonnelList(prevPersonnel =>
+                prevPersonnel.filter(person =>
+                    !projectTeam.some(user => user.email === person.email)
+                )
+            );
+            setSelectedProject(projectToAdd);
+            setProjectTeam([]);
+        }
+    };
+
+    const handleUserProjectChange = async (email, projectString) => {
+        try {
+            await updateUserProject(email, projectString, tableName);
+            const newProjectsArray = splitString(projectString);
+            setUserProjects(prevProjects => {
+                const updatedProjects = prevProjects.map(user =>
+                    user.email === email ? {...user, projects: newProjectsArray } : user
+                );
+                return updatedProjects;
+            });
+        } catch (error) {
+            console.error('Error updating user project:', error);
+        }
+    };
 
     useEffect(() => {
         const fetchPersonnelList = async () => {
@@ -69,11 +214,36 @@ const Provisioning = () => {
     }, []);
 
     useEffect(() => {
+        const fetchProjects = async () => {
+            try {
+                const data = await getPBILog();
+                let projectOptions = Object.keys(data);
+                projectOptions = [...projectOptions];
+                setDashboardProjects(projectOptions);
+            } catch (error) {
+                console.error('Error fetching projects:', error);
+            }
+        };
+        fetchProjects();
+    }, []);
+
+    // When the selected tool changes
+    useEffect(() => {
+
+        // Table that corresponds to newly selected tool
+        let new_table;
+
+        // Set the table name
+        if (selectedTool) {
+            new_table = tableNameMap[selectedTool];
+            setTableName(new_table);
+        }
+
+        // Fetch the correct list of users
         const fetchUsers = async () => {
             if (selectedTool) {
-                const sqlToolName = toolNameMap[selectedTool];
-                if (sqlToolName) {
-                    const result = await getUsersOfTool(sqlToolName);
+                if (new_table) {
+                    const result = await getUsersOfTool(new_table);
                     setUsers(result);
                     setSearched(true);
                 } else {
@@ -82,6 +252,30 @@ const Provisioning = () => {
             }
         };
         fetchUsers();
+
+        // Set the default project provisions for new users added
+        if (selectedTool === "Schedule Dashboards") {
+           setDefaultProjects("");
+        } else if (selectedTool === "Drone Captures") {
+            const allProjectString = (Object.values(projectTeamToDroneProjectMap)).join(', ');
+            setDefaultProjects(allProjectString);
+        } else {
+            setDefaultProjects(null);
+        }
+
+        // set the users' projects
+        const fetchUserProjects = async () => {
+            try {
+                const projects = await getEmailsAndProjects(new_table);
+                setUserProjects(projects);
+            } catch (error) {
+                console.error('Error fetching user projects:', error);
+            }
+        };
+        if (toolsWithProjectOption.includes(selectedTool)) {
+            fetchUserProjects();
+        }
+        
     }, [selectedTool]);
 
     useEffect(() => {
@@ -94,185 +288,10 @@ const Provisioning = () => {
         filterPersonnel();
     }, [users, selectedTool, personnelList]);
 
-    const handleToolChange = (event) => {
-        setSelectedTool(event.target.value);
-    };
-
-    useEffect(() => {
-        if (selectedTool) {
-            const fetchUserProjects = async () => {
-                try {
-                    const projects = await getEmailsAndProjects(toolNameMap[selectedTool]);
-
-                    const projectMap = projects.reduce((acc, project) => {
-                        acc[project.email] = project.projects;
-                        return acc;
-                    }, {});
-                    setUserProjects(projectMap);
-                } catch (error) {
-                    console.error('Error fetching user projects:', error);
-                }
-            };
-            if (toolsWithTeamOption.includes(selectedTool)) {
-                fetchUserProjects();
-            }
-        }
-    }, [selectedTool]);
-
-    useEffect(() => {
-        const fetchProjects = async () => {
-            try {
-                const data = await getPBILog();
-                let projectOptions = Object.keys(data);
-                projectOptions = ["All", "None", ...projectOptions];
-                setDashboardProjects(projectOptions);
-            } catch (error) {
-                console.error('Error fetching projects:', error);
-            }
-        };
-        fetchProjects();
-    }, []);
-
-    const handleRemoveUser = async (email) => {
-        await removeUserFromTool(email, toolNameMap[selectedTool]);
-        const removedUser = users.find(user => user.email === email);
-        setUsers(prevUsers => prevUsers.filter(user => user.email !== email));
-        setPersonnelList(prevPersonnel => [...prevPersonnel, removedUser].sort((a, b) => a.name.localeCompare(b.name)));
-    };
-
-    const handleAddUser = async () => {
-        if (selectedUsers.length > 0) {
-            let default_provisions;
-            if (selectedTool === "Schedule Dashboards") {
-                default_provisions = "None";
-            } else if (selectedTool === "Drone Captures") {
-                default_provisions = "All";
-            } else {
-                default_provisions = null;
-            }
-            await addUsersToTool(selectedUsers, toolNameMap[selectedTool], default_provisions);
-            const updatedUsers = await getUsersOfTool(toolNameMap[selectedTool]);
-            setUsers(updatedUsers)
-
-            if (selectedTool in toolsWithTeamOption) {
-                // set user projects accurately by referencing the DB
-                const projects = await getEmailsAndProjects(toolNameMap[selectedTool]);
-                const projectMap = projects.reduce((acc, project) => {
-                    acc[project.email] = project.projects;
-                    return acc;
-                }, {});
-                setUserProjects(projectMap);
-            }
-
-            setPersonnelList(prevPersonnel =>
-                prevPersonnel.filter(person =>
-                    !selectedUsers.some(user => user.email === person.email)
-                )
-            );
-
-            setSelectedUsers([]);
-            setInputValue('');
-        }
-    };
-
-    const handleOpenAddAllDialog = () => {
-        setOpenAddAllDialog(true);
-    };
-
-    const handleCloseAddAllDialog = () => {
-        setOpenAddAllDialog(false);
-    };
-
-    const handleConfirmAddAll = async () => {
-        await addUsersToTool(filteredPersonnelList, toolNameMap[selectedTool]);
-        const updatedUsers = await getUsersOfTool(toolNameMap[selectedTool]);
-        setUsers(updatedUsers);
-        setPersonnelList([]);
-        setOpenAddAllDialog(false);
-    };
-
-    const handleOpenRemoveAllDialog = () => {
-        setOpenRemoveAllDialog(true);
-    };
-
-    const handleCloseRemoveAllDialog = () => {
-        setOpenRemoveAllDialog(false);
-    };
-
-    const handleConfirmRemoveAll = async () => {
-        await removeAllUsersFromTool(toolNameMap[selectedTool]);
-        setUsers([]);
-        setPersonnelList(personnelList);
-        setOpenRemoveAllDialog(false);
-    };
-
-    const handleProjectChange = async (event) => {
-        setSelectedProject(event.target.value);
-        try {
-            const team = await getProjectTeam(event.target.value);
-            setProjectTeam(team);
-        } catch (error) {
-            console.error('Error fetching project team:', error);
-        }
-    };
-
-    const handleCancelProjectSelection = () => {
-        setSelectedProject('');
-        setProjectTeam([]);
-    };
-
-    const handleAddProjectTeam = async () => {
-        if (projectTeam.length > 0) {
-            let projectToAdd;
-            if (selectedTool === "Schedule Dashboards") {
-                if (dashboardProjects.includes(selectedProject)) {
-                    projectToAdd = selectedProject;
-                } else {
-                    projectToAdd = "None";
-                }
-            } else if (selectedTool === "Drone Captures") {
-                if (selectedProject.trim() in teamProjectMap) {
-                    projectToAdd = teamProjectMap[selectedProject.trim()];
-                } else {
-                    projectToAdd = "All";
-                }
-            }
-            await addUsersToTool(projectTeam, toolNameMap[selectedTool], projectToAdd);
-            const updatedUsers = await getUsersOfTool(toolNameMap[selectedTool]);
-            setUsers(updatedUsers)
-
-            // set user projects accurately by referencing the DB
-            const projects = await getEmailsAndProjects(toolNameMap[selectedTool]);
-            const projectMap = projects.reduce((acc, project) => {
-                acc[project.email] = project.projects;
-                return acc;
-            }, {});
-            setUserProjects(projectMap);
-
-            setPersonnelList(prevPersonnel =>
-                prevPersonnel.filter(person =>
-                    !projectTeam.some(user => user.email === person.email)
-                )
-            );
-
-            setSelectedProject(projectToAdd);
-            setProjectTeam([]);
-        }
-    };
-
-    const handleUserProjectChange = async (email, project) => {
-        try {
-            await updateUserProject(email, project, toolNameMap[selectedTool]);
-            setUserProjects(prevProjects => ({ ...prevProjects, [email]: project }));
-        } catch (error) {
-            console.error('Error updating user project:', error);
-        }
-    };
-
     return (
         <div style={{ width: '100%', display: 'flex', flexDirection: 'column', alignItems: 'center', marginTop: ".5vw", backgroundColor: '#f5f5f5', borderRadius: '10px' }}>
-            <Box sx={{ width: '70%', padding: 2 }}>
-                <ToolSelect selectedTool={selectedTool} handleToolChange={handleToolChange} toolNameMap={toolNameMap} />
+            <Box sx={{ width: '95%', padding: 2 }}>
+                <ToolSelect selectedTool={selectedTool} handleToolChange={handleToolChange} tableNameMap={tableNameMap} />
 
                 {searched && (
                     <>
@@ -292,7 +311,7 @@ const Provisioning = () => {
                                 }
                                 noOptionsText={inputValue.length < 1 ? "Start typing to search" : "No options"}
                                 renderInput={(params) => <TextField {...params} label="Add User(s)" />}
-                                style={{ marginBottom: '2rem', width: '40%', marginRight: '1vw' }}
+                                style={{ marginBottom: '2rem', width: '55%', marginRight: '1vw' }}
                                 disabled={filteredPersonnelList.length === 0}
                             />
                             
@@ -377,6 +396,7 @@ const Provisioning = () => {
                             handleUserProjectChange={handleUserProjectChange}
                             dashboardProjects={dashboardProjects}
                             provisionedCount={users.length}
+                            tableNameMap={tableNameMap}
                             nonProvisionedCount={filteredPersonnelList.length}
                         />
                     </>
