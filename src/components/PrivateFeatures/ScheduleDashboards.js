@@ -1,7 +1,7 @@
 import React, { useState, useEffect, useContext } from 'react';
 import TrainLoader from '../General/TrainLoader';
 import { getPBILog } from '../../data/Airtable'; 
-import { getUserProjects } from '../../data/SQL';
+import { getUserProjectsArray } from '../../data/SQL';
 import { FormControl, InputLabel, Select, MenuItem, Box, Typography } from '@mui/material';
 
 import { AuthContext } from "../../authentication/Auth";
@@ -21,10 +21,8 @@ const ScheduleDashboards = () => {
         const fetchDashboards = async () => {
             try {
               
-                const data = await getUserProjects(userEmail, 'schedule_dashboards');
-
+                const data = await getUserProjectsArray(userEmail, 'schedule_dashboards');
                 setUserDashboards(data);
-                console.log(data);
             } catch (error) {
                 console.error('Error fetching dashboards:', error);
             }
