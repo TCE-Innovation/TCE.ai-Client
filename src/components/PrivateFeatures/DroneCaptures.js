@@ -28,7 +28,7 @@ const DroneCaptures = () => {
     useEffect(() => {
         async function fetchUserProjects() {
             try {
-                const projects = await getUserProjectsArray(userEmail, 'drone_captures_new');
+                const projects = await getUserProjectsArray(userEmail, 'drone_captures');
                 setFilteredProjects(projects); // Set filteredProjects state
                 setSelectedProject(projects[0]); // Select the first project by default
             } catch (error) {
