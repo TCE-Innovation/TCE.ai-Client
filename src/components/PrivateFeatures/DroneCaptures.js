@@ -1,7 +1,7 @@
 import React, { useState, useEffect, useContext } from 'react';
 import TrainLoader from '../General/TrainLoader';
 import { FormControl, InputLabel, Select, MenuItem, Box } from '@mui/material';
-import { getUserProjects } from '../../data/SQL'; // Import the getUserProjects function
+import { getUserProjectsArray } from '../../data/SQL'; // Import the getUserProjects function
 import { AuthContext } from "../../authentication/Auth";
 
 const projectLocationMap = {
@@ -28,15 +28,9 @@ const DroneCaptures = () => {
     useEffect(() => {
         async function fetchUserProjects() {
             try {
-                const projects = await getUserProjects(userEmail, 'drone_captures');
-                let filteredProjects;
-                if (projects === "All") {
-                    filteredProjects = Object.keys(projectLocationMap);
-                } else {
-                    filteredProjects = Object.keys(projectLocationMap).filter(project => projects.includes(project));
-                }
-                setFilteredProjects(filteredProjects); // Set filteredProjects state
-                setSelectedProject(filteredProjects[0]); // Select the first project by default
+                const projects = await getUserProjectsArray(userEmail, 'drone_captures_new');
+                setFilteredProjects(projects); // Set filteredProjects state
+                setSelectedProject(projects[0]); // Select the first project by default
             } catch (error) {
                 console.error('Error fetching user projects:', error);
             }
