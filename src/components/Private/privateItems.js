@@ -18,6 +18,7 @@ import AdminPanelSettingsOutlinedIcon from '@mui/icons-material/AdminPanelSettin
 import PrintOutlinedIcon from '@mui/icons-material/PrintOutlined';
 import SatelliteAltIcon from '@mui/icons-material/SatelliteAlt';
 import PercentIcon from '@mui/icons-material/Percent';
+import SchoolIcon from '@mui/icons-material/School';
 
 // CONTEXT
 import { AuthContext } from "../../authentication/Auth";
@@ -89,6 +90,7 @@ const PrivateListItems = ({ tool }) => {
     // Always include the following items (non-provisionable)
     const alwaysIncludedItems = [
         { to: '/private/home', text: 'Home', icon: <HomeOutlinedIcon />, key: 'home' },
+        { to: '/private/trainings', text: 'Trainings', icon: <SchoolIcon />, key: 'trainings' },
         { to: '/private/sub-automation', text: 'Subcontractor Forms', icon: <ArticleOutlinedIcon />, key: 'sub-automation' },
         { to: '/private/equipment-checkout', text: 'Equipment Checkout', icon: <DevicesOtherIcon />, key: 'equipment-checkout' },
         { to: '/private/go-tracker', text: 'GO Tracker', icon: <RailwayAlertOutlinedIcon />, key: 'go-tracker' },

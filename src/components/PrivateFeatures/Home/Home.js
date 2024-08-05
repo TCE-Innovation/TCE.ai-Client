@@ -161,6 +161,16 @@ const Home = () => {
                 <p className={styles.cardText}>{partner.description}</p>
               </div>    
 
+              {partner.name === "ProCore" && (
+                <a
+                  href="/private/trainings?tool=Procore"
+                  className={styles.orangeButton}
+                  onClick={handleInsideCardClick}
+                >
+                  Training
+                </a>
+              )}
+
               <IconButton onClick={() => toggleReadMore(index)} className={styles.readMoreButton} disableRipple>
                 {expandedIndex === index ? <KeyboardArrowUpIcon/> : <KeyboardArrowDownIcon/>}
               </IconButton>        
@@ -205,8 +215,7 @@ const Home = () => {
                         <EmailIcon className={styles.icon} />
                       </a>
                     </Tooltip>
-
-
+                    
                   </div>
 
                 </div>

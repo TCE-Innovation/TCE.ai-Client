@@ -64,8 +64,9 @@
 
 .oneLinerContainer{
     display: flex;
-    flex-direction: row;
     width: 100%;
+    align-items: center;
+    justify-content: space-between;
 }
 
 .expandedContainer{
@@ -117,4 +118,26 @@
 .image{
     height: 100%;
     width: 100%;
+}
+
+.orangeButton {
+  display: inline-block;
+  padding: 10px 20px;
+  background-color: #F47E42;
+  color: white;
+  text-align: center;
+  text-decoration: none;
+  border-radius: 5px;
+  font-weight: bold;
+  line-height: 1; /* Remove extra space below the text */
+  height: 100%;
+  margin-top: auto;
+  margin-bottom: auto;
+  margin-left: auto;
+  margin-right: auto;
+  width: 12vw;
+}
+
+.orangeButton:hover {
+  background-color: #D16C39;
 }
