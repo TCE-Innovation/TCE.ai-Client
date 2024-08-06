@@ -6,15 +6,16 @@ import { getUsageLog } from '../../../data/Airtable';
 const Monitor = () => {
     const [usageLog, setUsageLog] = useState([]);
     const [searchQuery, setSearchQuery] = useState('');
-    const [sortConfig, setSortConfig] = useState({ sortField: 'Last Login', sortDirection: 'desc' });
+    const [sortConfig, setSortConfig] = useState({ sortField: 'Last Login (Date)', sortDirection: 'desc' });
     const [loading, setLoading] = useState(false);
     const tableContainerRef = useRef(null);
     const logRefs = useRef([]);
 
-    const fetchData = async (sortField = 'Last Login', sortDirection = 'desc') => {
+    const fetchData = async (sortField = 'Last Login (Date)', sortDirection = 'desc') => {
         setLoading(true);
         try {
             const data = await getUsageLog(sortField, sortDirection);
+            console.log(data);
             setUsageLog(data);
         } catch (error) {
             console.error('Error fetching usage log:', error);
@@ -83,8 +84,8 @@ const Monitor = () => {
                                 <TableCell onClick={() => handleSortChange('Name')}>
                                     Name {sortConfig.sortField === 'Name' ? (sortConfig.sortDirection === 'asc' ? '↑' : '↓') : ''}
                                 </TableCell>
-                                <TableCell onClick={() => handleSortChange('Last Login')}>
-                                    Last Login {sortConfig.sortField === 'Last Login' ? (sortConfig.sortDirection === 'asc' ? '↑' : '↓') : ''}
+                                <TableCell onClick={() => handleSortChange('Last Login (Date)')}>
+                                    Last Login {sortConfig.sortField === 'Last Login (Date)' ? (sortConfig.sortDirection === 'asc' ? '↑' : '↓') : ''}
                                 </TableCell>
                                 <TableCell onClick={() => handleSortChange('Login Count')}>
                                     Login Count {sortConfig.sortField === 'Login Count' ? (sortConfig.sortDirection === 'asc' ? '↑' : '↓') : ''}

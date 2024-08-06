@@ -13,7 +13,7 @@ export async function getActiveProjects() {
 }
 
 //function to get project data from airtable base
-export async function getUsageLog(sortField = 'Last Login', sortDirection = 'desc') {
+export async function getUsageLog(sortField = 'Last Login (Date)', sortDirection = 'desc') {
     try {
         const { data } = await axios.get(`https://tce-ai-api.azurewebsites.net/api/get-usage-log`, {
             params: { sortField, sortDirection }
