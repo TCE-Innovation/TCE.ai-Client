@@ -70,7 +70,7 @@ const Provisioning = () => {
         await removeUserFromTool(email, tableName);
         const removedUser = users.find(user => user.email === email);
         setUsers(prevUsers => prevUsers.filter(user => user.email !== email));
-        setPersonnelList(prevPersonnel => [...prevPersonnel, removedUser].sort((a, b) => a.name.localeCompare(b.name)));
+        setFilteredPersonnelList(prevPersonnel => [...prevPersonnel, removedUser].sort((a, b) => a.name.localeCompare(b.name)));
     };
 
     const ManualEntryComponent = ({ open, onClose }) => {
@@ -174,7 +174,7 @@ const Provisioning = () => {
                 setUserProjects(projects);
             }
 
-            setPersonnelList(prevPersonnel =>
+            setFilteredPersonnelList(prevPersonnel =>
                 prevPersonnel.filter(person =>
                     !selectedUsers.some(user => user.email === person.email)
                 )
@@ -197,7 +197,7 @@ const Provisioning = () => {
         await addUsersToTool(selectedUsers, tableName, defaultProjects);
         const updatedUsers = await getUsersOfTool(tableName);
         setUsers(updatedUsers);
-        setPersonnelList([]);
+        setFilteredPersonnelList([]);
         setOpenAddAllDialog(false);
     };
 
@@ -212,7 +212,7 @@ const Provisioning = () => {
     const handleConfirmRemoveAll = async () => {
         await removeAllUsersFromTool(tableName);
         setUsers([]);
-        setPersonnelList(personnelList);
+        setFilteredPersonnelList(personnelList);
         setOpenRemoveAllDialog(false);
     };
 
@@ -253,7 +253,7 @@ const Provisioning = () => {
             const projects = await getEmailsAndProjects(tableName);
             setUserProjects(projects);
 
-            setPersonnelList(prevPersonnel =>
+            setFilteredPersonnelList(prevPersonnel =>
                 prevPersonnel.filter(person =>
                     !projectTeam.some(user => user.email === person.email)
                 )
@@ -336,6 +336,12 @@ const Provisioning = () => {
                     const result = await getUsersOfTool(new_table);
                     setUsers(result);
                     setSearched(true);
+                    console.log(personnelList);
+                    console.log(result);
+                    const filteredPersonnelList = personnelList.filter(person =>
+                        !result.some(user => user.email === person.email)
+                    );
+                    setFilteredPersonnelList(filteredPersonnelList);
                 } else {
                     console.error('Tool not found in map');
                 }
@@ -366,7 +372,7 @@ const Provisioning = () => {
             fetchUserProjects();
         }
         
-    }, [selectedTool]);
+    }, [selectedTool, personnelList]);
 
     useEffect(() => {
         const filterPersonnel = () => {
