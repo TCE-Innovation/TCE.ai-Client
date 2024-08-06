@@ -311,7 +311,7 @@ const Provisioning = () => {
                                 }
                                 noOptionsText={inputValue.length < 1 ? "Start typing to search" : "No options"}
                                 renderInput={(params) => <TextField {...params} label="Add User(s)" />}
-                                style={{ marginBottom: '2rem', width: '55%', marginRight: '1vw' }}
+                                style={{ marginBottom: '1rem', width: '55%', marginRight: '1vw', marginTop: '0.5rem' }}
                                 disabled={filteredPersonnelList.length === 0}
                             />
                             
@@ -333,7 +333,7 @@ const Provisioning = () => {
                                     backgroundColor: selectedUsers.length > 0 ? '#d7edd1' : 'gray',
                                     color: selectedUsers.length > 0 ? 'green' : 'white',
                                     border: selectedUsers.length > 0 ? '1px solid green' : 'white',
-                                    marginBottom: '2rem',
+                                    marginBottom: '1rem',
                                     marginRight: '1vw'
                                 }}
                             >
@@ -348,7 +348,7 @@ const Provisioning = () => {
                                     backgroundColor: filteredPersonnelList.length > 0 ? '#d7edd1' : 'gray',
                                     color: filteredPersonnelList.length > 0 ? 'green' : 'white',
                                     border: filteredPersonnelList.length > 0 ? '1px solid green' : 'white',
-                                    marginBottom: '2rem',
+                                    marginBottom: '1rem',
                                     marginRight: '1vw',
                                     whiteSpace: 'nowrap'
                                 }}
@@ -364,7 +364,7 @@ const Provisioning = () => {
                                     backgroundColor: users.length > 0 ? '#fad9d9' : 'gray',
                                     color: users.length > 0 ? 'red' : 'white',
                                     border: users.length > 0 ? '1px solid red' : 'white',
-                                    marginBottom: '2rem',
+                                    marginBottom: '1rem',
                                     whiteSpace: 'nowrap'
                                 }}
                             >

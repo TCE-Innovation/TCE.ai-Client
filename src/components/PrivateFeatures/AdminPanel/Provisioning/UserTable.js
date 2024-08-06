@@ -107,6 +107,18 @@ const UserTable = ({ users, handleRemoveUser, selectedTool, userProjects, handle
         setUserSelection(updatedUserSelection);
     }, [projects, userProjects, users]);
 
+    // Define styles based on the selection state
+    const getButtonStyles = (isSelected) => ({
+        minWidth: '125px', 
+        height: '45px',
+        backgroundColor: isSelected ? '#FFDFBF' : '#ADD8E6', 
+        color: isSelected ? '#ff580f' : '#1565c0', 
+        border: isSelected ? '1px solid #ff580f' : '1px solid #1976d2', 
+        '&:hover': {
+            backgroundColor: isSelected ? '#ff9c59' : '#1565c0', 
+        }
+    });
+
     return (
         <Box>
             <Box display="flex" justifyContent="space-between" alignItems="center" marginBottom=".5vw">
@@ -167,7 +179,7 @@ const UserTable = ({ users, handleRemoveUser, selectedTool, userProjects, handle
                                                         <Select
                                                             displayEmpty
                                                             inputProps={{ 'aria-label': 'Select Project' }}
-                                                            style={{ minWidth: '250px', maxWidth: '250px' }} // Ensure button size consistency
+                                                            style={{ minWidth: '250px', maxWidth: '250px', height: '45px' }} // Ensure button size consistency
                                                             multiple
                                                             value={userSelectedProjects}
                                                             onChange={(event) => handleProjectChange(user.email, event)}
@@ -195,7 +207,7 @@ const UserTable = ({ users, handleRemoveUser, selectedTool, userProjects, handle
                                                         size="small"
                                                         color={isAllSelected(user.email) ? 'secondary' : 'primary'}
                                                         onClick={() => handleAssignOrRemoveAllProjects(user.email)}
-                                                        style={{ minWidth: '120px', height: '50px' }} // Ensure button size consistency
+                                                        style={getButtonStyles(isAllSelected(user.email))}
                                                     >
                                                         {isAllSelected(user.email) ? 'Deselect All' : 'Select All'}
                                                     </Button>
@@ -207,7 +219,7 @@ const UserTable = ({ users, handleRemoveUser, selectedTool, userProjects, handle
                                                 variant="contained"
                                                 size="small"
                                                 onClick={() => handleRemoveUser(user.email)}
-                                                style={{ backgroundColor: '#fad9d9', color: 'red', border: '1px solid red', minWidth: '80px' }} // Ensure button size consistency
+                                                style={{ backgroundColor: '#fad9d9', height: '45px', color: 'red', border: '1px solid red', minWidth: '80px' }} 
                                             >
                                                 Remove
                                             </Button>
