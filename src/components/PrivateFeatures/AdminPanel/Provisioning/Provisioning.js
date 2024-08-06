@@ -194,7 +194,8 @@ const Provisioning = () => {
     };
 
     const handleConfirmAddAll = async () => {
-        await addUsersToTool(selectedUsers, tableName, defaultProjects);
+        console.log(filteredPersonnelList);
+        await addUsersToTool(filteredPersonnelList, tableName, defaultProjects);
         const updatedUsers = await getUsersOfTool(tableName);
         setUsers(updatedUsers);
         setFilteredPersonnelList([]);
@@ -336,8 +337,6 @@ const Provisioning = () => {
                     const result = await getUsersOfTool(new_table);
                     setUsers(result);
                     setSearched(true);
-                    console.log(personnelList);
-                    console.log(result);
                     const filteredPersonnelList = personnelList.filter(person =>
                         !result.some(user => user.email === person.email)
                     );
