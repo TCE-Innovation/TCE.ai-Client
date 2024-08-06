@@ -39,6 +39,26 @@ export default styled.div`
       z-index: 1000;
     }
   }
+  .chatbot-input-container {
+    &::placeholder {
+      color: var(--chatbot-grey);
+    }
+    &:focus-within {
+      border-color: var(--chatbot-primary);
+    }
+    flex: 1;
+    border: 1px solid var(--chatbot-grey);
+    border-radius: calc(0.66 * var(--chatbot-border-radius));
+    padding: 0.25em;
+    padding-left: 1em;
+    height: var(--input-container-size);
+    line-height: calc(var(--input-container-size) * 0.75);
+
+    & input {
+      border: none;
+      outline: none;
+    }
+  }
   .chat-wrapper {
     flex: 1;
     position: relative;

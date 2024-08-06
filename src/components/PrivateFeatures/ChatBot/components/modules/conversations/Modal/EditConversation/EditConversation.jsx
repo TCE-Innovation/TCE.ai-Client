@@ -39,14 +39,22 @@ const EditConversation = ({ conversation, show, onClose }) => {
       <Modal
         title={"Edit Conversation Title"}
         buttonLabels={{
-          submit: isEditingConversation ? <EditLoader /> : "Rename",
+          submit: isEditingConversation ? (
+            <EditLoader color="white" />
+          ) : (
+            "Rename"
+          ),
         }}
         onSubmit={() => handleSubmit(conversationName)}
         onCancel={handleClose}
         styles={{
           submit: {
-            color: "var(--chatbot-primary)",
-            backgroundColor: "transparent",
+            color: "white",
+            backgroundColor: `${
+              isEditingConversation
+                ? "var(--chatbot-light-grey)"
+                : "var(--chatbot-primary)"
+            }`,
           },
           cancel: {
             backgroundColor: "transparent",
@@ -55,7 +63,7 @@ const EditConversation = ({ conversation, show, onClose }) => {
         }}
       >
         <div
-          className="input-container"
+          className="chatbot-input-container"
           style={{ width: "clamp(300px,30vw,400px)" }}
         >
           {showValidation && !isValid && (
