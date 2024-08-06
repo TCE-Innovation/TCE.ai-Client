@@ -13,11 +13,17 @@ const splitString = str => str ? str.split(',').map(s => s.trim()) : [];
 
 //function to pull tools from SQL db based on email
 export async function getTools(email) { 
+    const sessionStorageKey = `tools-${email}`;
+    const cachedData = sessionStorage.getItem(sessionStorageKey);
+    if (cachedData) {
+        return JSON.parse(cachedData);
+    }
     try{
         const {data} = await axios.post('https://tce-ai-api.azurewebsites.net/api/get-user-tools', { email } );
+        sessionStorage.setItem(sessionStorageKey, JSON.stringify(data));
         return data;
     } catch(error){
-        console.error('Error fetching tools:', error);
+        console.error('Error fetching applications:', error);
     }
 }
 
