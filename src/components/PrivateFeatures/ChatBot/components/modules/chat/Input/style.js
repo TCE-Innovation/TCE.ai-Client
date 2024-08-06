@@ -16,7 +16,7 @@ export default styled.div`
   display: flex;
   gap: 0.5em;
   align-items: center;
-  .input-container {
+  .chatbot-input-container {
     &::placeholder {
       color: var(--chatbot-grey);
     }
