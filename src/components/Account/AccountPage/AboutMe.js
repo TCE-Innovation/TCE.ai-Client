@@ -37,6 +37,7 @@ function AboutMe() {
             
             <ProfileImage />
             <br />
+            <br />
             <h3>{userTitle}</h3>
             <h3>{userProjects}</h3>
             <h4>{userEmail}</h4>
