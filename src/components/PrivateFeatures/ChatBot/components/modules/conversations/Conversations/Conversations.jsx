@@ -2,7 +2,6 @@ import React, { useRef } from "react";
 
 import Conversation from "../Conversation/Conversation";
 import CreateConversation from "../CreateConversation";
-import SelectProject from "../SelectProject";
 
 import Wrapper from "./style";
 
@@ -47,7 +46,6 @@ const Conversations = () => {
           ref={conversationsRef}
         >
           <CreateConversation />
-          <SelectProject />
           <div className="conversation-list">
             {isCreatingConversation && (
               <div

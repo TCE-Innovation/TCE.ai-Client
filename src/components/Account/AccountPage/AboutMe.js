@@ -1,16 +1,8 @@
-//REACT
 import React, { useContext } from 'react';
-
-//MUI
 import Box from "@mui/material/Box";
-
-//COMPONENTS
-import { LogOutButton } from "../LogOut/LogOutButton";
-
-//AUTH
 import { AuthContext } from "../../../authentication/Auth";
-
-const noUser = require('../../../img/Utils/noUser.webp')
+import { LogOutButton } from "../LogOut/LogOutButton";
+import noUser from '../../../img/Utils/noUser.webp'; // Importing image directly
 
 function ProfileImage() {
     const { userPic } = useContext(AuthContext);
@@ -31,31 +23,41 @@ function ProfileImage() {
                 currentTarget.src = noUser;
             }}
         />
-    )
+    );
 }
 
 function AboutMe() {
-    const { userName, userEmail, userTitle, userProjects } = useContext(AuthContext);
+    const { userName, userEmail, userTitle, userProjects, deviceType } = useContext(AuthContext);
 
     return (
-                    <div style={{justifyContent: 'center', alignItems: 'center'}}>
-                        <br />
-                        <h2>Welcome back, {userName}!</h2>
-                        <br />
-                        
-                        <Box textAlign="center">
-                            <ProfileImage />
-                            <br />
-                            <br />
-                            <h3>{userTitle}</h3>
-                            <h3>{userProjects}</h3>
-                            <h4>{userEmail}</h4>
-                            <br />
-                            <LogOutButton />
-                        </Box>
-                    </div>
-    )
+        <Box textAlign="center" style={{ margin: 'auto', maxWidth: 600 }}>
+            <br />
+            <h2>Welcome back, {userName}!</h2>
+            <br />
+            
+            <ProfileImage />
+            <br />
+            <br />
+            <h3>{userTitle}</h3>
+            <h3>{userProjects}</h3>
+            <h4>{userEmail}</h4>
+            
+            <Box
+                sx={{
+                    position: 'absolute',
+                    bottom: 10,
+                    left: 10,
+                    color: 'grey',
+                    fontSize: '12px',
+                }}
+            >
+                {deviceType}
+            </Box>
+            
+            <br />
+            <LogOutButton />
+        </Box>
+    );
 }
 
 export default AboutMe;
-

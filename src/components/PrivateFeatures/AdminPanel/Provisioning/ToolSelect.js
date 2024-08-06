@@ -1,7 +1,7 @@
 import React from 'react';
 import { FormControl, Select, MenuItem } from '@mui/material';
 
-const ToolSelect = ({ selectedTool, handleToolChange, toolNameMap }) => {
+const ToolSelect = ({ selectedTool, handleToolChange, tableNameMap }) => {
     return (
         <FormControl fullWidth sx={{ marginBottom: '.5rem' }}>
             <Select
@@ -11,7 +11,7 @@ const ToolSelect = ({ selectedTool, handleToolChange, toolNameMap }) => {
                 inputProps={{ 'aria-label': 'Select Tool' }}
             >
                 <MenuItem value="" disabled>Select Tool</MenuItem>
-                {Object.keys(toolNameMap).map((tool, index) => (
+                {Object.keys(tableNameMap).map((tool, index) => (
                     <MenuItem key={index} value={tool}>{tool}</MenuItem>
                 ))}
             </Select>
