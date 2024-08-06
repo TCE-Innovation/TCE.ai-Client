@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from 'react';
-import { Box, Autocomplete, TextField, Button } from '@mui/material';
+import { Dialog, DialogTitle, DialogContent, DialogActions, Snackbar,  Box, Autocomplete, TextField, Button } from '@mui/material';
+import MuiAlert from '@mui/material/Alert';
 import { getUsersOfTool, removeUserFromTool, addUsersToTool, removeAllUsersFromTool, getProjectTeam, updateUserProject, getEmailsAndProjects, getAllPersonnel } from '../../../../data/SQL';
 import { getActiveProjects, getPBILog } from '../../../../data/Airtable';
 import ToolSelect from './ToolSelect';
@@ -53,6 +54,7 @@ const Provisioning = () => {
     const [dashboardProjects, setDashboardProjects] = useState([]);
     const [tableName, setTableName] = useState(null);
     const [defaultProjects, setDefaultProjects] = useState(null);
+    const [dialogOpen, setDialogOpen] = useState(false);
 
     /* 
     function to split comma-separated string into indidivual items
@@ -70,6 +72,94 @@ const Provisioning = () => {
         setUsers(prevUsers => prevUsers.filter(user => user.email !== email));
         setPersonnelList(prevPersonnel => [...prevPersonnel, removedUser].sort((a, b) => a.name.localeCompare(b.name)));
     };
+
+    const ManualEntryComponent = ({ open, onClose }) => {
+        const [fullName, setFullName] = useState('');
+        const [email, setEmail] = useState('');
+        const [emailError, setEmailError] = useState(false);
+        const [errorMessage, setErrorMessage] = useState('');
+        const [openSnackbar, setOpenSnackbar] = useState(false);
+
+        const validateEmail = (email) => {
+            // Basic email validation
+            return /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email);
+        };
+
+        const handleProvision = async () => {
+            if (!validateEmail(email)) {
+                setEmailError(true);
+                setErrorMessage('Please enter a valid email address');
+                setOpenSnackbar(true);
+                return;
+            }
+            setEmailError(false);
+            setErrorMessage('');
+
+            const selectedUser = [
+                {
+                    email: email,
+                    name: fullName
+                }
+            ];
+
+            await addUsersToTool(selectedUser, tableName, defaultProjects);
+            const updatedUsers = await getUsersOfTool(tableName);
+            setUsers(updatedUsers)
+
+            // if (selectedTool in toolsWithProjectOption) {
+            if (toolsWithProjectOption.includes(selectedTool)) {
+                // set user projects accurately by referencing the DB
+                const projects = await getEmailsAndProjects(tableName);
+                setUserProjects(projects);
+            }
+
+            // Close the dialog after submission
+            onClose();
+        };
+
+        return (
+            <>
+                <Dialog open={open} onClose={onClose} maxWidth="sm" fullWidth>
+                    <DialogTitle>Manual Entry</DialogTitle>
+                    <DialogContent>
+                        <TextField
+                            autoFocus
+                            margin="dense"
+                            label="Full Name"
+                            fullWidth
+                            variant="outlined"
+                            value={fullName}
+                            onChange={(e) => setFullName(e.target.value)}
+                        />
+                        <TextField
+                            margin="dense"
+                            label="Email"
+                            fullWidth
+                            variant="outlined"
+                            type="email"
+                            value={email}
+                            onChange={(e) => setEmail(e.target.value)}
+                            error={emailError}
+                            helperText={emailError ? 'Invalid email address' : ''}
+                        />
+                    </DialogContent>
+                    <DialogActions>
+                        <Button onClick={onClose}>Cancel</Button>
+                        <Button onClick={handleProvision}>Provision</Button>
+                    </DialogActions>
+                </Dialog>
+                <Snackbar open={openSnackbar} autoHideDuration={6000} onClose={() => setOpenSnackbar(false)}>
+                    <MuiAlert elevation={6} variant="filled" onClose={() => setOpenSnackbar(false)} severity="error">
+                        {errorMessage}
+                    </MuiAlert>
+                </Snackbar>
+            </>
+        );
+    };
+
+    const handleManualEntry = async () => {
+        setDialogOpen(true);
+    }
 
     const handleAddUser = async () => {
         if (selectedUsers.length > 0) {
@@ -327,12 +417,27 @@ const Provisioning = () => {
                         </Box>
                             <Button
                                 variant="contained"
+                                onClick={handleManualEntry}
+                                style={{
+                                    backgroundColor: '#F6F8FA',
+                                    color: 'black',
+                                    border: '1px solid #D0D7DE',
+                                    marginBottom: '1rem',
+                                    marginRight: '1vw'
+                                }}
+                            >
+                                Manually Add User
+                            </Button>
+                            <ManualEntryComponent open={dialogOpen} onClose={() => setDialogOpen(false)} />
+
+                            <Button
+                                variant="contained"
                                 onClick={handleAddUser}
                                 disabled={selectedUsers.length === 0}
                                 style={{
-                                    backgroundColor: selectedUsers.length > 0 ? '#d7edd1' : 'gray',
-                                    color: selectedUsers.length > 0 ? 'green' : 'white',
-                                    border: selectedUsers.length > 0 ? '1px solid green' : 'white',
+                                    backgroundColor: selectedUsers.length > 0 ? '#d7edd1' : '#D3D3D3',
+                                    color: selectedUsers.length > 0 ? 'green' : '#9C9C9C',
+                                    border: selectedUsers.length > 0 ? '1px solid green' : '1px solid #D3D3D3',
                                     marginBottom: '1rem',
                                     marginRight: '1vw'
                                 }}
