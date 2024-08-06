@@ -1,68 +1,45 @@
 {
-    "routes": [
-      {
-        "route": "/icons/TCE_192.png",
-        "allowedRoles": ["anonymous"]
-      },
-      {
-        "route": "/icons/TCE_512.png",
-        "allowedRoles": ["anonymous"]
-      },
-      {
-<<<<<<< HEAD
-        "route": "/icons/apple-touch-icon.png",
-        "allowedRoles": ["anonymous"]
-      },
-      {
-        "route": "clearance-manifest.json",
-        "allowedRoles": ["anonymous"]
-      },
-      {
-        "route": "images/blurred_subway_map.png",
-        "allowedRoles": ["anonymous"]
-      },
-      {
-        "route": "images/gears.gif",
-        "allowedRoles": ["anonymous"]
-      },
-      {
-=======
->>>>>>> @{-1}
-        "route": "translations.json",
-        "allowedRoles": ["anonymous"]
-      },
-      {
-        "route": "/icons/favicon.ico",
-        "allowedRoles": ["anonymous"]
-      },
-      {
-<<<<<<< HEAD
-        "route": "/service-worker.js",
-=======
-        "route": "/images/blurred_subway_map.png",
-        "allowedRoles": ["anonymous"]
-      },
-      {
-        "route": "/downloads/ClearanceCalculatorSetup.pdf",
-        "allowedRoles": ["anonymous"]
-      },
-      {
-        "route": "/images/gears.gif",
->>>>>>> @{-1}
-        "allowedRoles": ["anonymous"]
-      },
-      {
-        "route": "/manifest.json",
-        "allowedRoles": ["anonymous"]
-      },
-      {
-        "route": "/static/*",
-        "allowedRoles": ["anonymous"]
-      },
-      {
-        "route": "/*",
-        "allowedRoles": ["anonymous"],
-        "rewrite": "/index.html"
-      }
-    ]
-  }
+  "routes": [
+    {
+      "route": "/icons/TCE_192.png",
+      "allowedRoles": ["anonymous"]
+    },
+    {
+      "route": "/icons/TCE_512.png",
+      "allowedRoles": ["anonymous"]
+    },
+    {
+      "route": "translations.json",
+      "allowedRoles": ["anonymous"]
+    },
+    {
+      "route": "/icons/favicon.ico",
+      "allowedRoles": ["anonymous"]
+    },
+    {
+      "route": "/images/blurred_subway_map.png",
+      "allowedRoles": ["anonymous"]
+    },
+    {
+      "route": "/downloads/ClearanceCalculatorSetup.pdf",
+      "allowedRoles": ["anonymous"]
+    },
+    {
+      "route": "/images/gears.gif",
+      "allowedRoles": ["anonymous"]
+    },
+    {
+      "route": "/manifest.json",
+      "allowedRoles": ["anonymous"]
+    },
+    {
+      "route": "/static/*",
+      "allowedRoles": ["anonymous"]
+    },
+    {
+      "route": "/*",
+      "allowedRoles": ["anonymous"],
+      "rewrite": "/index.html"
+    }
+  ]
+}
