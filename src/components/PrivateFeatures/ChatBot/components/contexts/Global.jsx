@@ -8,6 +8,7 @@ import React, {
 import { genRandomId } from "../../utils/uuid";
 import useStorage from "../../hooks/useStorage";
 import useAuth from "../../hooks/useAuth";
+import { useQueryParam } from "../../hooks";
 
 const GlobalContext = createContext();
 
@@ -16,6 +17,7 @@ export const useContext = () => _useContext(GlobalContext);
 const GlobalContextProvider = ({ children }) => {
   const [alerts, setAlerts] = useState([]);
   const { userPic } = useAuth();
+  const query = useQueryParam();
 
   const [conversationsCollapsed, setIsConversationsCollapsed] = useStorage(
     "CHATBOT-SIDEBAR-STATE",
@@ -36,6 +38,7 @@ const GlobalContextProvider = ({ children }) => {
       value={{
         createAlert,
         alerts,
+        query,
         userProfileUrl: userPic,
         handleRemoveAlert,
         conversationsCollapsed,

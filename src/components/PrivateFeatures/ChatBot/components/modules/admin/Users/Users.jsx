@@ -2,17 +2,25 @@ import React from "react";
 
 import SearchComponent from "../Search";
 
-import UsersTable, { roles } from "./Table";
+import UsersTable from "./Table";
 
-const data = Array.from({ length: 20 }, (_, i) => {
-  const role = i % roles.length;
-  return {
-    name: `${i + 1} user name`,
-    email: "user123@gmail.com",
-    role,
-    teamName: "Team name",
-  };
-});
+import { genUser } from "../../../../utils/data";
+
+import { ROLES } from "../../../../constants/admin";
+
+const getUsers = async () => {
+  const users = await genUser(20);
+  return users.map((user, i) => {
+    const role = i % ROLES.length;
+    return {
+      name: user.name,
+      url: user.image || user.url,
+      email: user.email,
+      role,
+      teamName: "Team name",
+    };
+  });
+};
 
 const Users = () => {
   return (
@@ -20,7 +28,7 @@ const Users = () => {
       <div style={{ width: "350px" }} className="mb-3">
         <SearchComponent placeholder={"Search a user"} onChange={console.log} />
       </div>
-      <UsersTable rows={data} />
+      <UsersTable rows={getUsers} />
     </>
   );
 };

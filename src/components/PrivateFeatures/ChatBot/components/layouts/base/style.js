@@ -41,6 +41,9 @@ export default styled.div`
     display: flex;
     flex-direction: column;
     gap: 0.25em;
+    position: sticky;
+    top: 0;
+    background-color: white;
   }
   .select-field {
     border-radius: 0.25em;
@@ -57,6 +60,9 @@ export default styled.div`
     background-color: white;
     border-radius: 0.25em;
     box-shadow: 0 0 10px 0 rgba(0, 0, 0, 0.2);
+    max-height: 400px;
+    overflow: hidden;
+    overflow-y: auto;
     & > * {
       padding: 0.75em;
       cursor: pointer;

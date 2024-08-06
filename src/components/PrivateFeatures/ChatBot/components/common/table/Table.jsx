@@ -1,6 +1,8 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useRef, useState } from "react";
 
 import Wrapper from "./style";
+
+import { Loader } from "../../common";
 
 const SORT_ORDER = ["default", "ascending", "descending"];
 
@@ -11,8 +13,38 @@ const Table = ({
   classNames = "",
   onRowClick = () => {},
 }) => {
-  const [currentList, setCurrentList] = useState(data);
+  const [loading, setLoading] = useState(true);
+  const [currentList, setCurrentList] = useState(() =>
+    typeof data === "function" ? [] : []
+  );
   const [sortOrder, setSortOrder] = useState([]);
+
+  const dataRef = useRef([]);
+
+  useEffect(() => {
+    (async () => {
+      try {
+        if (typeof data === "function") {
+          const rows = await data();
+          if (Array.isArray(rows)) {
+            setCurrentList(rows);
+            dataRef.current = rows;
+          }
+        }
+        setLoading(false);
+      } catch (err) {
+        console.error(err);
+        setCurrentList([]);
+      }
+    })();
+  }, []);
+
+  useEffect(() => {
+    if (Array.isArray(data)) {
+      setCurrentList(data);
+      dataRef.current = data;
+    }
+  }, [data]);
 
   const updateSortOrder = (colIndex) => {
     setSortOrder((prev) => {
@@ -30,7 +62,7 @@ const Table = ({
       if (SORT_ORDER[order] === "descending") {
         return prev.slice().sort((a, b) => (a[key] > b[key] ? -1 : 1));
       }
-      return data;
+      return dataRef.current;
     });
   };
 
@@ -110,18 +142,25 @@ const Table = ({
           ) : (
             <tr>
               <td colSpan={columns.length}>
-                {children ? (
-                  children
-                ) : (
-                  <div
-                    style={{
-                      color: "var(--chatbot-grey)",
-                      textAlign: "center",
-                    }}
-                  >
-                    no data
-                  </div>
-                )}
+                <div
+                  style={{
+                    position: "relative",
+                    color: "var(--chatbot-grey)",
+                    textAlign: "center",
+                  }}
+                >
+                  {loading ? (
+                    <>
+                      <br />
+                      <Loader />
+                      <br />
+                    </>
+                  ) : children ? (
+                    children
+                  ) : (
+                    <>no data</>
+                  )}
+                </div>
               </td>
             </tr>
           )}

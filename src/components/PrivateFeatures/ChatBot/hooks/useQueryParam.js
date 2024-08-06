@@ -5,8 +5,17 @@ const useQueryParam = () => {
   const [params, setParams] = useState({});
   const location = useLocation();
 
-  const push = (query) => {
-    const newParams = { ...params, ...query };
+  const push = (query, { replace = false, reverse = false } = {}) => {
+    let newParams = {};
+    if (reverse) {
+      for (const key in params) {
+        if (!query[key]) {
+          newParams[key] = params[key];
+        }
+      }
+    } else {
+      newParams = { ...(replace ? {} : params), ...query };
+    }
     const search = ["?", new URLSearchParams(newParams).toString()].join("");
     let newUrl =
       window.location.protocol +

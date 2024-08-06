@@ -12,7 +12,7 @@ const AdminButton = () => {
           search: new URLSearchParams({ admin: true }).toString(),
         });
       }}
-      className="chatbot-admin-button d-flex gap-2 align-items-center bg-white rounded p-3"
+      className="chatbot-admin-button d-flex gap-2 align-items-center p-3"
     >
       <span>
         <SettingsIcon />

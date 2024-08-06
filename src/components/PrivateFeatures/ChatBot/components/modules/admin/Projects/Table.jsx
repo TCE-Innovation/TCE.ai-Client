@@ -5,8 +5,13 @@ import Actions from "../Actions";
 import { DeleteProjectModal, EditProjectModal } from "./Modals";
 
 import TableContainer from "../TableContainer";
+import { TabContext } from "../../../common";
+
+import { useGlobal } from "../../../../hooks";
 
 const Table = ({ rows }) => {
+  const { query } = useGlobal();
+  const { push } = query;
   const columns = useMemo(
     () => [
       {
@@ -53,7 +58,18 @@ const Table = ({ rows }) => {
     []
   );
   return (
-    <TableContainer columns={columns} rows={rows} onRowClick={console.log} />
+    <TabContext.Provider>
+      {({ nextTab }) => (
+        <TableContainer
+          columns={columns}
+          rows={rows}
+          onRowClick={(row) => {
+            nextTab();
+            push({ project_id: row.id });
+          }}
+        />
+      )}
+    </TabContext.Provider>
   );
 };
 

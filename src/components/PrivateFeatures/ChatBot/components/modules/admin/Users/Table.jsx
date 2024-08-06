@@ -5,9 +5,12 @@ import SortButton from "../SortButton";
 import { Avatar, Badge } from "../../../common";
 import Actions from "../Actions";
 import { RemoveUserModal } from "./Modals";
+import { RemoveUserFromProjectModal } from "../Projects/Modals";
 
-export const roles = ["Admin", "Project Manager", "User"];
-const colors = ["purple", "blue", "green"];
+import { TabContext } from "../../../common";
+
+import { PROFILES, ROLE_TO_COLORS } from "../../../../constants/admin";
+import { getRoleById } from "../../../../utils/data";
 
 const Table = ({ rows }) => {
   const columns = useMemo(
@@ -20,11 +23,13 @@ const Table = ({ rows }) => {
             <SortButton handleSort={handleSort} currentOrder={currentOrder} />
           );
         },
-        renderCell: ({ name }) => {
+        renderCell: ({ name, url }) => {
           const title = name[0]?.toUpperCase();
           return (
             <div className="d-flex gap-1 align-items-center">
-              <Avatar title={title} />
+              <Avatar title={title}>
+                <img src={url} alt={name} />
+              </Avatar>
               <span>{name}</span>
             </div>
           );
@@ -37,8 +42,8 @@ const Table = ({ rows }) => {
       {
         title: "Role",
         renderCell: ({ role }) => {
-          const color = colors[role];
-          const label = roles[role];
+          const label = getRoleById(role);
+          const color = ROLE_TO_COLORS[label];
           return (
             <>
               <Badge label={label} accent={color} />
@@ -57,13 +62,36 @@ const Table = ({ rows }) => {
         width: "0",
         renderCell: ({ name, email }) => {
           return (
-            <Actions>
-              <Actions.Delete
-                renderModal={(props) => (
-                  <RemoveUserModal {...props} username={name} email={email} />
-                )}
-              />
-            </Actions>
+            <TabContext.Provider>
+              {(props) => {
+                const { activeTab, tabs } = props;
+                const isProjectUsers =
+                  tabs[activeTab].value === PROFILES.PROJECT_USERS;
+                return (
+                  <Actions>
+                    <Actions.Delete
+                      renderModal={(props) => {
+                        if (isProjectUsers)
+                          return (
+                            <RemoveUserFromProjectModal
+                              {...props}
+                              username={name}
+                              email={email}
+                            />
+                          );
+                        return (
+                          <RemoveUserModal
+                            {...props}
+                            username={name}
+                            email={email}
+                          />
+                        );
+                      }}
+                    />
+                  </Actions>
+                );
+              }}
+            </TabContext.Provider>
           );
         },
       },

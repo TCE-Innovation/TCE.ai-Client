@@ -41,7 +41,15 @@ const Panes = ({ children }) => {
 
 const Provider = ({ children }) => {
   const props = useTabContext();
-  return children(props);
+  const nextTab = () => {
+    props.setActiveTab((prev) => (prev + 1) % props.tabs.length);
+  };
+  const prevTab = () => {
+    props.setActiveTab((prev) =>
+      prev - 1 >= 0 ? prev - 1 : props.tabs.length - 1
+    );
+  };
+  return children({ ...props, nextTab, prevTab });
 };
 
 const Tabs = ({ renderTab, disableUnderline = false }) => {
@@ -61,7 +69,7 @@ const Tabs = ({ renderTab, disableUnderline = false }) => {
             {renderTab ? (
               <>{renderTab({ tab, tabIndex: i, activeTab })}</>
             ) : (
-              tab
+              tab.title
             )}
           </div>
         );

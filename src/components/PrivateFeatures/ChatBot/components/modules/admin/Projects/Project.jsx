@@ -7,10 +7,29 @@ import UsersTable from "../Users/Table";
 
 import { TabContext } from "../../../common";
 
+import { genDocuments, genUser } from "../../../../utils/data";
+import { PROFILES } from "../../../../constants/admin";
+
+export const roles = ["Admin", "Project Manager", "User"];
+
+const getUsers = async () => {
+  const users = await genUser(10);
+  return users.map((user, i) => {
+    const role = i % roles.length;
+    return {
+      name: user.name,
+      url: user.image || user.url,
+      email: user.email,
+      role,
+      teamName: "Team name",
+    };
+  });
+};
+
 const ProjectUsers = () => {
   return (
     <>
-      <UsersTable rows={[]} />
+      <UsersTable rows={getUsers} />
     </>
   );
 };
@@ -18,33 +37,35 @@ const ProjectUsers = () => {
 const ProjectDocuments = () => {
   return (
     <>
-      <DocumentsTable rows={[]} />
+      <DocumentsTable rows={genDocuments} />
     </>
   );
 };
 
-const PROJECT_NAV_TABS = [
+const tabs = [
   {
     title: "Project Users",
     pane: ProjectUsers,
+    value: PROFILES.PROJECT_USERS,
   },
   {
     title: "Project Documents",
     pane: ProjectDocuments,
+    value: PROFILES.PROJECT_DOCS,
   },
 ];
 
 const Project = () => {
   return (
     <div>
-      <TabContext tabs={PROJECT_NAV_TABS.map((p) => p.title)}>
-        <div className="d-flex align-items-center gap-4 my-3">
+      <TabContext tabs={tabs}>
+        <div className="d-flex align-items-center gap-4">
           <div className="flex-grow-1">
             <TabContext.Tabs
               renderTab={({ tab }) => {
                 return (
                   <div className="d-flex align-items-center">
-                    <span>{tab}</span>
+                    <span>{tab.title}</span>
                   </div>
                 );
               }}
@@ -85,7 +106,7 @@ const Project = () => {
         </div>
         <div>
           <TabContext.Panes>
-            {PROJECT_NAV_TABS.map((tab, i) => {
+            {tabs.map((tab, i) => {
               const Component = tab.pane;
               return <Component key={i} />;
             })}

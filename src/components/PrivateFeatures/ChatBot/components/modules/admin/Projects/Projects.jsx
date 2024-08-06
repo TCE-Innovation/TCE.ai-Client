@@ -4,81 +4,44 @@ import Wrapper from "./style";
 
 import { TabContext } from "../../../common";
 
-import { RightIcon } from "../../../icons";
-
 import ProjectsTable from "./Table";
 
 import Project from "./Project";
 
-import { genRandomId } from "../../../../utils/uuid";
+import Navigator from "./Navigator";
 
-const genProject = () => {
-  const alphs = "abcdefghijklmnopqrstuvqxyz";
-  return Array.from({ length: 20 }, (_, i) => {
-    const id = genRandomId();
-    const name = `${alphs[i].toUpperCase()} Project`;
-    const value =
-      name
-        .replace(/\s+/g, "")
-        .split("")
-        .reduce((acc, i) => (acc += Math.sqrt(i.charCodeAt(0)) | 0), 23) % 21;
-    return {
-      id,
-      name: `${alphs[i].toUpperCase()} Project`,
-      assignedUsers: Array.from({ length: value + 5 }, () => ({
-        name: "name",
-        url: "",
-      })),
-      documentCount: alphs[i].charCodeAt(0),
-    };
-  });
-};
+import { genProject } from "../../../../utils/data";
 
-const projects = genProject();
+import { useGlobal } from "../../../../hooks";
 
-const tabs = [
-  {
-    title: "Project list",
-  },
-  {
-    title: "Project name",
-  },
-];
+import { PROFILES } from "../../../../constants/admin";
 
 const Projects = () => {
+  const { query } = useGlobal();
+  const { push, params } = query;
+
+  const { project_id } = params;
+
+  const tabs = [
+    {
+      title: "Project list",
+      value: PROFILES.PROJECT_LIST,
+      handleClick: () => {
+        push({ project_id }, { reverse: true });
+      },
+    },
+    {
+      title: "Project name",
+      value: PROFILES.PROJECT_NAME,
+    },
+  ];
+
   return (
     <Wrapper>
-      <TabContext tabs={tabs.map((t) => t.title)}>
-        <TabContext.Tabs
-          disableUnderline
-          renderTab={({ tab, tabIndex, activeTab }) => {
-            return (
-              <button
-                style={{ color: "var(--chatbot-grey)" }}
-                className="chat-button d-flex align-items-center"
-              >
-                {tabIndex !== 0 && (
-                  <span
-                    className="d-inline-block"
-                    style={{ pointerEvents: "none", paddingRight: ".75em" }}
-                  >
-                    <RightIcon />
-                  </span>
-                )}
-                <span
-                  style={{
-                    color:
-                      tabIndex === activeTab ? "var(--chatbot-primary)" : "",
-                  }}
-                >
-                  {tab}
-                </span>
-              </button>
-            );
-          }}
-        />
+      <TabContext defaultActive={project_id ? 1 : 0} tabs={tabs}>
+        <Navigator />
         <TabContext.Panes>
-          <ProjectsTable rows={projects} />
+          <ProjectsTable rows={genProject} />
           <Project />
         </TabContext.Panes>
       </TabContext>

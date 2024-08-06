@@ -10,7 +10,7 @@ import { FolderIcon, UsersIcon, DocumentIcon } from "../../icons";
 
 import AddNewButton from "./AddNew";
 
-import { useQueryParam } from "../../../hooks";
+import { useGlobal } from "../../../hooks";
 
 const tabs = [
   {
@@ -31,7 +31,8 @@ const tabs = [
 ];
 
 const Admin = () => {
-  const { push, getQuery } = useQueryParam();
+  const { query } = useGlobal();
+  const { push, getQuery } = query;
   const tab = getQuery("profile");
   const defaultTab = Math.max(
     0,
@@ -39,30 +40,30 @@ const Admin = () => {
   );
 
   return (
-    <TabContext defaultActive={defaultTab} tabs={tabs.map((tab) => tab.title)}>
+    <TabContext defaultActive={defaultTab} tabs={tabs}>
       <div className="h-100 chatbot-admin-container d-flex flex-column">
         <div className="admin-header position-sticky top-0 d-flex justify-content-between align-items-center">
           <div className="tabs-wrapper">
             <TabContext.Tabs
-              renderTab={({ tab, tabIndex, activeTab }) => {
+              renderTab={({ tab, tabIndex }) => {
                 const TabIcon = tabs[tabIndex].icon;
                 return (
                   <div
                     onClick={() =>
                       push({ profile: tabs[tabIndex].title.toLowerCase() })
                     }
-                    className={`d-flex align-items-center gap-1 px-4`}
+                    className={`d-flex align-items-center gap-1 px-4 py-2`}
                   >
                     <span>
                       <TabIcon />
                     </span>
-                    <span>{tab}</span>
+                    <span>{tab.title}</span>
                   </div>
                 );
               }}
             />
           </div>
-          <AddNewButton profile={tab.toLowerCase()} />
+          <AddNewButton />
         </div>
         <div className="flex-grow-1" style={{ overflow: "auto hidden" }}>
           <TabContext.Panes>

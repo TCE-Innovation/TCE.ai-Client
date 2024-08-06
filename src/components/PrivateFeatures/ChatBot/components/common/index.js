@@ -11,4 +11,3 @@ export { default as Avatar } from "./avatar";
 export { default as TabContext } from "./tabs";
 export { default as Badge } from "./badge";
 export { default as Field } from "./field";
-export { default as BreadCrumb } from "./breadcrumb";

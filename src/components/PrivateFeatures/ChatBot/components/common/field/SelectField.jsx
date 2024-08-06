@@ -43,6 +43,7 @@ const DropDown = ({
               placeholder={searchPlaceholder}
               leftAddon={<SearchIcon />}
               onChange={handleSearch}
+              autoComplete={'off'}
             />
           </div>
         </FormContext>

@@ -10,11 +10,18 @@ import {
 import { AddUserModal } from "./Users/Modals";
 import { AddDocumentModal } from "./Documents/Modals";
 
-const AddNew = ({ profile }) => {
+import { useGlobal } from "../../../hooks";
+
+const AddNew = () => {
+  const { query } = useGlobal();
+  const { profile, project_id } = query.params;
+
   return (
     <div>
       {profile === "projects" ? (
-        <AddNewProject />
+        !project_id ? (
+          <AddNewProject />
+        ) : null
       ) : profile === "users" ? (
         <AddNewUser />
       ) : profile === "documents" ? (

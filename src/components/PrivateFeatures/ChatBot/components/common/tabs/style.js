@@ -19,8 +19,6 @@ export default styled.div`
     }
   }
   .chatbot-tab-pane {
-    // display: flex;
-    // height: 100%;
     justify-content: center;
     align-items: center;
     padding: 0.75em 0;

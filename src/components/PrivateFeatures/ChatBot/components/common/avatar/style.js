@@ -13,6 +13,12 @@ export default styled.div`
     &.user-avatar {
       background-color: var(--chatbot-secondary);
     }
+    & img {
+      object-fit: contain;
+      position: relative;
+      width: 100%;
+      z-index: 1;
+    }
     color: black;
     user-select: none;
     pointer-events: none;

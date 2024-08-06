@@ -4,11 +4,16 @@ export default styled.div`
   height: 100%;
   .avatar-group {
     display: flex;
+    > *:last-child {
+      & .author-avatar {
+        background: white;
+      }
+    }
     > * {
       --avatar-size: 24px;
       & .author-avatar {
         position: relative;
-        border: 1px solid white;
+        border: 2px solid white;
         box-sizing: border-box;
         background-color: var(--chatbot-grey);
         font-weight: 100;

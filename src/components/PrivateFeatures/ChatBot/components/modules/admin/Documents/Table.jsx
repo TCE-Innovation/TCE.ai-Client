@@ -2,8 +2,12 @@ import React, { useMemo } from "react";
 import SortButton from "../SortButton";
 import Actions from "../Actions";
 import { RemoveDocumentModal } from "./Modals";
+import { RemoveDocumentFromProjectModal } from "../Projects/Modals";
+
+import { TabContext } from "../../../common";
 
 import TableContainer from "../TableContainer";
+import { PROFILES } from "../../../../constants/admin";
 
 const Table = ({ rows }) => {
   const columns = useMemo(
@@ -31,18 +35,39 @@ const Table = ({ rows }) => {
       {
         title: "Actions",
         width: "0",
-        renderCell: ({ ...props }) => {
+        renderCell: ({ ...documentProps }) => {
           return (
-            <Actions>
-              <Actions.DownLoad
-                handleDownload={() => console.log("downloading...")}
-              />
-              <Actions.Delete
-                renderModal={(modalProps) => (
-                  <RemoveDocumentModal {...modalProps} {...props} />
-                )}
-              />
-            </Actions>
+            <TabContext.Provider>
+              {(props) => {
+                const { activeTab, tabs } = props;
+                const isProjectDocs =
+                  tabs[activeTab].value === PROFILES.PROJECT_DOCS;
+                return (
+                  <Actions>
+                    <Actions.DownLoad
+                      handleDownload={() => console.log("downloading...")}
+                    />
+                    <Actions.Delete
+                      renderModal={(modalProps) => {
+                        if (isProjectDocs)
+                          return (
+                            <RemoveDocumentFromProjectModal
+                              {...modalProps}
+                              {...documentProps}
+                            />
+                          );
+                        return (
+                          <RemoveDocumentModal
+                            {...modalProps}
+                            {...documentProps}
+                          />
+                        );
+                      }}
+                    />
+                  </Actions>
+                );
+              }}
+            </TabContext.Provider>
           );
         },
       },
