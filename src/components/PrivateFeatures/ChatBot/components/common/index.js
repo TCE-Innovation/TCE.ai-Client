@@ -5,3 +5,4 @@ export { default as Alerts } from "./alerts";
 export { default as Modal } from "./modal";
 export { default as Markdown } from "./markdown";
 export { default as Select } from "./select";
+export { default as TypeWriter } from "./typewriter";

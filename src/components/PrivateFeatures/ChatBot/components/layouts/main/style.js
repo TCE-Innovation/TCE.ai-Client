@@ -21,6 +21,10 @@ export default styled.div`
     font-variation-settings: "slnt" 0;
   }
 
+  p {
+    margin-bottom: 0;
+  }
+
   display: flex;
   height: 84vh;
   gap: 2em;
