@@ -18,16 +18,13 @@ export const AuthProvider = ({ children }) => {
   const [userTools, setUserTools] = useState(null);
   const [deviceType, setDeviceType] = useState('desktop'); // Default to desktop
   const [accessToken, setAccessToken] = useState(null);
+  const [loading, setLoading] = useState(true);
 
   // Detect device type on component mount
   useEffect(() => {
-    if (isMobile) {
-      setDeviceType('mobile');
-    } else if (isTablet) {
-      setDeviceType('tablet');
-    } else {
-      setDeviceType('desktop');
-    }
+    if (isMobile) { setDeviceType('mobile'); }
+    else if (isTablet) { setDeviceType('tablet'); }
+    else { setDeviceType('desktop'); }
   }, []);
 
   // Get user account
@@ -51,33 +48,26 @@ export const AuthProvider = ({ children }) => {
     getAccount();
   }, [accounts, instance]);
 
-  // Function to fetch user details
-  function fetchAndSetUserDetails(accessToken, name, email) {
+  const fetchAndSetUserDetails = async (accessToken, name, email) => {
     email = email.toLowerCase();
     setUserName(name);
     setUserEmail(email);
     setAccessToken(accessToken);
 
-    getUserProfilePic(accessToken)
-      .then(setUserPic)
-      .catch((error) => console.error('Error fetching user profile picture:', error));
-
-    getJobTitle(email)
-      .then(setUserTitle)
-      .catch((error) => console.error('Error fetching user job title:', error));
-
-    getProjects(email)
-      .then(setUserProjects)
-      .catch((error) => console.error('Error fetching user projects:', error));
-
-    getApplications(email)
-      .then(setUserApplications)
-      .catch((error) => console.error('Error fetching user applications:', error));
-
-    getTools(email)
-      .then(setUserTools)
-      .catch((error) => console.error('Error fetching user tools:', error));
-  }
+    try {
+      await Promise.all([
+        getUserProfilePic(accessToken).then(setUserPic),
+        getJobTitle(email).then(setUserTitle),
+        getProjects(email).then(setUserProjects),
+        getApplications(email).then(setUserApplications),
+        getTools(email).then(setUserTools)
+      ]);
+    } catch (error) {
+      console.error('Error fetching user details:', error);
+    } finally {
+      setLoading(false);
+    }
+  };
 
   const loginContextValue = {
     userName,
@@ -88,7 +78,8 @@ export const AuthProvider = ({ children }) => {
     userApplications,
     userTools,
     deviceType,
-    accessToken
+    accessToken,
+    loading
   };
 
   return (
