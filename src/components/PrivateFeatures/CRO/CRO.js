@@ -24,14 +24,32 @@ const CRO = () => {
       <Box sx={{ display: 'flex', justifyContent: 'center', gap: 2, mb: 2, mr: 9, marginTop: '-20px' }}>
         <Button
           variant="contained"
-          sx = {{backgroundColor: '#609CCF'}}
+          sx = {{
+            backgroundColor: activeComponent === 'ConduitMessenger' ? '#1B365F' : 'white',
+            border: '1px solid #1B365F',
+            color: activeComponent === 'ConduitMessenger' ? 'white' : '#1B365F',
+            '&:hover': {
+              backgroundColor: activeComponent === 'ConduitMessenger' ? '#1B365F' : 'white',
+              border: '1px solid #1B365F',
+              color: activeComponent === 'ConduitMessenger' ? 'white' : '#1B365F',
+            },
+          }}
           onClick={() => setActiveComponent('ConduitMessenger')}
         >
           Conduit or Messenger
         </Button>
         <Button
           variant="contained"
-          sx = {{backgroundColor: '#003EAB'}}
+          sx = {{
+            backgroundColor: activeComponent === 'PullBox' ? '#1B365F' : 'white',
+            border: '1px solid #1B365F',
+            color: activeComponent === 'PullBox' ? 'white' : '#1B365F',
+            '&:hover': {
+              backgroundColor: activeComponent === 'PullBox' ? '#1B365F' : 'white',
+              border: '1px solid #1B365F',
+              color: activeComponent === 'PullBox' ? 'white' : '#1B365F',
+            },
+          }}
           onClick={() => setActiveComponent('PullBox')}
         >
           Pull Box Sizer

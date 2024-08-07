@@ -38,6 +38,26 @@
     color: black;
 }
 
+.siteActionButton {
+    background-color: #8b5A73;
+    color: white,
+}
+
+.siteActionButton:hover {
+    background-color: #784E63;
+    color: white,
+}
+
+.userActionButton {
+    background-color: #609CCF;
+    color: white;
+}
+
+.userActionButton:hover {
+    background-color: #568CBA;
+    color: white;
+}
+
 .button {
     color: #1b365f;
     border-color: #1b365f;

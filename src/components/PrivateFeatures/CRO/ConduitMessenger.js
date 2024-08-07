@@ -267,12 +267,15 @@ const CRO = () => {
                 <Button
                     variant="contained"
                     startIcon={<QuizIcon />}
-                    style={{ 
+                    sx={{ 
                         marginLeft: '290px', 
                         marginTop: '-px', 
                         backgroundColor: '#8B5A73',
                         width: '110px', // Set the fixed width
                         height: '42px', // Set the fixed height
+                        '&:hover': {
+                            backgroundColor: '#784E63', 
+                        },
                     }}
                     onClick={handleClickOpen}
                 >
@@ -520,7 +523,14 @@ const CRO = () => {
                                     <Button
                                         variant="contained"
                                         startIcon={<Upload />}
-                                        style={{ marginTop: '8px', marginLeft: '50px' }}
+                                        sx={{ 
+                                            marginTop: '8px', 
+                                            marginLeft: '50px',
+                                            backgroundColor: '#609CCF',
+                                            '&:hover': {
+                                                backgroundColor: '#568CBA', 
+                                            },
+                                        }}
                                         onClick={() => {
                                             document.getElementById('cableSizesInput').click();
                                         }}
@@ -562,7 +572,15 @@ const CRO = () => {
                         <Button
                             variant="contained"
                             startIcon={<Download />}
-                            style={{ marginTop: '5px', marginLeft: '0px', width: '350px', backgroundColor: '#8B5A73'}}
+                            sx={{ 
+                                marginTop: '5px', 
+                                marginLeft: '0px', 
+                                width: '350px', 
+                                backgroundColor: '#8B5A73',
+                                '&:hover': {
+                                    backgroundColor: '#784E63', 
+                                },
+                            }}
                             size="large"
                         >
                             Download Pull Sheet template
@@ -573,7 +591,15 @@ const CRO = () => {
                         <Button
                             variant="contained"
                             startIcon={<Upload />}
-                            style={{ marginTop: '5px', marginLeft: '60px', width: '350px' }}
+                            sx={{ 
+                                marginTop: '5px', 
+                                marginLeft: '60px', 
+                                width: '350px', 
+                                backgroundColor: '#609CCF',
+                                '&:hover': {
+                                    backgroundColor: '#568CBA', 
+                                },
+                            }}
                             size="large"
                             onClick={() => {
                                 document.getElementById('pullsheetInput').click();
@@ -601,7 +627,16 @@ const CRO = () => {
                 <Button
                     variant="contained"
                     color="success"
-                    style={{ marginTop: isBoxExpanded ? '-180px' : '-95px', marginLeft: '0px', marginBottom: '30px', width: '325px' }}
+                    sx={{ 
+                        marginTop: isBoxExpanded ? '-180px' : '-95px', 
+                        marginLeft: '0px', 
+                        marginBottom: '30px', 
+                        width: '325px',
+                        backgroundColor: '#8B5A73',
+                        '&:hover': {
+                            backgroundColor: '#784E63', 
+                        },
+                    }}
                     size="large"
                     onClick={() => {
                         setIsBoxExpanded(true); // Expand the box

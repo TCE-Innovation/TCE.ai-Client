@@ -375,7 +375,15 @@ const CRO = () => {
                         <Button
                             variant="contained"
                             startIcon={<Download />}
-                            style={{ marginTop: '5px', marginLeft: '0px', width: '350px', backgroundColor: '#8B5A73'}}
+                            sx={{ 
+                                marginTop: '5px', 
+                                marginLeft: '0px', 
+                                width: '350px', 
+                                backgroundColor: '#8B5A73',
+                                '&:hover': {
+                                    backgroundColor: '#784E63', 
+                                },
+                            }}
                             size="large"
                         >
                             Download Required template
@@ -386,7 +394,14 @@ const CRO = () => {
                         <Button
                             variant="contained"
                             startIcon={<Upload />}
-                            style={{ marginTop: '5px', marginLeft: '60px', width: '350px' }}
+                            sx={{ marginTop: '5px', 
+                                marginLeft: '60px', 
+                                width: '350px',
+                                backgroundColor: '#609CCF',
+                                '&:hover': {
+                                    backgroundColor: '#568CBA', 
+                                },
+                            }}
                             size="large"
                             onClick={() => {
                                 document.getElementById('pullsheetInput').click();
@@ -416,7 +431,15 @@ const CRO = () => {
                 <Button
                     variant="contained"
                     color="success"
-                    style={{ marginTop: isBoxExpanded ? '-180px' : '-95px', marginLeft: '0px', marginBottom: '30px', width: '325px' }}
+                    sx={{ marginTop: isBoxExpanded ? '-180px' : '-95px', 
+                        marginLeft: '0px', 
+                        marginBottom: '30px', 
+                        width: '325px',
+                        backgroundColor: '#8B5A73',
+                        '&:hover': {
+                            backgroundColor: '#784E63', 
+                        },
+                    }}
                     size="large"
                     onClick={() => {
                         setIsBoxExpanded(true); // Expand the box

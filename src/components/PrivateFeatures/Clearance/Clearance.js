@@ -230,9 +230,9 @@ const Clearance = () => {
           size="large"
           onClick={handleOfflineButtonClick}
           sx={{
-            backgroundColor: '#003EAB', 
+            backgroundColor: '#8B5A73', 
             '&:hover': {
-              backgroundColor: '#00328A', 
+              backgroundColor: '#784E63', 
             },
           }}
         >
@@ -424,9 +424,9 @@ const Clearance = () => {
                   sx={{
                     width: "90%",
                     height: "100%",
-                    backgroundColor: '#003EAB', 
+                    backgroundColor: '#8B5A73', 
                     '&:hover': {
-                      backgroundColor: '#00328A', 
+                      backgroundColor: '#784E63', 
                     },
                   }}
                 >

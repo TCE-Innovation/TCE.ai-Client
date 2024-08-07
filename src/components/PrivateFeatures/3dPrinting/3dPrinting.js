@@ -200,9 +200,10 @@ const PrintingRequest = () => {
         </Typography> */}
 
         <Button
+            className={style.siteActionButton}
             variant="contained"
             startIcon={<FilterRoundedIcon />}
-            style={{ marginLeft: '0px', marginTop: '20px', marginBottom: '10px', backgroundColor: '#003EAB'}}
+            style={{ marginLeft: '0px', marginTop: '20px', marginBottom: '10px' }}
             onClick={handleFaqOpen}
         >
             View Examples
@@ -345,8 +346,9 @@ const PrintingRequest = () => {
                             <label htmlFor="file">
                             <Button
                                 variant="contained"
+                                className={style.userActionButton}
                                 startIcon={<Upload />}
-                                style={{ marginTop: '5px', marginLeft: '0px', width: '540px', height: '50px', marginRight: '0px', backgroundColor: '#003EAB' }}
+                                style={{ marginTop: '5px', marginLeft: '0px', width: '540px', height: '50px', marginRight: '0px' }}
                                 size="medium"
                                 onClick={() => {
                                     document.getElementById('file').click();
@@ -366,10 +368,11 @@ const PrintingRequest = () => {
                             />
 
                             <Button
+                                className={style.siteActionButton}
                                 onClick={handleSubmit}
                                 variant="contained"
                                 color="primary"
-                                style={{ width: "260px", height: '50px', marginTop: "5px", marginBottom: "20px", marginLeft: "20px", backgroundColor: isButtonDisabled ? '#ccc' : '#003EAB' }}
+                                style={{ width: "260px", height: '50px', marginTop: "5px", marginBottom: "20px", marginLeft: "20px" }}
                                 disabled={isButtonDisabled}
                                 
                                 >
