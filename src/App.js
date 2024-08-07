@@ -487,7 +487,6 @@ const Clearance = () => {
                     }}
                     InputProps={{
                       endAdornment: <InputAdornment position="end">in.</InputAdornment>
-                      
                     }}
                     onChange={handleHChange}
                     disabled={state === 'RESULTS'}
