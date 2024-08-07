@@ -25,7 +25,7 @@ const Citation = ({
           {showTypeWriterEffect ? (
             <TypeWriter
               speed={5}
-              text={title}
+              text={title} 
               onEnd={() => setShowPage(true)}
             />
           ) : (

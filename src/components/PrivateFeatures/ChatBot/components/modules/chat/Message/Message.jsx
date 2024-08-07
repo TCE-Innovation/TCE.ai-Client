@@ -71,7 +71,7 @@ const Message = ({
         </div>
       )) || []
     );
-  }, [citations]);
+  }, [citations, showTypeWriterEffect]);
 
   const viewableElements = useMemo(() => {
     return React.Children.toArray(citationElements).slice(0, citationPointer);

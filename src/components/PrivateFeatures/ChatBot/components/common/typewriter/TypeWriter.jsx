@@ -29,6 +29,7 @@ const Typewriter = ({
 
       return () => clearTimeout(timer);
     }
+    // eslint-disable-next-line
   }, [index, text, speed]);
 
   return (
