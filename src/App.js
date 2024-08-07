@@ -485,7 +485,8 @@ const Clearance = () => {
                       style: { textAlign: 'center' }
                     }}
                     InputProps={{
-                      endAdornment: <InputAdornment position="end">in.</InputAdornment>
+                      endAdornment: <InputAdornment position="end">in.</InputAdornment>,
+                      inputMode: 'tel'
                     }}
                     onChange={handleHChange}
                     disabled={state === 'RESULTS'}
@@ -506,7 +507,8 @@ const Clearance = () => {
                       style: { textAlign: 'center' }
                     }}
                     InputProps={{
-                      endAdornment: <InputAdornment position="end">in.</InputAdornment>
+                      endAdornment: <InputAdornment position="end">in.</InputAdornment>,
+                      inputMode: 'tel'
                     }}
                     onChange={handleDChange}
                     disabled={state === 'RESULTS'}
@@ -527,7 +529,8 @@ const Clearance = () => {
                       style: { textAlign: 'center' }
                     }}
                     InputProps={{
-                      endAdornment: <InputAdornment position="end">in.</InputAdornment>
+                      endAdornment: <InputAdornment position="end">in.</InputAdornment>,
+                      inputMode: 'tel'
                     }}
                     disabled={trackType === 'tangent' || state === 'RESULTS'}
                     onChange={handleMOChange}
@@ -554,7 +557,8 @@ const Clearance = () => {
                       style: { textAlign: 'center' }
                     }}
                     InputProps={{
-                      endAdornment: <InputAdornment position="end">in.</InputAdornment>
+                      endAdornment: <InputAdornment position="end">in.</InputAdornment>,
+                      inputMode: 'tel'
                     }}
                     onChange={handleSUPERChange}
                     disabled={state === 'RESULTS'}
