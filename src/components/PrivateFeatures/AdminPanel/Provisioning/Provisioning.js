@@ -69,7 +69,8 @@ const Provisioning = () => {
     const handleRemoveUser = async (email) => {
         await removeUserFromTool(email, tableName);
         const removedUser = users.find(user => user.email === email);
-        setUsers(prevUsers => prevUsers.filter(user => user.email !== email));
+        const updatedUsers = await getUsersOfTool(tableName);
+        setUsers(updatedUsers)
         setFilteredPersonnelList(prevPersonnel => [...prevPersonnel, removedUser].sort((a, b) => a.name.localeCompare(b.name)));
     };
 
@@ -194,7 +195,6 @@ const Provisioning = () => {
     };
 
     const handleConfirmAddAll = async () => {
-        console.log(filteredPersonnelList);
         await addUsersToTool(filteredPersonnelList, tableName, defaultProjects);
         const updatedUsers = await getUsersOfTool(tableName);
         setUsers(updatedUsers);
@@ -453,11 +453,11 @@ const Provisioning = () => {
                             <Button
                                 variant="contained"
                                 onClick={handleOpenAddAllDialog}
-                                disabled={filteredPersonnelList.length === 0}
+                                disabled={filteredPersonnelList.length === 0 || selectedUsers.length !== 0}
                                 style={{
-                                    backgroundColor: filteredPersonnelList.length > 0 ? '#d7edd1' : 'gray',
-                                    color: filteredPersonnelList.length > 0 ? 'green' : 'white',
-                                    border: filteredPersonnelList.length > 0 ? '1px solid green' : 'white',
+                                    backgroundColor: (filteredPersonnelList.length > 0 && selectedUsers.length === 0) ? '#d7edd1' : '#D3D3D3',
+                                    color: (filteredPersonnelList.length > 0 && selectedUsers.length === 0) ? 'green' : '#9C9C9C',
+                                    border: (filteredPersonnelList.length > 0 && selectedUsers.length === 0) ? '1px solid green' : '1px solid #D3D3D3',
                                     marginBottom: '1rem',
                                     marginRight: '1vw',
                                     whiteSpace: 'nowrap'
