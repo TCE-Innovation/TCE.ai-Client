@@ -30,15 +30,16 @@
     "react-router-dom": "^6.24.1",
     "react-scripts": "^5.0.1",
     "react-slick": "^0.29.0",
+    "rehype-raw": "^7.0.0",
     "remark-breaks": "^4.0.0",
     "remark-gfm": "^4.0.0",
     "slick-carousel": "^1.8.1",
     "styled-components": "^6.1.6",
-    "xlsx": "^0.18.5",
     "workbox-core": "^7.1.0",
     "workbox-expiration": "^7.1.0",
     "workbox-routing": "^7.1.0",
-    "workbox-strategies": "^7.1.0"
+    "workbox-strategies": "^7.1.0",
+    "xlsx": "^0.18.5"
   },
   "scripts": {
     "analyze": "source-map-explorer 'build/static/js/*.js'",

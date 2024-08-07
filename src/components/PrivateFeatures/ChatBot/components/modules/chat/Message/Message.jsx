@@ -24,11 +24,11 @@ const Message = ({
   citations,
   showfeedbackbuttons = true,
   showTypeWriterEffect = false,
-  initialShowCitations,
+  initialShowCitation = false,
 }) => {
   const [imgError, setImgError] = useState(false);
   const [citationPointer, setCitationPointer] = useState(0);
-  const [showCitations, setShowCitations] = useState(initialShowCitations);
+  const [showCitations, setShowCitations] = useState(initialShowCitation);
 
   const { userProfileUrl } = useGlobal();
 
@@ -53,10 +53,10 @@ const Message = ({
       timerRef.current = setTimeout(() => {
         setCitationPointer((prev) => {
           clearTimeout(timerRef.current);
-          if (prev <= citations.length) {
+          if (prev < citations.length) {
             getTime();
           }
-          return Math.min(prev + 1, citations.length - 1);
+          return Math.min(prev + 1, citations.length);
         });
       }, t);
     };
@@ -74,10 +74,7 @@ const Message = ({
   }, [citations]);
 
   const viewableElements = useMemo(() => {
-    return React.Children.toArray(citationElements).slice(
-      0,
-      citationPointer + 1
-    );
+    return React.Children.toArray(citationElements).slice(0, citationPointer);
   }, [citationPointer, citationElements]);
 
   return (

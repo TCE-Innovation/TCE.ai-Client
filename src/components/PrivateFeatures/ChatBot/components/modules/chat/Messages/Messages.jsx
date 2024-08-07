@@ -27,9 +27,7 @@ const Messages = () => {
             showTypeWriterEffect={
               message.isAI && i === arr.length - 1 && i > initialMessageCount
             }
-            initialShowCitations={
-              message.isAI && i === arr.length - 1 && i <= initialMessageCount
-            }
+            initialShowCitation={i <= initialMessageCount}
           />
         );
       })}
