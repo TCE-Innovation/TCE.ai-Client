@@ -476,6 +476,7 @@ const Clearance = () => {
                     label="Height from TOR"
                     type="number"
                     id="height-tor"
+                    keyboardType="numeric"
                     value={formatNumber(H, 3)}
                     inputProps={{
                       min: -0.5,
@@ -486,6 +487,7 @@ const Clearance = () => {
                     }}
                     InputProps={{
                       endAdornment: <InputAdornment position="end">in.</InputAdornment>
+                      
                     }}
                     onChange={handleHChange}
                     disabled={state === 'RESULTS'}
