@@ -1,7 +1,7 @@
 import * as React from 'react';
 import { useContext } from 'react';
 import { Link } from 'react-router-dom';
-import { List, ListItemButton, ListItemIcon, ListItemText } from '@mui/material';
+import { Box, CircularProgress, List, ListItemButton, ListItemIcon, ListItemText } from '@mui/material';
 
 // ICONS
 import HomeOutlinedIcon from '@mui/icons-material/HomeOutlined';
@@ -26,7 +26,7 @@ import { AuthContext } from "../../authentication/Auth";
 import { adminList } from '../../admin/lists';
 
 const PrivateListItems = ({ tool }) => {
-    const { userEmail, userTools } = useContext(AuthContext);
+    const { userEmail, userTools, loading } = useContext(AuthContext);
     const [selectedInnerItem, setSelectedInnerItem] = React.useState('home');
 
     React.useEffect(() => {
@@ -101,16 +101,24 @@ const PrivateListItems = ({ tool }) => {
     const finalListItems = [...alwaysIncludedItems, ...filteredListItems];
 
     return (
-        <List component="nav">
-            {finalListItems.map(item => (
-                <Link to={item.to} style={{ textDecoration: 'none', color: 'inherit' }} key={item.key}>
-                    <ListItemButton style={getInnerItemStyle(item.key)} onClick={() => handleInnerItemClick(item.key)}>
-                        {getIcon(item.icon, item.key)}
-                        <ListItemText primary={item.text} />
-                    </ListItemButton>
-                </Link>
-            ))}
-        </List>
+        <div>
+            {loading ? (
+                <Box sx={{ display: 'flex', justifyContent: 'center', alignItems: 'center', height: '100px', width: '266px' }}>
+                    <CircularProgress />
+                </Box>
+            ) : (
+                <List component="nav">
+                    {finalListItems.map(item => (
+                        <Link to={item.to} style={{ textDecoration: 'none', color: 'inherit' }} key={item.key}>
+                            <ListItemButton style={getInnerItemStyle(item.key)} onClick={() => handleInnerItemClick(item.key)}>
+                                {getIcon(item.icon, item.key)}
+                                <ListItemText primary={item.text} />
+                            </ListItemButton>
+                        </Link>
+                    ))}
+                </List>
+            )}
+        </div>
     );
 };
 
