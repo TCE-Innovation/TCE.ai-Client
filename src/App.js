@@ -486,7 +486,8 @@ const Clearance = () => {
                       style: { textAlign: 'center' }
                     }}
                     InputProps={{
-                      endAdornment: <InputAdornment position="end">in.</InputAdornment>
+                      endAdornment: <InputAdornment position="end">in.</InputAdornment>,
+                      inputMode: 'numeric'
                     }}
                     onChange={handleHChange}
                     disabled={state === 'RESULTS'}
