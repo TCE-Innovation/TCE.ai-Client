@@ -16,8 +16,8 @@ const Citation = ({
   showTypeWriterEffect = false,
 }) => {
   const [show, setShow] = useState(false);
-  const [showPage, setShowPage] = useState(false);
-  const [showDocument, setShowDocument] = useState(false);
+  const [showPage, setShowPage] = useState(!showTypeWriterEffect);
+  const [showDocument, setShowDocument] = useState(!showTypeWriterEffect);
   return (
     <Wrapper>
       <div className="citation-line">
