@@ -417,7 +417,7 @@ const Clearance = () => {
         <div>
           <div className="pwa-input-container">
             <h2 className="pwa-calculations"> 
-              Clearance Calculator
+              Clearance Calc
             </h2>
             <div className={`pwa-section-container ${state === 'RESULTS' ? 'results' : ''}`}>
               <div className="pwa-side-by-side">
