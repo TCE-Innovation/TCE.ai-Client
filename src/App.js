@@ -417,7 +417,7 @@ const Clearance = () => {
         <div>
           <div className="pwa-input-container">
             <h2 className="pwa-calculations"> 
-              Clearance Calc
+              Clearance Calculator
             </h2>
             <div className={`pwa-section-container ${state === 'RESULTS' ? 'results' : ''}`}>
               <div className="pwa-side-by-side">
@@ -485,7 +485,7 @@ const Clearance = () => {
                       style: { textAlign: 'center' }
                     }}
                     InputProps={{
-                      inputMode: 'decimal',
+                      inputMode: "decimal",
                       endAdornment: <InputAdornment position="end">in.</InputAdornment>,
                     }}
                     onChange={handleHChange}
@@ -507,7 +507,7 @@ const Clearance = () => {
                       style: { textAlign: 'center' }
                     }}
                     InputProps={{
-                      inputMode: 'decimal',
+                      inputMode: "decimal",
                       endAdornment: <InputAdornment position="end">in.</InputAdornment>
                     }}
                     onChange={handleDChange}
@@ -529,7 +529,7 @@ const Clearance = () => {
                       style: { textAlign: 'center' }
                     }}
                     InputProps={{
-                      inputMode: 'decimal',
+                      inputMode: "decimal",
                       endAdornment: <InputAdornment position="end">in.</InputAdornment>
                     }}
                     disabled={trackType === 'tangent' || state === 'RESULTS'}
@@ -557,7 +557,7 @@ const Clearance = () => {
                       style: { textAlign: 'center' }
                     }}
                     InputProps={{
-                      inputMode: 'decimal',
+                      inputMode: "decimal",
                       endAdornment: <InputAdornment position="end">in.</InputAdornment>
                     }}
                     onChange={handleSUPERChange}
