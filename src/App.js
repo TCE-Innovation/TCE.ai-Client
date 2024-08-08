@@ -478,6 +478,7 @@ const Clearance = () => {
                     id="height-tor"
                     keyboardType="numeric"
                     value={formatNumber(H, 3)}
+                    inputMode='numeric'
                     inputProps={{
                       min: -0.5,
                       precision: 3,
@@ -487,7 +488,6 @@ const Clearance = () => {
                     }}
                     InputProps={{
                       endAdornment: <InputAdornment position="end">in.</InputAdornment>,
-                      inputMode: 'numeric'
                     }}
                     onChange={handleHChange}
                     disabled={state === 'RESULTS'}
