@@ -478,6 +478,7 @@ const Clearance = () => {
                     id="height-tor"
                     value={formatNumber(H, 3)}
                     inputProps={{
+                      inputMode: "decimal",
                       min: -0.5,
                       precision: 3,
                       max: divMaxH,
@@ -485,7 +486,6 @@ const Clearance = () => {
                       style: { textAlign: 'center' }
                     }}
                     InputProps={{
-                      inputMode: "decimal",
                       endAdornment: <InputAdornment position="end">in.</InputAdornment>,
                     }}
                     onChange={handleHChange}
@@ -500,6 +500,7 @@ const Clearance = () => {
                     id="height-gor"
                     value={D}
                     inputProps={{
+                      inputMode: "decimal",
                       min: 0,
                       precision: 2,
                       max: 1000, // arbitrary max value
@@ -507,7 +508,6 @@ const Clearance = () => {
                       style: { textAlign: 'center' }
                     }}
                     InputProps={{
-                      inputMode: "decimal",
                       endAdornment: <InputAdornment position="end">in.</InputAdornment>
                     }}
                     onChange={handleDChange}
@@ -522,6 +522,7 @@ const Clearance = () => {
                     id="middle-ordinate"
                     value={MO}
                     inputProps={{
+                      inputMode: "decimal",
                       min: 0,
                       precision: 2,
                       max: 1000, // arbitrary max value
@@ -529,7 +530,6 @@ const Clearance = () => {
                       style: { textAlign: 'center' }
                     }}
                     InputProps={{
-                      inputMode: "decimal",
                       endAdornment: <InputAdornment position="end">in.</InputAdornment>
                     }}
                     disabled={trackType === 'tangent' || state === 'RESULTS'}
@@ -550,6 +550,7 @@ const Clearance = () => {
                     id="super-elevation"
                     value={SUPER}
                     inputProps={{
+                      inputMode: "decimal",
                       min: 0,
                       precision: 2,
                       max: 1000, // arbitrary max value
@@ -557,7 +558,6 @@ const Clearance = () => {
                       style: { textAlign: 'center' }
                     }}
                     InputProps={{
-                      inputMode: "decimal",
                       endAdornment: <InputAdornment position="end">in.</InputAdornment>
                     }}
                     onChange={handleSUPERChange}
