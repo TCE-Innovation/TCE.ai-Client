@@ -476,9 +476,7 @@ const Clearance = () => {
                     label="Height from TOR"
                     type="number"
                     id="height-tor"
-                    keyboardType="numeric"
                     value={formatNumber(H, 3)}
-                    inputMode='numeric'
                     inputProps={{
                       min: -0.5,
                       precision: 3,
@@ -487,6 +485,7 @@ const Clearance = () => {
                       style: { textAlign: 'center' }
                     }}
                     InputProps={{
+                      inputMode: 'decimal',
                       endAdornment: <InputAdornment position="end">in.</InputAdornment>,
                     }}
                     onChange={handleHChange}
@@ -508,6 +507,7 @@ const Clearance = () => {
                       style: { textAlign: 'center' }
                     }}
                     InputProps={{
+                      inputMode: 'decimal',
                       endAdornment: <InputAdornment position="end">in.</InputAdornment>
                     }}
                     onChange={handleDChange}
@@ -529,6 +529,7 @@ const Clearance = () => {
                       style: { textAlign: 'center' }
                     }}
                     InputProps={{
+                      inputMode: 'decimal',
                       endAdornment: <InputAdornment position="end">in.</InputAdornment>
                     }}
                     disabled={trackType === 'tangent' || state === 'RESULTS'}
@@ -556,6 +557,7 @@ const Clearance = () => {
                       style: { textAlign: 'center' }
                     }}
                     InputProps={{
+                      inputMode: 'decimal',
                       endAdornment: <InputAdornment position="end">in.</InputAdornment>
                     }}
                     onChange={handleSUPERChange}
