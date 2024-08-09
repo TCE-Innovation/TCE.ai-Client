@@ -15,7 +15,6 @@ const Monitor = () => {
         setLoading(true);
         try {
             const data = await getUsageLog(sortField, sortDirection);
-            console.log(data);
             setUsageLog(data);
         } catch (error) {
             console.error('Error fetching usage log:', error);
