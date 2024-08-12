@@ -12,9 +12,8 @@ const getIframeUrl = (documentName) => {
       'go-tracker': "https://tceaiblob.blob.core.windows.net/whitepapers/GO Tracker White Paper.pdf",
       "go-tracker-sop": "https://tceaiblob.blob.core.windows.net/whitepapers/GO Tracker Standard Operating Procedure.pdf",
       "bridgit": "https://tceaiblob.blob.core.windows.net/whitepapers/Bridgit Bench White Paper.pdf",
-      
-
-
+      "union-new-hire-package-2024": "https://tceaiblob.blob.core.windows.net/whitepapers/Fillable 2024 TC Electric Union New Hire Package.pdf",
+      "union-new-hire-package-p7-2024": "https://tceaiblob.blob.core.windows.net/whitepapers/Union New Hire Package - Page 7.pdf",
     };
     return urls[documentName];
   };
