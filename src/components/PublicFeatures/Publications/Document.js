@@ -1,5 +1,5 @@
 import styles from './whitepaper.module.css';
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { useLocation } from 'react-router-dom';
 import TrainLoader from '../../General/TrainLoader';
 
@@ -18,7 +18,7 @@ const getIframeUrl = (documentName) => {
     return urls[documentName];
   };
 
-const Document = ( ) => { 
+const Document = () => { 
     const location = useLocation();
 
     const searchParams = new URLSearchParams(location.search);
@@ -26,6 +26,12 @@ const Document = ( ) => {
 
     const iframeUrl = getIframeUrl(documentName); 
     const [iframeLoaded, setIframeLoaded] = useState(false);
+
+    useEffect(() => {
+        if (!iframeUrl) {
+            window.location.href = 'https://tcig.nyc/public'; // Redirect if document name is invalid
+        }
+    }, [iframeUrl]);
 
     const handleIframeLoad = () => {
         setIframeLoaded(true);
@@ -45,13 +51,15 @@ const Document = ( ) => {
                     <TrainLoader />
                 </div>
             )}
-            <iframe 
-                src={iframeUrl} 
-                height="100%"
-                width="100%"
-                onLoad={handleIframeLoad}
-                title="White Paper">
-            </iframe>
+            {iframeUrl && (
+                <iframe 
+                    src={iframeUrl} 
+                    height="100%"
+                    width="100%"
+                    onLoad={handleIframeLoad}
+                    title="White Paper">
+                </iframe>
+            )}
         </div>
     );
 };
