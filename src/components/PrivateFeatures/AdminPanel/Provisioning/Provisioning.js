@@ -15,6 +15,7 @@ const tableNameMap = {
     'Overview Dashboard': 'overview_dashboard',
     'Tool Usage Stats': 'tool_usage',
     'Drone Captures': 'drone_captures',
+    'Chatbot': 'chatbot'
 };
 
 const toolsWithProjectOption = [
