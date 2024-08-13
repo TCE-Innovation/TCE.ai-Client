@@ -169,7 +169,6 @@ const Provisioning = () => {
             const updatedUsers = await getUsersOfTool(tableName);
             setUsers(updatedUsers)
 
-            // if (selectedTool in toolsWithProjectOption) {
             if (toolsWithProjectOption.includes(selectedTool)) {
                 // set user projects accurately by referencing the DB
                 const projects = await getEmailsAndProjects(tableName);
@@ -235,7 +234,7 @@ const Provisioning = () => {
 
     const handleAddProjectTeam = async () => {
         if (projectTeam.length > 0) {
-            let projectToAdd;
+            let projectToAdd = null;
             if (selectedTool === "Schedule Dashboards") {
                 const formattedProject = projectTeamToDashboardMap[selectedProject.trim()]
                 if (dashboardProjects.includes(formattedProject)) {
@@ -251,9 +250,11 @@ const Provisioning = () => {
             const updatedUsers = await getUsersOfTool(tableName);
             setUsers(updatedUsers)
 
-            // set user projects accurately by referencing the DB
-            const projects = await getEmailsAndProjects(tableName);
-            setUserProjects(projects);
+            if (toolsWithProjectOption.includes(selectedTool)) {
+                // set user projects accurately by referencing the DB
+                const projects = await getEmailsAndProjects(tableName);
+                setUserProjects(projects);
+            }
 
             setFilteredPersonnelList(prevPersonnel =>
                 prevPersonnel.filter(person =>
