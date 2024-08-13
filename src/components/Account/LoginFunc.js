@@ -3,7 +3,6 @@ import { useMsal } from "@azure/msal-react";
 import { loginRequest } from "../../authentication/authConfig"; 
 import { useNavigate } from 'react-router-dom';
 import { updateUserLog } from '../../data/Airtable';
-import { set } from "date-fns";
 
 export function useMicrosoftSignIn() {
   const { instance } = useMsal(); 
