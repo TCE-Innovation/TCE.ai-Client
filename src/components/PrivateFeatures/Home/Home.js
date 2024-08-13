@@ -200,7 +200,7 @@ const Home = () => {
                   )}
 
                     <Tooltip title={`Email ${partner.contactName} at ${partner.contactEmail}`}>
-                      <a className={styles.linkText} href={`mailto:${partner.contactEmail}`} onClick={handleInsideCardClick}>
+                      <a className={styles.linkText} href={`mailto:${partner.contactEmail}?subject=Question%20about%20${partner.name}`}  onClick={handleInsideCardClick}>
                           Need assistance?
                         <EmailIcon className={styles.icon} />
                       </a>

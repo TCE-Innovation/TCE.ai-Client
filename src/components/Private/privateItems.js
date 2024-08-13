@@ -57,7 +57,7 @@ const PrivateListItems = ({ tool }) => {
     //provisionable items
     const listItems = [
         { to: '/private/generate-emails', text: 'Email Generator', icon: <EmailOutlinedIcon />, key: 'generate-emails' },
-        // { to: '/private/chat-bot', text: 'Chat Bot', icon: <ForumOutlinedIcon />, key: 'chat-bot' },
+        { to: '/private/chatbot', text: 'Chatbot', icon: <ForumOutlinedIcon />, key: 'chatbot' },
         { to: '/private/cable-run-optimizer', text: 'Cable Run Optimizer', icon: <SpokeOutlinedIcon />, key: 'cable-run-optimizer' },
         { to: '/private/schedule-dashboards', text: 'Schedule Dashboards', icon: <InsertChartOutlinedIcon />, key: 'schedule-dashboards'},
         { to: '/private/overview-dashboard', text: 'Overview Dashboard', icon: <DataThresholdingOutlinedIcon />, key: 'overview-dashboard'},
@@ -94,7 +94,6 @@ const PrivateListItems = ({ tool }) => {
         { to: '/private/go-tracker', text: 'GO Tracker', icon: <RailwayAlertOutlinedIcon />, key: 'go-tracker' },
         { to: '/private/3d-printing-request', text: 'Request 3D Printing', icon: <PrintOutlinedIcon />, key: '3d-printing-request' },
         { to: '/private/clearance-calculator', text: 'Clearance Calculator', icon: <PercentIcon />, key: 'clearance-calculator' },
-        { to: '/private/chat-bot', text: 'Chat Bot', icon: <ForumOutlinedIcon />, key: 'chat-bot' }
     ];
 
     // Combine always included items with the filtered list items

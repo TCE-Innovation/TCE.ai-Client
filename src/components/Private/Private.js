@@ -91,7 +91,7 @@ function PrivateContent() {
     '3D Printing Request': '3d-printing-request',
     'Overview Dashboard': 'overview-dashboard',
     'Drone Captures': 'drone-captures',
-    'Chat Bot': 'chat-bot',
+    'Chatbot': 'chatbot',
     'LLLE Clearance Calculator': 'clearance-calculator',
   };
 
@@ -111,7 +111,7 @@ function PrivateContent() {
     'cable-run-optimizer': CRO,
     'equipment-checkout': AssetTracker,
     'go-tracker': GOTracker,
-    'chat-bot': ChatBot,
+    'chatbot': ChatBot,
     'sub-automation': SubAuto,
     'schedule-dashboards': ScheduleDashboards,
     'overview-dashboard': OverviewDashboard,
