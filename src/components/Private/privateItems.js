@@ -6,7 +6,7 @@ import { Box, CircularProgress, List, ListItemButton, ListItemIcon, ListItemText
 // ICONS
 import HomeOutlinedIcon from '@mui/icons-material/HomeOutlined';
 import EmailOutlinedIcon from '@mui/icons-material/EmailOutlined';
-// import ForumOutlinedIcon from '@mui/icons-material/ForumOutlined';
+import ForumOutlinedIcon from '@mui/icons-material/ForumOutlined';
 import SpokeOutlinedIcon from '@mui/icons-material/SpokeOutlined';
 import RailwayAlertOutlinedIcon from '@mui/icons-material/RailwayAlertOutlined';
 import DevicesOtherIcon from '@mui/icons-material/DevicesOther';
@@ -94,7 +94,7 @@ const PrivateListItems = ({ tool }) => {
         { to: '/private/go-tracker', text: 'GO Tracker', icon: <RailwayAlertOutlinedIcon />, key: 'go-tracker' },
         { to: '/private/3d-printing-request', text: 'Request 3D Printing', icon: <PrintOutlinedIcon />, key: '3d-printing-request' },
         { to: '/private/clearance-calculator', text: 'Clearance Calculator', icon: <PercentIcon />, key: 'clearance-calculator' },
-
+        { to: '/private/chat-bot', text: 'Chat Bot', icon: <ForumOutlinedIcon />, key: 'chat-bot' }
     ];
 
     // Combine always included items with the filtered list items

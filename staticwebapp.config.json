@@ -1,45 +1,45 @@
 {
-    "routes": [
-      {
-        "route": "/icons/TCE_192.png",
-        "allowedRoles": ["anonymous"]
-      },
-      {
-        "route": "/icons/TCE_512.png",
-        "allowedRoles": ["anonymous"]
-      },
-      {
-        "route": "translations.json",
-        "allowedRoles": ["anonymous"]
-      },
-      {
-        "route": "/icons/favicon.ico",
-        "allowedRoles": ["anonymous"]
-      },
-      {
-        "route": "/images/blurred_subway_map.png",
-        "allowedRoles": ["anonymous"]
-      },
-      {
-        "route": "/downloads/ClearanceCalculatorSetup.pdf",
-        "allowedRoles": ["anonymous"]
-      },
-      {
-        "route": "/images/gears.gif",
-        "allowedRoles": ["anonymous"]
-      },
-      {
-        "route": "/manifest.json",
-        "allowedRoles": ["anonymous"]
-      },
-      {
-        "route": "/static/*",
-        "allowedRoles": ["anonymous"]
-      },
-      {
-        "route": "/*",
-        "allowedRoles": ["anonymous"],
-        "rewrite": "/index.html"
-      }
-    ]
-  }
+  "routes": [
+    {
+      "route": "/icons/TCE_192.png",
+      "allowedRoles": ["anonymous"]
+    },
+    {
+      "route": "/icons/TCE_512.png",
+      "allowedRoles": ["anonymous"]
+    },
+    {
+      "route": "translations.json",
+      "allowedRoles": ["anonymous"]
+    },
+    {
+      "route": "/icons/favicon.ico",
+      "allowedRoles": ["anonymous"]
+    },
+    {
+      "route": "/images/blurred_subway_map.png",
+      "allowedRoles": ["anonymous"]
+    },
+    {
+      "route": "/downloads/ClearanceCalculatorSetup.pdf",
+      "allowedRoles": ["anonymous"]
+    },
+    {
+      "route": "/images/gears.gif",
+      "allowedRoles": ["anonymous"]
+    },
+    {
+      "route": "/manifest.json",
+      "allowedRoles": ["anonymous"]
+    },
+    {
+      "route": "/static/*",
+      "allowedRoles": ["anonymous"]
+    },
+    {
+      "route": "/*",
+      "allowedRoles": ["anonymous"],
+      "rewrite": "/index.html"
+    }
+  ]
+}

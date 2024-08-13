@@ -1,0 +1,14 @@
+export { ReactComponent as DeleteIcon } from "../../assets/svg/trash.svg";
+export { ReactComponent as EditIcon } from "../../assets/svg/edit.svg";
+export { ReactComponent as LeftIcon } from "../../assets/svg/left-chevron.svg";
+export { ReactComponent as RightIcon } from "../../assets/svg/right-chevron.svg";
+export { ReactComponent as SendIcon } from "../../assets/svg/send.svg";
+export { ReactComponent as DisLikeIcon } from "../../assets/svg/thumbs-down.svg";
+export { ReactComponent as LikeIcon } from "../../assets/svg/thumbs-up.svg";
+export { ReactComponent as DocumentIcon } from "../../assets/svg/document.svg";
+export { ReactComponent as CloseIcon } from "../../assets/svg/cross.svg";
+export { ReactComponent as LoadingIcon } from "../../assets/svg/loading.svg";
+export { ReactComponent as ErrorIcon } from "../../assets/svg/cross-circle.svg";
+export { ReactComponent as MinusIcon } from "../../assets/svg/minus.svg";
+export { ReactComponent as PlusIcon } from "../../assets/svg/plus.svg";
+export { ReactComponent as BotLoadingIcon } from "../../assets/svg/bot-loading-animation.svg";

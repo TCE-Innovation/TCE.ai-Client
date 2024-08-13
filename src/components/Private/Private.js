@@ -20,6 +20,7 @@ import PrivateListItems from "./privateItems";
 import PrivateNavigation from "./PrivateNavigation";
 import CRO from '../PrivateFeatures/CRO/CRO';
 import AssetTracker from '../PrivateFeatures/AssetTracker/AssetTracker';
+import ChatBot from '../PrivateFeatures/ChatBot';
 import GenerateEmails from "../PrivateFeatures/GenerateEmails";
 import GOTracker from '../PrivateFeatures/GOTracker';
 import SubAuto from "../PrivateFeatures/SubAuto/SubAuto";
@@ -90,11 +91,12 @@ function PrivateContent() {
     '3D Printing Request': '3d-printing-request',
     'Overview Dashboard': 'overview-dashboard',
     'Drone Captures': 'drone-captures',
+    'Chat Bot': 'chat-bot',
     'LLLE Clearance Calculator': 'clearance-calculator',
   };
 
   // Always available tools
-  const alwaysAvailableTools = useMemo(() => ['home', 'sub-automation', 'equipment-checkout', 'go-tracker', '3d-printing-request', 'clearance-calculator', 'admin'], []);
+  const alwaysAvailableTools = useMemo(() => ['home', 'sub-automation', 'equipment-checkout', 'go-tracker', '3d-printing-request', 'clearance-calculator', 'admin','chat-bot'], []);
 
   // Split the userTools string into an array
   const userToolsArray = (userTools || '').split(',').map(tool => tool.trim());
@@ -109,6 +111,7 @@ function PrivateContent() {
     'cable-run-optimizer': CRO,
     'equipment-checkout': AssetTracker,
     'go-tracker': GOTracker,
+    'chat-bot': ChatBot,
     'sub-automation': SubAuto,
     'schedule-dashboards': ScheduleDashboards,
     'overview-dashboard': OverviewDashboard,
@@ -140,7 +143,7 @@ function PrivateContent() {
         </header>
       </div>
 
-      <Box sx={{ display: 'flex' }}>
+      <Box sx={{ display: 'flex', backgroundColor:window.location.pathname.includes("chat-bot") ? "rgb(248, 241, 215)" : "" }}>
         <CssBaseline />
         <Drawer variant="permanent" open={open}>
           <Toolbar

@@ -1,0 +1,32 @@
+{
+    "name": "Clearance Calculator",
+    "short_name": "Clearance",
+    "description": "TCIG LLLE Clearance Calculator Tool",
+    "start_url": "./apps/clearance-calculator",
+    "display": "fullscreen",
+    "background_color": "#B4D8F7",
+    "theme_color": "#B4D8F7",
+    "orientation": "portrait",
+    "icons": [
+        {
+            "src": "icons/apple-touch-icon.png",
+            "sizes": "180x180",
+            "type": "image/png"
+        }, 
+        {
+            "src": "icons/favicon.ico",
+            "sizes": "64x64 32x32 24x24 16x16",
+            "type": "image/x-icon"
+        },
+        {
+            "src": "icons/TCE_192.png",
+            "sizes": "192x192",
+            "type": "image/png"
+        },
+        {
+            "src": "icons/TCE_512.png",
+            "sizes": "512x512",
+            "type": "image/png"
+        }
+    ]
+}
