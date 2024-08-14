@@ -75,7 +75,7 @@
 }
 
 .postButton:hover {
-    color: #1b365f;
+    color: white;
     border-color: #1b365f;
     border-width: 2px;
 }
@@ -100,4 +100,8 @@
     margin-bottom: 28px; 
     margin-left: 8px;
     margin-top: 28px;
+}
+
+.buttonColored {
+    background-color: #8B5A73;
 }

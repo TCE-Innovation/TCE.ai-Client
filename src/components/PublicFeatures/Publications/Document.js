@@ -1,5 +1,5 @@
 import styles from './whitepaper.module.css';
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { useLocation } from 'react-router-dom';
 import TrainLoader from '../../General/TrainLoader';
 
@@ -12,14 +12,13 @@ const getIframeUrl = (documentName) => {
       'go-tracker': "https://tceaiblob.blob.core.windows.net/whitepapers/GO Tracker White Paper.pdf",
       "go-tracker-sop": "https://tceaiblob.blob.core.windows.net/whitepapers/GO Tracker Standard Operating Procedure.pdf",
       "bridgit": "https://tceaiblob.blob.core.windows.net/whitepapers/Bridgit Bench White Paper.pdf",
-      
-
-
+      "union-new-hire-package-2024": "https://tceaiblob.blob.core.windows.net/whitepapers/Fillable 2024 TC Electric Union New Hire Package.pdf",
+      "union-new-hire-package-p7-2024": "https://tceaiblob.blob.core.windows.net/whitepapers/Union New Hire Package - Page 7.pdf",
     };
     return urls[documentName];
   };
 
-const Document = ( ) => { 
+const Document = () => { 
     const location = useLocation();
 
     const searchParams = new URLSearchParams(location.search);
@@ -27,6 +26,12 @@ const Document = ( ) => {
 
     const iframeUrl = getIframeUrl(documentName); 
     const [iframeLoaded, setIframeLoaded] = useState(false);
+
+    useEffect(() => {
+        if (!iframeUrl) {
+            window.location.href = 'https://tcig.nyc/public'; // Redirect if document name is invalid
+        }
+    }, [iframeUrl]);
 
     const handleIframeLoad = () => {
         setIframeLoaded(true);
@@ -46,13 +51,15 @@ const Document = ( ) => {
                     <TrainLoader />
                 </div>
             )}
-            <iframe 
-                src={iframeUrl} 
-                height="100%"
-                width="100%"
-                onLoad={handleIframeLoad}
-                title="White Paper">
-            </iframe>
+            {iframeUrl && (
+                <iframe 
+                    src={iframeUrl} 
+                    height="100%"
+                    width="100%"
+                    onLoad={handleIframeLoad}
+                    title="White Paper">
+                </iframe>
+            )}
         </div>
     );
 };

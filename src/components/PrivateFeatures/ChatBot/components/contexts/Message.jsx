@@ -19,6 +19,7 @@ const MessageProvider = ({ children }) => {
   const [loading, setLoading] = useState(false);
   const [sendingMessage, setSendingMessage] = useState(false);
   const [messages, setMessages] = useState([]);
+  const [initialMessageCount, setInitialMessageCount] = useState(0);
   const { currentConversation } = useConversation();
   const { createAlert } = useGlobal();
 
@@ -43,12 +44,7 @@ const MessageProvider = ({ children }) => {
   };
 
   const loadMessagesFromArchieve = (conversationId) => {
-    const archievedMessages = messageArchieves.current[conversationId];
-    if (archievedMessages) {
-      setMessages(archievedMessages);
-      return true;
-    }
-    return false;
+    return messageArchieves.current[conversationId] || [];
   };
 
   const clearMessageCache = (conversationId) => {
@@ -60,8 +56,12 @@ const MessageProvider = ({ children }) => {
     const getMessages = async (conversation) => {
       if (!conversation) return;
       const { id } = conversation;
-      const loadSuccess = loadMessagesFromArchieve(id);
-      if (loadSuccess) return;
+      const messageCache = loadMessagesFromArchieve(id);
+      if (messageCache?.length) {
+        setMessages(messageCache);
+        setInitialMessageCount(messageCache.length - 1);
+        return;
+      }
       setLoading(true);
       const {
         data: _messages,
@@ -69,6 +69,7 @@ const MessageProvider = ({ children }) => {
         message,
       } = await messageService.getMessages(id);
       setLoading(false);
+      setInitialMessageCount(_messages.length - 1);
       if (!success) createAlert({ message, type: "danger" });
       if (!_messages) return;
       saveMessagesToArchieve(id, _messages);
@@ -108,6 +109,7 @@ const MessageProvider = ({ children }) => {
         loadingMessages: loading,
         sendingMessage,
         createMessage,
+        initialMessageCount,
       }}
     >
       {children}

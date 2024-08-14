@@ -31,8 +31,8 @@ function Login() {
             setTool('Email Generator');
             break;
 
-        case '/private/chat-bot':
-            setTool('Chat Bot');
+        case '/private/chatbot':
+            setTool('Chatbot');
             break;
         
         case '/private/cable-run-optimizer':

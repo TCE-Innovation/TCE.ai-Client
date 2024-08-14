@@ -3,8 +3,8 @@ import { Loader } from "../../../../common";
 const EditLoader = () => {
   return (
     <div style={{ pointerEvents: "none" }}>
-      <Loader size={8} />
-      <pre>{"    "}</pre>
+      <>&zwnj;</>
+      <Loader size={2} />
     </div>
   );
 };

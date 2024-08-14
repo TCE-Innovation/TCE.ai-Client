@@ -1,5 +1,5 @@
 import React, { useContext, useEffect, useMemo } from 'react';
-import { useParams, useNavigate, useLocation } from 'react-router-dom';
+import { useParams, useNavigate } from 'react-router-dom';
 import { styled, createTheme, ThemeProvider } from '@mui/material/styles';
 import CssBaseline from '@mui/material/CssBaseline';
 import MuiDrawer from '@mui/material/Drawer';
@@ -29,6 +29,7 @@ import OverviewDashboard from '../PrivateFeatures/OverviewDashboard';
 import ToolUsage from "../PrivateFeatures/ToolUsage";
 import PrintingRequest from '../PrivateFeatures/3dPrinting/3dPrinting';
 import DroneCaptures from '../PrivateFeatures/DroneCaptures';
+import Clearance from '../PrivateFeatures/Clearance/Clearance';
 import Admin from '../PrivateFeatures/AdminPanel/AdminPanel';
 
 // AUTH
@@ -74,9 +75,8 @@ function PrivateContent() {
   const { tool } = useParams();
   const navigate = useNavigate();
 
-  const { userName, userTools } = useContext(AuthContext);
-  const isAdmin = adminList.includes(userName);
-  const location = useLocation()
+  const { userEmail, userTools } = useContext(AuthContext);
+  const isAdmin = adminList.includes(userEmail);
 
   // Mapping full names of tools to their URL ends
   const toolNameMap = {
@@ -91,11 +91,12 @@ function PrivateContent() {
     '3D Printing Request': '3d-printing-request',
     'Overview Dashboard': 'overview-dashboard',
     'Drone Captures': 'drone-captures',
-    'Chat Bot': 'chat-bot'
+    'Chatbot': 'chatbot',
+    'LLLE Clearance Calculator': 'clearance-calculator',
   };
 
   // Always available tools
-  const alwaysAvailableTools = useMemo(() => ['home', 'sub-automation', 'equipment-checkout', 'go-tracker', '3d-printing-request', 'admin','chat-bot'], []);
+  const alwaysAvailableTools = useMemo(() => ['home', 'sub-automation', 'equipment-checkout', 'go-tracker', '3d-printing-request', 'clearance-calculator', 'admin'], []);
 
   // Split the userTools string into an array
   const userToolsArray = (userTools || '').split(',').map(tool => tool.trim());
@@ -110,13 +111,14 @@ function PrivateContent() {
     'cable-run-optimizer': CRO,
     'equipment-checkout': AssetTracker,
     'go-tracker': GOTracker,
-    'chat-bot': ChatBot,
+    'chatbot': ChatBot,
     'sub-automation': SubAuto,
     'schedule-dashboards': ScheduleDashboards,
     'overview-dashboard': OverviewDashboard,
     'tool-usage': ToolUsage,
     '3d-printing-request': PrintingRequest,
-    'drone-captures': DroneCaptures, 
+    'drone-captures': DroneCaptures,
+    'clearance-calculator': Clearance,
     'admin': isAdmin ? Admin : null // Admin access only
   }), [isAdmin]);
 
@@ -141,7 +143,7 @@ function PrivateContent() {
         </header>
       </div>
 
-      <Box sx={{ display: 'flex', backgroundColor:location.pathname.includes("chat-bot") ? "rgb(248, 241, 215)" : "" }}>
+      <Box sx={{ display: 'flex', backgroundColor:window.location.pathname.includes("chatbot") ? "rgb(248, 241, 215)" : "" }}>
         <CssBaseline />
         <Drawer variant="permanent" open={open}>
           <Toolbar
@@ -164,7 +166,7 @@ function PrivateContent() {
           <Divider />
           {open ? (
             <Button
-              sx={{ m: 2 }}
+              sx={{ mb: 8 }}
               onClick={handlePublicNavigate}
               style={{ color: 'grey' }}
             >

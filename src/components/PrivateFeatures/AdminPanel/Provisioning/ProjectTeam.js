@@ -13,8 +13,8 @@ const ProjectTeam = ({
 }) => {
     return (
         <>
-            <Box sx={{ display: 'flex', flexDirection: 'row', alignItems: 'center', width: '40%'}}>
-                <FormControl sx={{ marginBottom: '2rem', marginRight: '1vw', width: '100%' }}>
+            <Box sx={{ display: 'flex', flexDirection: 'row', alignItems: 'center', width: '25%'}}>
+                <FormControl sx={{ marginBottom: '1rem', marginTop: '0.5rem', marginRight: '1vw', width: '100%' }}>
                     <Select
                         value={selectedProject}
                         onChange={handleProjectChange}
@@ -30,7 +30,7 @@ const ProjectTeam = ({
                 </FormControl>
             </Box>
             {selectedProject && projectTeam && projectTeam.length > 0 && (
-                <Box sx={{ display: 'flex', alignItems: 'center', justifyContent: "center", marginBottom: '2rem' }}>
+                <Box sx={{ display: 'flex', alignItems: 'center', justifyContent: "center", marginBottom: '1rem' }}>
                     <Button
                         variant="contained"
                         onClick={handleAddProjectTeam}
@@ -38,7 +38,11 @@ const ProjectTeam = ({
                             backgroundColor: '#d7edd1',
                             color: 'green',
                             border: '1px solid green',
-                            marginLeft: '.5vw'
+                            marginLeft: '.5vw',
+                            paddingTop: '2px',
+                            marginTop: '0.5rem',
+                            paddingBottom: '2px',
+                            height: '55px',
                         }}
                     >
                         Add {projectTeam.length} Users

@@ -77,10 +77,10 @@ const MobileWarningPopup = () => (
     </div>
 );
 
-function App() {
+function App() { 
     // Inject the CSS styles into the document head conditionally
     React.useEffect(() => {
-        if ((isMobile || isTablet) && !window.location.pathname.startsWith('/apps/clearance-calculator')) {
+        if (isMobile || isTablet) {
             const styleTag = document.createElement('style');
             styleTag.textContent = styles;
             document.head.appendChild(styleTag);
@@ -91,16 +91,16 @@ function App() {
     }, []);
 
     // Conditional rendering logic for mobile warning
-    if ((isMobile || isTablet) && !window.location.pathname.startsWith('/apps/clearance-calculator')) {
+    if (isMobile || isTablet) {
         return <MobileWarningPopup />;
     }
 
-    // Normal (web) application rendering
+    // Normal application rendering
     return (
         <AuthProvider>
             <Router>
                 <Routes>
-                    <Route path="/" element={<UnauthenticatedRoute />}>
+                    <Route path='/' element={<UnauthenticatedRoute />}>
                         <Route index element={<Gateway />} /> 
                     </Route>
 
@@ -108,7 +108,7 @@ function App() {
 
                     <Route exact path='/document' element={<Document />} />
                     
-                    <Route path="/sign-in" element={<UnauthenticatedRoute />}>
+                    <Route path='/sign-in' element={<UnauthenticatedRoute />}>
                         <Route index element={<SignIn />} />
                     </Route>
 

@@ -187,18 +187,33 @@ const PrintingRequest = () => {
             This not only enhances the overall quality and performance of the final product but also reduces the risk of costly errors and delays.                 
         </div>
         <div className={style.formDescription} style={{ textAlign: 'left', marginTop: '20px', marginRight: '0px', fontSize: '1.3em', maxWidth: '80%' }}>
-            
             After submitting your print request via the form below, a team member will reach out to you to discuss the details of your requested print and coordinate handoff.
-            
         </div>
+
+        <div className={style.formDescription} style={{ textAlign: 'left', marginTop: '15px', marginRight: '0px', fontSize: '0.8em', color: 'red', maxWidth: '80%' }}>
+            * Please note: items beyond 17" x 15" x 15" will be printed in multiple parts, which may take longer.
+        </div>
+
+        {/* warning text */}
+        {/* <Typography variant="body2" style={{ color: 'red', marginTop: '0px', marginBottom: '5px', marginRight: '0px', width: '110%', paddingLeft: '10px' }}>
+            * Please note: items beyond 17" x 15" x 15" will be printed in multiple parts, which may take longer.
+        </Typography> */}
 
         <Button
             variant="contained"
             startIcon={<FilterRoundedIcon />}
-            style={{ marginLeft: '0px', marginTop: '20px', marginBottom: '20px', backgroundColor: '#003EAB'}}
+            sx={{ 
+                marginLeft: '0px', 
+                marginTop: '20px', 
+                marginBottom: '10px',
+                backgroundColor: '#8B5A73', 
+                '&:hover': {
+                    backgroundColor: '#784E63', 
+                },
+            }}
             onClick={handleFaqOpen}
         >
-            Click here for examples of past uses
+            View Examples
         </Button>
 
         <Dialog 
@@ -252,7 +267,6 @@ const PrintingRequest = () => {
                                 <Typography variant="body1" style={{ fontSize: '1.0em', maxWidth: '275px', lineHeight: '2' }}>
                                     Used for Crosstown, this 3D printed bracket
                                     was used to verify the future installation of brackets, which are long lead items, for messenger bundles.
-
                                 </Typography>
                             </Box>
                         </Box>
@@ -271,9 +285,11 @@ const PrintingRequest = () => {
     
         {/* FORM */}
         {/* <div style={{ marginTop: '-20px', marginLeft: '9vw', maxWidth: '700px', margin: '0 auto' }}> */}
+            
+            {/* <CircularProgress style={{ display: 'block', margin: '0 auto', marginRight: "790px" }} /> */}
 
             {isLoading ? (
-                <CircularProgress style={{ display: 'block', margin: '0 auto', marginRight: "700px" }} />
+                <CircularProgress style={{ display: 'block', margin: '0 auto', marginRight: "785px", marginTop: "20px" }} />
             ) : !isSubmitted ? (
                 
                 <div className="form-container">
@@ -285,7 +301,7 @@ const PrintingRequest = () => {
                                 label="Description of item to 3D print"
                                 value={item}
                                 onChange={handleItemInputChange}
-                                style={{ margin: "10px", width: "100%" }}
+                                style={{ margin: "10px", width: "99%" }}
                             />
 
                             {/* REASON FIELD */}
@@ -294,7 +310,7 @@ const PrintingRequest = () => {
                                 label="Reason for 3D print request"
                                 value={reason}
                                 onChange={handleReasonInputChange}
-                                style={{ margin: "10px", width: "100%"}}
+                                style={{ margin: "10px", width: "99%"}}
                             />
                         </Box>
 
@@ -337,8 +353,19 @@ const PrintingRequest = () => {
                             <label htmlFor="file">
                             <Button
                                 variant="contained"
+                                className={style.userActionButton}
                                 startIcon={<Upload />}
-                                style={{ marginTop: '5px', marginLeft: '0px', width: '433px', height: '50px', marginRight: '0px', backgroundColor: '#003EAB' }}
+                                sx={{ 
+                                    marginTop: '5px', 
+                                    marginLeft: '0px', 
+                                    width: '540px', 
+                                    height: '50px', 
+                                    marginRight: '0px',
+                                    backgroundColor: '#609CCF', 
+                                    '&:hover': {
+                                        backgroundColor: '#568CBA', 
+                                    },
+                                }}
                                 size="medium"
                                 onClick={() => {
                                     document.getElementById('file').click();
@@ -358,10 +385,21 @@ const PrintingRequest = () => {
                             />
 
                             <Button
+                                className={style.siteActionButton}
                                 onClick={handleSubmit}
                                 variant="contained"
                                 color="primary"
-                                style={{ width: "40%", height: '50px', marginTop: "5px", marginBottom: "20px", marginLeft: "20px", backgroundColor: isButtonDisabled ? '#ccc' : '#003EAB' }}
+                                sx={{ 
+                                    width: "260px", 
+                                    height: '50px', 
+                                    marginTop: "5px", 
+                                    marginBottom: "20px", 
+                                    marginLeft: "20px",
+                                    backgroundColor: '#8B5A73', 
+                                    '&:hover': {
+                                        backgroundColor: '#784E63', 
+                                    },
+                                }}
                                 disabled={isButtonDisabled}
                                 
                                 >
@@ -371,19 +409,16 @@ const PrintingRequest = () => {
                         
                         
                     </div>
-                    {/* warning text */}
-                    <Typography variant="body2" style={{ color: 'red', marginTop: '0px', marginBottom: '5px', marginRight: '0px', width: '110%', paddingLeft: '10px' }}>
-                        * Please note: items beyond 17" x 15" x 15" will be printed in multiple parts, which may take longer.
-                    </Typography>
+                    
                 </div>
             ) : (
-                <div className="form-container" style={{ textAlign: "center", color: "#1b365f", marginRight: "220px" }}>
+                <div className="form-container" style={{ textAlign: "center", color: "#1b365f", marginRight: "0px", marginTop: '20px' }}>
                     <div>Thank you for your submission.</div>
                     <Button
                         onClick={handleNewSubmission}
                         variant="outlined"
                         style={{ 
-                            width: "50%", 
+                            width: "80%", 
                             marginTop: "20px",
                             color: "#1b365f",
                             borderColor: "#1b365f",

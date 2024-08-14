@@ -24,10 +24,13 @@ export default styled.div`
 
       & .chatbot-modal-buttons {
         display: flex;
-        justify-content: space-evenly;
+        gap: 1em;
         align-items: center;
         & button {
           font-weight: 600;
+          padding: 0.75em 0.75em;
+          border-radius: 0.25em;
+          flex: 1;
         }
 
         & .modal-submit-btn {

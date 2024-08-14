@@ -197,7 +197,12 @@ const AssetForm = () => {
                             />
                             <button onClick={handleSubmit}
                                 className='buttonColored'
-                                style={{width: "5vw", height: '2.7vw', marginTop: "25px", marginLeft: "38px"}}
+                                style={{
+                                    width: "8vw", 
+                                    height: '55px', 
+                                    marginTop: "25px", 
+                                    marginLeft: "38px",
+                                }}
                                 disabled={isButtonDisabled}>
                                 Submit
                             </button>

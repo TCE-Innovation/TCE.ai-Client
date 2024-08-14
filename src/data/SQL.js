@@ -1,6 +1,14 @@
 //DEPENDENCIES
 import axios from 'axios';
 
+//_____________________________________________________HELPER FUNCTION(S)________________________________________________________
+
+/* 
+function to split comma-separated string into indidivual items
+    use: "project1, project2" --> ["project1", "project2"]
+*/
+const splitString = str => str ? str.split(',').map(s => s.trim()) : [];
+
 //_____________________________________________________ TOOL PROVISIONING FUNCTIONS ________________________________________________________
 
 //function to pull tools from SQL db based on email
@@ -9,12 +17,12 @@ export async function getTools(email) {
         const {data} = await axios.post('https://tce-ai-api.azurewebsites.net/api/get-user-tools', { email } );
         return data;
     } catch(error){
-        console.error('Error fetching tools:', error);
+        console.error('Error fetching applications:', error);
     }
 }
 
 // function to add users to a tool table in SQL db based on email. users is an array of user objects [{email: email, name: name}, ...]
-export async function addUsersToTool(users, tool, project = 'None') {
+export async function addUsersToTool(users, tool, project) {
     try {
         const { data } = await axios.post('https://tce-ai-api.azurewebsites.net/api/add-users-to-tool', { users, tool, project });
         return data;
@@ -71,15 +79,31 @@ export async function updateUserProject(email, project, table) {
 export async function getEmailsAndProjects(table) {
     try {
         const { data } = await axios.post('https://tce-ai-api.azurewebsites.net/api/sd-get-user-project', { table });
-        return data;
+        if (Array.isArray(data)) {
+            return data.map(item => ({
+                ...item,
+                projects: splitString(item.projects)
+            }));
+        }
     } catch (error) {
         console.error('Error fetching user project:', error);
         throw new Error('An error occurred while fetching user project');
     }
 }
 
+// function to fetch a users projects in table and return in array form
+export async function getUserProjectsArray(email, table) {
+    try {
+        const { data } = await axios.post('https://tce-ai-api.azurewebsites.net/api/sd-get-user-dashboards', { email, table });
+        return splitString(data);
+    } catch (error) {
+        console.error('Error fetching user dashboards:', error);
+        throw new Error('An error occurred while fetching user dashboards');
+    }
+}
 
-// function to fetch a users projects in table
+
+// function to fetch a users projects in table and return in comma-separated string form
 export async function getUserProjects(email, table) {
     try {
         const { data } = await axios.post('https://tce-ai-api.azurewebsites.net/api/sd-get-user-dashboards', { email, table });

@@ -1,0 +1,254 @@
+.clearance-container {
+  padding-left: 15px;
+  padding-right: 15px;
+  padding-bottom: 5px;
+  padding-top: 5px;
+  background-color: #f0f0f0;
+  border: 1px solid #ccc;
+  border-radius: 10px;
+  margin-bottom: 10px;
+}
+
+.instruction-container {
+  width: 100%; 
+  height: 68vh;
+  margin-bottom: 10px;
+  background-color: white;
+  padding: 10px;
+  border: 1px solid #ccc;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+  border-radius: 10px;
+  text-align: center;
+}
+
+.clearance-container.okay{
+  background-color: rgb(221, 255, 221); /* Green background for greater clearance */
+}
+
+.clearance-container.bad{
+  background-color: rgb(255, 217, 217); /* Red background for lesser clearance */
+}
+
+.clearance-container.disabled{
+  background-color: #f0f0f0;
+  pointer-events: none;
+  opacity: 0.4;
+}
+
+.description-container {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-around; 
+  width: 100%; 
+  margin-bottom: 15px;
+  background-color: white;
+  padding: 10px;
+  border: 1px solid #ccc;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+  border-radius: 10px;
+  text-align: center;
+}
+
+.offline-button {
+  padding-left: 5px;
+  padding-right: 5px;
+  width: calc(20% - 20px);
+  height: calc(100%);
+}
+
+.input-container {
+  padding-left: 15px;
+  padding-right: 15px;
+  padding-bottom: 10px;
+  padding-top: 5px;
+  background-color: #f0f0f0;
+  border: 1px solid #ccc;
+  border-radius: 10px;
+  margin-bottom: 20px;
+}
+
+.intermediate-container {
+  padding-left: 15px;
+  padding-right: 15px;
+  padding-bottom: 5px;
+  padding-top: 5px;
+  background-color: #fffebd;
+  border: 1px solid #ccc;
+  border-radius: 10px;
+  margin-bottom: 20px;
+}
+
+.intermediate-container.disabled {
+  background-color: #f0f0f0;
+  pointer-events: none;
+  opacity: 0.4;
+}
+
+.input-container.disabled input, 
+.input-container.disabled select {
+  background-color: #f0f0f0;
+  color: #999;
+}
+
+.description {
+    color: #1b365f;;
+    font-family: Helvetica;
+    font-size: 1.2vw;
+    font-weight: 500;
+    letter-spacing: 0;
+    line-height: normal;
+    text-align: center;
+    align-items: center;
+    padding-left: 5px;
+    padding-right: 5px;
+    width: calc(80% - 20px);
+    margin: auto;
+    text-wrap: balance;
+}
+
+.section-container {
+  margin-bottom: 10px;
+}
+
+.section-container.results {
+  opacity: 0.5
+}
+
+.small-pill-selector {
+  width: calc(31%);
+  border: 1px solid #ccc;
+  display: flex;
+  font-family: Arial, Helvetica, sans-serif;
+  position: relative;
+  overflow: hidden;
+  border-radius: 5px;
+  background-color: #f1f1f1;
+  box-shadow: 0 0 5px rgba(0, 0, 0, 0.1);
+  color: #b1b1b1;
+}
+
+.small-pill-selector.results { 
+  pointer-events: none;
+}
+
+.tab {
+  flex-grow: 1;
+  padding-top: 5px;
+  padding-bottom: 5px;
+  text-align: center;
+  cursor: pointer;
+  transition: background-color 0.3s, color 0.3s;
+  position: relative;
+  z-index: 1;
+}
+
+.tab.active {
+  background-color: rgb(86, 86, 86);
+  color: rgb(255, 255, 255);
+  font-weight: 700;
+}
+
+.slider {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 50%;
+  height: 100%;
+  background-color: rgb(86, 86, 86);
+  z-index: 0;
+  transition: transform 0.3s ease;
+}
+
+.slide-left {
+  transform: translateX(0%);
+}
+
+.slide-right {
+  transform: translateX(100%);
+}
+
+.subtitle {
+  text-align: center;
+  font-weight: 600;
+  font-size: 1.25em;
+  background-color: transparent;
+  padding: 5px;
+  border-radius: 5px;
+  margin-bottom: 10px;
+  margin-top: 0px;
+}
+
+.subtitle.results {
+  opacity: 0.5;
+}
+
+#container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100%; 
+}
+
+.inner-container {
+  display: flex;
+  justify-content: space-around; 
+  width: 100%; 
+}
+
+.item {
+  flex: 1;
+  text-align: center;
+  padding-top: 15px;
+  padding-bottom: 5px;
+}
+
+.item.results{
+  opacity: 0.5;
+}
+
+.calculated-item {
+  flex: 1;
+  text-align: center;
+  padding-top: 15px;
+  padding-bottom: 10px;
+}
+
+.calculations {
+  text-align: center;
+  font-weight: 600;
+  font-size: 1.25em;
+  background-color: transparent;
+  padding: 5px;
+  border-radius: 5px;
+  margin-bottom: 5px;
+}
+
+.greater-clearance {
+  background-color: rgb(221, 255, 221); /* Green background for greater clearance */
+  padding: 15px;
+  border: 1px solid #ccc;
+  border-radius: 10px;
+  margin-bottom: 20px;
+}
+
+.lesser-clearance {
+  background-color: rgb(255, 217, 217); /* Red background for lesser clearance */
+  padding: 15px;
+  border: 1px solid #ccc;
+  border-radius: 10px;
+  margin-bottom: 20px;
+}
+
+#dialog-title {
+    color: #1b365f;;
+    font-family: Helvetica;
+    font-size: 1.8vw;
+    font-weight: 500;
+    letter-spacing: 0;
+    line-height: normal;
+    text-align: center;
+    align-items: center;
+    padding-left: 5px;
+    padding-right: 5px;
+    margin: auto;
+}

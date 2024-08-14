@@ -24,7 +24,7 @@ function AdminPanel() {
                 <Button
                     variant={activeTab === 'provisioning' ? 'contained' : 'outlined'}
                     onClick={() => handleTabChange('provisioning')}
-                    style={activeTab === 'provisioning' ? { backgroundColor: '#1b365f', color: 'white', marginLeft: 10 } : { backgroundColor: 'white', color: '#1b365f', border: '1px solid #1b365f', marginLeft: 10 }}
+                    style={activeTab === 'provisioning' ? { backgroundColor: '#1b365f', color: 'white', marginLeft: 10, marginBottom: '0.5rem' } : { backgroundColor: 'white', color: '#1b365f', border: '1px solid #1b365f', marginLeft: 10, marginBottom: '0.5rem' }}
                 >
                     Provisioning
                 </Button>
@@ -32,7 +32,7 @@ function AdminPanel() {
                 <Button
                     variant={activeTab === 'monitor' ? 'contained' : 'outlined'}
                     onClick={() => handleTabChange('monitor')}
-                    style={activeTab === 'monitor' ? { backgroundColor: '#1b365f', color: 'white', marginLeft: 10 } : { backgroundColor: 'white', color: '#1b365f', border: '1px solid #1b365f', marginLeft: 10 }}
+                    style={activeTab === 'monitor' ? { backgroundColor: '#1b365f', color: 'white', marginLeft: 10, marginBottom: '0.5rem' } : { backgroundColor: 'white', color: '#1b365f', border: '1px solid #1b365f', marginLeft: 10, marginBottom: '0.5rem' }}
                 >
                     Monitor
                 </Button>

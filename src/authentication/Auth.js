@@ -1,11 +1,9 @@
-//REACT
 import React, { useState, useEffect, createContext } from 'react';
 import { Navigate, Outlet, useLocation } from 'react-router-dom';
-
-//AUTH
 import { useMsal } from "@azure/msal-react";
 import { getUserProfilePic } from '../data/Graph';
 import { getApplications, getTools, getJobTitle, getProjects } from '../data/SQL';
+import { isMobile, isTablet } from 'react-device-detect'; // Import isMobile and isTablet from react-device-detect
 
 export const AuthContext = createContext();
 
@@ -18,59 +16,58 @@ export const AuthProvider = ({ children }) => {
   const [userProjects, setUserProjects] = useState(null);
   const [userApplications, setUserApplications] = useState(null);
   const [userTools, setUserTools] = useState(null);
+  const [deviceType, setDeviceType] = useState('desktop'); // Default to desktop
   const [accessToken, setAccessToken] = useState(null);
+  const [loading, setLoading] = useState(true);
 
-  //get user account
+  // Detect device type on component mount
+  useEffect(() => {
+    if (isMobile) { setDeviceType('mobile'); }
+    else if (isTablet) { setDeviceType('tablet'); }
+    else { setDeviceType('desktop'); }
+  }, []);
+
+  // Get user account
   useEffect(() => {
     const getAccount = async () => {
-      try{
-        const activeAccount = accounts[0]; 
+      try {
+        const activeAccount = accounts[0];
         setTimeout(async () => {
           if (activeAccount) {
             const response = await instance.acquireTokenSilent({
               account: activeAccount,
-              scopes: ["openid", "profile", "User.Read", "Mail.Send"], 
+              scopes: ["openid", "profile", "User.Read", "Mail.Send"],
             });
             fetchAndSetUserDetails(response.accessToken, response.account.name, response.account.username);
           }
         }, 0);
-
-      } catch(error){
-            console.error('Error fetching user details:', error);
+      } catch (error) {
+        console.error('Error fetching user details:', error);
       };
     }
-    
     getAccount();
-    
   }, [accounts, instance]);
 
-  //function to fetch user details
-  function fetchAndSetUserDetails(accessToken, name, email) {
+  const fetchAndSetUserDetails = async (accessToken, name, email) => {
     email = email.toLowerCase();
     setUserName(name);
     setUserEmail(email);
     setAccessToken(accessToken);
 
-    getUserProfilePic(accessToken)
-      .then(setUserPic)
-      .catch((error) => console.error('Error fetching user profile picture:', error));
-
-    getJobTitle(email)
-      .then(setUserTitle)
-      .catch((error) => console.error('Error fetching user job title:', error));
-
-    getProjects(email)
-      .then(setUserProjects)
-      .catch((error) => console.error('Error fetching user projects:', error));
-
-    getApplications(email)
-      .then(setUserApplications)
-      .catch((error) => console.error('Error fetching user applications:', error));
-
-    getTools(email)
-      .then(setUserTools)
-      .catch((error) => console.error('Error fetching user tools:', error));
-  }
+    try {
+      await Promise.all([
+        getUserProfilePic(accessToken).then(setUserPic),
+        getJobTitle(email).then(setUserTitle),
+        getProjects(email).then(setUserProjects),
+        getApplications(email).then(setUserApplications),
+        getTools(email).then(setUserTools)
+      ]);
+    } catch (error) {
+      console.error('Error fetching user details:', error);
+    } finally {
+      setLoading(false);
+    }
+  };
 
   const loginContextValue = {
     userName,
@@ -80,7 +77,9 @@ export const AuthProvider = ({ children }) => {
     userProjects,
     userApplications,
     userTools,
-    accessToken
+    deviceType,
+    accessToken,
+    loading
   };
 
   return (

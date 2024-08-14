@@ -39,14 +39,27 @@ const EditConversation = ({ conversation, show, onClose }) => {
       <Modal
         title={"Edit Conversation Title"}
         buttonLabels={{
-          submit: isEditingConversation ? <EditLoader /> : "Rename",
+          submit: (
+            <div className="d-flex justify-content-center align-items-center gap-1">
+              <span>Save</span>
+              {isEditingConversation && (
+                <span className="position-relative" style={{ width: "2em" }}>
+                  <EditLoader color="white" />
+                </span>
+              )}
+            </div>
+          ),
         }}
         onSubmit={() => handleSubmit(conversationName)}
         onCancel={handleClose}
         styles={{
           submit: {
-            color: "var(--chatbot-primary)",
-            backgroundColor: "transparent",
+            color: isEditingConversation ? "var(--chatbot-grey)" : "white",
+            backgroundColor: `${
+              isEditingConversation
+                ? "var(--chatbot-light-grey)"
+                : "var(--chatbot-primary)"
+            }`,
           },
           cancel: {
             backgroundColor: "transparent",
@@ -55,7 +68,7 @@ const EditConversation = ({ conversation, show, onClose }) => {
         }}
       >
         <div
-          className="input-container"
+          className="chatbot-input-container"
           style={{ width: "clamp(300px,30vw,400px)" }}
         >
           {showValidation && !isValid && (

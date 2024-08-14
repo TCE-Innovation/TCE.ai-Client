@@ -42,7 +42,7 @@ const ChatInput = () => {
 
   return (
     <Wrapper tabIndex={0}>
-      <div className="input-container">
+      <div className="chatbot-input-container">
         <input
           value={message}
           disabled={isDisabled}

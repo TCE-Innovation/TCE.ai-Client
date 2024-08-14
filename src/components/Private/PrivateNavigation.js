@@ -51,7 +51,7 @@ function ResponsiveAppBar() {
                 return 'Home';
             case 'generate-emails':
                 return 'Generate an Email';
-            case 'chat-bot':
+            case 'chatbot':
                 return 'Chatbot - BETA';   
             case 'cable-run-optimizer':
                 return 'Cable Run Optimizer';
@@ -69,6 +69,8 @@ function ResponsiveAppBar() {
                 return '3D Prototyping';
             case 'drone-captures':
                 return 'Drone Captures';
+            case 'clearance-calculator': 
+                return 'LLLE Clearance Calculator'
             case 'admin':
                 return 'Admin Panel';
             default:
