@@ -217,12 +217,6 @@ const CRO = () => {
         height: '110px',
     };
 
-    // useEffect(() => {
-    //     if (responses[0] || responses[1] || responses[2]) {
-    //         setAreResponsesRendered(true);
-    //     }
-    // }, [responses]);
-
     return (
         
         <Box
@@ -253,9 +247,10 @@ const CRO = () => {
                     fontSize="20px"
                     
                     style={{ 
-                        paddingBottom: '10px', 
+                        marginTop: '-30px',
+                        marginBottom: '0px',
                         marginLeft: '400px', // Increase marginLeft from 250px to 300px
-                        marginRight: '25px',
+                        marginRight: '15px',
                         whitespace: 'nowrap'
                     }}
                 >
@@ -438,7 +433,7 @@ const CRO = () => {
                         alignItems: 'center',
                         justifyContent: 'flex-start',
                         marginBottom: '10px',
-                        marginTop: "10px",
+                        marginTop: "-10px",
                         backgroundColor: 'transparent',
                     }}
                     >   
@@ -615,10 +610,10 @@ const CRO = () => {
             
                 {loading ? (
                     <>
-                        <div style={spinnerContainerStyle}>
-                    <TrainLoader />
-                </div>
-                        <Typography variant="body2" mt={-2.5}>
+                        <div style={{spinnerContainerStyle, marginTop: '-20px'}}>
+                            <TrainLoader />
+                        </div>
+                        <Typography variant="body2" style={{ marginTop: '-15px'}}> 
                             Optimizing...
                         </Typography>
                     </>
@@ -675,7 +670,7 @@ const CRO = () => {
                 
             </Box>
 
-            <Box sx={{ marginBottom: '20px' }}>
+            <Box sx={{ marginBottom: '-20px' }}>
 
 
             </Box>
