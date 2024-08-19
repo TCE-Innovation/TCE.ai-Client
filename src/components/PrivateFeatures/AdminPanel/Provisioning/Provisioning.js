@@ -15,7 +15,8 @@ const tableNameMap = {
     'Overview Dashboard': 'overview_dashboard',
     'Tool Usage Stats': 'tool_usage',
     'Drone Captures': 'drone_captures',
-    'Chatbot': 'chatbot'
+    'Chatbot': 'chatbot',
+    'Equipment Install Tracking Dashboard': 'eit_dashboard',
 };
 
 const toolsWithProjectOption = [
@@ -309,7 +310,7 @@ const Provisioning = () => {
     useEffect(() => {
         const fetchProjects = async () => {
             try {
-                const data = await getPBILog();
+                const data = await getPBILog("tblGN3jn8NvpVOnFo");
                 let projectOptions = Object.keys(data);
                 projectOptions = [...projectOptions];
                 setDashboardProjects(projectOptions);

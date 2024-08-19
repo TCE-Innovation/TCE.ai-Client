@@ -30,6 +30,7 @@ import ToolUsage from "../PrivateFeatures/ToolUsage";
 import PrintingRequest from '../PrivateFeatures/3dPrinting/3dPrinting';
 import DroneCaptures from '../PrivateFeatures/DroneCaptures';
 import Clearance from '../PrivateFeatures/Clearance/Clearance';
+import EITDashboard from '../PrivateFeatures/EITDashboard';
 import Admin from '../PrivateFeatures/AdminPanel/AdminPanel';
 
 // AUTH
@@ -93,6 +94,7 @@ function PrivateContent() {
     'Drone Captures': 'drone-captures',
     'Chatbot': 'chatbot',
     'LLLE Clearance Calculator': 'clearance-calculator',
+    'Equipment Install Tracking Dashboard': 'equip-install-dashboard',
   };
 
   // Always available tools
@@ -119,6 +121,7 @@ function PrivateContent() {
     '3d-printing-request': PrintingRequest,
     'drone-captures': DroneCaptures,
     'clearance-calculator': Clearance,
+    'equip-install-dashboard' : EITDashboard,
     'admin': isAdmin ? Admin : null // Admin access only
   }), [isAdmin]);
 
