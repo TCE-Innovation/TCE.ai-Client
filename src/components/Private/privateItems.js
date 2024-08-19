@@ -63,7 +63,7 @@ const PrivateListItems = ({ tool }) => {
         { to: '/private/overview-dashboard', text: 'Overview Dashboard', icon: <DataThresholdingOutlinedIcon />, key: 'overview-dashboard'},
         { to: '/private/tool-usage', text: 'Tool Usage Stats', icon: <DonutSmallOutlinedIcon />, key: 'tool-usage' }, 
         { to: '/private/drone-captures', text: 'Drone Captures', icon: <SatelliteAltIcon />, key: 'drone-captures' },
-        { to: '/private/equip-install-dashboard', text: 'Equipment Install Tracking Dashboard', icon: <SatelliteAltIcon />, key: 'equip-install-dashboard' },
+        { to: '/private/equip-install-dashboard', text: 'EIT Dashboard', icon: <SatelliteAltIcon />, key: 'equip-install-dashboard' },
 
     ];
 
