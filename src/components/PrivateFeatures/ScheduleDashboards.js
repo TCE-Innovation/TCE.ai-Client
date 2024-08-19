@@ -33,7 +33,8 @@ const ScheduleDashboards = () => {
     useEffect(() => {
         const fetchProjects = async () => {
             try {
-                const data = await getPBILog();
+                const tableID = "tblGN3jn8NvpVOnFo";
+                const data = await getPBILog(tableID);
                 setProjects(data);
     
                 let projectKeys = Object.keys(data);

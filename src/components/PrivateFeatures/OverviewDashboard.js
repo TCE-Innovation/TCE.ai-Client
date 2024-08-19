@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import TrainLoader from '../General/TrainLoader';
-import { getOverviewDashboardLink } from '../../data/Airtable'; // Adjust the path to where your function is located
+import { getPBILog } from '../../data/Airtable'; // Adjust the path to where your function is located
 
 const OverviewDashboard = () => {
     const [iframeLoaded, setIframeLoaded] = useState(false);
@@ -9,7 +9,8 @@ const OverviewDashboard = () => {
     useEffect(() => {
         const fetchLink = async () => {
             try {
-                const response = await getOverviewDashboardLink();
+                const tableID = "tblVJiExefKAL9xyM";
+                const response = await getPBILog(tableID);
                 if (response && response.length > 0) {
                     setIframeSrc(response[0].url);
                 } else {
@@ -50,7 +51,7 @@ const OverviewDashboard = () => {
                     src={iframeSrc}
                     width="100%"
                     height="750px"
-                    title="TCIG Asset Tracker"
+                    title="TCIG Overview Dashboard"
                     style={{ background: 'transparent', border: '1px solid #ccc' }}
                 ></iframe>
             </div>

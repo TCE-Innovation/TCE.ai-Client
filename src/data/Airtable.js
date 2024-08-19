@@ -26,9 +26,10 @@ export async function getUsageLog(sortField = 'Last Login (Date)', sortDirection
 }
 
 //function to get PBI log data from airtable base
-export async function getPBILog() {
+export async function getPBILog(tableID) {
     try{
-        const {data} = await axios.get('https://tce-ai-api.azurewebsites.net/api/get-pbi-log');
+        const {data} = await axios.post('https://tce-ai-api.azurewebsites.net/api/get-pbi-log', tableID);
+        console.log(data);
         return data;
     }
     catch(error){
