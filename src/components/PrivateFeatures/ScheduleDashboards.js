@@ -68,16 +68,29 @@ const ScheduleDashboards = () => {
     
 
     const handleProjectChange = (event) => {
-        setSelectedProject(event.target.value);
-        if (event.target.value !== "None") {
-            setSelectedMonth(projects[event.target.value][0].month);
-            setIframeLink(projects[event.target.value][0].link);
+        const selectedProject = event.target.value;
+        setSelectedProject(selectedProject);
+    
+        if (selectedProject !== "None") {
+            // Get the list of months for the selected project
+            const months = projects[selectedProject].map(record => record.month);
+            
+            // Select the most recent month (the last item in the list)
+            const mostRecentMonth = months[months.length - 1];
+            
+            setSelectedMonth(mostRecentMonth);
+            
+            // Find the record corresponding to the most recent month
+            const mostRecentRecord = projects[selectedProject].find(record => record.month === mostRecentMonth);
+            
+            // Set the iframe link to the link associated with the most recent month
+            setIframeLink(mostRecentRecord.link);
         } else {
             setSelectedMonth('');
             setIframeLink('');
         }
     };
-
+    
     const handleMonthChange = (event) => {
         setSelectedMonth(event.target.value);
         const record = projects[selectedProject].find(r => r.month === event.target.value);
