@@ -23,11 +23,11 @@ const tabs = [
     icon: UsersIcon,
     pane: UsersTable,
   },
-  {
-    title: "Documents",
-    icon: DocumentIcon,
-    pane: DocumentsTable,
-  },
+  // {
+  //   title: "Documents",
+  //   icon: DocumentIcon,
+  //   pane: DocumentsTable,
+  // },
 ];
 
 const Admin = () => {
@@ -65,7 +65,7 @@ const Admin = () => {
           </div>
           <AddNewButton />
         </div>
-        <div className="flex-grow-1" style={{ overflow: "auto hidden" }}>
+        <div className="flex-grow-1 d-flex" style={{ overflow: "auto hidden" }}>
           <TabContext.Panes>
             {tabs.map((tab, i) => {
               const Component = tab.pane;

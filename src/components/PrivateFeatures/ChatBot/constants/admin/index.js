@@ -6,6 +6,8 @@ export const PROFILES = {
   PROJECT_NAME: Symbol("project-name"),
   PROJECT_USERS: Symbol("project-users"),
   PROJECT_DOCS: Symbol("project-documents"),
+  LIVE_MODE: Symbol("live-mode"),
+  PROPOSAL_MODE: Symbol("proposal-mode"),
 };
 
 export const ROLES = {

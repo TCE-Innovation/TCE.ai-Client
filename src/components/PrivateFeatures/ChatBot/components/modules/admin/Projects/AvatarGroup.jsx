@@ -5,6 +5,7 @@ const MAX_AVATARS = 4;
 
 const AvatarGroup = ({ avatars }) => {
   const [visibleAvatars, hiddenAvatars] = useMemo(() => {
+    console.log({ avatars });
     const avatarsCopy = avatars.slice();
     const visibleAvatars = avatarsCopy.splice(0, MAX_AVATARS);
     return [visibleAvatars, avatarsCopy];
@@ -13,7 +14,7 @@ const AvatarGroup = ({ avatars }) => {
   // const hiddenAvatars = avatars.slice(MAX_AVATARS);
 
   const hasMore = avatars.length !== visibleAvatars.length;
-  
+
   return (
     <div className="avatar-group">
       {visibleAvatars.map((user, i) => {
@@ -26,11 +27,13 @@ const AvatarGroup = ({ avatars }) => {
       {hasMore && (
         <div className="tooltip-container">
           <Avatar title={`${avatars.length - MAX_AVATARS}+`} />
-          <div className="tooltip tooltip-dark align-bottom">
-            {hiddenAvatars.map((avatar, i) => {
-              return <div key={i}>{avatar.name}</div>;
-            })}
-          </div>
+          {hiddenAvatars.length && (
+            <div className="tooltip tooltip-dark align-bottom">
+              {hiddenAvatars.map((avatar, i) => {
+                return <div key={i}>{avatar.name}</div>;
+              })}
+            </div>
+          )}
         </div>
       )}
     </div>

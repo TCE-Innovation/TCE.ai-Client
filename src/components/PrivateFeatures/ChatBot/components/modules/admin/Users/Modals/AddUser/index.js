@@ -7,7 +7,7 @@ import AddUserModal from "./AddUser";
 const formValues = {
   email: "",
   name: "",
-  projects: [],
+  role: null,
 };
 
 const AddUser = (props) => {

@@ -5,6 +5,7 @@ import FormContext from "../../../../../contexts/FormContext";
 
 const initialValues = {
   document: null,
+  documentName: "",
 };
 
 const AddDocumentModal = (props) => {

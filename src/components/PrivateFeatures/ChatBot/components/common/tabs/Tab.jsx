@@ -36,7 +36,7 @@ const Panes = ({ children }) => {
 
   const activePane = paneElements[activeTab];
 
-  return <div className="chatbot-tab-pane">{activePane}</div>;
+  return <div className="chatbot-tab-pane flex-grow-1 d-flex flex-column">{activePane}</div>;
 };
 
 const Provider = ({ children }) => {

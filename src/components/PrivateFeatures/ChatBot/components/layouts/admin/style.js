@@ -36,8 +36,7 @@ export default styled.div`
     }
   }
   .admin-table-container {
-    // height: 100%;
-    height: 74vh;
+    height: 65vh;
     padding-right: 10px;
     overflow: hidden auto;
   }

@@ -2,8 +2,16 @@ import React from "react";
 
 import { Overlay, Modal } from "../../../../../common";
 
-const RemoveUser = ({ show, onClose, username, email }) => {
+import { useRemoveUserFromProject } from "../../../../../../hooks/useQueries";
+
+const RemoveUser = ({ show, onClose, username, email, id }) => {
+  const {mutate,loading:isSubmitting} = useRemoveUserFromProject()
   if (!show) return null;
+
+  const handleRemoveUser = () => {
+    if(isSubmitting) return;
+    mutate(id)
+  }
 
   return (
     <Overlay>
@@ -13,7 +21,8 @@ const RemoveUser = ({ show, onClose, username, email }) => {
         buttonLabels={{
           submit: "Remove",
         }}
-        onSubmit={() => console.log("remove")}
+        onSubmit={handleRemoveUser}
+        isSubmitting={isSubmitting}
         styles={{
           submit: {
             color: "var(--chatbot-red)",

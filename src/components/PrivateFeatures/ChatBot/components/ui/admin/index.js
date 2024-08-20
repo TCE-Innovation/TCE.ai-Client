@@ -3,10 +3,17 @@ import { AdminLayout } from "../../layouts";
 
 import { AdminModule } from "../../modules";
 
+import AdminContext from "../../contexts/Admin";
+// import CacheContext from "../../contexts/Cache";
+
 const index = () => {
   return (
     <AdminLayout>
-      <AdminModule />
+      {/* <CacheContext> */}
+      <AdminContext>
+        <AdminModule />
+      </AdminContext>
+      {/* </CacheContext> */}
     </AdminLayout>
   );
 };

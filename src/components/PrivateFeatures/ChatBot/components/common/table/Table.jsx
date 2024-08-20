@@ -11,9 +11,10 @@ const Table = ({
   columns,
   children,
   classNames = "",
+  isLoading = true,
   onRowClick = () => {},
 }) => {
-  const [loading, setLoading] = useState(true);
+  const [loading, setLoading] = useState(isLoading);
   const [currentList, setCurrentList] = useState(() =>
     typeof data === "function" ? [] : []
   );
@@ -38,6 +39,10 @@ const Table = ({
       }
     })();
   }, []);
+
+  useEffect(() => {
+    setLoading(isLoading);
+  }, [isLoading]);
 
   useEffect(() => {
     if (Array.isArray(data)) {
@@ -80,9 +85,20 @@ const Table = ({
     sortTable(columnKey, nextOrder);
   };
 
+  const getAlignment = (align) => {
+    return align === "center"
+      ? "justify-content-center"
+      : align === "end"
+      ? "justify-content-end"
+      : "";
+  };
+
   return (
     <Wrapper>
-      <table className={`chatbot-table-view ${classNames}`}>
+      <table
+        className={`chatbot-table-view ${classNames}`}
+        style={{ height: isLoading ? "100%" : "auto" }}
+      >
         <thead className="w-100">
           <tr>
             {columns.map((column, i) => {
@@ -94,16 +110,18 @@ const Table = ({
                   key={i}
                 >
                   <div
-                    className={`d-flex gap-2 align-items-center`}
+                    className={`d-flex gap-2 align-items-center ${getAlignment(
+                      column.align
+                    )}`}
                     onClick={() => {
-                      if (!showDefaultHover) return;
+                      if (!showDefaultHover || isLoading) return;
                       updateTable(column.key, i);
                     }}
                   >
                     <span>{column.title}</span>
                     {column.sort && (
                       <>
-                        {column.renderSort
+                        {!isLoading && column.renderSort
                           ? column.renderSort({
                               handleSort: () => {
                                 updateTable(column.key, i);
@@ -132,7 +150,23 @@ const Table = ({
                       "<invalid_indexing>";
                     return (
                       <td key={`${i}-${j}`}>
-                        <div>{value}</div>
+                        <div
+                          style={{
+                            ...(column.maxWidth
+                              ? {
+                                  textWrap: "nowrap",
+                                  textOverflow: "ellipsis",
+                                  overflow: "hidden",
+                                  maxWidth: column.maxWidth,
+                                }
+                              : {}),
+                          }}
+                          className={`d-flex align-items-center ${getAlignment(
+                            column.align
+                          )}`}
+                        >
+                          {value}
+                        </div>
                       </td>
                     );
                   })}
@@ -147,12 +181,15 @@ const Table = ({
                     position: "relative",
                     color: "var(--chatbot-grey)",
                     textAlign: "center",
+                    backgroundColor: "var(--chatbot-light-grey)",
+                    height: "100%",
+                    outline: "1px solid var(--chatbot-light-grey)",
                   }}
                 >
-                  {loading ? (
+                  {currentList.length ? null : loading ? (
                     <>
                       <br />
-                      <Loader />
+                      <Loader size={3} />
                       <br />
                     </>
                   ) : children ? (

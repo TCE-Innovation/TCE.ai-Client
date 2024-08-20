@@ -2,6 +2,8 @@ import React from "react";
 
 import { Overlay, Modal } from "../../../../../common";
 
+import Description from "../../../Documents/Forms/_Description";
+
 const RemoveDocument = ({ show, onClose, ...document }) => {
   if (!show) return null;
 
@@ -32,30 +34,7 @@ const RemoveDocument = ({ show, onClose, ...document }) => {
             This action cannot be undone.
           </div>
           <br />
-          <div>
-            Document Name:{" "}
-            <span style={{ color: "var(--chatbot-text-primary)" }}>
-              {document.name}
-            </span>
-          </div>
-          <div>
-            Document Type:{" "}
-            <span style={{ color: "var(--chatbot-text-primary)" }}>
-              {document.documentType}
-            </span>
-          </div>
-          <div>
-            Size:{" "}
-            <span style={{ color: "var(--chatbot-text-primary)" }}>
-              {document.size}
-            </span>
-          </div>
-          <div>
-            Date and Time of Addition:{" "}
-            <span style={{ color: "var(--chatbot-text-primary)" }}>
-              {document.uploadDate}
-            </span>
-          </div>
+          <Description {...document} />
         </div>
       </Modal>
     </Overlay>

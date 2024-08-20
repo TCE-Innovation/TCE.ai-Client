@@ -1,69 +1,11 @@
 import React, { useEffect, useMemo, useState } from "react";
 import Field from "./Field";
 
-import { DownIcon, SearchIcon } from "../../icons";
+import { DownIcon } from "../../icons";
 import { useOutsideClick } from "../../../hooks";
-import FormContext, { useFieldValue } from "../../contexts/FormContext";
+import { useFieldValue } from "../../contexts/FormContext";
 
-const DropDown = ({
-  items,
-  name,
-  search = false,
-  searchPlaceholder = "Search...",
-  searchLabel = "",
-  listRenderer,
-  onChange = () => {},
-}) => {
-  const { changeValue } = useFieldValue(name);
-
-  const [currentItems, setCurrentItems] = useState(items);
-
-  const handleSearch = (value) => {
-    const pattern = new RegExp(value, "gi");
-    setCurrentItems(items.filter((item) => pattern.test(item.label)));
-  };
-
-  const handleClick = (item) => {
-    changeValue(item.value);
-    onChange(item.value);
-  };
-
-  return (
-    <div className="chatbot-dropdown-container position-absolute left-0 w-100">
-      {search && (
-        <FormContext initialValues={{ search: "" }}>
-          <div className="dropdown-search-field">
-            {searchLabel && (
-              <div style={{ fontSize: "0.75em", color: "var(--chatbot-grey)" }}>
-                {searchLabel}
-              </div>
-            )}
-            <Field
-              name={"search"}
-              placeholder={searchPlaceholder}
-              leftAddon={<SearchIcon />}
-              onChange={handleSearch}
-              autoComplete={'off'}
-            />
-          </div>
-        </FormContext>
-      )}
-      {currentItems.length ? (
-        currentItems.map((item) => {
-          return (
-            <div key={item.value} onClick={() => handleClick(item)}>
-              {listRenderer?.(item) || item.label}
-            </div>
-          );
-        })
-      ) : (
-        <div className="text-center" style={{ pointerEvents: "none" }}>
-          no items
-        </div>
-      )}
-    </div>
-  );
-};
+import DropDown from "./_DropDown";
 
 const SelectField = ({
   name,
@@ -99,7 +41,6 @@ const SelectField = ({
   });
 
   const handleChange = (...args) => {
-    console.log(...args);
     setShow(false);
     onChange(...args);
   };

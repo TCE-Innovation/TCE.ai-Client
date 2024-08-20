@@ -2,20 +2,19 @@ import React from "react";
 
 import { SearchIcon } from "../../icons";
 import { Field } from "../../common";
-import FormContext from "../../contexts/FormContext";
 
-const Search = ({ placeholder, onChange }) => {
+const Search = ({ placeholder, onChange, name = "search" }) => {
   return (
-    <FormContext initialValues={{ search: "" }}>
+    <>
       <Field
-        name={"search"}
+        name={name}
         placeholder={placeholder}
         onChange={onChange}
         leftAddon={<SearchIcon />}
         autoComplete="off"
         className="my-2"
       />
-    </FormContext>
+    </>
   );
 };
 

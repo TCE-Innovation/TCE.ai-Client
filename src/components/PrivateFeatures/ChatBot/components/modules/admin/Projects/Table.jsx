@@ -9,8 +9,9 @@ import { TabContext } from "../../../common";
 
 import { useGlobal } from "../../../../hooks";
 
-const Table = ({ rows }) => {
+const Table = ({ rows, ...props }) => {
   const { query } = useGlobal();
+
   const { push } = query;
   const columns = useMemo(
     () => [
@@ -27,6 +28,10 @@ const Table = ({ rows }) => {
       {
         title: "User assigned",
         renderCell: ({ assignedUsers }) => {
+          if (!assignedUsers.length)
+            return (
+              <span style={{ color: "var(--chatbot-grey)" }}>not assigned</span>
+            );
           return <AvatarGroup avatars={assignedUsers} />;
         },
       },
@@ -67,6 +72,7 @@ const Table = ({ rows }) => {
             nextTab();
             push({ project_id: row.id });
           }}
+          {...props}
         />
       )}
     </TabContext.Provider>

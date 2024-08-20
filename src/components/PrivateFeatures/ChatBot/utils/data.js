@@ -44,5 +44,5 @@ export const genDocuments = (length = 20) => {
 
 export const getRoleById = (id) => {
   const roleIds = [ROLES.ADMIN, ROLES.PM, ROLES.USER];
-  return roleIds[id];
+  return roleIds[id % roleIds.length];
 };

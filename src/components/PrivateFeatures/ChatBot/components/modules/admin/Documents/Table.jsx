@@ -4,12 +4,13 @@ import Actions from "../Actions";
 import { RemoveDocumentModal } from "./Modals";
 import { RemoveDocumentFromProjectModal } from "../Projects/Modals";
 
+import { formatDate } from "../../../../utils/date";
 import { TabContext } from "../../../common";
 
 import TableContainer from "../TableContainer";
 import { PROFILES } from "../../../../constants/admin";
 
-const Table = ({ rows }) => {
+const Table = ({ rows, ...props }) => {
   const columns = useMemo(
     () => [
       {
@@ -19,6 +20,23 @@ const Table = ({ rows }) => {
         renderSort: ({ handleSort, currentOrder }) => {
           return (
             <SortButton handleSort={handleSort} currentOrder={currentOrder} />
+          );
+        },
+        renderCell: ({ name }) => {
+          return (
+            <div className="tooltip-container">
+              <div
+                style={{
+                  textWrap: "nowrap",
+                  textOverflow: "ellipsis",
+                  overflow: "hidden",
+                  maxWidth: "500px",
+                }}
+              >
+                {name}
+              </div>
+              <div className="tooltip tooltip-dark align-bottom">{name}</div>
+            </div>
           );
         },
       },
@@ -31,10 +49,14 @@ const Table = ({ rows }) => {
             <SortButton handleSort={handleSort} currentOrder={currentOrder} />
           );
         },
+        renderCell: ({ uploadDate }) => {
+          const formattedDate = formatDate(new Date(uploadDate), "MM.dd.yyyy");
+          return <>{formattedDate}</>;
+        },
       },
       {
         title: "Actions",
-        width: "0",
+        align: "end",
         renderCell: ({ ...documentProps }) => {
           return (
             <TabContext.Provider>
@@ -76,7 +98,7 @@ const Table = ({ rows }) => {
   );
   return (
     <>
-      <TableContainer columns={columns} rows={rows} />
+      <TableContainer columns={columns} rows={rows} {...props} />
     </>
   );
 };

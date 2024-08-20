@@ -1,35 +1,36 @@
-import React from "react";
+import React, { useMemo } from "react";
 import { SelectField } from "../../../common/field";
 import FormContext from "../../../contexts/FormContext";
 
-const projects = [
-  {
-    label: "ADA Package 4",
-    value: 1,
-  },
-  {
-    label: "ADA Package 3",
-    value: 2,
-  },
-  {
-    label: "ADA Package 2",
-    value: 3,
-  },
-];
+import { useGetProjectsQuery } from "../../../../hooks/useQueries";
+import useConversation from "../../../../hooks/useConversation";
 
 const SelectProject = () => {
+  const { data, loading } = useGetProjectsQuery();
+  const { setSelectedProjectId, selectedProjectId } = useConversation();
+
+  const items = useMemo(() => {
+    if (!data?.data) return [];
+    const { data: projects } = data;
+    return projects.map((project) => ({
+      label: project.name,
+      value: project.id,
+    }));
+  }, [data?.data]);
+
   return (
     <>
-      <FormContext initialValues={{ projectId: null }}>
+      <FormContext initialValues={{ projectId: selectedProjectId }}>
         <SelectField
-          items={projects}
+          items={items}
           extractor={(item) => item}
           name={"projectId"}
           placeholder={"Select a project"}
           search
+          loading={loading}
           searchPlaceholder={"Search a project"}
           searchLabel={"Select a project"}
-          onChange={(projectId) => console.log("selected project", projectId)}
+          onChange={(projectId) => setSelectedProjectId(projectId)}
         />
       </FormContext>
     </>

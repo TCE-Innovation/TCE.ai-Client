@@ -15,7 +15,7 @@ export default styled.div`
     border-spacing: 0 var(--table-spacing);
     & thead {
       position: sticky;
-      top: var(--table-spacing);
+      top: 0px;
       z-index: 1;
       & th {
         & > * {
@@ -36,7 +36,7 @@ export default styled.div`
     }
     & thead tr {
       background: white;
-      outline: calc(var(--table-spacing) * 2) solid var(--chatbot-light-grey);
+      outline: var(--table-spacing) solid var(--chatbot-light-grey);
       border-radius: 20px;
     }
     & tbody td {

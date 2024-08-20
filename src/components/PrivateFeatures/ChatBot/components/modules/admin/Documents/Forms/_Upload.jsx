@@ -1,10 +1,15 @@
-import React from "react";
+import React, { useEffect } from "react";
 
 import { UploadField } from "../../../../common/field";
 import { useFieldValue } from "../../../../contexts/FormContext";
 
 const Upload = () => {
   const { value: document } = useFieldValue("document");
+  const { changeValue: changeDocumentName } = useFieldValue("documentName");
+
+  useEffect(() => {
+    changeDocumentName(document?.name || "");
+  }, [document?.name]);
 
   return (
     <div>

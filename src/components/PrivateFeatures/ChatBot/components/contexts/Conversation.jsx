@@ -27,6 +27,8 @@ const ConversationProvider = ({ children }) => {
     null
   );
 
+  const [selectedProjectId, setSelectedProjectId] = useStorage("PROJECT_ID", 9);
+
   const { createAlert } = useGlobal();
 
   useLayoutEffect(() => {
@@ -47,7 +49,7 @@ const ConversationProvider = ({ children }) => {
       data: conversationId,
       success,
       message,
-    } = await conversationService.createConversation();
+    } = await conversationService.createConversation(selectedProjectId);
     setIsCreating(false);
     if (!success || !conversationId)
       return createAlert({ message, type: "danger" });
@@ -62,6 +64,7 @@ const ConversationProvider = ({ children }) => {
     const { success, message } = await conversationService.editConversation({
       conversationId: currentConversation.id,
       name,
+      projectId: selectedProjectId,
     });
     createAlert({ message, type: success ? "info" : "danger" });
     setIsEditing(false);
@@ -83,12 +86,13 @@ const ConversationProvider = ({ children }) => {
   };
 
   useEffect(() => {
-    const getAllConversations = async () => {
+    if (!selectedProjectId) return;
+    const getAllConversations = async (projectId) => {
       const {
         data: conversations,
         success,
         message,
-      } = await conversationService.getConversations();
+      } = await conversationService.getConversations(projectId);
       if (!success) {
         createAlert({ message: message, type: "danger" });
       }
@@ -102,14 +106,17 @@ const ConversationProvider = ({ children }) => {
       }
       setLoading(false);
     };
-    getAllConversations();
-  }, [createAlert]);
+    getAllConversations(selectedProjectId);
+  }, [selectedProjectId, createAlert]);
 
   const deleteConversation = (id) => async (e) => {
     if (isDeleting) return;
     e.stopPropagation();
     setIsDeleting(true);
-    const { message } = await conversationService.deleteConversation(id);
+    const { message } = await conversationService.deleteConversation(
+      id,
+      selectedProjectId
+    );
     createAlert({ message, type: "danger" });
     setIsDeleting(false);
     setConversations((prev) => prev.filter((c) => c.id !== id));
@@ -129,6 +136,8 @@ const ConversationProvider = ({ children }) => {
         isDeletingConversation: isDeleting,
         isCreatingConversation: isCreating,
         isEditingConversation: isEditing,
+        selectedProjectId,
+        setSelectedProjectId,
       }}
     >
       {children}

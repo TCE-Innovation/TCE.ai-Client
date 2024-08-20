@@ -20,6 +20,10 @@ export default styled.div`
       background-color: var(--chatbot-alert-light-red);
       color: var(--chatbot-alert-red);
     }
+    &.alert-success {
+      bakground-color: #daf8e6;
+      color: var(--chatbot-text-primary);
+    }
     &.show {
       opacity: 1;
       transform: translateY(0%);

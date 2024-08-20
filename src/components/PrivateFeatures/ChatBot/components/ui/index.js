@@ -4,9 +4,8 @@ import { useLocation } from "react-router-dom";
 import ChatBot from "./chatbot";
 import Admin from "./admin";
 
-import ConversationContext from "../../components/contexts/Conversation";
-import MessageContext from "../../components/contexts/Message";
 import GlobalContext from "../../components/contexts/Global";
+import CacheContext from "../../components/contexts/Cache";
 import { BaseLayout } from "../layouts";
 
 const Chat = () => {
@@ -29,13 +28,11 @@ const Chat = () => {
 
   return (
     <GlobalContext>
-      <ConversationContext>
-        <MessageContext>
-          <BaseLayout>
-            <Component />
-          </BaseLayout>
-        </MessageContext>
-      </ConversationContext>
+      <CacheContext>
+        <BaseLayout>
+          <Component />
+        </BaseLayout>
+      </CacheContext>
     </GlobalContext>
   );
 };

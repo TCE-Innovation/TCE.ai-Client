@@ -10,9 +10,8 @@ import { RemoveUserFromProjectModal } from "../Projects/Modals";
 import { TabContext } from "../../../common";
 
 import { PROFILES, ROLE_TO_COLORS } from "../../../../constants/admin";
-import { getRoleById } from "../../../../utils/data";
 
-const Table = ({ rows }) => {
+const Table = ({ rows, ...props }) => {
   const columns = useMemo(
     () => [
       {
@@ -30,7 +29,13 @@ const Table = ({ rows }) => {
               <Avatar title={title}>
                 <img src={url} alt={name} />
               </Avatar>
-              <span>{name}</span>
+              {name ? (
+                <span>{name}</span>
+              ) : (
+                <span style={{ color: "var(--chatbot-grey)" }}>
+                  not available
+                </span>
+              )}
             </div>
           );
         },
@@ -38,28 +43,30 @@ const Table = ({ rows }) => {
       {
         title: "Email",
         key: "email",
+        align: "end",
+        width: "0",
+        sort: true,
+        renderSort: ({ handleSort, currentOrder }) => {
+          return (
+            <SortButton handleSort={handleSort} currentOrder={currentOrder} />
+          );
+        },
       },
       {
         title: "Role",
+        align: "end",
         renderCell: ({ role }) => {
-          const label = getRoleById(role);
-          const color = ROLE_TO_COLORS[label];
+          const color = ROLE_TO_COLORS[role];
           return (
             <>
-              <Badge label={label} accent={color} />
+              <Badge label={role} accent={color} />
             </>
           );
         },
       },
       {
-        title: "Team",
-        renderCell: ({ teamName }) => {
-          return <Badge accent={"yellow"} label={teamName} />;
-        },
-      },
-      {
         title: "Actions",
-        width: "0",
+        align: "end",
         renderCell: ({ name, email }) => {
           return (
             <TabContext.Provider>
@@ -100,7 +107,7 @@ const Table = ({ rows }) => {
   );
   return (
     <>
-      <TableContainer columns={columns} rows={rows} />
+      <TableContainer columns={columns} rows={rows} {...props} />
     </>
   );
 };

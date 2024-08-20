@@ -41,7 +41,7 @@ export default styled.div`
           flex: 1;
           padding: .75em .75em;
           border-radius: .5em;
-          &:hover {
+          &:hover, &:disabled {
             background-color: var(--chatbot-light-grey) !important;
             color: var(--chatbot-grey) !important;
           }
@@ -51,6 +51,8 @@ export default styled.div`
           position: relative;
           background-color: var(--chatbot-primary);
           color: white;
+          display: flex;
+          align-items-center
         }
         & .modal-cancel-btn {
           background-color: var(--chatbot-primary);

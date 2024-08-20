@@ -61,12 +61,20 @@ export default styled.div`
     border-radius: 0.25em;
     box-shadow: 0 0 10px 0 rgba(0, 0, 0, 0.2);
     max-height: 400px;
+    min-height: 100px;
     overflow: hidden;
     overflow-y: auto;
+    & .search-loading-wrapper {
+      top: 50%;
+      left: 50%;
+      transform: translateY(-50%);
+      position: absolute;
+      pointer-events: none;
+    }
     & > * {
       padding: 0.75em;
       cursor: pointer;
-      &:not(.dropdown-search-field):hover {
+      &:not(.dropdown-search-field):hover,&.selected {
         background-color: var(--chatbot-light-grey);
       }
     }

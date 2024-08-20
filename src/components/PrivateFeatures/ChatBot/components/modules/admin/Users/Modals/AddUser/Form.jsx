@@ -1,7 +1,8 @@
-import { Field } from "../../../../../common";
-import { SelectField } from "../../../../../common/field";
-
 import React from "react";
+
+import { Field } from "../../../../../common";
+
+import RolesField from "../../Forms/_Role";
 
 import { emailRegex } from "../../../../../../utils/form";
 
@@ -20,13 +21,7 @@ const Form = () => {
         <Field name={"name"} placeholder={"Type here"} label="Name" />
       </div>
       <div>
-        <SelectField
-          name={"projects"}
-          label={"Projects assigned to"}
-          placeholder={"Projects assigned to"}
-          extractor={(item) => item}
-          items={[]}
-        />
+        <RolesField />
       </div>
       <div />
     </form>

@@ -121,6 +121,34 @@ const FormContextProvider = ({ children, ...props }) => {
   );
 };
 
+export const useFieldArray = (name) => {
+  const { formValues } = useContext(FormContext);
+  const [value, setValue] = useState(formValues[name]);
+
+  const push = (newValue) => {
+    setValue((prev) => [...prev, newValue]);
+  };
+
+  const pop = () => {
+    setValue((prev) => {
+      const copy = prev.slice();
+      copy.pop();
+      return copy;
+    });
+  };
+
+  const remove = (obj) => {
+    setValue((prev) => prev.filter((item) => item !== obj));
+  };
+
+  return {
+    value,
+    push,
+    pop,
+    remove,
+  };
+};
+
 export const useFieldValue = (name) => {
   const { formValues, updateForm, errors, register } = useContext(FormContext);
   const [value, setValue] = useState(formValues[name]);

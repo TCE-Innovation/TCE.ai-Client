@@ -2,16 +2,30 @@ import React from "react";
 
 import { Overlay, Modal } from "../../../../../common";
 
+import { useAddUser } from "../../../../../../hooks/useQueries";
+
 import { useContext } from "../../../../../contexts/FormContext";
 
 import Form from "./Form";
+import { getRoleById } from "../../../../../../utils/data";
 
 const AddUser = ({ show, onClose }) => {
+  const { mutate, loading: isSubmitting } = useAddUser();
   const { submitHandler } = useContext();
   if (!show) return null;
 
   const handleSubmit = (values) => {
-    console.log({ values });
+    if (isSubmitting) return;
+    const [first_name = null, last_name = null] = values.name
+      .trim()
+      .split(/\s+/);
+    const submitValues = {
+      role: getRoleById(values.role),
+      email: values.email,
+      first_name,
+      last_name,
+    };
+    mutate(submitValues);
   };
 
   return (
@@ -22,6 +36,7 @@ const AddUser = ({ show, onClose }) => {
         buttonLabels={{
           submit: "Add User",
         }}
+        isSubmitting={isSubmitting}
         onSubmit={submitHandler(handleSubmit)}
         styles={{
           submit: {

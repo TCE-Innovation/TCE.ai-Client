@@ -1,21 +1,55 @@
-import React from "react";
+import React, { useMemo, useState } from "react";
 
 import { Overlay, Modal } from "../../../../../common";
 
-import { useContext } from "../../../../../contexts/FormContext";
+import { useContext, useFieldValue } from "../../../../../contexts/FormContext";
+
+import { RenameDocumentAlert } from "../../../Documents/Modals/DocumentAlert";
+
+import { getFileExtension } from "../../../../../../utils/file";
 
 import Form from "./Form";
 
 const AddDocument = ({ show, onClose }) => {
+  const [isDuplicate, setIsDuplicate] = useState(false);
   const { submitHandler } = useContext();
-  if (!show) return null;
+  const { value: currentDocument } = useFieldValue("document");
+
+  const documentDescription = useMemo(() => {
+    const ext = getFileExtension(currentDocument);
+    return {
+      name: currentDocument?.name || "<INVALID>",
+      documentType: ext || "<INVALID>",
+      size: currentDocument?.size || 0,
+      uploadDate: new Date().toISOString(),
+    };
+  }, [currentDocument]);
+
+  const isDuplicateDocument = (doc) => {
+    // hardcode to true
+    return true;
+  };
 
   const handleSubmit = (values) => {
+    const _isDuplicate = isDuplicateDocument(values.document);
+    if (_isDuplicate) {
+      return setIsDuplicate(true);
+    }
     const formdata = new FormData();
     formdata.append("file", values.document);
-    formdata.append("project_id", values.projectId);
     console.log(formdata);
   };
+
+  if (!show) return null;
+
+  if (isDuplicate)
+    return (
+      <RenameDocumentAlert
+        show={true}
+        onClose={() => setIsDuplicate(false)}
+        {...documentDescription}
+      />
+    );
 
   return (
     <Overlay>
