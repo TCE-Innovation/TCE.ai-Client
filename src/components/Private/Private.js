@@ -94,7 +94,7 @@ function PrivateContent() {
     'Drone Captures': 'drone-captures',
     'Chatbot': 'chatbot',
     'LLLE Clearance Calculator': 'clearance-calculator',
-    'Equipment Install Tracking Dashboard': 'equip-install-dashboard',
+    'EIT Dashboard': 'equip-install-dashboard',
   };
 
   // Always available tools
