@@ -1,19 +1,18 @@
 import React from "react";
 
 import { Overlay, Modal, Field } from "../../../../../common";
-import { useEditProject } from "../../../../../../hooks/useQueries";
 
 import { useContext } from "../../../../../contexts/FormContext";
 
-const EditProject = ({ show, onClose }) => {
-  const { mutate, loading: isSubmitting } = useEditProject();
+const EditProject = ({ show, onClose, editProject, ...project }) => {
+  const { mutate, loading: isSubmitting } = editProject;
   const { submitHandler } = useContext();
   if (!show) return null;
 
   const handleSubmit = (values) => {
     if (isSubmitting) return;
-    console.log({ values });
-    mutate({ projectName: values.name, projectId: values.projectId });
+    mutate({ projectName: values.name.trim(), projectId: project.id });
+    onClose();
   };
 
   return (

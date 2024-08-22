@@ -1,89 +1,59 @@
 import React, {
   createContext,
   useContext as _useContext,
-  // useState,
+  useState,
 } from "react";
 
-// import { projectService, userService, documentService } from "../../services";
-
-// import useGlobal from "../../hooks/useGlobal";
+import {
+  useAddUser,
+  useAddUsersToProject,
+  useCreateProject,
+  useUploadDocuments,
+} from "../../hooks/mutations";
 
 const AdminContext = createContext();
 
 const AdminProvider = ({ children }) => {
-  // const { createAlert } = useGlobal();
-  // const [loadingProjects, setLoadingProjects] = useState(false);
-  // const [loadingUsers, setLoadingUsers] = useState(false);
-  // const [projects, setProjects] = useState([]);
-  // const [users, setUsers] = useState([]);
-  // const [documents, setDocuments] = useState([]);
+  const [newUsers, setNewUsers] = useState([]);
+  const [newProjects, setNewProjects] = useState([]);
+  const [newProjectUsers, setNewProjectUsers] = useState([]);
+  const [newDocuments, setNewDocuments] = useState([]);
 
-  // const getProjects = async () => {
-  //   setLoadingProjects(true);
-  //   const { data: _projects } = await projectService.getProjects();
-  //   console.log({ _projects });
-  //   setProjects(_projects);
-  //   setLoadingProjects(false);
-  // };
+  const addUser = useAddUser();
+  const addUserToProject = useAddUsersToProject();
+  const createProject = useCreateProject();
+  const uploadDocument = useUploadDocuments();
 
-  // const getUsers = async () => {
-  //   setLoadingUsers(true);
-  //   const { data: _users } = await userService.getUsers();
-  //   console.log({ _users });
-  //   setUsers(_users);
-  //   setLoadingUsers(false);
-  // };
+  const updateNewUsers = (newUser) => {
+    setNewUsers((prev) => [newUser, ...prev]);
+  };
+  const updateNewProjects = (newProject) => {
+    setNewProjects((prev) => [newProject, ...prev]);
+  };
+  const updateNewProjectUsers = (newProjectUsers) => {
+    setNewProjectUsers((prev) => [newProjectUsers, ...prev].flat());
+  };
 
-  // const getProjectDocuments = async ({ projectId }) => {
-  //   const { data: _documents } = await documentService.getDocuments({
-  //     projectId,
-  //   });
-  //   setDocuments(_documents);
-  // };
-
-  // const editProject = async ({ projectId, projectName }) => {
-  //   await projectService.editProject({ projectId, name: projectName });
-  // };
-
-  // const addUserToProject = ({ projectId, userId }) => {
-  //   projectService.addUserToProject({ projectId, userId });
-  // };
-
-  // const getDocumentByProjectId = async ({ projectId }) => {
-  //   await documentService.getDocuments({ projectId });
-  // };
-
-  // const deleteDocumentFromProject = async ({ documentId, projectId }) => {
-  //   const { message } = await documentService.deleteDocument({
-  //     projectId,
-  //     documentId,
-  //   });
-  //   createAlert({ message, type: "success" });
-  // };
-
-  // useEffect(() => {
-  //   getProjects();
-  //   getUsers();
-  // }, []);
+  const updateNewDocuments = (newDocument) => {
+    setNewDocuments((prev) => [newDocument, ...prev]);
+  };
 
   return (
     <AdminContext.Provider
-      value={
-        {
-          // getUsers,
-          // getProjects,
-          // projects,
-          // loadingProjects,
-          // loadingUsers,
-          // users,
-          // documents,
-          // editProject,
-          // addUserToProject,
-          // deleteDocumentFromProject,
-          // getDocumentByProjectId,
-          // getProjectDocuments,
-        }
-      }
+      value={{
+        addUser,
+        addUserToProject,
+        createProject,
+        uploadDocument,
+        updateNewDocuments,
+        updateNewProjectUsers,
+        updateNewProjects,
+        updateNewUsers,
+        newUsers,
+        newProjects,
+        newProjectUsers,
+        newDocuments,
+      }}
     >
       {children}
     </AdminContext.Provider>

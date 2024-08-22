@@ -5,13 +5,10 @@ const MAX_AVATARS = 4;
 
 const AvatarGroup = ({ avatars }) => {
   const [visibleAvatars, hiddenAvatars] = useMemo(() => {
-    console.log({ avatars });
     const avatarsCopy = avatars.slice();
     const visibleAvatars = avatarsCopy.splice(0, MAX_AVATARS);
     return [visibleAvatars, avatarsCopy];
   }, [avatars]);
-  // const visibleAvatars = avatars.slice(0, MAX_AVATARS);
-  // const hiddenAvatars = avatars.slice(MAX_AVATARS);
 
   const hasMore = avatars.length !== visibleAvatars.length;
 

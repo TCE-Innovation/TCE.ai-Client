@@ -1,22 +1,20 @@
 import EditProjectModal from "./EditProject";
 
 import FormContext from "../../../../../contexts/FormContext";
-import { useGlobal } from "../../../../../../hooks";
+import { useMemo } from "react";
 
-const initialValues = {
-  name: "",
-  projectId: null
-};
-
-const AddUserModal = (props) => {
-  const { query } = useGlobal();
-  const { params } = query;
-  const { project_id } = params;
+const EditProject = (props) => {
+  const initialValues = useMemo(
+    () => ({
+      name: props.name,
+    }),
+    [props.name]
+  );
   return (
-    <FormContext initialValues={{ ...initialValues, projectId: project_id }}>
+    <FormContext initialValues={initialValues}>
       <EditProjectModal {...props} />
     </FormContext>
   );
 };
 
-export default AddUserModal;
+export default EditProject;

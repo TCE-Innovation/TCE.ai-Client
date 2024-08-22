@@ -9,20 +9,27 @@ const Actions = ({ children }) => {
   );
 };
 
-const DeleteAction = ({ renderModal }) => {
+const DeleteAction = ({ renderModal, disabled = false }) => {
   const [showDeleteModal, setShowDeleteModal] = useState(false);
   return (
     <>
-      <span className="action-button tooltip-container">
+      <span
+        className={`action-button tooltip-container ${
+          disabled ? "disabled" : ""
+        }`}
+      >
         <span
           onClick={(e) => {
+            if (disabled) return;
             e.stopPropagation();
             setShowDeleteModal(true);
           }}
         >
           <DeleteIcon />
         </span>
-        <div className="tooltip align-bottom tooltip-dark">Remove</div>
+        {!disabled && (
+          <div className="tooltip align-bottom tooltip-dark">Remove</div>
+        )}
       </span>
       {renderModal({
         show: showDeleteModal,
@@ -32,21 +39,28 @@ const DeleteAction = ({ renderModal }) => {
   );
 };
 
-const EditAction = ({ renderModal }) => {
+const EditAction = ({ renderModal, disabled = false }) => {
   const [showEditModal, setShowEditModal] = useState(false);
 
   return (
     <>
-      <span className="action-button tooltip-container">
+      <span
+        className={`action-button tooltip-container ${
+          disabled ? "disabled" : ""
+        }`}
+      >
         <span
           onClick={(e) => {
+            if (disabled) return;
             e.stopPropagation();
             setShowEditModal(true);
           }}
         >
           <EditIcon />
         </span>
-        <div className="tooltip align-bottom tooltip-dark">Edit</div>
+        {!disabled && (
+          <div className="tooltip align-bottom tooltip-dark">Edit</div>
+        )}
       </span>
       {renderModal({
         show: showEditModal,
@@ -59,7 +73,7 @@ const EditAction = ({ renderModal }) => {
 const DownLoadAction = ({ handleDownload }) => {
   return (
     <>
-      <span className="action-button tooltip-container">
+      <span className={`action-button tooltip-container`}>
         <span
           onClick={(e) => {
             e.stopPropagation();

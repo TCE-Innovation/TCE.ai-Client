@@ -11,9 +11,9 @@ const useOutsideClick = ({ onClickOutside }) => {
         onClickOutside?.();
       }
     };
-    document.addEventListener("click", handler);
+    document.addEventListener("click", handler, { capture: true });
     return () => {
-      document.removeEventListener("click", handler);
+      document.removeEventListener("click", handler, { capture: true });
     };
   }, []);
 

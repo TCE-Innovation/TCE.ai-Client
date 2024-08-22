@@ -3,6 +3,8 @@ import React, { useEffect } from "react";
 import { UploadField } from "../../../../common/field";
 import { useFieldValue } from "../../../../contexts/FormContext";
 
+import { getFileSize } from "../../../../../utils/file";
+
 const Upload = () => {
   const { value: document } = useFieldValue("document");
   const { changeValue: changeDocumentName } = useFieldValue("documentName");
@@ -23,7 +25,7 @@ const Upload = () => {
           <>
             <button
               className="chat-button document-metadata"
-              data-size={document.size}
+              data-size={getFileSize(document)}
             >
               <span>{document.name}</span>
             </button>

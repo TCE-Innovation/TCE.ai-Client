@@ -12,3 +12,12 @@ export const filterByPatternsFactory = (str, ...fields) => (array) => {
     });
   });
 };
+
+export const toFormData = (params) => {
+  const formdata = new FormData();
+  for (const key in params) {
+    const value = params[key];
+    formdata.append(key, value);
+  }
+  return formdata;
+};

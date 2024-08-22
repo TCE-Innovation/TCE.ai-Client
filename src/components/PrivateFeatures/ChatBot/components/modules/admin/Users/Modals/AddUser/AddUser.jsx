@@ -2,7 +2,7 @@ import React from "react";
 
 import { Overlay, Modal } from "../../../../../common";
 
-import { useAddUser } from "../../../../../../hooks/useQueries";
+import { useAdmin } from "../../../../../../hooks";
 
 import { useContext } from "../../../../../contexts/FormContext";
 
@@ -10,22 +10,23 @@ import Form from "./Form";
 import { getRoleById } from "../../../../../../utils/data";
 
 const AddUser = ({ show, onClose }) => {
-  const { mutate, loading: isSubmitting } = useAddUser();
-  const { submitHandler } = useContext();
+  const { addUser } = useAdmin();
+  const { mutate, loading: isSubmitting } = addUser;
+  const { submitHandler, resetForm } = useContext();
   if (!show) return null;
 
   const handleSubmit = (values) => {
     if (isSubmitting) return;
-    const [first_name = null, last_name = null] = values.name
-      .trim()
-      .split(/\s+/);
-    const submitValues = {
+    const [firstName = null, lastName = null] = values.name.trim().split(/\s+/);
+    const userData = {
       role: getRoleById(values.role),
-      email: values.email,
-      first_name,
-      last_name,
+      email: values.email.trim(),
+      firstName,
+      lastName,
     };
-    mutate(submitValues);
+    mutate({ userData });
+    resetForm();
+    onClose();
   };
 
   return (

@@ -1,26 +1,37 @@
 import { useEffect, useState } from "react";
 import { useContext } from "../components/contexts/Cache";
 
+import { useGlobal } from "../hooks";
+
 const useQuery = (key, callback, options = {}) => {
-  const { memoize } = useContext();
+  const { memoize, computeKey } = useContext();
+  const { registerSubscriber } = useGlobal();
 
   const [loading, setLoading] = useState(true);
   const [data, setData] = useState(null);
   const [error, setError] = useState(null);
 
-  const refetch = async () => {
-    setLoading(true);
-    setError(null);
-    const result = await memoize(key, callback, options);
+  const refetch = async (newOptions = { refetch: true }) => {
+    const result = await memoize(key, callback, { ...options, newOptions });
     setData(result);
-    setLoading(false);
   };
+
+  useEffect(() => {
+    const keyString = computeKey(key);
+    const unregister = registerSubscriber(keyString, (newData) => {
+      setData(newData);
+    });
+    return () => {
+      unregister();
+    };
+  }, []);
 
   useEffect(() => {
     if (options.disableRunOnMount) return;
     (async () => {
+      setLoading(true);
       try {
-        await refetch();
+        await refetch(options);
       } catch (err) {
         setError(err);
       } finally {

@@ -2,17 +2,19 @@ import React from "react";
 
 import { Overlay, Modal, Field } from "../../../../../common";
 import { useContext } from "../../../../../contexts/FormContext";
-import { useCreateProject } from "../../../../../../hooks/useQueries";
+import { useAdmin } from "../../../../../../hooks";
 
 const AddProject = ({ show, onClose }) => {
-  const { submitHandler } = useContext();
-  const { mutate, loading: isSubmitting } = useCreateProject();
+  const { submitHandler, isValid } = useContext();
+  const { createProject } = useAdmin();
+  const { mutate, loading: isSubmitting } = createProject;
 
   if (!show) return null;
 
   const handleSubmit = (values) => {
-    console.log({ values });
-    mutate(values);
+    if (isSubmitting || !isValid) return;
+    mutate({ name: values.name.trim() });
+    onClose();
   };
 
   return (
@@ -23,6 +25,7 @@ const AddProject = ({ show, onClose }) => {
         buttonLabels={{
           submit: "Add Project",
         }}
+        isDisabled={!isValid}
         onSubmit={submitHandler(handleSubmit)}
         isSubmitting={isSubmitting}
         styles={{
@@ -37,7 +40,7 @@ const AddProject = ({ show, onClose }) => {
         }}
       >
         <div className="projects-modal-wrapper">
-          <Field name={"name"} placeholder={"Type here"} label="Name" />
+          <Field name={"name"} placeholder={"Type here"} label="Name" min={5} />
         </div>
       </Modal>
     </Overlay>

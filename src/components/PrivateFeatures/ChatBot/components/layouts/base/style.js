@@ -10,6 +10,7 @@ export default styled.div`
   --chatbot-background: #ffffffcc;
   --chatbot-red: #bc1c21;
   --chatbot-light-red: #fef3f3;
+  --chatbot-success: #daf8e6;
 
   --chatbot-border-radius: 12px;
 
@@ -35,6 +36,7 @@ export default styled.div`
   .projects-modal-wrapper {
     width: clamp(300px, 30vw, 500px);
     font-weight: 600;
+    margin: auto;
   }
 
   .dropdown-search-field {

@@ -2,12 +2,16 @@ import React, { useMemo } from "react";
 import { SelectField } from "../../../common/field";
 import FormContext from "../../../contexts/FormContext";
 
-import { useGetProjectsQuery } from "../../../../hooks/useQueries";
+import { queries } from "../../../../hooks";
 import useConversation from "../../../../hooks/useConversation";
+import useMessage from "../../../../hooks/useMessage";
+
+const { useGetProjectsQuery } = queries;
 
 const SelectProject = () => {
   const { data, loading } = useGetProjectsQuery();
   const { setSelectedProjectId, selectedProjectId } = useConversation();
+  const { clearMessageCache } = useMessage();
 
   const items = useMemo(() => {
     if (!data?.data) return [];
@@ -17,6 +21,11 @@ const SelectProject = () => {
       value: project.id,
     }));
   }, [data?.data]);
+
+  const handleChangeProject = (projectId) => {
+    setSelectedProjectId(projectId);
+    clearMessageCache();
+  };
 
   return (
     <>
@@ -30,7 +39,7 @@ const SelectProject = () => {
           loading={loading}
           searchPlaceholder={"Search a project"}
           searchLabel={"Select a project"}
-          onChange={(projectId) => setSelectedProjectId(projectId)}
+          onChange={handleChangeProject}
         />
       </FormContext>
     </>

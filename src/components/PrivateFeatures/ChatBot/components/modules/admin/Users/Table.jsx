@@ -3,13 +3,10 @@ import React, { useMemo } from "react";
 import TableContainer from "../TableContainer";
 import SortButton from "../SortButton";
 import { Avatar, Badge } from "../../../common";
-import Actions from "../Actions";
-import { RemoveUserModal } from "./Modals";
-import { RemoveUserFromProjectModal } from "../Projects/Modals";
 
-import { TabContext } from "../../../common";
+import { ROLE_TO_COLORS } from "../../../../constants/admin";
 
-import { PROFILES, ROLE_TO_COLORS } from "../../../../constants/admin";
+import UserTableActions from "./Actions";
 
 const Table = ({ rows, ...props }) => {
   const columns = useMemo(
@@ -67,39 +64,8 @@ const Table = ({ rows, ...props }) => {
       {
         title: "Actions",
         align: "end",
-        renderCell: ({ name, email }) => {
-          return (
-            <TabContext.Provider>
-              {(props) => {
-                const { activeTab, tabs } = props;
-                const isProjectUsers =
-                  tabs[activeTab].value === PROFILES.PROJECT_USERS;
-                return (
-                  <Actions>
-                    <Actions.Delete
-                      renderModal={(props) => {
-                        if (isProjectUsers)
-                          return (
-                            <RemoveUserFromProjectModal
-                              {...props}
-                              username={name}
-                              email={email}
-                            />
-                          );
-                        return (
-                          <RemoveUserModal
-                            {...props}
-                            username={name}
-                            email={email}
-                          />
-                        );
-                      }}
-                    />
-                  </Actions>
-                );
-              }}
-            </TabContext.Provider>
-          );
+        renderCell: ({ ...userProps }) => {
+          return <UserTableActions {...userProps} />;
         },
       },
     ],

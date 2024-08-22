@@ -1,33 +1,24 @@
-import React, { useState } from "react";
+import React from "react";
 
-import { useContext } from "../../../../../contexts/FormContext";
+import { useContext, useFieldValue } from "../../../../../contexts/FormContext";
 
 import { Overlay, Modal } from "../../../../../common";
 import Description from "../../Forms/_Description";
-import { RenameDocumentModal } from "..";
 
 const RenameAlert = ({ show, onClose, ...document }) => {
   const { resetForm } = useContext();
-  const [showRenameModal, setShowRenameModal] = useState(false);
+  const { changeValue: changeFormStep } = useFieldValue("step");
   if (!show) return null;
 
   const handleRenameDocument = () => {
-    setShowRenameModal(true);
+    changeFormStep("rename");
   };
 
   const handleReplaceDocument = () => {
-    resetForm();
+    changeFormStep("upload");
+    resetForm("document", "documentName");
     onClose();
   };
-
-  if (showRenameModal) {
-    return (
-      <RenameDocumentModal
-        show={showRenameModal}
-        onClose={() => setShowRenameModal(false)}
-      />
-    );
-  }
 
   return (
     <Overlay>

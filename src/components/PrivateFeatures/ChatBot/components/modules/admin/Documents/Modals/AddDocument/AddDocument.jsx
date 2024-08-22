@@ -14,7 +14,6 @@ const AddNewDocument = ({ show, onClose }) => {
     const formdata = new FormData();
     formdata.append("file", values.document);
     formdata.append("project_id", values.projectId);
-    console.log(formdata);
   };
 
   return (

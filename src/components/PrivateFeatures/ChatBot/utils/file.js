@@ -10,8 +10,21 @@ export const getFileExtension = (file) => {
   return sliceName(file.name);
 };
 
-export const getFileSize = (file) => {
+export const getFileName = (file) => {
+  function getName(name = "") {
+    const idx = name.lastIndexOf(".");
+    if (idx === -1) return name;
+    return name.slice(0, idx);
+  }
+  if (typeof file === "string") {
+    return getName(file);
+  }
   if (!(file instanceof File)) return null;
+  return getName(file.name);
+};
+
+export const getFileSize = (file) => {
+  if (!file?.size) return null;
   const sizeInByte = file.size;
   const sizes = ["KB", "MB", "GB"];
   const { size, index } = Array.from(

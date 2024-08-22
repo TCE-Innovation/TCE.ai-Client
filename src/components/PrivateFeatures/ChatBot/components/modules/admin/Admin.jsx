@@ -1,12 +1,11 @@
 import React from "react";
 
-import { TabContext } from "../../common";
+import { TabContext,Alerts } from "../../common";
 
-import DocumentsTable from "./Documents";
 import ProjectsTable from "./Projects";
 import UsersTable from "./Users";
 
-import { FolderIcon, UsersIcon, DocumentIcon } from "../../icons";
+import { FolderIcon, UsersIcon } from "../../icons";
 
 import AddNewButton from "./AddNew";
 
@@ -23,11 +22,6 @@ const tabs = [
     icon: UsersIcon,
     pane: UsersTable,
   },
-  // {
-  //   title: "Documents",
-  //   icon: DocumentIcon,
-  //   pane: DocumentsTable,
-  // },
 ];
 
 const Admin = () => {
@@ -42,6 +36,7 @@ const Admin = () => {
   return (
     <TabContext defaultActive={defaultTab} tabs={tabs}>
       <div className="h-100 chatbot-admin-container d-flex flex-column">
+        <Alerts />
         <div className="admin-header position-sticky top-0 d-flex justify-content-between align-items-center">
           <div className="tabs-wrapper">
             <TabContext.Tabs

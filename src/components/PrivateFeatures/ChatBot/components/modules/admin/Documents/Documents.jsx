@@ -13,7 +13,6 @@ const Documents = () => {
       <div style={{ width: "350px" }} className="mb-3">
         <SearchComponent
           placeholder={"Search a document"}
-          onChange={console.log}
         />
       </div>
       <DocumentsTable rows={data} />

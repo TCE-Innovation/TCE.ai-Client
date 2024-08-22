@@ -22,8 +22,8 @@ const Modal = ({
   },
   isSubmitting = false,
   showCloseBtn = false,
+  isDisabled = false,
 }) => {
-  
   const blockPropagation = (e) => {
     e.stopPropagation();
   };
@@ -58,7 +58,7 @@ const Modal = ({
                 type="button"
                 onClick={onSubmit}
                 style={styles.submit}
-                disabled={isSubmitting}
+                disabled={isSubmitting || isDisabled}
                 className={`chat-button modal-submit-btn`}
               >
                 <span style={{ flex: 1 }}>

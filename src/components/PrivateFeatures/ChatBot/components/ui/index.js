@@ -4,6 +4,8 @@ import { useLocation } from "react-router-dom";
 import ChatBot from "./chatbot";
 import Admin from "./admin";
 
+// import Cac from "../../hooks/useCacheClient";
+
 import GlobalContext from "../../components/contexts/Global";
 import CacheContext from "../../components/contexts/Cache";
 import { BaseLayout } from "../layouts";

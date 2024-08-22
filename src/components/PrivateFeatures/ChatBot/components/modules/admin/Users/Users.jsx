@@ -1,52 +1,42 @@
-import React, { useMemo, useState } from "react";
+import React, { useMemo } from "react";
 
 import SearchComponent from "../Search";
 
 import UsersTable from "./Table";
-import { useGetUsersQuery } from "../../../../hooks/useQueries";
+import { queries, useAdmin } from "../../../../hooks";
 
-import FormContext from "../../../contexts/FormContext";
+import { filterByPatternsFactory } from "../../../../utils/form";
+import { useFieldValue } from "../../../contexts/FormContext";
 
 const Users = () => {
-  const [search, setSearch] = useState("");
-  const { data, loading } = useGetUsersQuery();
+  const { addUser } = useAdmin();
+  const { value: search } = useFieldValue("search");
+  const { data, loading } = queries.useGetUsersQuery();
 
   const rows = useMemo(() => {
     if (!data?.data) return [];
-    const results = data.data.map((item) => {
-      const name = [item.first_name, item.last_name].join(" ").trim();
-      return {
-        name,
-        email: item.email,
-        role: item.role,
-        id: item.id,
-        url: "",
-      };
-    });
+    const results = data.data;
     if (search) {
-      const pattern = new RegExp(search, "gi");
-      return results.filter((record) => {
-        const isMatchName = pattern.test(record.name);
-        const isMatchEmail = pattern.test(record.email);
-        return isMatchName || isMatchEmail;
-      });
+      const filterByNameAndEmail = filterByPatternsFactory(
+        search,
+        "name",
+        "email"
+      );
+      return filterByNameAndEmail(results);
     }
     return results;
-  }, [data?.data, search]);
+  }, [data, search]);
 
   return (
     <>
       <div style={{ width: "350px" }} className="mb-3">
-        <FormContext initialValues={{ search: "" }}>
-          <SearchComponent
-            placeholder={"Search a user"}
-            onChange={(value) => {
-              setSearch(value);
-            }}
-          />
-        </FormContext>
+        <SearchComponent placeholder={"Search a user"} />
       </div>
-      <UsersTable rows={rows} isLoading={loading} />
+      <UsersTable
+        rows={rows}
+        isLoading={loading}
+        insertingRow={addUser.loading}
+      />
     </>
   );
 };

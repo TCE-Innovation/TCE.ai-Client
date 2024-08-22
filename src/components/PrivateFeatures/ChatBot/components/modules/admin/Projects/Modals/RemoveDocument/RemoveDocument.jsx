@@ -2,10 +2,20 @@ import React from "react";
 
 import { Overlay, Modal } from "../../../../../common";
 
+import { useContext } from "../../../../../contexts/FormContext";
+
 import Description from "../../../Documents/Forms/_Description";
 
-const RemoveDocument = ({ show, onClose, ...document }) => {
+const RemoveDocument = ({ show, onClose, deleteDocument, ...document }) => {
+  const { mutate, loading: isSubmitting } = deleteDocument;
+  const { submitHandler } = useContext();
   if (!show) return null;
+
+  const handleRemoveDocument = (values) => {
+    if (isSubmitting) return;
+    mutate({ documentId: document.id, projectId: values.projectId });
+    onClose();
+  };
 
   return (
     <Overlay>
@@ -15,7 +25,8 @@ const RemoveDocument = ({ show, onClose, ...document }) => {
         buttonLabels={{
           submit: "Remove",
         }}
-        onSubmit={() => console.log("remove document from project")}
+        isSubmitting={isSubmitting}
+        onSubmit={submitHandler(handleRemoveDocument)}
         styles={{
           submit: {
             color: "var(--chatbot-red)",

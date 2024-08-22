@@ -21,7 +21,7 @@ export default styled.div`
       color: var(--chatbot-alert-red);
     }
     &.alert-success {
-      bakground-color: #daf8e6;
+      background-color: var(--chatbot-success);
       color: var(--chatbot-text-primary);
     }
     &.show {

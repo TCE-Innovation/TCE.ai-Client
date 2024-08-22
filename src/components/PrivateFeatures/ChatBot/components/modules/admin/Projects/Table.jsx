@@ -1,9 +1,8 @@
 import React, { useMemo } from "react";
 import SortButton from "../SortButton";
 import AvatarGroup from "./AvatarGroup";
-import Actions from "../Actions";
-import { DeleteProjectModal, EditProjectModal } from "./Modals";
 
+import ProjectActions from "./ProjectActions";
 import TableContainer from "../TableContainer";
 import { TabContext } from "../../../common";
 
@@ -44,19 +43,8 @@ const Table = ({ rows, ...props }) => {
       {
         title: "Actions",
         width: "0px",
-        renderCell: ({ name }) => {
-          return (
-            <Actions>
-              <Actions.Delete
-                renderModal={(props) => (
-                  <DeleteProjectModal {...props} projectName={name} />
-                )}
-              />
-              <Actions.Edit
-                renderModal={(props) => <EditProjectModal {...props} />}
-              />
-            </Actions>
-          );
+        renderCell: ({ ...projectProps }) => {
+          return <ProjectActions {...projectProps} />;
         },
       },
     ],

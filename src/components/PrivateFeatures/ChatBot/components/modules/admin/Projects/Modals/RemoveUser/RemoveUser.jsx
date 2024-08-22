@@ -2,16 +2,19 @@ import React from "react";
 
 import { Overlay, Modal } from "../../../../../common";
 
-import { useRemoveUserFromProject } from "../../../../../../hooks/useQueries";
+import { useContext } from "../../../../../contexts/FormContext";
 
-const RemoveUser = ({ show, onClose, username, email, id }) => {
-  const {mutate,loading:isSubmitting} = useRemoveUserFromProject()
+const RemoveUser = ({ show, onClose, removeUserFromProject, ...userProps }) => {
+  const { mutate, loading: isSubmitting } = removeUserFromProject;
+  const { submitHandler } = useContext();
+
   if (!show) return null;
 
-  const handleRemoveUser = () => {
-    if(isSubmitting) return;
-    mutate(id)
-  }
+  const handleRemoveUser = (values) => {
+    if (isSubmitting) return;
+    mutate({ projectId: values.projectId, userId: userProps.id });
+    onClose();
+  };
 
   return (
     <Overlay>
@@ -21,7 +24,7 @@ const RemoveUser = ({ show, onClose, username, email, id }) => {
         buttonLabels={{
           submit: "Remove",
         }}
-        onSubmit={handleRemoveUser}
+        onSubmit={submitHandler(handleRemoveUser)}
         isSubmitting={isSubmitting}
         styles={{
           submit: {
@@ -40,16 +43,18 @@ const RemoveUser = ({ show, onClose, username, email, id }) => {
             cannot be undone.
           </div>
           <br />
-          <div>
-            User Name:{" "}
-            <span style={{ color: "var(--chatbot-text-primary)" }}>
-              {username}
-            </span>
-          </div>
+          {userProps.name && (
+            <div>
+              User Name:{" "}
+              <span style={{ color: "var(--chatbot-text-primary)" }}>
+                {userProps.name}
+              </span>
+            </div>
+          )}
           <div>
             Email:{" "}
             <span style={{ color: "var(--chatbot-text-primary)" }}>
-              {email}
+              {userProps.email}
             </span>
           </div>
         </div>

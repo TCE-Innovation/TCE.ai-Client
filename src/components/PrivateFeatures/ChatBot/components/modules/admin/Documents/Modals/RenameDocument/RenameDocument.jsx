@@ -1,25 +1,40 @@
 import React from "react";
 
 import { Overlay, Modal, Field } from "../../../../../common";
+import { toFormData } from "../../../../../../utils/form";
 
-import { useContext } from "../../../../../contexts/FormContext";
+import { useAdmin } from "../../../../../../hooks";
 
-import { getFileExtension } from "../../../../../../utils/file";
+import { useContext, useFieldValue } from "../../../../../contexts/FormContext";
+import { useDocument } from "../../hooks";
 
 const RenameDocument = ({ show, onClose }) => {
-  const { submitHandler } = useContext();
+  const { submitHandler, formValues } = useContext();
+  const { uploadDocument } = useAdmin();
+  const { value: projectId } = useFieldValue("projectId");
+  const { setError } = useFieldValue("documentName");
+  const { changeValue: changeFormStep } = useFieldValue("step");
+  const { isDuplicateDocument, loadingDocuments } = useDocument(projectId);
+  const { mutate, loading: isSubmitting } = uploadDocument;
 
   const handleSubmit = (values) => {
-    const formdata = new FormData();
-    const ext = getFileExtension(values.document);
-    formdata.append("file", {
-      ...values.document,
-      name: [values.documentName, ext].join("."),
+    if (isSubmitting || loadingDocuments) return;
+    const isDuplicateName = isDuplicateDocument(values.documentName);
+    if (isDuplicateName) {
+      return setError(
+        "Document with this name already exist. Please rename it."
+      );
+    }
+    const formData = toFormData({
+      doc: values.document,
+      file_name: values.documentName.trim(),
     });
-    console.log(formdata);
+    mutate({ formData, projectId: values.projectId });
+    changeFormStep("exit");
   };
 
   if (!show) return null;
+
   return (
     <Overlay>
       <Modal
@@ -28,6 +43,7 @@ const RenameDocument = ({ show, onClose }) => {
         buttonLabels={{
           submit: "Rename",
         }}
+        isSubmitting={isSubmitting || loadingDocuments}
         onSubmit={submitHandler(handleSubmit)}
         styles={{
           submit: {
@@ -46,6 +62,7 @@ const RenameDocument = ({ show, onClose }) => {
               name={"documentName"}
               placeholder={"Type here"}
               autoComplete="off"
+              value={formValues.documentName}
             />
           </div>
         </div>

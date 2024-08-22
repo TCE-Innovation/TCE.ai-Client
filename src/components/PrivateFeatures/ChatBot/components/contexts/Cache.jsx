@@ -4,31 +4,49 @@ import React, {
   useCallback,
   useRef,
 } from "react";
+import { useGlobal } from "../../hooks";
 
 const CacheContext = createContext();
 
 export const useContext = () => _useContext(CacheContext);
 
 const CacheContextProvider = ({ children, ...props }) => {
+  const { publishToSubscribers } = useGlobal();
   const cacheRef = useRef({});
-  const duration = props.cacheDuration || 30_000;
+  const duration = props.cacheDuration || 300_000;
 
-  const memoize = useCallback(async (key, callback, options = {}) => {
+  const computeKey = (key) => {
+    const [name, args = {}] = Array.isArray(key) ? key : [key];
+    return Object.entries(args).reduce((acc, [property, value]) => {
+      return [acc, property, value].join("-");
+    }, name);
+  };
+
+  const needUpdate = (key, options = {}) => {
     const cache = cacheRef.current;
     const now = Date.now();
     if (cache[key]) {
       const cached = cache[key];
-      if (now <= cached.expires && cached.isValid && !options.refetch) {
-        return cached.value;
-      }
+      return now > cached.expires || !cached.isValid || options.refetch;
     }
+    return true;
+  };
+
+  const memoize = useCallback(async (key, callback, options = {}) => {
+    const cache = cacheRef.current;
+    const now = Date.now();
+
+    key = computeKey(key);
+
+    if (!needUpdate(key, options)) return cache[key].value;
     if (options.onInvalidated) {
-      options.onInvalidated?.({ getCacheValue, inValidate });
+      options.onInvalidated?.({ inValidate });
     }
     try {
       const value = await callback();
       const expireDuration = options.cacheDuration || duration;
       cache[key] = {
+        key,
         value,
         expires: new Date(now + expireDuration).getTime(),
         isValid: true,
@@ -42,15 +60,37 @@ const CacheContextProvider = ({ children, ...props }) => {
     }
   }, []);
 
-  const getCacheValue = (key) => cacheRef.current[key].value;
+  const updateQuery = (key, callback) => {
+    const now = Date.now();
+    key = computeKey(key);
+    const cache = cacheRef.current[key];
+    if (!cache) return;
+    const { duration, value: previousValue } = cache;
+    const value = callback(previousValue);
+    cacheRef.current[key] = {
+      ...cacheRef.current[key],
+      value,
+      expires: new Date(now + duration).getTime(),
+      isValid: true,
+    };
+    publishToSubscribers(key, value);
+  };
 
   const inValidate = (key) => {
-    cacheRef.current[key].isValid = false;
+    const cache = cacheRef.current;
+    if (!cache[key]) return;
+    cache[key].isValid = false;
   };
 
   return (
     <CacheContext.Provider
-      value={{ memoize, inValidate, getCacheValue, ...props }}
+      value={{
+        memoize,
+        inValidate,
+        updateQuery,
+        computeKey,
+        ...props,
+      }}
     >
       {children}
     </CacheContext.Provider>

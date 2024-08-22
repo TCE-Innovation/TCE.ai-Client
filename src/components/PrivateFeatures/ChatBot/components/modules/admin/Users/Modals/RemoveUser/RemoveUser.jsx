@@ -1,15 +1,15 @@
 import React from "react";
 
 import { Overlay, Modal } from "../../../../../common";
-import { useDeleteUserQuery } from "../../../../../../hooks/useQueries";
 
-const RemoveUser = ({ show, onClose, username, email, id }) => {
-  const { mutate, loading: isSubmitting } = useDeleteUserQuery();
+const RemoveUser = ({ show, onClose, deleteUser, ...userProps }) => {
+  const { mutate, loading: isSubmitting } = deleteUser;
   if (!show) return null;
 
   const handleRemoveUser = () => {
     if (isSubmitting) return;
-    mutate(id);
+    mutate({ userId: userProps.id });
+    onClose();
   };
 
   return (
@@ -39,16 +39,18 @@ const RemoveUser = ({ show, onClose, username, email, id }) => {
             cannot be undone.
           </div>
           <br />
-          <div>
-            User Name:{" "}
-            <span style={{ color: "var(--chatbot-text-primary)" }}>
-              {username}
-            </span>
-          </div>
+          {userProps.name && (
+            <div>
+              User Name:{" "}
+              <span style={{ color: "var(--chatbot-text-primary)" }}>
+                {userProps.name}
+              </span>
+            </div>
+          )}
           <div>
             Email:{" "}
             <span style={{ color: "var(--chatbot-text-primary)" }}>
-              {email}
+              {userProps.email}
             </span>
           </div>
         </div>

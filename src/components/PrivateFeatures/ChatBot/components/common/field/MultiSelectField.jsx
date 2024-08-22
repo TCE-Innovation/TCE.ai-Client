@@ -96,9 +96,10 @@ const MultiSelectField = ({
             </span>
           }
           readOnly
-          value={placeholder || "Select..."}
-          onClick={() => setShow(true)}
-          placeholder={isValidReactElement ? "" : placeholder}
+          value={""}
+          onClick={() => setShow((prev) => !prev)}
+          placeholder={placeholder}
+          style={{ userSelect: "none" }}
         />
         {isValidReactElement ? (
           <div

@@ -83,10 +83,12 @@ const AddUserToProject = () => {
         <AddIcon />
         <span>Add New User</span>
       </button>
-      <AddUserToProjectModal
-        show={showAddUserToProjectModal}
-        onClose={() => setShowAddUserToProjectModal(false)}
-      />
+      {showAddUserToProjectModal && (
+        <AddUserToProjectModal
+          show={true}
+          onClose={() => setShowAddUserToProjectModal(false)}
+        />
+      )}
     </>
   );
 };
@@ -104,10 +106,12 @@ const AddDocumentToProject = () => {
         <AddIcon />
         <span>Add New Document</span>
       </button>
-      <AddDocumentToProjectModal
-        show={showAddDocumentToProjectModal}
-        onClose={() => setShowAddDocumentToProjectModal(false)}
-      />
+      {showAddDocumentToProjectModal && (
+        <AddDocumentToProjectModal
+          show={true}
+          onClose={() => setShowAddDocumentToProjectModal(false)}
+        />
+      )}
     </>
   );
 };

@@ -11,7 +11,6 @@ import { PROFILES } from "../../../../constants/admin";
 
 import ProjectUsers from "./ProjectUsers";
 import ProjectDocuments from "./ProjectDocuments";
-import { useGlobal } from "../../../../hooks";
 
 import FormContext from "../../../contexts/FormContext";
 
@@ -31,17 +30,7 @@ const tabs = [
 ];
 
 const SwitchModeContext = ({ children }) => {
-  const { query } = useGlobal();
-  const { push, params } = query;
-  const { isLive = "true" } = params;
-
-  const handleChangeLiveProjects = () => {
-    if (isLive === "true") {
-      push({ isLive: true }, { reverse: true });
-    } else {
-      push({ isLive: true });
-    }
-  };
+  const handleChangeLiveProjects = () => {};
   const tabs = [
     {
       title: "Live",
@@ -85,14 +74,14 @@ const Project = () => {
                   <div className="flex-grow-1">
                     {activeTab === 0 ? (
                       <SearchComponent
+                        key={0}
                         placeholder={"Search a user"}
-                        onChange={console.log}
                         name={"userSearch"}
                       />
                     ) : activeTab === 1 ? (
                       <SearchComponent
+                        key={1}
                         placeholder={"Search a document"}
-                        onChange={console.log}
                         name={"documentSearch"}
                       />
                     ) : null}

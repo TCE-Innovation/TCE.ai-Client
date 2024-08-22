@@ -1,16 +1,27 @@
 import React, { useMemo } from "react";
 import { Overlay, Modal } from "../../../../../common";
 import { MultiSelectField } from "../../../../../common/field";
-import {
-  useGetUsersQuery,
-  useAddUsersToProject,
-} from "../../../../../../hooks/useQueries";
 
-import { useContext } from "../../../../../../components/contexts/FormContext";
+import { useAdmin, queries } from "../../../../../../hooks";
+
+import {
+  useContext,
+  useFieldValue,
+} from "../../../../../../components/contexts/FormContext";
+
+const { useGetUnlistedUsersQuery, useGetProjectsQuery } = queries;
 
 const AddUser = ({ show, onClose }) => {
-  const { mutate, loading: isSubmitting } = useAddUsersToProject();
-  const { data, loading: loadingUsers } = useGetUsersQuery();
+  const { addUserToProject } = useAdmin();
+  const { mutate, loading: isSubmitting } = addUserToProject;
+  const { value: projectId } = useFieldValue("projectId");
+  const { data, loading: loadingUsers } = useGetUnlistedUsersQuery(
+    { projectId },
+    { disableRunOnMount: projectId === null }
+  );
+  const { data: projects } = useGetProjectsQuery({
+    disableRunOnMount: projectId === null,
+  });
   const { submitHandler } = useContext();
 
   const users = useMemo(() => {
@@ -26,10 +37,17 @@ const AddUser = ({ show, onClose }) => {
   }, [data]);
 
   const handleSubmit = (values) => {
-    if(isSubmitting) return;
-    console.log({ values });
-    // mutate({ projectId: project_id, userIds: [] });
+    if (isSubmitting) return;
+    mutate({ projectId: values.projectId, userIds: values.userIds });
+    onClose();
   };
+
+  const project = useMemo(() => {
+    if (!projects) return null;
+    return projects.data.find(
+      (project) => project.id.toString() === projectId.toString()
+    );
+  }, [projects, projectId]);
 
   if (!show) return null;
 
@@ -37,7 +55,9 @@ const AddUser = ({ show, onClose }) => {
     <Overlay>
       <Modal
         onCancel={onClose}
-        title="Add User to Project"
+        title={`Add User to Project ${
+          project?.name ? `"${project.name}"` : ""
+        }`}
         buttonLabels={{
           submit: "Add User",
         }}
@@ -60,7 +80,7 @@ const AddUser = ({ show, onClose }) => {
               <MultiSelectField
                 items={users}
                 extractor={(item) => ({ label: item.label, value: item.id })}
-                name={"user_ids"}
+                name={"userIds"}
                 placeholder={"Select user"}
                 search={true}
                 loading={loadingUsers}

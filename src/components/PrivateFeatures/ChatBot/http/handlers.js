@@ -20,3 +20,27 @@ export const errorHandler = (error) => {
         : errorObject?.error || defaultErrorMessage,
   };
 };
+
+export const formatResponseData = (result) => {
+  const { data, success, message } = result;
+  const { success: successMessage, error: errorMessage, ...rest } = data;
+  if (errorMessage) {
+    return {
+      data: rest,
+      success: false,
+      message: data.error,
+    };
+  }
+  if (successMessage && success) {
+    return {
+      data: rest,
+      success,
+      message: successMessage,
+    };
+  }
+  return {
+    data: rest,
+    success,
+    message,
+  };
+};

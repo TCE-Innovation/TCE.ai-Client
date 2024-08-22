@@ -2,8 +2,15 @@ import React from "react";
 
 import { Overlay, Modal } from "../../../../common";
 
-const DeleteProject = ({ show, onClose, projectName }) => {
+const DeleteProject = ({ show, onClose, deleteProject, ...project }) => {
+  const { mutate, loading: isSubmitting } = deleteProject;
   if (!show) return null;
+
+  const handleDeleteProject = () => {
+    if (isSubmitting) return;
+    mutate({ projectId: project.id });
+    onClose();
+  };
 
   return (
     <Overlay>
@@ -12,7 +19,9 @@ const DeleteProject = ({ show, onClose, projectName }) => {
         buttonLabels={{
           submit: "Delete",
         }}
+        isSubmitting={isSubmitting}
         onCancel={onClose}
+        onSubmit={handleDeleteProject}
         styles={{
           submit: {
             color: "var(--chatbot-red)",
@@ -28,7 +37,7 @@ const DeleteProject = ({ show, onClose, projectName }) => {
         <div>
           Project Name:{" "}
           <span style={{ color: "var(--chatbot-text-primary)" }}>
-            {projectName}
+            {project.name}
           </span>
         </div>
       </Modal>

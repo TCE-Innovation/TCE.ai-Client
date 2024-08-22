@@ -1,4 +1,4 @@
-import React, { useEffect, useRef, useState } from "react";
+import React, { useEffect, useMemo, useRef, useState } from "react";
 
 import Wrapper from "./style";
 
@@ -6,13 +6,23 @@ import { Loader } from "../../common";
 
 const SORT_ORDER = ["default", "ascending", "descending"];
 
+const loadingElement = (
+  <>
+    <br />
+    <Loader size={3} />
+    <br />
+  </>
+);
+
 const Table = ({
   data,
   columns,
   children,
   classNames = "",
   isLoading = true,
-  onRowClick = () => {},
+  onRowClick = null,
+  insertingRow = false,
+  updatingRowsIds = [],
 }) => {
   const [loading, setLoading] = useState(isLoading);
   const [currentList, setCurrentList] = useState(() =>
@@ -39,6 +49,15 @@ const Table = ({
       }
     })();
   }, []);
+
+  const insertingRowElement = useMemo(() => {
+    if (insertingRow)
+      return (
+        <tr className="position-relative">
+          <td colSpan={columns.length}>{loadingElement}</td>
+        </tr>
+      );
+  }, [insertingRow, columns]);
 
   useEffect(() => {
     setLoading(isLoading);
@@ -138,38 +157,55 @@ const Table = ({
           </tr>
         </thead>
         <tbody>
+          {insertingRowElement}
           {currentList?.length ? (
             currentList.map((item, i) => {
               return (
-                <tr key={i} onClick={() => onRowClick(item)}>
-                  {columns.map((column, j) => {
-                    const value =
-                      column.renderCell?.(item) ||
-                      column.accessor?.(item) ||
-                      item[column.key] ||
-                      "<invalid_indexing>";
-                    return (
-                      <td key={`${i}-${j}`}>
-                        <div
-                          style={{
-                            ...(column.maxWidth
-                              ? {
-                                  textWrap: "nowrap",
-                                  textOverflow: "ellipsis",
-                                  overflow: "hidden",
-                                  maxWidth: column.maxWidth,
-                                }
-                              : {}),
-                          }}
-                          className={`d-flex align-items-center ${getAlignment(
-                            column.align
-                          )}`}
-                        >
-                          {value}
-                        </div>
-                      </td>
-                    );
-                  })}
+                <tr
+                  key={i}
+                  onClick={() => onRowClick?.(item)}
+                  className={`position-relative ${
+                    onRowClick ? "" : "disable-hover"
+                  }`}
+                >
+                  {updatingRowsIds?.length &&
+                  updatingRowsIds.some((id) => id === item.id) ? (
+                    <td
+                      style={{ pointerEvents: "none", userSelect: "none" }}
+                      colSpan={columns.length}
+                    >
+                      {loadingElement}
+                    </td>
+                  ) : (
+                    columns.map((column, j) => {
+                      const value =
+                        column.renderCell?.(item) ||
+                        column.accessor?.(item) ||
+                        item[column.key] ||
+                        "<invalid_indexing>";
+                      return (
+                        <td key={`${i}-${j}`}>
+                          <div
+                            style={{
+                              ...(column.maxWidth
+                                ? {
+                                    textWrap: "nowrap",
+                                    textOverflow: "ellipsis",
+                                    overflow: "hidden",
+                                    maxWidth: column.maxWidth,
+                                  }
+                                : {}),
+                            }}
+                            className={`d-flex align-items-center ${getAlignment(
+                              column.align
+                            )}`}
+                          >
+                            {value}
+                          </div>
+                        </td>
+                      );
+                    })
+                  )}
                 </tr>
               );
             })
@@ -187,11 +223,7 @@ const Table = ({
                   }}
                 >
                   {currentList.length ? null : loading ? (
-                    <>
-                      <br />
-                      <Loader size={3} />
-                      <br />
-                    </>
+                    loadingElement
                   ) : children ? (
                     children
                   ) : (

@@ -3,6 +3,7 @@ import styled from "styled-components";
 export default styled.div`
   flex: 1;
   .chatbot-admin-container {
+    position: relative;
     max-height: 84vh;
     overflow: hidden;
   }
@@ -42,7 +43,7 @@ export default styled.div`
   }
   .admin-actions {
     color: var(--chatbot-grey);
-    .action-button:hover {
+    .action-button:not(.disabled):hover {
       color: var(--chatbot-text-primary);
     }
   }

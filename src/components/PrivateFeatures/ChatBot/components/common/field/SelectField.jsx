@@ -66,7 +66,7 @@ const SelectField = ({
           }
           readOnly
           value={isValidReactElement ? "" : selectedValueLabel}
-          onClick={() => setShow(true)}
+          onClick={() => setShow((prev) => !prev)}
           placeholder={isValidReactElement ? "" : placeholder}
         />
         {isValidReactElement ? (

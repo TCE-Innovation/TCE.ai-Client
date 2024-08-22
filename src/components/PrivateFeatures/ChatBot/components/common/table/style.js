@@ -16,7 +16,7 @@ export default styled.div`
     & thead {
       position: sticky;
       top: 0px;
-      z-index: 1;
+      z-index: 99;
       & th {
         & > * {
           padding: 0.5em 0.75em;
@@ -27,10 +27,12 @@ export default styled.div`
     }
     & tbody tr {
       background: white;
-      cursor: pointer;
       outline: 8px solid var(--chatbot-light-grey);
       border-radius: 20px;
-      &:hover {
+      &:not(.disable-hover) {
+        cursor: pointer;
+      }
+      &:not(.disable-hover):hover {
         background: #f6f8f9;
       }
     }

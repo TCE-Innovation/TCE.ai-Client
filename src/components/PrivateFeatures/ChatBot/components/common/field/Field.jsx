@@ -1,6 +1,6 @@
 import React from "react";
 
-import { useContext } from "../../contexts/FormContext";
+import { useContext, useFieldValue } from "../../contexts/FormContext";
 
 import Wrapper from "./style";
 
@@ -14,12 +14,22 @@ const Field = ({
   ...props
 }) => {
   const { register } = useContext();
+  const { value, error } = useFieldValue(name);
   return (
     <Wrapper>
       {label && <div>{label}</div>}
+      {error && <div style={{ color: "var(--chatbot-red)" }}>{error}</div>}
       <div className="field-wrapper">
         {leftAddon}
-        <input placeholder={placeholder} {...register(name, { onChange,...props })} />
+        <input
+          placeholder={placeholder}
+          defaultValue={value}
+          // {...value &&
+          //   typeof value !== "object" && {
+          //     value,
+          //   }}
+          {...register(name, { onChange, ...props })}
+        />
         {rightAddon}
       </div>
     </Wrapper>
