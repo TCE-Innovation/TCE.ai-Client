@@ -5,7 +5,8 @@ const adminList = [
     'pbesser@tcelect.net',
     'roneill@tcelect.net',
     'sdefalco@tcelect.net',
-    'ckruger@tcelect.net'
+    'ckruger@tcelect.net',
+    'chowley@tcelect.net'
 ]
 
 //TOOLS
