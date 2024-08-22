@@ -1,111 +1,102 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useContext } from 'react';
 import TrainLoader from '../General/TrainLoader';
-import { getOverviewDashboardLink } from '../../data/Airtable'; // Adjust the path to where your function is located
+import { getTrainingLink } from '../../data/Airtable';
+import { FormControl, InputLabel, Select, MenuItem, Box, Typography } from '@mui/material';
+import { AuthContext } from "../../authentication/Auth";
 
-const Training = () => {
-    const [iframeLoaded, setIframeLoaded] = useState(false);
-    const [iframeSrc, setIframeSrc] = useState('');
-    const [roles, setRoles] = useState([]);
+const TrainingPage = () => {
     const [tools, setTools] = useState([]);
-    const [selectedRole, setSelectedRole] = useState('');
+    const [roles, setRoles] = useState([]);
     const [selectedTool, setSelectedTool] = useState('');
-    const [embedLink, setEmbedLink] = useState('');
+    const [selectedRole, setSelectedRole] = useState('');
+    const [iframeLoaded, setIframeLoaded] = useState(false);
+    const [trainingLink, setTrainingLink] = useState('');
+
+    const { userEmail } = useContext(AuthContext);
 
     useEffect(() => {
-        const fetchLink = async () => {
+        const fetchTrainingLinks = async () => {
             try {
-                const response = await getOverviewDashboardLink();
-                if (response && response.length > 0) {
-                    setIframeSrc(response[0].url);
-                } else {
-                    console.error('No URL found in the response');
-                }
+                const data = await getTrainingLink(selectedTool);
+                console.log(data);
+                setTools(['Procore']);
+                setRoles(data);
             } catch (error) {
-                console.error('Error fetching the dashboard link:', error);
+                console.error('Error fetching training links:', error);
             }
         };
-
-        fetchLink();
+        fetchTrainingLinks();
     }, []);
+
+    const handleToolChange = (event) => {
+        const tool = 'Procore'
+        setSelectedTool(tool);
+        setRoles(Object.keys(tools[tool]));
+        setSelectedRole('');
+        setTrainingLink('');
+    };
+
+    const handleRoleChange = (event) => {
+        const role = event.target.value;
+        setSelectedRole(role);
+        setTrainingLink(tools[selectedTool][role]);
+    };
 
     const handleIframeLoad = () => {
         setIframeLoaded(true);
     };
 
-    const handleRoleChange = (e) => {
-        const selectedRole = e.target.value;
-        setSelectedRole = selectedRole;
-
-        // filter tools based on selected role
-        const filteredTools = tools.filter(tool => tool.role === selectedRole);
-        setTools(filteredTools);
-        setSelectedTool('');
-        setEmbedLink('');
-    }
-
-    const handleToolChange = (e) => {
-        const selectedTool = e.target.value;
-        setSelectedTool(selectedTool);
-
-        // find embed link for selected tool
-        const tool = tools.find(tool => tool.name === selectedTool);
-        if (tool) {
-            setEmbedLink(tool.embedLink);
-        }
-    }
-
-    const spinnerContainerStyle = {
-        position: 'fixed', 
-        top: '50%', 
-        left: '50%', 
-        transform: 'translate(-50%, -50%)',
-        zIndex: 100,
-    };
-
     return (
-        <div style={{ padding: '20px' }}>
-            <div style={{ display: 'flex', marginBottom: '20px' }}>
-                <select 
-                    value={selectedRole} 
-                    onChange={handleRoleChange} 
-                    style={{ marginRight: '10px' }}
-                >
-                    <option value="">Select Role</option>
-                    {roles.map(role => (
-                        <option key={role.id} value={role.name}>
-                            {role.name}
-                        </option>
-                    ))}
-                </select>
-                
-                <select 
-                    value={selectedTool} 
-                    onChange={handleToolChange} 
-                    disabled={!selectedRole}
-                >
-                    <option value="">Select Tool</option>
-                    {tools.map(tool => (
-                        <option key={tool.id} value={tool.name}>
-                            {tool.name}
-                        </option>
-                    ))}
-                </select>
-            </div>
-
-            {embedLink && (
-                <iframe
-                    title="Training Video"
-                    src={embedLink}
-                    style={{
-                        width: '100%',
-                        height: '500px',
-                        border: 'none',
-                    }}
-                    allowFullScreen
-                ></iframe>
+        <div style={{ width: '100%', display: 'flex', flexDirection: "column" }}>
+            {!iframeLoaded && (
+                <div style={{ position: 'fixed', top: '50%', left: '50%', transform: 'translate(-50%, -50%)', zIndex: 100 }}>
+                    <TrainLoader />
+                </div>
+            )}
+            <Box sx={{ width: '100%', display: 'flex', marginBottom: 2 }}>
+                <FormControl variant="standard" sx={{ m: 1, minWidth: 120 }}>
+                    <InputLabel id="tool-label">Tool</InputLabel>
+                    <Select
+                        labelId="tool-label"
+                        id="tool-select"
+                        value={selectedTool}
+                        onChange={handleToolChange}
+                        label="Tool"
+                    >
+                        {Object.keys(tools).map((tool) => (
+                            <MenuItem key={tool} value={tool}>{tool}</MenuItem>
+                        ))}
+                    </Select>
+                </FormControl>
+                {selectedTool && (
+                    <FormControl variant="standard" sx={{ m: 1, minWidth: 120 }}>
+                        <InputLabel id="role-label">Role</InputLabel>
+                        <Select
+                            labelId="role-label"
+                            id="role-select"
+                            value={selectedRole}
+                            onChange={handleRoleChange}
+                            label="Role"
+                        >
+                            {roles.map((role) => (
+                                <MenuItem key={role} value={role}>{role}</MenuItem>
+                            ))}
+                        </Select>
+                    </FormControl>
+                )}
+            </Box>
+            {trainingLink && (
+                <div style={{ display: iframeLoaded ? 'block' : 'none', width: '100%', height: '75vh', margin: 'auto' }}>
+                    <iframe
+                        onLoad={handleIframeLoad}
+                        src={trainingLink}
+                        style={{ width: '100%', height: '100%', border: '1px solid #ccc', background: 'transparent' }}
+                        title="Training"
+                    ></iframe>
+                </div>
             )}
         </div>
     );
 };
 
-export default Training;
+export default TrainingPage;
