@@ -71,6 +71,8 @@ function ResponsiveAppBar() {
                 return 'Drone Captures';
             case 'clearance-calculator': 
                 return 'LLLE Clearance Calculator'
+            case 'training':
+                return 'Training'
             case 'admin':
                 return 'Admin Panel';
             case 'overview-dashboard':
