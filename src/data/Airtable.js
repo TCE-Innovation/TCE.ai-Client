@@ -130,3 +130,14 @@ export async function updateUserLog(name) {
         console.error('Error updating user log:', error);
     }    
 }
+
+//function to log when someone has signed into the site
+export async function getTrainingLink(name) {
+    try{
+        const {data} = await axios.post('https://tce-ai-api.azurewebsites.net/api/get-training-link', { name } );
+        return data;
+    }
+    catch(error){
+        console.error('Error updating user log:', error);
+    }
+}
