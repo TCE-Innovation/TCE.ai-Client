@@ -70,6 +70,7 @@ const BootstrapDialog = styled(Dialog)(({ theme }) => ({
 
 const CRO = () => {
     const [pullsheet, setPullsheet] = useState('');
+    const [runType, setRunType] = useState('PullBox'); // Set the default run type
     const [responses, setResponses] = useState('');
     const [loading, setLoading] = useState(false);
     const [error, setError] = useState('');
@@ -83,6 +84,7 @@ const CRO = () => {
     const handleClose = () => {
       setOpen(false);
     };
+
 
     const [expanded, setExpanded] = React.useState('');
   
@@ -103,9 +105,12 @@ const CRO = () => {
         try {
             // This will be a file
             formData.append('pullsheet', pullsheet);
+            console.log("PULLSHEET:", pullsheet);
+            formData.append('runType', runType);
+            console.log("RUNTYPE:", runType);
         } 
         catch (error) {
-            console.log("PULLSHEET:",error)
+            console.log("PULLSHEET:", error)
             setError('Failed to read pull sheet.');
         }
 
@@ -117,13 +122,11 @@ const CRO = () => {
                 formData
             );
 
-            // If the backend returns only two URLs and the third URL is None (conduit optimization)
+            // Data length is one because only one file returned
             if (data.length === 1 && data[0] !== null ) {
                 // Update state with the first URL only
                 setResponses(data[0]);
             } 
-
-            
             else {
                 // Handle other cases where the response is unexpected
                 setError('Unexpected response from the server.');
@@ -134,7 +137,7 @@ const CRO = () => {
         // setResponse(data);
         }
         catch (error) {
-            console.log("AXIOS:",error)
+            console.log("AXIOS:", error)
             setError('Failed to generate output file.');
         }
         setLoading(false);
@@ -394,7 +397,10 @@ const CRO = () => {
                         id="pullsheetInput"
                         accept=".xlsx, .xls"
                         style={{ display: 'none' }} // Hide the file input
-                        onChange={(e) => setPullsheet(e.target.files[0])}
+                        onChange={(e) => {
+                            setPullsheet(e.target.files[0]);
+                            setRunType("PullBox");
+                        }}
                         
                     />
                         
@@ -423,6 +429,7 @@ const CRO = () => {
             
                 {loading ? (
                     <>
+                        {console.log("Optimization process started")}
                         <div style={spinnerContainerStyle}>
                     <TrainLoader />
                 </div>
