@@ -72,19 +72,21 @@ const BootstrapDialog = styled(Dialog)(({ theme }) => ({
     
 
 const CRO = () => {
+    // State variables
     const [pullsheet, setPullsheet] = useState('');
+    const [runType, setRunType] = useState('');
     const [cableSizes, setCableSizes] = useState('standard');
+
     const [responses, setResponses] = useState('');
     const [loading, setLoading] = useState(false);
     const [error, setError] = useState('');
-    // const [showCableSizeSheet, setShowCableSizeSheet] = useState(false);
-    const [runType, setRunType] = useState('');
     const [conduitSizeRange, setConduitSizeRange] = useState([0.75, 4]);
-    // const [areResponsesRendered, setAreResponsesRendered] = useState(false);
     const [isBoxExpanded, setIsBoxExpanded] = useState(false);
 
     const [open, setOpen] = React.useState(false);
+    const [expanded, setExpanded] = React.useState('');
 
+    // Functions
     const handleClickOpen = () => {
       setOpen(true);
     };
@@ -92,15 +94,10 @@ const CRO = () => {
       setOpen(false);
     };
 
-    const [expanded, setExpanded] = React.useState('');
-  
     const handleChange = (panel) => (event, newExpanded) => {
         setExpanded(newExpanded ? panel : false);
     };
-      
     
-
-    // Pass the state and the setter function as props to the Slider component
     <RangeSlider value={conduitSizeRange} setValue={setConduitSizeRange} />
 
     const handleRunTypeChange = (event) => {
@@ -111,15 +108,8 @@ const CRO = () => {
         setCableSizes(event.target.value);
     };
 
-    // const handleFAQClickOpen = () => {
-    //     openFAQ(true);
-    // };
-
-    // const handleFAQClickClose = () => {
-    //     openFAQ(false);
-    // };
-
     const cro = async () => {
+
         if (!pullsheet) {
             setError('Pull Sheet excel file must be provided.');
             return;
@@ -140,7 +130,7 @@ const CRO = () => {
             formData.append('pullsheet', pullsheet);
         } 
         catch (error) {
-            console.log("PULLSHEET:",error)
+            console.log("PULLSHEET:", error)
             setError('Failed to read pull sheet.');
         }
 
@@ -149,7 +139,7 @@ const CRO = () => {
             formData.append('cableSizes', cableSizes);
         }
         catch (error) {
-            console.log("CABLESIZES:",error)
+            console.log("CABLESIZES:", error)
             setError('Failed to read cable sizes.');
         }
 
@@ -217,12 +207,6 @@ const CRO = () => {
         height: '110px',
     };
 
-    // useEffect(() => {
-    //     if (responses[0] || responses[1] || responses[2]) {
-    //         setAreResponsesRendered(true);
-    //     }
-    // }, [responses]);
-
     return (
         
         <Box
@@ -253,9 +237,10 @@ const CRO = () => {
                     fontSize="20px"
                     
                     style={{ 
-                        paddingBottom: '10px', 
+                        marginTop: '-30px',
+                        marginBottom: '0px',
                         marginLeft: '400px', // Increase marginLeft from 250px to 300px
-                        marginRight: '25px',
+                        marginRight: '15px',
                         whitespace: 'nowrap'
                     }}
                 >
@@ -441,7 +426,7 @@ const CRO = () => {
                         alignItems: 'center',
                         justifyContent: 'flex-start',
                         marginBottom: '10px',
-                        marginTop: "10px",
+                        marginTop: "-10px",
                         backgroundColor: 'transparent',
                     }}
                     >   
@@ -457,7 +442,7 @@ const CRO = () => {
                                 onChange={handleRunTypeChange}
                                 style={{ marginLeft: '40px' }}
                             >
-                                {/* Radio Buttons to Selects Run Type */}
+                                {/* Radio Buttons to Select Run Type */}
                                 <FormControlLabel value="Conduit" control={<Radio />} label="Conduit" />
                                 <FormControlLabel value="Messenger" control={<Radio />} label="Messenger Bundle" />
                             </RadioGroup>
@@ -650,10 +635,10 @@ const CRO = () => {
             
                 {loading ? (
                     <>
-                        <div style={spinnerContainerStyle}>
-                    <TrainLoader />
-                </div>
-                        <Typography variant="body2" mt={-2.5}>
+                        <div style={{spinnerContainerStyle, marginTop: '-20px'}}>
+                            <TrainLoader />
+                        </div>
+                        <Typography variant="body2" style={{ marginTop: '-15px'}}> 
                             Optimizing...
                         </Typography>
                     </>
@@ -710,7 +695,7 @@ const CRO = () => {
                 
             </Box>
 
-            <Box sx={{ marginBottom: '20px' }}>
+            <Box sx={{ marginBottom: '-20px' }}>
 
 
             </Box>
