@@ -16,6 +16,7 @@ const toolList = [
     'GO Tracker',
     'Tool Usage Statistics',
     'Drone Captures',
+    'EIT Dashboard'
 ]
 
 module.exports = {

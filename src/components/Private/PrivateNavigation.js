@@ -73,6 +73,10 @@ function ResponsiveAppBar() {
                 return 'LLLE Clearance Calculator'
             case 'admin':
                 return 'Admin Panel';
+            case 'overview-dashboard':
+                return 'Overview Dashboard';
+            case 'equip-install-dashboard':
+                return 'Equipment Install Tracker Dashboard';
             default:
                 return 'TCE Innovation Group';  
         }

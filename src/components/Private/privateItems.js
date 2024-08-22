@@ -54,7 +54,7 @@ const PrivateListItems = ({ tool }) => {
         return <ListItemIcon style={getIconColor(itemKey)}>{iconComponent}</ListItemIcon>;
     };
 
-    //provisionable items
+    //provisionable items THIS NAME HAS TO MATCH THE NAME OF THE TOOL IN THE SQL VIEW
     const listItems = [
         { to: '/private/generate-emails', text: 'Email Generator', icon: <EmailOutlinedIcon />, key: 'generate-emails' },
         { to: '/private/chatbot', text: 'Chatbot', icon: <ForumOutlinedIcon />, key: 'chatbot' },
@@ -63,6 +63,7 @@ const PrivateListItems = ({ tool }) => {
         { to: '/private/overview-dashboard', text: 'Overview Dashboard', icon: <DataThresholdingOutlinedIcon />, key: 'overview-dashboard'},
         { to: '/private/tool-usage', text: 'Tool Usage Stats', icon: <DonutSmallOutlinedIcon />, key: 'tool-usage' }, 
         { to: '/private/drone-captures', text: 'Drone Captures', icon: <SatelliteAltIcon />, key: 'drone-captures' },
+        { to: '/private/equip-install-dashboard', text: 'EIT Dashboard', icon: <DataThresholdingOutlinedIcon />, key: 'equip-install-dashboard' },
     ];
 
     // Ensure userTools is a valid string, else default to an empty string

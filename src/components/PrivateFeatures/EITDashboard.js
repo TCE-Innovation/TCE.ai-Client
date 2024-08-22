@@ -2,14 +2,14 @@ import React, { useState, useEffect } from 'react';
 import TrainLoader from '../General/TrainLoader';
 import { getPBILog } from '../../data/Airtable'; // Adjust the path to where your function is located
 
-const OverviewDashboard = () => {
+const EITDashboard = () => {
     const [iframeLoaded, setIframeLoaded] = useState(false);
     const [iframeSrc, setIframeSrc] = useState('');
 
     useEffect(() => {
         const fetchLink = async () => {
             try {
-                const tableID = "tblVJiExefKAL9xyM";
+                const tableID = "tblVNsqiF3P7bTwTT";
                 const response = await getPBILog(tableID);
                 if (response && response.length > 0) {
                     setIframeSrc(response[0].url);
@@ -51,7 +51,7 @@ const OverviewDashboard = () => {
                     src={iframeSrc}
                     width="100%"
                     height="750px"
-                    title="TCIG Overview Dashboard"
+                    title="Equipment Install Tracking Dashboard"
                     style={{ background: 'transparent', border: '1px solid #ccc' }}
                 ></iframe>
             </div>
@@ -59,4 +59,4 @@ const OverviewDashboard = () => {
     );
 };
 
-export default OverviewDashboard;
+export default EITDashboard;
