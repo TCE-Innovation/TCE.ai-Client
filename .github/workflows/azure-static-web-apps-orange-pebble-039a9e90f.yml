@@ -19,8 +19,6 @@ jobs:
         with:
           submodules: true
           lfs: false
-      - name: Disable source map warnings
-        run: export GENERATE_SOURCEMAP=false
       - name: Build And Deploy
         id: builddeploy
         uses: Azure/static-web-apps-deploy@v1
