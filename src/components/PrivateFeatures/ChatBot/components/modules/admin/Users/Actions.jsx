@@ -1,5 +1,5 @@
 import React from "react";
-import { TabContext } from "../../../common";
+import { Loader, TabContext } from "../../../common";
 import { PROFILES } from "../../../../constants/admin";
 import { RemoveUserFromProjectModal } from "../Projects/Modals";
 import { RemoveUserModal } from "./Modals";
@@ -10,6 +10,12 @@ import { mutations } from "../../../../hooks";
 const UserTableActions = ({ ...userProps }) => {
   const removeUserFromProject = mutations.useRemoveUser();
   const deleteUser = mutations.useDeleteUser();
+  if (removeUserFromProject.loading || deleteUser.loading)
+    return (
+      <div className="position-relative" style={{ width: "2.5em" }}>
+        <Loader />
+      </div>
+    );
   return (
     <>
       <TabContext.Provider>
@@ -20,6 +26,11 @@ const UserTableActions = ({ ...userProps }) => {
           return (
             <Actions>
               <Actions.Delete
+                disabled={
+                  isProjectUsers
+                    ? removeUserFromProject.loading
+                    : deleteUser.loading
+                }
                 renderModal={(modalProps) => {
                   if (isProjectUsers)
                     return (

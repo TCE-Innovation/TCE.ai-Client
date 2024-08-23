@@ -1,5 +1,5 @@
 import React from "react";
-import { TabContext } from "../../../common";
+import { Loader, TabContext } from "../../../common";
 import { PROFILES } from "../../../../constants/admin";
 import Actions from "../Actions";
 import { RemoveDocumentFromProjectModal } from "../Projects/Modals";
@@ -8,6 +8,12 @@ import { mutations } from "../../../../hooks";
 
 const DocumentActions = ({ ...documentProps }) => {
   const deleteDocument = mutations.useDeleteDocument();
+  if (deleteDocument.loading)
+    return (
+      <div className="position-relative" style={{ width: "2.5em" }}>
+        <Loader />
+      </div>
+    );
   return (
     <>
       <TabContext.Provider>
