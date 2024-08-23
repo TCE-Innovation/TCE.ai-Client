@@ -22,6 +22,7 @@ const MultiSelectField = ({
 
   useEffect(() => {
     changeValue(value);
+    // eslint-disable-next-line
   }, [value]);
 
   const selectedValueLabel = useMemo(() => {
@@ -54,6 +55,7 @@ const MultiSelectField = ({
           })}
       </>
     );
+    // eslint-disable-next-line
   }, [value, list]);
 
   const activeList = useMemo(() => {
@@ -62,6 +64,7 @@ const MultiSelectField = ({
 
   useEffect(() => {
     setList(items.map((item, i) => ({ ...item, ...extractor(item, i) })));
+    // eslint-disable-next-line
   }, [items]);
 
   const { targetRef } = useOutsideClick({

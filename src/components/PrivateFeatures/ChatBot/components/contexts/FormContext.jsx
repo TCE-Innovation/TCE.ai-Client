@@ -242,6 +242,7 @@ export const useFieldValue = (name) => {
 
   useEffect(() => {
     setValue(formValues[name]);
+    // eslint-disable-next-line
   }, [formValues[name], name]);
 
   const registerField = () => {

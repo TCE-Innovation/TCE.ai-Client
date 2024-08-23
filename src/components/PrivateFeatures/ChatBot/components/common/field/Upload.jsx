@@ -2,10 +2,8 @@ import React from "react";
 
 import Field from "./Field";
 import { UploadIcon } from "../../icons";
-import { useFieldValue } from "../../contexts/FormContext";
 
 const Upload = ({ title, id, name }) => {
-  const { value } = useFieldValue(name);
   return (
     <label htmlFor={id} className="d-block position-relative pointer">
       <div className="position-absolute w-100 h-100" style={{ opacity: 0 }}>

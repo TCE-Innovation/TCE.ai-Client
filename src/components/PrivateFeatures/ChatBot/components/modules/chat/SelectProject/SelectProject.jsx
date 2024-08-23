@@ -20,7 +20,7 @@ const SelectProject = () => {
       label: project.name,
       value: project.id,
     }));
-  }, [data?.data]);
+  }, [data]);
 
   const handleChangeProject = (projectId) => {
     setSelectedProjectId(projectId);

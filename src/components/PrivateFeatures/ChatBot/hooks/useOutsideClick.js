@@ -15,6 +15,7 @@ const useOutsideClick = ({ onClickOutside }) => {
     return () => {
       document.removeEventListener("click", handler, { capture: true });
     };
+    // eslint-disable-next-line
   }, []);
 
   return {

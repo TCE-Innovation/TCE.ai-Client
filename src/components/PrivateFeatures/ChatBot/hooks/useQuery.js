@@ -24,6 +24,7 @@ const useQuery = (key, callback, options = {}) => {
     return () => {
       unregister();
     };
+    // eslint-disable-next-line
   }, []);
 
   useEffect(() => {
@@ -38,6 +39,7 @@ const useQuery = (key, callback, options = {}) => {
         setLoading(false);
       }
     })();
+    // eslint-disable-next-line
   }, [options.disableRunOnMount]);
 
   return {

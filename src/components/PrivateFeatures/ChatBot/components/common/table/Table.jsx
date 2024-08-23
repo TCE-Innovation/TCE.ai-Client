@@ -48,7 +48,7 @@ const Table = ({
         setCurrentList([]);
       }
     })();
-  }, []);
+  }, [data]);
 
   const insertingRowElement = useMemo(() => {
     if (insertingRow)

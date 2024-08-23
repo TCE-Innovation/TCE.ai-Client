@@ -11,6 +11,7 @@ const Upload = () => {
 
   useEffect(() => {
     changeDocumentName(document?.name || "");
+    // eslint-disable-next-line
   }, [document?.name]);
 
   return (

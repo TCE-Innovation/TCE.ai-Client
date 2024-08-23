@@ -28,10 +28,12 @@ const SelectField = ({
       return <>{listRenderer(item)}</>;
     }
     return item?.label ?? "";
+    // eslint-disable-next-line
   }, [value, list]);
 
   useEffect(() => {
     setList(items.map((item, i) => extractor(item, i)));
+    // eslint-disable-next-line
   }, [items]);
 
   const { targetRef } = useOutsideClick({

@@ -44,10 +44,12 @@ const AddDocument = ({ show, onClose }) => {
       resetForm();
       onClose();
     }
+    // eslint-disable-next-line
   }, [formStep]);
 
   useEffect(() => {
     changeFormStep("upload");
+    // eslint-disable-next-line
   }, []);
 
   const documentDescription = useMemo(() => {

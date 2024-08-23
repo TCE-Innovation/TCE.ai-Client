@@ -58,7 +58,7 @@ const CacheContextProvider = ({ children, ...props }) => {
     } catch (err) {
       throw err;
     }
-  }, []);
+  }, [duration]);
 
   const updateQuery = (key, callback) => {
     const now = Date.now();
