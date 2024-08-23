@@ -6,11 +6,14 @@ import { useContext } from "../../../../../contexts/FormContext";
 
 const EditProject = ({ show, onClose, editProject, ...project }) => {
   const { mutate, loading: isSubmitting } = editProject;
-  const { submitHandler } = useContext();
+  const { submitHandler, isValid, setError } = useContext();
   if (!show) return null;
 
   const handleSubmit = (values) => {
     if (isSubmitting) return;
+    if (values.name.trim() === project.name.trim()) {
+      return setError("name", "New project name cannot be same as before!");
+    }
     mutate({ projectName: values.name.trim(), projectId: project.id });
     onClose();
   };
@@ -23,6 +26,7 @@ const EditProject = ({ show, onClose, editProject, ...project }) => {
         buttonLabels={{
           submit: "Save",
         }}
+        isDisabled={!isValid}
         onSubmit={submitHandler(handleSubmit)}
         isSubmitting={isSubmitting}
         styles={{

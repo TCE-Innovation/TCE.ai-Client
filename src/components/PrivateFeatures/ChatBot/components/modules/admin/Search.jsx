@@ -15,7 +15,7 @@ const Search = ({ placeholder, onChange, name = "search" }) => {
         leftAddon={<SearchIcon />}
         autoComplete="off"
         className="my-2"
-        defaultValue={value}
+        value={value}
       />
     </>
   );

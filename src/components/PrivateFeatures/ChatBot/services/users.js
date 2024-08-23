@@ -46,7 +46,7 @@ export const addUser = async ({ userData }) => {
   });
   const { user, ...rest } = data;
   const _data = extractUser(user);
-  formatResponseData({ ...result, data: { ...rest, user: _data } });
+  return formatResponseData({ ...result, data: { ...rest, user: _data } });
 };
 
 export const getUnlistedUsers = async ({ projectId }) => {

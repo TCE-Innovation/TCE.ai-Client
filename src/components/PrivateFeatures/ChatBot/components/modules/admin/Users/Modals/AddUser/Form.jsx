@@ -23,6 +23,7 @@ const Form = () => {
           placeholder={"Type here"}
           label="Name"
           autoComplete="off"
+          min={3}
         />
       </div>
       <div>

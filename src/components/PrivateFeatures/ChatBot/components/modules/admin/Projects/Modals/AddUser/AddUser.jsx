@@ -15,6 +15,7 @@ const AddUser = ({ show, onClose }) => {
   const { addUserToProject } = useAdmin();
   const { mutate, loading: isSubmitting } = addUserToProject;
   const { value: projectId } = useFieldValue("projectId");
+  const { error, setError: setUserIdError } = useFieldValue("userIds");
   const { data, loading: loadingUsers } = useGetUnlistedUsersQuery(
     { projectId },
     { disableRunOnMount: projectId === null }
@@ -38,6 +39,9 @@ const AddUser = ({ show, onClose }) => {
 
   const handleSubmit = (values) => {
     if (isSubmitting) return;
+    if (!values.userIds?.length) {
+      return setUserIdError("At least one user should be selected!");
+    }
     mutate({ projectId: values.projectId, userIds: values.userIds });
     onClose();
   };
@@ -61,6 +65,7 @@ const AddUser = ({ show, onClose }) => {
         buttonLabels={{
           submit: "Add User",
         }}
+        isDisabled={error !== null}
         isSubmitting={isSubmitting}
         onSubmit={submitHandler(handleSubmit)}
         styles={{
@@ -83,6 +88,7 @@ const AddUser = ({ show, onClose }) => {
                 name={"userIds"}
                 placeholder={"Select user"}
                 search={true}
+                onChange={() => setUserIdError(null)}
                 loading={loadingUsers}
               />
             </div>

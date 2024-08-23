@@ -58,7 +58,7 @@ const Table = ({ rows, ...props }) => {
           rows={rows}
           onRowClick={(row) => {
             nextTab();
-            push({ project_id: row.id });
+            push({ project_id: row.id, is_live: row.is_live });
           }}
           {...props}
         />

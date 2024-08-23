@@ -18,14 +18,14 @@ const Projects = () => {
   const { query } = useGlobal();
   const { push, params } = query;
 
-  const { project_id } = params;
+  const { project_id, is_live } = params;
 
   const tabs = [
     {
       title: "Project list",
       value: PROFILES.PROJECT_LIST,
       handleClick: () => {
-        push({ project_id }, { reverse: true });
+        push({ project_id, is_live }, { reverse: true });
       },
       pane: ProjectList,
     },

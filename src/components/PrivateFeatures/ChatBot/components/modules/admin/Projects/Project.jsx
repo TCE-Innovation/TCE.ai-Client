@@ -13,6 +13,7 @@ import ProjectUsers from "./ProjectUsers";
 import ProjectDocuments from "./ProjectDocuments";
 
 import FormContext from "../../../contexts/FormContext";
+import { useGlobal } from "../../../../hooks";
 
 export const roles = ["Admin", "Project Manager", "User"];
 
@@ -30,6 +31,11 @@ const tabs = [
 ];
 
 const SwitchModeContext = ({ children }) => {
+  const { query } = useGlobal();
+  const { params } = query;
+
+  const { is_live } = params;
+
   const handleChangeLiveProjects = () => {};
   const tabs = [
     {
@@ -45,7 +51,11 @@ const SwitchModeContext = ({ children }) => {
       value: PROFILES.PROPOSAL_MODE,
     },
   ];
-  return <TabContext tabs={tabs}>{children}</TabContext>;
+  return (
+    <TabContext defaultActive={is_live ? 0 : 1} tabs={tabs}>
+      {children}
+    </TabContext>
+  );
 };
 
 const Project = () => {

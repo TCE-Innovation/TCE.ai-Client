@@ -7,19 +7,21 @@ import { useAdmin } from "../../../../../../hooks";
 import { useContext } from "../../../../../contexts/FormContext";
 
 import Form from "./Form";
-import { getRoleById } from "../../../../../../utils/data";
 
 const AddUser = ({ show, onClose }) => {
   const { addUser } = useAdmin();
   const { mutate, loading: isSubmitting } = addUser;
-  const { submitHandler, resetForm } = useContext();
+  const { submitHandler, resetForm, isValid, setError } = useContext();
   if (!show) return null;
 
   const handleSubmit = (values) => {
     if (isSubmitting) return;
     const [firstName = null, lastName = null] = values.name.trim().split(/\s+/);
+    if (!values.role) {
+      return setError("role", "Please select a user role!");
+    }
     const userData = {
-      role: getRoleById(values.role),
+      role: values.role,
       email: values.email.trim(),
       firstName,
       lastName,
@@ -37,6 +39,7 @@ const AddUser = ({ show, onClose }) => {
         buttonLabels={{
           submit: "Add User",
         }}
+        isDisabled={!isValid}
         isSubmitting={isSubmitting}
         onSubmit={submitHandler(handleSubmit)}
         styles={{

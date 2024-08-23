@@ -14,6 +14,7 @@ const SwitchMode = () => {
                 renderTab={({ tab, tabIndex, activeTab }) => {
                   return (
                     <button
+                      disabled
                       style={{
                         backgroundColor:
                           tabIndex === activeTab

@@ -23,11 +23,7 @@ const Field = ({
         {leftAddon}
         <input
           placeholder={placeholder}
-          defaultValue={value}
-          // {...value &&
-          //   typeof value !== "object" && {
-          //     value,
-          //   }}
+          value={value}
           {...register(name, { onChange, ...props })}
         />
         {rightAddon}

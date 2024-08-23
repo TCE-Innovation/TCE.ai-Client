@@ -9,7 +9,7 @@ const useQueryParam = () => {
     let newParams = {};
     if (reverse) {
       for (const key in params) {
-        if (!query[key]) {
+        if (!(key in query)) {
           newParams[key] = params[key];
         }
       }
