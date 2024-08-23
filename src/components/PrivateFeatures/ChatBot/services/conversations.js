@@ -2,7 +2,7 @@ import { client } from "../http";
 
 const route = "/user/conversations";
 
-export const getConversations = async (projectId = 9) => {
+export const getConversations = async (projectId) => {
   const { data, success, message } = await client.get(route, {
     project_id: projectId,
   });
@@ -13,7 +13,7 @@ export const getConversations = async (projectId = 9) => {
   }
 };
 
-export const createConversation = async (projectId = 9) => {
+export const createConversation = async (projectId) => {
   const { data, success, message } = await client.create(route, {
     query: { project_id: projectId },
   });
@@ -34,7 +34,7 @@ export const createConversation = async (projectId = 9) => {
   }
 };
 
-export const deleteConversation = async (conversationId, projectId = 9) => {
+export const deleteConversation = async (conversationId, projectId) => {
   const result = await client.remove(route, {
     query: { conversation_id: conversationId, project_id: projectId },
   });
@@ -55,7 +55,7 @@ export const deleteConversation = async (conversationId, projectId = 9) => {
 };
 
 export const editConversation = async (params) => {
-  const { conversationId, name, projectId = 9 } = params;
+  const { conversationId, name, projectId } = params;
   const { data, success, message } = await client.update(route, {
     data: { name },
     query: { conversation_id: conversationId, project_id: projectId },

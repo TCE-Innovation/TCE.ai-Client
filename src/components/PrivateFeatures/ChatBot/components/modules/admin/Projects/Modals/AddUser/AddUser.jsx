@@ -1,0 +1,102 @@
+import React, { useMemo } from "react";
+import { Overlay, Modal } from "../../../../../common";
+import { MultiSelectField } from "../../../../../common/field";
+
+import { useAdmin, queries } from "../../../../../../hooks";
+
+import {
+  useContext,
+  useFieldValue,
+} from "../../../../../../components/contexts/FormContext";
+
+const { useGetUnlistedUsersQuery, useGetProjectsQuery } = queries;
+
+const AddUser = ({ show, onClose }) => {
+  const { addUserToProject } = useAdmin();
+  const { mutate, loading: isSubmitting } = addUserToProject;
+  const { value: projectId } = useFieldValue("projectId");
+  const { error, setError: setUserIdError } = useFieldValue("userIds");
+  const { data, loading: loadingUsers } = useGetUnlistedUsersQuery(
+    { projectId },
+    { disableRunOnMount: projectId === null }
+  );
+  const { data: projects } = useGetProjectsQuery({
+    disableRunOnMount: projectId === null,
+  });
+  const { submitHandler } = useContext();
+
+  const users = useMemo(() => {
+    if (!data) return [];
+    const { data: usersList } = data;
+    return usersList.map((user) => {
+      const name = [user.first_name, user.last_name].filter(Boolean).join(" ");
+      return {
+        ...user,
+        label: name ? `${name} (${user.email})` : user.email,
+      };
+    });
+  }, [data]);
+
+  const handleSubmit = (values) => {
+    if (isSubmitting) return;
+    if (!values.userIds?.length) {
+      return setUserIdError("At least one user should be selected!");
+    }
+    mutate({ projectId: values.projectId, userIds: values.userIds });
+    onClose();
+  };
+
+  const project = useMemo(() => {
+    if (!projects) return null;
+    return projects.data.find(
+      (project) => project.id.toString() === projectId.toString()
+    );
+  }, [projects, projectId]);
+
+  if (!show) return null;
+
+  return (
+    <Overlay>
+      <Modal
+        onCancel={onClose}
+        title={`Add User to Project ${
+          project?.name ? `"${project.name}"` : ""
+        }`}
+        buttonLabels={{
+          submit: "Add User",
+        }}
+        isDisabled={error !== null}
+        isSubmitting={isSubmitting}
+        onSubmit={submitHandler(handleSubmit)}
+        styles={{
+          submit: {
+            color: "white",
+            backgroundColor: "var(--chatbot-primary) important!",
+          },
+          cancel: {
+            color: "black",
+            backgroundColor: "transparent",
+          },
+        }}
+      >
+        <div className="projects-modal-wrapper">
+          <form>
+            <div>
+              <MultiSelectField
+                items={users}
+                extractor={(item) => ({ label: item.label, value: item.id })}
+                name={"userIds"}
+                placeholder={"Select user"}
+                search={true}
+                onChange={() => setUserIdError(null)}
+                loading={loadingUsers}
+              />
+            </div>
+          </form>
+        </div>
+      </Modal>
+    </Overlay>
+  );
+};
+
+export default AddUser;

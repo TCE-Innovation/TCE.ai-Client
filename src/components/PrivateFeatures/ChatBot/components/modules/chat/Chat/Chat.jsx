@@ -2,6 +2,7 @@ import React, { useLayoutEffect } from "react";
 
 import ChatInput from "../Input/Input";
 import ChatMessages from "../Messages/Messages";
+import SelectProject from "../SelectProject";
 
 import { useMessage, useScroll } from "../../../../hooks";
 
@@ -23,6 +24,9 @@ const Chat = () => {
     <Wrapper>
       <div className="chatbot-live-status">Live</div>
       <Alerts />
+      <div>
+        <SelectProject />
+      </div>
       {!loadingMessages && !messages.length && (
         <>
           <h1 className="welcome-text">

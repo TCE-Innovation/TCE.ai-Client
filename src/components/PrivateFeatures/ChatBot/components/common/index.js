@@ -6,3 +6,8 @@ export { default as Modal } from "./modal";
 export { default as Markdown } from "./markdown";
 export { default as Select } from "./select";
 export { default as TypeWriter } from "./typewriter";
+export { default as Table } from "./table";
+export { default as Avatar } from "./avatar";
+export { default as TabContext } from "./tabs";
+export { default as Badge } from "./badge";
+export { default as Field } from "./field";
