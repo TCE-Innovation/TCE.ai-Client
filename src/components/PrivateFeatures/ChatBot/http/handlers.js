@@ -23,24 +23,29 @@ export const errorHandler = (error) => {
 
 export const formatResponseData = (result) => {
   const { data, success, message } = result;
-  const { success: successMessage, error: errorMessage, ...rest } = data;
-  if (errorMessage) {
-    return {
-      data: rest,
-      success: false,
-      message: data.error,
-    };
-  }
-  if (successMessage && success) {
+  try {
+    const { success: successMessage, error: errorMessage, ...rest } =
+      data || {};
+    if (errorMessage) {
+      return {
+        data: rest,
+        success: false,
+        message: data.error,
+      };
+    }
+    if (successMessage && success) {
+      return {
+        data: rest,
+        success,
+        message: successMessage,
+      };
+    }
     return {
       data: rest,
       success,
-      message: successMessage,
+      message,
     };
+  } catch (err) {
+    console.log(err);
   }
-  return {
-    data: rest,
-    success,
-    message,
-  };
 };
