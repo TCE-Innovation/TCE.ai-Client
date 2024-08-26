@@ -54,7 +54,7 @@ const TrainingPage = () => {
         } else {
             setIframeLink('');
         }
-    }, [selectedRole]);
+    }, [selectedRole, data, selectedTool]);
 
     const handleToolChange = (event) => {
         setSelectedTool(event.target.value);
