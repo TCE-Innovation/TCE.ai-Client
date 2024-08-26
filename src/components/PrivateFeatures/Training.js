@@ -16,12 +16,13 @@ const TrainingPage = () => {
         async function fetchTrainingLinks() {
             try {
                 const data = await getTrainingLink();
-                console.log(data);
                 setData(data);
                 const tools = Object.keys(data);
                 setFilteredTools(tools);
                 if (tools.length > 0) {
                     setSelectedTool(tools[0]);
+                } else {
+                    setSelectedTool('');
                 }
             } catch (error) {
                 console.error('Error fetching training links:', error);
@@ -32,8 +33,14 @@ const TrainingPage = () => {
 
     useEffect(() => {
         if (data[selectedTool]) {
-            setRoles(data[selectedTool].map(item => item.role).filter(role => role)); // Extract roles
-            setSelectedRole(data[selectedTool]?.[0]?.role || '');
+            const extractedRoles = data[selectedTool].map(item => item.role).filter(role => role); // Extract roles
+            setRoles(extractedRoles);
+    
+            if (extractedRoles.length > 0) {
+                setSelectedRole(extractedRoles[0]);
+            } else {
+                setSelectedRole('');
+            }
         } else {
             setRoles([]);
             setSelectedRole('');
@@ -47,7 +54,7 @@ const TrainingPage = () => {
         } else {
             setIframeLink('');
         }
-    }, [selectedRole, data, selectedTool]);
+    }, [selectedRole]);
 
     const handleToolChange = (event) => {
         setSelectedTool(event.target.value);
