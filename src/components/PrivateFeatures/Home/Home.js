@@ -163,7 +163,7 @@ const Home = () => {
 
               {partner.name === "ProCore" && (
                 <a
-                  href="/private/trainings?tool=Procore"
+                  href="/private/training"
                   className={styles.orangeButton}
                   onClick={handleInsideCardClick}
                 >
