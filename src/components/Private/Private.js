@@ -18,6 +18,7 @@ import ExitToAppIcon from '@mui/icons-material/ExitToApp';
 import Home from '../PrivateFeatures/Home/Home';
 import PrivateListItems from "./privateItems";
 import PrivateNavigation from "./PrivateNavigation";
+import Training from '../PrivateFeatures/Training';
 import CRO from '../PrivateFeatures/CRO/CRO';
 import AssetTracker from '../PrivateFeatures/AssetTracker/AssetTracker';
 import ChatBot from '../PrivateFeatures/ChatBot';
@@ -82,6 +83,7 @@ function PrivateContent() {
   // Mapping full names of tools to their URL ends
   const toolNameMap = {
     'Home': 'home',
+    'Training' : 'training',
     'Email Generator': 'generate-emails',
     'Cable Run Optimizer': 'cable-run-optimizer',
     'GO Tracker': 'go-tracker',
@@ -98,7 +100,7 @@ function PrivateContent() {
   };
 
   // Always available tools
-  const alwaysAvailableTools = useMemo(() => ['home', 'sub-automation', 'equipment-checkout', 'go-tracker', '3d-printing-request', 'clearance-calculator', 'admin'], []);
+  const alwaysAvailableTools = useMemo(() => ['home', 'training', 'sub-automation', 'equipment-checkout', 'go-tracker', '3d-printing-request', 'clearance-calculator', 'admin'], []);
 
   // Split the userTools string into an array
   const userToolsArray = (userTools || '').split(',').map(tool => tool.trim());
@@ -109,6 +111,7 @@ function PrivateContent() {
   // Memorize toolComponentMap to avoid recalculating it on every render
   const toolComponentMap = useMemo(() => ({
     'home': Home,
+    'training': Training,
     'generate-emails': GenerateEmails,
     'cable-run-optimizer': CRO,
     'equipment-checkout': AssetTracker,
