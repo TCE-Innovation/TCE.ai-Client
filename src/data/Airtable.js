@@ -132,9 +132,9 @@ export async function updateUserLog(name) {
 }
 
 //function to log when someone has signed into the site
-export async function getTrainingLink(name) {
+export async function getTrainingLink() {
     try{
-        const {data} = await axios.post('https://tce-ai-api.azurewebsites.net/api/get-training-link', { name } );
+        const {data} = await axios.get('https://tce-ai-api.azurewebsites.net/api/get-training-link');
         return data;
     }
     catch(error){
