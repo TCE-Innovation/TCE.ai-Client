@@ -18,7 +18,8 @@ const toolList = [
     'Tool Usage Statistics',
     'Drone Captures',
     'EIT Dashboard',
-    'Training'
+    'Training',
+    'Executive Dashboards'
 ]
 
 module.exports = {

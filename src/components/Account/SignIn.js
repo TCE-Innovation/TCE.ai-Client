@@ -58,6 +58,9 @@ function Login() {
         case '/account':
             setTool('Account Page');
             break;
+        case '/private/executive-dashboards':
+            setTool('Executive Dashboards');
+            break;
 
       default:
         setTool('the site'); // A default case if the path doesn't match any specific tool

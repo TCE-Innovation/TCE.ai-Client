@@ -33,6 +33,7 @@ import DroneCaptures from '../PrivateFeatures/DroneCaptures';
 import Clearance from '../PrivateFeatures/Clearance/Clearance';
 import EITDashboard from '../PrivateFeatures/EITDashboard';
 import Admin from '../PrivateFeatures/AdminPanel/AdminPanel';
+import ExecutiveDashboards from '../PrivateFeatures/ExecutiveDashboards';
 
 // AUTH
 import { adminList } from '../../admin/lists';
@@ -97,6 +98,7 @@ function PrivateContent() {
     'Chatbot': 'chatbot',
     'LLLE Clearance Calculator': 'clearance-calculator',
     'EIT Dashboard': 'equip-install-dashboard',
+    'Executive Dashboards': 'executive-dashboards',
   };
 
   // Always available tools
@@ -108,7 +110,7 @@ function PrivateContent() {
   // Convert userToolsArray to the URL ends they map to
   const userToolsUrlEnds = userToolsArray.map(tool => toolNameMap[tool]).filter(Boolean);
 
-  // Memorize toolComponentMap to avoid recalculating it on every render
+  // Memoize toolComponentMap to avoid recalculating it on every render
   const toolComponentMap = useMemo(() => ({
     'home': Home,
     'training': Training,
@@ -125,6 +127,7 @@ function PrivateContent() {
     'drone-captures': DroneCaptures,
     'clearance-calculator': Clearance,
     'equip-install-dashboard' : EITDashboard,
+    'executive-dashboards' : ExecutiveDashboards,
     'admin': isAdmin ? Admin : null // Admin access only
   }), [isAdmin]);
 

@@ -17,6 +17,7 @@ const tableNameMap = {
     'Drone Captures': 'drone_captures',
     'Chatbot': 'chatbot',
     'Equipment Install Tracking Dashboard': 'eit_dashboard',
+    'Executive Dashboards': 'executive_dashboards'
 };
 
 const toolsWithProjectOption = [
