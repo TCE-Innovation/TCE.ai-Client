@@ -1,9 +1,10 @@
 import React, { useEffect, useMemo, useState } from "react";
-import { DownIcon, CloseIcon } from "../../icons";
+import { DownIcon } from "../../icons";
 import { useOutsideClick } from "../../../hooks";
 import Field from "./Field";
 import { useFieldArray, useFieldValue } from "../../contexts/FormContext";
 import DropDown from "./_DropDown";
+import SelectedItems from "./_SelectedItems";
 
 const MultiSelectField = ({
   name,
@@ -24,39 +25,6 @@ const MultiSelectField = ({
     changeValue(value);
     // eslint-disable-next-line
   }, [value]);
-
-  const selectedValueLabel = useMemo(() => {
-    const { listRenderer } = dropDownProps;
-    return (
-      <>
-        {list
-          .filter((item) => value.some((valueItem) => valueItem === item.value))
-          .map((item) => {
-            return (
-              <button
-                type="button"
-                key={item.value}
-                className="chat-button d-flex align-items-center gap-2 p-2 my-2 rounded mx-2"
-                style={{
-                  width: "max-content",
-                  fontSize: ".75em",
-                  border: "1px solid",
-                  cursor: "pointer",
-                  pointerEvents: "all",
-                  whiteSpace: "nowrap",
-                }}
-              >
-                <span>{listRenderer?.(item) || item.label}</span>
-                <span onClick={() => remove(item.value)}>
-                  <CloseIcon width={".75em"} />
-                </span>
-              </button>
-            );
-          })}
-      </>
-    );
-    // eslint-disable-next-line
-  }, [value, list]);
 
   const activeList = useMemo(() => {
     return list.filter((item) => value.every((v) => v !== item.value));
@@ -79,9 +47,6 @@ const MultiSelectField = ({
     onChange(...args);
   };
 
-  const isValidReactElement =
-    selectedValueLabel && React.isValidElement(selectedValueLabel);
-
   return (
     <div>
       {label && <div>{label}</div>}
@@ -89,14 +54,15 @@ const MultiSelectField = ({
         <Field
           name={name}
           rightAddon={
-            <span
+            <div
               style={{
                 transition: "transform .1s linear",
                 transform: `${show ? "rotate(180deg)" : "rotate(0deg)"}`,
+                pointerEvents: "none",
               }}
             >
               <DownIcon />
-            </span>
+            </div>
           }
           readOnly
           value={""}
@@ -104,21 +70,12 @@ const MultiSelectField = ({
           placeholder={placeholder}
           style={{ userSelect: "none" }}
         />
-        {isValidReactElement ? (
-          <div
-            style={{
-              flexWrap: "wrap",
-              border: value.length ? "1px solid" : "",
-              borderRadius: ".25em",
-              maxHeight: "100px",
-              overflow: "hidden",
-              overflowY: "auto",
-            }}
-            className="d-flex align-items-center top-0 w-100"
-          >
-            {selectedValueLabel}
-          </div>
-        ) : null}
+        <SelectedItems
+          list={list}
+          name={name}
+          value={value}
+          handleRemove={remove}
+        />
         {show && (
           <DropDown
             items={activeList}

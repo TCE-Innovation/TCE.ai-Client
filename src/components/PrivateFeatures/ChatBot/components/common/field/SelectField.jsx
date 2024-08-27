@@ -1,5 +1,6 @@
 import React, { useEffect, useMemo, useState } from "react";
 import Field from "./Field";
+import ErrorBlock from "./ErrorBlock";
 
 import { DownIcon } from "../../icons";
 import { useOutsideClick } from "../../../hooks";
@@ -53,14 +54,17 @@ const SelectField = ({
   return (
     <div>
       {label && <div>{label}</div>}
+      <ErrorBlock name={name} />
       <div ref={targetRef} className="position-relative select-field">
         <Field
           name={name}
+          showError={false}
           rightAddon={
             <span
               style={{
                 transition: "transform .1s linear",
                 transform: `${show ? "rotate(180deg)" : "rotate(0deg)"}`,
+                pointerEvents: "none",
               }}
             >
               <DownIcon />

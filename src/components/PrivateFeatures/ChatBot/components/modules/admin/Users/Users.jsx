@@ -30,7 +30,7 @@ const Users = () => {
   return (
     <>
       <div style={{ width: "350px" }} className="mb-3">
-        <SearchComponent placeholder={"Search a user"} />
+        <SearchComponent placeholder={"Search users by email"} />
       </div>
       <UsersTable
         rows={rows}

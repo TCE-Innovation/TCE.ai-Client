@@ -14,13 +14,13 @@ export const useUploadDocuments = () => {
     {
       onSuccess: (newData, { updateQuery }) => {
         if (newData.success) {
-          const { document } = newData.data;
+          const { documents } = newData.data;
           updateQuery(
             ["getProjectDocuments", { projectId: argsRef.current.projectId }],
-            (documents) => {
+            (prevDocuments) => {
               return {
-                ...documents,
-                data: [document, ...documents.data],
+                ...prevDocuments,
+                data: [...documents, ...prevDocuments.data],
               };
             }
           );

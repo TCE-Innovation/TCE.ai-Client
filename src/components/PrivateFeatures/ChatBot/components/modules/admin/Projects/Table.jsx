@@ -29,7 +29,7 @@ const Table = ({ rows, ...props }) => {
         renderCell: ({ assignedUsers }) => {
           if (!assignedUsers.length)
             return (
-              <span style={{ color: "var(--chatbot-grey)" }}>not assigned</span>
+              <span style={{ color: "var(--chatbot-grey)" }}>not available</span>
             );
           return <AvatarGroup avatars={assignedUsers} />;
         },

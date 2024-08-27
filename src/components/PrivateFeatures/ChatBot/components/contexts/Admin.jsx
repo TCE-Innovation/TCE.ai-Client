@@ -9,6 +9,7 @@ import {
   useAddUsersToProject,
   useCreateProject,
   useUploadDocuments,
+  useEditProjectStatus,
 } from "../../hooks/mutations";
 
 const AdminContext = createContext();
@@ -23,6 +24,7 @@ const AdminProvider = ({ children }) => {
   const addUserToProject = useAddUsersToProject();
   const createProject = useCreateProject();
   const uploadDocument = useUploadDocuments();
+  const editProjectStatus = useEditProjectStatus();
 
   const updateNewUsers = (newUser) => {
     setNewUsers((prev) => [newUser, ...prev]);
@@ -53,6 +55,7 @@ const AdminProvider = ({ children }) => {
         newProjects,
         newProjectUsers,
         newDocuments,
+        editProjectStatus,
       }}
     >
       {children}

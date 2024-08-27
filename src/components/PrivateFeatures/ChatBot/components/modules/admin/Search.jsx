@@ -16,6 +16,7 @@ const Search = ({ placeholder, onChange, name = "search" }) => {
         autoComplete="off"
         className="my-2"
         value={value}
+        showError={false}
       />
     </>
   );

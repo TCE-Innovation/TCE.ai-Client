@@ -34,7 +34,7 @@ const AddDocument = ({ show, onClose }) => {
   }, [projects, projectId]);
 
   const { submitHandler, resetForm } = useContext();
-  const { value: currentDocument } = useFieldValue("document");
+  const { value: currentDocument, error, setError } = useFieldValue("document");
   const { value: formStep, changeValue: changeFormStep } = useFieldValue(
     "step"
   );
@@ -69,6 +69,9 @@ const AddDocument = ({ show, onClose }) => {
     if (_isDuplicate) {
       return changeFormStep("alert");
     }
+    if (!values.document) {
+      return setError("Please select a document");
+    }
     const formData = toFormData({
       doc: values.document,
       file_name: fileName,
@@ -100,6 +103,7 @@ const AddDocument = ({ show, onClose }) => {
           buttonLabels={{
             submit: "Add Document",
           }}
+          isDisabled={error !== null}
           isSubmitting={isSubmitting || loadingDocuments}
           onSubmit={submitHandler(handleSubmit)}
           styles={{

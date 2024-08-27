@@ -3,17 +3,15 @@ import React from "react";
 import AddNew from "../AddNew";
 import SearchComponent from "../Search";
 
-import SwitchMode from "./SwitchMode";
-
 import { TabContext } from "../../../common";
 
 import { PROFILES } from "../../../../constants/admin";
 
 import ProjectUsers from "./ProjectUsers";
 import ProjectDocuments from "./ProjectDocuments";
+import ProjectStatus from "./ProjectStatus";
 
 import FormContext from "../../../contexts/FormContext";
-import { useGlobal } from "../../../../hooks";
 
 export const roles = ["Admin", "Project Manager", "User"];
 
@@ -29,34 +27,6 @@ const tabs = [
     value: PROFILES.PROJECT_DOCS,
   },
 ];
-
-const SwitchModeContext = ({ children }) => {
-  const { query } = useGlobal();
-  const { params } = query;
-
-  const { is_live } = params;
-
-  const handleChangeLiveProjects = () => {};
-  const tabs = [
-    {
-      title: "Live",
-      handleClick: () => {
-        handleChangeLiveProjects();
-      },
-      value: PROFILES.LIVE_MODE,
-    },
-    {
-      title: "Proposal",
-      handleClick: () => handleChangeLiveProjects(),
-      value: PROFILES.PROPOSAL_MODE,
-    },
-  ];
-  return (
-    <TabContext defaultActive={is_live ? 0 : 1} tabs={tabs}>
-      {children}
-    </TabContext>
-  );
-};
 
 const Project = () => {
   return (
@@ -75,9 +45,7 @@ const Project = () => {
                 }}
               />
             </div>
-            <SwitchModeContext>
-              <SwitchMode />
-            </SwitchModeContext>
+            <ProjectStatus />
             <TabContext.Provider>
               {({ activeTab }) => {
                 return (
@@ -85,7 +53,7 @@ const Project = () => {
                     {activeTab === 0 ? (
                       <SearchComponent
                         key={0}
-                        placeholder={"Search a user"}
+                        placeholder={"Search users by email"}
                         name={"userSearch"}
                       />
                     ) : activeTab === 1 ? (

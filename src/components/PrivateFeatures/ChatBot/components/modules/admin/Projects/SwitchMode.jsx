@@ -2,7 +2,7 @@ import React from "react";
 
 import { TabContext } from "../../../common";
 
-const SwitchMode = () => {
+const SwitchMode = ({ disabled = false }) => {
   return (
     <div className="chatbot-mode-switcher">
       <TabContext.Provider>
@@ -14,7 +14,7 @@ const SwitchMode = () => {
                 renderTab={({ tab, tabIndex, activeTab }) => {
                   return (
                     <button
-                      disabled
+                      disabled={disabled}
                       style={{
                         backgroundColor:
                           tabIndex === activeTab
@@ -26,9 +26,18 @@ const SwitchMode = () => {
                             : "var(--chatbot-text-primary)",
                       }}
                       className="chat-button"
-                      onClick={() => tabs[tabIndex].handleClick?.()}
+                      onClick={() =>
+                        tabIndex !== activeTab && tabs[tabIndex].handleClick?.()
+                      }
                     >
-                      <span>{tab.title}</span>
+                      <div className="tooltip-container">
+                        <span>{tab.title}</span>
+                        {tabIndex !== activeTab && (
+                          <div className="tooltip tooltip-dark align-bottom">
+                            change project status to {tab.title}
+                          </div>
+                        )}
+                      </div>
                     </button>
                   );
                 }}

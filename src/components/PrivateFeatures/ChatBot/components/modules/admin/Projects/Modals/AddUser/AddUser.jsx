@@ -1,6 +1,6 @@
 import React, { useMemo } from "react";
 import { Overlay, Modal } from "../../../../../common";
-import { MultiSelectField } from "../../../../../common/field";
+import { SearchField } from "../../../../../common/field";
 
 import { useAdmin, queries } from "../../../../../../hooks";
 
@@ -29,10 +29,9 @@ const AddUser = ({ show, onClose }) => {
     if (!data) return [];
     const { data: usersList } = data;
     return usersList.map((user) => {
-      const name = [user.first_name, user.last_name].filter(Boolean).join(" ");
       return {
         ...user,
-        label: name ? `${name} (${user.email})` : user.email,
+        label: user.name ? `${user.name} (${user.email})` : user.email,
       };
     });
   }, [data]);
@@ -82,14 +81,13 @@ const AddUser = ({ show, onClose }) => {
         <div className="projects-modal-wrapper">
           <form>
             <div>
-              <MultiSelectField
-                items={users}
-                extractor={(item) => ({ label: item.label, value: item.id })}
+              <SearchField
                 name={"userIds"}
-                placeholder={"Select user"}
-                search={true}
-                onChange={() => setUserIdError(null)}
+                extractor={(item) => ({ label: item.label, value: item.id })}
+                placeholder={"Select users"}
+                searchItems={users}
                 loading={loadingUsers}
+                onChange={() => setUserIdError(null)}
               />
             </div>
           </form>

@@ -9,6 +9,7 @@ export { default as useOutsideClick } from "./useOutsideClick";
 export { default as useAuth } from "./useAuth";
 export { default as useQueryParam } from "./useQueryParam";
 export { default as useAdmin } from "./useAdmin";
+export { default as useDebounce } from "./useDebouce";
 
 export * as queries from "./queries";
 export * as mutations from "./mutations";

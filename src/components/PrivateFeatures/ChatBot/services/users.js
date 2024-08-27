@@ -2,25 +2,14 @@ import { client } from "../http";
 import { formatResponseData } from "../http/handlers";
 
 import { sortArray } from "../utils/date";
+import { extractUserData } from "../utils/data";
 
 const route = "/user/users";
-
-const extractUser = (item) => {
-  const name = [item.first_name, item.last_name].join(" ").trim();
-  return {
-    ...item,
-    name,
-    email: item.email,
-    role: item.role,
-    id: item.id,
-    url: "",
-  };
-};
 
 export const getUsers = async () => {
   const { data, message, success } = await client.get(route);
   const sorted = sortArray(data, "created_at");
-  const _data = sorted.map(extractUser);
+  const _data = sorted.map(extractUserData);
   return {
     data: _data,
     success,
@@ -45,7 +34,7 @@ export const addUser = async ({ userData }) => {
     },
   });
   const { user, ...rest } = data;
-  const _data = extractUser(user);
+  const _data = extractUserData(user);
   return formatResponseData({ ...result, data: { ...rest, user: _data } });
 };
 
@@ -54,7 +43,7 @@ export const getUnlistedUsers = async ({ projectId }) => {
     project_id: projectId,
   });
   const sorted = sortArray(data, "created_at");
-  const _data = sorted.map(extractUser);
+  const _data = sorted.map(extractUserData);
   return {
     data: _data,
     success,

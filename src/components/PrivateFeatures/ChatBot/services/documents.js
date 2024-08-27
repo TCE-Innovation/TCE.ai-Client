@@ -46,14 +46,14 @@ export const uploadDocument = async ({ projectId, formData }) => {
     },
     { headers: { "Content-Type": "multipart/form-data" } }
   );
-  const { document, ...rest } = data;
-  const _data = {
+  const { documents, ...rest } = data;
+  const _data = documents.map(({ document }) => ({
     ...document,
     uploadDate: document.created_at,
-  };
+  }));
   return formatResponseData({
     ...result,
-    data: { document: _data, ...rest },
+    data: { documents: _data, ...rest },
   });
 };
 
