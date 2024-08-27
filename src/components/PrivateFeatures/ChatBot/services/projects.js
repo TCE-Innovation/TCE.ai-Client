@@ -1,6 +1,7 @@
 import { client } from "../http";
 import { formatResponseData } from "../http/handlers";
 import { sortArray } from "../utils/date";
+import { extractUserData } from "../utils/data";
 
 const route = "/user/projects";
 
@@ -13,6 +14,7 @@ export const getProjects = async () => {
       userCount: item.user_count,
       documentCount: item.document_count,
       id: item.id,
+      isLive: item.is_live
     };
   });
   return { data: _data, success, message };
@@ -27,6 +29,17 @@ export const editProject = async ({ projectId, name }) => {
   });
   return formatResponseData(result);
 };
+
+export const editProjectStatus = async ({ projectId, isLive }) => {
+  const result = await client.update(route, {
+    data: { status: isLive.toString() },
+    query: {
+      project_id: projectId,
+    },
+  });
+  return formatResponseData(result);
+};
+
 
 /**
  *
@@ -100,17 +113,7 @@ export const addUsersToProject = async ({ projectId, userIds }) => {
     },
   });
   const { added_users = [], ...rest } = data;
-  const _data = sortArray(added_users, "created_at").map((item) => {
-    const name = [item.first_name, item.last_name].join(" ").trim();
-    return {
-      ...item,
-      name,
-      email: item.email,
-      role: item.role,
-      id: item.id,
-      url: "",
-    };
-  });
+  const _data = sortArray(added_users, "created_at").map(extractUserData);
   return formatResponseData({
     ...result,
     data: { users: _data, ...rest },
@@ -121,17 +124,7 @@ export const getProjectUsers = async ({ projectId }) => {
   const { data, success } = await client.get(`${route}/users`, {
     project_id: projectId,
   });
-  const _data = sortArray(data, "created_at").map((item) => {
-    const name = [item.first_name, item.last_name].join(" ").trim();
-    return {
-      ...item,
-      name,
-      email: item.email,
-      role: item.role,
-      id: item.id,
-      url: "",
-    };
-  });
+  const _data = sortArray(data, "created_at").map(extractUserData);
   return {
     data: _data,
     success,

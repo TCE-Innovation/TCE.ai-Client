@@ -28,12 +28,15 @@ const GlobalContextProvider = ({ children }) => {
     false
   );
 
-  const createAlert = useCallback(({ message, type }) => {
-    if (!message) return;
-    setAlerts((prev) => [...prev, { message, type, id: genRandomId() }]);
+  const createAlert = useCallback(({ message, type, ...rest }) => {
+    if (!message) return () => {};
+    const id = genRandomId();
+    setAlerts((prev) => [...prev, { message, type, id, ...rest }]);
+    return () => handleRemoveAlert(id);
   }, []);
 
   const handleRemoveAlert = (id) => {
+    console.log("removed alert");
     setAlerts((prev) => prev.filter((alert) => alert.id !== id));
   };
 
@@ -49,6 +52,12 @@ const GlobalContextProvider = ({ children }) => {
     pubsub.publish(data);
   };
 
+  const getSubscriberData = (name) => {
+    pubsubRef.current[name] = pubsubRef.current[name] || new PubSub(name);
+    const pubsub = pubsubRef.current[name];
+    pubsub.getCurrentData();
+  };
+
   return (
     <GlobalContext.Provider
       value={{
@@ -61,6 +70,7 @@ const GlobalContextProvider = ({ children }) => {
         setIsConversationsCollapsed,
         registerSubscriber,
         publishToSubscribers,
+        getSubscriberData,
       }}
     >
       {children}

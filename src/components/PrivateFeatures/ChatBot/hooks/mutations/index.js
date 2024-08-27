@@ -7,3 +7,4 @@ export { useEditProject } from "./useEditProject";
 export { useRemoveUser } from "./useRemoveUser";
 export { useUploadDocuments } from "./useUploadDocument";
 export { useDeleteDocument } from "./useDeleteDocument";
+export { useEditProjectStatus } from "./useEditProjectStatus";

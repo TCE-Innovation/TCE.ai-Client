@@ -30,7 +30,7 @@ export default styled.div`
   .chat-button {
     background: transparent;
     outline: none;
-    border: none;
+    border: 1px solid transparent;
   }
 
   .projects-modal-wrapper {
@@ -52,6 +52,10 @@ export default styled.div`
     & .field-wrapper {
       padding: 0 0.5em;
     }
+  }
+  .field-error-container {
+    transition: opacity 0.5s linear;
+    color: var(--chatbot-red);
   }
   .chatbot-dropdown-container {
     z-index: 1;
@@ -76,7 +80,8 @@ export default styled.div`
     & > * {
       padding: 0.75em;
       cursor: pointer;
-      &:not(.dropdown-search-field):hover,&.selected {
+      &:not(.dropdown-search-field):hover,
+      &.selected {
         background-color: var(--chatbot-light-grey);
       }
     }
@@ -94,7 +99,7 @@ export default styled.div`
     box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
     background-color: var(--bg);
     color: var(--fg);
-    z-index: 10;
+    z-index: 1111;
     opacity: 0;
     user-select: none;
     pointer-events: none;

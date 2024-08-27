@@ -70,19 +70,26 @@ const EditAction = ({ renderModal, disabled = false }) => {
   );
 };
 
-const DownLoadAction = ({ handleDownload }) => {
+const DownLoadAction = ({ handleDownload, disabled = false }) => {
   return (
     <>
-      <span className={`action-button tooltip-container`}>
+      <span
+        className={`action-button tooltip-container ${
+          disabled ? "disabled" : ""
+        }`}
+      >
         <span
           onClick={(e) => {
+            if(disabled) return;
             e.stopPropagation();
             handleDownload();
           }}
         >
           <DownloadIcon />
         </span>
-        <div className="tooltip align-bottom tooltip-dark">Download</div>
+        {!disabled && (
+          <div className="tooltip align-bottom tooltip-dark">Download</div>
+        )}
       </span>
     </>
   );

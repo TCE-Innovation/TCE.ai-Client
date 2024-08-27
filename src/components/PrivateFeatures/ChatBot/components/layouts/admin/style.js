@@ -46,19 +46,26 @@ export default styled.div`
     .action-button:not(.disabled):hover {
       color: var(--chatbot-text-primary);
     }
+    .action-button.disabled {
+      cursor: initial !important;
+    }
   }
   .upload-button {
     color: var(--chatbot-primary);
     background-color: var(--chatbot-light-grey) !important;
     display: flex;
+    cursor: pointer;
+    // position: relative;
     align-items: center;
     justify-content: center;
     gap: 0.5em;
     padding: 0.75em 0.25em;
     font-weight: bold;
     font-size: 1.2em;
+    border-radius: var(--chatbot-border-radius);
     border: 1px solid transparent;
-    &:hover {
+    &:hover,
+    &:focus-within {
       border-color: var(--chatbot-primary);
     }
   }

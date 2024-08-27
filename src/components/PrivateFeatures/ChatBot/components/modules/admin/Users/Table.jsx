@@ -12,29 +12,32 @@ const Table = ({ rows, ...props }) => {
   const columns = useMemo(
     () => [
       {
-        title: "User name",
+        title: "Name",
         sort: true,
+        key:"name",
         renderSort: ({ handleSort, currentOrder }) => {
           return (
             <SortButton handleSort={handleSort} currentOrder={currentOrder} />
           );
         },
         renderCell: ({ name, url }) => {
-          const title = name[0]?.toUpperCase();
-          return (
-            <div className="d-flex gap-1 align-items-center">
-              <Avatar title={title}>
-                <img src={url} alt={name} />
-              </Avatar>
-              {name ? (
-                <span>{name}</span>
-              ) : (
-                <span style={{ color: "var(--chatbot-grey)" }}>
-                  not available
-                </span>
-              )}
-            </div>
-          );
+          if(!name) return "/"
+          return name
+          // const title = name[0]?.toUpperCase();
+          // return (
+          //   <div className="d-flex gap-1 align-items-center">
+          //     <Avatar title={title}>
+          //       <img src={url} alt={name} />
+          //     </Avatar>
+          //     {name ? (
+          //       <span>{name}</span>
+          //     ) : (
+          //       <span style={{ color: "var(--chatbot-grey)" }}>
+          //         /
+          //       </span>
+          //     )}
+          //   </div>
+          // );
         },
       },
       {

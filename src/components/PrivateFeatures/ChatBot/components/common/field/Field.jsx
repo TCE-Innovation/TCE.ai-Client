@@ -1,6 +1,7 @@
 import React from "react";
 
 import { useContext, useFieldValue } from "../../contexts/FormContext";
+import ErrorBlock from "./ErrorBlock";
 
 import Wrapper from "./style";
 
@@ -11,14 +12,16 @@ const Field = ({
   leftAddon = null,
   rightAddon = null,
   label = "",
+  showError = true,
   ...props
 }) => {
   const { register } = useContext();
   const { value, error } = useFieldValue(name);
+
   return (
-    <Wrapper>
+    <Wrapper error={error ? error : ""}>
       {label && <div>{label}</div>}
-      {error && <div style={{ color: "var(--chatbot-red)" }}>{error}</div>}
+      {showError && <ErrorBlock name={name} />}
       <div className="field-wrapper">
         {leftAddon}
         <input
@@ -26,7 +29,7 @@ const Field = ({
           value={value}
           {...register(name, { onChange, ...props })}
         />
-        {rightAddon}
+        <span className="right-addon">{rightAddon}</span>
       </div>
     </Wrapper>
   );

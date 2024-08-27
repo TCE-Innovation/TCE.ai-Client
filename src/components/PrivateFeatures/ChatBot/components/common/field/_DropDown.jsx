@@ -1,9 +1,10 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import FormContext, { useFieldValue } from "../../contexts/FormContext";
 import Field from "./Field";
 import { SearchIcon } from "../../icons";
 
 import { Loader } from "../../common";
+import { filterByPatternsFactory } from "../../../utils/form";
 
 const DropDown = ({
   items,
@@ -19,9 +20,13 @@ const DropDown = ({
 
   const [currentItems, setCurrentItems] = useState(items);
 
+  useEffect(() => {
+    setCurrentItems(items);
+  }, [items]);
+
   const handleSearch = (value) => {
-    const pattern = new RegExp(value, "gi");
-    setCurrentItems(items.filter((item) => pattern.test(item.label)));
+    const filterByLabel = filterByPatternsFactory(value, "label");
+    setCurrentItems(filterByLabel(items));
   };
 
   const handleClick = (item) => {
@@ -40,6 +45,7 @@ const DropDown = ({
               </div>
             )}
             <Field
+              showError={false}
               name={"search"}
               placeholder={searchPlaceholder}
               leftAddon={<SearchIcon />}

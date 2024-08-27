@@ -41,7 +41,7 @@ const EditProject = ({ show, onClose, editProject, ...project }) => {
         }}
       >
         <div className="projects-modal-wrapper">
-          <Field name={"name"} placeholder={"Project name"} label="Name" />
+          <Field name={"name"} placeholder={"Project name"} label="Name" min={5} />
         </div>
       </Modal>
     </Overlay>

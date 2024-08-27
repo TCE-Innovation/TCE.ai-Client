@@ -8,6 +8,8 @@ import React, {
   useCallback,
 } from "react";
 
+import { nullableRegex, minMaxRegex } from "../../utils/form";
+
 const FormContext = createContext();
 
 export const useContext = () => _useContext(FormContext);
@@ -80,20 +82,27 @@ const FormContextProvider = ({ children, ...props }) => {
 
   const register = (name, options) => {
     if (!options.isNullable) {
-      const pattern = /^[\w-\s]+$/;
-      patternsRef.current[name] = pattern;
+      patternsRef.current[name] = {
+        pattern: nullableRegex(),
+        message: `${name} should be not be empty!`
+      }
     }
     if (options.min || options.max) {
-      const pattern = new RegExp(
-        `^.{${options.min ? options.min : ""},${
-          options.max ? options.max : ""
-        }}$`
-      );
+      const pattern = minMaxRegex(options.min, options.max);
+      let prefix = options.min
+        ? options.max
+          ? ""
+          : "at least"
+        : options.max
+        ? options.min
+          ? ""
+          : "at most"
+        : "";
       patternsRef.current[name] = {
         pattern: pattern,
         message:
           options?.regex?.message ||
-          `${name} should be ${[options.min, options.max]
+          `${name} should be ${prefix} ${[options.min, options.max]
             .filter(Boolean)
             .join("-")} characters long!`,
       };

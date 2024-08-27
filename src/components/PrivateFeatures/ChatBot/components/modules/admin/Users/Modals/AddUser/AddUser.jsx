@@ -16,15 +16,17 @@ const AddUser = ({ show, onClose }) => {
 
   const handleSubmit = (values) => {
     if (isSubmitting) return;
-    const [firstName = null, lastName = null] = values.name.trim().split(/\s+/);
+    // const [firstName = null, lastName = null] = values.name.trim().split(/\s+/);
+    const name = values.name.trim();
     if (!values.role) {
       return setError("role", "Please select a user role!");
     }
     const userData = {
       role: values.role,
       email: values.email.trim(),
-      firstName,
-      lastName,
+      name
+      // firstName,
+      // lastName,
     };
     mutate({ userData });
     resetForm();
