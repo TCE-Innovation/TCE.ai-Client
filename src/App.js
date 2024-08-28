@@ -130,7 +130,7 @@ const Clearance = () => {
     let newDivMaxH; 
     if (new_div === 'A') {
       newDivision = 'A Division';
-      newDivMaxH = 145.625;
+      newDivMaxH = 142.3125;
     } else if (new_div === 'B') {
       newDivision = 'B Division';
       newDivMaxH = 148.4375;
@@ -282,7 +282,7 @@ const Clearance = () => {
   };
 
   useEffect(() => {
-    if (!isBrowser) {
+    if (isBrowser) {
       setShowMobileWarning(true);
     }
   }, []);
@@ -418,10 +418,10 @@ const Clearance = () => {
 
   return (
     <div className="pwa-calculator-container">
-      {showMobileWarning && (
+      {!showMobileWarning && (
         <MobileWarningPopup />
       )}
-      {!showMobileWarning && (
+      {showMobileWarning && (
         <div>
           <div className="pwa-input-container">
             <h2 className="pwa-calculations"> 
