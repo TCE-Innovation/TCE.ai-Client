@@ -141,13 +141,11 @@ const Clearance = () => {
 
   const handleFocus = (e) => {
     e.target.scrollIntoView({ behavior: 'smooth', block: 'center' });
-    document.body.style.position = 'fixed';  // Lock the screen in place
-    document.body.style.width = '100%';  // Prevent horizontal scrollbars
+    document.body.style.overflow = 'hidden';  // Disable scrolling
   };
 
   const handleBlur = () => {
-      document.body.style.position = 'static';  // Re-enable normal scrolling
-      document.body.style.width = '';  // Restore original width
+    document.body.style.overflow = '';  // Re-enable scrolling
   };
 
   const updateCalcs = () => {
@@ -430,13 +428,13 @@ const Clearance = () => {
 
   return (
     <div className="pwa-calculator-container">
-      {showMobileWarning && (
+      {!showMobileWarning && (
         <MobileWarningPopup />
       )}
-      {!showMobileWarning && (
+      {showMobileWarning && (
         <div>
           <div className="pwa-input-container">
-            <h2 className="pwa-calculations"> 
+            <h2 className="pwa-calculations">
               Clearance Calculator
             </h2>
             <div className={`pwa-section-container ${state === 'RESULTS' ? 'results' : ''}`}>
@@ -532,6 +530,8 @@ const Clearance = () => {
                     InputProps={{
                       endAdornment: <InputAdornment position="end">in.</InputAdornment>
                     }}
+                    onFocus={handleFocus}
+                    onBlur={handleBlur}
                     onChange={handleDChange}
                     disabled={state === 'RESULTS'}
                     style={{ width: '100%' }}
@@ -555,6 +555,8 @@ const Clearance = () => {
                       endAdornment: <InputAdornment position="end">in.</InputAdornment>
                     }}
                     disabled={trackType === 'tangent' || state === 'RESULTS'}
+                    onFocus={handleFocus}
+                    onBlur={handleBlur}
                     onChange={handleMOChange}
                     style={{ width: '100%' }}
                     sx={{
@@ -582,6 +584,8 @@ const Clearance = () => {
                     InputProps={{
                       endAdornment: <InputAdornment position="end">in.</InputAdornment>
                     }}
+                    onFocus={handleFocus}
+                    onBlur={handleBlur}
                     onChange={handleSUPERChange}
                     disabled={state === 'RESULTS'}
                     style={{ width: '100%' }}
