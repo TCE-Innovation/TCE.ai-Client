@@ -23,13 +23,13 @@ import GenerateEmails from "../PrivateFeatures/GenerateEmails";
 import GOTracker from '../PrivateFeatures/GOTracker';
 import SubAuto from "../PrivateFeatures/SubAuto/SubAuto";
 import ScheduleDashboards from '../PrivateFeatures/ScheduleDashboards';
-import OverviewDashboard from '../PrivateFeatures/OverviewDashboard';
 import ToolUsage from "../PrivateFeatures/ToolUsage";
 import PrintingRequest from '../PrivateFeatures/3dPrinting/3dPrinting';
 import DroneCaptures from '../PrivateFeatures/DroneCaptures';
 import Clearance from '../PrivateFeatures/Clearance/Clearance';
 import EITDashboard from '../PrivateFeatures/EITDashboard';
 import Admin from '../PrivateFeatures/AdminPanel/AdminPanel';
+import ExecutiveDashboards from '../PrivateFeatures/ExecutiveDashboards';
 
 // AUTH
 import { adminList } from '../../admin/lists';
@@ -89,11 +89,11 @@ function PrivateContent() {
     'Schedule Dashboards': 'schedule-dashboards',
     'Tool Usage Stats': 'tool-usage',
     '3D Printing Request': '3d-printing-request',
-    'Overview Dashboard': 'overview-dashboard',
     'Drone Captures': 'drone-captures',
     'Chatbot': 'chatbot',
     'LLLE Clearance Calculator': 'clearance-calculator',
     'EIT Dashboard': 'equip-install-dashboard',
+    'Executive Dashboards': 'executive-dashboards',
   };
 
   // Always available tools
@@ -105,7 +105,7 @@ function PrivateContent() {
   // Convert userToolsArray to the URL ends they map to
   const userToolsUrlEnds = userToolsArray.map(tool => toolNameMap[tool]).filter(Boolean);
 
-  // Memorize toolComponentMap to avoid recalculating it on every render
+  // Memoize toolComponentMap to avoid recalculating it on every render
   const toolComponentMap = useMemo(() => ({
     'home': Home,
     'training': Training,
@@ -116,12 +116,12 @@ function PrivateContent() {
     'chatbot': ChatBot,
     'sub-automation': SubAuto,
     'schedule-dashboards': ScheduleDashboards,
-    'overview-dashboard': OverviewDashboard,
     'tool-usage': ToolUsage,
     '3d-printing-request': PrintingRequest,
     'drone-captures': DroneCaptures,
     'clearance-calculator': Clearance,
     'equip-install-dashboard' : EITDashboard,
+    'executive-dashboards' : ExecutiveDashboards,
     'admin': isAdmin ? Admin : null // Admin access only
   }), [isAdmin]);
 
