@@ -2,7 +2,7 @@ import React, { useMemo } from "react";
 
 import TableContainer from "../TableContainer";
 import SortButton from "../SortButton";
-import { Avatar, Badge } from "../../../common";
+import { Badge } from "../../../common";
 
 import { ROLE_TO_COLORS } from "../../../../constants/admin";
 
@@ -14,30 +14,15 @@ const Table = ({ rows, ...props }) => {
       {
         title: "Name",
         sort: true,
-        key:"name",
+        key: "name",
         renderSort: ({ handleSort, currentOrder }) => {
           return (
             <SortButton handleSort={handleSort} currentOrder={currentOrder} />
           );
         },
-        renderCell: ({ name, url }) => {
-          if(!name) return "/"
-          return name
-          // const title = name[0]?.toUpperCase();
-          // return (
-          //   <div className="d-flex gap-1 align-items-center">
-          //     <Avatar title={title}>
-          //       <img src={url} alt={name} />
-          //     </Avatar>
-          //     {name ? (
-          //       <span>{name}</span>
-          //     ) : (
-          //       <span style={{ color: "var(--chatbot-grey)" }}>
-          //         /
-          //       </span>
-          //     )}
-          //   </div>
-          // );
+        renderCell: ({ name }) => {
+          if (!name) return "/";
+          return name;
         },
       },
       {

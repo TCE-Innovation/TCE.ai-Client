@@ -36,6 +36,7 @@ const Alert = ({ message, type, context = null, duration = 3, onRemove }) => {
       cleanupRef.current();
       cancelAlert();
     };
+    // eslint-disable-next-line
   }, [context]);
 
   return (

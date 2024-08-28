@@ -18,7 +18,7 @@ const DocumentActions = ({ ...documentProps }) => {
   useEffect(() => {
     const progress = getSubscriberData(context);
     setIsDownloading(progress !== null && progress < 100);
-  }, []);
+  }, [context,getSubscriberData]);
 
   const getProgressMessage = (progress = 0) =>
     `Document download in progress... ${progress.toFixed(2)}% completed`;

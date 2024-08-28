@@ -52,11 +52,11 @@ const GlobalContextProvider = ({ children }) => {
     pubsub.publish(data);
   };
 
-  const getSubscriberData = (name) => {
+  const getSubscriberData = useCallback((name) => {
     pubsubRef.current[name] = pubsubRef.current[name] || new PubSub(name);
     const pubsub = pubsubRef.current[name];
     pubsub.getCurrentData();
-  };
+  }, []);
 
   return (
     <GlobalContext.Provider
