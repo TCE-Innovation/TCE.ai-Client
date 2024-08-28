@@ -75,8 +75,6 @@ function ResponsiveAppBar() {
                 return 'Training'
             case 'admin':
                 return 'Admin Panel';
-            case 'overview-dashboard':
-                return 'Overview Dashboard';
             case 'equip-install-dashboard':
                 return 'Equipment Install Tracker Dashboard';
             case 'executive-dashboards':
