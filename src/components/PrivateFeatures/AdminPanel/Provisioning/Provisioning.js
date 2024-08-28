@@ -12,7 +12,6 @@ const tableNameMap = {
     'Email Generator': 'email_generator',
     'Cable Run Optimizer': 'cable_run_optimizer',
     'Schedule Dashboards': 'schedule_dashboards',
-    'Overview Dashboard': 'overview_dashboard',
     'Tool Usage Stats': 'tool_usage',
     'Drone Captures': 'drone_captures',
     'Chatbot': 'chatbot',

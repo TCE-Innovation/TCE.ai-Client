@@ -26,7 +26,6 @@ import GenerateEmails from "../PrivateFeatures/GenerateEmails";
 import GOTracker from '../PrivateFeatures/GOTracker';
 import SubAuto from "../PrivateFeatures/SubAuto/SubAuto";
 import ScheduleDashboards from '../PrivateFeatures/ScheduleDashboards';
-import OverviewDashboard from '../PrivateFeatures/OverviewDashboard';
 import ToolUsage from "../PrivateFeatures/ToolUsage";
 import PrintingRequest from '../PrivateFeatures/3dPrinting/3dPrinting';
 import DroneCaptures from '../PrivateFeatures/DroneCaptures';
@@ -93,7 +92,6 @@ function PrivateContent() {
     'Schedule Dashboards': 'schedule-dashboards',
     'Tool Usage Stats': 'tool-usage',
     '3D Printing Request': '3d-printing-request',
-    'Overview Dashboard': 'overview-dashboard',
     'Drone Captures': 'drone-captures',
     'Chatbot': 'chatbot',
     'LLLE Clearance Calculator': 'clearance-calculator',
@@ -121,7 +119,6 @@ function PrivateContent() {
     'chatbot': ChatBot,
     'sub-automation': SubAuto,
     'schedule-dashboards': ScheduleDashboards,
-    'overview-dashboard': OverviewDashboard,
     'tool-usage': ToolUsage,
     '3d-printing-request': PrintingRequest,
     'drone-captures': DroneCaptures,
