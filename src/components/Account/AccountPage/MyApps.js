@@ -1,14 +1,6 @@
-import React, { useContext, useState } from 'react';
+import React, { useContext } from 'react';
 import Grid from "@mui/material/Grid";
 import Box from "@mui/material/Box";
-import Button from "@mui/material/Button";
-import AddIcon from '@mui/icons-material/Add';
-import Dialog from "@mui/material/Dialog";
-import DialogTitle from "@mui/material/DialogTitle";
-import DialogContent from "@mui/material/DialogContent";
-import List from "@mui/material/List";
-import ListItem from "@mui/material/ListItem";
-import ListItemText from "@mui/material/ListItemText";
 
 // CONTEXT
 import { AuthContext } from "../../../authentication/Auth";
@@ -23,10 +15,6 @@ const CMIC = require('../../../img/PartnerImages/CMIC.png');
 
 function MyApps() {
     const { userApplications } = useContext(AuthContext);
-    const [dialogOpen, setDialogOpen] = useState(false);
-
-    // All possible applications
-    const allApplications = ['Procore', 'AirTable', 'EzOffice', 'OpenSpace', 'BambooHR', 'CMIC', 'Test'];
 
     // User's applications as an array, excluding Bridgit
     const userAppsArray = userApplications.split(', ').filter(app => app !== 'Bridgit').concat('BambooHR');
@@ -50,17 +38,6 @@ function MyApps() {
             url: appDetails.url
         };
     });
-
-    // Filter applications that the user does not have
-    const availableApplications = allApplications.filter(app => !userAppsArray.includes(app) && app !== 'BambooHR');
-
-    const handleDialogOpen = () => {
-        setDialogOpen(true);
-    };
-
-    const handleDialogClose = () => {
-        setDialogOpen(false);
-    };
 
     return (
         <div>
@@ -94,49 +71,7 @@ function MyApps() {
                         </Box>
                     </Grid>
                 ))}
-                <Button
-                    sx={{
-                        position: 'absolute',
-                        top: 0,
-                        right: 16,
-                        color: '#1b365f',
-                        backgroundColor: 'white',
-                        boxShadow: 'none',
-                        '&:hover': {
-                            color: '#142850',
-                            backgroundColor: 'white',
-                            boxShadow: 'none',
-                        },
-                        '&.Mui-disabled': {
-                            color: 'grey',
-                            backgroundColor: 'white',
-                            boxShadow: 'none',
-                        }
-                    }}
-                    variant="contained"
-                    startIcon={<AddIcon />}
-                    onClick={handleDialogOpen}
-                    disabled
-                >
-                    Request Application
-                </Button>
             </Grid>
-            <Dialog onClose={handleDialogClose} open={dialogOpen} maxWidth="sm" fullWidth>
-                <DialogTitle>Request Access to Applications</DialogTitle>
-                <DialogContent>
-                    {availableApplications.length > 0 ? (
-                        <List>
-                            {availableApplications.map((app, index) => (
-                                <ListItem button key={index} onClick={handleDialogClose}>
-                                    <ListItemText primary={app} />
-                                </ListItem>
-                            ))}
-                        </List>
-                    ) : (
-                        <div>You already have access to all applications.</div>
-                    )}
-                </DialogContent>
-            </Dialog>
         </div>
     );
 }
