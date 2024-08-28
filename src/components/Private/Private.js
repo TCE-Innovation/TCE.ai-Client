@@ -10,9 +10,6 @@ import Divider from '@mui/material/Divider';
 import IconButton from '@mui/material/IconButton';
 import ChevronLeftIcon from '@mui/icons-material/ChevronLeft';
 import { ChevronRight } from "@mui/icons-material";
-import Tooltip from "@mui/material/Tooltip";
-import { Button } from '@mui/material';
-import ExitToAppIcon from '@mui/icons-material/ExitToApp';
 
 // COMPONENTS
 import Home from '../PrivateFeatures/Home/Home';
@@ -135,10 +132,6 @@ function PrivateContent() {
     }
   }, [tool, navigate, toolComponentMap, alwaysAvailableTools, userToolsUrlEnds]);
 
-  const handlePublicNavigate = () => {
-    navigate('/public');
-  };
-
   const ComponentToRender = toolComponentMap[tool] || Home;
 
   return (
@@ -169,25 +162,6 @@ function PrivateContent() {
             <PrivateListItems tool={tool} />
           </List>
           <Box sx={{ flexGrow: .75 }} />
-          <Divider />
-          {open ? (
-            <Button
-              sx={{ mb: 8 }}
-              onClick={handlePublicNavigate}
-              style={{ color: 'grey' }}
-            >
-              Go to Public Site
-            </Button>
-          ) : (
-            <IconButton
-              sx={{ mx: 'auto', color: 'action.active', my: 1 }}
-              onClick={handlePublicNavigate}
-            >
-              <Tooltip title="Go to Public" placement="right">
-                <ExitToAppIcon />
-              </Tooltip>
-            </IconButton>
-          )}
         </Drawer>
 
         <Box component="main" sx={{ marginTop: 5, flexGrow: 1, p: 3, ml: open ? 33 : 9 }}>

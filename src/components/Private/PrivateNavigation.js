@@ -1,7 +1,7 @@
 //REACT
 import * as React from 'react';
 import {useContext, useState} from "react";
-import { NavLink, useParams } from 'react-router-dom';
+import { NavLink, useParams, useNavigate } from 'react-router-dom';
 
 //MUI
 import Dialog from '@mui/material/Dialog';
@@ -17,6 +17,7 @@ import Avatar from '@mui/material/Avatar';
 import Tooltip from '@mui/material/Tooltip';
 import HelpOutlineIcon from '@mui/icons-material/HelpOutline';
 import LightbulbOutlinedIcon from '@mui/icons-material/LightbulbOutlined';
+import LanguageOutlinedIcon from '@mui/icons-material/LanguageOutlined';
 
 //IMAGES
 import logo from '../../img/Utils/whiteLogo.png'
@@ -37,6 +38,7 @@ function ResponsiveAppBar() {
 
     const { tool } = useParams();
     const { userPic } = useContext(AuthContext);
+    const navigate = useNavigate();
 
     const handleOpenSupportDialog = () => setOpenSupportDialog(true);
     const handleCloseSupportDialog = () => setOpenSupportDialog(false);
@@ -44,6 +46,10 @@ function ResponsiveAppBar() {
     const handleCloseAccountDialog = () => setOpenAccountDialog(false);
     const handleOpenIdeaDialog = () => setOpenIdeaDialog(true);
     const handleCloseIdeaDialog = () => setOpenIdeaDialog(false);
+
+    const handleGoToPublic = () => {
+        navigate('/public');
+    }
 
     function setTitle(tool) {
         switch(tool) {
@@ -154,6 +160,8 @@ function ResponsiveAppBar() {
                         {setTitle(tool)}
                     </Typography>
                     <Box sx={{  display: 'flex', alignItems: 'center', marginTop: '7px', marginRight: '30px'}}>           
+
+
                         <IconButton onClick={handleOpenSupportDialog}>
                             <Tooltip title="Need help?">
                                 <HelpOutlineIcon sx={{ color: 'white', fontSize: '60px' }} />
@@ -162,7 +170,13 @@ function ResponsiveAppBar() {
 
                         <IconButton onClick={handleOpenIdeaDialog}>
                             <Tooltip title="Got an idea?">
-                                <LightbulbOutlinedIcon sx={{ color: 'white', fontSize: '60px', marginRight: '.2vw' }} />
+                                <LightbulbOutlinedIcon sx={{ color: 'white', fontSize: '60px' }} />
+                            </Tooltip>
+                        </IconButton>
+
+                        <IconButton onClick={handleGoToPublic}>
+                            <Tooltip title="Go to Public Site">
+                                <LanguageOutlinedIcon sx={{ color: 'white', fontSize: '60px', marginRight: '.3vw' }} />
                             </Tooltip>
                         </IconButton>
 
