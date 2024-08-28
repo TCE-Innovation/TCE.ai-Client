@@ -148,6 +148,10 @@ const Clearance = () => {
     document.body.style.overflow = '';  // Re-enable scrolling
   };
 
+  const handleTouchStart = (e) => {
+    e.preventDefault();  // Prevent touch events from causing scroll
+  };
+
   const updateCalcs = () => {
 
     if (state === 'RESULTS') {
@@ -508,6 +512,7 @@ const Clearance = () => {
                     }}
                     onFocus={handleFocus}
                     onBlur={handleBlur}
+                    onTouchStart={handleTouchStart}
                     onChange={handleHChange}
                     disabled={state === 'RESULTS'}
                     style={{ width: '100%' }}
@@ -532,6 +537,7 @@ const Clearance = () => {
                     }}
                     onFocus={handleFocus}
                     onBlur={handleBlur}
+                    onTouchStart={handleTouchStart}
                     onChange={handleDChange}
                     disabled={state === 'RESULTS'}
                     style={{ width: '100%' }}
@@ -557,6 +563,7 @@ const Clearance = () => {
                     disabled={trackType === 'tangent' || state === 'RESULTS'}
                     onFocus={handleFocus}
                     onBlur={handleBlur}
+                    onTouchStart={handleTouchStart}
                     onChange={handleMOChange}
                     style={{ width: '100%' }}
                     sx={{
@@ -586,6 +593,7 @@ const Clearance = () => {
                     }}
                     onFocus={handleFocus}
                     onBlur={handleBlur}
+                    onTouchStart={handleTouchStart}
                     onChange={handleSUPERChange}
                     disabled={state === 'RESULTS'}
                     style={{ width: '100%' }}
