@@ -428,10 +428,10 @@ const Clearance = () => {
 
   return (
     <div className="pwa-calculator-container">
-      {!showMobileWarning && (
+      {showMobileWarning && (
         <MobileWarningPopup />
       )}
-      {showMobileWarning && (
+      {!showMobileWarning && (
         <div>
           <div className="pwa-input-container">
             <h2 className="pwa-calculations">
