@@ -141,11 +141,13 @@ const Clearance = () => {
 
   const handleFocus = (e) => {
     e.target.scrollIntoView({ behavior: 'smooth', block: 'center' });
-    document.body.style.overflow = 'hidden';  // Disable scrolling
+    document.body.style.position = 'fixed';  // Lock the screen in place
+    document.body.style.width = '100%';  // Prevent horizontal scrollbars
   };
 
   const handleBlur = () => {
-      document.body.style.overflow = 'auto';  // Re-enable scrolling
+      document.body.style.position = 'static';  // Re-enable normal scrolling
+      document.body.style.width = '';  // Restore original width
   };
 
   const updateCalcs = () => {
