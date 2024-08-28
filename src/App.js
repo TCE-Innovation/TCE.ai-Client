@@ -7,12 +7,12 @@ const Clearance = () => {
   const [division, setDivision] = useState('B Division');
   const [H, setH] = useState(' '); // Field for H (in inches)
   const [D, setD] = useState(' '); // Field for D (in inches)
+  const [MO, setMO] = useState(' '); // Field for MO (in inches)
+  const [SE, setSE] = useState(0); // Field for SE - Super Elevation Excess (in inches)
   const [trackType, setTrackType] = useState('curve'); // Tab selection for track type
   const [direction, setDirection] = useState('IN'); // Tab selection for direction
-  const [MO, setMO] = useState(' '); // Field for MO (in inches)
   const [SUPER, setSUPER] = useState(' '); // Field for Super Elevation 
   const [R, setR] = useState(0); // Field for R - Radius (in inches)
-  const [SE, setSE] = useState(0); // Field for SE - Super Elevation Excess (in inches)
   const [EE, setEE] = useState(0); // Field for EE - End Excess (in inches)
   const [CE, setCE] = useState(0); // Field for CE - Center Excess (in inches)
   const [LLLEMinReq, setLLLEMinReq] = useState(0); // Field for LLLE Minimum Requirement (in inches)
@@ -39,18 +39,26 @@ const Clearance = () => {
 
   const handleHChange = (event) => {
     let { value } = event.target;
-    const floatValue = parseFloat(value);
+
     // Regular expression to allow up to 3 digits after decimal
     const regex = /^-?\d*\.?\d{0,3}$/;
-    if (value === '' || (regex.test(value) && floatValue >= -0.5 && floatValue <= divMaxH)) {
-      if (value === '') { setH(' ') }
-      else { setH(value) }
+    
+    if (value === '' || (regex.test(value) && parseFloat(value) >= -0.5 && parseFloat(value) <= divMaxH)) {
+      if (value === '') { 
+        setH(' ') 
+      } else { 
+        setH(value) 
+      }
     } else {
-      if (floatValue < -0.5) {
+      if (parseFloat(value) < -0.5) {
         setH('-0.5')
-      } else if (floatValue > divMaxH) {
+      } else if (parseFloat(value) > divMaxH) {
         setH(divMaxH.toString());
-      } else { setH(value) }
+      } else { 
+        // If more than 3 decimal places are entered, truncate the extra digits
+        const truncatedValue = parseFloat(value).toFixed(3);
+        setH(truncatedValue); 
+      }
     }
   };
 
@@ -274,7 +282,7 @@ const Clearance = () => {
   };
 
   useEffect(() => {
-    if (isBrowser) {
+    if (!isBrowser) {
       setShowMobileWarning(true);
     }
   }, []);
