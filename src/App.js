@@ -139,6 +139,15 @@ const Clearance = () => {
     setDivMaxH(newDivMaxH);
   };
 
+  const handleFocus = (e) => {
+    e.target.scrollIntoView({ behavior: 'smooth', block: 'center' });
+    document.body.style.overflow = 'hidden';  // Disable scrolling
+  };
+
+  const handleBlur = () => {
+      document.body.style.overflow = 'auto';  // Re-enable scrolling
+  };
+
   const updateCalcs = () => {
 
     if (state === 'RESULTS') {
@@ -339,6 +348,7 @@ const Clearance = () => {
     
     fetchData();
   }, []); 
+
   
   // CSS Styles for the Mobile Warning Popup
   const mobileWarningStyles = `
@@ -496,6 +506,8 @@ const Clearance = () => {
                     InputProps={{
                       endAdornment: <InputAdornment position="end">in.</InputAdornment>,
                     }}
+                    onFocus={handleFocus}
+                    onBlur={handleBlur}
                     onChange={handleHChange}
                     disabled={state === 'RESULTS'}
                     style={{ width: '100%' }}
