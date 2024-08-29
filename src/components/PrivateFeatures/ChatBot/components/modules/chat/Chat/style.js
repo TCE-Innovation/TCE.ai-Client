@@ -36,7 +36,13 @@ export default styled.div`
     background-color: var(--chatbot-secondary);
     border-radius: 0.25em;
     padding: 0.25em 0.5em;
+    pointer-events: none;
     font-weight: 600;
     color: var(--chatbot-text-primary);
+    background-color: var(--chatbot-secondary);
+    &.pursuit {
+      color: white;
+      background-color: var(--chatbot-primary);
+    }
   }
 `;

@@ -116,3 +116,15 @@ export const download = (
     }
   });
 };
+
+export const getDirectFiles = (e) => {
+  const files = [e.target.file]
+    .concat(
+      Array.from(e.target.files).filter((file) => {
+        const relativePath = file.webkitRelativePath || "";
+        return relativePath.lastIndexOf("/") === relativePath.indexOf("/");
+      })
+    )
+    .filter(Boolean);
+  return files;
+};

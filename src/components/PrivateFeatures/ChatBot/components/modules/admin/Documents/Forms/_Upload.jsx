@@ -3,35 +3,48 @@ import React, { useEffect } from "react";
 import { UploadField } from "../../../../common/field";
 import { useFieldValue } from "../../../../contexts/FormContext";
 
-import { getFileSize } from "../../../../../utils/file";
+import { getFileSize, getFileName } from "../../../../../utils/file";
 
-const Upload = () => {
-  const { value: document } = useFieldValue("document");
-  const { changeValue: changeDocumentName } = useFieldValue("documentName");
+const Upload = ({ name, ...uploadProps }) => {
+  const { value: items } = useFieldValue(name);
+  const {
+    changeValue: changeDocumentNames,
+    value: documentNames,
+  } = useFieldValue("documentNames");
 
   useEffect(() => {
-    changeDocumentName(document?.name || "");
+    changeDocumentNames(
+      items.map((doc, index) => documentNames[index] || doc?.name || "")
+    );
     // eslint-disable-next-line
-  }, [document?.name]);
+  }, [items]);
 
   return (
     <div>
       <div>
-        <UploadField
-          id={"document-upload"}
-          title={"Upload Document"}
-          name={"document"}
-        />
-        {document && (
-          <>
-            <button
-              className="chat-button document-metadata"
-              data-size={getFileSize(document)}
-            >
-              <span>{document.name}</span>
-            </button>
-          </>
-        )}
+        <UploadField name={name} {...uploadProps} />
+        {items.length > 0 &&
+          items.map((document, index) => {
+            const docName = getFileName(document);
+            const fileName = getFileName(documentNames[index]);
+            return (
+              <div key={index}>
+                <button
+                  className="chat-button document-metadata"
+                  data-size={getFileSize(document)}
+                >
+                  <span>{docName}</span>
+                  {fileName !== docName ? (
+                    <span style={{ color: "var(--chatbot-grey)" }}>
+                      {`(${fileName})`}
+                    </span>
+                  ) : (
+                    ""
+                  )}
+                </button>
+              </div>
+            );
+          })}
       </div>
     </div>
   );

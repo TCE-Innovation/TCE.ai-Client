@@ -3,26 +3,32 @@ import React, { useRef } from "react";
 import Field from "./Field";
 import { UploadIcon } from "../../icons";
 
-import ErrorBlock from "./ErrorBlock";
-
-const Upload = ({ title, id, name }) => {
-  const ref = useRef()
+const Upload = ({ title, id, name, ...uploadProps }) => {
+  const ref = useRef();
   return (
     <div>
-      <ErrorBlock name={name} />
       <div className="position-relative">
-        <label htmlFor={id} className="d-block">
-          <div ref={ref} className="position-absolute w-100 h-100" style={{zIndex:"-1"}}>
+        <label htmlFor={`${name}-${id}`} className="d-block">
+          <div
+            ref={ref}
+            className="position-absolute w-100 h-100"
+            style={{ zIndex: "-1" }}
+          >
             <Field
               name={name}
               type="file"
-              id={id}
+              id={`${name}-${id}`}
               hidden
               value={""}
               showError={false}
+              {...uploadProps}
             />
           </div>
-          <button onClick={() => ref.current?.click()} tabIndex={0} className="chat-button upload-button w-100">
+          <button
+            onClick={() => ref.current?.click()}
+            tabIndex={0}
+            className="chat-button upload-button w-100"
+          >
             <UploadIcon />
             <span>{title}</span>
           </button>

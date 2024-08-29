@@ -1,36 +1,36 @@
 import React from "react";
 
-import { Overlay, Modal, Field } from "../../../../../common";
-import { toFormData } from "../../../../../../utils/form";
+import { Overlay, Modal, Field, Loader } from "../../../../../common";
 
 import { useAdmin } from "../../../../../../hooks";
 
-import { useContext, useFieldValue } from "../../../../../contexts/FormContext";
+import FormContext, {
+  useFieldValue,
+} from "../../../../../contexts/FormContext";
 import { useDocument } from "../../hooks";
 
-const RenameDocument = ({ show, onClose }) => {
-  const { submitHandler, formValues } = useContext();
+const RenameDocument = ({ show, onClose, index }) => {
   const { uploadDocument } = useAdmin();
   const { value: projectId } = useFieldValue("projectId");
-  const { setError } = useFieldValue("documentName");
-  const { changeValue: changeFormStep } = useFieldValue("step");
+  const {
+    value: documentNames,
+    setError,
+    changeValue: changeDocumentName,
+  } = useFieldValue("documentNames");
   const { isDuplicateDocument, loadingDocuments } = useDocument(projectId);
-  const { mutate, loading: isSubmitting } = uploadDocument;
+  const { loading: isSubmitting } = uploadDocument;
 
-  const handleSubmit = (values) => {
+  const handleSubmit = () => {
     if (isSubmitting || loadingDocuments) return;
-    const isDuplicateName = isDuplicateDocument(values.documentName);
-    if (isDuplicateName) {
+    const isDuplicateName = isDuplicateDocument(documentNames[index].name);
+    const isUniqueNames =
+      [...new Set(documentNames)].length === documentNames.length;
+    if (isDuplicateName || !isUniqueNames) {
       return setError(
         "Document with this name already exist. Please rename it."
       );
     }
-    const formData = toFormData({
-      doc: values.document,
-      file_name: values.documentName.trim(),
-    });
-    mutate({ formData, projectId: values.projectId });
-    changeFormStep("exit");
+    onClose();
   };
 
   if (!show) return null;
@@ -44,7 +44,7 @@ const RenameDocument = ({ show, onClose }) => {
           submit: "Rename",
         }}
         isSubmitting={isSubmitting || loadingDocuments}
-        onSubmit={submitHandler(handleSubmit)}
+        onSubmit={handleSubmit}
         styles={{
           submit: {
             color: "var(--chatbot-red)",
@@ -56,14 +56,31 @@ const RenameDocument = ({ show, onClose }) => {
           },
         }}
       >
-        <div className="projects-modal-wrapper">
-          <div>
-            <Field
-              name={"documentName"}
-              placeholder={"Type here"}
-              autoComplete="off"
-              value={formValues.documentName}
-            />
+        <div className="projects-modal-wrapper position-relative">
+          {loadingDocuments && <Loader />}
+          <div
+            style={{
+              opacity: loadingDocuments ? 0 : 1,
+              pointerEvents: loadingDocuments ? "none" : "all",
+            }}
+          >
+            <FormContext initialValues={{ name: "" }}>
+              <Field
+                name={"name"}
+                placeholder={"Type here"}
+                autoComplete="off"
+                onChange={(value) => {
+                  changeDocumentName(
+                    documentNames.map((name, i) => {
+                      if (i === index) {
+                        return value;
+                      }
+                      return name;
+                    })
+                  );
+                }}
+              />
+            </FormContext>
           </div>
         </div>
       </Modal>

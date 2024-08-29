@@ -1,8 +1,8 @@
-import React, { useMemo } from "react";
+import React, { useEffect, useMemo } from "react";
 import { SelectField } from "../../../common/field";
 import FormContext from "../../../contexts/FormContext";
 
-import { queries } from "../../../../hooks";
+import { queries, useGlobal } from "../../../../hooks";
 import useConversation from "../../../../hooks/useConversation";
 import useMessage from "../../../../hooks/useMessage";
 
@@ -12,11 +12,14 @@ const SelectProject = () => {
   const { data, loading } = useGetProjectsQuery();
   const { setSelectedProjectId, selectedProjectId } = useConversation();
   const { clearMessageCache } = useMessage();
+  const { query } = useGlobal();
+  const { push } = query;
 
   const items = useMemo(() => {
     if (!data?.data) return [];
     const { data: projects } = data;
     return projects.map((project) => ({
+      ...project,
       label: project.name,
       value: project.id,
     }));
@@ -26,6 +29,15 @@ const SelectProject = () => {
     setSelectedProjectId(projectId);
     clearMessageCache();
   };
+
+  useEffect(() => {
+    const project = items?.find((project) => project.id === selectedProjectId);
+    if (project) {
+      push({ is_live: project.isLive });
+    }
+    push({ admin: true, profile: "", project_id: "" }, { reverse: true });
+    // eslint-disable-next-line
+  }, [selectedProjectId, items]);
 
   return (
     <>

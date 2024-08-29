@@ -4,6 +4,7 @@ import React, {
   useState,
   useCallback,
   useRef,
+  useLayoutEffect,
 } from "react";
 
 import { genRandomId } from "../../utils/uuid";
@@ -28,6 +29,25 @@ const GlobalContextProvider = ({ children }) => {
     false
   );
 
+  const { params } = query;
+
+  useLayoutEffect(() => {
+    const container = document.querySelector("#private-wrapper");
+    if (!container) return;
+    const initialColor = container.style.backgroundColor;
+    if (params.admin) {
+      container.style.backgroundColor = "#eff1f3";
+    } else if (params["is_live"] === false) {
+      container.style.backgroundColor = "#d6e0f4";
+    } else {
+      container.style.backgroundColor = "rgb(248, 241, 215)";
+    }
+    // eslint-disable-next-line
+    return () => {
+      container.style.backgroundColor = initialColor;
+    };
+  }, [params]);
+
   const createAlert = useCallback(({ message, type, ...rest }) => {
     if (!message) return () => {};
     const id = genRandomId();
@@ -36,7 +56,6 @@ const GlobalContextProvider = ({ children }) => {
   }, []);
 
   const handleRemoveAlert = (id) => {
-    console.log("removed alert");
     setAlerts((prev) => prev.filter((alert) => alert.id !== id));
   };
 

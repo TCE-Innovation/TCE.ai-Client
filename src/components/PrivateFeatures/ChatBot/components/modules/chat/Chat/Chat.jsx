@@ -22,7 +22,7 @@ const Chat = () => {
 
   return (
     <Wrapper>
-      <div className="chatbot-live-status">Live</div>
+      <div className={`chatbot-live-status`}>Live</div>
       <Alerts />
       <div>
         <SelectProject />

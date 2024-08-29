@@ -11,10 +11,11 @@ const AddDocumentModal = (props) => {
 
   const initialValues = useMemo(
     () => ({
-      document: null,
-      documentName: "",
+      documents: [],
+      directory: [],
+      documentNames: [],
       projectId: project_id,
-      step: null
+      step: null,
     }),
     [project_id]
   );

@@ -15,8 +15,8 @@ const RenameAlert = ({ show, onClose, ...document }) => {
   };
 
   const handleReplaceDocument = () => {
+    resetForm();
     changeFormStep("upload");
-    resetForm("document", "documentName");
     onClose();
   };
 
@@ -26,7 +26,7 @@ const RenameAlert = ({ show, onClose, ...document }) => {
         onCancel={handleReplaceDocument}
         title="Document with the same name already exists"
         buttonLabels={{
-          submit: "Rename New Document",
+          submit: "Rename this Document",
           cancel: "Replace it",
         }}
         showCloseBtn

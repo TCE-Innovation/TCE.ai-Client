@@ -9,6 +9,7 @@ import React, {
 } from "react";
 
 import { nullableRegex, minMaxRegex } from "../../utils/form";
+import { getDirectFiles } from "../../utils/file";
 
 const FormContext = createContext();
 
@@ -84,8 +85,8 @@ const FormContextProvider = ({ children, ...props }) => {
     if (!options.isNullable) {
       patternsRef.current[name] = {
         pattern: nullableRegex(),
-        message: `${name} should be not be empty!`
-      }
+        message: `${name} should be not be empty!`,
+      };
     }
     if (options.min || options.max) {
       const pattern = minMaxRegex(options.min, options.max);
@@ -117,7 +118,8 @@ const FormContextProvider = ({ children, ...props }) => {
       onChange: (e) => {
         let value = "";
         if (options.type === "file") {
-          value = e.target.file || e.target.files[0];
+          e.preventDefault();
+          value = getDirectFiles(e);
         } else {
           value = e.target.value;
         }

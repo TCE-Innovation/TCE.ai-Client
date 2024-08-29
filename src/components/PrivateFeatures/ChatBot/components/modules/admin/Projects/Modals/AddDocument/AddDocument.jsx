@@ -1,83 +1,65 @@
-import React, { useEffect, useMemo } from "react";
+import React, { useMemo, useState } from "react";
 
-import { Overlay, Modal } from "../../../../../common";
+import useUpload from "./useUpload";
 
-import { useAdmin, queries } from "../../../../../../hooks";
-
-import { useContext, useFieldValue } from "../../../../../contexts/FormContext";
+import { useContext } from "../../../../../contexts/FormContext";
 
 import { RenameDocumentAlert } from "../../../Documents/Modals/DocumentAlert";
+import { Loader, Modal, Overlay } from "../../../../../common";
+import ErrorBlock from "../../../../../common/field/ErrorBlock";
+import { getFileExtension } from "../../../../../../utils/file";
 
-import { getFileExtension, getFileName } from "../../../../../../utils/file";
-import { toFormData } from "../../../../../../utils/form";
-import { useDocument } from "../../../Documents/hooks";
-
-import Form from "./Form";
+import UploadFiles from "../../../Documents/Forms/_UploadFiles";
+import UploadDirectory from "../../../Documents/Forms/_UploadDirectory";
 import { RenameDocumentModal } from "../../../Documents/Modals";
 
-const { useGetProjectsQuery } = queries;
+const uploadDirectoryElement = (
+  <UploadDirectory
+    name={"documents"}
+    title="Upload Document Folder"
+    id="upload-directory"
+  />
+);
+const uploadFilesElement = (
+  <UploadFiles
+    name={"documents"}
+    title="Upload Documents"
+    id="upload-documents"
+  />
+);
 
 const AddDocument = ({ show, onClose }) => {
-  const { uploadDocument } = useAdmin();
-  const { value: projectId } = useFieldValue("projectId");
-  const { isDuplicateDocument, loadingDocuments } = useDocument(projectId);
-  const { data: projects } = useGetProjectsQuery({
-    disableRunOnMount: projectId === null,
-  });
-  const { mutate, loading: isSubmitting } = uploadDocument;
+  const [selected, setSelected] = useState(null);
 
-  const project = useMemo(() => {
-    if (!projects) return null;
-    return projects.data.find(
-      (project) => project.id.toString() === projectId.toString()
-    );
-  }, [projects, projectId]);
+  const {
+    formStep,
+    changeFormStep,
+    handleSubmit,
+    docIndex,
+    project,
+    files,
+    error,
+    isSubmitting,
+    isloading,
+  } = useUpload({ name: "documents" });
 
-  const { submitHandler, resetForm } = useContext();
-  const { value: currentDocument, error, setError } = useFieldValue("document");
-  const { value: formStep, changeValue: changeFormStep } = useFieldValue(
-    "step"
-  );
-
-  useEffect(() => {
-    if (formStep === "exit") {
-      resetForm();
-      onClose();
-    }
-    // eslint-disable-next-line
-  }, [formStep]);
-
-  useEffect(() => {
-    changeFormStep("upload");
-    // eslint-disable-next-line
-  }, []);
+  const { submitHandler } = useContext();
 
   const documentDescription = useMemo(() => {
-    const ext = getFileExtension(currentDocument);
+    const doc = files?.[docIndex];
+    const ext = getFileExtension(doc);
     return {
-      name: currentDocument?.name || "<INVALID>",
+      name: doc?.name || "<INVALID>",
       documentType: ext || "<INVALID>",
-      size: currentDocument?.size || 0,
+      size: doc?.size || 0,
       uploadDate: new Date().toISOString(),
     };
-  }, [currentDocument]);
+  }, [docIndex, files]);
 
-  const handleSubmit = (values) => {
-    if (loadingDocuments || isSubmitting) return;
-    const fileName = getFileName(values.documentName);
-    const _isDuplicate = isDuplicateDocument(values.documentName);
-    if (_isDuplicate) {
-      return changeFormStep("alert");
-    }
-    if (!values.document) {
-      return setError("Please select a document");
-    }
-    const formData = toFormData({
-      doc: values.document,
-      file_name: fileName,
-    });
-    mutate({ formData, projectId });
-    resetForm();
+  const onSubmit = (values) => {
+    const success = handleSubmit(values);
+    if (!success) return;
+    setSelected(null);
     onClose();
   };
 
@@ -104,8 +86,8 @@ const AddDocument = ({ show, onClose }) => {
             submit: "Add Document",
           }}
           isDisabled={error !== null}
-          isSubmitting={isSubmitting || loadingDocuments}
-          onSubmit={submitHandler(handleSubmit)}
+          isSubmitting={isSubmitting || isloading}
+          onSubmit={submitHandler(onSubmit)}
           styles={{
             submit: {
               color: "white",
@@ -117,8 +99,42 @@ const AddDocument = ({ show, onClose }) => {
             },
           }}
         >
-          <div className="projects-modal-wrapper">
-            <Form />
+          <div className="projects-modal-wrapper position-relative">
+            <ErrorBlock name={"documents"} />
+            {isloading && <Loader />}
+            <div
+              style={{
+                opacity: isloading ? 0 : 1,
+                pointerEvents: isloading ? "none" : "all",
+              }}
+            >
+              {!selected ? (
+                <div className="d-flex flex-column gap-2">
+                  <div
+                    onClick={(e) => {
+                      e.preventDefault();
+                      e.stopPropagation();
+                      setSelected("folder");
+                    }}
+                  >
+                    {uploadDirectoryElement}
+                  </div>
+                  <div
+                    onClick={(e) => {
+                      e.preventDefault();
+                      e.stopPropagation();
+                      setSelected("files");
+                    }}
+                  >
+                    {uploadFilesElement}
+                  </div>
+                </div>
+              ) : selected === "files" ? (
+                uploadFilesElement
+              ) : selected === "folder" ? (
+                uploadDirectoryElement
+              ) : null}
+            </div>
           </div>
         </Modal>
       </Overlay>
@@ -128,7 +144,8 @@ const AddDocument = ({ show, onClose }) => {
     return (
       <RenameDocumentModal
         show={true}
-        onClose={() => changeFormStep("alert")}
+        index={docIndex}
+        onClose={() => changeFormStep("upload")}
       />
     );
   }
