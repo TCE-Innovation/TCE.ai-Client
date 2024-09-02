@@ -31,6 +31,11 @@ export default styled.div`
     background: transparent;
     outline: none;
     border: 1px solid transparent;
+
+    & a {
+      text-decoration: none;
+      color: white;
+    }
   }
 
   .projects-modal-wrapper {
@@ -181,5 +186,15 @@ export default styled.div`
 
   *::-webkit-scrollbar-button {
     display: none;
+  }
+
+  .chatbot-bug-report-btn {
+    --spacing-offset: .5em;
+    position: fixed;
+    bottom: var(--spacing-offset);
+    right: var(--spacing-offset);
+    background-color: var(--chatbot-primary);
+    border-radius: 0.5em;
+    padding: 0.25em;
   }
 `;

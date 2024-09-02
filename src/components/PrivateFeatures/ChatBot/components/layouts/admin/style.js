@@ -9,7 +9,7 @@ export default styled.div`
   }
   .admin-header {
     padding: 0 10px;
-    z-index: 9999;
+    z-index: 1300;
   }
   .add-project-button {
     color: var(--chatbot-grey);

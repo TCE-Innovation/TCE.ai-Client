@@ -29,20 +29,23 @@ export default styled.div`
       outline: none;
     }
   }
-  .chatbot-live-status {
+  .chatbot-live-status-wrapper {
     position: absolute;
     top: 0;
     right: 0;
-    background-color: var(--chatbot-secondary);
-    border-radius: 0.25em;
-    padding: 0.25em 0.5em;
     pointer-events: none;
-    font-weight: 600;
-    color: var(--chatbot-text-primary);
-    background-color: var(--chatbot-secondary);
-    &.pursuit {
-      color: white;
-      background-color: var(--chatbot-primary);
+
+    & .chatbot-live-status {
+      background-color: var(--chatbot-secondary);
+      border-radius: 0.25em;
+      padding: 0.25em 0.5em;
+      font-weight: 600;
+      color: var(--chatbot-text-primary);
+      background-color: var(--chatbot-secondary);
+      &.pursuit {
+        color: white;
+        background-color: var(--chatbot-primary);
+      }
     }
   }
 `;

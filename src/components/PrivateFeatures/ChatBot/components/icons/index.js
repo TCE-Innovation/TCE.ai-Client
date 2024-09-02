@@ -24,3 +24,4 @@ export { ReactComponent as DownloadIcon } from "../../assets/svg/download.svg";
 export { ReactComponent as UploadIcon } from "../../assets/svg/upload-cloud.svg";
 export { ReactComponent as CheckIcon } from "../../assets/svg/tick.svg";
 export { ReactComponent as InfoIcon } from "../../assets/svg/info.svg";
+export { ReactComponent as BugIcon } from "../../assets/svg/bug.svg";

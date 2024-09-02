@@ -33,9 +33,8 @@ const SelectProject = () => {
   useEffect(() => {
     const project = items?.find((project) => project.id === selectedProjectId);
     if (project) {
-      push({ is_live: project.isLive });
+      push({ is_live: project.isLive},{replace: true});
     }
-    push({ admin: true, profile: "", project_id: "" }, { reverse: true });
     // eslint-disable-next-line
   }, [selectedProjectId, items]);
 
