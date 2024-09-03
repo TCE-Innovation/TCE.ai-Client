@@ -10,28 +10,26 @@ import Divider from '@mui/material/Divider';
 import IconButton from '@mui/material/IconButton';
 import ChevronLeftIcon from '@mui/icons-material/ChevronLeft';
 import { ChevronRight } from "@mui/icons-material";
-import Tooltip from "@mui/material/Tooltip";
-import { Button } from "@mui/material";
-import ExitToAppIcon from "@mui/icons-material/ExitToApp";
 
 // COMPONENTS
 import Home from "../PrivateFeatures/Home/Home";
 import PrivateListItems from "./privateItems";
 import PrivateNavigation from "./PrivateNavigation";
-import CRO from "../PrivateFeatures/CRO/CRO";
-import AssetTracker from "../PrivateFeatures/AssetTracker/AssetTracker";
-import ChatBot from "../PrivateFeatures/ChatBot";
+import Training from '../PrivateFeatures/Training';
+import CRO from '../PrivateFeatures/CRO/CRO';
+import AssetTracker from '../PrivateFeatures/AssetTracker/AssetTracker';
+import ChatBot from '../PrivateFeatures/ChatBot';
 import GenerateEmails from "../PrivateFeatures/GenerateEmails";
 import GOTracker from "../PrivateFeatures/GOTracker";
 import SubAuto from "../PrivateFeatures/SubAuto/SubAuto";
-import ScheduleDashboards from "../PrivateFeatures/ScheduleDashboards";
-import OverviewDashboard from "../PrivateFeatures/OverviewDashboard";
+import ScheduleDashboards from '../PrivateFeatures/ScheduleDashboards';
 import ToolUsage from "../PrivateFeatures/ToolUsage";
 import PrintingRequest from '../PrivateFeatures/3dPrinting/3dPrinting';
 import DroneCaptures from '../PrivateFeatures/DroneCaptures';
 import Clearance from '../PrivateFeatures/Clearance/Clearance';
 import EITDashboard from '../PrivateFeatures/EITDashboard';
 import Admin from '../PrivateFeatures/AdminPanel/AdminPanel';
+import ExecutiveDashboards from '../PrivateFeatures/ExecutiveDashboards';
 
 // AUTH
 import { adminList } from "../../admin/lists";
@@ -82,6 +80,7 @@ function PrivateContent() {
   // Mapping full names of tools to their URL ends
   const toolNameMap = {
     'Home': 'home',
+    'Training' : 'training',
     'Email Generator': 'generate-emails',
     'Cable Run Optimizer': 'cable-run-optimizer',
     'GO Tracker': 'go-tracker',
@@ -90,15 +89,15 @@ function PrivateContent() {
     'Schedule Dashboards': 'schedule-dashboards',
     'Tool Usage Stats': 'tool-usage',
     '3D Printing Request': '3d-printing-request',
-    'Overview Dashboard': 'overview-dashboard',
     'Drone Captures': 'drone-captures',
     'Chatbot': 'chatbot',
     'LLLE Clearance Calculator': 'clearance-calculator',
     'EIT Dashboard': 'equip-install-dashboard',
+    'Executive Dashboards': 'executive-dashboards',
   };
 
   // Always available tools
-  const alwaysAvailableTools = useMemo(() => ['home', 'sub-automation', 'equipment-checkout', 'go-tracker', '3d-printing-request', 'clearance-calculator', 'admin'], []);
+  const alwaysAvailableTools = useMemo(() => ['home', 'training', 'sub-automation', 'equipment-checkout', 'go-tracker', '3d-printing-request', 'clearance-calculator', 'admin'], []);
 
   // Split the userTools string into an array
   const userToolsArray = (userTools || "")
@@ -110,9 +109,10 @@ function PrivateContent() {
     .map((tool) => toolNameMap[tool])
     .filter(Boolean);
 
-  // Memorize toolComponentMap to avoid recalculating it on every render
+  // Memoize toolComponentMap to avoid recalculating it on every render
   const toolComponentMap = useMemo(() => ({
     'home': Home,
+    'training': Training,
     'generate-emails': GenerateEmails,
     'cable-run-optimizer': CRO,
     'equipment-checkout': AssetTracker,
@@ -120,12 +120,12 @@ function PrivateContent() {
     'chatbot': ChatBot,
     'sub-automation': SubAuto,
     'schedule-dashboards': ScheduleDashboards,
-    'overview-dashboard': OverviewDashboard,
     'tool-usage': ToolUsage,
     '3d-printing-request': PrintingRequest,
     'drone-captures': DroneCaptures,
     'clearance-calculator': Clearance,
     'equip-install-dashboard' : EITDashboard,
+    'executive-dashboards' : ExecutiveDashboards,
     'admin': isAdmin ? Admin : null // Admin access only
   }), [isAdmin]);
 
@@ -144,10 +144,6 @@ function PrivateContent() {
     alwaysAvailableTools,
     userToolsUrlEnds,
   ]);
-
-  const handlePublicNavigate = () => {
-    navigate("/public");
-  };
 
   const ComponentToRender = toolComponentMap[tool] || Home;
 
@@ -178,26 +174,7 @@ function PrivateContent() {
           <List component="nav">
             <PrivateListItems tool={tool} />
           </List>
-          <Box sx={{ flexGrow: 0.75 }} />
-          <Divider />
-          {open ? (
-            <Button
-              sx={{ mb: 8 }}
-              onClick={handlePublicNavigate}
-              style={{ color: "grey" }}
-            >
-              Go to Public Site
-            </Button>
-          ) : (
-            <IconButton
-              sx={{ mx: "auto", color: "action.active", my: 1 }}
-              onClick={handlePublicNavigate}
-            >
-              <Tooltip title="Go to Public" placement="right">
-                <ExitToAppIcon />
-              </Tooltip>
-            </IconButton>
-          )}
+          <Box sx={{ flexGrow: .75 }} />
         </Drawer>
 
         <Box

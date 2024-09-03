@@ -37,17 +37,6 @@ export async function getPBILog(tableID) {
     }    
 }
 
-//function to get overview dashboard link from airtable base
-export async function getOverviewDashboardLink() {
-    try{
-        const {data} = await axios.get('https://tce-ai-api.azurewebsites.net/api/get-overview-dashboard-link');
-        return data;
-    }
-    catch(error){
-        console.error('Error getting Overview Dashboard Link:', error);
-    }    
-}
-
 //function to send private form data to airtable base
 export async function sendPrivateFormData(name, email, description) {
     try{
@@ -129,4 +118,15 @@ export async function updateUserLog(name) {
     catch(error){
         console.error('Error updating user log:', error);
     }    
+}
+
+//function to log when someone has signed into the site
+export async function getTrainingLink() {
+    try{
+        const {data} = await axios.get('https://tce-ai-api.azurewebsites.net/api/get-training-link');
+        return data;
+    }
+    catch(error){
+        console.error('Error updating user log:', error);
+    }
 }

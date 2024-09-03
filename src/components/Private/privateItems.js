@@ -18,6 +18,7 @@ import AdminPanelSettingsOutlinedIcon from '@mui/icons-material/AdminPanelSettin
 import PrintOutlinedIcon from '@mui/icons-material/PrintOutlined';
 import SatelliteAltIcon from '@mui/icons-material/SatelliteAlt';
 import PercentIcon from '@mui/icons-material/Percent';
+import SchoolIcon from '@mui/icons-material/School';
 
 // CONTEXT
 import { AuthContext } from "../../authentication/Auth";
@@ -60,10 +61,11 @@ const PrivateListItems = ({ tool }) => {
         { to: '/private/chatbot', text: 'Chatbot', icon: <ForumOutlinedIcon />, key: 'chatbot' },
         { to: '/private/cable-run-optimizer', text: 'Cable Run Optimizer', icon: <SpokeOutlinedIcon />, key: 'cable-run-optimizer' },
         { to: '/private/schedule-dashboards', text: 'Schedule Dashboards', icon: <InsertChartOutlinedIcon />, key: 'schedule-dashboards'},
-        { to: '/private/overview-dashboard', text: 'Overview Dashboard', icon: <DataThresholdingOutlinedIcon />, key: 'overview-dashboard'},
         { to: '/private/tool-usage', text: 'Tool Usage Stats', icon: <DonutSmallOutlinedIcon />, key: 'tool-usage' }, 
         { to: '/private/drone-captures', text: 'Drone Captures', icon: <SatelliteAltIcon />, key: 'drone-captures' },
         { to: '/private/equip-install-dashboard', text: 'EIT Dashboard', icon: <DataThresholdingOutlinedIcon />, key: 'equip-install-dashboard' },
+        { to: '/private/executive-dashboards', text: 'Executive Dashboards', icon: <DataThresholdingOutlinedIcon />, key: 'executive-dashboards' },
+
     ];
 
     // Ensure userTools is a valid string, else default to an empty string
@@ -90,6 +92,7 @@ const PrivateListItems = ({ tool }) => {
     // Always include the following items (non-provisionable)
     const alwaysIncludedItems = [
         { to: '/private/home', text: 'Home', icon: <HomeOutlinedIcon />, key: 'home' },
+        { to: '/private/training', text: 'Training', icon: <SchoolIcon />, key: 'training' },
         { to: '/private/sub-automation', text: 'Subcontractor Forms', icon: <ArticleOutlinedIcon />, key: 'sub-automation' },
         { to: '/private/equipment-checkout', text: 'Equipment Checkout', icon: <DevicesOtherIcon />, key: 'equipment-checkout' },
         { to: '/private/go-tracker', text: 'GO Tracker', icon: <RailwayAlertOutlinedIcon />, key: 'go-tracker' },

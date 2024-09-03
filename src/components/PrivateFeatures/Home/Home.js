@@ -15,6 +15,7 @@ import IconButton from '@mui/material/IconButton';
 import EmailIcon from '@mui/icons-material/Email';
 import OpenInNewIcon from '@mui/icons-material/OpenInNew';
 import ArticleIcon from '@mui/icons-material/Article';
+import SchoolIcon from '@mui/icons-material/School';
 
 import KeyboardArrowDownIcon from '@mui/icons-material/KeyboardArrowDown';
 import KeyboardArrowUpIcon from '@mui/icons-material/KeyboardArrowUp';
@@ -29,7 +30,8 @@ const partnerData = [
     contactName: "Patrick Besser",
     contactEmail: "pbesser@tcelect.net",
     documents: [],
-    supportLink: "https://support.procore.com/"
+    supportLink: "https://support.procore.com/",
+    trainingLink: "/private/training"
   },
   {
     name: "OpenSpace",
@@ -174,6 +176,19 @@ const Home = () => {
                   
                   <div className={styles.linkBox}>
 
+                    {partner.trainingLink && (
+                      <a 
+                        className={styles.linkText}
+                        href={partner.trainingLink}
+                        rel="noopener noreferrer"
+                        onClick={handleInsideCardClick}
+                      >
+                        Training
+                        <SchoolIcon className={styles.icon} />
+                      </a>
+
+                    )}
+
                     {partner.documents && partner.documents.map((doc, docIndex) => (
                       <div key={docIndex} onClick={handleInsideCardClick}>
                         <span
@@ -186,18 +201,18 @@ const Home = () => {
                       </div>
                     ))}
 
-                  {partner.supportLink && (
-                    <a
-                      className={styles.linkText}
-                      href={partner.supportLink}
-                      target="_blank"
-                      rel="noopener noreferrer"
-                      onClick={handleInsideCardClick}
-                    >
-                      Documentation
-                      <OpenInNewIcon className={styles.icon} />
-                    </a>
-                  )}
+                    {partner.supportLink && (
+                      <a
+                        className={styles.linkText}
+                        href={partner.supportLink}
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        onClick={handleInsideCardClick}
+                      >
+                        Documentation
+                        <OpenInNewIcon className={styles.icon} />
+                      </a>
+                    )}
 
                     <Tooltip title={`Email ${partner.contactName} at ${partner.contactEmail}`}>
                       <a className={styles.linkText} href={`mailto:${partner.contactEmail}?subject=Question%20about%20${partner.name}`}  onClick={handleInsideCardClick}>
@@ -205,7 +220,6 @@ const Home = () => {
                         <EmailIcon className={styles.icon} />
                       </a>
                     </Tooltip>
-
 
                   </div>
 
@@ -221,4 +235,3 @@ const Home = () => {
 };
 
 export default Home;
-
