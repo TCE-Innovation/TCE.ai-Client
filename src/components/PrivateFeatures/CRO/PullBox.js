@@ -70,10 +70,12 @@ const BootstrapDialog = styled(Dialog)(({ theme }) => ({
 
 const CRO = () => {
     const [pullsheet, setPullsheet] = useState('');
+    const [runType, setRunType] = useState('PullBox'); // Set the default run type
     const [responses, setResponses] = useState('');
     const [loading, setLoading] = useState(false);
     const [error, setError] = useState('');
     const [isBoxExpanded, setIsBoxExpanded] = useState(false);
+
     const [open, setOpen] = React.useState(false);
 
     const handleClickOpen = () => {
@@ -82,6 +84,7 @@ const CRO = () => {
     const handleClose = () => {
       setOpen(false);
     };
+
 
     const [expanded, setExpanded] = React.useState('');
   
@@ -92,7 +95,7 @@ const CRO = () => {
 
     const cro = async () => {
         if (!pullsheet) {
-            setError('Pull Sheet excel file must be provided.');
+            setError('Conduit list excel file must be provided.');
             return;
         }
         
@@ -102,9 +105,12 @@ const CRO = () => {
         try {
             // This will be a file
             formData.append('pullsheet', pullsheet);
+            console.log("PULLSHEET:", pullsheet);
+            formData.append('runType', runType);
+            console.log("RUNTYPE:", runType);
         } 
         catch (error) {
-            console.log("PULLSHEET:",error)
+            console.log("PULLSHEET:", error)
             setError('Failed to read pull sheet.');
         }
 
@@ -116,18 +122,11 @@ const CRO = () => {
                 formData
             );
 
-            // If the backend returns only two URLs and the third URL is None (conduit optimization)
-            if (data.length === 2 && data[0] !== null && data[1] !== null) {
+            // Data length is one because only one file returned
+            if (data.length === 1 && data[0] !== null ) {
                 // Update state with the first URL only
-                setResponses([data[0], data[1]]);
+                setResponses(data[0]);
             } 
-
-            // If backend returns three URLs (messenger bundle optimization)
-            else if (data.length === 3) {
-                // Update state with both URLs
-                setResponses(data);
-            } 
-            
             else {
                 // Handle other cases where the response is unexpected
                 setError('Unexpected response from the server.');
@@ -138,7 +137,7 @@ const CRO = () => {
         // setResponse(data);
         }
         catch (error) {
-            console.log("AXIOS:",error)
+            console.log("AXIOS:", error)
             setError('Failed to generate output file.');
         }
         setLoading(false);
@@ -151,12 +150,6 @@ const CRO = () => {
         alignItems: 'center',
         height: '110px',
     };
-
-    // useEffect(() => {
-    //     if (responses[0] || responses[1] || responses[2]) {
-    //         setAreResponsesRendered(true);
-    //     }
-    // }, [responses]);
 
     return (
         
@@ -188,8 +181,11 @@ const CRO = () => {
                     fontSize="20px"
                     
                     style={{ 
-                        paddingBottom: '10px', 
+                        marginTop: '-30px',
+                        marginBottom: '0px',
                         marginLeft: '400px', // Increase marginLeft from 250px to 300px
+                        marginRight: '-9px',
+                        whitespace: 'nowrap'
                     }}
                 >
                     The Pull Box Sizer generates pull box dimensions based on an input conduit list.
@@ -348,7 +344,7 @@ const CRO = () => {
 
                 {/* Upload Pull Sheet box. 
                 Wider than previous boxes*/}
-                <div style={{ margin: '5px' }}></div>
+                <div style={{ margin: '5px', marginTop: '-15px' }}></div>
                 <div class="rounded-rectangle-3">
                     <div class="title">Upload Conduit List</div>
 
@@ -416,7 +412,10 @@ const CRO = () => {
                         id="pullsheetInput"
                         accept=".xlsx, .xls"
                         style={{ display: 'none' }} // Hide the file input
-                        onChange={(e) => setPullsheet(e.target.files[0])}
+                        onChange={(e) => {
+                            setPullsheet(e.target.files[0]);
+                            setRunType("PullBox");
+                        }}
                         
                     />
                         
@@ -453,6 +452,7 @@ const CRO = () => {
             
                 {loading ? (
                     <>
+                        {console.log("Optimization process started")}
                         <div style={spinnerContainerStyle}>
                     <TrainLoader />
                 </div>
@@ -471,34 +471,11 @@ const CRO = () => {
                                 rel="noopener noreferrer"
                                 style={{ display: 'block', marginLeft: '10px', marginTop: '10px' }}
                             >
-                                Click to download Excel File of Optimized Runs
+                                Click to download Excel File of Generated Pull Box Dimensions
                             </a>
                         </>
                         )}
-                        {responses[1] && (
-                        <>
-                            <a
-                                href={responses[1]}
-                                target="_blank"
-                                rel="noopener noreferrer"
-                                style={{ display: 'block', marginLeft: '10px', marginTop: '10px', }}
-                            >
-                                Click to download Cable Run Visualization
-                            </a>
-                        </>
-                        )}
-                        {responses[2] && (
-                        <>
-                            <a
-                                href={responses[2]}
-                                target="_blank"
-                                rel="noopener noreferrer"
-                                style={{ display: 'block', marginLeft: '10px', marginTop: '10px' }}
-                            >
-                                Click to download PDF File of Bundle Images
-                            </a>
-                        </>
-                        )}
+                        
                         {error && (
                             <Typography variant="body2" color="error" mt={0.1}>
                                 {error}

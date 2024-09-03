@@ -5,7 +5,8 @@ const adminList = [
     'pbesser@tcelect.net',
     'roneill@tcelect.net',
     'sdefalco@tcelect.net',
-    'ckruger@tcelect.net'
+    'ckruger@tcelect.net',
+    'chowley@tcelect.net'
 ]
 
 //TOOLS
@@ -16,7 +17,9 @@ const toolList = [
     'GO Tracker',
     'Tool Usage Statistics',
     'Drone Captures',
-    'EIT Dashboard'
+    'EIT Dashboard',
+    'Training',
+    'Executive Dashboards'
 ]
 
 module.exports = {
