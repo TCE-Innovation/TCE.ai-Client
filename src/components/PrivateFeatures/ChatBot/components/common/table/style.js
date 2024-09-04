@@ -15,7 +15,7 @@ export default styled.div`
     border-spacing: 0 var(--table-spacing);
     & thead {
       position: sticky;
-      top: 0px;
+      top: calc(.9 * var(--table-spacing));
       z-index: 99;
       & th {
         & > * {

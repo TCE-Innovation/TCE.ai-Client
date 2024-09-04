@@ -19,7 +19,6 @@ export default styled.div`
       color: var(--chatbot-grey);
       & input {
       outline: none;
-      border: 1px solid var(--chatbot-grey);
       border-radius: .25em;
       padding: .5em;
        &:focus {

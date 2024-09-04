@@ -1,4 +1,5 @@
 import { client } from "../http";
+import { extractConversationData } from "../utils/data";
 
 const route = "/user/conversations";
 
@@ -7,7 +8,8 @@ export const getConversations = async (projectId) => {
     project_id: projectId,
   });
   if (success) {
-    return { data, success: true };
+    const conversations = data.map(extractConversationData);
+    return { data: conversations, success: true };
   } else {
     return { data: null, success: false, message };
   }

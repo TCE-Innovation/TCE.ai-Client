@@ -36,11 +36,26 @@ export default styled.div`
       color: var(--chatbot-grey);
     }
   }
-  .admin-table-container {
-    height: 65vh;
-    padding-right: 10px;
-    overflow: hidden auto;
+  & .admin-table-wrapper {
+    position: relative;
+    &::after {
+      content: "";
+      position: absolute;
+      width: 100%;
+      height: 8px;
+      right: 20px;
+      z-index: 1;
+      top: 0;
+      background: var(--chatbot-light-grey);
+    }
+
+    & .admin-table-container {
+      height: 65vh;
+      padding-right: 10px;
+      overflow: hidden auto;
+    }
   }
+
   .admin-actions {
     color: var(--chatbot-grey);
     .action-button:not(.disabled):hover {

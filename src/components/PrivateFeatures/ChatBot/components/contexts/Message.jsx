@@ -1,102 +1,93 @@
 import React, {
   createContext,
   useContext as _useContext,
-  useState,
+  useMemo,
   useEffect,
-  useRef,
 } from "react";
-
-import { messageService } from "../../services";
 
 import { genRandomId } from "../../utils/uuid";
 
 import useConversation from "../../hooks/useConversation";
-import useGlobal from "../../hooks/useGlobal";
+import { useGetMessagesQuery } from "../../hooks/queries/";
+import { useCreateMessage } from "../../hooks/mutations/";
 
 const MessageContext = createContext();
 
 const MessageProvider = ({ children }) => {
-  const [loading, setLoading] = useState(false);
-  const [sendingMessage, setSendingMessage] = useState(false);
-  const [messages, setMessages] = useState([]);
-  const [initialMessageCount, setInitialMessageCount] = useState(0);
-  const { currentConversation } = useConversation();
-  const { createAlert } = useGlobal();
+  const {
+    currentConversation,
+    clearConversation,
+    selectedProjectId,
+    conversations,
+  } = useConversation();
+  const {
+    mutate: createMessageHandler,
+    loading: sendingMessage,
+  } = useCreateMessage();
 
-  const messageArchieves = useRef({});
+  const {
+    data,
+    loading,
+    updateData: updateMessages,
+    reset,
+  } = useGetMessagesQuery(
+    { conversationId: currentConversation?.id },
+    {
+      disableRunOnMount:
+        currentConversation === null ||
+        selectedProjectId === null ||
+        !conversations.length,
+    }
+  );
+
+  const messages = useMemo(() => data?.data?.messages || [], [data]);
+
+  const initialMessageCount = useMemo(() => {
+    return data?.data.size || 0;
+  }, [data]);
+
+  const setMessages = (value) => {
+    updateMessages((prev) => ({
+      ...prev,
+      data: typeof value === "function" ? value(prev.data) : value,
+    }));
+  };
 
   const createMessage = ({ isAI, body, id, citations }) => {
-    if (!currentConversation) return;
+    if (!currentConversation?.id) return;
     const newMessage = { isAI, body, id };
     if (isAI && citations) newMessage["citations"] = citations;
     setMessages((prev) => {
-      const updateMessages = [...prev, newMessage];
-      saveMessagesToArchieve(currentConversation.id, updateMessages);
-      return updateMessages;
+      return {
+        ...prev,
+        messages: [...(prev.messages || []), newMessage],
+      };
     });
-  };
-
-  const saveMessagesToArchieve = (key, messages) => {
-    messageArchieves.current = {
-      ...messageArchieves.current,
-      [key]: messages,
-    };
-  };
-
-  const loadMessagesFromArchieve = (conversationId) => {
-    return messageArchieves.current[conversationId] || [];
-  };
-
-  const clearMessageCache = (conversationId) => {
-    setMessages([]);
-    saveMessagesToArchieve(conversationId, null);
   };
 
   useEffect(() => {
-    const getMessages = async (conversation) => {
-      if (!conversation) return;
-      const { id } = conversation;
-      const messageCache = loadMessagesFromArchieve(id);
-      if (messageCache?.length) {
-        setMessages(messageCache);
-        setInitialMessageCount(messageCache.length - 1);
-        return;
-      }
-      setLoading(true);
-      const {
-        data: _messages,
-        success,
-        message,
-      } = await messageService.getMessages(id);
-      setLoading(false);
-      setInitialMessageCount(_messages.length - 1);
-      if (!success) createAlert({ message, type: "danger" });
-      if (!_messages) return;
-      saveMessagesToArchieve(id, _messages);
-      setMessages(_messages);
+    return () => {
+      setMessages((prev) => ({
+        ...prev,
+        size: prev.messages.length,
+      }));
     };
-    getMessages(currentConversation);
-  }, [currentConversation, createAlert]);
+    // eslint-disable-next-line
+  }, [currentConversation?.id]);
+
+  const clearMessageCache = () => {
+    setMessages([]);
+    reset();
+    clearConversation();
+  };
 
   const sendMessage = async (message) => {
-    if (!currentConversation) return;
-    setSendingMessage(true);
+    if (!currentConversation?.id) return;
     createMessage({ isAI: false, body: message, id: genRandomId() });
-    const {
-      success,
-      data,
-      message: _message,
-    } = await messageService.createMessage({
-      conversationId: currentConversation.id,
+    createMessageHandler({
+      conversationId: currentConversation?.id,
       message,
     });
-    if (success) {
-      const { message, citations, id } = data;
-      createMessage({ isAI: true, body: message, id, citations });
-    } else {
-      createAlert({ message: _message, type: "danger" });
-    }
-    setSendingMessage(false);
   };
 
   return (

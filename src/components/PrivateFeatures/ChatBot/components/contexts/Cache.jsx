@@ -32,33 +32,37 @@ const CacheContextProvider = ({ children, ...props }) => {
     return true;
   };
 
-  const memoize = useCallback(async (key, callback, options = {}) => {
-    const cache = cacheRef.current;
-    const now = Date.now();
+  const memoize = useCallback(
+    async (key, callback, options = {}) => {
+      const cache = cacheRef.current;
+      const now = Date.now();
 
-    key = computeKey(key);
+      key = computeKey(key);
 
-    if (!needUpdate(key, options)) return cache[key].value;
-    if (options.onInvalidated) {
-      options.onInvalidated?.({ inValidate });
-    }
-    try {
-      const value = await callback();
-      const expireDuration = options.cacheDuration || duration;
-      cache[key] = {
-        key,
-        value,
-        expires: new Date(now + expireDuration).getTime(),
-        isValid: true,
-        callback,
-        options,
-        duration: expireDuration,
-      };
-      return value;
-    } catch (err) {
-      throw err;
-    }
-  }, [duration]);
+      if (!needUpdate(key, options)) return cache[key].value;
+      if (options.onInvalidated) {
+        options.onInvalidated?.({ inValidate });
+      }
+      try {
+        const value = await callback();
+        const expireDuration = options.cacheDuration || duration;
+        cache[key] = {
+          key,
+          value,
+          expires: new Date(now + expireDuration).getTime(),
+          isValid: true,
+          callback,
+          options,
+          duration: expireDuration,
+        };
+        return value;
+      } catch (err) {
+        throw err;
+      }
+    },
+    // eslint-disable-next-line
+    [duration]
+  );
 
   const updateQuery = (key, callback) => {
     const now = Date.now();
@@ -77,9 +81,10 @@ const CacheContextProvider = ({ children, ...props }) => {
   };
 
   const inValidate = (key) => {
+    const computedKey = computeKey(key);
     const cache = cacheRef.current;
-    if (!cache[key]) return;
-    cache[key].isValid = false;
+    if (!cache[computedKey]) return;
+    cache[computedKey].isValid = false;
   };
 
   return (
