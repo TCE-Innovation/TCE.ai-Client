@@ -15,7 +15,7 @@ export const errorHandler = (error) => {
     data: null,
     success: false,
     message:
-      errorMessage.length > 50
+      errorMessage.length > 100
         ? defaultErrorMessage
         : errorObject?.error || defaultErrorMessage,
   };

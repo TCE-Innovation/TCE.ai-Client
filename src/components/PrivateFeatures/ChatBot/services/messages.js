@@ -1,49 +1,21 @@
 import { client } from "../http";
-import { genRandomId } from "../utils/uuid";
+import { formatMessage, formatCitations } from "../utils/data";
 
 const route = "/user/messages";
-
-const formatCitations = (citations) => {
-  return (
-    citations?.map((c) => ({
-      highlightedText: c.highlighted_text,
-      pageNumber: c.page_number,
-      title: c.title,
-      url: c.url,
-      id: genRandomId(),
-    })) ?? []
-  );
-};
 
 export const getMessages = async (conversationId) => {
   const { data, success, message } = await client.get(route, {
     conversation_id: conversationId,
   });
   if (success) {
-    const parseMessage = (message) => {
-      const isUser = message.user || null;
-      if (!isUser) {
-        const { bot, message_id } = message;
-        const { ai_response, citations, error = null } = bot;
-        return {
-          isAI: true,
-          body: error ?? ai_response,
-          id: message_id,
-          citations: formatCitations(citations || []),
-        };
-      } else {
-        const { user, message_id } = message;
-        return {
-          isAI: false,
-          body: user,
-          id: message_id,
-        };
-      }
-    };
     if (!Array.isArray(data))
       return { data: null, success: false, message: "invalid response!" };
+    const messages = data.map(formatMessage);
     return {
-      data: data.map(parseMessage),
+      data: {
+        messages,
+        size: messages.length,
+      },
       success,
     };
   } else {
@@ -57,20 +29,20 @@ export const getMessages = async (conversationId) => {
 
 export const createMessage = async (payload) => {
   const { conversationId, message } = payload;
-  const {
-    success,
-    data,
-    message: responseMessage,
-  } = await client.create(route, {
-    data: { message },
-    query: { conversation_id: conversationId },
-  });
+  const { success, data, message: responseMessage } = await client.create(
+    route,
+    {
+      data: { message },
+      query: { conversation_id: conversationId },
+    }
+  );
   if (success) {
     const { ai_response, citations, message_id } = data;
     return {
       success,
       data: {
-        message: ai_response,
+        isAI: true,
+        body: ai_response,
         citations: formatCitations(citations || []),
         id: message_id,
       },

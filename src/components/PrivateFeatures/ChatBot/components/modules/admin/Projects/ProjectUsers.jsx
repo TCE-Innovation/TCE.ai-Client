@@ -38,6 +38,7 @@ const ProjectUsers = () => {
         rows={rows}
         isLoading={loading}
         insertingRow={addUserToProject.loading}
+        style={{ height: "600px" }}
       />
     </>
   );

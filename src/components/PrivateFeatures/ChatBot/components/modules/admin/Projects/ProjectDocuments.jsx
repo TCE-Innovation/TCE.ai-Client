@@ -35,6 +35,7 @@ const ProjectDocuments = () => {
         rows={rows}
         isLoading={loading}
         insertingRow={uploadDocument.loading}
+        style={{ height: "600px" }}
       />
     </>
   );

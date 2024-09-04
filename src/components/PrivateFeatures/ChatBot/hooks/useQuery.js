@@ -4,10 +4,10 @@ import { useContext } from "../components/contexts/Cache";
 import { useGlobal } from "../hooks";
 
 const useQuery = (key, callback, options = {}) => {
-  const { memoize, computeKey } = useContext();
+  const { memoize, computeKey, updateQuery, inValidate } = useContext();
   const { registerSubscriber } = useGlobal();
 
-  const [loading, setLoading] = useState(true);
+  const [loading, setLoading] = useState(Boolean(!options.disableRunOnMount));
   const [data, setData] = useState(null);
   const [error, setError] = useState(null);
 
@@ -25,10 +25,18 @@ const useQuery = (key, callback, options = {}) => {
       unregister();
     };
     // eslint-disable-next-line
-  }, []);
+  }, [computeKey(key)]);
+
+  const updateData = (callback) => {
+    updateQuery(key, callback);
+  };
+
+  const reset = () => {
+    inValidate(key);
+  };
 
   useEffect(() => {
-    if (options.disableRunOnMount) return;
+    if (options.disableRunOnMount || !computeKey(key)) return;
     (async () => {
       setLoading(true);
       try {
@@ -40,13 +48,15 @@ const useQuery = (key, callback, options = {}) => {
       }
     })();
     // eslint-disable-next-line
-  }, [options.disableRunOnMount]);
+  }, [options.disableRunOnMount, computeKey(key)]);
 
   return {
     data,
     loading,
     error,
     refetch,
+    updateData,
+    reset,
   };
 };
 
