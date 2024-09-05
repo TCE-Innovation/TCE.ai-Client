@@ -597,7 +597,7 @@ const CRO = () => {
                     <input
                         type="file"
                         id="pullsheetInput"
-                        accept=".xlsx, .xls"
+                        accept=".xlsx, .xls, .csv"
                         style={{ display: 'none' }} // Hide the file input
                         onChange={(e) => setPullsheet(e.target.files[0])}
                         
