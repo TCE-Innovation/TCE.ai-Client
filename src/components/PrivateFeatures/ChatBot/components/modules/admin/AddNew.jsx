@@ -9,12 +9,13 @@ import {
 } from "./Projects/Modals";
 import { AddUserModal } from "./Users/Modals";
 import { AddDocumentModal } from "./Documents/Modals";
+import { CreateTeamModal, AddUserToTeamModal } from "./Teams/Modals";
 
 import { useGlobal } from "../../../hooks";
 
 const AddNew = () => {
   const { query } = useGlobal();
-  const { profile, project_id } = query.params;
+  const { profile, project_id, team_id } = query.params;
 
   return (
     <div>
@@ -26,10 +27,51 @@ const AddNew = () => {
         <AddNewUser />
       ) : profile === "documents" ? (
         <AddNewDocument />
+      ) : profile === "teams" ? (
+        !team_id ? (
+          <CreateNewTeam />
+        ) : null
       ) : (
         <AddNewProject />
       )}
     </div>
+  );
+};
+
+const CreateNewTeam = () => {
+  const [showCreateTeamModal, setShowCreateTeamModal] = useState(false);
+  return (
+    <>
+      <button
+        className="chat-button add-project-button d-flex align-items-center gap-2"
+        onClick={() => setShowCreateTeamModal(true)}
+      >
+        <AddIcon />
+        <span>Create New Team</span>
+      </button>
+      <CreateTeamModal
+        show={showCreateTeamModal}
+        onClose={() => setShowCreateTeamModal(false)}
+      />
+    </>
+  );
+};
+const AddUserToTeam = () => {
+  const [showAddUserToTeamModal, setShowAddUserToTeamModal] = useState(false);
+  return (
+    <>
+      <button
+        className="chat-button add-project-button d-flex align-items-center gap-2"
+        onClick={() => setShowAddUserToTeamModal(true)}
+      >
+        <AddIcon />
+        <span>Add User To Team</span>
+      </button>
+      <AddUserToTeamModal
+        show={showAddUserToTeamModal}
+        onClose={() => setShowAddUserToTeamModal(false)}
+      />
+    </>
   );
 };
 
@@ -140,5 +182,7 @@ AddNew.User = AddNewUser;
 AddNew.Document = AddNewDocument;
 AddNew.UserToProject = AddUserToProject;
 AddNew.DocumentToProject = AddDocumentToProject;
+AddNew.Team = CreateNewTeam;
+AddNew.UserToTeam = AddUserToTeam;
 
 export default AddNew;

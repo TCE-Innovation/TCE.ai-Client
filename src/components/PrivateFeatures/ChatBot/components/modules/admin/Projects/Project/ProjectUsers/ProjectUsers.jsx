@@ -1,10 +1,9 @@
 import { useMemo } from "react";
-import { useGlobal } from "../../../../hooks";
-import { filterByPatternsFactory } from "../../../../utils/form";
-import { queries, useAdmin } from "../../../../hooks";
+import { filterByPatternsFactory } from "../../../../../../utils/form";
+import { queries, useAdmin, useGlobal } from "../../../../../../hooks";
 
-import UsersTable from "../Users/Table";
-import { useFieldValue } from "../../../contexts/FormContext";
+import UsersTable from "./Table";
+import { useFieldValue } from "../../../../../contexts/FormContext";
 
 const ProjectUsers = () => {
   const { query } = useGlobal();

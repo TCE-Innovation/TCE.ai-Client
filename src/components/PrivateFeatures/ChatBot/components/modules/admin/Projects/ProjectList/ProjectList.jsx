@@ -1,6 +1,6 @@
 import { useMemo } from "react";
 
-import { queries, useAdmin } from "../../../../hooks";
+import { queries, useAdmin } from "../../../../../hooks";
 
 import ProjectsTable from "./Table";
 

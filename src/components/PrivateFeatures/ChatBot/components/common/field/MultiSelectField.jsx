@@ -2,9 +2,8 @@ import React, { useEffect, useMemo, useState } from "react";
 import { DownIcon } from "../../icons";
 import { useOutsideClick } from "../../../hooks";
 import Field from "./Field";
-import { useFieldArray, useFieldValue } from "../../contexts/FormContext";
+import { useFieldValue } from "../../contexts/FormContext";
 import DropDown from "./_DropDown";
-import SelectedItems from "./_SelectedItems";
 
 const MultiSelectField = ({
   name,
@@ -12,23 +11,25 @@ const MultiSelectField = ({
   placeholder,
   extractor,
   items,
+  filterOnSelect = false,
   onChange = () => {},
+  values,
+  handleRemove,
   ...dropDownProps
 }) => {
   const [list, setList] = useState([]);
   const [show, setShow] = useState(false);
 
-  const { value, push, remove } = useFieldArray(name);
   const { changeValue } = useFieldValue(name);
 
   useEffect(() => {
-    changeValue(value);
+    changeValue(values);
     // eslint-disable-next-line
-  }, [value]);
+  }, [values]);
 
   const activeList = useMemo(() => {
-    return list.filter((item) => value.every((v) => v !== item.value));
-  }, [value, list]);
+    return list.filter((item) => values.every((v) => v !== item.value));
+  }, [values, list]);
 
   useEffect(() => {
     setList(items.map((item, i) => ({ ...item, ...extractor(item, i) })));
@@ -43,15 +44,21 @@ const MultiSelectField = ({
 
   const handleChange = (...args) => {
     setShow(false);
-    push(...args);
     onChange(...args);
   };
+
+  const selectedItems = useMemo(() => {
+    return list.filter((item) =>
+      values?.some((valueItem) => valueItem === item.value)
+    );
+  }, [list, values]);
 
   return (
     <div>
       {label && <div>{label}</div>}
       <div ref={targetRef} className="position-relative select-field">
         <Field
+          showError={false}
           name={name}
           rightAddon={
             <div
@@ -67,18 +74,51 @@ const MultiSelectField = ({
           readOnly
           value={""}
           onClick={() => setShow((prev) => !prev)}
-          placeholder={placeholder}
+          placeholder={selectedItems.length ? "" : placeholder}
           style={{ userSelect: "none" }}
         />
-        <SelectedItems
-          list={list}
-          name={name}
-          value={value}
-          handleRemove={remove}
-        />
+        {selectedItems.length > 0 && (
+          <div
+            style={{
+              position: "absolute",
+              top: 0,
+              left: 0,
+              width: "calc(100% - 50px)",
+              padding: ".5em",
+              height: "100%",
+              display: "flex",
+              gap: ".5em",
+              alignItems: "center",
+              overflow: "hidden",
+              overflowX: "auto",
+              pointerEvents: "none",
+            }}
+          >
+            {selectedItems.map((item) => {
+              return (
+                <div
+                  key={item.value}
+                  style={{
+                    backgroundColor: "var(--chatbot-light-grey)",
+                    padding: ".25em",
+                    height: "max-content",
+                    whiteSpace: "nowrap",
+                    textOverflow: "ellipsis",
+                    maxWidth: "70px",
+                    borderRadius: ".25em",
+                    overflow: "hidden",
+                    cursor: "pointer",
+                  }}
+                >
+                  {item.label}
+                </div>
+              );
+            })}
+          </div>
+        )}
         {show && (
           <DropDown
-            items={activeList}
+            items={filterOnSelect ? activeList : list}
             name={name}
             onChange={handleChange}
             {...dropDownProps}

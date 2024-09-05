@@ -2,31 +2,16 @@ import React from "react";
 
 import { Overlay, Modal } from "../../../../../common";
 
-import { useAdmin } from "../../../../../../hooks";
-
 import { useContext } from "../../../../../contexts/FormContext";
 
 import Form from "./Form";
 
-const AddUser = ({ show, onClose }) => {
-  const { addUser } = useAdmin();
-  const { mutate, loading: isSubmitting } = addUser;
-  const { submitHandler, resetForm, isValid, setError } = useContext();
+const CreateTeam = ({ show, onClose }) => {
+  const { submitHandler, isValid } = useContext();
   if (!show) return null;
 
   const handleSubmit = (values) => {
-    if (isSubmitting) return;
-    const name = values.name.trim();
-    if (!values.role) {
-      return setError("role", "Please select a user role!");
-    }
-    const userData = {
-      role: values.role,
-      email: values.email.trim(),
-      name,
-    };
-    mutate({ userData });
-    resetForm();
+    console.log({ values });
     onClose();
   };
 
@@ -34,12 +19,11 @@ const AddUser = ({ show, onClose }) => {
     <Overlay>
       <Modal
         onCancel={onClose}
-        title="Add New User"
+        title="Create New Team"
         buttonLabels={{
-          submit: "Add User",
+          submit: "Create Team",
         }}
         isDisabled={!isValid}
-        isSubmitting={isSubmitting}
         onSubmit={submitHandler(handleSubmit)}
         styles={{
           submit: {
@@ -60,4 +44,4 @@ const AddUser = ({ show, onClose }) => {
   );
 };
 
-export default AddUser;
+export default CreateTeam;

@@ -16,6 +16,7 @@ export { ReactComponent as BotLoadingIcon } from "../../assets/svg/bot-loading-a
 export { ReactComponent as SettingsIcon } from "../../assets/svg/gear.svg";
 export { ReactComponent as FolderIcon } from "../../assets/svg/folder.svg";
 export { ReactComponent as UsersIcon } from "../../assets/svg/users.svg";
+export { ReactComponent as UserIcon } from "../../assets/svg/user.svg";
 export { ReactComponent as AddIcon } from "../../assets/svg/plus-circle.svg";
 export { ReactComponent as ArrowUpIcon } from "../../assets/svg/arrow-narrow-up.svg";
 export { ReactComponent as ArrowDownIcon } from "../../assets/svg/arrow-narrow-down.svg";
@@ -25,3 +26,4 @@ export { ReactComponent as UploadIcon } from "../../assets/svg/upload-cloud.svg"
 export { ReactComponent as CheckIcon } from "../../assets/svg/tick.svg";
 export { ReactComponent as InfoIcon } from "../../assets/svg/info.svg";
 export { ReactComponent as BugIcon } from "../../assets/svg/bug.svg";
+export { ReactComponent as TickIcon } from "../../assets/svg/check.svg";

@@ -1,13 +1,13 @@
 import React from "react";
-import { Loader, TabContext } from "../../../common";
-import { RemoveUserModal } from "./Modals";
-import Actions from "../Actions";
+import { Loader, TabContext } from "../../../../../common";
+import { RemoveUserFromProjectModal } from "../../Modals";
+import Actions from "../../../Actions";
 
-import { mutations } from "../../../../hooks";
+import { mutations } from "../../../../../../hooks";
 
 const UserTableActions = ({ ...userProps }) => {
-  const deleteUser = mutations.useDeleteUser();
-  if (deleteUser.loading)
+  const removeUserFromProject = mutations.useRemoveUser();
+  if (removeUserFromProject.loading)
     return (
       <div className="position-relative" style={{ width: "2.5em" }}>
         <Loader />
@@ -20,13 +20,13 @@ const UserTableActions = ({ ...userProps }) => {
           return (
             <Actions>
               <Actions.Delete
-                disabled={deleteUser.loading}
+                disabled={removeUserFromProject.loading}
                 renderModal={(modalProps) => {
                   return (
-                    <RemoveUserModal
+                    <RemoveUserFromProjectModal
                       {...modalProps}
                       {...userProps}
-                      deleteUser={deleteUser}
+                      removeUserFromProject={removeUserFromProject}
                     />
                   );
                 }}

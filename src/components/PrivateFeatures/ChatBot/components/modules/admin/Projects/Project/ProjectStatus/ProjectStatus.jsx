@@ -1,8 +1,8 @@
 import { useEffect } from "react";
-import { useAdmin, useGlobal, useDebounce } from "../../../../hooks";
-import { PROFILES } from "../../../../constants/admin";
-import { TabContext } from "../../../common";
-import SwitchMode from "./SwitchMode";
+import { useAdmin, useGlobal, useDebounce } from "../../../../../../hooks";
+import { PROFILES } from "../../../../../../constants/admin";
+import { TabContext } from "../../../../../common";
+import Switcher from "./Switcher";
 
 const ProjectStatus = () => {
   const { editProjectStatus } = useAdmin();
@@ -46,7 +46,7 @@ const ProjectStatus = () => {
   ];
   return (
     <TabContext defaultActive={is_live ? 0 : 1} tabs={tabs}>
-      <SwitchMode />
+      <Switcher />
     </TabContext>
   );
 };

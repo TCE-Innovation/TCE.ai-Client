@@ -1,8 +1,8 @@
 import React from "react";
 
-import { TabContext } from "../../../common";
+import { TabContext } from "../../../../../common";
 
-const SwitchMode = ({ disabled = false }) => {
+const Switcher = ({ disabled = false }) => {
   return (
     <div className="chatbot-mode-switcher">
       <TabContext.Provider>
@@ -50,4 +50,4 @@ const SwitchMode = ({ disabled = false }) => {
   );
 };
 
-export default SwitchMode;
+export default Switcher;

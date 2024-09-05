@@ -65,3 +65,14 @@ export const formatMessage = (message) => {
     };
   }
 };
+
+export const generateTeams = (size = 10) => {
+  return Array.from({ length: size }, () => {
+    const id = genRandomId();
+    return {
+      id,
+      teamName: `Team Name ${id}`,
+      members: [],
+    };
+  });
+};

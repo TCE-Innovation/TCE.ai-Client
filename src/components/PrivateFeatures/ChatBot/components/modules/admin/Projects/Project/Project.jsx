@@ -1,19 +1,19 @@
 import React from "react";
 
-import AddNew from "../AddNew";
-import SearchComponent from "../Search";
+import AddNew from "../../AddNew";
+import SearchComponent from "../../Search";
 
-import { TabContext } from "../../../common";
+import { TabContext } from "../../../../common";
 
-import { PROFILES } from "../../../../constants/admin";
+import { PROFILES } from "../../../../../constants/admin";
 
 import ProjectUsers from "./ProjectUsers";
 import ProjectDocuments from "./ProjectDocuments";
 import ProjectStatus from "./ProjectStatus";
 
-import FormContext from "../../../contexts/FormContext";
+import FormContext from "../../../../contexts/FormContext";
 
-export const roles = ["Admin", "Project Manager", "User"];
+// export const roles = ["Admin", "Project Manager", "User"];
 
 const tabs = [
   {
