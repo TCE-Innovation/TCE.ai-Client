@@ -2,6 +2,7 @@ import React, { useEffect, useMemo, useState } from "react";
 import { DownIcon } from "../../icons";
 import { useOutsideClick } from "../../../hooks";
 import Field from "./Field";
+import ErrorBlock from "./ErrorBlock";
 import { useFieldValue } from "../../contexts/FormContext";
 import DropDown from "./_DropDown";
 
@@ -20,7 +21,7 @@ const MultiSelectField = ({
   const [list, setList] = useState([]);
   const [show, setShow] = useState(false);
 
-  const { changeValue } = useFieldValue(name);
+  const { changeValue, error } = useFieldValue(name);
 
   useEffect(() => {
     changeValue(values);
@@ -56,6 +57,7 @@ const MultiSelectField = ({
   return (
     <div>
       {label && <div>{label}</div>}
+      <ErrorBlock name={name} />
       <div ref={targetRef} className="position-relative select-field">
         <Field
           showError={false}
@@ -108,6 +110,8 @@ const MultiSelectField = ({
                     borderRadius: ".25em",
                     overflow: "hidden",
                     cursor: "pointer",
+                    color: "var(--chatbot-text-primary)",
+                    fontWeight: "initial",
                   }}
                 >
                   {item.label}

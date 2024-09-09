@@ -8,24 +8,29 @@ import { useConversation, useMessage, useScroll } from "../../../../hooks";
 
 import Wrapper from "./style";
 
-const Conversation = ({ title, id, active, setConversation }) => {
-  const [showDeleteModal, setShowDeleteModal] = useState(false);
-  const [showEditModal, setShowEditModal] = useState(false);
-  const { isDeletingConversation, isEditingConversation } = useConversation();
-  const { sendingMessage } = useMessage();
+const Conversation = ({
+  setConversation,
+  renderActions,
+  ...conversationProps
+}) => {
+  // const [showDeleteModal, setShowDeleteModal] = useState(false);
+  // const [showEditModal, setShowEditModal] = useState(false);
+  // const { isDeletingConversation, isEditingConversation } = useConversation();
+  // const { sendingMessage } = useMessage();
   const { containerRef, scrollIntoView } = useScroll();
 
-  const handleOpenDeleteModal = () => {
-    if (isDeletingConversation || sendingMessage) return;
-    setShowDeleteModal(true);
-  };
+  // const handleOpenDeleteModal = () => {
+  //   if (isDeletingConversation || sendingMessage) return;
+  //   setShowDeleteModal(true);
+  // };
 
-  const handleOpenEditModal = () => {
-    if (isEditingConversation) return;
-    setShowEditModal(true);
-  };
+  // const handleOpenEditModal = () => {
+  //   if (isEditingConversation) return;
+  //   setShowEditModal(true);
+  // };
 
   const mountRef = useRef(false);
+  const { title, active, id } = conversationProps;
 
   useLayoutEffect(() => {
     if (mountRef.current) return;
@@ -44,7 +49,8 @@ const Conversation = ({ title, id, active, setConversation }) => {
           onClick={() => setConversation({ id, title })}
         >
           <span className="conversation-title">{title}</span>
-          <div className="conversation-tools">
+          {renderActions?.({ ...conversationProps })}
+          {/* <div className="conversation-tools">
             {isEditingConversation ? null : active ? (
               <span
                 className="edit-button tooltip-container"
@@ -63,10 +69,10 @@ const Conversation = ({ title, id, active, setConversation }) => {
                 <div className="tooltip align-bottom">delete</div>
               </span>
             ) : null}
-          </div>
+          </div> */}
         </div>
       </Wrapper>
-      <DeleteConversationModal
+      {/* <DeleteConversationModal
         id={id}
         onClose={() => setShowDeleteModal(false)}
         show={showDeleteModal}
@@ -75,7 +81,7 @@ const Conversation = ({ title, id, active, setConversation }) => {
         conversation={{ title, id }}
         onClose={() => setShowEditModal(false)}
         show={showEditModal}
-      />
+      /> */}
     </>
   );
 };

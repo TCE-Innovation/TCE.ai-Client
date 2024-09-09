@@ -2,24 +2,38 @@ import React from "react";
 
 import { Overlay, Modal } from "../../../../../common";
 
-import { useContext } from "../../../../../contexts/FormContext";
+import RolesField from "../../Forms/_Role";
 
-import Form from "./Form";
-import { sleep } from "../../../../../../utils/misc";
+import { useContext } from "../../../../../contexts/FormContext";
 import { useGlobal } from "../../../../../../hooks";
 
-const CreateTeam = ({ show, onClose }) => {
-  const { submitHandler, isValid } = useContext();
+import { sleep } from "../../../../../../utils/misc";
+
+const EditUser = ({ show, onClose, ...userProps }) => {
+  const { submitHandler, isValid, setError } = useContext();
   const { createAlert } = useGlobal();
   if (!show) return null;
 
   const handleSubmit = (values) => {
+    if (!values.role) {
+      return setError("role", "Please select a user role!");
+    }
+    if (values.role === userProps.role) {
+      return setError(
+        "role",
+        "User already has this role. Please select a different role!"
+      );
+    }
+    const userData = {
+      role: values.role,
+    };
+    console.log({ userData });
     onClose();
     sleep(1000).then(() =>
-      createAlert({
-        message: `Team "${values.name}" was created successfully!`,
-        type: "success",
-      })
+      createAlert(
+        { message: "user role changed successfully!" },
+        { type: "success" }
+      )
     );
   };
 
@@ -27,9 +41,9 @@ const CreateTeam = ({ show, onClose }) => {
     <Overlay>
       <Modal
         onCancel={onClose}
-        title="Create New Team"
+        title="Edit User Role"
         buttonLabels={{
-          submit: "Create Team",
+          submit: "Save",
         }}
         isDisabled={!isValid}
         onSubmit={submitHandler(handleSubmit)}
@@ -45,11 +59,11 @@ const CreateTeam = ({ show, onClose }) => {
         }}
       >
         <div className="projects-modal-wrapper">
-          <Form />
+          <RolesField name={"role"} initialValue={userProps.role} />
         </div>
       </Modal>
     </Overlay>
   );
 };
 
-export default CreateTeam;
+export default EditUser;

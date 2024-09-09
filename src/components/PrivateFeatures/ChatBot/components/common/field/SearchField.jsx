@@ -1,7 +1,7 @@
 import React, { useEffect, useMemo, useState } from "react";
 import Field from "./Field";
 import ErrorBlock from "./ErrorBlock";
-import { DownIcon } from "../../icons";
+import { DownIcon, SearchIcon } from "../../icons";
 import DropDown from "./_DropDown";
 import SelectedItems from "./_SelectedItems";
 import FormContext, {
@@ -63,12 +63,6 @@ const SearchField = ({
     return list.filter((item) => value.every((v) => v !== item.value));
   }, [value, list]);
 
-  const selectedItems = useMemo(() => {
-    return list.filter((item) =>
-      value?.some((valueItem) => valueItem === item.value)
-    );
-  }, [value, list]);
-
   return (
     <>
       <ErrorBlock name={name} />
@@ -80,18 +74,7 @@ const SearchField = ({
             placeholder={placeholder}
             onClick={() => setShow((prev) => !prev)}
             showError={false}
-            leftAddon={
-              <div className="tooltip-container">
-                {selectedItems.length ? `+${selectedItems.length}` : ""}
-                {selectedItems.length > 0 && (
-                  <div className="tooltip tooltip-dark align-bottom">
-                    {selectedItems.map((item) => {
-                      return <div key={item.value}>{item.label}</div>;
-                    })}
-                  </div>
-                )}
-              </div>
-            }
+            leftAddon={<SearchIcon />}
             rightAddon={
               <div
                 style={{

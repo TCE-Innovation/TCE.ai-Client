@@ -12,7 +12,7 @@ const SelectProject = () => {
   const { data, loading } = useGetProjectsQuery();
   const { setSelectedProjectId, selectedProjectId } = useConversation();
   const { clearMessageCache } = useMessage();
-  const { query } = useGlobal();
+  const { query, params } = useGlobal();
   const { push } = query;
 
   const items = useMemo(() => {
@@ -33,7 +33,8 @@ const SelectProject = () => {
   useEffect(() => {
     const project = items?.find((project) => project.id === selectedProjectId);
     if (project) {
-      push({ is_live: project.isLive},{replace: true});
+      push({ is_live: project.isLive }, { replace: true });
+      // push({ is_live: project.isLive });
     }
     // eslint-disable-next-line
   }, [selectedProjectId, items]);

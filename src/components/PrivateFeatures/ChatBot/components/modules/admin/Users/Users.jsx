@@ -3,12 +3,17 @@ import React, { useMemo } from "react";
 import SearchComponent from "../Search";
 
 import UsersTable from "./Table";
-import { queries, useAdmin } from "../../../../hooks";
+import { queries, useAdmin, useGlobal } from "../../../../hooks";
 
 import { filterByPatternsFactory } from "../../../../utils/form";
 import { useFieldValue } from "../../../contexts/FormContext";
+import { useNavigate } from "react-router-dom";
 
 const Users = () => {
+  const navigate = useNavigate();
+
+  const { query } = useGlobal();
+  const { params } = query;
   const { addUser } = useAdmin();
   const { value: search } = useFieldValue("search");
   const { data, loading } = queries.useGetUsersQuery();
@@ -36,6 +41,14 @@ const Users = () => {
         rows={rows}
         isLoading={loading}
         insertingRow={addUser.loading}
+        onRowClick={(row) => {
+          navigate({
+            search: new URLSearchParams({
+              ...params,
+              mode: "preview",
+            }).toString(),
+          });
+        }}
       />
     </>
   );

@@ -18,7 +18,7 @@ export const useCreateConversation = () => {
       onSuccess: (newData, { updateQuery }) => {
         if (newData.success) {
           const conversationId = newData.data;
-          return updateQuery(
+          updateQuery(
             ["getConversations", { projectId: argsRef.current.projectId }],
             (conversations) => {
               return {
@@ -30,6 +30,7 @@ export const useCreateConversation = () => {
               };
             }
           );
+          return createAlert({ message: newData.message, type: "success" });
         }
         createAlert({ message: newData.message, type: "danger" });
       },

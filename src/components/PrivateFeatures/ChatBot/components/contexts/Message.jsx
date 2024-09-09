@@ -69,7 +69,7 @@ const MessageProvider = ({ children }) => {
     return () => {
       setMessages((prev) => ({
         ...prev,
-        size: prev.messages.length,
+        size: prev.messages?.length || 0,
       }));
     };
     // eslint-disable-next-line

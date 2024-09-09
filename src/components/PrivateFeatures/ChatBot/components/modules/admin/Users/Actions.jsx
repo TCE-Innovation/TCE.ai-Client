@@ -1,6 +1,6 @@
 import React from "react";
 import { Loader, TabContext } from "../../../common";
-import { RemoveUserModal } from "./Modals";
+import { RemoveUserModal, EditUserModal } from "./Modals";
 import Actions from "../Actions";
 
 import { mutations } from "../../../../hooks";
@@ -19,6 +19,11 @@ const UserTableActions = ({ ...userProps }) => {
         {(props) => {
           return (
             <Actions>
+              <Actions.Edit
+                renderModal={(modalProps) => {
+                  return <EditUserModal {...modalProps} {...userProps} />;
+                }}
+              />
               <Actions.Delete
                 disabled={deleteUser.loading}
                 renderModal={(modalProps) => {

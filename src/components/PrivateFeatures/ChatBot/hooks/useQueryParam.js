@@ -5,7 +5,7 @@ const useQueryParam = () => {
   const [params, setParams] = useState({});
   const location = useLocation();
 
-  const push = (query, { replace = false, reverse = false } = {}) => {
+  const push = (query, { replace = false, reverse = false, ...rest } = {}) => {
     let newParams = {};
     if (reverse) {
       for (const key in params) {
@@ -23,7 +23,11 @@ const useQueryParam = () => {
       window.location.host +
       location.pathname +
       search;
-    window.history.pushState({ path: newUrl }, "", newUrl);
+    if (replace) {
+      window.history.replaceState({ path: newUrl, ...rest }, "", newUrl);
+    } else {
+      window.history.pushState({ path: newUrl, ...rest }, "", newUrl);
+    }
     setParams(newParams);
   };
 

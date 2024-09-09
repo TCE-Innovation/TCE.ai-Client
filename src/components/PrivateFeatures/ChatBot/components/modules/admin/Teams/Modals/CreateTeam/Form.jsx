@@ -2,7 +2,6 @@ import React, { useMemo } from "react";
 
 import { Field, CheckBox } from "../../../../../common";
 import { MultiSelectField } from "../../../../../common/field";
-import ErrorBlock from "../../../../../common/field/ErrorBlock";
 
 import { useGetUsersQuery } from "../../../../../../hooks/queries/useGetUsers";
 import { useFieldArray } from "../../../../../contexts/FormContext";
@@ -27,7 +26,6 @@ const Form = () => {
         />
       </div>
       <div>
-        <ErrorBlock name={"users"} />
         <MultiSelectField
           name={"users"}
           items={users}

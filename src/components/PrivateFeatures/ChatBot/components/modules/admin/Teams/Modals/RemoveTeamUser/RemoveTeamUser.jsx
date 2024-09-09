@@ -1,13 +1,24 @@
 import React from "react";
 
 import { Overlay, Modal } from "../../../../../common";
+import { sleep } from "../../../../../../utils/misc";
+import { useGlobal } from "../../../../../../hooks";
 
-const RemoveTeamUser = ({ show, onClose, ...teamProps }) => {
+const RemoveTeamUser = ({ show, onClose, ...userProps }) => {
+  const { createAlert } = useGlobal();
   if (!show) return null;
 
   const handleRemoveTeam = () => {
-    console.log("removing team user");
     onClose();
+
+    sleep(1000).then(() =>
+      createAlert({
+        message: `User ${userProps.name}(${
+          userProps.email
+        }) is removed from the team!`,
+        type: "success",
+      })
+    );
   };
 
   return (
@@ -30,7 +41,19 @@ const RemoveTeamUser = ({ show, onClose, ...teamProps }) => {
           },
         }}
       >
-        <div className="projects-modal-wrapper">todo</div>
+        <div className="projects-modal-wrapper">
+          <div>Are you sure you want to remove this user?</div>
+          {!!userProps.name && (
+            <div>
+              <span>User name:</span>
+              <span>{userProps.name}</span>
+            </div>
+          )}
+          <div>
+            <span>Email:</span>
+            <span>{userProps.email}</span>
+          </div>
+        </div>
       </Modal>
     </Overlay>
   );

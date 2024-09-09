@@ -1,9 +1,30 @@
-import React from "react";
+import React, { useMemo } from "react";
 
 import { Overlay, Modal } from "../../../../../common";
+import { SelectField } from "../../../../../common/field";
+import { useGetUsersQuery } from "../../../../../../hooks/queries";
+import { sleep } from "../../../../../../utils/misc";
+import { useGlobal } from "../../../../../../hooks";
 
 const AddUserToTeam = ({ show, onClose }) => {
+  const { data, loading } = useGetUsersQuery();
+  const { createAlert } = useGlobal();
+
+  const users = useMemo(() => {
+    if (!data) return [];
+    return data.data;
+  }, [data]);
+
   if (!show) return null;
+
+  const handleSubmit = () => {
+    sleep(1000).then(() =>
+      createAlert({
+        message: "user added to team successfully!",
+        type: "success",
+      })
+    );
+  };
 
   return (
     <Overlay>
@@ -13,7 +34,7 @@ const AddUserToTeam = ({ show, onClose }) => {
         buttonLabels={{
           submit: "Add User",
         }}
-        onSubmit={() => console.log("todo: add user to team")}
+        onSubmit={handleSubmit}
         styles={{
           submit: {
             color: "white",
@@ -25,7 +46,22 @@ const AddUserToTeam = ({ show, onClose }) => {
           },
         }}
       >
-        <div className="projects-modal-wrapper">todo: add user to team</div>
+        <div className="projects-modal-wrapper">
+          <div>
+            <SelectField
+              items={users}
+              extractor={(item) => ({
+                label: [item.name, item.email].filter(Boolean).join("-"),
+                value: item.id,
+              })}
+              label="User name"
+              name={"user"}
+              search
+              placeholder={"Select User"}
+              loading={loading}
+            />
+          </div>
+        </div>
       </Modal>
     </Overlay>
   );
