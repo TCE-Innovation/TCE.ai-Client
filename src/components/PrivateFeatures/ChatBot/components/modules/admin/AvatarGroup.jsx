@@ -1,5 +1,5 @@
 import React, { useMemo } from "react";
-import { Avatar } from "../../../common";
+import { Avatar } from "../../common";
 
 const MAX_AVATARS = 4;
 

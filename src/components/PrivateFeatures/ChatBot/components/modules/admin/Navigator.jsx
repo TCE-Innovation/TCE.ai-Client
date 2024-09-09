@@ -1,7 +1,7 @@
 import React from "react";
 
-import { TabContext } from "../../../common";
-import { RightIcon } from "../../../icons";
+import { TabContext } from "../../common";
+import { RightIcon } from "../../icons";
 
 const Navigator = () => {
   return (

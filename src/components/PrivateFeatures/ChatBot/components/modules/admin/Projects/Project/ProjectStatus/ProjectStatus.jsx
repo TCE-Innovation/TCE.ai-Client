@@ -1,8 +1,8 @@
 import { useEffect } from "react";
-import { useAdmin, useGlobal, useDebounce } from "../../../../hooks";
-import { PROFILES } from "../../../../constants/admin";
-import { TabContext } from "../../../common";
-import SwitchMode from "./SwitchMode";
+import { useAdmin, useGlobal, useDebounce } from "../../../../../../hooks";
+import { PROFILES } from "../../../../../../constants/admin";
+import { TabContext } from "../../../../../common";
+import Switcher from "./Switcher";
 
 const ProjectStatus = () => {
   const { editProjectStatus } = useAdmin();
@@ -14,7 +14,7 @@ const ProjectStatus = () => {
 
   const [handleChangeProjectStatus, cancel] = useDebounce((isLive) => {
     const newIsLiveStatus = is_live === "true" ? "false" : "true";
-    if (loading || newIsLiveStatus === isLive.toString()) return;
+    if (loading || newIsLiveStatus === is_live.toString()) return;
     handleToggleProjectStatus({
       projectId: project_id,
       projectIsLiveStatus: isLive,
@@ -31,7 +31,7 @@ const ProjectStatus = () => {
       title: "Live",
       handleClick: () => {
         handleChangeProjectStatus(true);
-        push({ is_live: true });
+        push({ ...params, is_live: true }, { replace: true });
       },
       value: PROFILES.LIVE_MODE,
     },
@@ -39,14 +39,14 @@ const ProjectStatus = () => {
       title: "Pursuit",
       handleClick: () => {
         handleChangeProjectStatus(false);
-        push({ is_live: false });
+        push({ ...params, is_live: false }, { replace: true });
       },
       value: PROFILES.PROPOSAL_MODE,
     },
   ];
   return (
     <TabContext defaultActive={is_live ? 0 : 1} tabs={tabs}>
-      <SwitchMode />
+      <Switcher />
     </TabContext>
   );
 };

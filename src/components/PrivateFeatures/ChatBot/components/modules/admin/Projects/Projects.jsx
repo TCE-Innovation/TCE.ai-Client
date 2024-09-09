@@ -1,24 +1,35 @@
-import React from "react";
+import React, { useMemo } from "react";
 
 import Wrapper from "./style";
 
 import { TabContext } from "../../../common";
 
-import Project from "./Project";
-
-import Navigator from "./Navigator";
+import Navigator from "../Navigator";
 
 import { useGlobal } from "../../../../hooks";
 
 import { PROFILES } from "../../../../constants/admin";
 
+import Project from "./Project";
 import ProjectList from "./ProjectList";
+import { useGetProjectsQuery } from "../../../../hooks/queries";
 
 const Projects = () => {
   const { query } = useGlobal();
+  const { data, loading } = useGetProjectsQuery();
   const { push, params } = query;
 
   const { project_id, is_live } = params;
+
+  const projectName = useMemo(() => {
+    if (!data || loading) return "";
+    const projects = data.data;
+    return (
+      projects.find((item) => {
+        return item.id === project_id;
+      })?.name || "Project Name"
+    );
+  }, [data, project_id, loading]);
 
   const tabs = [
     {
@@ -30,7 +41,7 @@ const Projects = () => {
       pane: ProjectList,
     },
     {
-      title: "Project name",
+      title: projectName,
       value: PROFILES.PROJECT_NAME,
       pane: Project,
     },

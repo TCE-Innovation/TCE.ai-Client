@@ -1,12 +1,11 @@
 import { useMemo } from "react";
-import { useGlobal } from "../../../../hooks";
-import { filterByPatternsFactory } from "../../../../utils/form";
+import { filterByPatternsFactory } from "../../../../../../utils/form";
 
-import { queries, useAdmin } from "../../../../hooks";
+import { queries, useAdmin, useGlobal } from "../../../../../../hooks";
 
-import DocumentsTable from "../Documents/Table";
+import DocumentsTable from "./Table";
 
-import { useFieldValue } from "../../../contexts/FormContext";
+import { useFieldValue } from "../../../../../contexts/FormContext";
 
 const ProjectDocuments = () => {
   const { uploadDocument } = useAdmin();

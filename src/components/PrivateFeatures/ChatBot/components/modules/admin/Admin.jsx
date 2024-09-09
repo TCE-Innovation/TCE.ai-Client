@@ -1,11 +1,12 @@
 import React from "react";
 
-import { TabContext,Alerts } from "../../common";
+import { TabContext, Alerts } from "../../common";
 
 import ProjectsTable from "./Projects";
 import UsersTable from "./Users";
+import TeamsTable from "./Teams";
 
-import { FolderIcon, UsersIcon } from "../../icons";
+import { FolderIcon, UsersIcon, UserIcon } from "../../icons";
 
 import AddNewButton from "./AddNew";
 
@@ -19,8 +20,13 @@ const tabs = [
   },
   {
     title: "Users",
-    icon: UsersIcon,
+    icon: UserIcon,
     pane: UsersTable,
+  },
+  {
+    title: "Teams",
+    icon: UsersIcon,
+    pane: TeamsTable,
   },
 ];
 
@@ -44,9 +50,9 @@ const Admin = () => {
                 const TabIcon = tabs[tabIndex].icon;
                 return (
                   <div
-                    onClick={() =>
-                      push({ profile: tabs[tabIndex].title.toLowerCase() })
-                    }
+                    onClick={() => {
+                      push({ profile: tabs[tabIndex].title.toLowerCase() });
+                    }}
                     className={`d-flex align-items-center gap-1 px-4 py-2`}
                   >
                     <span>

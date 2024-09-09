@@ -1,0 +1,60 @@
+import React, { useMemo } from "react";
+
+import TableContainer from "../../TableContainer";
+
+import TeamsTableActions from "./Actions";
+import AvatarGroup from "../../AvatarGroup";
+import { useGlobal } from "../../../../../hooks";
+import SortButton from "../../SortButton";
+
+const Table = ({ rows, ...props }) => {
+  const { query } = useGlobal();
+
+  const { push } = query;
+
+  const columns = useMemo(
+    () => [
+      {
+        title: "Team Name",
+        key: "teamName",
+        sort: true,
+        renderSort: ({ handleSort, currentOrder }) => {
+          return (
+            <SortButton handleSort={handleSort} currentOrder={currentOrder} />
+          );
+        },
+      },
+      {
+        title: "Members",
+        key: "members",
+        align: "end",
+        width: "0",
+        renderCell: ({ members }) => {
+          return <AvatarGroup avatars={members} />;
+        },
+      },
+      {
+        title: "Actions",
+        align: "end",
+        renderCell: ({ ...teamProps }) => {
+          return <TeamsTableActions {...teamProps} />;
+        },
+      },
+    ],
+    []
+  );
+  return (
+    <>
+      <TableContainer
+        columns={columns}
+        rows={rows}
+        onRowClick={(row) => {
+          push({ team_id: row.id });
+        }}
+        {...props}
+      />
+    </>
+  );
+};
+
+export default Table;

@@ -1,12 +1,12 @@
 import React, { useMemo } from "react";
-import SortButton from "../SortButton";
-import AvatarGroup from "./AvatarGroup";
+import SortButton from "../../SortButton";
+import AvatarGroup from "../../AvatarGroup";
 
-import ProjectActions from "./ProjectActions";
-import TableContainer from "../TableContainer";
-import { TabContext } from "../../../common";
+import ProjectActions from "./Actions";
+import TableContainer from "../../TableContainer";
+import { TabContext } from "../../../../common";
 
-import { useGlobal } from "../../../../hooks";
+import { useGlobal } from "../../../../../hooks";
 
 const Table = ({ rows, ...props }) => {
   const { query } = useGlobal();
@@ -29,7 +29,9 @@ const Table = ({ rows, ...props }) => {
         renderCell: ({ assignedUsers }) => {
           if (!assignedUsers.length)
             return (
-              <span style={{ color: "var(--chatbot-grey)" }}>not available</span>
+              <span style={{ color: "var(--chatbot-grey)" }}>
+                not available
+              </span>
             );
           return <AvatarGroup avatars={assignedUsers} />;
         },

@@ -57,5 +57,24 @@ export default styled.div`
       background-color: var(--chatbot-light-grey);
       border-radius: 0.75em;
     }
+    .chatbot-live-status-wrapper {
+      position: absolute;
+      top: 0;
+      right: 0;
+      pointer-events: none;
+    }
+    .chatbot-live-status {
+      background-color: var(--chatbot-secondary);
+      border-radius: 0.25em;
+      padding: 0.25em 0.5em;
+      font-weight: 600;
+      width: max-content;
+      color: var(--chatbot-text-primary);
+      background-color: var(--chatbot-secondary);
+      &.pursuit {
+        color: white;
+        background-color: var(--chatbot-primary);
+      }
+    }
   }
 `;

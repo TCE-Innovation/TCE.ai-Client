@@ -4,7 +4,6 @@ export default styled.div`
   height: 100%;
   .conversations {
     height: 100%;
-    width: 20vw;
     display: flex;
     font-weight: bold;
     flex-direction: column;
@@ -31,7 +30,6 @@ export default styled.div`
     align-items: center;
   }
   .chatbot-admin-button {
-    // color: var(--chatbot-grey);
     border-radius: var(--chatbot-border-radius);
   }
   display: flex;
@@ -61,6 +59,7 @@ export default styled.div`
     position: relative;
     border-radius: var(--chatbot-border-radius);
     background-color: white;
+    width: 20vw;
     padding: 0.5em;
     overflow: hidden auto;
     flex: 1;

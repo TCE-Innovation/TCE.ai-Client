@@ -27,7 +27,7 @@ const Form = () => {
         />
       </div>
       <div>
-        <RolesField />
+        <RolesField name={'role'} />
       </div>
       <div />
     </form>
