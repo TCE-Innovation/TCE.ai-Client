@@ -651,7 +651,7 @@ const CRO = () => {
                                 href={responses[0]}
                                 target="_blank"
                                 rel="noopener noreferrer"
-                                style={{ display: 'block', marginLeft: '10px', marginTop: '10px' }}
+                                style={{ display: 'block', marginLeft: '10px', marginTop: '-10px' }}
                             >
                                 Click to download Excel File of Optimized Runs
                             </a>
