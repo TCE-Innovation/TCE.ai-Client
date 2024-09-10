@@ -6,6 +6,7 @@ import {
   AddProjectModal,
   AddUserToProjectModal,
   AddDocumentToProjectModal,
+  AddTeamToProjectModal,
 } from "./Projects/Modals";
 import { AddUserModal } from "./Users/Modals";
 import { AddDocumentModal } from "./Documents/Modals";
@@ -70,6 +71,27 @@ const AddUserToTeam = () => {
       <AddUserToTeamModal
         show={showAddUserToTeamModal}
         onClose={() => setShowAddUserToTeamModal(false)}
+      />
+    </>
+  );
+};
+
+const AddTeamToProject = () => {
+  const [showAddTeamToProjectModal, setShowAddTeamToProjectModal] = useState(
+    false
+  );
+  return (
+    <>
+      <button
+        className="chat-button add-project-button d-flex align-items-center gap-2"
+        onClick={() => setShowAddTeamToProjectModal(true)}
+      >
+        <AddIcon />
+        <span>Add Team</span>
+      </button>
+      <AddTeamToProjectModal
+        show={showAddTeamToProjectModal}
+        onClose={() => setShowAddTeamToProjectModal(false)}
       />
     </>
   );
@@ -183,6 +205,7 @@ AddNew.Document = AddNewDocument;
 AddNew.UserToProject = AddUserToProject;
 AddNew.DocumentToProject = AddDocumentToProject;
 AddNew.Team = CreateNewTeam;
+AddNew.TeamToProject = AddTeamToProject;
 AddNew.UserToTeam = AddUserToTeam;
 
 export default AddNew;

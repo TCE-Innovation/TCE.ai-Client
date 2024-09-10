@@ -5,3 +5,5 @@ export { default as AddUserToProjectModal } from "./AddUser";
 export { default as AddDocumentToProjectModal } from "./AddDocument";
 export { default as RemoveUserFromProjectModal } from "./RemoveUser";
 export { default as RemoveDocumentFromProjectModal } from "./RemoveDocument";
+export { default as RemoveTeamFromProjectModal } from "./RemoveTeam";
+export { default as AddTeamToProjectModal } from "./AddTeam";

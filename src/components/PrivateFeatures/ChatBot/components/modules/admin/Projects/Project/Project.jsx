@@ -9,29 +9,66 @@ import { PROFILES } from "../../../../../constants/admin";
 
 import ProjectUsers from "./ProjectUsers";
 import ProjectDocuments from "./ProjectDocuments";
+import ProjectTeams from "./ProjectTeams";
 import ProjectStatus from "./ProjectStatus";
 
 import FormContext from "../../../../contexts/FormContext";
 
-// export const roles = ["Admin", "Project Manager", "User"];
-
 const tabs = [
   {
-    title: "Project Users",
+    title: "Users",
     pane: ProjectUsers,
     value: PROFILES.PROJECT_USERS,
+    searchProps: {
+      placeholder: "Search users by email",
+      name: "userSearch",
+    },
+    Modal: AddNew.UserToProject,
   },
   {
-    title: "Project Documents",
+    title: "Documents",
     pane: ProjectDocuments,
     value: PROFILES.PROJECT_DOCS,
+    searchProps: {
+      placeholder: "Search a document",
+      name: "documentSearch",
+    },
+    Modal: AddNew.DocumentToProject,
+  },
+  {
+    title: "Teams",
+    pane: ProjectTeams,
+    value: PROFILES.PROJECT_TEAMS,
+    searchProps: {
+      placeholder: "Search a team",
+      name: "teamSearch",
+    },
+    Modal: AddNew.TeamToProject,
   },
 ];
+
+const SearchAndModal = ({ tabs, activeTab }) => {
+  const tab = tabs[activeTab] || null;
+  if (!tab) return null;
+  const { searchProps, Modal = () => null } = tab;
+  return (
+    <>
+      <div className="flex-grow-1">
+        <SearchComponent {...searchProps} />
+      </div>
+      <div>
+        <Modal />
+      </div>
+    </>
+  );
+};
 
 const Project = () => {
   return (
     <div>
-      <FormContext initialValues={{ documentSearch: "", userSearch: "" }}>
+      <FormContext
+        initialValues={{ documentSearch: "", userSearch: "", teamSearch: "" }}
+      >
         <TabContext tabs={tabs}>
           <div className="d-flex align-items-center gap-4 cb-header-height-controller">
             <div>
@@ -47,37 +84,8 @@ const Project = () => {
             </div>
             <ProjectStatus />
             <TabContext.Provider>
-              {({ activeTab }) => {
-                return (
-                  <div className="flex-grow-1">
-                    {activeTab === 0 ? (
-                      <SearchComponent
-                        key={0}
-                        placeholder={"Search users by email"}
-                        name={"userSearch"}
-                      />
-                    ) : activeTab === 1 ? (
-                      <SearchComponent
-                        key={1}
-                        placeholder={"Search a document"}
-                        name={"documentSearch"}
-                      />
-                    ) : null}
-                  </div>
-                );
-              }}
-            </TabContext.Provider>
-            <TabContext.Provider>
-              {({ activeTab }) => {
-                return (
-                  <>
-                    {activeTab === 0 ? (
-                      <AddNew.UserToProject />
-                    ) : activeTab === 1 ? (
-                      <AddNew.DocumentToProject />
-                    ) : null}
-                  </>
-                );
+              {({ activeTab, tabs }) => {
+                return <SearchAndModal tabs={tabs} activeTab={activeTab} />;
               }}
             </TabContext.Provider>
           </div>

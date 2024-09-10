@@ -8,6 +8,7 @@ export const PROFILES = {
   PROJECT_NAME: Symbol("project-name"),
   PROJECT_USERS: Symbol("project-users"),
   PROJECT_DOCS: Symbol("project-documents"),
+  PROJECT_TEAMS: Symbol("project-teams"),
   LIVE_MODE: Symbol("live-mode"),
   PURSUIT_MODE: Symbol("pursuit-mode"),
 };
