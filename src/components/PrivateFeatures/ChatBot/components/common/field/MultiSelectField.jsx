@@ -21,7 +21,7 @@ const MultiSelectField = ({
   const [list, setList] = useState([]);
   const [show, setShow] = useState(false);
 
-  const { changeValue, error } = useFieldValue(name);
+  const { changeValue } = useFieldValue(name);
 
   useEffect(() => {
     changeValue(values);
