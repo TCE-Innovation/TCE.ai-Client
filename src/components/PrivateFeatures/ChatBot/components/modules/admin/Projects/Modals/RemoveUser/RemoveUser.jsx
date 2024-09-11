@@ -1,6 +1,6 @@
 import React from "react";
 
-import { Overlay, Modal } from "../../../../../common";
+import { Modal } from "../../../../../common";
 
 import { useContext } from "../../../../../contexts/FormContext";
 
@@ -17,49 +17,47 @@ const RemoveUser = ({ show, onClose, removeUserFromProject, ...userProps }) => {
   };
 
   return (
-    <Overlay>
-      <Modal
-        onCancel={onClose}
-        title="Remove User from this Project"
-        buttonLabels={{
-          submit: "Remove",
-        }}
-        onSubmit={submitHandler(handleRemoveUser)}
-        isSubmitting={isSubmitting}
-        styles={{
-          submit: {
-            color: "var(--chatbot-red)",
-            backgroundColor: "transparent",
-          },
-          cancel: {
-            color: "black",
-            backgroundColor: "transparent",
-          },
-        }}
-      >
-        <div className="projects-modal-wrapper">
+    <Modal
+      onCancel={onClose}
+      title="Remove User from this Project"
+      buttonLabels={{
+        submit: "Remove",
+      }}
+      onSubmit={submitHandler(handleRemoveUser)}
+      isSubmitting={isSubmitting}
+      styles={{
+        submit: {
+          color: "var(--chatbot-red)",
+          backgroundColor: "transparent",
+        },
+        cancel: {
+          color: "black",
+          backgroundColor: "transparent",
+        },
+      }}
+    >
+      <div className="projects-modal-wrapper">
+        <div>
+          Are you sure you want to remove this user from project? This action
+          cannot be undone.
+        </div>
+        <br />
+        {userProps.name && (
           <div>
-            Are you sure you want to remove this user from project? This action
-            cannot be undone.
-          </div>
-          <br />
-          {userProps.name && (
-            <div>
-              User Name:{" "}
-              <span style={{ color: "var(--chatbot-text-primary)" }}>
-                {userProps.name}
-              </span>
-            </div>
-          )}
-          <div>
-            Email:{" "}
+            User Name:{" "}
             <span style={{ color: "var(--chatbot-text-primary)" }}>
-              {userProps.email}
+              {userProps.name}
             </span>
           </div>
+        )}
+        <div>
+          Email:{" "}
+          <span style={{ color: "var(--chatbot-text-primary)" }}>
+            {userProps.email}
+          </span>
         </div>
-      </Modal>
-    </Overlay>
+      </div>
+    </Modal>
   );
 };
 

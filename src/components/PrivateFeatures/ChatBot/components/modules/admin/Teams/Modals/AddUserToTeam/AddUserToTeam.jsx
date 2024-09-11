@@ -1,6 +1,6 @@
 import React, { useMemo } from "react";
 
-import { Overlay, Modal } from "../../../../../common";
+import { Modal } from "../../../../../common";
 import { SelectField } from "../../../../../common/field";
 import { useGetUsersQuery } from "../../../../../../hooks/queries";
 import { sleep } from "../../../../../../utils/misc";
@@ -27,43 +27,41 @@ const AddUserToTeam = ({ show, onClose }) => {
   };
 
   return (
-    <Overlay>
-      <Modal
-        onCancel={onClose}
-        title="Add User To Team"
-        buttonLabels={{
-          submit: "Add User",
-        }}
-        onSubmit={handleSubmit}
-        styles={{
-          submit: {
-            color: "white",
-            backgroundColor: "var(--chatbot-primary) important!",
-          },
-          cancel: {
-            color: "black",
-            backgroundColor: "transparent",
-          },
-        }}
-      >
-        <div className="projects-modal-wrapper">
-          <div>
-            <SelectField
-              items={users}
-              extractor={(item) => ({
-                label: [item.name, item.email].filter(Boolean).join("-"),
-                value: item.id,
-              })}
-              label="User name"
-              name={"user"}
-              search
-              placeholder={"Select User"}
-              loading={loading}
-            />
-          </div>
+    <Modal
+      onCancel={onClose}
+      title="Add User To Team"
+      buttonLabels={{
+        submit: "Add User",
+      }}
+      onSubmit={handleSubmit}
+      styles={{
+        submit: {
+          color: "white",
+          backgroundColor: "var(--chatbot-primary) important!",
+        },
+        cancel: {
+          color: "black",
+          backgroundColor: "transparent",
+        },
+      }}
+    >
+      <div className="projects-modal-wrapper">
+        <div>
+          <SelectField
+            items={users}
+            extractor={(item) => ({
+              label: [item.name, item.email].filter(Boolean).join("-"),
+              value: item.id,
+            })}
+            label="User name"
+            name={"user"}
+            search
+            placeholder={"Select User"}
+            loading={loading}
+          />
         </div>
-      </Modal>
-    </Overlay>
+      </div>
+    </Modal>
   );
 };
 

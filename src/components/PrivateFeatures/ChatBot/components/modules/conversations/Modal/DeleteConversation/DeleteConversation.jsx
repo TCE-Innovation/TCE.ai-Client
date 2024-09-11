@@ -1,6 +1,6 @@
 import React from "react";
 
-import { Overlay, Modal, Loader } from "../../../../common";
+import { Modal, Loader } from "../../../../common";
 import { useConversation, useMessage } from "../../../../../hooks";
 
 const DeleteLoader = () => {
@@ -38,28 +38,26 @@ const DeleteConversation = ({ id, show, onClose }) => {
   if (!show) return null;
 
   return (
-    <Overlay>
-      <Modal
-        title={"Deleting Conversation"}
-        buttonLabels={{
-          submit: isDeletingConversation ? <DeleteLoader /> : "Delete",
-        }}
-        onSubmit={handleSubmit(id)}
-        onCancel={handleClose}
-        styles={{
-          submit: {
-            color: "var(--chatbot-red)",
-            backgroundColor: "transparent",
-          },
-          cancel: {
-            backgroundColor: "transparent",
-            color: "black",
-          },
-        }}
-      >
-        Are you sure you want to delete the conversation?
-      </Modal>
-    </Overlay>
+    <Modal
+      title={"Deleting Conversation"}
+      buttonLabels={{
+        submit: isDeletingConversation ? <DeleteLoader /> : "Delete",
+      }}
+      onSubmit={handleSubmit(id)}
+      onCancel={handleClose}
+      styles={{
+        submit: {
+          color: "var(--chatbot-red)",
+          backgroundColor: "transparent",
+        },
+        cancel: {
+          backgroundColor: "transparent",
+          color: "black",
+        },
+      }}
+    >
+      Are you sure you want to delete the conversation?
+    </Modal>
   );
 };
 

@@ -1,6 +1,6 @@
 import React from "react";
 
-import { Overlay, Modal } from "../../../../../common";
+import { Modal } from "../../../../../common";
 
 import { useAdmin } from "../../../../../../hooks";
 
@@ -31,32 +31,30 @@ const AddUser = ({ show, onClose }) => {
   };
 
   return (
-    <Overlay>
-      <Modal
-        onCancel={onClose}
-        title="Add New User"
-        buttonLabels={{
-          submit: "Add User",
-        }}
-        isDisabled={!isValid}
-        isSubmitting={isSubmitting}
-        onSubmit={submitHandler(handleSubmit)}
-        styles={{
-          submit: {
-            color: "white",
-            backgroundColor: "var(--chatbot-primary) important!",
-          },
-          cancel: {
-            color: "black",
-            backgroundColor: "transparent",
-          },
-        }}
-      >
-        <div className="projects-modal-wrapper">
-          <Form />
-        </div>
-      </Modal>
-    </Overlay>
+    <Modal
+      onCancel={onClose}
+      title="Add New User"
+      buttonLabels={{
+        submit: "Add User",
+      }}
+      isDisabled={!isValid}
+      isSubmitting={isSubmitting}
+      onSubmit={submitHandler(handleSubmit)}
+      styles={{
+        submit: {
+          color: "white",
+          backgroundColor: "var(--chatbot-primary) important!",
+        },
+        cancel: {
+          color: "black",
+          backgroundColor: "transparent",
+        },
+      }}
+    >
+      <div className="projects-modal-wrapper">
+        <Form />
+      </div>
+    </Modal>
   );
 };
 

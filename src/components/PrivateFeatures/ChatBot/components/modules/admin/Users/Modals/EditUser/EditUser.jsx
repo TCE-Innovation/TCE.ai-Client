@@ -1,6 +1,6 @@
 import React from "react";
 
-import { Overlay, Modal } from "../../../../../common";
+import { Modal } from "../../../../../common";
 
 import RolesField from "../../Forms/_Role";
 
@@ -38,31 +38,29 @@ const EditUser = ({ show, onClose, ...userProps }) => {
   };
 
   return (
-    <Overlay>
-      <Modal
-        onCancel={onClose}
-        title="Edit User Role"
-        buttonLabels={{
-          submit: "Save",
-        }}
-        isDisabled={!isValid}
-        onSubmit={submitHandler(handleSubmit)}
-        styles={{
-          submit: {
-            color: "white",
-            backgroundColor: "var(--chatbot-primary) important!",
-          },
-          cancel: {
-            color: "black",
-            backgroundColor: "transparent",
-          },
-        }}
-      >
-        <div className="projects-modal-wrapper">
-          <RolesField name={"role"} initialValue={userProps.role} />
-        </div>
-      </Modal>
-    </Overlay>
+    <Modal
+      onCancel={onClose}
+      title="Edit User Role"
+      buttonLabels={{
+        submit: "Save",
+      }}
+      isDisabled={!isValid}
+      onSubmit={submitHandler(handleSubmit)}
+      styles={{
+        submit: {
+          color: "white",
+          backgroundColor: "var(--chatbot-primary) important!",
+        },
+        cancel: {
+          color: "black",
+          backgroundColor: "transparent",
+        },
+      }}
+    >
+      <div className="projects-modal-wrapper">
+        <RolesField name={"role"} initialValue={userProps.role} />
+      </div>
+    </Modal>
   );
 };
 

@@ -1,6 +1,6 @@
 import React from "react";
 
-import { Overlay, Modal, Field, Loader } from "../../../../../common";
+import { Modal, Field, Loader } from "../../../../../common";
 
 import { useAdmin } from "../../../../../../hooks";
 
@@ -36,55 +36,53 @@ const RenameDocument = ({ show, onClose, index }) => {
   if (!show) return null;
 
   return (
-    <Overlay>
-      <Modal
-        onCancel={onClose}
-        title="Rename Document"
-        buttonLabels={{
-          submit: "Rename",
-        }}
-        isSubmitting={isSubmitting || loadingDocuments}
-        onSubmit={handleSubmit}
-        styles={{
-          submit: {
-            color: "var(--chatbot-red)",
-            backgroundColor: "transparent",
-          },
-          cancel: {
-            color: "black",
-            backgroundColor: "transparent",
-          },
-        }}
-      >
-        <div className="projects-modal-wrapper position-relative">
-          {loadingDocuments && <Loader />}
-          <div
-            style={{
-              opacity: loadingDocuments ? 0 : 1,
-              pointerEvents: loadingDocuments ? "none" : "all",
-            }}
-          >
-            <FormContext initialValues={{ name: "" }}>
-              <Field
-                name={"name"}
-                placeholder={"Type here"}
-                autoComplete="off"
-                onChange={(value) => {
-                  changeDocumentName(
-                    documentNames.map((name, i) => {
-                      if (i === index) {
-                        return value;
-                      }
-                      return name;
-                    })
-                  );
-                }}
-              />
-            </FormContext>
-          </div>
+    <Modal
+      onCancel={onClose}
+      title="Rename Document"
+      buttonLabels={{
+        submit: "Rename",
+      }}
+      isSubmitting={isSubmitting || loadingDocuments}
+      onSubmit={handleSubmit}
+      styles={{
+        submit: {
+          color: "var(--chatbot-red)",
+          backgroundColor: "transparent",
+        },
+        cancel: {
+          color: "black",
+          backgroundColor: "transparent",
+        },
+      }}
+    >
+      <div className="projects-modal-wrapper position-relative">
+        {loadingDocuments && <Loader />}
+        <div
+          style={{
+            opacity: loadingDocuments ? 0 : 1,
+            pointerEvents: loadingDocuments ? "none" : "all",
+          }}
+        >
+          <FormContext initialValues={{ name: "" }}>
+            <Field
+              name={"name"}
+              placeholder={"Type here"}
+              autoComplete="off"
+              onChange={(value) => {
+                changeDocumentName(
+                  documentNames.map((name, i) => {
+                    if (i === index) {
+                      return value;
+                    }
+                    return name;
+                  })
+                );
+              }}
+            />
+          </FormContext>
         </div>
-      </Modal>
-    </Overlay>
+      </div>
+    </Modal>
   );
 };
 

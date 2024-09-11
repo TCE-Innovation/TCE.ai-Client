@@ -5,7 +5,7 @@ import useUpload from "./useUpload";
 import { useContext } from "../../../../../contexts/FormContext";
 
 import { RenameDocumentAlert } from "../../../Documents/Modals/DocumentAlert";
-import { Loader, Modal, Overlay } from "../../../../../common";
+import { Loader, Modal } from "../../../../../common";
 import ErrorBlock from "../../../../../common/field/ErrorBlock";
 import { getFileExtension } from "../../../../../../utils/file";
 
@@ -76,68 +76,66 @@ const AddDocument = ({ show, onClose }) => {
 
   if (formStep === "upload") {
     return (
-      <Overlay>
-        <Modal
-          onCancel={onClose}
-          title={`Add Document to Project ${
-            project?.name ? `"${project.name}"` : ""
-          }`}
-          buttonLabels={{
-            submit: "Add Document",
-          }}
-          isDisabled={error !== null}
-          isSubmitting={isSubmitting || isloading}
-          onSubmit={submitHandler(onSubmit)}
-          styles={{
-            submit: {
-              color: "white",
-              backgroundColor: "var(--chatbot-primary)",
-            },
-            cancel: {
-              color: "black",
-              backgroundColor: "transparent",
-            },
-          }}
-        >
-          <div className="projects-modal-wrapper position-relative">
-            <ErrorBlock name={"documents"} />
-            {isloading && <Loader />}
-            <div
-              style={{
-                opacity: isloading ? 0 : 1,
-                pointerEvents: isloading ? "none" : "all",
-              }}
-            >
-              {!selected ? (
-                <div className="d-flex flex-column gap-2">
-                  <div
-                    onClick={(e) => {
-                      e.preventDefault();
-                      e.stopPropagation();
-                      setSelected("folder");
-                    }}
-                  >
-                    {uploadDirectoryElement}
-                  </div>
-                  <div
-                    onClick={(e) => {
-                      e.preventDefault();
-                      e.stopPropagation();
-                      setSelected("files");
-                    }}
-                  >
-                    {uploadFilesElement}
-                  </div>
+      <Modal
+        onCancel={onClose}
+        title={`Add Document to Project ${
+          project?.name ? `"${project.name}"` : ""
+        }`}
+        buttonLabels={{
+          submit: "Add Document",
+        }}
+        isDisabled={error !== null}
+        isSubmitting={isSubmitting || isloading}
+        onSubmit={submitHandler(onSubmit)}
+        styles={{
+          submit: {
+            color: "white",
+            backgroundColor: "var(--chatbot-primary)",
+          },
+          cancel: {
+            color: "black",
+            backgroundColor: "transparent",
+          },
+        }}
+      >
+        <div className="projects-modal-wrapper position-relative">
+          <ErrorBlock name={"documents"} />
+          {isloading && <Loader />}
+          <div
+            style={{
+              opacity: isloading ? 0 : 1,
+              pointerEvents: isloading ? "none" : "all",
+            }}
+          >
+            {!selected ? (
+              <div className="d-flex flex-column gap-2">
+                <div
+                  onClick={(e) => {
+                    e.preventDefault();
+                    e.stopPropagation();
+                    setSelected("folder");
+                  }}
+                >
+                  {uploadDirectoryElement}
                 </div>
-              ) : selected === "files" ? (
-                uploadFilesElement
-              ) : selected === "folder" ? (
-                uploadDirectoryElement
-              ) : null}
-            </div>
+                <div
+                  onClick={(e) => {
+                    e.preventDefault();
+                    e.stopPropagation();
+                    setSelected("files");
+                  }}
+                >
+                  {uploadFilesElement}
+                </div>
+              </div>
+            ) : selected === "files" ? (
+              uploadFilesElement
+            ) : selected === "folder" ? (
+              uploadDirectoryElement
+            ) : null}
           </div>
-        </Modal>
-      </Overlay>
+        </div>
+      </Modal>
     );
   }
   if (formStep === "rename") {

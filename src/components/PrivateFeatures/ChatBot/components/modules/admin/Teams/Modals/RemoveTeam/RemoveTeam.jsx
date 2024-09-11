@@ -1,6 +1,6 @@
 import React from "react";
 
-import { Overlay, Modal } from "../../../../../common";
+import { Modal } from "../../../../../common";
 import { sleep } from "../../../../../../utils/misc";
 import { useGlobal } from "../../../../../../hooks";
 
@@ -20,37 +20,35 @@ const RemoveTeam = ({ show, onClose, deleteUser, ...teamProps }) => {
   };
 
   return (
-    <Overlay>
-      <Modal
-        onCancel={onClose}
-        title="Remove Team"
-        buttonLabels={{
-          submit: "Remove",
-        }}
-        onSubmit={handleRemoveTeam}
-        styles={{
-          submit: {
-            color: "var(--chatbot-red)",
-            backgroundColor: "transparent",
-          },
-          cancel: {
-            color: "black",
-            backgroundColor: "transparent",
-          },
-        }}
-      >
-        <div className="projects-modal-wrapper">
-          <div>Are you sure you want to remove this team?</div>
-          <br />
-          <div>
-            Team Name:{" "}
-            <span style={{ color: "var(--chatbot-text-primary)" }}>
-              {teamProps.teamName}
-            </span>
-          </div>
+    <Modal
+      onCancel={onClose}
+      title="Remove Team"
+      buttonLabels={{
+        submit: "Remove",
+      }}
+      onSubmit={handleRemoveTeam}
+      styles={{
+        submit: {
+          color: "var(--chatbot-red)",
+          backgroundColor: "transparent",
+        },
+        cancel: {
+          color: "black",
+          backgroundColor: "transparent",
+        },
+      }}
+    >
+      <div className="projects-modal-wrapper">
+        <div>Are you sure you want to remove this team?</div>
+        <br />
+        <div>
+          Team Name:{" "}
+          <span style={{ color: "var(--chatbot-text-primary)" }}>
+            {teamProps.teamName}
+          </span>
         </div>
-      </Modal>
-    </Overlay>
+      </div>
+    </Modal>
   );
 };
 

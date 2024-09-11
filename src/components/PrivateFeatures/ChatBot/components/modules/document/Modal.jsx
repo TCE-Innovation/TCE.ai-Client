@@ -1,7 +1,6 @@
 import React from "react";
 
 import DocumentView from "./DocumentView";
-import { Overlay } from "../../common";
 
 const Modal = ({
   pdfURL,
@@ -12,15 +11,13 @@ const Modal = ({
 }) => {
   if (!modalProps.show) return null;
   return (
-    <Overlay>
-      <DocumentView
-        pdfURL={pdfURL}
-        title={title}
-        pageNumber={pageNumber}
-        highlightedText={highlightedText}
-        onClose={modalProps.onClose}
-      />
-    </Overlay>
+    <DocumentView
+      pdfURL={pdfURL}
+      title={title}
+      pageNumber={pageNumber}
+      highlightedText={highlightedText}
+      onClose={modalProps.onClose}
+    />
   );
 };
 
