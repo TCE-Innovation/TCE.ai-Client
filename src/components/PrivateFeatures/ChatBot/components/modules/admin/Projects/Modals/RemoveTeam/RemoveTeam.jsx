@@ -1,6 +1,6 @@
 import React from "react";
 
-import { Overlay, Modal } from "../../../../../common";
+import { Modal } from "../../../../../common";
 
 import { useContext } from "../../../../../contexts/FormContext";
 import { useGlobal } from "../../../../../../hooks";
@@ -21,30 +21,28 @@ const RemoveTeam = ({ show, onClose, ...teamProps }) => {
   };
 
   return (
-    <Overlay>
-      <Modal
-        onCancel={onClose}
-        title="Remove Team from Project"
-        buttonLabels={{
-          submit: "Remove",
-        }}
-        onSubmit={submitHandler(handleRemoveTeam)}
-        styles={{
-          submit: {
-            color: "var(--chatbot-red)",
-            backgroundColor: "transparent",
-          },
-          cancel: {
-            color: "black",
-            backgroundColor: "transparent",
-          },
-        }}
-      >
-        <div className="projects-modal-wrapper">
-          todo: remove team from project
-        </div>
-      </Modal>
-    </Overlay>
+    <Modal
+      onCancel={onClose}
+      title="Remove Team from Project"
+      buttonLabels={{
+        submit: "Remove",
+      }}
+      onSubmit={submitHandler(handleRemoveTeam)}
+      styles={{
+        submit: {
+          color: "var(--chatbot-red)",
+          backgroundColor: "transparent",
+        },
+        cancel: {
+          color: "black",
+          backgroundColor: "transparent",
+        },
+      }}
+    >
+      <div className="projects-modal-wrapper">
+        todo: remove team from project
+      </div>
+    </Modal>
   );
 };
 

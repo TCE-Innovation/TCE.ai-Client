@@ -1,6 +1,6 @@
 import React from "react";
 
-import { Overlay, Modal, Field } from "../../../../../common";
+import { Modal, Field } from "../../../../../common";
 
 import { useContext } from "../../../../../contexts/FormContext";
 
@@ -19,32 +19,35 @@ const EditProject = ({ show, onClose, editProject, ...project }) => {
   };
 
   return (
-    <Overlay>
-      <Modal
-        onCancel={onClose}
-        title="Edit Project Name"
-        buttonLabels={{
-          submit: "Save",
-        }}
-        isDisabled={!isValid}
-        onSubmit={submitHandler(handleSubmit)}
-        isSubmitting={isSubmitting}
-        styles={{
-          submit: {
-            color: "white",
-            backgroundColor: "var(--chatbot-primary) important!",
-          },
-          cancel: {
-            color: "black",
-            backgroundColor: "transparent",
-          },
-        }}
-      >
-        <div className="projects-modal-wrapper">
-          <Field name={"name"} placeholder={"Project name"} label="Name" min={5} />
-        </div>
-      </Modal>
-    </Overlay>
+    <Modal
+      onCancel={onClose}
+      title="Edit Project Name"
+      buttonLabels={{
+        submit: "Save",
+      }}
+      isDisabled={!isValid}
+      onSubmit={submitHandler(handleSubmit)}
+      isSubmitting={isSubmitting}
+      styles={{
+        submit: {
+          color: "white",
+          backgroundColor: "var(--chatbot-primary) important!",
+        },
+        cancel: {
+          color: "black",
+          backgroundColor: "transparent",
+        },
+      }}
+    >
+      <div className="projects-modal-wrapper">
+        <Field
+          name={"name"}
+          placeholder={"Project name"}
+          label="Name"
+          min={5}
+        />
+      </div>
+    </Modal>
   );
 };
 

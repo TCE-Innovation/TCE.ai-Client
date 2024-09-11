@@ -1,5 +1,5 @@
 import React, { useMemo } from "react";
-import { Overlay, Modal } from "../../../../../common";
+import { Modal } from "../../../../../common";
 import { SearchField } from "../../../../../common/field";
 
 import { useAdmin, queries } from "../../../../../../hooks";
@@ -55,45 +55,41 @@ const AddUser = ({ show, onClose }) => {
   if (!show) return null;
 
   return (
-    <Overlay>
-      <Modal
-        onCancel={onClose}
-        title={`Add User to Project ${
-          project?.name ? `"${project.name}"` : ""
-        }`}
-        buttonLabels={{
-          submit: "Add User",
-        }}
-        isDisabled={error !== null}
-        isSubmitting={isSubmitting}
-        onSubmit={submitHandler(handleSubmit)}
-        styles={{
-          submit: {
-            color: "white",
-            backgroundColor: "var(--chatbot-primary) important!",
-          },
-          cancel: {
-            color: "black",
-            backgroundColor: "transparent",
-          },
-        }}
-      >
-        <div className="projects-modal-wrapper">
-          <form>
-            <div>
-              <SearchField
-                name={"userIds"}
-                extractor={(item) => ({ label: item.label, value: item.id })}
-                placeholder={"Select users"}
-                searchItems={users}
-                loading={loadingUsers}
-                onChange={() => setUserIdError(null)}
-              />
-            </div>
-          </form>
-        </div>
-      </Modal>
-    </Overlay>
+    <Modal
+      onCancel={onClose}
+      title={`Add User to Project ${project?.name ? `"${project.name}"` : ""}`}
+      buttonLabels={{
+        submit: "Add User",
+      }}
+      isDisabled={error !== null}
+      isSubmitting={isSubmitting}
+      onSubmit={submitHandler(handleSubmit)}
+      styles={{
+        submit: {
+          color: "white",
+          backgroundColor: "var(--chatbot-primary) important!",
+        },
+        cancel: {
+          color: "black",
+          backgroundColor: "transparent",
+        },
+      }}
+    >
+      <div className="projects-modal-wrapper">
+        <form>
+          <div>
+            <SearchField
+              name={"userIds"}
+              extractor={(item) => ({ label: item.label, value: item.id })}
+              placeholder={"Select users"}
+              searchItems={users}
+              loading={loadingUsers}
+              onChange={() => setUserIdError(null)}
+            />
+          </div>
+        </form>
+      </div>
+    </Modal>
   );
 };
 

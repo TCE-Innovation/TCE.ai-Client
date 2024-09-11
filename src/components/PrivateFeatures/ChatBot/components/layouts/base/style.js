@@ -189,7 +189,7 @@ export default styled.div`
   }
 
   .chatbot-bug-report-btn {
-    --spacing-offset: .5em;
+    --spacing-offset: 0.5em;
     position: fixed;
     bottom: var(--spacing-offset);
     right: var(--spacing-offset);

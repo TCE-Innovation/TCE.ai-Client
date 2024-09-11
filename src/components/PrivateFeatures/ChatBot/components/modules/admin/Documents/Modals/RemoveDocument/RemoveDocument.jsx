@@ -1,42 +1,40 @@
 import React from "react";
 
-import { Overlay, Modal } from "../../../../../common";
+import { Modal } from "../../../../../common";
 import Description from "../../Forms/_Description";
 
 const RemoveDocument = ({ show, onClose, ...document }) => {
   if (!show) return null;
 
   return (
-    <Overlay>
-      <Modal
-        onCancel={onClose}
-        title="Remove Document"
-        buttonLabels={{
-          submit: "Remove",
-        }}
-        onSubmit={() => console.log("remove document")}
-        styles={{
-          submit: {
-            color: "var(--chatbot-red)",
-            backgroundColor: "transparent",
-          },
-          cancel: {
-            color: "black",
-            backgroundColor: "transparent",
-          },
-        }}
-      >
-        <div className="projects-modal-wrapper">
-          <div>
-            Are you sure you want to remove this document?
-            <br />
-            This action cannot be undone.
-          </div>
+    <Modal
+      onCancel={onClose}
+      title="Remove Document"
+      buttonLabels={{
+        submit: "Remove",
+      }}
+      onSubmit={() => console.log("remove document")}
+      styles={{
+        submit: {
+          color: "var(--chatbot-red)",
+          backgroundColor: "transparent",
+        },
+        cancel: {
+          color: "black",
+          backgroundColor: "transparent",
+        },
+      }}
+    >
+      <div className="projects-modal-wrapper">
+        <div>
+          Are you sure you want to remove this document?
           <br />
-          <Description {...document} />
+          This action cannot be undone.
         </div>
-      </Modal>
-    </Overlay>
+        <br />
+        <Description {...document} />
+      </div>
+    </Modal>
   );
 };
 

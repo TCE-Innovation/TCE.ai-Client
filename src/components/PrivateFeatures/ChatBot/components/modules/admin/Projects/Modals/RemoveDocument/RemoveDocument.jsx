@@ -1,6 +1,6 @@
 import React from "react";
 
-import { Overlay, Modal } from "../../../../../common";
+import { Modal } from "../../../../../common";
 
 import { useContext } from "../../../../../contexts/FormContext";
 
@@ -18,37 +18,35 @@ const RemoveDocument = ({ show, onClose, deleteDocument, ...document }) => {
   };
 
   return (
-    <Overlay>
-      <Modal
-        onCancel={onClose}
-        title="Remove Document from Project"
-        buttonLabels={{
-          submit: "Remove",
-        }}
-        isSubmitting={isSubmitting}
-        onSubmit={submitHandler(handleRemoveDocument)}
-        styles={{
-          submit: {
-            color: "var(--chatbot-red)",
-            backgroundColor: "transparent",
-          },
-          cancel: {
-            color: "black",
-            backgroundColor: "transparent",
-          },
-        }}
-      >
-        <div className="projects-modal-wrapper">
-          <div>
-            Are you sure you want to remove this document?
-            <br />
-            This action cannot be undone.
-          </div>
+    <Modal
+      onCancel={onClose}
+      title="Remove Document from Project"
+      buttonLabels={{
+        submit: "Remove",
+      }}
+      isSubmitting={isSubmitting}
+      onSubmit={submitHandler(handleRemoveDocument)}
+      styles={{
+        submit: {
+          color: "var(--chatbot-red)",
+          backgroundColor: "transparent",
+        },
+        cancel: {
+          color: "black",
+          backgroundColor: "transparent",
+        },
+      }}
+    >
+      <div className="projects-modal-wrapper">
+        <div>
+          Are you sure you want to remove this document?
           <br />
-          <Description {...document} />
+          This action cannot be undone.
         </div>
-      </Modal>
-    </Overlay>
+        <br />
+        <Description {...document} />
+      </div>
+    </Modal>
   );
 };
 
