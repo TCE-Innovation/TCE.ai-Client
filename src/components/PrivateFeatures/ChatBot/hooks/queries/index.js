@@ -6,3 +6,6 @@ export { useGetUsersQuery } from "./useGetUsers";
 
 export { useGetMessagesQuery } from "./useGetMessages";
 export { useGetConversationsQuery } from "./useGetConversations";
+
+export { useGetTeamsQuery } from "./useGetTeams";
+export { useGetTeamUsersQuery } from "./useGetTeamUsers";

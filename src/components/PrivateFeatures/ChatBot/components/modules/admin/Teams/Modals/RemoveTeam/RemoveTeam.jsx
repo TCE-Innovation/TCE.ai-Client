@@ -1,22 +1,13 @@
 import React from "react";
 
 import { Overlay, Modal } from "../../../../../common";
-import { sleep } from "../../../../../../utils/misc";
-import { useGlobal } from "../../../../../../hooks";
 
-const RemoveTeam = ({ show, onClose, deleteUser, ...teamProps }) => {
-  const { createAlert } = useGlobal();
-
+const RemoveTeam = ({ show, onClose, deleteTeam, ...teamProps }) => {
   if (!show) return null;
 
   const handleRemoveTeam = () => {
+    deleteTeam();
     onClose();
-    sleep(1000).then(() =>
-      createAlert({
-        message: `Team "${teamProps.teamName}" was removed successfully!`,
-        type: "success",
-      })
-    );
   };
 
   return (

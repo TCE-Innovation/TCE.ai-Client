@@ -41,6 +41,7 @@ const Table = ({ rows, ...props }) => {
         title: "Role",
         align: "end",
         renderCell: ({ role }) => {
+          if (!role) return "N/A";
           const color = ROLE_TO_COLORS[role];
           return (
             <>

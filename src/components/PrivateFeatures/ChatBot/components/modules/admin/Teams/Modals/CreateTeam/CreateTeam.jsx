@@ -5,22 +5,26 @@ import { Overlay, Modal } from "../../../../../common";
 import { useContext } from "../../../../../contexts/FormContext";
 
 import Form from "./Form";
-import { sleep } from "../../../../../../utils/misc";
-import { useGlobal } from "../../../../../../hooks";
+import { mutations } from "../../../../../../hooks";
 
 const CreateTeam = ({ show, onClose }) => {
-  const { submitHandler, isValid } = useContext();
-  const { createAlert } = useGlobal();
+  const { submitHandler, isValid, setError } = useContext();
+  const {
+    mutate: createTeam,
+    loading: isSubmitting,
+  } = mutations.useCreateTeam();
   if (!show) return null;
 
   const handleSubmit = (values) => {
+    if (isSubmitting) return;
+    if (!values.userIds.length) {
+      return setError(
+        "userIds",
+        "Please select 1 or more users to create this team!"
+      );
+    }
+    createTeam({ name: values.name, userIds: values.userIds });
     onClose();
-    sleep(1000).then(() =>
-      createAlert({
-        message: `Team "${values.name}" was created successfully!`,
-        type: "success",
-      })
-    );
   };
 
   return (
@@ -32,6 +36,7 @@ const CreateTeam = ({ show, onClose }) => {
           submit: "Create Team",
         }}
         isDisabled={!isValid}
+        isSubmitting={isSubmitting}
         onSubmit={submitHandler(handleSubmit)}
         styles={{
           submit: {

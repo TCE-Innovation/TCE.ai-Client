@@ -4,3 +4,4 @@ export * as messageService from "./messages";
 export * as feedbackService from "./feedback";
 export * as projectService from "./projects";
 export * as userService from "./users";
+export * as teamService from "./teams";

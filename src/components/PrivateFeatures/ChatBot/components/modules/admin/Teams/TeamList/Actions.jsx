@@ -3,7 +3,10 @@ import { TabContext } from "../../../../common";
 import Actions from "../../Actions";
 import { RemoveTeamModal } from "../Modals";
 
+import { mutations } from "../../../../../hooks";
+
 const TeamsTableActions = ({ ...teamProps }) => {
+  const { mutate: deleteTeam, loading } = mutations.useDeleteTeam();
   return (
     <>
       <TabContext.Provider>
@@ -11,8 +14,15 @@ const TeamsTableActions = ({ ...teamProps }) => {
           return (
             <Actions>
               <Actions.Delete
+                disabled={loading}
                 renderModal={(modalProps) => {
-                  return <RemoveTeamModal {...modalProps} {...teamProps} />;
+                  return (
+                    <RemoveTeamModal
+                      deleteTeam={deleteTeam}
+                      {...modalProps}
+                      {...teamProps}
+                    />
+                  );
                 }}
               />
             </Actions>

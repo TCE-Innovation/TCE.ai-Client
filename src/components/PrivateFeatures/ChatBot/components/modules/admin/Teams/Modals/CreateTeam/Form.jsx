@@ -4,9 +4,13 @@ import { Field, CheckBox } from "../../../../../common";
 import { MultiSelectField } from "../../../../../common/field";
 
 import { useGetUsersQuery } from "../../../../../../hooks/queries/useGetUsers";
-import { useFieldArray } from "../../../../../contexts/FormContext";
+import {
+  useFieldArray,
+  useFieldValue,
+} from "../../../../../contexts/FormContext";
 const Form = () => {
-  const { value, push, remove } = useFieldArray("users");
+  const { value, push, remove } = useFieldArray("userIds");
+  const { resetError } = useFieldValue("userIds");
   const { loading, data } = useGetUsersQuery();
 
   const users = useMemo(() => {
@@ -27,7 +31,7 @@ const Form = () => {
       </div>
       <div>
         <MultiSelectField
-          name={"users"}
+          name={"userIds"}
           items={users}
           values={value}
           handleRemove={remove}
@@ -37,6 +41,7 @@ const Form = () => {
             label: [item.name, item.email].filter(Boolean).join("-"),
             value: item.id,
           })}
+          onChange={() => resetError()}
           loading={loading}
           search={true}
           listRenderer={(item) => {

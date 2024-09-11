@@ -6,7 +6,7 @@ import CreateTeam from "./CreateTeam";
 
 const formValues = {
   name: "",
-  users: [],
+  userIds: [],
 };
 
 const CreateTeamModal = (props) => {

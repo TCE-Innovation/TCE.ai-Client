@@ -66,6 +66,14 @@ export const formatMessage = (message) => {
   }
 };
 
+export const formatTeam = (team) => {
+  return {
+    ...team,
+    id: team.team_id,
+    teamName: team.team_name,
+  };
+};
+
 export const generateTeams = (size = 10) => {
   return Array.from({ length: size }, () => {
     const id = genRandomId();

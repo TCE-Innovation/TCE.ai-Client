@@ -26,11 +26,11 @@ const Table = ({ rows, ...props }) => {
       },
       {
         title: "Members",
-        key: "members",
+        key: "users",
         align: "end",
         width: "0",
-        renderCell: ({ members }) => {
-          return <AvatarGroup avatars={members} />;
+        renderCell: ({ users }) => {
+          return <AvatarGroup avatars={users} />;
         },
       },
       {

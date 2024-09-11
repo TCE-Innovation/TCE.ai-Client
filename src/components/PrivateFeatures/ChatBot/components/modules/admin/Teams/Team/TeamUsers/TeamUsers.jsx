@@ -5,16 +5,22 @@ import TeamTable from "./Table";
 import { filterByPatternsFactory } from "../../../../../../utils/form";
 import { useFieldValue } from "../../../../../contexts/FormContext";
 
-import { useGetUsersQuery } from "../../../../../../hooks/queries";
+import { useGetTeamUsersQuery } from "../../../../../../hooks/queries";
+import { useGlobal } from "../../../../../../hooks";
 
 const Team = () => {
   const { value: search } = useFieldValue("search");
-  //placeholder call
-  const { data, loading } = useGetUsersQuery();
+  const { query } = useGlobal();
+  const { params } = query;
+  const { team_id: teamId = null } = params;
+  const { data, loading } = useGetTeamUsersQuery(
+    { teamId },
+    { disableRunOnMount: teamId === null }
+  );
 
   const rows = useMemo(() => {
     if (!data) return [];
-    const users = data.data;
+    const users = data.data?.users || [];
     if (search) {
       const filterByNameAndEmail = filterByPatternsFactory(
         search,

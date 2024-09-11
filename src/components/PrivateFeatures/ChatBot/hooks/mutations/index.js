@@ -16,3 +16,7 @@ export { useCreateMessage } from "./useCreateMessage";
 export { useCreateConversation } from "./useCreateConversation";
 export { useDeleteConversation } from "./useDeleteConversation";
 export { useEditConversation } from "./useEditConversation";
+
+// teams
+export { useCreateTeam } from "./useCreateTeam";
+export { useDeleteTeam } from "./useDeleteTeam";
