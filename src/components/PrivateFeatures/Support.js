@@ -73,6 +73,11 @@ const Support = () => {
         alignItems: 'center'
     };
 
+    // Safeguards for userApplications, userTools, and userProjects
+    const apps = userApplications ? userApplications.split(', ') : ['N/A'];
+    const tools = userTools ? userTools.split(', ') : ['N/A'];
+    const projects = userProjects ? userProjects.split(', ') : ['N/A'];
+
     return (
         <div className='container'>
             {isLoading ? (
@@ -108,7 +113,7 @@ const Support = () => {
                         >
                             <MenuItem value="Non-Project -1010">Non-Project - 1010</MenuItem>
                             <ListSubheader>My Project(s)</ListSubheader>
-                            {userProjects.split(', ').map((proj) => (
+                            {projects.map((proj) => (
                                 <MenuItem key={`Active-${proj.id}`} value={proj}>{proj}</MenuItem>
                             ))}
                         </Select>
@@ -125,12 +130,12 @@ const Support = () => {
                             required
                         >
                             <ListSubheader>My Applications</ListSubheader>
-                            {userApplications.split(', ').map((app, index) => (
+                            {apps.map((app, index) => (
                                 <MenuItem key={index} value={app}>{app}</MenuItem>
                             ))}
 
                             <ListSubheader>My TCIG Tools</ListSubheader>
-                            {userTools.split(', ').map((tool, index) => (
+                            {tools.map((tool, index) => (
                                 <MenuItem key={`tcig-${index}`} value={`TCIG.nyc - ${tool}`}>{tool}</MenuItem>
                             ))}
                         </Select>
