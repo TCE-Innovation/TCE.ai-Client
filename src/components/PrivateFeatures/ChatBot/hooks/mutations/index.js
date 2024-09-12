@@ -1,15 +1,21 @@
+// users
 export { useAddUser } from "./useAddUser";
 export { useAddUsersToProject } from "./useAddUsersToProject";
-export { useCreateProject } from "./useCreateProject";
-export { useDeleteProject } from "./useDeleteProject";
 export { useDeleteUser } from "./useDeleteUser";
-export { useEditProject } from "./useEditProject";
 export { useRemoveUser } from "./useRemoveUser";
-export { useUploadDocuments } from "./useUploadDocument";
-export { useDeleteDocument } from "./useDeleteDocument";
-export { useEditProjectStatus } from "./useEditProjectStatus";
+export { useEditUser } from "./useEditUser";
 
 // projects
+export { useEditProjectStatus } from "./useEditProjectStatus";
+export { useCreateProject } from "./useCreateProject";
+export { useDeleteProject } from "./useDeleteProject";
+export { useEditProject } from "./useEditProject";
+
+// documents
+export { useUploadDocuments } from "./useUploadDocument";
+export { useDeleteDocument } from "./useDeleteDocument";
+
+// messages
 export { useCreateMessage } from "./useCreateMessage";
 
 // conversations
@@ -20,3 +26,5 @@ export { useEditConversation } from "./useEditConversation";
 // teams
 export { useCreateTeam } from "./useCreateTeam";
 export { useDeleteTeam } from "./useDeleteTeam";
+export { useAddUserToTeam } from "./useAddUserToTeam";
+export { useDeleteUserFromTeam } from "./useDeleteUserFromTeam";

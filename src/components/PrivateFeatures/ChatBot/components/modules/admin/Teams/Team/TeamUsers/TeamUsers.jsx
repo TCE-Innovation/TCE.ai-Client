@@ -9,7 +9,7 @@ import { useGetTeamUsersQuery } from "../../../../../../hooks/queries";
 import { useGlobal } from "../../../../../../hooks";
 
 const Team = () => {
-  const { value: search } = useFieldValue("search");
+  const { value: search } = useFieldValue("teamUserSearch");
   const { query } = useGlobal();
   const { params } = query;
   const { team_id: teamId = null } = params;

@@ -6,7 +6,7 @@ import { TabContext } from "../../../common";
 
 import Navigator from "../Navigator";
 
-import { useGlobal } from "../../../../hooks";
+import { useGlobal, queries } from "../../../../hooks";
 
 import { PROFILES } from "../../../../constants/admin";
 
@@ -14,10 +14,16 @@ import TeamList from "./TeamList";
 import Team from "./Team";
 
 const Teams = () => {
+  const { data } = queries.useGetTeamsQuery();
   const { query } = useGlobal();
   const { push, params } = query;
 
   const { team_id } = params;
+
+  const selectedTeam = useMemo(() => {
+    if (!data) return "";
+    return data.data.find((team) => team.id === team_id)?.teamName || "";
+  }, [data, team_id]);
 
   const tabs = useMemo(
     () => [
@@ -30,7 +36,7 @@ const Teams = () => {
         pane: TeamList,
       },
       {
-        title: team_id,
+        title: selectedTeam,
         value: PROFILES.TEAM_USERS,
         pane: Team,
       },

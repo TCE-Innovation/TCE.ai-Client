@@ -30,6 +30,12 @@ const Table = ({ rows, ...props }) => {
         align: "end",
         width: "0",
         renderCell: ({ users }) => {
+          if (!users.length)
+            return (
+              <span style={{ color: "var(--chatbot-grey)" }}>
+                not available
+              </span>
+            );
           return <AvatarGroup avatars={users} />;
         },
       },

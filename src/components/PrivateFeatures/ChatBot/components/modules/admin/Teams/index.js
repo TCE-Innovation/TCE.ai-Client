@@ -4,7 +4,7 @@ import FormContext from "../../../contexts/FormContext";
 
 const UsersContext = () => {
   return (
-    <FormContext initialValues={{ search: "" }}>
+    <FormContext initialValues={{ teamsSearch: "", teamUserSearch: "" }}>
       <Teams />
     </FormContext>
   );

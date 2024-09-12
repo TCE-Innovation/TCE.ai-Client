@@ -7,7 +7,8 @@ import { mutations } from "../../../../hooks";
 
 const UserTableActions = ({ ...userProps }) => {
   const deleteUser = mutations.useDeleteUser();
-  if (deleteUser.loading)
+  const editUser = mutations.useEditUser();
+  if (deleteUser.loading || editUser.loading)
     return (
       <div className="position-relative" style={{ width: "2.5em" }}>
         <Loader />
@@ -20,8 +21,15 @@ const UserTableActions = ({ ...userProps }) => {
           return (
             <Actions>
               <Actions.Edit
+                disabled={editUser.loading}
                 renderModal={(modalProps) => {
-                  return <EditUserModal {...modalProps} {...userProps} />;
+                  return (
+                    <EditUserModal
+                      editUser={editUser}
+                      {...modalProps}
+                      {...userProps}
+                    />
+                  );
                 }}
               />
               <Actions.Delete

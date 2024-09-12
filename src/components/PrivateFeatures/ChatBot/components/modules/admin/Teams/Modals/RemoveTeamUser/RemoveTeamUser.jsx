@@ -1,34 +1,34 @@
 import React from "react";
 
 import { Modal } from "../../../../../common";
-import { sleep } from "../../../../../../utils/misc";
-import { useGlobal } from "../../../../../../hooks";
+import { useContext } from "../../../../../contexts/FormContext";
 
-const RemoveTeamUser = ({ show, onClose, ...userProps }) => {
-  const { createAlert } = useGlobal();
+const RemoveTeamUser = ({ show, onClose, removeUser, ...userProps }) => {
+  const {
+    mutate: handleRemoveUserFromTeam,
+    loading: isSubmitting,
+  } = removeUser;
+
+  const { submitHandler, isValid } = useContext();
+
   if (!show) return null;
 
-  const handleRemoveTeam = () => {
+  const onSubmit = (values) => {
+    if (isSubmitting) return;
+    handleRemoveUserFromTeam({ userId: values.userId, teamId: values.teamId });
     onClose();
-
-    sleep(1000).then(() =>
-      createAlert({
-        message: `User ${userProps.name}(${
-          userProps.email
-        }) is removed from the team!`,
-        type: "success",
-      })
-    );
   };
 
   return (
     <Modal
       onCancel={onClose}
-      title="Remove Team Uer"
+      title="Remove Team User"
       buttonLabels={{
         submit: "Remove",
       }}
-      onSubmit={handleRemoveTeam}
+      isDisabled={!isValid}
+      isSubmitting={isSubmitting}
+      onSubmit={submitHandler(onSubmit)}
       styles={{
         submit: {
           color: "var(--chatbot-red)",

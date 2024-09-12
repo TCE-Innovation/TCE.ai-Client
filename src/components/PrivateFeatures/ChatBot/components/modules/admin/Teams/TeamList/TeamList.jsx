@@ -5,23 +5,19 @@ import SearchComponent from "../../Search";
 import TeamsTable from "./Table";
 
 import { filterByPatternsFactory } from "../../../../../utils/form";
-// import { generateTeams } from "../../../../../utils/data";
 import { useFieldValue } from "../../../../contexts/FormContext";
 
 import { queries } from "../../../../../hooks";
 
-// placeholders
-// const results = generateTeams();
-
 const TeamList = () => {
-  const { value: search } = useFieldValue("search");
+  const { value: search } = useFieldValue("teamsSearch");
   const { data, loading } = queries.useGetTeamsQuery();
 
   const rows = useMemo(() => {
     if (!data) return [];
     const teams = data.data.map((team) => ({
       ...team,
-      users: team.users.map((user) => ({ ...user, url: "" })),
+      users: team.users.map((user) => ({ id: user, url: "" })),
     }));
     if (search) {
       const filterByNameAndEmail = filterByPatternsFactory(search, "teamName");
@@ -33,7 +29,7 @@ const TeamList = () => {
   return (
     <>
       <div style={{ width: "350px" }} className="mb-3">
-        <SearchComponent placeholder={"Search a team"} />
+        <SearchComponent name="teamsSearch" placeholder={"Search a team"} />
       </div>
       <TeamsTable rows={rows} isLoading={loading} />
     </>

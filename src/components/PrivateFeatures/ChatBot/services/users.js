@@ -49,3 +49,11 @@ export const getUnlistedUsers = async ({ projectId }) => {
     success,
   };
 };
+
+export const editUser = async ({ userId, role }) => {
+  const result = await client.update(route, {
+    user_id: userId,
+    role,
+  });
+  return formatResponseData(result);
+};

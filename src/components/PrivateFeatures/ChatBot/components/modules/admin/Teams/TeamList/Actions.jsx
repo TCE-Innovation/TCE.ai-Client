@@ -1,12 +1,18 @@
 import React from "react";
-import { TabContext } from "../../../../common";
+import { Loader, TabContext } from "../../../../common";
 import Actions from "../../Actions";
 import { RemoveTeamModal } from "../Modals";
 
 import { mutations } from "../../../../../hooks";
 
 const TeamsTableActions = ({ ...teamProps }) => {
-  const { mutate: deleteTeam, loading } = mutations.useDeleteTeam();
+  const deleteTeam = mutations.useDeleteTeam();
+  if (deleteTeam.loading)
+    return (
+      <div className="position-relative" style={{ width: "2.5em" }}>
+        <Loader />
+      </div>
+    );
   return (
     <>
       <TabContext.Provider>
@@ -14,7 +20,7 @@ const TeamsTableActions = ({ ...teamProps }) => {
           return (
             <Actions>
               <Actions.Delete
-                disabled={loading}
+                disabled={deleteTeam.loading}
                 renderModal={(modalProps) => {
                   return (
                     <RemoveTeamModal

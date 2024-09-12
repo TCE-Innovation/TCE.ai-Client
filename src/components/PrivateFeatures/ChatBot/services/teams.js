@@ -9,7 +9,7 @@ export const getTeams = async () => {
   const { data, message, success } = await client.get(route);
   const _data = data.map(formatTeam);
   return {
-    data: _data,
+    data: _data.reverse(),
     success,
     message,
   };
@@ -21,26 +21,49 @@ export const getTeamUsers = async ({ teamId }) => {
   });
   const _data = formatTeam(data);
   return {
-    data: _data,
+    data: _data.reverse(),
     success,
     message,
   };
 };
 
 export const deleteTeam = async ({ teamId }) => {
-  const result = await client.remove(`${route}/users`, {
+  const result = await client.remove(route, {
     query: { team_id: teamId },
   });
   return formatResponseData(result);
 };
 
 export const createTeam = async ({ name, userIds }) => {
-  const { data, ...result } = await client.create(`${route}/users`, {
+  const { data, ...result } = await client.create(route, {
     data: {
       team_name: name,
       user_ids: userIds,
     },
   });
-  const { team_id: teamId, ...rest } = data;
-  return formatResponseData({ ...result, data: { ...rest, teamId } });
+  const { team_id: teamId, team_name: teamName, ...rest } = data;
+  return formatResponseData({
+    ...result,
+    data: { ...rest, teamId, teamName, users: userIds },
+  });
+};
+
+export const addUserToTeam = async ({ teamId, userId }) => {
+  const result = await client.create(`${route}/users`, {
+    data: {
+      team_id: teamId,
+      user_id: userId,
+    },
+  });
+  return formatResponseData(result);
+};
+
+export const deleteUserFromTeam = async ({ teamId, userId }) => {
+  const result = await client.remove(`${route}/users`, {
+    data: {
+      team_id: teamId,
+      user_id: userId,
+    },
+  });
+  return formatResponseData(result);
 };

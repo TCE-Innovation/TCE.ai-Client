@@ -3,12 +3,17 @@ import React, { useMemo } from "react";
 import { Modal } from "../../../../../common";
 import { SelectField } from "../../../../../common/field";
 import { useGetUsersQuery } from "../../../../../../hooks/queries";
-import { sleep } from "../../../../../../utils/misc";
-import { useGlobal } from "../../../../../../hooks";
+import { mutations } from "../../../../../../hooks";
+import { useContext } from "../../../../../contexts/FormContext";
 
 const AddUserToTeam = ({ show, onClose }) => {
   const { data, loading } = useGetUsersQuery();
-  const { createAlert } = useGlobal();
+  const {
+    mutate: addUser,
+    loading: isSubmitting,
+  } = mutations.useAddUserToTeam();
+
+  const { submitHandler, isValid } = useContext();
 
   const users = useMemo(() => {
     if (!data) return [];
@@ -17,13 +22,9 @@ const AddUserToTeam = ({ show, onClose }) => {
 
   if (!show) return null;
 
-  const handleSubmit = () => {
-    sleep(1000).then(() =>
-      createAlert({
-        message: "user added to team successfully!",
-        type: "success",
-      })
-    );
+  const onSubmit = (values) => {
+    if (isSubmitting) return;
+    addUser({ teamId: values.teamId, userId: values.userId });
   };
 
   return (
@@ -33,7 +34,9 @@ const AddUserToTeam = ({ show, onClose }) => {
       buttonLabels={{
         submit: "Add User",
       }}
-      onSubmit={handleSubmit}
+      isDisabled={!isValid}
+      isSubmitting={isSubmitting}
+      onSubmit={submitHandler(onSubmit)}
       styles={{
         submit: {
           color: "white",
@@ -54,7 +57,7 @@ const AddUserToTeam = ({ show, onClose }) => {
               value: item.id,
             })}
             label="User name"
-            name={"user"}
+            name={"userId"}
             search
             placeholder={"Select User"}
             loading={loading}

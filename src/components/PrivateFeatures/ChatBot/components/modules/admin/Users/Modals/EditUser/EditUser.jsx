@@ -5,16 +5,14 @@ import { Modal } from "../../../../../common";
 import RolesField from "../../Forms/_Role";
 
 import { useContext } from "../../../../../contexts/FormContext";
-import { useGlobal } from "../../../../../../hooks";
 
-import { sleep } from "../../../../../../utils/misc";
-
-const EditUser = ({ show, onClose, ...userProps }) => {
+const EditUser = ({ show, onClose, editUser, ...userProps }) => {
+  const { mutate: handleEditUser, loading: isSubmitting } = editUser;
   const { submitHandler, isValid, setError } = useContext();
-  const { createAlert } = useGlobal();
   if (!show) return null;
 
   const handleSubmit = (values) => {
+    if (isSubmitting) return;
     if (!values.role) {
       return setError("role", "Please select a user role!");
     }
@@ -24,17 +22,8 @@ const EditUser = ({ show, onClose, ...userProps }) => {
         "User already has this role. Please select a different role!"
       );
     }
-    const userData = {
-      role: values.role,
-    };
-    console.log({ userData });
+    handleEditUser({ role: values.role, userId: userProps.id });
     onClose();
-    sleep(1000).then(() =>
-      createAlert(
-        { message: "user role changed successfully!" },
-        { type: "success" }
-      )
-    );
   };
 
   return (
@@ -44,6 +33,7 @@ const EditUser = ({ show, onClose, ...userProps }) => {
       buttonLabels={{
         submit: "Save",
       }}
+      isSubmitting={isSubmitting}
       isDisabled={!isValid}
       onSubmit={submitHandler(handleSubmit)}
       styles={{

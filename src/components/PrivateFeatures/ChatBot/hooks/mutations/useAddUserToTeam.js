@@ -1,31 +1,36 @@
 import { useRef } from "react";
-import { useGlobal } from "../../hooks";
+import { useGlobal } from "..";
 import { teamService } from "../../services";
 import useMutation from "../useMutation";
 
-export const useCreateTeam = () => {
+export const useAddUserToTeam = () => {
   const { createAlert } = useGlobal();
   const argsRef = useRef({});
 
   return useMutation(
-    ({ name, userIds }) => {
-      argsRef.current.name = name;
-      return teamService.createTeam({ name, userIds });
+    ({ teamId, userId }) => {
+      argsRef.current = {
+        teamId,
+        userId,
+      };
+      return teamService.addUserToTeam({ teamId, userId });
     },
     {
       onSuccess: (newData, { updateQuery }) => {
         if (newData.success) {
-          console.log({ newData });
-          const { teamId, teamName, users } = newData.data;
+          const { user } = newData.data;
           updateQuery("getTeams", (teams) => {
-            const newTeam = {
-              id: teamId,
-              teamName,
-              users,
-            };
             return {
               ...teams,
-              data: [newTeam, ...teams.data],
+              data: teams.data.map((team) => {
+                if (team.id === argsRef.current.teamId) {
+                  return {
+                    ...team,
+                    users: [user, ...team.users],
+                  };
+                }
+                return team;
+              }),
             };
           });
           return createAlert({ message: newData.message, type: "success" });

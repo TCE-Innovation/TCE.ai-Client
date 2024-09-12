@@ -3,10 +3,12 @@ import React from "react";
 import { Modal } from "../../../../../common";
 
 const RemoveTeam = ({ show, onClose, deleteTeam, ...teamProps }) => {
+  const { mutate: handleDeleteTeam, loading: isSubmitting } = deleteTeam;
   if (!show) return null;
 
-  const handleRemoveTeam = () => {
-    deleteTeam();
+  const onSubmit = () => {
+    if (isSubmitting) return;
+    handleDeleteTeam({ teamId: teamProps.id });
     onClose();
   };
 
@@ -17,7 +19,8 @@ const RemoveTeam = ({ show, onClose, deleteTeam, ...teamProps }) => {
       buttonLabels={{
         submit: "Remove",
       }}
-      onSubmit={handleRemoveTeam}
+      isSubmitting={isSubmitting}
+      onSubmit={onSubmit}
       styles={{
         submit: {
           color: "var(--chatbot-red)",
