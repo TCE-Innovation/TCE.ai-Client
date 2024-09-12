@@ -44,6 +44,13 @@ export default styled.div`
     margin: auto;
   }
 
+  .documents-upload-list-wrapper {
+    overflow-y: auto;
+    max-height: 30vh;
+    padding-right: 1em;
+    margin-block: 1em;
+  }
+
   .dropdown-search-field {
     display: flex;
     flex-direction: column;

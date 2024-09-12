@@ -23,28 +23,41 @@ const Upload = ({ name, ...uploadProps }) => {
     <div>
       <div>
         <UploadField name={name} {...uploadProps} />
-        {items.length > 0 &&
-          items.map((document, index) => {
-            const docName = getFileName(document);
-            const fileName = getFileName(documentNames[index]);
-            return (
-              <div key={index}>
-                <button
-                  className="chat-button document-metadata"
-                  data-size={getFileSize(document)}
-                >
-                  <span>{docName}</span>
-                  {fileName !== docName ? (
-                    <span style={{ color: "var(--chatbot-grey)" }}>
-                      {`(${fileName})`}
+        {items.length > 0 && (
+          <div className="documents-upload-list-wrapper">
+            {items.map((document, index) => {
+              const docName = getFileName(document);
+              const fileName = getFileName(documentNames[index]);
+              return (
+                <div key={index}>
+                  <button
+                    className="d-flex align-items-center w-100 chat-button document-metadata"
+                    data-size={getFileSize(document)}
+                  >
+                    <span
+                      style={{
+                        display: "inline-block",
+                        maxWidth: "70%",
+                        overflow: "hidden",
+                        textOverflow: "ellipsis",
+                        whiteSpace: "nowrap",
+                      }}
+                    >
+                      {docName}
                     </span>
-                  ) : (
-                    ""
-                  )}
-                </button>
-              </div>
-            );
-          })}
+                    {fileName !== docName ? (
+                      <span style={{ color: "var(--chatbot-grey)" }}>
+                        {`(${fileName})`}
+                      </span>
+                    ) : (
+                      ""
+                    )}
+                  </button>
+                </div>
+              );
+            })}
+          </div>
+        )}
       </div>
     </div>
   );
