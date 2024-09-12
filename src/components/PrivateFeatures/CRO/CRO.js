@@ -21,7 +21,7 @@ const CRO = () => {
 
   return (
     <Box>
-      <Box sx={{ display: 'flex', justifyContent: 'center', gap: 2, mb: 2, mr: 9, marginTop: '-20px' }}>
+      <Box sx={{ display: 'flex', justifyContent: 'center', gap: 2, mb: 2, mr: 1.5, marginTop: '-20px' }}>
         <Button
           variant="contained"
           sx = {{
@@ -52,7 +52,7 @@ const CRO = () => {
           }}
           onClick={() => setActiveComponent('PullBox')}
         >
-          Pull Box Sizer
+          Sizing Junction Boxes
         </Button>
       </Box>
       {renderComponent()}
