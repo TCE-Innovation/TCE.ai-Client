@@ -20,7 +20,7 @@ const AddNew = () => {
 
   return (
     <div>
-      {profile === "projects" ? (
+      {!profile || profile === "projects" ? (
         !project_id ? (
           <AddNewProject />
         ) : null
