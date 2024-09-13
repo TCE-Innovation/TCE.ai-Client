@@ -8,6 +8,9 @@ import { useFieldValue } from "../../../../../contexts/FormContext";
 import { useGetTeamUsersQuery } from "../../../../../../hooks/queries";
 import { useGlobal } from "../../../../../../hooks";
 
+import SearchComponent from "../../../Search";
+import AddNew from "../../../AddNew";
+
 const Team = () => {
   const { value: search } = useFieldValue("teamUserSearch");
   const { query } = useGlobal();
@@ -34,13 +37,38 @@ const Team = () => {
 
   return (
     <>
-      <TeamTable
-        rows={rows}
-        isLoading={loading}
+      <div
+        className="position-absolute"
         style={{
-          height: "600px",
+          top: 0,
+          left: 0,
+          width: "100%",
+          height: "auto",
+          pointerEvents: "none",
         }}
-      />
+      >
+        <div className="d-flex align-items-center justify-content-end gap-4 cb-header-height-controller">
+          <div style={{ width: "350px", pointerEvents: "all" }}>
+            <SearchComponent
+              placeholder={"Search a user"}
+              name="teamUserSearch"
+            />
+          </div>
+          <div style={{ pointerEvents: "all" }}>
+            <AddNew.UserToTeam />
+          </div>
+        </div>
+        <div style={{ pointerEvents: "all" }}>
+          {/* <TeamUsers /> */}
+          <TeamTable
+            rows={rows}
+            isLoading={loading}
+            style={{
+              height: "600px",
+            }}
+          />
+        </div>
+      </div>
     </>
   );
 };

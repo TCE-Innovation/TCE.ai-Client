@@ -2,8 +2,11 @@ import React, { useMemo } from "react";
 
 import { Modal } from "../../../../../common";
 import { SelectField } from "../../../../../common/field";
-import { useGetUsersQuery } from "../../../../../../hooks/queries";
-import { mutations } from "../../../../../../hooks";
+import {
+  useGetTeamUsersQuery,
+  useGetUsersQuery,
+} from "../../../../../../hooks/queries";
+import { mutations, useGlobal } from "../../../../../../hooks";
 import { useContext } from "../../../../../contexts/FormContext";
 
 const AddUserToTeam = ({ show, onClose }) => {
@@ -13,18 +16,32 @@ const AddUserToTeam = ({ show, onClose }) => {
     loading: isSubmitting,
   } = mutations.useAddUserToTeam();
 
+  const { query } = useGlobal();
+  const { params } = query;
+  const { team_id: teamId = null } = params;
+  const {
+    data: teamUsersData,
+    loading: loadingTeamUsers,
+  } = useGetTeamUsersQuery({ teamId }, { disableRunOnMount: teamId === null });
+
   const { submitHandler, isValid } = useContext();
 
   const users = useMemo(() => {
-    if (!data) return [];
-    return data.data;
-  }, [data]);
+    if (!data | loading | loadingTeamUsers | !teamUsersData) return [];
+    const users = data.data;
+    const teamUsers = teamUsersData.data?.users || [];
+    return users.filter(
+      (user) => !teamUsers.some((teamUser) => teamUser.id === user.id)
+    );
+  }, [data, loading, loadingTeamUsers, teamUsersData]);
 
   if (!show) return null;
 
   const onSubmit = (values) => {
     if (isSubmitting) return;
-    addUser({ teamId: values.teamId, userId: values.userId });
+    const userDetails = users.find((user) => user.id === values.userId);
+    addUser({ teamId: values.teamId, userId: values.userId, userDetails });
+    onClose();
   };
 
   return (
@@ -34,7 +51,7 @@ const AddUserToTeam = ({ show, onClose }) => {
       buttonLabels={{
         submit: "Add User",
       }}
-      isDisabled={!isValid}
+      isDisabled={!isValid || loadingTeamUsers || loading}
       isSubmitting={isSubmitting}
       onSubmit={submitHandler(onSubmit)}
       styles={{
@@ -56,7 +73,6 @@ const AddUserToTeam = ({ show, onClose }) => {
               label: [item.name, item.email].filter(Boolean).join("-"),
               value: item.id,
             })}
-            label="User name"
             name={"userId"}
             search
             placeholder={"Select User"}

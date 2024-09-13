@@ -3,21 +3,19 @@ import React from "react";
 import { Modal } from "../../../../../common";
 
 import { useContext } from "../../../../../contexts/FormContext";
-import { useGlobal } from "../../../../../../hooks";
 
-const RemoveTeam = ({ show, onClose, ...teamProps }) => {
+const RemoveTeam = ({ show, onClose, deleteTeams, ...props }) => {
+  const { mutate: handleRemoveTeam, loading: isSubmitting } = deleteTeams;
   const { submitHandler } = useContext();
-  const { createAlert } = useGlobal();
   if (!show) return null;
 
-  const handleRemoveTeam = (values) => {
-    onClose();
-    createAlert({
-      message: `Team "${
-        values.name
-      }" was removed from the project successfully`,
-      type: "success",
+  const onSubmit = (values) => {
+    if (isSubmitting) return;
+    handleRemoveTeam({
+      projectId: values.projectId,
+      teamIds: values.teamIds,
     });
+    onClose();
   };
 
   return (
@@ -27,7 +25,8 @@ const RemoveTeam = ({ show, onClose, ...teamProps }) => {
       buttonLabels={{
         submit: "Remove",
       }}
-      onSubmit={submitHandler(handleRemoveTeam)}
+      isSubmitting={isSubmitting}
+      onSubmit={submitHandler(onSubmit)}
       styles={{
         submit: {
           color: "var(--chatbot-red)",
@@ -40,7 +39,11 @@ const RemoveTeam = ({ show, onClose, ...teamProps }) => {
       }}
     >
       <div className="projects-modal-wrapper">
-        todo: remove team from project
+        <div>Are you sure you want to remove this team?</div>
+        <div>
+          <span>Team Name: </span>
+          <span>{props.teamName}</span>
+        </div>
       </div>
     </Modal>
   );

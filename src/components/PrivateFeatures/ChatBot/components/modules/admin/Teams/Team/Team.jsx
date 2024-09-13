@@ -1,42 +1,49 @@
 import React from "react";
 
-import SearchComponent from "../../Search";
-import AddNew from "../../AddNew";
-
-// import FormContext from "../../../../contexts/FormContext";
+import { TabContext } from "../../../../common";
 
 import TeamUsers from "./TeamUsers";
+// import TeamStats from "./TeamStatistics";
+import { PROFILES } from "../../../../../constants/admin";
+
+const tabs = [
+  {
+    title: "Users list",
+    pane: TeamUsers,
+    value: PROFILES.TEAM_USERS,
+  },
+  // {
+  //   title: "Team Statistics",
+  //   pane: TeamStats,
+  //   value: PROFILES.TEAM_STATS,
+  // },
+];
 
 const Team = () => {
   return (
-    <>
-      <div
-        className="position-absolute"
-        style={{
-          top: 0,
-          left: 0,
-          width: "100%",
-          height: "auto",
-          pointerEvents: "none",
-        }}
-      >
-        <div className="d-flex align-items-center justify-content-end gap-4 cb-header-height-controller">
-          <div style={{ width: "350px", pointerEvents: "all" }}>
-            {/* <SearchComponent placeholder={"Search a user"} name="userSearch" /> */}
-            <SearchComponent
-              placeholder={"Search a user"}
-              name="teamUserSearch"
-            />
-          </div>
-          <div style={{ pointerEvents: "all" }}>
-            <AddNew.UserToTeam />
-          </div>
+    <div className="position-relative">
+      <TabContext tabs={tabs}>
+        <div className="d-flex align-items-center">
+          <TabContext.Tabs
+            renderTab={({ tab }) => {
+              return (
+                <div className="d-flex align-items-center">
+                  <span>{tab.title}</span>
+                </div>
+              );
+            }}
+          />
         </div>
-        <div style={{ pointerEvents: "all" }}>
-          <TeamUsers />
+        <div>
+          <TabContext.Panes>
+            {tabs.map((tab, i) => {
+              const Component = tab.pane;
+              return <Component key={i} />;
+            })}
+          </TabContext.Panes>
         </div>
-      </div>
-    </>
+      </TabContext>
+    </div>
   );
 };
 

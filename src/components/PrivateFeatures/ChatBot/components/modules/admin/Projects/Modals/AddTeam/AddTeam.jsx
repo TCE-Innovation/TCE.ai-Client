@@ -3,19 +3,31 @@ import React from "react";
 import { Modal } from "../../../../../common";
 
 import { useContext } from "../../../../../contexts/FormContext";
-import { useGlobal } from "../../../../../../hooks";
+import { mutations } from "../../../../../../hooks";
+
+import Form from "./Form";
 
 const AddTeam = ({ show, onClose }) => {
-  const { submitHandler } = useContext();
-  const { createAlert } = useGlobal();
+  const {
+    mutate: handleAddTeam,
+    loading: isSubmitting,
+  } = mutations.useAddTeamsToProject();
+  const { submitHandler, isValid, setError } = useContext();
   if (!show) return null;
 
-  const handleAddTeam = (values) => {
-    onClose();
-    createAlert({
-      message: `Team "${values.teams}" was added to the project successfully`,
-      type: "success",
+  const onSubmit = (values) => {
+    if (isSubmitting) return;
+    if (!values.teamDetails.length) {
+      return setError(
+        "teams",
+        "Please Select at least 1 team to add to this project!"
+      );
+    }
+    handleAddTeam({
+      projectId: values.projectId,
+      teamDetails: values.teamDetails,
     });
+    onClose();
   };
 
   return (
@@ -25,11 +37,13 @@ const AddTeam = ({ show, onClose }) => {
       buttonLabels={{
         submit: "Add Team",
       }}
-      onSubmit={submitHandler(handleAddTeam)}
+      isSubmitting={isSubmitting}
+      isDisabled={!isValid}
+      onSubmit={submitHandler(onSubmit)}
       styles={{
         submit: {
-          color: "var(--chatbot-red)",
-          backgroundColor: "transparent",
+          color: "white",
+          backgroundColor: "var(--chatbot-primary) important!",
         },
         cancel: {
           color: "black",
@@ -37,7 +51,9 @@ const AddTeam = ({ show, onClose }) => {
         },
       }}
     >
-      <div className="projects-modal-wrapper">todo: add team to project</div>
+      <div className="projects-modal-wrapper">
+        <Form />
+      </div>
     </Modal>
   );
 };

@@ -9,3 +9,4 @@ export { useGetConversationsQuery } from "./useGetConversations";
 
 export { useGetTeamsQuery } from "./useGetTeams";
 export { useGetTeamUsersQuery } from "./useGetTeamUsers";
+export { useGetTeamsByProjectQuery } from "./useGetTeamsByProject";

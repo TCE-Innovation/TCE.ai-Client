@@ -21,7 +21,7 @@ export const getTeamUsers = async ({ teamId }) => {
   });
   const _data = formatTeam(data);
   return {
-    data: _data.reverse(),
+    data: _data,
     success,
     message,
   };
@@ -66,4 +66,34 @@ export const deleteUserFromTeam = async ({ teamId, userId }) => {
     },
   });
   return formatResponseData(result);
+};
+
+export const getTeamsByProject = async ({ projectId }) => {
+  const { data, ...result } = await client.get(`${route}/projects`, {
+    project_id: projectId,
+  });
+  const teams = data.teams.map((team) => ({ ...team, teamName: team.name }));
+  return formatResponseData({ ...result, data: { teams } });
+};
+
+export const deleteTeamsFromProject = async ({ projectId, teamIds }) => {
+  const { data, ...result } = await client.remove(`${route}/projects`, {
+    data: {
+      project_id: projectId,
+      team_ids: teamIds,
+    },
+  });
+  const { warning = null, ...rest } = data;
+  return formatResponseData({ ...result, data: { ...rest, error: warning } });
+};
+
+export const addTeamsToUser = async ({ projectId, teamIds }) => {
+  const { data, ...result } = await client.create(`${route}/projects`, {
+    data: {
+      project_id: projectId,
+      team_ids: teamIds,
+    },
+  });
+  const { warning = null, ...rest } = data;
+  return formatResponseData({ ...result, data: { ...rest, error: warning } });
 };

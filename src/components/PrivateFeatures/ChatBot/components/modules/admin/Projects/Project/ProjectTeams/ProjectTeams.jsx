@@ -3,26 +3,33 @@ import React, { useMemo } from "react";
 import ProjectTeamsTable from "./Table";
 
 import { filterByPatternsFactory } from "../../../../../../utils/form";
-import { generateTeams } from "../../../../../../utils/data";
 import { useFieldValue } from "../../../../../contexts/FormContext";
 
-// placeholders
-const results = generateTeams();
+import { queries, useGlobal } from "../../../../../../hooks";
 
 const ProjectTeams = () => {
+  const { query } = useGlobal();
+  const { params } = query;
+  const { project_id: projectId = null } = params;
+  const { data, loading } = queries.useGetTeamsByProjectQuery(
+    { projectId },
+    { disableRunOnMount: projectId === null }
+  );
   const { value: search } = useFieldValue("teamSearch");
 
   const rows = useMemo(() => {
+    if (!data) return [];
+    const teams = data.data.teams.map((team) => ({ ...team, users: [] }));
     if (search) {
       const filterByNameAndEmail = filterByPatternsFactory(search, "teamName");
-      return filterByNameAndEmail(results);
+      return filterByNameAndEmail(teams);
     }
-    return results;
-  }, [search]);
+    return teams;
+  }, [data, search]);
 
   return (
     <>
-      <ProjectTeamsTable rows={rows} isLoading={false} />
+      <ProjectTeamsTable rows={rows} isLoading={loading} />
     </>
   );
 };

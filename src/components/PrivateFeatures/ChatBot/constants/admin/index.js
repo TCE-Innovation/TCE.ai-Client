@@ -4,6 +4,7 @@ export const PROFILES = {
   DOCUMENTS: Symbol("documents"),
   TEAMS: Symbol("teams"),
   TEAM_USERS: Symbol("team-users"),
+  TEAM_STATS: Symbol("team-statistics"),
   PROJECT_LIST: Symbol("project-list"),
   PROJECT_NAME: Symbol("project-name"),
   PROJECT_USERS: Symbol("project-users"),

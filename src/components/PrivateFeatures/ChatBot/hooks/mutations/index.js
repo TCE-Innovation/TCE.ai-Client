@@ -28,3 +28,5 @@ export { useCreateTeam } from "./useCreateTeam";
 export { useDeleteTeam } from "./useDeleteTeam";
 export { useAddUserToTeam } from "./useAddUserToTeam";
 export { useDeleteUserFromTeam } from "./useDeleteUserFromTeam";
+export { useDeleteTeamsFromProject } from "./useDeleteTeamsFromProject";
+export { useAddTeamsToProject } from "./useAddTeamsToProject";

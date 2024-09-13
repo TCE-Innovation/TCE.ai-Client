@@ -1,13 +1,18 @@
 import RemoveTeam from "./RemoveTeam";
 import FormContext from "../../../../../contexts/FormContext";
 import { useMemo } from "react";
+import { useGlobal } from "../../../../../../hooks";
 
 const RemoveTeamModal = (props) => {
+  const { query } = useGlobal();
+  const { params } = query;
+  const { project_id: projectId = null } = params;
   const initialValues = useMemo(
     () => ({
-      name: props.teamName,
+      teamIds: [props.id],
+      projectId,
     }),
-    [props.teamName]
+    [projectId, props.id]
   );
 
   return (

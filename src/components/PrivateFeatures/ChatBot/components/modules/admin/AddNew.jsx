@@ -68,10 +68,12 @@ const AddUserToTeam = () => {
         <AddIcon />
         <span>Add User To Team</span>
       </button>
-      <AddUserToTeamModal
-        show={showAddUserToTeamModal}
-        onClose={() => setShowAddUserToTeamModal(false)}
-      />
+      {showAddUserToTeamModal && (
+        <AddUserToTeamModal
+          show={true}
+          onClose={() => setShowAddUserToTeamModal(false)}
+        />
+      )}
     </>
   );
 };
@@ -89,10 +91,12 @@ const AddTeamToProject = () => {
         <AddIcon />
         <span>Add Team</span>
       </button>
-      <AddTeamToProjectModal
-        show={showAddTeamToProjectModal}
-        onClose={() => setShowAddTeamToProjectModal(false)}
-      />
+      {showAddTeamToProjectModal && (
+        <AddTeamToProjectModal
+          show={true}
+          onClose={() => setShowAddTeamToProjectModal(false)}
+        />
+      )}
     </>
   );
 };
