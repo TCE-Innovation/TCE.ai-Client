@@ -4,10 +4,12 @@ import TableContainer from "../../TableContainer";
 
 import TeamsTableActions from "./Actions";
 import AvatarGroup from "../../AvatarGroup";
-import { useGlobal } from "../../../../../hooks";
+import { useAdmin, useGlobal } from "../../../../../hooks";
 import SortButton from "../../SortButton";
 
 const Table = ({ rows, ...props }) => {
+  const { createTeamObject } = useAdmin();
+  const { loading: isCreatingTeam } = createTeamObject;
   const { query } = useGlobal();
 
   const { push } = query;
@@ -57,6 +59,7 @@ const Table = ({ rows, ...props }) => {
         onRowClick={(row) => {
           push({ team_id: row.id });
         }}
+        insertingRow={isCreatingTeam}
         {...props}
       />
     </>

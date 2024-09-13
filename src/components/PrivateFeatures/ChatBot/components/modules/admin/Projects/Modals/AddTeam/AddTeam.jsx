@@ -3,15 +3,16 @@ import React from "react";
 import { Modal } from "../../../../../common";
 
 import { useContext } from "../../../../../contexts/FormContext";
-import { mutations } from "../../../../../../hooks";
+import { useAdmin } from "../../../../../../hooks";
 
 import Form from "./Form";
 
 const AddTeam = ({ show, onClose }) => {
+  const { addTeamsToProjectObject } = useAdmin();
   const {
     mutate: handleAddTeam,
     loading: isSubmitting,
-  } = mutations.useAddTeamsToProject();
+  } = addTeamsToProjectObject;
   const { submitHandler, isValid, setError } = useContext();
   if (!show) return null;
 

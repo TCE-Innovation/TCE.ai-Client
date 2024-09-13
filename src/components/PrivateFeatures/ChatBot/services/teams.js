@@ -58,6 +58,7 @@ export const addUserToTeam = async ({ teamId, userId }) => {
   return formatResponseData(result);
 };
 
+//this
 export const deleteUserFromTeam = async ({ teamId, userId }) => {
   const result = await client.remove(`${route}/users`, {
     data: {

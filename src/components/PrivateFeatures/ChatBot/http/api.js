@@ -20,10 +20,10 @@ const api = {
       .catch(errorHandler);
   },
   remove: (url, params = {}) => {
-    const { query = {} } = params;
+    const { query = {}, data = {} } = params;
     const route = parseRoute(url, query);
     return httpClient
-      .delete(route)
+      .delete(route, { data })
       .then(responseHandler)
       .catch(errorHandler);
   },

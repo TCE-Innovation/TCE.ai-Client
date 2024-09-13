@@ -16,7 +16,7 @@ export const useDeleteTeamsFromProject = () => {
         if (newData.success) {
           try {
             updateQuery(
-              ["getTeams", { projectId: argsRef.current.projectId }],
+              ["getProjectTeams", { projectId: argsRef.current.projectId }],
               (teams) => {
                 return {
                   ...teams,

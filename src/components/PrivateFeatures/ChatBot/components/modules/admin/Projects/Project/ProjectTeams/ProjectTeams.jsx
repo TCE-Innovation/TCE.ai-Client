@@ -5,10 +5,11 @@ import ProjectTeamsTable from "./Table";
 import { filterByPatternsFactory } from "../../../../../../utils/form";
 import { useFieldValue } from "../../../../../contexts/FormContext";
 
-import { queries, useGlobal } from "../../../../../../hooks";
+import { queries, useAdmin, useGlobal } from "../../../../../../hooks";
 
 const ProjectTeams = () => {
   const { query } = useGlobal();
+  const { addTeamsToProjectObject } = useAdmin();
   const { params } = query;
   const { project_id: projectId = null } = params;
   const { data, loading } = queries.useGetTeamsByProjectQuery(
@@ -29,7 +30,11 @@ const ProjectTeams = () => {
 
   return (
     <>
-      <ProjectTeamsTable rows={rows} isLoading={loading} />
+      <ProjectTeamsTable
+        rows={rows}
+        isLoading={loading}
+        insertingRow={addTeamsToProjectObject.loading}
+      />
     </>
   );
 };

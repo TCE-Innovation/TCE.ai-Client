@@ -6,15 +6,13 @@ import {
   useGetTeamUsersQuery,
   useGetUsersQuery,
 } from "../../../../../../hooks/queries";
-import { mutations, useGlobal } from "../../../../../../hooks";
+import { useAdmin, useGlobal } from "../../../../../../hooks";
 import { useContext } from "../../../../../contexts/FormContext";
 
 const AddUserToTeam = ({ show, onClose }) => {
   const { data, loading } = useGetUsersQuery();
-  const {
-    mutate: addUser,
-    loading: isSubmitting,
-  } = mutations.useAddUserToTeam();
+  const { addUserToTeamObject } = useAdmin();
+  const { mutate: addUser, loading: isSubmitting } = addUserToTeamObject;
 
   const { query } = useGlobal();
   const { params } = query;

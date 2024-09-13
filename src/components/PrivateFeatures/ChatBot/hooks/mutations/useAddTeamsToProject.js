@@ -21,7 +21,7 @@ export const useAddTeamsToProject = () => {
       onSuccess: (newData, { updateQuery }) => {
         if (newData.success) {
           updateQuery(
-            ["getTeams", { projectId: argsRef.current.projectId }],
+            ["getProjectTeams", { projectId: argsRef.current.projectId }],
             (projectTeams) => {
               return {
                 ...projectTeams,

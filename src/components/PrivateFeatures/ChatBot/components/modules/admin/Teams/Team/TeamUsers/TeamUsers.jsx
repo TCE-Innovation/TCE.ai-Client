@@ -6,12 +6,13 @@ import { filterByPatternsFactory } from "../../../../../../utils/form";
 import { useFieldValue } from "../../../../../contexts/FormContext";
 
 import { useGetTeamUsersQuery } from "../../../../../../hooks/queries";
-import { useGlobal } from "../../../../../../hooks";
+import { useAdmin, useGlobal } from "../../../../../../hooks";
 
 import SearchComponent from "../../../Search";
 import AddNew from "../../../AddNew";
 
 const Team = () => {
+  const { addUserToTeamObject } = useAdmin();
   const { value: search } = useFieldValue("teamUserSearch");
   const { query } = useGlobal();
   const { params } = query;
@@ -59,13 +60,13 @@ const Team = () => {
           </div>
         </div>
         <div style={{ pointerEvents: "all" }}>
-          {/* <TeamUsers /> */}
           <TeamTable
             rows={rows}
             isLoading={loading}
             style={{
               height: "600px",
             }}
+            insertingRow={addUserToTeamObject.loading}
           />
         </div>
       </div>

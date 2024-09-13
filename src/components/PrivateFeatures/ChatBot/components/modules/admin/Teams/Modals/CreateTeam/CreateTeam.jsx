@@ -5,14 +5,13 @@ import { Modal } from "../../../../../common";
 import { useContext } from "../../../../../contexts/FormContext";
 
 import Form from "./Form";
-import { mutations } from "../../../../../../hooks";
+import { useAdmin } from "../../../../../../hooks";
 
 const CreateTeam = ({ show, onClose }) => {
   const { submitHandler, isValid, setError } = useContext();
-  const {
-    mutate: createTeam,
-    loading: isSubmitting,
-  } = mutations.useCreateTeam();
+  const { createTeamObject } = useAdmin();
+
+  const { mutate: createTeam, loading: isSubmitting } = createTeamObject;
   if (!show) return null;
 
   const handleSubmit = (values) => {

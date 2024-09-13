@@ -11,6 +11,7 @@ const RemoveTeam = ({ show, onClose, deleteTeams, ...props }) => {
 
   const onSubmit = (values) => {
     if (isSubmitting) return;
+    console.log({ values });
     handleRemoveTeam({
       projectId: values.projectId,
       teamIds: values.teamIds,

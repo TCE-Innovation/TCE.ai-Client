@@ -21,7 +21,7 @@ export const useAddUserToTeam = () => {
         if (newData.success) {
           try {
             updateQuery(
-              ["getTeams", { teamId: argsRef.current.teamId }],
+              ["getTeamUsers", { teamId: argsRef.current.teamId }],
               (teams) => {
                 return {
                   ...teams,

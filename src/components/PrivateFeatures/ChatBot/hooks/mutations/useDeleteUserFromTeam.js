@@ -16,13 +16,13 @@ export const useDeleteUserFromTeam = () => {
         if (newData.success) {
           try {
             updateQuery(
-              ["getTeams", { teamId: argsRef.current.teamId }],
+              ["getTeamUsers", { teamId: argsRef.current.teamId }],
               (teams) => {
                 return {
                   ...teams,
                   data: {
                     ...teams.data,
-                    users: teams.users.filter(
+                    users: teams.data.users.filter(
                       (user) => user.id !== argsRef.current.userId
                     ),
                   },

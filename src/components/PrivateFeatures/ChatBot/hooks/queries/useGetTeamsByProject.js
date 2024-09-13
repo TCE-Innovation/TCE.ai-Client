@@ -3,7 +3,7 @@ import useQuery from "../useQuery";
 
 export const useGetTeamsByProjectQuery = ({ projectId }, options = {}) => {
   return useQuery(
-    ["getTeams", { projectId }],
+    ["getProjectTeams", { projectId }],
     () => teamService.getTeamsByProject({ projectId }),
     options
   );

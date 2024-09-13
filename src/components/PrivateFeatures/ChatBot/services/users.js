@@ -27,8 +27,7 @@ export const deleteUser = async ({ userId }) => {
 export const addUser = async ({ userData }) => {
   const { data, ...result } = await client.create(route, {
     data: {
-      first_name: userData.firstName,
-      last_name: userData.lastName,
+      name: userData.name,
       role: userData.role,
       email: userData.email,
     },
@@ -52,8 +51,10 @@ export const getUnlistedUsers = async ({ projectId }) => {
 
 export const editUser = async ({ userId, role }) => {
   const result = await client.update(route, {
-    user_id: userId,
-    role,
+    data: {
+      user_id: userId,
+      role,
+    },
   });
   return formatResponseData(result);
 };
