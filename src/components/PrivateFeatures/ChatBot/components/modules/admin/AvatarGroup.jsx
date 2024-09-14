@@ -4,7 +4,7 @@ import { Avatar } from "../../common";
 const MAX_AVATARS = 4;
 
 const AvatarGroup = ({ avatars }) => {
-  const [visibleAvatars, hiddenAvatars] = useMemo(() => {
+  const [visibleAvatars] = useMemo(() => {
     const avatarsCopy = avatars.slice();
     const visibleAvatars = avatarsCopy.splice(0, MAX_AVATARS);
     return [visibleAvatars, avatarsCopy];
