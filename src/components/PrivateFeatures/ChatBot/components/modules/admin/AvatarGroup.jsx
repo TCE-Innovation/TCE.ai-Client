@@ -14,23 +14,42 @@ const AvatarGroup = ({ avatars }) => {
 
   return (
     <div className="avatar-group">
-      {visibleAvatars.map((user, i) => {
+      {visibleAvatars.map((user) => {
+        const [firstName = "", lastName = ""] = (
+          user.name || user.email
+        )?.split(" ");
+        const [F] = firstName;
+        const [L] = lastName;
+        const title = [F, L].join(" ");
         return (
-          <Avatar title={i + 1} key={i}>
-            {user.url ? <img src={user.url} alt={user.name} /> : null}
-          </Avatar>
+          <div className="tooltip-container">
+            <Avatar title={title} key={user.email}>
+              {user.url ? (
+                <img src={user.url} alt={user.name || user.email} />
+              ) : null}
+            </Avatar>
+            <div
+              className={`${
+                user.name || user.email ? "tooltip" : ""
+              } tooltip-dark align-bottom`}
+            >
+              {user.name || user.email}
+            </div>
+          </div>
         );
       })}
       {hasMore && (
         <div className="tooltip-container">
-          <Avatar title={`${avatars.length - MAX_AVATARS}+`} />
-          {hiddenAvatars.length && (
-            <div className="tooltip tooltip-dark align-bottom">
-              {hiddenAvatars.map((avatar, i) => {
-                return <div key={i}>{avatar.name}</div>;
-              })}
-            </div>
-          )}
+          <div className="hidden-avatars-count">
+            <Avatar title={`+${avatars.length - MAX_AVATARS}`} />
+            {/* {hiddenAvatars.length && (
+              <div className="tooltip tooltip-dark align-bottom">
+                {hiddenAvatars.map((avatar) => {
+                  return <div key={avatar.email}>{avatar.name}</div>;
+                })}
+              </div>
+            )} */}
+          </div>
         </div>
       )}
     </div>

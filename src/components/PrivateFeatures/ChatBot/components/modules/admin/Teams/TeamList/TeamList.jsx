@@ -17,7 +17,7 @@ const TeamList = () => {
     if (!data) return [];
     const teams = data.data.map((team) => ({
       ...team,
-      users: team.users.map((user) => ({ id: user, url: "" })),
+      users: team.users.map((user) => ({ ...user, id: user, url: "" })),
     }));
     if (search) {
       const filterByNameAndEmail = filterByPatternsFactory(search, "teamName");

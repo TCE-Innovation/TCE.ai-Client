@@ -93,13 +93,12 @@ export default styled.div`
   }
   .avatar-group {
     display: flex;
-    > *:last-child {
-      & .author-avatar {
-        background: white;
-      }
+    .hidden-avatars-count .author-avatar {
+      background-color: white;
     }
     > * {
       --avatar-size: 24px;
+      font-size: calc(var(--avatar-size) * 0.5);
       & .author-avatar {
         position: relative;
         border: 2px solid white;

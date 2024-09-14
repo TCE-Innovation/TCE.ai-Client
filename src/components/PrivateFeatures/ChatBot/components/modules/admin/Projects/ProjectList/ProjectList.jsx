@@ -16,6 +16,7 @@ const ProjectList = () => {
         return {
           url: "",
           name: "",
+          email: "",
         };
       }),
     }));

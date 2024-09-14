@@ -20,7 +20,7 @@ const ProjectTeams = () => {
 
   const rows = useMemo(() => {
     if (!data) return [];
-    const teams = data.data.teams.map((team) => ({ ...team, users: [] }));
+    const teams = data.data.teams;
     if (search) {
       const filterByNameAndEmail = filterByPatternsFactory(search, "teamName");
       return filterByNameAndEmail(teams);
