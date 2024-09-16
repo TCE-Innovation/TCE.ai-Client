@@ -7,22 +7,26 @@ import BackButton from "./_BackButton";
 
 import { MainLayout } from "../../layouts";
 
+import AdminGuard from "../../auth/Admin";
+
 const ChatPreview = () => {
   return (
-    <MainLayout>
-      <PreviewConversation />
-      <div className="d-flex flex-column gap-2" style={{ height: "100%" }}>
-        <div className="d-flex justify-content-between align-items-center">
-          <BackButton />
-          <div>
-            <LiveStatus />
+    <AdminGuard>
+      <MainLayout>
+        <PreviewConversation />
+        <div className="d-flex flex-column gap-2" style={{ height: "100%" }}>
+          <div className="d-flex justify-content-between align-items-center">
+            <BackButton />
+            <div>
+              <LiveStatus />
+            </div>
+          </div>
+          <div className="flex-grow-1 overflow-hidden">
+            <PreviewChat />
           </div>
         </div>
-        <div className="flex-grow-1 overflow-hidden">
-          <PreviewChat />
-        </div>
-      </div>
-    </MainLayout>
+      </MainLayout>
+    </AdminGuard>
   );
 };
 

@@ -7,6 +7,7 @@ import {
   msalConfig,
   loginRequest,
 } from "../../../../authentication/authConfig";
+import { ROLES } from "../constants/admin";
 
 export { getUserProfilePic } from "../../../../data/Graph";
 
@@ -54,5 +55,14 @@ export const getAccessToken = () => {
     } catch (err) {
       rej(err);
     }
+  });
+};
+
+export const isAdminUser = (users, targetUser) => {
+  return users.some((user) => {
+    if (user.email.toLowerCase() === targetUser.toLowerCase()) {
+      return user.role !== ROLES.USER;
+    }
+    return false;
   });
 };

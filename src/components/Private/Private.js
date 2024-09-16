@@ -131,6 +131,8 @@ function PrivateContent() {
 
   // Check if the tool is valid and if user has access
   useEffect(() => {
+    // skip this check for chatbot as it has url query parameters
+    if(tool === "chatbot") return;
     if (
       !toolComponentMap[tool] ||
       (!alwaysAvailableTools.includes(tool) && !userToolsUrlEnds.includes(tool))

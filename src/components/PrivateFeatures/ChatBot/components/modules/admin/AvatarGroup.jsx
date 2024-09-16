@@ -14,7 +14,7 @@ const AvatarGroup = ({ avatars }) => {
 
   return (
     <div className="avatar-group">
-      {visibleAvatars.map((user) => {
+      {visibleAvatars.map((user, i) => {
         const [firstName = "", lastName = ""] = (
           user.name || user.email
         )?.split(" ");
@@ -22,8 +22,8 @@ const AvatarGroup = ({ avatars }) => {
         const [L] = lastName;
         const title = [F, L].join(" ");
         return (
-          <div className="tooltip-container">
-            <Avatar title={title} key={user.email}>
+          <div className="tooltip-container" key={`${user.email}-${i}`}>
+            <Avatar title={title}>
               {user.url ? (
                 <img src={user.url} alt={user.name || user.email} />
               ) : null}

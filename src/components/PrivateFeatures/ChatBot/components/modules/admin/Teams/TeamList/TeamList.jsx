@@ -9,6 +9,8 @@ import { useFieldValue } from "../../../../contexts/FormContext";
 
 import { queries } from "../../../../../hooks";
 
+import AdminGuard from "../../../../auth/Admin";
+
 const TeamList = () => {
   const { value: search } = useFieldValue("teamsSearch");
   const { data, loading } = queries.useGetTeamsQuery();
@@ -27,12 +29,12 @@ const TeamList = () => {
   }, [data, search]);
 
   return (
-    <>
+    <AdminGuard>
       <div style={{ width: "350px" }} className="mb-3">
         <SearchComponent name="teamsSearch" placeholder={"Search a team"} />
       </div>
       <TeamsTable rows={rows} isLoading={loading} />
-    </>
+    </AdminGuard>
   );
 };
 

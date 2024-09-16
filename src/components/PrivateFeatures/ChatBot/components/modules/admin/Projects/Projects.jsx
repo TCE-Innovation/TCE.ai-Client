@@ -14,6 +14,8 @@ import Project from "./Project";
 import ProjectList from "./ProjectList";
 import { useGetProjectsQuery } from "../../../../hooks/queries";
 
+import AdminGuard from "../../../auth/Admin";
+
 const Projects = () => {
   const { query } = useGlobal();
   const { data, loading } = useGetProjectsQuery();
@@ -58,7 +60,11 @@ const Projects = () => {
               <TabContext.Provider key={i}>
                 {({ activeTab }) => {
                   if (i !== activeTab) return null;
-                  return <Component />;
+                  return (
+                    <AdminGuard key={i}>
+                      <Component />
+                    </AdminGuard>
+                  );
                 }}
               </TabContext.Provider>
             );

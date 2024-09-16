@@ -6,6 +6,8 @@ import TeamUsers from "./TeamUsers";
 // import TeamStats from "./TeamStatistics";
 import { PROFILES } from "../../../../../constants/admin";
 
+import AdminGuard from "../../../../auth/Admin";
+
 const tabs = [
   {
     title: "Users list",
@@ -38,7 +40,11 @@ const Team = () => {
           <TabContext.Panes>
             {tabs.map((tab, i) => {
               const Component = tab.pane;
-              return <Component key={i} />;
+              return (
+                <AdminGuard key={i}>
+                  <Component />
+                </AdminGuard>
+              );
             })}
           </TabContext.Panes>
         </div>

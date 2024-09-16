@@ -25,25 +25,21 @@ const Teams = () => {
     return data.data.find((team) => team.id === team_id)?.teamName || "";
   }, [data, team_id]);
 
-  const tabs = useMemo(
-    () => [
-      {
-        title: "Team list",
-        value: PROFILES.TEAMS,
-        handleClick: () => {
-          push({ team_id }, { reverse: true });
-        },
-        pane: TeamList,
+  const tabs = [
+    {
+      title: "Team list",
+      value: PROFILES.TEAMS,
+      handleClick: () => {
+        push({ team_id }, { reverse: true });
       },
-      {
-        title: selectedTeam,
-        value: PROFILES.TEAM_USERS,
-        pane: Team,
-      },
-    ],
-    // eslint-disable-next-line
-    [team_id]
-  );
+      pane: TeamList,
+    },
+    {
+      title: selectedTeam,
+      value: PROFILES.TEAM_USERS,
+      pane: Team,
+    },
+  ];
 
   return (
     <Wrapper>

@@ -12,6 +12,8 @@ import AddNewButton from "./AddNew";
 
 import { useGlobal } from "../../../hooks";
 
+import AdminGuard from "../../auth/Admin";
+
 const tabs = [
   {
     title: "Projects",
@@ -70,7 +72,11 @@ const Admin = () => {
           <TabContext.Panes>
             {tabs.map((tab, i) => {
               const Component = tab.pane;
-              return <Component key={i} />;
+              return (
+                <AdminGuard key={i}>
+                  <Component />
+                </AdminGuard>
+              );
             })}
           </TabContext.Panes>
         </div>

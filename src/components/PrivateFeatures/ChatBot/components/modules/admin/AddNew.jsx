@@ -50,10 +50,12 @@ const CreateNewTeam = () => {
         <AddIcon />
         <span>Create New Team</span>
       </button>
-      <CreateTeamModal
-        show={showCreateTeamModal}
-        onClose={() => setShowCreateTeamModal(false)}
-      />
+      {showCreateTeamModal && (
+        <CreateTeamModal
+          show={showCreateTeamModal}
+          onClose={() => setShowCreateTeamModal(false)}
+        />
+      )}
     </>
   );
 };
@@ -70,7 +72,7 @@ const AddUserToTeam = () => {
       </button>
       {showAddUserToTeamModal && (
         <AddUserToTeamModal
-          show={true}
+          show={showAddUserToTeamModal}
           onClose={() => setShowAddUserToTeamModal(false)}
         />
       )}
@@ -93,7 +95,7 @@ const AddTeamToProject = () => {
       </button>
       {showAddTeamToProjectModal && (
         <AddTeamToProjectModal
-          show={true}
+          show={showAddTeamToProjectModal}
           onClose={() => setShowAddTeamToProjectModal(false)}
         />
       )}
@@ -112,10 +114,12 @@ const AddNewProject = () => {
         <AddIcon />
         <span>Add New Project</span>
       </button>
-      <AddProjectModal
-        show={showAddProjectModal}
-        onClose={() => setShowAddProjectModal(false)}
-      />
+      {showAddProjectModal && (
+        <AddProjectModal
+          show={showAddProjectModal}
+          onClose={() => setShowAddProjectModal(false)}
+        />
+      )}
     </>
   );
 };
@@ -130,10 +134,12 @@ const AddNewUser = () => {
         <AddIcon />
         <span>Add New User</span>
       </button>
-      <AddUserModal
-        show={showAddUserModal}
-        onClose={() => setShowAddUserModal(false)}
-      />
+      {showAddUserModal && (
+        <AddUserModal
+          show={showAddUserModal}
+          onClose={() => setShowAddUserModal(false)}
+        />
+      )}
     </>
   );
 };
@@ -153,7 +159,7 @@ const AddUserToProject = () => {
       </button>
       {showAddUserToProjectModal && (
         <AddUserToProjectModal
-          show={true}
+          show={showAddUserToProjectModal}
           onClose={() => setShowAddUserToProjectModal(false)}
         />
       )}
@@ -176,7 +182,7 @@ const AddDocumentToProject = () => {
       </button>
       {showAddDocumentToProjectModal && (
         <AddDocumentToProjectModal
-          show={true}
+          show={showAddDocumentToProjectModal}
           onClose={() => setShowAddDocumentToProjectModal(false)}
         />
       )}
@@ -195,10 +201,12 @@ const AddNewDocument = () => {
         <AddIcon />
         <span>Add New Document</span>
       </button>
-      <AddDocumentModal
-        show={showAddDocumentModal}
-        onClose={() => setShowAddDocumentModal(false)}
-      />
+      {showAddDocumentModal && (
+        <AddDocumentModal
+          show={showAddDocumentModal}
+          onClose={() => setShowAddDocumentModal(false)}
+        />
+      )}
     </>
   );
 };

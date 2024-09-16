@@ -5,13 +5,17 @@ import { AdminModule } from "../../modules";
 
 import AdminContext from "../../contexts/Admin";
 
+import AdminGuard from "../../auth/Admin";
+
 const Admin = () => {
   return (
-    <AdminLayout>
-      <AdminContext>
-        <AdminModule />
-      </AdminContext>
-    </AdminLayout>
+    <AdminGuard>
+      <AdminLayout>
+        <AdminContext>
+          <AdminModule />
+        </AdminContext>
+      </AdminLayout>
+    </AdminGuard>
   );
 };
 
