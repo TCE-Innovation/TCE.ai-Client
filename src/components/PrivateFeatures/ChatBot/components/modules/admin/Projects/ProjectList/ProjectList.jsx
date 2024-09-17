@@ -3,8 +3,13 @@ import { useMemo } from "react";
 import { queries, useAdmin } from "../../../../../hooks";
 
 import ProjectsTable from "./Table";
+import { permissionService } from "../../../../../services";
+import Restricted from "../../Restricted";
 
 const ProjectList = () => {
+  const hasProjectReadPermission = permissionService.getProjectPermission(
+    permissionService.permission.READ
+  );
   const { createProject } = useAdmin();
   const { data, loading } = queries.useGetProjectsQuery();
 
@@ -21,6 +26,8 @@ const ProjectList = () => {
       }),
     }));
   }, [data?.data]);
+
+  if (!hasProjectReadPermission) return <Restricted />;
 
   return (
     <ProjectsTable

@@ -9,13 +9,13 @@ import AdminGuard from "../../auth/Admin";
 
 const Admin = () => {
   return (
-    <AdminGuard>
-      <AdminLayout>
-        <AdminContext>
+    <AdminLayout>
+      <AdminContext>
+        <AdminGuard>
           <AdminModule />
-        </AdminContext>
-      </AdminLayout>
-    </AdminGuard>
+        </AdminGuard>
+      </AdminContext>
+    </AdminLayout>
   );
 };
 

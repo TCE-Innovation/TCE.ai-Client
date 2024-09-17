@@ -5,9 +5,18 @@ import Actions from "../Actions";
 
 import { mutations } from "../../../../hooks";
 
+import { permissionService } from "../../../../services";
+
 const UserTableActions = ({ ...userProps }) => {
+  const hasDeletePermission = permissionService.getUserPermission(
+    permissionService.permission.DELETE
+  );
+  const hasEditPermission = permissionService.getUserPermission(
+    permissionService.permission.UPDATE
+  );
   const deleteUser = mutations.useDeleteUser();
   const editUser = mutations.useEditUser();
+
   if (deleteUser.loading || editUser.loading)
     return (
       <div className="position-relative" style={{ width: "2.5em" }}>
@@ -20,30 +29,34 @@ const UserTableActions = ({ ...userProps }) => {
         {(props) => {
           return (
             <Actions>
-              <Actions.Edit
-                disabled={editUser.loading}
-                renderModal={(modalProps) => {
-                  return (
-                    <EditUserModal
-                      editUser={editUser}
-                      {...modalProps}
-                      {...userProps}
-                    />
-                  );
-                }}
-              />
-              <Actions.Delete
-                disabled={deleteUser.loading}
-                renderModal={(modalProps) => {
-                  return (
-                    <RemoveUserModal
-                      {...modalProps}
-                      {...userProps}
-                      deleteUser={deleteUser}
-                    />
-                  );
-                }}
-              />
+              {hasEditPermission && (
+                <Actions.Edit
+                  disabled={editUser.loading}
+                  renderModal={(modalProps) => {
+                    return (
+                      <EditUserModal
+                        editUser={editUser}
+                        {...modalProps}
+                        {...userProps}
+                      />
+                    );
+                  }}
+                />
+              )}
+              {hasDeletePermission && (
+                <Actions.Delete
+                  disabled={deleteUser.loading}
+                  renderModal={(modalProps) => {
+                    return (
+                      <RemoveUserModal
+                        {...modalProps}
+                        {...userProps}
+                        deleteUser={deleteUser}
+                      />
+                    );
+                  }}
+                />
+              )}
             </Actions>
           );
         }}

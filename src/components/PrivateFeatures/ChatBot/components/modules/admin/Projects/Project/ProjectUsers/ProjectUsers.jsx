@@ -4,8 +4,14 @@ import { queries, useAdmin, useGlobal } from "../../../../../../hooks";
 
 import UsersTable from "./Table";
 import { useFieldValue } from "../../../../../contexts/FormContext";
+import { permissionService } from "../../../../../../services";
+import { PERMISSIONS } from "../../../../../../constants/permissions";
+import Restricted from "../../../Restricted";
 
 const ProjectUsers = () => {
+  const hasProjectUserReadPermission = permissionService.getProjectUserPermission(
+    PERMISSIONS.READ
+  );
   const { query } = useGlobal();
   const { addUserToProject } = useAdmin();
   const { params } = query;
@@ -30,6 +36,8 @@ const ProjectUsers = () => {
     if (isLive === null) return filterByEmailAndUserName(results);
     return filterByEmailAndUserName(results);
   }, [data?.data, isLive, userName]);
+
+  if (!hasProjectUserReadPermission) return <Restricted />;
 
   return (
     <>

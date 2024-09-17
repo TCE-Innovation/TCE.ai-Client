@@ -4,8 +4,13 @@ import { RemoveUserFromProjectModal } from "../../Modals";
 import Actions from "../../../Actions";
 
 import { mutations } from "../../../../../../hooks";
+import { permissionService } from "../../../../../../services";
+import { PERMISSIONS } from "../../../../../../constants/permissions";
 
 const UserTableActions = ({ ...userProps }) => {
+  const hasDeletePermission = permissionService.getProjectUserPermission(
+    PERMISSIONS.DELETE
+  );
   const removeUserFromProject = mutations.useRemoveUser();
   if (removeUserFromProject.loading)
     return (
@@ -19,18 +24,20 @@ const UserTableActions = ({ ...userProps }) => {
         {(props) => {
           return (
             <Actions>
-              <Actions.Delete
-                disabled={removeUserFromProject.loading}
-                renderModal={(modalProps) => {
-                  return (
-                    <RemoveUserFromProjectModal
-                      {...modalProps}
-                      {...userProps}
-                      removeUserFromProject={removeUserFromProject}
-                    />
-                  );
-                }}
-              />
+              {hasDeletePermission && (
+                <Actions.Delete
+                  disabled={removeUserFromProject.loading}
+                  renderModal={(modalProps) => {
+                    return (
+                      <RemoveUserFromProjectModal
+                        {...modalProps}
+                        {...userProps}
+                        removeUserFromProject={removeUserFromProject}
+                      />
+                    );
+                  }}
+                />
+              )}
             </Actions>
           );
         }}

@@ -1,6 +1,7 @@
 export const PROFILES = {
   PROJECTS: Symbol("projects"),
   USERS: Symbol("users"),
+  USERS_STATS: Symbol("users-statistics"),
   DOCUMENTS: Symbol("documents"),
   TEAMS: Symbol("teams"),
   TEAM_USERS: Symbol("team-users"),
@@ -9,9 +10,12 @@ export const PROFILES = {
   PROJECT_NAME: Symbol("project-name"),
   PROJECT_USERS: Symbol("project-users"),
   PROJECT_DOCS: Symbol("project-documents"),
+  PROJECT_STATS: Symbol("project-statistics"),
   PROJECT_TEAMS: Symbol("project-teams"),
   LIVE_MODE: Symbol("live-mode"),
   PURSUIT_MODE: Symbol("pursuit-mode"),
+  OVERVIEW: Symbol("overview"),
+  PROJECT_STATUS: Symbol("project-status"),
 };
 
 export const ROLES = {

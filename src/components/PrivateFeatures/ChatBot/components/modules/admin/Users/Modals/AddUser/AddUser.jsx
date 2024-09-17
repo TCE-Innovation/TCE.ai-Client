@@ -2,7 +2,7 @@ import React from "react";
 
 import { Modal } from "../../../../../common";
 
-import { useAdmin } from "../../../../../../hooks";
+import { useAdmin, queries } from "../../../../../../hooks";
 
 import { useContext } from "../../../../../contexts/FormContext";
 
@@ -10,13 +10,22 @@ import Form from "./Form";
 
 const AddUser = ({ show, onClose }) => {
   const { addUser } = useAdmin();
+  const { data: users, loading: loadingUsers } = queries.useGetUsersQuery();
   const { mutate, loading: isSubmitting } = addUser;
   const { submitHandler, resetForm, isValid, setError } = useContext();
-  if (!show) return null;
 
   const handleSubmit = (values) => {
-    if (isSubmitting) return;
+    if (isSubmitting || loadingUsers || !users.data) return;
     const name = values.name.trim();
+    const isDuplicateUser = users.data.some(
+      (user) => user.email.toLowerCase() === values.email.trim().toLowerCase()
+    );
+    if (isDuplicateUser) {
+      return setError(
+        "email",
+        "User with this email already exists! Please use a different email."
+      );
+    }
     if (!values.role) {
       return setError("role", "Please select a user role!");
     }
@@ -29,6 +38,8 @@ const AddUser = ({ show, onClose }) => {
     resetForm();
     onClose();
   };
+
+  if (!show) return null;
 
   return (
     <Modal

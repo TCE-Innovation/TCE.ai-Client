@@ -6,8 +6,13 @@ import { filterByPatternsFactory } from "../../../../../../utils/form";
 import { useFieldValue } from "../../../../../contexts/FormContext";
 
 import { queries, useAdmin, useGlobal } from "../../../../../../hooks";
+import { permissionService } from "../../../../../../services";
+import Restricted from "../../../Restricted";
 
 const ProjectTeams = () => {
+  const hasProjectTeamReadPermission = permissionService.getProjectTeamPermission(
+    permissionService.permission.READ
+  );
   const { query } = useGlobal();
   const { addTeamsToProjectObject } = useAdmin();
   const { params } = query;
@@ -27,6 +32,8 @@ const ProjectTeams = () => {
     }
     return teams;
   }, [data, search]);
+
+  if (!hasProjectTeamReadPermission) return <Restricted />;
 
   return (
     <>

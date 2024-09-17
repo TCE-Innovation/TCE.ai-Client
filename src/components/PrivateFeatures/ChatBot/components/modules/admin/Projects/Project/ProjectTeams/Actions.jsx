@@ -3,8 +3,12 @@ import { Loader, TabContext } from "../../../../../common";
 import Actions from "../../../Actions";
 import { RemoveTeamFromProjectModal } from "../../Modals";
 import { mutations } from "../../../../../../hooks";
+import { permissionService } from "../../../../../../services";
 
 const ProjectTeamsTableActions = ({ ...teamProps }) => {
+  const hasDeletePermission = permissionService.getProjectTeamPermission(
+    permissionService.permission.DELETE
+  );
   const deleteTeams = mutations.useDeleteTeamsFromProject();
   if (deleteTeams.loading) {
     return (
@@ -19,18 +23,20 @@ const ProjectTeamsTableActions = ({ ...teamProps }) => {
         {(tabProps) => {
           return (
             <Actions>
-              <Actions.Delete
-                disabled={deleteTeams.loading}
-                renderModal={(modalProps) => {
-                  return (
-                    <RemoveTeamFromProjectModal
-                      deleteTeams={deleteTeams}
-                      {...modalProps}
-                      {...teamProps}
-                    />
-                  );
-                }}
-              />
+              {hasDeletePermission && (
+                <Actions.Delete
+                  disabled={deleteTeams.loading}
+                  renderModal={(modalProps) => {
+                    return (
+                      <RemoveTeamFromProjectModal
+                        deleteTeams={deleteTeams}
+                        {...modalProps}
+                        {...teamProps}
+                      />
+                    );
+                  }}
+                />
+              )}
             </Actions>
           );
         }}

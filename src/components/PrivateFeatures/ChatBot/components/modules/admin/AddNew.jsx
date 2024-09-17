@@ -13,6 +13,8 @@ import { AddDocumentModal } from "./Documents/Modals";
 import { CreateTeamModal, AddUserToTeamModal } from "./Teams/Modals";
 
 import { useGlobal } from "../../../hooks";
+import { permissionService } from "../../../services";
+import { PERMISSIONS } from "../../../constants/permissions";
 
 const AddNew = () => {
   const { query } = useGlobal();
@@ -61,6 +63,12 @@ const CreateNewTeam = () => {
 };
 const AddUserToTeam = () => {
   const [showAddUserToTeamModal, setShowAddUserToTeamModal] = useState(false);
+  const hasPermission = permissionService.getTeamUserPermission(
+    PERMISSIONS.CREATE
+  );
+
+  if (!hasPermission) return null;
+
   return (
     <>
       <button
@@ -84,6 +92,10 @@ const AddTeamToProject = () => {
   const [showAddTeamToProjectModal, setShowAddTeamToProjectModal] = useState(
     false
   );
+  const hasPermission = permissionService.getProjectTeamPermission(
+    PERMISSIONS.CREATE
+  );
+  if (!hasPermission) return null;
   return (
     <>
       <button
@@ -105,6 +117,10 @@ const AddTeamToProject = () => {
 
 const AddNewProject = () => {
   const [showAddProjectModal, setShowAddProjectModal] = useState(false);
+  const hasPermission = permissionService.getProjectPermission(
+    PERMISSIONS.CREATE
+  );
+  if (!hasPermission) return null;
   return (
     <>
       <button
@@ -125,6 +141,8 @@ const AddNewProject = () => {
 };
 const AddNewUser = () => {
   const [showAddUserModal, setShowAddUserModal] = useState(false);
+  const hasPermission = permissionService.getUserPermission(PERMISSIONS.CREATE);
+  if (!hasPermission) return null;
   return (
     <>
       <button
@@ -148,6 +166,10 @@ const AddUserToProject = () => {
   const [showAddUserToProjectModal, setShowAddUserToProjectModal] = useState(
     false
   );
+  const hasPermission = permissionService.getProjectUserPermission(
+    PERMISSIONS.CREATE
+  );
+  if (!hasPermission) return null;
   return (
     <>
       <button
@@ -171,6 +193,10 @@ const AddDocumentToProject = () => {
     showAddDocumentToProjectModal,
     setShowAddDocumentToProjectModal,
   ] = useState(false);
+  const hasPermission = permissionService.getProjectDocumentPermission(
+    PERMISSIONS.UPLOAD
+  );
+  if (!hasPermission) return null;
   return (
     <>
       <button

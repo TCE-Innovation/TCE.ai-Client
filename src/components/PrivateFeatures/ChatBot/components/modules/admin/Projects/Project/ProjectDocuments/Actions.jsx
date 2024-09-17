@@ -5,8 +5,16 @@ import { RemoveDocumentFromProjectModal } from "../../Modals";
 import { mutations, useGlobal } from "../../../../../../hooks";
 
 import { download } from "../../../../../../utils/file";
+import { permissionService } from "../../../../../../services";
+import { PERMISSIONS } from "../../../../../../constants/permissions";
 
 const DocumentActions = ({ ...documentProps }) => {
+  const hasDownloadPermission = permissionService.getProjectDocumentPermission(
+    PERMISSIONS.DOWNLOAD
+  );
+  const hasDeletePermission = permissionService.getProjectDocumentPermission(
+    PERMISSIONS.DELETE
+  );
   const [isDownloading, setIsDownloading] = useState(false);
   const { publishToSubscribers, createAlert, getSubscriberData } = useGlobal();
   const deleteDocument = mutations.useDeleteDocument();
@@ -58,31 +66,35 @@ const DocumentActions = ({ ...documentProps }) => {
         {(props) => {
           return (
             <Actions>
-              <Actions.DownLoad
-                disabled={isDownloading}
-                handleDownload={() =>
-                  handleDownload(
-                    documentProps.url,
-                    documentProps.name,
-                    handleDocumentDownloadProgress,
-                    {
-                      onAbort: () => {},
-                    }
-                  )
-                }
-              />
-              <Actions.Delete
-                disabled={deleteDocument.loading}
-                renderModal={(modalProps) => {
-                  return (
-                    <RemoveDocumentFromProjectModal
-                      {...modalProps}
-                      {...documentProps}
-                      deleteDocument={deleteDocument}
-                    />
-                  );
-                }}
-              />
+              {hasDownloadPermission && (
+                <Actions.DownLoad
+                  disabled={isDownloading}
+                  handleDownload={() =>
+                    handleDownload(
+                      documentProps.url,
+                      documentProps.name,
+                      handleDocumentDownloadProgress,
+                      {
+                        onAbort: () => {},
+                      }
+                    )
+                  }
+                />
+              )}
+              {hasDeletePermission && (
+                <Actions.Delete
+                  disabled={deleteDocument.loading}
+                  renderModal={(modalProps) => {
+                    return (
+                      <RemoveDocumentFromProjectModal
+                        {...modalProps}
+                        {...documentProps}
+                        deleteDocument={deleteDocument}
+                      />
+                    );
+                  }}
+                />
+              )}
             </Actions>
           );
         }}

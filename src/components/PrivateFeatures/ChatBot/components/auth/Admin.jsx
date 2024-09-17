@@ -1,16 +1,20 @@
 import React, { useEffect, useState } from "react";
-import { queries, useAuth } from "../../hooks";
+import { queries } from "../../hooks";
 import { Loader } from "../../components/common";
 import { isAdminUser } from "../../utils/auth";
 import { useNavigate } from "react-router-dom";
 
+import { useAdmin } from "../../hooks";
+
 const REDIRECT_URL = "/private/chatbot";
 
 const Admin = ({ children }) => {
+  const { userDetails } = useAdmin();
   const [isValidUser, setIsValidUser] = useState(false);
-  const { userEmail = null } = useAuth();
   const navigate = useNavigate();
   const { data, loading } = queries.useGetUsersQuery();
+
+  const userEmail = userDetails?.email;
 
   useEffect(() => {
     if (!data || !userEmail) return;

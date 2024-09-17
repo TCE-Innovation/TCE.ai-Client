@@ -2,6 +2,7 @@ import React, {
   createContext,
   useContext as _useContext,
   useState,
+  useEffect,
 } from "react";
 
 import {
@@ -15,13 +16,23 @@ import {
   useAddTeamsToProject,
 } from "../../hooks/mutations";
 
+import { useGetUsersQuery } from "../../hooks/queries";
+
+import { getUserDetails } from "../../utils/auth";
+import { useAuth } from "../../hooks";
+
+import { permissionService } from "../../services";
+
 const AdminContext = createContext();
 
 const AdminProvider = ({ children }) => {
+  const { userEmail = null } = useAuth();
+  const { data: users, loading: loadingUsers } = useGetUsersQuery();
   const [newUsers, setNewUsers] = useState([]);
   const [newProjects, setNewProjects] = useState([]);
   const [newProjectUsers, setNewProjectUsers] = useState([]);
   const [newDocuments, setNewDocuments] = useState([]);
+  const [userDetails, setUserDetails] = useState(null);
 
   const addUser = useAddUser();
   const addUserToProject = useAddUsersToProject();
@@ -31,6 +42,15 @@ const AdminProvider = ({ children }) => {
   const createTeamObject = useCreateTeam();
   const addUserToTeamObject = useAddUserToTeam();
   const addTeamsToProjectObject = useAddTeamsToProject();
+
+  useEffect(() => {
+    permissionService.updateUser(userDetails);
+  }, [userDetails]);
+
+  useEffect(() => {
+    if (!users || loadingUsers) return;
+    setUserDetails(getUserDetails(users.data, userEmail));
+  }, [users, userEmail, loadingUsers]);
 
   const updateNewUsers = (newUser) => {
     setNewUsers((prev) => [newUser, ...prev]);
@@ -49,6 +69,7 @@ const AdminProvider = ({ children }) => {
   return (
     <AdminContext.Provider
       value={{
+        userDetails,
         addUser,
         addUserToProject,
         createProject,

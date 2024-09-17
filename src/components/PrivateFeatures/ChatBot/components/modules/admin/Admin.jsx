@@ -13,26 +13,34 @@ import AddNewButton from "./AddNew";
 import { useGlobal } from "../../../hooks";
 
 import AdminGuard from "../../auth/Admin";
-
-const tabs = [
-  {
-    title: "Projects",
-    icon: FolderIcon,
-    pane: ProjectsTable,
-  },
-  {
-    title: "Users",
-    icon: UserIcon,
-    pane: UsersTable,
-  },
-  {
-    title: "Teams",
-    icon: UsersIcon,
-    pane: TeamsTable,
-  },
-];
+import { permissionService } from "../../../services";
 
 const Admin = () => {
+  const hasProjectReadPermission = permissionService.getProjectPermission(
+    permissionService.permission.READ
+  );
+  const hasUserReadPermission = permissionService.getUserPermission(
+    permissionService.permission.READ
+  );
+
+  const tabs = [
+    hasProjectReadPermission && {
+      title: "Projects",
+      icon: FolderIcon,
+      pane: ProjectsTable,
+    },
+    hasUserReadPermission && {
+      title: "Users",
+      icon: UserIcon,
+      pane: UsersTable,
+    },
+    {
+      title: "Teams",
+      icon: UsersIcon,
+      pane: TeamsTable,
+    },
+  ].filter(Boolean);
+
   const { query } = useGlobal();
   const { push, getQuery } = query;
   const tab = getQuery("profile");

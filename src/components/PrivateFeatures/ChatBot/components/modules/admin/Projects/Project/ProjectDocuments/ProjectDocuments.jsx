@@ -6,8 +6,13 @@ import { queries, useAdmin, useGlobal } from "../../../../../../hooks";
 import DocumentsTable from "./Table";
 
 import { useFieldValue } from "../../../../../contexts/FormContext";
+import { permissionService } from "../../../../../../services";
+import Restricted from "../../../Restricted";
 
 const ProjectDocuments = () => {
+  const hasProjectDocumentReadPermission = permissionService.getProjectDocumentPermission(
+    permissionService.permission.READ
+  );
   const { uploadDocument } = useAdmin();
   const { query } = useGlobal();
   const { params } = query;
@@ -27,6 +32,8 @@ const ProjectDocuments = () => {
     if (isLive === null) return filterByDocumentName(results);
     return filterByDocumentName(results);
   }, [data?.data, isLive, documentName]);
+
+  if (!hasProjectDocumentReadPermission) return <Restricted />;
 
   return (
     <>

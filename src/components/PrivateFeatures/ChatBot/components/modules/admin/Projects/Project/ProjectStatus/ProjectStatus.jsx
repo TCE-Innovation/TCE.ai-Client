@@ -3,8 +3,12 @@ import { useAdmin, useGlobal, useDebounce } from "../../../../../../hooks";
 import { PROFILES } from "../../../../../../constants/admin";
 import { TabContext } from "../../../../../common";
 import Switcher from "./Switcher";
+import { permissionService } from "../../../../../../services";
 
 const ProjectStatus = () => {
+  const hasUpdatePermission = permissionService.getProjectStatusPermission(
+    permissionService.permission.UPDATE
+  );
   const { editProjectStatus } = useAdmin();
   const { mutate: handleToggleProjectStatus, loading } = editProjectStatus;
   const { query } = useGlobal();
@@ -44,6 +48,7 @@ const ProjectStatus = () => {
       value: PROFILES.PROPOSAL_MODE,
     },
   ];
+  if (!hasUpdatePermission) return null;
   return (
     <TabContext defaultActive={is_live ? 0 : 1} tabs={tabs}>
       <Switcher />

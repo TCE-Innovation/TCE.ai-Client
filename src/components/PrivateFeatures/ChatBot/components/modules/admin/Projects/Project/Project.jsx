@@ -15,39 +15,7 @@ import ProjectStatus from "./ProjectStatus";
 import FormContext from "../../../../contexts/FormContext";
 
 import AdminGuard from "../../../../auth/Admin";
-
-const tabs = [
-  {
-    title: "Users",
-    pane: ProjectUsers,
-    value: PROFILES.PROJECT_USERS,
-    searchProps: {
-      placeholder: "Search users by email",
-      name: "userSearch",
-    },
-    Modal: AddNew.UserToProject,
-  },
-  {
-    title: "Documents",
-    pane: ProjectDocuments,
-    value: PROFILES.PROJECT_DOCS,
-    searchProps: {
-      placeholder: "Search a document",
-      name: "documentSearch",
-    },
-    Modal: AddNew.DocumentToProject,
-  },
-  {
-    title: "Teams",
-    pane: ProjectTeams,
-    value: PROFILES.PROJECT_TEAMS,
-    searchProps: {
-      placeholder: "Search a team",
-      name: "teamSearch",
-    },
-    Modal: AddNew.TeamToProject,
-  },
-];
+import { permissionService } from "../../../../../services";
 
 const SearchAndModal = ({ tabs, activeTab }) => {
   const tab = tabs[activeTab] || null;
@@ -66,6 +34,49 @@ const SearchAndModal = ({ tabs, activeTab }) => {
 };
 
 const Project = () => {
+  const hasProjectUserReadPermission = permissionService.getProjectUserPermission(
+    permissionService.permission.READ
+  );
+  const hasProjectDocumentReadPermission = permissionService.getProjectDocumentPermission(
+    permissionService.permission.READ
+  );
+  const hasProjectTeamReadPermission = permissionService.getProjectTeamPermission(
+    permissionService.permission.READ
+  );
+
+  const tabs = [
+    hasProjectUserReadPermission && {
+      title: "Users",
+      pane: ProjectUsers,
+      value: PROFILES.PROJECT_USERS,
+      searchProps: {
+        placeholder: "Search users by email",
+        name: "userSearch",
+      },
+      Modal: AddNew.UserToProject,
+    },
+    hasProjectDocumentReadPermission && {
+      title: "Documents",
+      pane: ProjectDocuments,
+      value: PROFILES.PROJECT_DOCS,
+      searchProps: {
+        placeholder: "Search a document",
+        name: "documentSearch",
+      },
+      Modal: AddNew.DocumentToProject,
+    },
+    hasProjectTeamReadPermission && {
+      title: "Teams",
+      pane: ProjectTeams,
+      value: PROFILES.PROJECT_TEAMS,
+      searchProps: {
+        placeholder: "Search a team",
+        name: "teamSearch",
+      },
+      Modal: AddNew.TeamToProject,
+    },
+  ].filter(Boolean);
+
   return (
     <div>
       <FormContext

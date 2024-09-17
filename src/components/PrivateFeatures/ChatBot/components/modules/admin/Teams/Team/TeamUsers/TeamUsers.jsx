@@ -10,8 +10,13 @@ import { useAdmin, useGlobal } from "../../../../../../hooks";
 
 import SearchComponent from "../../../Search";
 import AddNew from "../../../AddNew";
+import { permissionService } from "../../../../../../services";
+import Restricted from "../../../Restricted";
 
 const Team = () => {
+  const hasTeamUserReadPermission = permissionService.getTeamUserPermission(
+    permissionService.permission.READ
+  );
   const { addUserToTeamObject } = useAdmin();
   const { value: search } = useFieldValue("teamUserSearch");
   const { query } = useGlobal();
@@ -35,6 +40,8 @@ const Team = () => {
     }
     return users;
   }, [data, search]);
+
+  if (!hasTeamUserReadPermission) return <Restricted />;
 
   return (
     <>

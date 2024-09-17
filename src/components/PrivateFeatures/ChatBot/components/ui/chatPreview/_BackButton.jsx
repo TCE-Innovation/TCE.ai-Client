@@ -1,7 +1,7 @@
 import React from "react";
 import { ArrowLeftIcon } from "../../icons";
 
-const _BackButton = () => {
+const _BackButton = ({ title }) => {
   return (
     <button
       className="chat-button d-flex align-items-center gap-1"
@@ -14,7 +14,7 @@ const _BackButton = () => {
       <span
         style={{ color: "var(--chatbot-text-primary)", fontWeight: "bold" }}
       >
-        Back to Users
+        {title}
       </span>
     </button>
   );
