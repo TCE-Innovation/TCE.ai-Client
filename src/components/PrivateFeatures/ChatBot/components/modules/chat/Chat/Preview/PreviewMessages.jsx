@@ -19,6 +19,7 @@ const PreviewMessages = () => {
             {...message}
             showTypeWriterEffect={false}
             showfeedbackbuttons={false}
+            initialShowCitation={true}
           />
         );
       })}
