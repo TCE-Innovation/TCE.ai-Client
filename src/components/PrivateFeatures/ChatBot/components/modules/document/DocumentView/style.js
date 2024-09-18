@@ -41,6 +41,7 @@ export default styled.div`
       min-width: 2.5em;
       margin: 0 0.25em;
       text-align: center;
+      place-content: center;
     }
     & .document-page-info {
       display: flex;
