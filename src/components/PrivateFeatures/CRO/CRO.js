@@ -51,6 +51,7 @@ const CRO = () => {
             },
           }}
           onClick={() => setActiveComponent('PullBox')}
+          disabled
         >
           Sizing Junction Boxes
         </Button>
