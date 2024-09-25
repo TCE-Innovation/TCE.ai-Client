@@ -52,7 +52,7 @@ import { styled } from '@mui/material/styles';
 // } from '@mui/material/AccordionSummary';
 // import MuiAccordionDetails from '@mui/material/AccordionDetails';
 
-import RangeSlider from "./Slider"
+import { RangeSlider, BundleWeightSlider } from './Slider';
 import './CRO.css';
 
 const BootstrapDialog = styled(Dialog)(({ theme }) => ({
@@ -99,6 +99,8 @@ const CRO = () => {
     };
     
     <RangeSlider value={conduitSizeRange} setValue={setConduitSizeRange} />
+
+    // <RangeSlider value={maxBundleWeight} setValue={setMaxBundleWeight} />
 
     const handleRunTypeChange = (event) => {
         setRunType(event.target.value);
@@ -159,7 +161,7 @@ const CRO = () => {
             
         }
         catch (error) {
-            console.log("CONDUIT_RANGE:",error)
+            console.log("CONDUIT_RANGE:", error)
             setError('Failed to read conduit size range.');
         }
 
@@ -449,9 +451,18 @@ const CRO = () => {
                         </FormControl>
 
                         {/* Show slider if Conduit radio button selected */}
+                        {runType === 'Conduit' && (
                         <div style={{ marginTop: '20px', marginLeft: '25px' }}>
-                            <RangeSlider value={conduitSizeRange} setValue={setConduitSizeRange} disabled={runType !== 'Conduit'} />
+                            <RangeSlider value={conduitSizeRange} setValue={setConduitSizeRange} />
                         </div>
+                        )}
+
+                        {/* Show slider if Conduit radio button selected */}
+                        {runType === 'Messenger' && (
+                        <div style={{ marginTop: '20px', marginLeft: '25px' }}>
+                            <BundleWeightSlider value={conduitSizeRange} setValue={setConduitSizeRange} />
+                        </div>
+                        )}
                     </div>
                                     
                     {/* Cable Size Selection box */}
