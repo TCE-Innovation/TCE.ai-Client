@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { styled } from '@mui/material/styles';
 import Box from '@mui/material/Box';
 import Grid from '@mui/material/Grid';
@@ -82,14 +82,30 @@ export function RangeSlider({ value: initialValue = [0, 8], setValue, disabled }
 
 const CustomInput = styled(OutlinedInput)`
   width: 70px;
+  margin-right: -10px;
+  margin-left: 5px;
+  margin-bottom: 5px;
+
+  /* Ensure spinner arrows (up/down) are always visible */
+  & input[type=number] {
+    -moz-appearance: textfield; /* Firefox */
+  }
+
   & input[type=number]::-webkit-inner-spin-button,
   & input[type=number]::-webkit-outer-spin-button {
-    -webkit-appearance: auto;
-    margin: 0;
+    -webkit-appearance: auto !important; /* Chrome, Safari */
+    opacity: 1 !important; /* Ensure they are visible */
   }
+
+  /* Scale the size of the spinner arrows */
+  & input[type=number]::-webkit-inner-spin-button {
+    transform: scale(1.4); /* Increase the size of the spinner arrows */
+    display: block; /* Ensure the arrows are displayed */
+  }
+
+  /* For Firefox */
   & input[type=number] {
-    -moz-appearance: textfield;
-    appearance: textfield;
+    font-size: 16px; /* Adjust size for visibility */
   }
 `;
 
@@ -98,25 +114,26 @@ const CustomInput = styled(OutlinedInput)`
 //   return mark ? `${mark.label}` : `${value}`;
 // }
 
-export function BundleWeightSlider({ value: initialValue = 5, setValue, disabled }) {
+export function BundleWeightSlider({ value: initialValue = 25, setValue, disabled }) {
+  // Uncomment the following line to initialize state
   const [value, setBundleWeight] = useState(initialValue);
+
+  // Use useEffect to ensure that value is updated if initialValue changes
+  useEffect(() => {
+    setBundleWeight(initialValue);
+  }, [initialValue]);
 
   const handleSliderChange = (event, newValue) => {
     setBundleWeight(newValue);
     setValue(newValue);
   };
 
-  // const handleInputChange = (event) => {
-  //   setBundleWeight(event.target.value === '' ? 0 : Number(event.target.value));
-  //   setValue(event.target.value === '' ? 0 : Number(event.target.value));
-  // };
-
-const handleInputChange = (event) => {
-  const newValue = event.target.value === '' ? 0 : Number(event.target.value);
-  const steppedValue = Math.round(newValue / 5) * 5;
-  setBundleWeight(steppedValue);
-  setValue(steppedValue);
-};
+  const handleInputChange = (event) => {
+    const newValue = event.target.value === '' ? 0 : Number(event.target.value);
+    const steppedValue = Math.round(newValue / 5) * 5;
+    setBundleWeight(steppedValue);
+    setValue(steppedValue);
+  };
 
   const handleBlur = () => {
     if (value < 5) {
