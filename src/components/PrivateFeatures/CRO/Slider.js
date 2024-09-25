@@ -5,7 +5,7 @@ import Grid from '@mui/material/Grid';
 import Typography from '@mui/material/Typography';
 import Slider from '@mui/material/Slider';
 import MuiInput from '@mui/material/Input';
-import VolumeUp from '@mui/icons-material/VolumeUp';
+import OutlinedInput from '@mui/material/OutlinedInput';
 
 
 const conduitSizeMarks = [
@@ -25,11 +25,11 @@ const conduitSizeMarks = [
 ];
 
 const bundleWeightMarks = [
-  { value: 5000, label: '5,000' },
-  { value: 10000, label: '10,000' },
-  { value: 15000, label: '15,000' },
-  { value: 20000, label: '20,000' },
-  { value: 25000, label: '25,000' },
+  { value: 5, label: '5' },
+  { value: 10, label: '10' },
+  { value: 15, label: '15' },
+  { value: 20, label: '20' },
+  { value: 25, label: '25' },
 ];
 
 // Function to return the label instead of the value from the slider
@@ -76,15 +76,29 @@ export function RangeSlider({ value: initialValue = [0, 8], setValue, disabled }
   );
 }
 
-const Input = styled(MuiInput)`
-  width: 80px;
+// const Input = styled(MuiInput)`
+//   width: 40px;
+// `;
+
+const CustomInput = styled(OutlinedInput)`
+  width: 70px;
+  & input[type=number]::-webkit-inner-spin-button,
+  & input[type=number]::-webkit-outer-spin-button {
+    -webkit-appearance: auto;
+    margin: 0;
+  }
+  & input[type=number] {
+    -moz-appearance: textfield;
+    appearance: textfield;
+  }
 `;
 
-function bundleWeightText(value) {
-  const mark = bundleWeightMarks.find(mark => mark.value === value);
-  return mark ? `${mark.label}` : `${value}`;
-}
-export function BundleWeightSlider({ value: initialValue = 5000, setValue, disabled }) {
+// function bundleWeightText(value) {
+//   const mark = bundleWeightMarks.find(mark => mark.value === value);
+//   return mark ? `${mark.label}` : `${value}`;
+// }
+
+export function BundleWeightSlider({ value: initialValue = 5, setValue, disabled }) {
   const [value, setBundleWeight] = useState(initialValue);
 
   const handleSliderChange = (event, newValue) => {
@@ -92,18 +106,25 @@ export function BundleWeightSlider({ value: initialValue = 5000, setValue, disab
     setValue(newValue);
   };
 
-  const handleInputChange = (event) => {
-    setBundleWeight(event.target.value === '' ? 0 : Number(event.target.value));
-    setValue(event.target.value === '' ? 0 : Number(event.target.value));
-  };
+  // const handleInputChange = (event) => {
+  //   setBundleWeight(event.target.value === '' ? 0 : Number(event.target.value));
+  //   setValue(event.target.value === '' ? 0 : Number(event.target.value));
+  // };
+
+const handleInputChange = (event) => {
+  const newValue = event.target.value === '' ? 0 : Number(event.target.value);
+  const steppedValue = Math.round(newValue / 5) * 5;
+  setBundleWeight(steppedValue);
+  setValue(steppedValue);
+};
 
   const handleBlur = () => {
-    if (value < 5000) {
-      setBundleWeight(5000);
-      setValue(5000);
-    } else if (value > 25000) {
-      setBundleWeight(25000);
-      setValue(25000);
+    if (value < 5) {
+      setBundleWeight(5);
+      setValue(5);
+    } else if (value > 25) {
+      setBundleWeight(25);
+      setValue(25);
     }
   };
 
@@ -113,34 +134,31 @@ export function BundleWeightSlider({ value: initialValue = 5000, setValue, disab
         Input Maximum Bundle Weight:
       </Typography>
       <Grid container spacing={2} sx={{ alignItems: 'center' }}>
-        <Grid item>
-          <VolumeUp />
-        </Grid>
         <Grid item xs>
           <Slider
             value={typeof value === 'number' ? value : 0}
             onChange={handleSliderChange}
             aria-labelledby="input-slider"
-            step={5000}
+            step={1}
             marks={bundleWeightMarks.map((mark) => ({
               ...mark,
               label: <span style={{ color: disabled ? 'rgba(0, 0, 0, 0.38)' : 'inherit' }}>{mark.label}</span>
             }))}
-            min={5000}
-            max={25000}
+            min={5}
+            max={25}
             disabled={disabled}
           />
         </Grid>
         <Grid item>
-          <Input
+          <CustomInput
             value={value}
             size="small"
             onChange={handleInputChange}
             onBlur={handleBlur}
             inputProps={{
-              step: 5000,
-              min: 5000,
-              max: 25000,
+              step: 5,
+              min: 5,
+              max: 25,
               type: 'number',
               'aria-labelledby': 'input-slider',
             }}
