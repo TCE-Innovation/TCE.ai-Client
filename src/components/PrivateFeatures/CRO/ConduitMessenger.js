@@ -300,7 +300,8 @@ const CRO = () => {
                         </AccordionSummary>
                         <AccordionDetails>
                             <Typography>
-                            <ul>
+                            <ul>    <li>Download the pull sheet template to see the columns(the purple button next to "UPLOAD PULL SHEET")</li>
+                                    <li>The order of columns does not matter, but the relevant information for a cable has to be on the same row as the listed cable</li>
                                     <li>.xlsx format required</li>
                                     <li>Required Columns:
                                         <ul>
@@ -371,8 +372,8 @@ const CRO = () => {
                     <Typography>
                         The diameter calculation is a rough approximation. 
                         The outermost cable that is placed within the bundle is used to dicatate 
-                        the diameter approximation of the bundle. So if the outermost cable in a bundle 
-                        is placed two inches away from the center, and its radius is 0.5 inches so the outermost distance 
+                        the diameter approximation of the bundle. For example, if the outermost cable in a bundle 
+                        is placed two inches away from the center and its radius is 0.5 inches, then the outermost distance 
                         of a cable from the center is 2.5 inches, then the diameter is said to be about 5 inches.
                     </Typography>
                     </AccordionDetails>
@@ -390,17 +391,18 @@ const CRO = () => {
                         </AccordionDetails>
                     </Accordion>
                     
-                    {/* <Accordion expanded={expanded === 'panel7'} onChange={handleChange('panel7')}>
+                     <Accordion expanded={expanded === 'panel7'} onChange={handleChange('panel7')}>
                         <AccordionSummary aria-controls="panel7d-content" id="panel7d-header">
-                            <Typography>Accordion 7</Typography>
+                            <Typography style={{ fontWeight: 'bold' }}>How do I set certain cables to be apart of a high bend conduit run?</Typography>
                         </AccordionSummary>
                         <AccordionDetails>
                             <Typography>
-                                Content for Accordion 7
+                                First you must have a column labeled "High Bend" in your pull sheet. 
+                                For every cable/row that you want to be apart of a high bend conduit run, write "High bend" or "Yes" in the "High Bend" column.
                             </Typography>
                         </AccordionDetails>
                     </Accordion>
-                    <Accordion expanded={expanded === 'panel8'} onChange={handleChange('panel8')}>
+                    {/*<Accordion expanded={expanded === 'panel8'} onChange={handleChange('panel8')}>
                         <AccordionSummary aria-controls="panel8d-content" id="panel8d-header">
                             <Typography>Accordion 8</Typography>
                         </AccordionSummary>
