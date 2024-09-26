@@ -245,6 +245,7 @@ export function BundleWeightSlider() {
             max={25}
             marks={bundleWeightMarks}
             sx={{ marginTop: '-2px'}}
+            valueLabelDisplay="auto"
           />
         </Grid>
         <Grid item>
