@@ -3,7 +3,6 @@ import React, {useState} from 'react';
 // import { Input } from 'reactstrap';
 import { Link } from '@mui/material';
 
-
 //MUI
 import Box from '@mui/material/Box';
 import Button from '@mui/material/Button';
@@ -52,7 +51,7 @@ import { styled } from '@mui/material/styles';
 // } from '@mui/material/AccordionSummary';
 // import MuiAccordionDetails from '@mui/material/AccordionDetails';
 
-import { RangeSlider, BundleWeightSlider } from './Slider';
+import { ConduitSizeRangeSlider, BundleWeightSlider } from './Slider';
 import './CRO.css';
 
 const BootstrapDialog = styled(Dialog)(({ theme }) => ({
@@ -81,6 +80,7 @@ const CRO = () => {
     const [loading, setLoading] = useState(false);
     const [error, setError] = useState('');
     const [conduitSizeRange, setConduitSizeRange] = useState([0.75, 4]);
+    const [bundleMaxWeight, setBundleMaxWeight] = useState(25);
     const [isBoxExpanded, setIsBoxExpanded] = useState(false);
 
     const [open, setOpen] = React.useState(false);
@@ -98,7 +98,9 @@ const CRO = () => {
         setExpanded(newExpanded ? panel : false);
     };
     
-    <RangeSlider value={conduitSizeRange} setValue={setConduitSizeRange} />
+    <ConduitSizeRangeSlider value={conduitSizeRange} setValue={setConduitSizeRange} />
+
+    // <BundleWeightSlider value={bundleMaxWeight} setValue={setbundleMaxWeight} />
 
     // <RangeSlider value={maxBundleWeight} setValue={setMaxBundleWeight} />
 
@@ -446,21 +448,21 @@ const CRO = () => {
                             >
                                 {/* Radio Buttons to Select Run Type */}
                                 <FormControlLabel value="Conduit" control={<Radio />} label="Conduit" />
-                                <FormControlLabel value="Messenger" control={<Radio />} label="Messenger Bundle" />
+                                <FormControlLabel value="Messenger" control={<Radio />} label="Messenger Bundle" sx={{marginLeft: '20px'}}/>
                             </RadioGroup>
                         </FormControl>
 
                         {/* Show slider if Conduit radio button selected */}
                         {runType === 'Conduit' && (
                         <div style={{ marginTop: '20px', marginLeft: '25px' }}>
-                            <RangeSlider value={conduitSizeRange} setValue={setConduitSizeRange} />
+                            <ConduitSizeRangeSlider value={conduitSizeRange} setValue={setConduitSizeRange} />
                         </div>
                         )}
 
                         {/* Show slider if Conduit radio button selected */}
                         {runType === 'Messenger' && (
                         <div style={{ marginTop: '20px', marginLeft: '25px' }}>
-                            <BundleWeightSlider value={conduitSizeRange} setValue={setConduitSizeRange} />
+                            <BundleWeightSlider value={bundleMaxWeight} setValue={setBundleMaxWeight} />
                         </div>
                         )}
                     </div>

@@ -5,8 +5,6 @@ import Grid from '@mui/material/Grid';
 import Typography from '@mui/material/Typography';
 import Slider from '@mui/material/Slider';
 import MuiInput from '@mui/material/Input';
-import VolumeUp from '@mui/icons-material/VolumeUp';
-
 
 const conduitSizeMarks = [
   { value: 0, label: '0.75' },
@@ -30,7 +28,7 @@ function valuetext(value) {
   return mark ? `Number: ${mark.label}` : `Number: ${value}`;
 }
 
-export function RangeSlider({ value: initialValue = [0, 8], setValue, disabled }) {
+export function ConduitSizeRangeSlider({ value: initialValue = [0, 8], setValue, disabled }) {
   const [value, setConduitSizeRange] = useState([0, 8]);
 
   const handleConduitSizeRangeChange = (event, newValue) => {
@@ -68,122 +66,6 @@ export function RangeSlider({ value: initialValue = [0, 8], setValue, disabled }
   );
 }
 
-// const Input = styled(MuiInput)`
-//   width: 40px;
-// `;
-
-// const CustomInput = styled(OutlinedInput)`
-//   width: 70px;
-//   margin-right: -10px;
-//   margin-left: 5px;
-//   margin-bottom: 5px;
-
-//   /* Ensure spinner arrows (up/down) are always visible */
-//   & input[type=number] {
-//     -moz-appearance: textfield; /* Firefox */
-//   }
-
-//   & input[type=number]::-webkit-inner-spin-button,
-//   & input[type=number]::-webkit-outer-spin-button {
-//     -webkit-appearance: auto !important; /* Chrome, Safari */
-//     opacity: 1 !important; /* Ensure they are visible */
-//   }
-
-//   /* Scale the size of the spinner arrows */
-//   & input[type=number]::-webkit-inner-spin-button {
-//     transform: scale(1.4); /* Increase the size of the spinner arrows */
-//     display: block; /* Ensure the arrows are displayed */
-//   }
-
-//   /* For Firefox */
-//   & input[type=number] {
-//     font-size: 16px; /* Adjust size for visibility */
-//   }
-// `;
-
-// function bundleWeightText(value) {
-//   const mark = bundleWeightMarks.find(mark => mark.value === value);
-//   return mark ? `${mark.label}` : `${value}`;
-// }
-
-// export function BundleWeightSlider({ value: initialValue = 15, setValue, disabled }) {
-//   const [value, setBundleWeight] = useState(initialValue);
-
-//   // Use useEffect to ensure that value is updated if initialValue changes
-//   useEffect(() => {
-//     setBundleWeight(initialValue);
-//   }, [initialValue]);
-
-//   const handleSliderChange = (event, newValue) => {
-//     setBundleWeight(newValue);
-//     setValue(newValue);
-//   };
-
-//   const handleInputChange = (event) => {
-//     const newValue = event.target.value;
-//     // Allow empty input and convert to number only if there's a valid input
-//     if (newValue === '') {
-//       setBundleWeight(newValue); // Allow it to be empty
-//       setValue(newValue);
-//     } else {
-//       const steppedValue = Math.round(Number(newValue) / 5) * 5;
-//       setBundleWeight(steppedValue);
-//       setValue(steppedValue);
-//     }
-//   };
-  
-//   const handleBlur = () => {
-//     if (value < 5) {
-//       setBundleWeight(5);
-//       setValue(5);
-//     } else if (value > 25) {
-//       setBundleWeight(25);
-//       setValue(25);
-//     }
-//   };
-
-//   return (
-//     <Box sx={{ width: 340 }}>
-//       <Typography id="input-slider" gutterBottom>
-//         Input Maximum Bundle Weight:
-//       </Typography>
-//       <Grid container spacing={2} sx={{ alignItems: 'center' }}>
-//         <Grid item xs>
-//           <Slider
-//             value={typeof value === 'number' ? value : 0}
-//             onChange={handleSliderChange}
-//             aria-labelledby="input-slider"
-//             step={1}
-//             marks={bundleWeightMarks.map((mark) => ({
-//               ...mark,
-//               label: <span style={{ color: disabled ? 'rgba(0, 0, 0, 0.38)' : 'inherit' }}>{mark.label}</span>
-//             }))}
-//             min={5}
-//             max={25}
-//             disabled={disabled}
-//           />
-//         </Grid>
-//         <Grid item>
-//           <CustomInput
-//             value={value}
-//             size="small"
-//             onChange={handleInputChange}
-//             onBlur={handleBlur}
-//             inputProps={{
-//               step: 5,
-//               min: 5,
-//               max: 25,
-//               type: 'number',
-//               'aria-labelledby': 'input-slider',
-//             }}
-//             disabled={disabled}
-//           />
-//         </Grid>
-//       </Grid>
-//     </Box>
-//   );
-// }
-
 const bundleWeightMarks = [
   { value: 5, label: '5' },
   { value: 10, label: '10' },
@@ -193,10 +75,12 @@ const bundleWeightMarks = [
 ];
 
 const Input = styled(MuiInput)`
-  width: 45px;
+  width: 55px;
   margin-right: -100px;
   margin-left: 25px;
   margin-bottom: 10px;
+  padding-left: 5px; /* Adjust padding to move text closer to spinner arrows */
+  text-align: right; /* Align text to the right */
 
   /* Ensure spinner arrows are always visible */
   input[type='number']::-webkit-outer-spin-button,
@@ -231,9 +115,9 @@ export function BundleWeightSlider() {
   };
 
   return (
-    <Box sx={{ width: 270, marginTop: "-10px", marginLeft: "-10px"}}>
+    <Box sx={{ width: 253, marginTop: "-10px", marginLeft: "-10px"}}>
       <Typography id="input-slider" gutterBottom>
-        Input Maximum Bundle Weight (lb/ft):
+        Input Max Bundle Weight (lb/ft):
       </Typography>
       <Grid container spacing={2} sx={{ alignItems: 'center' }}>
         <Grid item xs>
@@ -244,7 +128,7 @@ export function BundleWeightSlider() {
             min={5}
             max={25}
             marks={bundleWeightMarks}
-            sx={{ marginTop: '-2px'}}
+            sx={{ marginTop: '-3px'}}
             valueLabelDisplay="auto"
           />
         </Grid>
