@@ -228,6 +228,7 @@ const CRO = () => {
                     justifyContent: 'flex-start',
                     marginBottom: 4,
                     backgroundColor: 'transparent',
+                    whiteSpace: 'nowrap',
                 }}
 
                 
@@ -241,9 +242,8 @@ const CRO = () => {
                     style={{ 
                         marginTop: '-30px',
                         marginBottom: '0px',
-                        marginLeft: '400px', // Increase marginLeft from 250px to 300px
+                        marginLeft: '400px',
                         marginRight: '15px',
-                        whitespace: 'nowrap'
                     }}
                 >
                     The Cable Run Optimizer generates conduit or messenger bundle cable runs.
@@ -473,7 +473,7 @@ const CRO = () => {
                                 If you are using custom cable sizes, then you must {" "}  
                                  <Link 
                                     href="https://tceaiblob.blob.core.windows.net/cro/Cable%20Sizes.xlsx?sp=r&st=2024-05-03T15:21:21Z&se=2050-05-03T23:21:21Z&sv=2022-11-02&sr=b&sig=mFQQaFmy2Hz%2Bppt0s1zrJjbQlfzZpz1BVqiTRMw5wvw%3D" // Set the URL here
-                                    style={{ color: 'blue', textDecoration: 'underline', cursor: 'pointer' }}
+                                    style={{ color: '#0dbbf2', textDecoration: 'underline', cursor: 'pointer' }}
                                     target="_blank"
                                     rel="noopener noreferrer"
                                 >
@@ -482,7 +482,7 @@ const CRO = () => {
                                 {" "}and edit the cable sizes to match your project.
                             </Typography>
                         } arrow sx={{ fontSize: '2.5em' }}>
-                            <InfoOutlinedIcon style={{ position: 'relative', top: -40, left: 330 }} />
+                            <InfoOutlinedIcon style={{ position: 'relative', top: -80, left: 350 }} />
                         </Tooltip>
                         <FormControl style={{ marginTop: '10px', marginLeft: '-30px', marginBottom: '20px' }}>
                             <RadioGroup
@@ -520,8 +520,8 @@ const CRO = () => {
                                         variant="contained"
                                         startIcon={<Upload />}
                                         sx={{ 
-                                            marginTop: '8px', 
-                                            marginLeft: '50px',
+                                            marginTop: '80px', 
+                                            marginLeft: '-235px',
                                             backgroundColor: '#609CCF',
                                             '&:hover': {
                                                 backgroundColor: '#568CBA', 
