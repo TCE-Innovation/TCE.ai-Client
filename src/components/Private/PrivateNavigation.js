@@ -85,6 +85,8 @@ function ResponsiveAppBar() {
                 return 'Equipment Install Tracker Dashboard';
             case 'executive-dashboards':
                 return 'Executive Dashboards';
+            case 'procore-dashboards':
+                return 'Procore Dashboards';
             default:
                 return 'TCE Innovation Group';  
         }

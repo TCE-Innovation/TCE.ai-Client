@@ -30,6 +30,7 @@ import Clearance from '../PrivateFeatures/Clearance/Clearance';
 import EITDashboard from '../PrivateFeatures/EITDashboard';
 import Admin from '../PrivateFeatures/AdminPanel/AdminPanel';
 import ExecutiveDashboards from '../PrivateFeatures/ExecutiveDashboards';
+import ProcoreDashboards from '../PrivateFeatures/ProcoreDashboards';
 
 // AUTH
 import { adminList } from '../../admin/lists';
@@ -94,6 +95,7 @@ function PrivateContent() {
     'LLLE Clearance Calculator': 'clearance-calculator',
     'EIT Dashboard': 'equip-install-dashboard',
     'Executive Dashboards': 'executive-dashboards',
+    'Procore Dashboards' : 'procore-dashboards',
   };
 
   // Always available tools
@@ -122,6 +124,7 @@ function PrivateContent() {
     'clearance-calculator': Clearance,
     'equip-install-dashboard' : EITDashboard,
     'executive-dashboards' : ExecutiveDashboards,
+    'procore-dashboards' : ProcoreDashboards,
     'admin': isAdmin ? Admin : null // Admin access only
   }), [isAdmin]);
 

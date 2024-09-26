@@ -65,7 +65,7 @@ const PrivateListItems = ({ tool }) => {
         { to: '/private/drone-captures', text: 'Drone Captures', icon: <SatelliteAltIcon />, key: 'drone-captures' },
         { to: '/private/equip-install-dashboard', text: 'EIT Dashboard', icon: <DataThresholdingOutlinedIcon />, key: 'equip-install-dashboard' },
         { to: '/private/executive-dashboards', text: 'Executive Dashboards', icon: <DataThresholdingOutlinedIcon />, key: 'executive-dashboards' },
-
+        { to: '/private/procore-dashboards', text: 'Procore Dashboards', icon: <DataThresholdingOutlinedIcon />, key: 'procore-dashboards' },
     ];
 
     // Ensure userTools is a valid string, else default to an empty string
