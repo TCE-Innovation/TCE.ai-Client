@@ -345,8 +345,8 @@ const CRO = () => {
                         </AccordionSummary>
                         <AccordionDetails>
                         <Typography>
-                            Cables are added to bundle until the maximum bundle diameter of 6 inches or
-                            maximum bundle weight of 20 lb/ft is reached.
+                            Cables are added to a bundle until the maximum bundle diameter of 6 inches or
+                            maximum bundle weight is reached.
                             If a potential cable wouldn't fit a bundle, all smaller cables are tested to
                             see if they would fit. If no cables can be added to a bundle, a new bundle is created.
                         </Typography>
