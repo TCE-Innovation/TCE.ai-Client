@@ -1,5 +1,5 @@
 //REACT
-import React, {useState} from 'react';
+import React, {useState, useEffect} from 'react';
 // import { Input } from 'reactstrap';
 import { Link } from '@mui/material';
 
@@ -119,6 +119,14 @@ const CRO = () => {
 
     <ConduitSizeRangeSlider value={conduitSizeRange} setValue={setConduitSizeRange} />;
     <BundleWeightSlider value={bundleMaxWeight} setValue={setBundleMaxWeight} />;
+
+    const defaultConduitSizeRange = [0, 8];
+    const defaultBundleMaxWeight = 25;  
+
+    useEffect(() => {
+        setConduitSizeRange(defaultConduitSizeRange);
+        setBundleMaxWeight(defaultBundleMaxWeight);
+    }, [runType]);
 
     const cro = async () => {
 
