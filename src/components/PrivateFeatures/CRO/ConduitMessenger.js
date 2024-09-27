@@ -8,6 +8,7 @@ import Box from '@mui/material/Box';
 import Button from '@mui/material/Button';
 import Typography from '@mui/material/Typography';
 import TrainLoader from '../../General/TrainLoader';
+
 // Radio buttons for selecting run type
 import Radio from '@mui/material/Radio';
 import RadioGroup from '@mui/material/RadioGroup';
@@ -30,26 +31,12 @@ import axios from 'axios';
 import Accordion from '@mui/material/Accordion';
 import AccordionDetails from '@mui/material/AccordionDetails';
 import AccordionSummary from '@mui/material/AccordionSummary';
-// import ArrowDropDownIcon from '@mui/icons-material/ArrowDropDown';
-// import ArrowForwardIosSharpIcon from '@mui/icons-material/ArrowForwardIosSharp';
 import QuizIcon from '@mui/icons-material/Quiz';
 import Dialog from '@mui/material/Dialog';
 import DialogActions from '@mui/material/DialogActions';
 import DialogContent from '@mui/material/DialogContent';
-// import DialogContentText from '@mui/material/DialogContentText';
 import DialogTitle from '@mui/material/DialogTitle';
-// import InputLabel from '@mui/material/InputLabel';
-// import MenuItem from '@mui/material/MenuItem';
-// import Select, { SelectChangeEvent } from '@mui/material/Select';
-// import Switch from '@mui/material/Switch';
-// import CloseIcon from '@mui/icons-material/Close';
 import { styled } from '@mui/material/styles';
-// import IconButton from '@mui/material/IconButton';
-// import MuiAccordion, { AccordionProps } from '@mui/material/Accordion';
-// import MuiAccordionSummary, {
-//   AccordionSummaryProps,
-// } from '@mui/material/AccordionSummary';
-// import MuiAccordionDetails from '@mui/material/AccordionDetails';
 
 import { ConduitSizeRangeSlider, BundleWeightSlider } from './Slider';
 import './CRO.css';
@@ -68,6 +55,27 @@ const BootstrapDialog = styled(Dialog)(({ theme }) => ({
       padding: theme.spacing(1),
     },
   }));
+
+  const conduitSizeMarks = [
+    { value: 0, label: '0.75' },
+    { value: 1, label: '1' },
+    { value: 2, label: '1.25' },
+    { value: 3, label: '1.5' },
+    { value: 4, label: '2' },
+    { value: 5, label: '2.5' },
+    { value: 6, label: '3' },
+    { value: 7, label: '3.5' },
+    { value: 8, label: '4' },
+    { value: 9, label: '4.5' },
+    { value: 10, label: '5' },
+    { value: 11, label: '5.5' },
+    { value: 12, label: '6' },
+  ];
+
+  const getLabelFromValue = (value) => {
+    const mark = conduitSizeMarks.find(mark => mark.value === value);
+    return mark ? mark.label : value;
+    };
     
 
 const CRO = () => {
@@ -79,14 +87,17 @@ const CRO = () => {
     const [responses, setResponses] = useState('');
     const [loading, setLoading] = useState(false);
     const [error, setError] = useState('');
-    const [conduitSizeRange, setConduitSizeRange] = useState([0.75, 4]);
-    const [bundleMaxWeight, setBundleMaxWeight] = useState(25);
-    const [isBoxExpanded, setIsBoxExpanded] = useState(false);
 
+    // Sliders for customizing the run type parameters
+    const [conduitSizeRange, setConduitSizeRange] = useState([0, 8]);
+    const [bundleMaxWeight, setBundleMaxWeight] = useState(25);
+
+    // FAQ section
+    const [isBoxExpanded, setIsBoxExpanded] = useState(false);
     const [open, setOpen] = React.useState(false);
     const [expanded, setExpanded] = React.useState('');
 
-    // Functions
+    // Functions for Accordian's open and close
     const handleClickOpen = () => {
       setOpen(true);
     };
@@ -98,19 +109,16 @@ const CRO = () => {
         setExpanded(newExpanded ? panel : false);
     };
     
-    <ConduitSizeRangeSlider value={conduitSizeRange} setValue={setConduitSizeRange} />
-
-    // <BundleWeightSlider value={bundleMaxWeight} setValue={setbundleMaxWeight} />
-
-    // <RangeSlider value={maxBundleWeight} setValue={setMaxBundleWeight} />
-
     const handleRunTypeChange = (event) => {
         setRunType(event.target.value);
-      };
+    };
 
     const handleCableSizesChange = (event) => {
         setCableSizes(event.target.value);
     };
+
+    <ConduitSizeRangeSlider value={conduitSizeRange} setValue={setConduitSizeRange} />;
+    <BundleWeightSlider value={bundleMaxWeight} setValue={setBundleMaxWeight} />;
 
     const cro = async () => {
 
@@ -152,19 +160,32 @@ const CRO = () => {
             formData.append('runType', runType)
         }
         catch (error) {
-            console.log("RUNTYPE:",error)
+            console.log("RUNTYPE:", error)
             setError('Failed to read run type.');
         }
 
         try{
             // conduitSizeRange is an array, first index is the lower value
-            formData.append('conduitSizeRangeLower', conduitSizeRange[0])
-            formData.append('conduitSizeRangeHigher', conduitSizeRange[1])
+            formData.append('conduitSizeRangeLower', getLabelFromValue(conduitSizeRange[0]))
+            formData.append('conduitSizeRangeHigher', getLabelFromValue(conduitSizeRange[1]))
+            
+            console.log("CONDUIT_RANGE LOWER:", getLabelFromValue(conduitSizeRange[0]))
+            console.log("CONDUIT_RANGE HIGHER:", getLabelFromValue(conduitSizeRange[1]))
             
         }
         catch (error) {
             console.log("CONDUIT_RANGE:", error)
             setError('Failed to read conduit size range.');
+        }
+        
+        try{
+            // bundleMaxWeight is a number
+            console.log("BUNDLE_WEIGHT SUCCESS:", bundleMaxWeight)
+            formData.append('bundleMaxWeight', bundleMaxWeight)
+        }
+        catch (error) {
+            console.log("BUNDLE_WEIGHT ERROR:", bundleMaxWeight)
+            setError('Failed to read bundle max weight.');
         }
 
         try{
@@ -454,14 +475,14 @@ const CRO = () => {
                             </RadioGroup>
                         </FormControl>
 
-                        {/* Show slider if Conduit radio button selected */}
+                        {/* Show conduit sizes slider if Conduit radio button selected */}
                         {runType === 'Conduit' && (
                         <div style={{ marginTop: '20px', marginLeft: '25px' }}>
                             <ConduitSizeRangeSlider value={conduitSizeRange} setValue={setConduitSizeRange} />
                         </div>
                         )}
 
-                        {/* Show slider if Conduit radio button selected */}
+                        {/* Show max weight slider if Messenger radio button selected */}
                         {runType === 'Messenger' && (
                         <div style={{ marginTop: '20px', marginLeft: '25px' }}>
                             <BundleWeightSlider value={bundleMaxWeight} setValue={setBundleMaxWeight} />

@@ -23,7 +23,7 @@ const conduitSizeMarks = [
 ];
 
 // Function to return the label instead of the value from the slider
-function valuetext(value) {
+function convertConduitSizeValue(value) {
   const mark = conduitSizeMarks.find(mark => mark.value === value);
   return mark ? `Number: ${mark.label}` : `Number: ${value}`;
 }
@@ -52,7 +52,7 @@ export function ConduitSizeRangeSlider({ value: initialValue = [0, 8], setValue,
           const mark = conduitSizeMarks.find(mark => mark.value === value);
           return mark ? mark.label : value;
         }}
-        getAriaValueText={valuetext}
+        getAriaValueText={convertConduitSizeValue}
         step={null}
         marks={conduitSizeMarks.map((mark) => ({
           ...mark,
@@ -74,31 +74,33 @@ const bundleWeightMarks = [
   { value: 25, label: '25' },
 ];
 
-const Input = styled(MuiInput)`
-  width: 55px;
-  margin-right: -100px;
-  margin-left: 25px;
-  margin-bottom: 10px;
-  padding-left: 5px; /* Adjust padding to move text closer to spinner arrows */
-  text-align: right; /* Align text to the right */
+// const Input = styled(MuiInput)`
+//   width: 55px;
+//   margin-right: -100px;
+//   margin-left: 25px;
+//   margin-bottom: 10px;
+//   padding-left: 5px; /* Adjust padding to move text closer to spinner arrows */
+//   text-align: right; /* Align text to the right */
 
-  /* Ensure spinner arrows are always visible */
-  input[type='number']::-webkit-outer-spin-button,
-  input[type='number']::-webkit-inner-spin-button {
-    opacity: 1;
-    transform: scale(1.75); /* Make spinner arrows larger */
-  }
+//   /* Ensure spinner arrows are always visible */
+//   input[type='number']::-webkit-outer-spin-button,
+//   input[type='number']::-webkit-inner-spin-button {
+//     opacity: 1;
+//     transform: scale(1.75); /* Make spinner arrows larger */
+//   }
 
-  /* For Firefox */
-  input[type='number'] {
-    -moz-appearance: textfield;
-  }
-`;
+//   /* For Firefox */
+//   input[type='number'] {
+//     -moz-appearance: textfield;
+//   }
+// `;
 
-export function BundleWeightSlider() {
-  const [value, setValue] = React.useState(25);
+export function BundleWeightSlider({ value: initialValue = 25, setValue, disabled }) {
+  // const [value, setValue] = React.useState(25);
+  const [value, setMaxBundleWeight] = useState(25);
 
-  const handleSliderChange = (event, newValue) => {
+  const handleMaxBundleWeightChange = (event, newValue) => {
+    setMaxBundleWeight(newValue);
     setValue(newValue);
   };
 
@@ -115,7 +117,7 @@ export function BundleWeightSlider() {
   };
 
   return (
-    <Box sx={{ width: 253, marginTop: "-10px", marginLeft: "-10px"}}>
+    <Box sx={{ width: 237, marginTop: "-10px", marginLeft: "-10px"}}>
       <Typography id="input-slider" gutterBottom>
         Input Max Bundle Weight (lb/ft):
       </Typography>
@@ -123,7 +125,7 @@ export function BundleWeightSlider() {
         <Grid item xs>
           <Slider
             value={typeof value === 'number' ? value : 0}
-            onChange={handleSliderChange}
+            onChange={handleMaxBundleWeightChange}
             aria-labelledby="input-slider"
             min={5}
             max={25}
@@ -132,7 +134,7 @@ export function BundleWeightSlider() {
             valueLabelDisplay="auto"
           />
         </Grid>
-        <Grid item>
+        {/* <Grid item>
           <Input
             value={value}
             size="small"
@@ -146,7 +148,7 @@ export function BundleWeightSlider() {
               'aria-labelledby': 'input-slider',
             }}
           />
-        </Grid>
+        </Grid> */}
       </Grid>
     </Box>
   );
