@@ -198,6 +198,8 @@ const CRO = () => {
         }
 
         try{
+            console.log("Sending form data to CRO API")
+            console.log("FORMDATA:", formData)
             // Send form data to backend, receive response within data
             const {data} = await axios.post(
                 // Link to where backend is hosted
@@ -468,7 +470,7 @@ const CRO = () => {
                     >   
                     {/* Run Type Selection box */}
                     <div className="rounded-rectangle-1">
-                        <div className="title">Select Run Type</div>
+                        <div className="title">Select Run Type. </div>
                         <FormControl>
                             <RadioGroup
                                 row
