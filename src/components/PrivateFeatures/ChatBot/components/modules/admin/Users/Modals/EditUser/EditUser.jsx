@@ -1,30 +1,55 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 
 import { Modal } from "../../../../../common";
 
 import RolesField from "../../Forms/_Role";
+import ProjectField from "../../Forms/_Project";
 
-import { useContext } from "../../../../../contexts/FormContext";
+import { useContext, useFieldValue } from "../../../../../contexts/FormContext";
+import { ROLES } from "../../../../../../constants/admin";
+import { useGlobal } from "../../../../../../hooks";
 
 const EditUser = ({ show, onClose, editUser, ...userProps }) => {
   const { mutate: handleEditUser, loading: isSubmitting } = editUser;
-  const { submitHandler, isValid, setError } = useContext();
-  if (!show) return null;
+  const { submitHandler, isValid, setError, resetForm } = useContext();
+  const { value: role } = useFieldValue("role");
+
+  const [showProjectsField, setShowProjectsField] = useState(false);
+
+  const { publishToSubscribers, createAlert } = useGlobal();
+
+  useEffect(() => {
+    if (role === ROLES.PM) {
+      setShowProjectsField(true);
+    } else {
+      setShowProjectsField(false);
+    }
+  }, [role]);
 
   const handleSubmit = (values) => {
     if (isSubmitting) return;
     if (!values.role) {
       return setError("role", "Please select a user role!");
     }
-    if (values.role === userProps.role) {
-      return setError(
-        "role",
-        "User already has this role. Please select a different role!"
-      );
-    }
     handleEditUser({ role: values.role, userId: userProps.id });
-    onClose();
+    if (!values.editUserProjectIds.length) {
+      resetForm();
+      onClose();
+    } else {
+      createAlert({
+        message: "adding projects...",
+        type: "info",
+      });
+      publishToSubscribers(`add-user-to-projects-editUserProjectIds`, {
+        userId: userProps.id,
+        projectIds: values.editUserProjectIds,
+      });
+      resetForm();
+      onClose();
+    }
   };
+
+  if (!show) return null;
 
   return (
     <Modal
@@ -49,6 +74,14 @@ const EditUser = ({ show, onClose, editUser, ...userProps }) => {
     >
       <div className="projects-modal-wrapper">
         <RolesField name={"role"} initialValue={userProps.role} />
+        {showProjectsField && (
+          <div>
+            <ProjectField
+              name={"editUserProjectIds"}
+              shouldFetchProjects={role !== null}
+            />
+          </div>
+        )}
       </div>
     </Modal>
   );

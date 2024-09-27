@@ -1,18 +1,20 @@
-import React from "react";
+import React, { useEffect } from "react";
 
 import { Modal } from "../../../../../common";
 
-import { useAdmin, queries } from "../../../../../../hooks";
+import { useAdmin, queries, useGlobal } from "../../../../../../hooks";
 
-import { useContext } from "../../../../../contexts/FormContext";
+import { useContext, useFieldValue } from "../../../../../contexts/FormContext";
 
 import Form from "./Form";
 
 const AddUser = ({ show, onClose }) => {
   const { addUser } = useAdmin();
   const { data: users, loading: loadingUsers } = queries.useGetUsersQuery();
-  const { mutate, loading: isSubmitting } = addUser;
+  const { mutate, loading: isSubmitting, data: addedUser } = addUser;
   const { submitHandler, resetForm, isValid, setError } = useContext();
+  const { value: projectIds } = useFieldValue("projectIds");
+  const { publishToSubscribers, createAlert } = useGlobal();
 
   const handleSubmit = (values) => {
     if (isSubmitting || loadingUsers || !users.data) return;
@@ -35,9 +37,27 @@ const AddUser = ({ show, onClose }) => {
       name,
     };
     mutate({ userData });
+    if (!values.projectIds.length) {
+      resetForm();
+      onClose();
+    }
+  };
+
+  useEffect(() => {
+    if (!addedUser || !projectIds.length) return;
+    const user = addedUser.data.user;
+    createAlert({
+      message: "Adding projects...",
+      type: "info",
+    });
+    publishToSubscribers(`add-user-to-projects-projectIds`, {
+      userId: user.id,
+      projectIds,
+    });
     resetForm();
     onClose();
-  };
+    // eslint-disable-next-line
+  }, [addedUser, projectIds]);
 
   if (!show) return null;
 

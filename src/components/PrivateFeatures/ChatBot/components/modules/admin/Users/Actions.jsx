@@ -33,13 +33,15 @@ const UserTableActions = ({ ...userProps }) => {
                 <Actions.Edit
                   disabled={editUser.loading}
                   renderModal={(modalProps) => {
-                    return (
-                      <EditUserModal
-                        editUser={editUser}
-                        {...modalProps}
-                        {...userProps}
-                      />
-                    );
+                    if (modalProps.show) {
+                      return (
+                        <EditUserModal
+                          editUser={editUser}
+                          {...modalProps}
+                          {...userProps}
+                        />
+                      );
+                    } else return null;
                   }}
                 />
               )}
@@ -47,13 +49,16 @@ const UserTableActions = ({ ...userProps }) => {
                 <Actions.Delete
                   disabled={deleteUser.loading}
                   renderModal={(modalProps) => {
-                    return (
-                      <RemoveUserModal
-                        {...modalProps}
-                        {...userProps}
-                        deleteUser={deleteUser}
-                      />
-                    );
+                    if (modalProps.show) {
+                      return (
+                        <RemoveUserModal
+                          {...modalProps}
+                          {...userProps}
+                          deleteUser={deleteUser}
+                        />
+                      );
+                    }
+                    return null;
                   }}
                 />
               )}

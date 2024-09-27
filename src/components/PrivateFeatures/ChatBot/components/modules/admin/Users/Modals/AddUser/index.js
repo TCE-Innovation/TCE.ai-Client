@@ -8,6 +8,7 @@ const formValues = {
   email: "",
   name: "",
   role: null,
+  projectIds: [],
 };
 
 const AddUser = (props) => {

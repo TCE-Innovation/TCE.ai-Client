@@ -6,6 +6,7 @@ const EditUserModal = (props) => {
   const initialValues = useMemo(
     () => ({
       role: props.role,
+      editUserProjectIds: []
     }),
     [props.role]
   );

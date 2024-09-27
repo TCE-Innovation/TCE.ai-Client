@@ -50,11 +50,16 @@ export const getUnlistedUsers = async ({ projectId }) => {
 };
 
 export const editUser = async ({ userId, role }) => {
-  const result = await client.update(route, {
+  const { data, ...result } = await client.update(route, {
     data: {
       user_id: userId,
       role,
     },
   });
-  return formatResponseData(result);
+  const { message = "", ...rest } = data;
+  return formatResponseData({
+    ...result,
+    message: result.message || message,
+    data: { ...rest },
+  });
 };

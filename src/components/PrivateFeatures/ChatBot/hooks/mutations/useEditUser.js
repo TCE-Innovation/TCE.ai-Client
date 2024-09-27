@@ -14,22 +14,27 @@ export const useEditUser = () => {
     {
       onSuccess: (newData, { updateQuery }) => {
         if (newData.success) {
-          const { user: updatedUser } = newData.data;
-          updateQuery("getUsers", (users) => {
-            return {
-              ...users,
-              data: users.data.map((user) => {
-                if (user.id === argsRef.current.userId) {
-                  return {
-                    ...user,
-                    role: updatedUser.role,
-                  };
-                }
-                return user;
-              }),
-            };
-          });
           createAlert({ message: newData.message, type: "success" });
+          const { user: updatedUser } = newData.data;
+          if (!updatedUser) return;
+          try {
+            updateQuery("getUsers", (users) => {
+              return {
+                ...users,
+                data: users.data.map((user) => {
+                  if (user.id === argsRef.current.userId) {
+                    return {
+                      ...user,
+                      role: updatedUser.role,
+                    };
+                  }
+                  return user;
+                }),
+              };
+            });
+          } catch (err) {
+            console.error(err);
+          }
         }
       },
     }
