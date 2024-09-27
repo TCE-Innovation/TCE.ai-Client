@@ -1,23 +1,23 @@
-import React, { useState, useEffect } from "react";
-import { styled } from '@mui/material/styles';
+import React, { useState } from "react";
+// import { styled } from '@mui/material/styles';
 import Box from '@mui/material/Box';
 import Grid from '@mui/material/Grid';
 import Typography from '@mui/material/Typography';
 import Slider from '@mui/material/Slider';
-import MuiInput from '@mui/material/Input';
+// import MuiInput from '@mui/material/Input';
 
 const conduitSizeMarks = [
   { value: 0, label: '0.75' },
   { value: 1, label: '1' },
   { value: 2, label: '1.25' },
   { value: 3, label: '1.5' },
-  { value: 4, label: '2.0' },
+  { value: 4, label: '2' },
   { value: 5, label: '2.5' },
-  { value: 6, label: '3.0' },
+  { value: 6, label: '3' },
   { value: 7, label: '3.5' },
-  { value: 8, label: '4.0' },
+  { value: 8, label: '4' },
   { value: 9, label: '4.5' },
-  { value: 10, label: '5.0' },
+  { value: 10, label: '5' },
   { value: 11, label: '5.5' },
   { value: 12, label: '6' },
 ];
@@ -104,17 +104,17 @@ export function BundleWeightSlider({ value: initialValue = 25, setValue, disable
     setValue(newValue);
   };
 
-  const handleInputChange = (event) => {
-    setValue(event.target.value === '' ? 0 : Number(event.target.value));
-  };
+  // const handleInputChange = (event) => {
+  //   setValue(event.target.value === '' ? 0 : Number(event.target.value));
+  // };
 
-  const handleBlur = () => {
-    if (value < 5) {
-      setValue(5);
-    } else if (value > 25) {
-      setValue(25);
-    }
-  };
+  // const handleBlur = () => {
+  //   if (value < 5) {
+  //     setValue(5);
+  //   } else if (value > 25) {
+  //     setValue(25);
+  //   }
+  // };
 
   return (
     <Box sx={{ width: 237, marginTop: "-10px", marginLeft: "-10px"}}>

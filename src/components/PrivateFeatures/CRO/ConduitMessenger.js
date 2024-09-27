@@ -56,7 +56,7 @@ const BootstrapDialog = styled(Dialog)(({ theme }) => ({
     },
   }));
 
-  const conduitSizeMarks = [
+const conduitSizeMarks = [
     { value: 0, label: '0.75' },
     { value: 1, label: '1' },
     { value: 2, label: '1.25' },
@@ -70,13 +70,15 @@ const BootstrapDialog = styled(Dialog)(({ theme }) => ({
     { value: 10, label: '5' },
     { value: 11, label: '5.5' },
     { value: 12, label: '6' },
-  ];
+];
 
-  const getLabelFromValue = (value) => {
-    const mark = conduitSizeMarks.find(mark => mark.value === value);
-    return mark ? mark.label : value;
-    };
+const getLabelFromValue = (value) => {
+const mark = conduitSizeMarks.find(mark => mark.value === value);
+return mark ? mark.label : value;
+};
     
+const defaultConduitSizeRange = [0, 8];
+const defaultBundleMaxWeight = 25;  
 
 const CRO = () => {
     // State variables
@@ -120,13 +122,12 @@ const CRO = () => {
     <ConduitSizeRangeSlider value={conduitSizeRange} setValue={setConduitSizeRange} />;
     <BundleWeightSlider value={bundleMaxWeight} setValue={setBundleMaxWeight} />;
 
-    const defaultConduitSizeRange = [0, 8];
-    const defaultBundleMaxWeight = 25;  
+    
 
     useEffect(() => {
         setConduitSizeRange(defaultConduitSizeRange);
         setBundleMaxWeight(defaultBundleMaxWeight);
-    }, [runType]);
+    }, [runType, defaultConduitSizeRange]);
 
     const cro = async () => {
 
