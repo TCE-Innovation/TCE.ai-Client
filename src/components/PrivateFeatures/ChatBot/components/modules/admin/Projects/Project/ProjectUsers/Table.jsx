@@ -3,7 +3,7 @@ import SortButton from "../../../SortButton";
 
 import ProjectUserActions from "./Actions";
 import TableContainer from "../../../TableContainer";
-import { Badge } from "../../../../../common";
+import { Badge, Avatar } from "../../../../../common";
 
 import { ROLE_TO_COLORS } from "../../../../../../constants/admin";
 
@@ -19,9 +19,18 @@ const Table = ({ rows, ...props }) => {
             <SortButton handleSort={handleSort} currentOrder={currentOrder} />
           );
         },
-        renderCell: ({ name }) => {
+        renderCell: ({ name, image_url, email }) => {
           if (!name) return "/";
-          return name;
+          return (
+            <div className="d-flex gap-2 align-items-center">
+              {image_url && (
+                <Avatar title={""}>
+                  <img src={image_url} alt={email} />
+                </Avatar>
+              )}
+              <div>{name}</div>
+            </div>
+          );
         },
       },
       {

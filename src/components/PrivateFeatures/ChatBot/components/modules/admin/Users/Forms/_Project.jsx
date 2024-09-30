@@ -82,7 +82,7 @@ const _Project = ({ name, shouldFetchProjects }) => {
       items={projects}
       values={values}
       loading={loadingProjects}
-      search={projects.length >= 5}
+      search={true}
       label="Projects"
       placeholder={"Assign Projects"}
       onChange={() => resetError()}

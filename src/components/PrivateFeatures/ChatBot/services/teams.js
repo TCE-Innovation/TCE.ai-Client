@@ -58,7 +58,6 @@ export const addUserToTeam = async ({ teamId, userId }) => {
   return formatResponseData(result);
 };
 
-//this
 export const deleteUserFromTeam = async ({ teamId, userId }) => {
   const result = await client.remove(`${route}/users`, {
     data: {
@@ -73,7 +72,14 @@ export const getTeamsByProject = async ({ projectId }) => {
   const { data, ...result } = await client.get(`${route}/projects`, {
     project_id: projectId,
   });
-  const teams = data.teams.map((team) => ({ ...team, teamName: team.name }));
+  const teams = data.teams.map((team) => ({
+    ...team,
+    teamName: team.name,
+    users: (team.users || []).map((user) => ({
+      ...user,
+      url: user.image_url || null,
+    })),
+  }));
   return formatResponseData({ ...result, data: { teams } });
 };
 

@@ -18,9 +18,9 @@ const AvatarGroup = ({ avatars }) => {
         const [firstName = "", lastName = ""] = (
           user.name || user.email
         )?.split(" ");
-        const [F] = firstName;
-        const [L] = lastName;
-        const title = [F, L].join(" ");
+        const [F = ""] = firstName;
+        const [L = ""] = lastName;
+        const title = [F.toUpperCase(), L.toUpperCase()].join(" ");
         return (
           <div className="tooltip-container" key={`${user.email}-${i}`}>
             <Avatar title={title}>

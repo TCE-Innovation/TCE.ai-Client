@@ -45,6 +45,10 @@ export const ROLES_TO_PERMISSIONS = {
       permissions: [PERMISSIONS.READ],
     },
     {
+      module: PROFILES.TEAMS,
+      permissions: [],
+    },
+    {
       module: PROFILES.PROJECT_DOCS,
       permissions: [
         PERMISSIONS.READ,

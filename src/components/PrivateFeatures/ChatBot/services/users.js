@@ -63,3 +63,9 @@ export const editUser = async ({ userId, role }) => {
     data: { ...rest },
   });
 };
+
+export const getUserProjects = async () => {
+  const result = await client.get(`${route}/projects`);
+  const data = formatResponseData(result);
+  return data;
+};
