@@ -127,7 +127,7 @@ const CRO = () => {
     useEffect(() => {
         setConduitSizeRange(defaultConduitSizeRange);
         setBundleMaxWeight(defaultBundleMaxWeight);
-    }, [runType, defaultConduitSizeRange]);
+    }, [runType]);
 
     const cro = async () => {
 
