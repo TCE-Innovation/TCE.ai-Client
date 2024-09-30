@@ -34,7 +34,8 @@ const MessageProvider = ({ children }) => {
     { conversationId: currentConversation?.id },
     {
       disableRunOnMount:
-        currentConversation === null ||
+        !currentConversation ||
+        isNaN(currentConversation?.id) ||
         selectedProjectId === null ||
         !conversations.length,
     }
