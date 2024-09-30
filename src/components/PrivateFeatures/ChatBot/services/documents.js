@@ -14,6 +14,7 @@ export const getDocuments = async ({ projectId }) => {
     name: item.document_name,
     uploadDate: item.created_at,
     id: item.document_id,
+    uploadedBy: item.uploaded_by || null,
   }));
   return {
     data: _data,

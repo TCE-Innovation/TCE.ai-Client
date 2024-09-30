@@ -38,6 +38,13 @@ const Table = ({ rows, ...props }) => {
         },
       },
       {
+        title: "Uploaded By",
+        renderCell: ({ uploadedBy = "" }) => {
+          if (uploadedBy) return <div>{uploadedBy}</div>;
+          return "/";
+        },
+      },
+      {
         title: "Upload date",
         key: "uploadDate",
         sort: true,
