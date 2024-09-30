@@ -31,6 +31,7 @@ import EITDashboard from '../PrivateFeatures/EITDashboard';
 import Admin from '../PrivateFeatures/AdminPanel/AdminPanel';
 import ExecutiveDashboards from '../PrivateFeatures/ExecutiveDashboards';
 import ProcoreDashboards from '../PrivateFeatures/ProcoreDashboards';
+import ChatbotDashboard from '../PrivateFeatures/ChatbotDashboard';
 
 // AUTH
 import { adminList } from '../../admin/lists';
@@ -96,6 +97,7 @@ function PrivateContent() {
     'EIT Dashboard': 'equip-install-dashboard',
     'Executive Dashboards': 'executive-dashboards',
     'Procore Dashboards' : 'procore-dashboards',
+    'Chatbot Dashboard' : 'chatbot-dashboard',
   };
 
   // Always available tools
@@ -125,6 +127,7 @@ function PrivateContent() {
     'equip-install-dashboard' : EITDashboard,
     'executive-dashboards' : ExecutiveDashboards,
     'procore-dashboards' : ProcoreDashboards,
+    'chatbot-dashboard' : ChatbotDashboard,
     'admin': isAdmin ? Admin : null // Admin access only
   }), [isAdmin]);
 

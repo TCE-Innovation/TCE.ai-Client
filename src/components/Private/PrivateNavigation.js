@@ -87,6 +87,8 @@ function ResponsiveAppBar() {
                 return 'Executive Dashboards';
             case 'procore-dashboards':
                 return 'Procore Dashboards';
+            case 'chatbot-dashboard':
+                return 'Chatbot Dashboard';
             default:
                 return 'TCE Innovation Group';  
         }

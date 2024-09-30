@@ -18,6 +18,7 @@ const tableNameMap = {
     'Equipment Install Tracking Dashboard': 'eit_dashboard',
     'Executive Dashboards': 'executive_dashboards',
     'Procore Dashboards' : 'procore_dashboards',
+    'Chatbot Dashboard' : 'chatbot_dashboard',
 };
 
 const toolsWithProjectOption = [
@@ -108,7 +109,7 @@ const Provisioning = () => {
 
             await addUsersToTool(selectedUser, tableName, defaultProjects);
             const updatedUsers = await getUsersOfTool(tableName);
-            setUsers(updatedUsers)
+            setUsers(updatedUsers);
 
             // if (selectedTool in toolsWithProjectOption) {
             if (toolsWithProjectOption.includes(selectedTool)) {
