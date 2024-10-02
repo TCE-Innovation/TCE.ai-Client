@@ -5,17 +5,17 @@ import { MultiSelectField } from "../../../../common/field";
 import { useFieldValue, useFieldArray } from "../../../../contexts/FormContext";
 
 import { useGetProjectsQuery } from "../../../../../hooks/queries";
-import { useGlobal, mutations } from "../../../../../hooks";
+import { useGlobal, useAdmin } from "../../../../../hooks";
 
-import { sleep } from "../../../../../utils/misc";
 import { CheckBox } from "../../../../common";
 
 const _Project = ({ name, shouldFetchProjects }) => {
   const { resetError, changeValue } = useFieldValue(name);
   const { value, push, remove } = useFieldArray(name);
-  const { registerSubscriber, createAlert } = useGlobal();
+  const { registerSubscriber } = useGlobal();
 
-  const { mutate: addUserToProjects } = mutations.useAddUsersToProject();
+  const { addUserToProjects } = useAdmin();
+  const { mutate: addUsersToProjects } = addUserToProjects;
 
   const { data, loading: loadingProjects } = useGetProjectsQuery({
     disableRunOnMount: !shouldFetchProjects,
@@ -24,33 +24,9 @@ const _Project = ({ name, shouldFetchProjects }) => {
   useEffect(() => {
     const unregister = registerSubscriber(
       `add-user-to-projects-${name}`,
-      ({ userId, projectIds }) => {
-        Promise.allSettled(
-          projectIds.map(async (projectId, i) => {
-            await sleep(i * 1000);
-            await addUserToProjects({ userIds: [userId], projectId });
-            return Promise.resolve({ userId, projectId });
-          })
-        )
-          .then((results) => {
-            results.forEach((result) => {
-              if (result.status === "fulfilled") {
-                createAlert({
-                  message: [
-                    "This user was added to project ",
-                    result.value.projectId,
-                  ].join(" "),
-                  type: "success",
-                });
-              } else if (result.status === "rejected") {
-                createAlert({
-                  message: "Failed assigning user to project",
-                  type: "danger",
-                });
-              }
-            });
-          })
-          .then(() => unregister());
+      async ({ userId, projectIds }) => {
+        unregister();
+        await addUsersToProjects({ userIds: [userId], projectIds });
       }
     );
     // eslint-disable-next-line

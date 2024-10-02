@@ -1,6 +1,6 @@
 // users
 export { useAddUser } from "./useAddUser";
-export { useAddUsersToProject } from "./useAddUsersToProject";
+export { useAddUsersToProjects } from "./useAddUsersToProjects";
 export { useDeleteUser } from "./useDeleteUser";
 export { useRemoveUser } from "./useRemoveUser";
 export { useEditUser } from "./useEditUser";

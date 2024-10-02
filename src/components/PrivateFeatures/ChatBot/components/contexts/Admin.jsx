@@ -7,7 +7,7 @@ import React, {
 
 import {
   useAddUser,
-  useAddUsersToProject,
+  useAddUsersToProjects,
   useCreateProject,
   useUploadDocuments,
   useEditProjectStatus,
@@ -35,7 +35,7 @@ const AdminProvider = ({ children }) => {
   const [userDetails, setUserDetails] = useState(null);
 
   const addUser = useAddUser();
-  const addUserToProject = useAddUsersToProject();
+  const addUserToProjects = useAddUsersToProjects();
   const createProject = useCreateProject();
   const uploadDocument = useUploadDocuments();
   const editProjectStatus = useEditProjectStatus();
@@ -71,7 +71,7 @@ const AdminProvider = ({ children }) => {
       value={{
         userDetails,
         addUser,
-        addUserToProject,
+        addUserToProjects,
         createProject,
         uploadDocument,
         updateNewDocuments,

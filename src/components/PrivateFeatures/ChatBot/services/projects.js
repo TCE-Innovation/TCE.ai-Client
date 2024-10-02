@@ -14,7 +14,7 @@ export const getProjects = async () => {
       userCount: item.user_count,
       documentCount: item.document_count,
       id: item.id,
-      isLive: item.is_live
+      isLive: item.is_live,
     };
   });
   return { data: _data, success, message };
@@ -39,7 +39,6 @@ export const editProjectStatus = async ({ projectId, isLive }) => {
   });
   return formatResponseData(result);
 };
-
 
 /**
  *
@@ -105,10 +104,10 @@ export const addUserToProject = async ({ projectId, userId }) => {
 ] 
  * 
  */
-export const addUsersToProject = async ({ projectId, userIds }) => {
+export const addUsersToProjects = async ({ projectIds, userIds }) => {
   const { data, ...result } = await client.create(`${route}/users`, {
-    query: { project_id: projectId },
     data: {
+      project_ids: projectIds,
       user_ids: userIds,
     },
   });

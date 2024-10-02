@@ -13,7 +13,7 @@ const ProjectUsers = () => {
     PERMISSIONS.READ
   );
   const { query } = useGlobal();
-  const { addUserToProject } = useAdmin();
+  const { addUserToProjects } = useAdmin();
   const { params } = query;
 
   const { value: userName } = useFieldValue("userSearch");
@@ -44,7 +44,7 @@ const ProjectUsers = () => {
       <UsersTable
         rows={rows}
         isLoading={loading}
-        insertingRow={addUserToProject.loading}
+        insertingRow={addUserToProjects.loading}
         style={{ height: "600px" }}
       />
     </>
