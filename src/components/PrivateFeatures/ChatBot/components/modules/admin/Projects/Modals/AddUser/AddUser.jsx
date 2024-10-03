@@ -12,8 +12,8 @@ import {
 const { useGetUnlistedUsersQuery, useGetProjectsQuery } = queries;
 
 const AddUser = ({ show, onClose }) => {
-  const { addUserToProject } = useAdmin();
-  const { mutate, loading: isSubmitting } = addUserToProject;
+  const { addUserToProjects } = useAdmin();
+  const { mutate, loading: isSubmitting } = addUserToProjects;
   const { value: projectId } = useFieldValue("projectId");
   const { error, setError: setUserIdError } = useFieldValue("userIds");
   const { data, loading: loadingUsers } = useGetUnlistedUsersQuery(
@@ -41,7 +41,7 @@ const AddUser = ({ show, onClose }) => {
     if (!values.userIds?.length) {
       return setUserIdError("At least one user should be selected!");
     }
-    mutate({ projectId: values.projectId, userIds: values.userIds });
+    mutate({ projectIds: [values.projectId], userIds: values.userIds });
     onClose();
   };
 

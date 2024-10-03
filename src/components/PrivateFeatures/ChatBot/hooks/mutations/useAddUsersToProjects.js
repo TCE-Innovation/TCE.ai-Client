@@ -18,21 +18,24 @@ export const useAddUsersToProjects = () => {
     {
       onSuccess: (newData, { updateQuery, inValidate }) => {
         if (newData.success) {
-          const { users } = newData.data;
-          updateQuery(
-            ["getProjectUsers", { projectId: argsRef.current.projectId }],
-            (projectUsers) => {
-              return {
-                ...projectUsers,
-                data: [...users, ...projectUsers.data].flat(),
-              };
-            }
-          );
-          inValidate("getProjects");
-          argsRef.current.projectIds?.map((projectId) =>
-            inValidate(["getProjectUsers", { projectId }])
-          );
-          return createAlert({ message: newData.message, type: "success" });
+          try {
+            const { users } = newData.data;
+            argsRef.current.projectIds?.forEach((projectId) => {
+              updateQuery(
+                ["getProjectUsers", { projectId }],
+                (projectUsers) => {
+                  return {
+                    ...projectUsers,
+                    data: [...users, ...projectUsers.data].flat(),
+                  };
+                }
+              );
+            });
+            inValidate("getProjects");
+            return createAlert({ message: newData.message, type: "success" });
+          } catch (err) {
+            console.error(err);
+          }
         }
         createAlert({ message: newData.message, type: "danger" });
       },

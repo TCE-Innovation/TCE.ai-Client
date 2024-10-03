@@ -5,10 +5,10 @@ export const extractUserData = (item) => {
   const name = [item.first_name, item.last_name].join(" ").trim();
   return {
     ...item,
-    name: name || item.name,
-    email: item.email,
-    role: item.role,
-    id: item.id,
+    name: name || item.name || item.user_name || "",
+    email: item.email || item.user_email,
+    role: item.role || item.user_role,
+    id: item.id || item.user_id,
     url: "",
   };
 };
