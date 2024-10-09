@@ -1,6 +1,12 @@
 import React from "react";
 
-import { CloseIcon, LeftIcon, RightIcon } from "../../../icons";
+import {
+  CloseIcon,
+  LeftIcon,
+  RightIcon,
+  ZoomInIcon,
+  ZoomOutIcon,
+} from "../../../icons";
 
 const DocumentHeader = ({
   title,
@@ -9,9 +15,14 @@ const DocumentHeader = ({
   jumpToPreviousPage,
   jumpToNextPage,
   onClose,
+  handleZoom,
+  scaler,
 }) => {
+  const isZoomed = scaler !== 1;
   return (
-    <div className="document-header">
+    <div
+      className={`document-header ${isZoomed ? "zoomed-document-view" : ""}`}
+    >
       <div className="tooltip-container">
         <div className="document-title">{title}</div>
         <div style={{ width: "300px" }} className="tooltip align-top">
@@ -23,6 +34,17 @@ const DocumentHeader = ({
         <span className="document-page-numeric">{currentPage || 0}</span>
         <span>/</span>
         <span className="document-page-numeric">{totalPage}</span>
+      </div>
+      <div className="document-zoom-controls">
+        <span className="tooltip-container" onClick={() => handleZoom(0.5)}>
+          <ZoomOutIcon />
+          <span className="tooltip align-top">zoom out</span>
+        </span>
+
+        <span className="tooltip-container" onClick={() => handleZoom(-0.5)}>
+          <ZoomInIcon />
+          <span className="tooltip align-top">zoom in</span>
+        </span>
       </div>
       <div className="document-navigation">
         <button

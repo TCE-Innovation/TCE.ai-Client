@@ -28,3 +28,5 @@ export { ReactComponent as InfoIcon } from "../../assets/svg/info.svg";
 export { ReactComponent as BugIcon } from "../../assets/svg/bug.svg";
 export { ReactComponent as TickIcon } from "../../assets/svg/check.svg";
 export { ReactComponent as ArrowLeftIcon } from "../../assets/svg/arrow-left.svg";
+export { ReactComponent as ZoomInIcon } from "../../assets/svg/zoom-in.svg"
+export { ReactComponent as ZoomOutIcon } from "../../assets/svg/zoom-out.svg";

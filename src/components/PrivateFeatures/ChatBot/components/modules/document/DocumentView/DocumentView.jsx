@@ -5,7 +5,7 @@ import "@react-pdf-viewer/core/lib/styles/index.css";
 import DocumentHeader from "./DocumentHeader";
 import RenderLoader from "./RenderLoader";
 
-import { useDocument, useOutsideClick } from "../../../../hooks";
+import { useDocument } from "../../../../hooks";
 
 import Wrapper from "./style";
 
@@ -16,24 +16,28 @@ const DocumentView = ({
   highlightedText,
   pageNumber,
 }) => {
-  const { plugins, pageControl, workerUrl, handleDocumentLoad } = useDocument(
-    highlightedText,
-    pageNumber
-  );
-
-  const { targetRef } = useOutsideClick({ onClickOutside: onClose });
+  const {
+    plugins,
+    pageControl,
+    workerUrl,
+    handleDocumentLoad,
+    zoom,
+    scaler,
+  } = useDocument(highlightedText, pageNumber);
 
   return (
-    <Wrapper ref={targetRef}>
+    <Wrapper scaler={scaler}>
+      <DocumentHeader
+        title={title}
+        currentPage={pageControl.CurrentPageLabel}
+        jumpToNextPage={pageControl.jumpToNextPage}
+        jumpToPreviousPage={pageControl.jumpToPreviousPage}
+        totalPage={pageControl.NumberOfPages}
+        onClose={onClose}
+        handleZoom={zoom}
+        scaler={scaler}
+      />
       <div className="document-container">
-        <DocumentHeader
-          title={title}
-          currentPage={pageControl.CurrentPageLabel}
-          jumpToNextPage={pageControl.jumpToNextPage}
-          jumpToPreviousPage={pageControl.jumpToPreviousPage}
-          totalPage={pageControl.NumberOfPages}
-          onClose={onClose}
-        />
         <div className="document-body">
           <Worker workerUrl={workerUrl}>
             <Viewer
@@ -43,8 +47,8 @@ const DocumentView = ({
               fileUrl={pdfURL}
               enableSmoothScroll={false}
               initialPage={pageNumber - 1}
+              defaultScale={2}
               plugins={plugins}
-              defaultScale={1}
               onDocumentLoad={handleDocumentLoad}
             />
           </Worker>
