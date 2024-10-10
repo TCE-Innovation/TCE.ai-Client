@@ -65,7 +65,7 @@ const DocumentHeader = ({
       <div>
         <button
           className="chat-button document-close-btn tooltip-container"
-          onClick={onClose}
+          onClickCapture={onClose}
         >
           <CloseIcon />
           <div className="tooltip">Close</div>

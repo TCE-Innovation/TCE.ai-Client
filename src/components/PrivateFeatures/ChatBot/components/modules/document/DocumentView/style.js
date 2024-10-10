@@ -98,6 +98,7 @@ export default styled(({ scaler, ...rest }) => <div {...rest} />)`
     flex: 1;
     transition: transform 0.2s linear;
     transform: scale(calc(1 / ${(props) => (props.scaler ? props.scaler : 1)}));
+    aspect-ratio: 1/1.4;
   }
   .rpv-core__page-layer::after {
     box-shadow: none !important;
