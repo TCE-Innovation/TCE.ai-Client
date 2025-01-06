@@ -17,11 +17,16 @@ const TrainingPage = () => {
             try {
                 const data = await getTrainingLink();
                 setData(data);
-                const tools = Object.keys(data);
-                setFilteredTools(tools);
-                if (tools.length > 0) {
-                    setSelectedTool(tools[0]);
+
+                // Ensure data is valid and has keys
+                if (data && Object.keys(data).length > 0) {
+                    const tools = Object.keys(data);
+                    setFilteredTools(tools);
+
+                    // Set first tool or fallback to an empty string if no tools
+                    setSelectedTool(tools[0] || '');
                 } else {
+                    setFilteredTools([]);
                     setSelectedTool('');
                 }
             } catch (error) {
@@ -32,15 +37,13 @@ const TrainingPage = () => {
     }, []);
 
     useEffect(() => {
-        if (data[selectedTool]) {
-            const extractedRoles = data[selectedTool].map(item => item.role).filter(role => role); // Extract roles
+        // Check if selectedTool is valid and data[selectedTool] exists
+        if (selectedTool && Array.isArray(data[selectedTool]) && data[selectedTool].length > 0) {
+            const extractedRoles = data[selectedTool].map(item => item.role).filter(role => role);
             setRoles(extractedRoles);
-    
-            if (extractedRoles.length > 0) {
-                setSelectedRole(extractedRoles[0]);
-            } else {
-                setSelectedRole('');
-            }
+
+            // Set the first role or fallback to an empty string
+            setSelectedRole(extractedRoles[0] || '');
         } else {
             setRoles([]);
             setSelectedRole('');
@@ -48,8 +51,11 @@ const TrainingPage = () => {
     }, [selectedTool, data]);
 
     useEffect(() => {
-        if (data[selectedTool]) {
+        // Ensure data[selectedTool] is valid and selectedRole exists before accessing
+        if (selectedTool && selectedRole && Array.isArray(data[selectedTool])) {
             const selectedRoleData = data[selectedTool].find(item => item.role === selectedRole);
+            
+            // Set iframe link if selectedRoleData is found, otherwise set it to an empty string
             setIframeLink(selectedRoleData?.trainingLink || '');
         } else {
             setIframeLink('');
