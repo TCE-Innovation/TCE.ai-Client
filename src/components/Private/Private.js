@@ -133,6 +133,7 @@ function PrivateContent() {
 
   // Check if the tool is valid and if user has access
   useEffect(() => {
+    console.log('Akways available tools:', alwaysAvailableTools);
     if (!toolComponentMap[tool] || (!alwaysAvailableTools.includes(tool) && !userToolsUrlEnds.includes(tool))) {
       navigate("/private/home", { replace: true });
     }
