@@ -58,7 +58,6 @@ const PrivateListItems = ({ tool }) => {
     //provisionable items THIS NAME HAS TO MATCH THE NAME OF THE TOOL IN THE SQL VIEW
     const listItems = [
         { to: '/private/generate-emails', text: 'Email Generator', icon: <EmailOutlinedIcon />, key: 'generate-emails' },
-        // { to: '/private/chatbot', text: 'Chatbot', icon: <ForumOutlinedIcon />, key: 'chatbot' },
         { to: '/private/cable-run-optimizer', text: 'Cable Run Optimizer', icon: <SpokeOutlinedIcon />, key: 'cable-run-optimizer' },
         { to: '/private/schedule-dashboards', text: 'Schedule Dashboards', icon: <InsertChartOutlinedIcon />, key: 'schedule-dashboards'},
         { to: '/private/tool-usage', text: 'Tool Usage Stats', icon: <DonutSmallOutlinedIcon />, key: 'tool-usage' }, 
