@@ -1,14 +1,14 @@
 //REACT
-import React, {useState} from 'react';
+import React, {useState, useEffect} from 'react';
 // import { Input } from 'reactstrap';
 import { Link } from '@mui/material';
-
 
 //MUI
 import Box from '@mui/material/Box';
 import Button from '@mui/material/Button';
 import Typography from '@mui/material/Typography';
 import TrainLoader from '../../General/TrainLoader';
+
 // Radio buttons for selecting run type
 import Radio from '@mui/material/Radio';
 import RadioGroup from '@mui/material/RadioGroup';
@@ -31,28 +31,14 @@ import axios from 'axios';
 import Accordion from '@mui/material/Accordion';
 import AccordionDetails from '@mui/material/AccordionDetails';
 import AccordionSummary from '@mui/material/AccordionSummary';
-// import ArrowDropDownIcon from '@mui/icons-material/ArrowDropDown';
-// import ArrowForwardIosSharpIcon from '@mui/icons-material/ArrowForwardIosSharp';
 import QuizIcon from '@mui/icons-material/Quiz';
 import Dialog from '@mui/material/Dialog';
 import DialogActions from '@mui/material/DialogActions';
 import DialogContent from '@mui/material/DialogContent';
-// import DialogContentText from '@mui/material/DialogContentText';
 import DialogTitle from '@mui/material/DialogTitle';
-// import InputLabel from '@mui/material/InputLabel';
-// import MenuItem from '@mui/material/MenuItem';
-// import Select, { SelectChangeEvent } from '@mui/material/Select';
-// import Switch from '@mui/material/Switch';
-// import CloseIcon from '@mui/icons-material/Close';
 import { styled } from '@mui/material/styles';
-// import IconButton from '@mui/material/IconButton';
-// import MuiAccordion, { AccordionProps } from '@mui/material/Accordion';
-// import MuiAccordionSummary, {
-//   AccordionSummaryProps,
-// } from '@mui/material/AccordionSummary';
-// import MuiAccordionDetails from '@mui/material/AccordionDetails';
 
-import RangeSlider from "./Slider"
+import { ConduitSizeRangeSlider, BundleWeightSlider } from './Slider';
 import './CRO.css';
 
 const BootstrapDialog = styled(Dialog)(({ theme }) => ({
@@ -69,7 +55,30 @@ const BootstrapDialog = styled(Dialog)(({ theme }) => ({
       padding: theme.spacing(1),
     },
   }));
+
+const conduitSizeMarks = [
+    { value: 0, label: '0.75' },
+    { value: 1, label: '1' },
+    { value: 2, label: '1.25' },
+    { value: 3, label: '1.5' },
+    { value: 4, label: '2' },
+    { value: 5, label: '2.5' },
+    { value: 6, label: '3' },
+    { value: 7, label: '3.5' },
+    { value: 8, label: '4' },
+    { value: 9, label: '4.5' },
+    { value: 10, label: '5' },
+    { value: 11, label: '5.5' },
+    { value: 12, label: '6' },
+];
+
+const getLabelFromValue = (value) => {
+const mark = conduitSizeMarks.find(mark => mark.value === value);
+return mark ? mark.label : value;
+};
     
+const defaultConduitSizeRange = [0, 8];
+const defaultBundleMaxWeight = 25;  
 
 const CRO = () => {
     // State variables
@@ -80,13 +89,17 @@ const CRO = () => {
     const [responses, setResponses] = useState('');
     const [loading, setLoading] = useState(false);
     const [error, setError] = useState('');
-    const [conduitSizeRange, setConduitSizeRange] = useState([0.75, 4]);
-    const [isBoxExpanded, setIsBoxExpanded] = useState(false);
 
+    // Sliders for customizing the run type parameters
+    const [conduitSizeRange, setConduitSizeRange] = useState([0, 8]);
+    const [bundleMaxWeight, setBundleMaxWeight] = useState(25);
+
+    // FAQ section
+    const [isBoxExpanded, setIsBoxExpanded] = useState(false);
     const [open, setOpen] = React.useState(false);
     const [expanded, setExpanded] = React.useState('');
 
-    // Functions
+    // Functions for Accordian's open and close
     const handleClickOpen = () => {
       setOpen(true);
     };
@@ -98,15 +111,23 @@ const CRO = () => {
         setExpanded(newExpanded ? panel : false);
     };
     
-    <RangeSlider value={conduitSizeRange} setValue={setConduitSizeRange} />
-
     const handleRunTypeChange = (event) => {
         setRunType(event.target.value);
-      };
+    };
 
     const handleCableSizesChange = (event) => {
         setCableSizes(event.target.value);
     };
+
+    <ConduitSizeRangeSlider value={conduitSizeRange} setValue={setConduitSizeRange} />;
+    <BundleWeightSlider value={bundleMaxWeight} setValue={setBundleMaxWeight} />;
+
+    
+
+    useEffect(() => {
+        setConduitSizeRange(defaultConduitSizeRange);
+        setBundleMaxWeight(defaultBundleMaxWeight);
+    }, [runType]);
 
     const cro = async () => {
 
@@ -148,22 +169,37 @@ const CRO = () => {
             formData.append('runType', runType)
         }
         catch (error) {
-            console.log("RUNTYPE:",error)
+            console.log("RUNTYPE:", error)
             setError('Failed to read run type.');
         }
 
         try{
             // conduitSizeRange is an array, first index is the lower value
-            formData.append('conduitSizeRangeLower', conduitSizeRange[0])
-            formData.append('conduitSizeRangeHigher', conduitSizeRange[1])
+            formData.append('conduitSizeRangeLower', getLabelFromValue(conduitSizeRange[0]))
+            formData.append('conduitSizeRangeHigher', getLabelFromValue(conduitSizeRange[1]))
+            
+            console.log("CONDUIT_RANGE LOWER:", getLabelFromValue(conduitSizeRange[0]))
+            console.log("CONDUIT_RANGE HIGHER:", getLabelFromValue(conduitSizeRange[1]))
             
         }
         catch (error) {
-            console.log("CONDUIT_RANGE:",error)
+            console.log("CONDUIT_RANGE:", error)
             setError('Failed to read conduit size range.');
+        }
+        
+        try{
+            // bundleMaxWeight is a number
+            console.log("BUNDLE_WEIGHT SUCCESS:", bundleMaxWeight)
+            formData.append('bundleMaxWeight', bundleMaxWeight)
+        }
+        catch (error) {
+            console.log("BUNDLE_WEIGHT ERROR:", bundleMaxWeight)
+            setError('Failed to read bundle max weight.');
         }
 
         try{
+            console.log("Sending form data to CRO API")
+            console.log("FORMDATA:", formData)
             // Send form data to backend, receive response within data
             const {data} = await axios.post(
                 // Link to where backend is hosted
@@ -226,6 +262,7 @@ const CRO = () => {
                     justifyContent: 'flex-start',
                     marginBottom: 4,
                     backgroundColor: 'transparent',
+                    whiteSpace: 'nowrap',
                 }}
 
                 
@@ -239,9 +276,8 @@ const CRO = () => {
                     style={{ 
                         marginTop: '-30px',
                         marginBottom: '0px',
-                        marginLeft: '400px', // Increase marginLeft from 250px to 300px
+                        marginLeft: '400px',
                         marginRight: '15px',
-                        whitespace: 'nowrap'
                     }}
                 >
                     The Cable Run Optimizer generates conduit or messenger bundle cable runs.
@@ -296,7 +332,8 @@ const CRO = () => {
                         </AccordionSummary>
                         <AccordionDetails>
                             <Typography>
-                            <ul>
+                            <ul>    <li>Download the pull sheet template to see the columns(the purple button next to "UPLOAD PULL SHEET")</li>
+                                    <li>The order of columns does not matter, but the relevant information for a cable has to be on the same row as the listed cable</li>
                                     <li>.xlsx format required</li>
                                     <li>Required Columns:
                                         <ul>
@@ -340,8 +377,8 @@ const CRO = () => {
                         </AccordionSummary>
                         <AccordionDetails>
                         <Typography>
-                            Cables are added to bundle until the maximum bundle diameter of 6 inches or
-                            maximum bundle weight of 20 lb/ft is reached.
+                            Cables are added to a bundle until the maximum bundle diameter of 6 inches or
+                            maximum bundle weight is reached.
                             If a potential cable wouldn't fit a bundle, all smaller cables are tested to
                             see if they would fit. If no cables can be added to a bundle, a new bundle is created.
                         </Typography>
@@ -367,8 +404,8 @@ const CRO = () => {
                     <Typography>
                         The diameter calculation is a rough approximation. 
                         The outermost cable that is placed within the bundle is used to dicatate 
-                        the diameter approximation of the bundle. So if the outermost cable in a bundle 
-                        is placed two inches away from the center, and its radius is 0.5 inches so the outermost distance 
+                        the diameter approximation of the bundle. For example, if the outermost cable in a bundle 
+                        is placed two inches away from the center and its radius is 0.5 inches, then the outermost distance 
                         of a cable from the center is 2.5 inches, then the diameter is said to be about 5 inches.
                     </Typography>
                     </AccordionDetails>
@@ -386,17 +423,18 @@ const CRO = () => {
                         </AccordionDetails>
                     </Accordion>
                     
-                    {/* <Accordion expanded={expanded === 'panel7'} onChange={handleChange('panel7')}>
+                     <Accordion expanded={expanded === 'panel7'} onChange={handleChange('panel7')}>
                         <AccordionSummary aria-controls="panel7d-content" id="panel7d-header">
-                            <Typography>Accordion 7</Typography>
+                            <Typography style={{ fontWeight: 'bold' }}>How do I set certain cables to be apart of a high bend conduit run?</Typography>
                         </AccordionSummary>
                         <AccordionDetails>
                             <Typography>
-                                Content for Accordion 7
+                                First you must have a column labeled "High Bend" in your pull sheet. 
+                                For every cable/row that you want to be apart of a high bend conduit run, write "High bend" or "Yes" in the "High Bend" column.
                             </Typography>
                         </AccordionDetails>
                     </Accordion>
-                    <Accordion expanded={expanded === 'panel8'} onChange={handleChange('panel8')}>
+                    {/*<Accordion expanded={expanded === 'panel8'} onChange={handleChange('panel8')}>
                         <AccordionSummary aria-controls="panel8d-content" id="panel8d-header">
                             <Typography>Accordion 8</Typography>
                         </AccordionSummary>
@@ -432,7 +470,7 @@ const CRO = () => {
                     >   
                     {/* Run Type Selection box */}
                     <div className="rounded-rectangle-1">
-                        <div className="title">Select Run Type</div>
+                        <div className="title">Select Run Type. </div>
                         <FormControl>
                             <RadioGroup
                                 row
@@ -444,14 +482,23 @@ const CRO = () => {
                             >
                                 {/* Radio Buttons to Select Run Type */}
                                 <FormControlLabel value="Conduit" control={<Radio />} label="Conduit" />
-                                <FormControlLabel value="Messenger" control={<Radio />} label="Messenger Bundle" />
+                                <FormControlLabel value="Messenger" control={<Radio />} label="Messenger Bundle" sx={{marginLeft: '20px'}}/>
                             </RadioGroup>
                         </FormControl>
 
-                        {/* Show slider if Conduit radio button selected */}
+                        {/* Show conduit sizes slider if Conduit radio button selected */}
+                        {runType === 'Conduit' && (
                         <div style={{ marginTop: '20px', marginLeft: '25px' }}>
-                            <RangeSlider value={conduitSizeRange} setValue={setConduitSizeRange} disabled={runType !== 'Conduit'} />
+                            <ConduitSizeRangeSlider value={conduitSizeRange} setValue={setConduitSizeRange} />
                         </div>
+                        )}
+
+                        {/* Show max weight slider if Messenger radio button selected */}
+                        {runType === 'Messenger' && (
+                        <div style={{ marginTop: '20px', marginLeft: '25px' }}>
+                            <BundleWeightSlider value={bundleMaxWeight} setValue={setBundleMaxWeight} />
+                        </div>
+                        )}
                     </div>
                                     
                     {/* Cable Size Selection box */}
@@ -462,7 +509,7 @@ const CRO = () => {
                                 If you are using custom cable sizes, then you must {" "}  
                                  <Link 
                                     href="https://tceaiblob.blob.core.windows.net/cro/Cable%20Sizes.xlsx?sp=r&st=2024-05-03T15:21:21Z&se=2050-05-03T23:21:21Z&sv=2022-11-02&sr=b&sig=mFQQaFmy2Hz%2Bppt0s1zrJjbQlfzZpz1BVqiTRMw5wvw%3D" // Set the URL here
-                                    style={{ color: 'blue', textDecoration: 'underline', cursor: 'pointer' }}
+                                    style={{ color: '#0dbbf2', textDecoration: 'underline', cursor: 'pointer' }}
                                     target="_blank"
                                     rel="noopener noreferrer"
                                 >
@@ -471,7 +518,7 @@ const CRO = () => {
                                 {" "}and edit the cable sizes to match your project.
                             </Typography>
                         } arrow sx={{ fontSize: '2.5em' }}>
-                            <InfoOutlinedIcon style={{ position: 'relative', top: -40, left: 330 }} />
+                            <InfoOutlinedIcon style={{ position: 'relative', top: -80, left: 350 }} />
                         </Tooltip>
                         <FormControl style={{ marginTop: '10px', marginLeft: '-30px', marginBottom: '20px' }}>
                             <RadioGroup
@@ -509,8 +556,8 @@ const CRO = () => {
                                         variant="contained"
                                         startIcon={<Upload />}
                                         sx={{ 
-                                            marginTop: '8px', 
-                                            marginLeft: '50px',
+                                            marginTop: '80px', 
+                                            marginLeft: '-235px',
                                             backgroundColor: '#609CCF',
                                             '&:hover': {
                                                 backgroundColor: '#568CBA', 
@@ -526,7 +573,7 @@ const CRO = () => {
                                 <input
                                     type="file"
                                     id="cableSizesInput"
-                                    accept=".xlsx, .xls"
+                                    accept=".xlsx, .xls, .csv"
                                     style={{ display: 'none' }}
                                     onChange={(e) => {
                                         setCableSizes('custom');         // Set cableSizes to 'custom'
@@ -597,7 +644,7 @@ const CRO = () => {
                     <input
                         type="file"
                         id="pullsheetInput"
-                        accept=".xlsx, .xls"
+                        accept=".xlsx, .xls, .csv"
                         style={{ display: 'none' }} // Hide the file input
                         onChange={(e) => setPullsheet(e.target.files[0])}
                         
@@ -651,7 +698,7 @@ const CRO = () => {
                                 href={responses[0]}
                                 target="_blank"
                                 rel="noopener noreferrer"
-                                style={{ display: 'block', marginLeft: '10px', marginTop: '10px' }}
+                                style={{ display: 'block', marginLeft: '10px', marginTop: '-10px' }}
                             >
                                 Click to download Excel File of Optimized Runs
                             </a>

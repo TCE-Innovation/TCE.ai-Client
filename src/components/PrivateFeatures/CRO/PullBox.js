@@ -344,7 +344,7 @@ const CRO = () => {
 
                 {/* Upload Pull Sheet box. 
                 Wider than previous boxes*/}
-                <div style={{ margin: '5px', marginTop: '-15px' }}></div>
+                <div style={{ margin: '5px', marginTop: '-15px', marginLeft: "-5px" }}></div>
                 <div class="rounded-rectangle-3">
                     <div class="title">Upload Conduit List</div>
 
@@ -410,7 +410,7 @@ const CRO = () => {
                     <input
                         type="file"
                         id="pullsheetInput"
-                        accept=".xlsx, .xls"
+                        accept=".xlsx, .xls, .csv" // should take all excel files
                         style={{ display: 'none' }} // Hide the file input
                         onChange={(e) => {
                             setPullsheet(e.target.files[0]);

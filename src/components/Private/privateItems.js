@@ -58,14 +58,14 @@ const PrivateListItems = ({ tool }) => {
     //provisionable items THIS NAME HAS TO MATCH THE NAME OF THE TOOL IN THE SQL VIEW
     const listItems = [
         { to: '/private/generate-emails', text: 'Email Generator', icon: <EmailOutlinedIcon />, key: 'generate-emails' },
-        { to: '/private/chatbot', text: 'Chatbot', icon: <ForumOutlinedIcon />, key: 'chatbot' },
         { to: '/private/cable-run-optimizer', text: 'Cable Run Optimizer', icon: <SpokeOutlinedIcon />, key: 'cable-run-optimizer' },
         { to: '/private/schedule-dashboards', text: 'Schedule Dashboards', icon: <InsertChartOutlinedIcon />, key: 'schedule-dashboards'},
         { to: '/private/tool-usage', text: 'Tool Usage Stats', icon: <DonutSmallOutlinedIcon />, key: 'tool-usage' }, 
         { to: '/private/drone-captures', text: 'Drone Captures', icon: <SatelliteAltIcon />, key: 'drone-captures' },
         { to: '/private/equip-install-dashboard', text: 'EIT Dashboard', icon: <DataThresholdingOutlinedIcon />, key: 'equip-install-dashboard' },
         { to: '/private/executive-dashboards', text: 'Executive Dashboards', icon: <DataThresholdingOutlinedIcon />, key: 'executive-dashboards' },
-
+        { to: '/private/procore-dashboards', text: 'Procore Dashboards', icon: <DataThresholdingOutlinedIcon />, key: 'procore-dashboards' },
+        { to: '/private/chatbot-dashboard', text: 'Chatbot Dashboard', icon: <DataThresholdingOutlinedIcon />, key: 'chatbot-dashboard'},
     ];
 
     // Ensure userTools is a valid string, else default to an empty string
@@ -97,6 +97,7 @@ const PrivateListItems = ({ tool }) => {
         { to: '/private/equipment-checkout', text: 'Equipment Checkout', icon: <DevicesOtherIcon />, key: 'equipment-checkout' },
         { to: '/private/go-tracker', text: 'GO Tracker', icon: <RailwayAlertOutlinedIcon />, key: 'go-tracker' },
         { to: '/private/3d-printing-request', text: 'Request 3D Printing', icon: <PrintOutlinedIcon />, key: '3d-printing-request' },
+        { to: '/private/chatbot', text: 'Chatbot', icon: <ForumOutlinedIcon />, key: 'chatbot' },
         { to: '/private/clearance-calculator', text: 'Clearance Calculator', icon: <PercentIcon />, key: 'clearance-calculator' },
     ];
 
