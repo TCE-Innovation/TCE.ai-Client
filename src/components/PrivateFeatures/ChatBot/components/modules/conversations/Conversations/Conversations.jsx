@@ -1,24 +1,18 @@
 import React, { useRef } from "react";
 
-import Conversation from "../Conversation/Conversation";
 import CreateConversation from "../CreateConversation";
+import AdminButton from "../AdminButton";
 
 import Wrapper from "./style";
 
-import { EditIcon, LeftIcon, RightIcon } from "../../../icons";
+import { LeftIcon, RightIcon } from "../../../icons";
 
-import { useConversation, useGlobal } from "../../../../hooks";
-import { Loader } from "../../../common";
+import { useGlobal } from "../../../../hooks";
+
+import ConversationList from "./ConversationList";
+import FloatingActions from "../FloatingActions";
 
 const Conversations = () => {
-  const {
-    conversations,
-    currentConversation,
-    createConversation,
-    setCurrentConversation,
-    loadingConversations: loading,
-    isCreatingConversation,
-  } = useConversation();
   const {
     conversationsCollapsed: isCollapsed,
     setIsConversationsCollapsed: setIsCollapsed,
@@ -30,14 +24,6 @@ const Conversations = () => {
 
   const conversationsRef = useRef(null);
 
-  const actions = [
-    {
-      title: "Create new chat",
-      icon: EditIcon,
-      handler: createConversation,
-    },
-  ];
-
   return (
     <>
       <Wrapper>
@@ -46,56 +32,10 @@ const Conversations = () => {
           ref={conversationsRef}
         >
           <CreateConversation />
-          <div className="conversation-list">
-            {isCreatingConversation && (
-              <div
-                style={{
-                  position: "relative",
-                  pointerEvents: "none",
-                  userSelect: "none",
-                }}
-              >
-                <Loader size={3} />
-                <Conversation
-                  active={false}
-                  setConversation={() => {}}
-                  title={<>&zwnj;</>}
-                  id={null}
-                />
-              </div>
-            )}
-            {loading ? (
-              <Loader />
-            ) : conversations.length ? (
-              conversations.map((conversation) => (
-                <Conversation
-                  key={conversation.id}
-                  {...conversation}
-                  active={conversation.id === currentConversation?.id}
-                  setConversation={setCurrentConversation}
-                />
-              ))
-            ) : isCreatingConversation ? null : (
-              <div className="empty-conversation">No conversations</div>
-            )}
-          </div>
+          <ConversationList />
+          <AdminButton />
         </div>
-        {isCollapsed ? (
-          <>
-            {actions.map((action) => {
-              return (
-                <div
-                  key={action.title}
-                  className="action-button tooltip-container"
-                  onClick={action.handler}
-                >
-                  <action.icon />
-                  <div className="tooltip">{action.title}</div>
-                </div>
-              );
-            })}
-          </>
-        ) : null}
+        {isCollapsed ? <FloatingActions /> : null}
       </Wrapper>
       <div
         className="collapse-handle tooltip-container"

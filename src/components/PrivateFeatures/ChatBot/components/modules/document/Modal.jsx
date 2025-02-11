@@ -1,7 +1,7 @@
 import React from "react";
 
 import DocumentView from "./DocumentView";
-import { Overlay } from "../../common";
+import Portal from "../../common/Portal";
 
 const Modal = ({
   pdfURL,
@@ -12,7 +12,7 @@ const Modal = ({
 }) => {
   if (!modalProps.show) return null;
   return (
-    <Overlay>
+    <Portal>
       <DocumentView
         pdfURL={pdfURL}
         title={title}
@@ -20,7 +20,7 @@ const Modal = ({
         highlightedText={highlightedText}
         onClose={modalProps.onClose}
       />
-    </Overlay>
+    </Portal>
   );
 };
 

@@ -43,6 +43,7 @@ const renderHighlights = (pageNumber) => (props) => {
 
 const useDocument = (textToHighlight, pageNumber) => {
   const [uniquePageMatcheIndices, setUniquePageMatchIndices] = useState([]);
+  const [scaler, setScaler] = useState(2);
   const currentMatchPageRef = useRef(0);
   const pageNavigationPluginInstance = pageNavigationPlugin();
   const searchPluginInstance = searchPlugin({
@@ -51,6 +52,10 @@ const useDocument = (textToHighlight, pageNumber) => {
   });
 
   const { highlight } = searchPluginInstance;
+
+  const zoom = (n) => {
+    setScaler((prev) => Math.min(Math.max(1, prev + n), 2));
+  };
 
   const updateMatchPage = (offset) => {
     const currentPageIndex = currentMatchPageRef.current;
@@ -64,8 +69,11 @@ const useDocument = (textToHighlight, pageNumber) => {
     jumpToPage(page);
   };
 
-  const { CurrentPageLabel, NumberOfPages, jumpToPage } =
-    pageNavigationPluginInstance;
+  const {
+    CurrentPageLabel,
+    NumberOfPages,
+    jumpToPage,
+  } = pageNavigationPluginInstance;
 
   const extractLines = (textContent) => {
     const items = [];
@@ -137,6 +145,8 @@ const useDocument = (textToHighlight, pageNumber) => {
       NumberOfPages: NumberOfPages(),
     },
     handleDocumentLoad,
+    zoom,
+    scaler,
   };
 };
 

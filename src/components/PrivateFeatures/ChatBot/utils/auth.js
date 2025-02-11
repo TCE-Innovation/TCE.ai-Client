@@ -7,6 +7,8 @@ import {
   msalConfig,
   loginRequest,
 } from "../../../../authentication/authConfig";
+import { ROLES } from "../constants/admin";
+import { ROLES_TO_PERMISSIONS } from "../constants/permissions";
 
 export { getUserProfilePic } from "../../../../data/Graph";
 
@@ -54,5 +56,42 @@ export const getAccessToken = () => {
     } catch (err) {
       rej(err);
     }
+  });
+};
+
+export const getUserDetails = (users, userEmail) => {
+  return (
+    users.find(
+      (user) => user.email.toLowerCase() === userEmail.toLowerCase()
+    ) || null
+  );
+};
+
+export const checkPermission = (user, resource) => {
+  try {
+    if (!user) return false;
+    if (user.role === ROLES.ADMIN) return true;
+
+    if (!resource || !Array.isArray(resource)) return false;
+    const [targetModule, targetPermission] = resource;
+    if (!targetModule || !targetPermission) return false;
+    const modules = ROLES_TO_PERMISSIONS[user.role];
+    if (!modules) return false;
+    return modules.some(
+      ({ module, permissions }) =>
+        module === targetModule &&
+        permissions.some((permission) => permission === targetPermission)
+    );
+  } catch (err) {
+    console.log(err);
+  }
+};
+
+export const isAdminUser = (users, targetUser) => {
+  return users.some((user) => {
+    if (user.email.toLowerCase() === targetUser.toLowerCase()) {
+      return user.role !== ROLES.USER;
+    }
+    return false;
   });
 };

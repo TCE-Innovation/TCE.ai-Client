@@ -6,16 +6,17 @@ const useOutsideClick = ({ onClickOutside }) => {
   useEffect(() => {
     const handler = (e) => {
       const currentTarget = e.target;
-      const isOutsideClick = currentTarget.contains(targetRef.current);
+      const isOutsideClick = !targetRef.current?.contains(currentTarget);
       if (isOutsideClick) {
         onClickOutside?.();
       }
     };
-    document.addEventListener("click", handler);
+    document.addEventListener("click", handler, { capture: true });
     return () => {
-      document.removeEventListener("click", handler);
+      document.removeEventListener("click", handler, { capture: true });
     };
-  }, [onClickOutside]);
+    // eslint-disable-next-line
+  }, []);
 
   return {
     targetRef,

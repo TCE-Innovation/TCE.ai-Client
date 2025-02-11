@@ -4,8 +4,8 @@ export default styled.div`
   height: 100%;
   .conversations {
     height: 100%;
-    width: 20vw;
     display: flex;
+    font-weight: bold;
     flex-direction: column;
     gap: 0.5em;
     transition: transform 0.2s ease-in;
@@ -29,6 +29,9 @@ export default styled.div`
     justify-content: center;
     align-items: center;
   }
+  .chatbot-admin-button {
+    border-radius: var(--chatbot-border-radius);
+  }
   display: flex;
   flex-direction: column;
   gap: 0.5em;
@@ -45,10 +48,18 @@ export default styled.div`
       color: var(--chatbot-grey);
     }
   }
+  .chatbot-admin-button {
+    background-color: white;
+    cursor: pointer;
+    &:hover {
+      background-color: var(--chatbot-light-grey);
+    }
+  }
   .conversation-list {
     position: relative;
     border-radius: var(--chatbot-border-radius);
     background-color: white;
+    width: 20vw;
     padding: 0.5em;
     overflow: hidden auto;
     flex: 1;

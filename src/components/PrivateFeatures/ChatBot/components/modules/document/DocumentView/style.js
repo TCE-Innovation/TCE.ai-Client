@@ -1,18 +1,25 @@
 import styled from "styled-components";
 
-export default styled.div`
+export default styled(({ scaler, ...rest }) => <div {...rest} />)`
   position: absolute;
+  --document-scaler: 2;
+  --resizer: 0.9;
+  --document-width: calc(800px * var(--resizer));
   inset: 0;
-  width: 100%;
+  width: max-content;
+  margin: auto;
   height: 100%;
   display: flex;
+  flex-direction: column;
   justify-content: center;
   align-items: center;
   .document-container {
     display: flex;
     flex-direction: column;
-    width: 800px;
-    height: calc(0.95 * 100vmin);
+    width: calc(var(--document-width) * var(--document-scaler));
+    height: calc(
+      calc(calc(0.95 * 100vmin) * var(--resizer)) * var(--document-scaler)
+    );
     gap: 1em;
     position: relative;
     border-radius: var(--chatbot-border-radius);
@@ -26,6 +33,12 @@ export default styled.div`
     border-radius: 0.5em;
     display: flex;
     align-items: center;
+    width: var(--document-width);
+    margin: auto;
+    margin-bottom: 0.75em;
+    position: sticky;
+    top: 28px;
+    z-index: 99999;
     & .document-title {
       white-space: nowrap;
       overflow: hidden;
@@ -41,6 +54,12 @@ export default styled.div`
       min-width: 2.5em;
       margin: 0 0.25em;
       text-align: center;
+      place-content: center;
+    }
+    & .document-zoom-controls {
+      display: flex;
+      align-items: center;
+      gap: 0.5em;
     }
     & .document-page-info {
       display: flex;
@@ -77,6 +96,9 @@ export default styled.div`
     background-color: white;
     border-radius: 0.5em;
     flex: 1;
+    transition: transform 0.2s linear;
+    transform: scale(calc(1 / ${(props) => (props.scaler ? props.scaler : 1)}));
+    aspect-ratio: 1/1.4;
   }
   .rpv-core__page-layer::after {
     box-shadow: none !important;

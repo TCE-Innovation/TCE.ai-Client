@@ -15,8 +15,37 @@ export const errorHandler = (error) => {
     data: null,
     success: false,
     message:
-      errorMessage.length > 50
+      errorMessage.length > 100
         ? defaultErrorMessage
         : errorObject?.error || defaultErrorMessage,
   };
+};
+
+export const formatResponseData = (result) => {
+  const { data, success, message } = result;
+  try {
+    const { success: successMessage, error: errorMessage, ...rest } =
+      data || {};
+    if (errorMessage) {
+      return {
+        data: rest,
+        success: false,
+        message: data.error,
+      };
+    }
+    if (successMessage && success) {
+      return {
+        data: rest,
+        success,
+        message: successMessage,
+      };
+    }
+    return {
+      data: rest,
+      success,
+      message,
+    };
+  } catch (err) {
+    console.log(err);
+  }
 };

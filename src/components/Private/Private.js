@@ -12,7 +12,7 @@ import ChevronLeftIcon from '@mui/icons-material/ChevronLeft';
 import { ChevronRight } from "@mui/icons-material";
 
 // COMPONENTS
-import Home from '../PrivateFeatures/Home/Home';
+import Home from "../PrivateFeatures/Home/Home";
 import PrivateListItems from "./privateItems";
 import PrivateNavigation from "./PrivateNavigation";
 import Training from '../PrivateFeatures/Training';
@@ -20,7 +20,7 @@ import CRO from '../PrivateFeatures/CRO/CRO';
 import AssetTracker from '../PrivateFeatures/AssetTracker/AssetTracker';
 import ChatBot from '../PrivateFeatures/ChatBot';
 import GenerateEmails from "../PrivateFeatures/GenerateEmails";
-import GOTracker from '../PrivateFeatures/GOTracker';
+import GOTracker from "../PrivateFeatures/GOTracker";
 import SubAuto from "../PrivateFeatures/SubAuto/SubAuto";
 import ScheduleDashboards from '../PrivateFeatures/ScheduleDashboards';
 import ToolUsage from "../PrivateFeatures/ToolUsage";
@@ -34,36 +34,36 @@ import ProcoreDashboards from '../PrivateFeatures/ProcoreDashboards';
 import ChatbotDashboard from '../PrivateFeatures/ChatbotDashboard';
 
 // AUTH
-import { adminList } from '../../admin/lists';
-import { AuthContext } from '../../authentication/Auth';
+import { adminList } from "../../admin/lists";
+import { AuthContext } from "../../authentication/Auth";
 
-const Drawer = styled(MuiDrawer, { shouldForwardProp: (prop) => prop !== 'open' })(
-  ({ theme, open }) => ({
-    '& .MuiDrawer-paper': {
-      position: 'fixed',
-      whiteSpace: 'nowrap',
-      marginTop: '90px',
-      width: 'auto',
-      transition: theme.transitions.create('width', {
+const Drawer = styled(MuiDrawer, {
+  shouldForwardProp: (prop) => prop !== "open",
+})(({ theme, open }) => ({
+  "& .MuiDrawer-paper": {
+    position: "fixed",
+    whiteSpace: "nowrap",
+    marginTop: "90px",
+    width: "auto",
+    transition: theme.transitions.create("width", {
+      easing: theme.transitions.easing.sharp,
+      duration: theme.transitions.duration.enteringScreen,
+    }),
+    boxSizing: "border-box",
+    height: "100vh",
+    ...(!open && {
+      overflowX: "hidden",
+      transition: theme.transitions.create("width", {
         easing: theme.transitions.easing.sharp,
-        duration: theme.transitions.duration.enteringScreen,
+        duration: theme.transitions.duration.leavingScreen,
       }),
-      boxSizing: 'border-box',
-      height: '100vh',
-      ...(!open && {
-        overflowX: 'hidden',
-        transition: theme.transitions.create('width', {
-          easing: theme.transitions.easing.sharp,
-          duration: theme.transitions.duration.leavingScreen,
-        }),
-        width: theme.spacing(7),
-        [theme.breakpoints.up('sm')]: {
-          width: theme.spacing(9),
-        },
-      }),
-    },
-  }),
-);
+      width: theme.spacing(7),
+      [theme.breakpoints.up("sm")]: {
+        width: theme.spacing(9),
+      },
+    }),
+  },
+}));
 
 const mdTheme = createTheme();
 
@@ -104,10 +104,14 @@ function PrivateContent() {
   const alwaysAvailableTools = useMemo(() => ['home', 'training', 'sub-automation', 'equipment-checkout', 'go-tracker', '3d-printing-request', 'chatbot', 'clearance-calculator', 'admin' ], []);
 
   // Split the userTools string into an array
-  const userToolsArray = (userTools || '').split(',').map(tool => tool.trim());
+  const userToolsArray = (userTools || "")
+    .split(",")
+    .map((tool) => tool.trim());
 
   // Convert userToolsArray to the URL ends they map to
-  const userToolsUrlEnds = userToolsArray.map(tool => toolNameMap[tool]).filter(Boolean);
+  const userToolsUrlEnds = userToolsArray
+    .map((tool) => toolNameMap[tool])
+    .filter(Boolean);
 
   // Memoize toolComponentMap to avoid recalculating it on every render
   const toolComponentMap = useMemo(() => ({
@@ -133,11 +137,19 @@ function PrivateContent() {
 
   // Check if the tool is valid and if user has access
   useEffect(() => {
-    console.log('Akways available tools:', alwaysAvailableTools);
+    // skip this check for chatbot as it has url query parameters
+    if(tool === "chatbot") return;
+    console.log('Always available tools:', alwaysAvailableTools);
     if (!toolComponentMap[tool] || (!alwaysAvailableTools.includes(tool) && !userToolsUrlEnds.includes(tool))) {
       navigate("/private/home", { replace: true });
     }
-  }, [tool, navigate, toolComponentMap, alwaysAvailableTools, userToolsUrlEnds]);
+  }, [
+    tool,
+    navigate,
+    toolComponentMap,
+    alwaysAvailableTools,
+    userToolsUrlEnds,
+  ]);
 
   const ComponentToRender = toolComponentMap[tool] || Home;
 
@@ -149,14 +161,14 @@ function PrivateContent() {
         </header>
       </div>
 
-      <Box sx={{ display: 'flex', backgroundColor:window.location.pathname.includes("chatbot") ? "rgb(248, 241, 215)" : "" }}>
+      <Box id="private-wrapper" sx={{ display: 'flex'}}>
         <CssBaseline />
         <Drawer variant="permanent" open={open}>
           <Toolbar
             sx={{
-              display: 'flex',
-              alignItems: 'center',
-              justifyContent: 'flex-end',
+              display: "flex",
+              alignItems: "center",
+              justifyContent: "flex-end",
               px: [2],
             }}
           >
@@ -171,7 +183,10 @@ function PrivateContent() {
           <Box sx={{ flexGrow: .75 }} />
         </Drawer>
 
-        <Box component="main" sx={{ marginTop: 5, flexGrow: 1, p: 3, ml: open ? 33 : 9 }}>
+        <Box
+          component="main"
+          sx={{ marginTop: 5, flexGrow: 1, p: 3, ml: open ? 33 : 9 }}
+        >
           <ComponentToRender />
         </Box>
       </Box>

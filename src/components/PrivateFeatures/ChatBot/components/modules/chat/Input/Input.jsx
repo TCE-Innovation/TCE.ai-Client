@@ -1,13 +1,14 @@
-import React, { useState } from "react";
+import React, { useMemo, useState } from "react";
 
 import { SendIcon } from "../../../icons";
 
-import { useMessage, useConversation } from "../../../../hooks";
+import { useMessage, useConversation, queries } from "../../../../hooks";
 
 import Wrapper from "./style";
 
 const ChatInput = () => {
   const { loadingMessages, sendMessage, sendingMessage } = useMessage();
+  const { data, loading: loadingProjects } = queries.useGetProjectsQuery();
   const {
     conversations,
     currentConversation,
@@ -15,6 +16,11 @@ const ChatInput = () => {
     isCreatingConversation,
   } = useConversation();
   const [message, setMessage] = useState("");
+
+  const hasProjects = useMemo(() => {
+    if (!data) return false;
+    return data.data?.length > 0;
+  }, [data]);
 
   const handleInput = (e) => {
     setMessage(e.target.value);
@@ -29,6 +35,8 @@ const ChatInput = () => {
   const isDisabled =
     !conversations.length ||
     !currentConversation ||
+    !hasProjects ||
+    loadingProjects ||
     loadingMessages ||
     sendingMessage ||
     loadingConversations ||

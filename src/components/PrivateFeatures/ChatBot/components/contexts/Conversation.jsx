@@ -1,37 +1,58 @@
 import React, {
   createContext,
   useContext as _useContext,
-  useState,
-  useEffect,
   useLayoutEffect,
+  useMemo,
+  useEffect,
 } from "react";
 
-import { conversationService } from "../../services";
 import useStorage from "../../hooks/useStorage";
-import useGlobal from "../../hooks/useGlobal";
+
+import { useGetConversationsQuery } from "../../hooks/queries/";
+import {
+  useDeleteConversation,
+  useEditConversation,
+  useCreateConversation,
+} from "../../hooks/mutations/";
 
 const ConversationContext = createContext();
 
 export const useContext = () => _useContext(ConversationContext);
 
 const ConversationProvider = ({ children }) => {
-  const [loading, setLoading] = useState(true);
-  const [isDeleting, setIsDeleting] = useState(false);
-  const [isCreating, setIsCreating] = useState(false);
-  const [isEditing, setIsEditing] = useState(false);
+  const {
+    mutate: deleteConversationMutation,
+    loading: isDeleting,
+  } = useDeleteConversation();
 
-  const [conversations, setConversations] = useState([]);
+  const {
+    mutate: editConversationMutation,
+    loading: isEditing,
+  } = useEditConversation();
+
+  const {
+    mutate: createConversationMutation,
+    data: newConversation,
+    loading: isCreating,
+  } = useCreateConversation();
 
   const [currentConversation, setCurrentConversation, reset] = useStorage(
     "CHATBOT_CURRENT_CONVERSATION",
     null
   );
 
-  const { createAlert } = useGlobal();
+  const [selectedProjectId, setSelectedProjectId] = useStorage("PROJECT_ID", 9);
+
+  const { data, loading } = useGetConversationsQuery(
+    { projectId: selectedProjectId },
+    { disableRunOnMount: selectedProjectId === null }
+  );
+
+  const conversations = useMemo(() => data?.data || [], [data]);
 
   useLayoutEffect(() => {
-    if (!currentConversation || !conversations.length) return;
-    if (parseInt(currentConversation)) return reset();
+    if (!currentConversation?.id || !conversations.length) return;
+    if (parseInt(!currentConversation.id)) return reset();
     const isValid = conversations.some(
       (c) => c.id.toString() === currentConversation.id.toString()
     );
@@ -42,77 +63,36 @@ const ConversationProvider = ({ children }) => {
 
   const createConversation = async () => {
     if (loading || isCreating) return;
-    setIsCreating(true);
-    const {
-      data: conversationId,
-      success,
-      message,
-    } = await conversationService.createConversation();
-    setIsCreating(false);
-    if (!success || !conversationId)
-      return createAlert({ message, type: "danger" });
-    const newConversationObject = { title: "New Chat", id: conversationId };
-    setConversations((prev) => [newConversationObject, ...prev]);
-    setCurrentConversation({ ...newConversationObject });
-  };
-
-  const editConversation = async ({ name, id }) => {
-    if (isEditing || !currentConversation) return;
-    setIsEditing(true);
-    const { success, message } = await conversationService.editConversation({
-      conversationId: currentConversation.id,
-      name,
+    createConversationMutation({
+      projectId: selectedProjectId,
     });
-    createAlert({ message, type: success ? "info" : "danger" });
-    setIsEditing(false);
-    if (!success) return;
-    setConversations((prev) =>
-      prev.map((conversation) => {
-        if (conversation.id === id) {
-          return {
-            ...conversation,
-            title: name,
-          };
-        }
-        return conversation;
-      })
-    );
-    if (id === currentConversation.id) {
-      setCurrentConversation({ ...currentConversation, title: name });
-    }
   };
 
   useEffect(() => {
-    const getAllConversations = async () => {
-      const {
-        data: conversations,
-        success,
-        message,
-      } = await conversationService.getConversations();
-      if (!success) {
-        createAlert({ message: message, type: "danger" });
-      }
-      if (conversations) {
-        setConversations(
-          conversations.map((c) => ({
-            title: c.name,
-            id: c.conversation_id,
-          }))
-        );
-      }
-      setLoading(false);
-    };
-    getAllConversations();
-  }, [createAlert]);
+    if (!newConversation) return;
+    setCurrentConversation({
+      id: newConversation.data,
+      title: "New Title",
+    });
+    //eslint-disable-next-line
+  }, [newConversation]);
+
+  const editConversation = async ({ name, id }) => {
+    if (isEditing || !id) return;
+    editConversationMutation({
+      conversationId: id,
+      name,
+      projectId: selectedProjectId,
+    });
+  };
 
   const deleteConversation = (id) => async (e) => {
-    if (isDeleting) return;
+    if (isDeleting || !id) return;
     e.stopPropagation();
-    setIsDeleting(true);
-    const { message } = await conversationService.deleteConversation(id);
-    createAlert({ message, type: "danger" });
-    setIsDeleting(false);
-    setConversations((prev) => prev.filter((c) => c.id !== id));
+    deleteConversationMutation({
+      conversationId: id,
+      projectId: selectedProjectId,
+    });
     setCurrentConversation(null);
   };
 
@@ -129,6 +109,9 @@ const ConversationProvider = ({ children }) => {
         isDeletingConversation: isDeleting,
         isCreatingConversation: isCreating,
         isEditingConversation: isEditing,
+        selectedProjectId,
+        setSelectedProjectId,
+        clearConversation: reset,
       }}
     >
       {children}

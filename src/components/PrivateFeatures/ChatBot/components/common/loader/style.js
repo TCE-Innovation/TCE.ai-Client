@@ -10,6 +10,7 @@ export default styled(({ active, ...rest }) => <div {...rest} />)`
   display: flex;
   justify-content: center;
   align-items: ${(props) => props.align};
+  color: ${(props) => (props.color ? props.color : "var(--chatbot-primary)")};
   height: 100%;
   width: 100%;
 `;
