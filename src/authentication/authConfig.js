@@ -1,3 +1,6 @@
+console.log(process.env.REACT_APP_ENV, 'REACT_APP_ENV');
+console.log(process.env.NODE_ENV, 'NODE_ENV');
+
 export const msalConfig = {
     auth: {
         clientId: '5948db4f-c992-4d98-b5ae-ca25d1010926',
