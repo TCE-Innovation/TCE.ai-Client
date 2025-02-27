@@ -36,6 +36,25 @@ function ResponsiveAppBar() {
     const [openAccountDialog, setOpenAccountDialog] = useState(false);
     const [openIdeaDialog, setOpenIdeaDialog] = useState(false);
 
+    const [scrolling, setScrolling] = useState(false)
+
+    const handleScroll = () => {
+        if (window.scrollY > 50) {  // 100px threshold
+          setScrolling(true); // hide AppBar when scrolling down
+        } else {
+          setScrolling(false); // show AppBar when scrolling back up
+        }
+    };
+
+    React.useEffect(() => {
+        window.addEventListener('scroll', handleScroll);
+      
+        return () => {
+          window.removeEventListener('scroll', handleScroll);
+        };
+    }, []);
+      
+
     const { tool } = useParams();
     const { userPic } = useContext(AuthContext);
     const navigate = useNavigate();
@@ -130,7 +149,10 @@ function ResponsiveAppBar() {
         </Dialog>
 
         <AppBar position="fixed" sx={{
-            background: '#1b365f', height: '90px'
+            background: '#1b365f', 
+            height: '90px',
+            transform: scrolling ? 'translateY(-100%)' : 'translateY(0)',
+            transition: 'transform 0.3s ease'
         }}>
                 <Toolbar disableGutters>
                     <Box sx={{ display: 'flex', alignItems: 'center', justifyContent:"center"}}>       

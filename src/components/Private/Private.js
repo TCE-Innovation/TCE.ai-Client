@@ -1,4 +1,4 @@
-import React, { useContext, useEffect, useMemo } from 'react';
+import React, { useState, useContext, useEffect, useMemo } from 'react';
 import { useParams, useNavigate } from 'react-router-dom';
 import { styled, createTheme, ThemeProvider } from '@mui/material/styles';
 import CssBaseline from '@mui/material/CssBaseline';
@@ -37,41 +37,30 @@ import ChatbotDashboard from '../PrivateFeatures/ChatbotDashboard';
 import { adminList } from "../../admin/lists";
 import { AuthContext } from "../../authentication/Auth";
 
-const Drawer = styled(MuiDrawer, {
-  shouldForwardProp: (prop) => prop !== "open",
-})(({ theme, open }) => ({
-  "& .MuiDrawer-paper": {
-    position: "fixed",
-    whiteSpace: "nowrap",
-    marginTop: "90px",
-    width: "auto",
-    transition: theme.transitions.create("width", {
-      easing: theme.transitions.easing.sharp,
-      duration: theme.transitions.duration.enteringScreen,
-    }),
-    boxSizing: "border-box",
-    height: "100vh",
-    ...(!open && {
-      overflowX: "hidden",
-      transition: theme.transitions.create("width", {
-        easing: theme.transitions.easing.sharp,
-        duration: theme.transitions.duration.leavingScreen,
-      }),
-      width: theme.spacing(7),
-      [theme.breakpoints.up("sm")]: {
-        width: theme.spacing(9),
-      },
-    }),
-  },
-}));
-
 const mdTheme = createTheme();
 
 function PrivateContent() {
   const [open, setOpen] = React.useState(true);
+  const [scrollingDown, setScrollingDown] = useState(false);
+  const [lastScrollY, setLastScrollY] = useState(0);
+
   const toggleDrawer = () => {
     setOpen(!open);
   };
+
+  useEffect(() => {
+    const handleScroll = () => {
+      if (window.scrollY > 50) {
+        setScrollingDown(true);
+      } else {
+        setScrollingDown(false);
+      }
+      setLastScrollY(window.scrollY);
+    };
+    window.addEventListener("scroll", handleScroll);
+    return () => window.removeEventListener("scroll", handleScroll);
+  }, [lastScrollY] )
+
 
   const { tool } = useParams();
   const navigate = useNavigate();
@@ -152,6 +141,36 @@ function PrivateContent() {
   ]);
 
   const ComponentToRender = toolComponentMap[tool] || Home;
+
+  const Drawer = styled(MuiDrawer, {
+    shouldForwardProp: (prop) => prop !== "open",
+  })(({ theme, open }) => ({
+    "& .MuiDrawer-paper": {
+      position: "fixed",
+      whiteSpace: "nowrap",
+      marginTop: scrollingDown ? "0px" : "90px",
+      width: "auto",
+      transition: theme.transitions.create(["margin-top", "width"], {
+        easing: theme.transitions.easing.easeInOut,
+        duration: theme.transitions.duration.standard,
+      }),
+      boxSizing: "border-box",
+      height: "calc(100vh - 60px)",
+      overflowY: "auto", // Allow vertical scrolling
+      scrollbarWidth: "none", // For Firefox, hides scrollbar
+      "&::-webkit-scrollbar": {
+        display: "none", // Hides the scrollbar for Webkit browsers like Chrome, Safari
+      },
+      paddingBottom: "60px",
+      ...(open ? {} : {
+        overflowX: "hidden",
+        width: theme.spacing(7),
+        [theme.breakpoints.up("sm")]: {
+          width: theme.spacing(9),
+        },
+      }),
+    },
+  }));
 
   return (
     <ThemeProvider theme={mdTheme}>
