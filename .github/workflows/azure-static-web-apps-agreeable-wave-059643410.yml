@@ -17,14 +17,6 @@ jobs:
     env: 
       REACT_APP_ENV: "prod"
     steps:
-      - name: Set User Configurations
-        run: |
-          git config --global user.name "chowleyTCE"
-          git config --global user.email "chowley@tcelect.net"
-          chmod -R 777 .  # Change permissions as necessary
-      - name:  Disable  CI  
-        run:  echo  "CI=false" >> $GITHUB_ENV
-
       - uses: actions/checkout@v3
         with:
           submodules: true
