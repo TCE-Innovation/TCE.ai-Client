@@ -35,24 +35,6 @@ function ResponsiveAppBar() {
     const [openDialog, setOpenSupportDialog] = useState(false);
     const [openAccountDialog, setOpenAccountDialog] = useState(false);
     const [openIdeaDialog, setOpenIdeaDialog] = useState(false);
-
-    const [scrolling, setScrolling] = useState(false)
-
-    const handleScroll = () => {
-        if (window.scrollY > 50) {  // 100px threshold
-          setScrolling(true); // hide AppBar when scrolling down
-        } else {
-          setScrolling(false); // show AppBar when scrolling back up
-        }
-    };
-
-    React.useEffect(() => {
-        window.addEventListener('scroll', handleScroll);
-      
-        return () => {
-          window.removeEventListener('scroll', handleScroll);
-        };
-    }, []);
       
 
     const { tool } = useParams();
