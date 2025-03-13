@@ -41,26 +41,10 @@ const mdTheme = createTheme();
 
 function PrivateContent() {
   const [open, setOpen] = React.useState(true);
-  const [scrollingDown, setScrollingDown] = useState(false);
-  const [lastScrollY, setLastScrollY] = useState(0);
 
   const toggleDrawer = () => {
     setOpen(!open);
   };
-
-  useEffect(() => {
-    const handleScroll = () => {
-      if (window.scrollY > 50) {
-        setScrollingDown(true);
-      } else {
-        setScrollingDown(false);
-      }
-      setLastScrollY(window.scrollY);
-    };
-    window.addEventListener("scroll", handleScroll);
-    return () => window.removeEventListener("scroll", handleScroll);
-  }, [lastScrollY] )
-
 
   const { tool } = useParams();
   const navigate = useNavigate();
@@ -148,20 +132,16 @@ function PrivateContent() {
     "& .MuiDrawer-paper": {
       position: "fixed",
       whiteSpace: "nowrap",
-      marginTop: scrollingDown ? "0px" : "90px",
+      marginTop: "90px",
       width: "auto",
-      transition: theme.transitions.create(["margin-top", "width"], {
-        easing: theme.transitions.easing.easeInOut,
-        duration: theme.transitions.duration.standard,
-      }),
       boxSizing: "border-box",
-      height: "calc(100vh - 60px)",
+      //height: "calc(100vh - 20px)",
+      height: "90vh",
       overflowY: "auto", // Allow vertical scrolling
       scrollbarWidth: "none", // For Firefox, hides scrollbar
       "&::-webkit-scrollbar": {
         display: "none", // Hides the scrollbar for Webkit browsers like Chrome, Safari
       },
-      paddingBottom: "60px",
       ...(open ? {} : {
         overflowX: "hidden",
         width: theme.spacing(7),
@@ -204,7 +184,11 @@ function PrivateContent() {
 
         <Box
           component="main"
-          sx={{ marginTop: 5, flexGrow: 1, p: 3, ml: open ? 33 : 9 }}
+          sx={{ 
+            marginTop: 5, 
+            flexGrow: 1, 
+            p: 3, 
+            ml: open ? 33 : 9 }}
         >
           <ComponentToRender />
         </Box>

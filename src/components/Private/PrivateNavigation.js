@@ -151,8 +151,6 @@ function ResponsiveAppBar() {
         <AppBar position="fixed" sx={{
             background: '#1b365f', 
             height: '90px',
-            transform: scrolling ? 'translateY(-100%)' : 'translateY(0)',
-            transition: 'transform 0.3s ease'
         }}>
                 <Toolbar disableGutters>
                     <Box sx={{ display: 'flex', alignItems: 'center', justifyContent:"center"}}>       
