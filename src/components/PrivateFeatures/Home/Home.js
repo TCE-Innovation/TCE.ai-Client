@@ -50,8 +50,8 @@ const partnerData = [
     imgSrc: Airtable,
     description: "A host for multiple internal applications for use across a wide range of workflows",
     extraText: "Airtable assists various user groups and their specific needs, including TCIG, Estimating, Safety, Engineers, and Project Managers. TCIG and Estimating leverage Airtable's static database functionality to track internal assets and plan future bids, complementing their workflow with Bridgit Bench. The efficiency gains are further enhanced through Airtable's process logic and email automation, seamlessly integrated into multiple applications. The safety team benefits from automation in capturing track/safety certifications in a database and notifies safety managers of expiration dates, reducing downtime required for updating certifications which often have lead times of over three months.",
-    contactName: "Jacob Shavel",
-    contactEmail: "jshavel@tcelect.net",
+    contactName: "Rory O'Neill",
+    contactEmail: "roneill@tcelect.net",
     documents: [
       {title: "GO Tracker White Paper", url: "https://judlauent.sharepoint.com/:b:/s/TCEInnovation/ETEIqNwZPvFPsCP6KLnLxYIBjt_3LmFY_SAtRvYhBchi_Q?e=GgEatL", id: "go-tracker"},
       {title: "GO Tracker SOP", url: "https://judlauent.sharepoint.com/:b:/s/TCEInnovation/EehYuVJdG9NJj_8Hp4_gqskBg8G5xFP0W6s7iQKaslYRDA?e=LL6t1E", id: "go-tracker-sop"}
@@ -72,8 +72,8 @@ const partnerData = [
     imgSrc: EZ,
     description: "Asset management for maximizing overstock usage and minimizing item surplus",
     extraText: "EZOffice Inventory provides comprehensive asset tracking capabilities for items that can be allocated to various project sites. It mitigates the risk of lost or misused assets while optimizing resource utilization. Warehouse users benefit from streamlined processes for efficiently managing the inflow and outflow of items. Notable features, including location tracking and customized item groupings, eliminate the need for manual searches, ensuring zero downtime and efficient access to available in-stock items.",
-    contactName: "Matthew Bayne",
-    contactEmail: "mbayne@tcelect.net",
+    contactName: "Thomas Marston",
+    contactEmail: "tmarston@tcelect.net",
     documents: [
       {title: "TCE EZOffice Dashboard", url: "https://tcelectric.ezofficeinventory.com/dashboard"},
     ],
@@ -137,15 +137,15 @@ const Home = () => {
       Welcome to TCE.tools - home of TCE's innovative tools! Here, you'll find access to a suite of tools designed to enhance our internal operations and collaboration, 
       seek guidance on our tech stack, or explore user documentation. 
       Our goal is to empower each team member with the resources and support necessary to excel in our projects. 
-      Dive into our tools or reach out for assistance - let's innovate together!
+      Dive into our tools and reach out for any assistance you need!
       </div>
 
       <div className={styles.techSubheader}>
         On this page you will find information about software tools in TCE's technology stack. 
         In addition to these overviews, you will find helpful links like documentation from the 
-        partners as well as standard operating procedures and white papers created by TCIG. To 
-        contact the relevant TCIG team member with questions or requests on a certain tool, please 
-        click email icon under any tool to draft an email and start a conversation. 
+        partners as well as standard operating procedures and white papers. To 
+        contact the relevant tool owner with questions or requests on a certain tool, please 
+        click the email icon under any tool to draft an email and start a conversation. 
       </div>
       
       <div>
