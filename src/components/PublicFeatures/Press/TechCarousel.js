@@ -34,11 +34,11 @@ const TechCarousel = () => {
             title: 'ProCore',
             link: 'https://www.procore.com/'
         },
-        {
-            image: Bridgit,
-            title: 'Bridgit',
-            link: 'https://gobridgit.com/'
-        },
+        // {
+        //     image: Bridgit,
+        //     title: 'Bridgit',
+        //     link: 'https://gobridgit.com/'
+        // },
         {
             image: Airtable,
             title: 'Airtable',
