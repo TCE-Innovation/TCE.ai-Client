@@ -3,8 +3,8 @@ import styles from "./home.module.css";
 
 import ProCore from "../../../img/PartnerImages/ProCore.png";
 import Airtable from "../../../img/PartnerImages/Airtable.png";
-import FieldWire from "../../../img/PartnerImages/FieldWire.png";
-import Bridgit from "../../../img/PartnerImages/Bridgit.png";
+// import FieldWire from "../../../img/PartnerImages/FieldWire.png";
+// import Bridgit from "../../../img/PartnerImages/Bridgit.png";
 import OpenSpace from "../../../img/PartnerImages/OpenSpace.png";
 import EZ from "../../../img/PartnerImages/EZ.png";
 import Matterport from "../../../img/PartnerImages/Matterport.png";
@@ -88,17 +88,17 @@ const partnerData = [
     contactEmail: "skadarpeta@tcelect.net",
     documents: []
   },
-  {
-    name: "Bridgit",
-    imgSrc: Bridgit,
-    description: "Transforms workforce data into insights that inform strategic and tactical business decisions",
-    extraText: "Bridgit Bench improves project management by seamlessly integrating project and individual employee data, enabling more precise timelines and workforce optimization. During the pre-construction phase, it facilitates the creation and assignment of role titles and streamlines the coordination of Key Personnel for Design-Build Projects. As projects transition into the active phase and employees are assigned to specific roles, Bridgit Bench ensures optimal allocation, preventing overwork, and strategically placing employees based on their qualifications, certifications, and project history to meet both their needs and the project's requirements.",
-    contactName: "Jacob Shavel",
-    contactEmail: "jshavel@tcelect.net",
-    documents: [
-      {title: "Bridgit White Paper", url: "https://judlauent.sharepoint.com/:b:/s/TCEInnovation/EQyO1dDTWFxDjvk9Gr5tN5YBQqF6b73gNlDd3jGcNjQ9Yg?e=Zp6Ply", id: "bridgit"},
-    ]
-  },
+  // {
+  //   name: "Bridgit",
+  //   imgSrc: Bridgit,
+  //   description: "Transforms workforce data into insights that inform strategic and tactical business decisions",
+  //   extraText: "Bridgit Bench improves project management by seamlessly integrating project and individual employee data, enabling more precise timelines and workforce optimization. During the pre-construction phase, it facilitates the creation and assignment of role titles and streamlines the coordination of Key Personnel for Design-Build Projects. As projects transition into the active phase and employees are assigned to specific roles, Bridgit Bench ensures optimal allocation, preventing overwork, and strategically placing employees based on their qualifications, certifications, and project history to meet both their needs and the project's requirements.",
+  //   contactName: "Jacob Shavel",
+  //   contactEmail: "jshavel@tcelect.net",
+  //   documents: [
+  //     {title: "Bridgit White Paper", url: "https://judlauent.sharepoint.com/:b:/s/TCEInnovation/EQyO1dDTWFxDjvk9Gr5tN5YBQqF6b73gNlDd3jGcNjQ9Yg?e=Zp6Ply", id: "bridgit"},
+  //   ]
+  // },
   {
     name: "Peak Visuals",
     imgSrc: PeakVisuals,
@@ -108,15 +108,15 @@ const partnerData = [
     contactEmail: "jshavel@tcelect.net",
     documents: []
   },
-  {
-    name: "FieldWire",
-    imgSrc: FieldWire,
-    description: "Standardized workflow and collaboration for marking up drawings",
-    extraText: "Fieldwire streamlines collaboration and version control for multiple engineers, eliminating the need to constantly ensure that work is done on the latest document version. In the past, projects faced challenges with communication among engineers and maintaining consistency in project drawings. However, Fieldwire offers a standardized space for document history and collaborative drawing markups, effectively reducing the pain points associated with maintaining consistency, enhancing communication, and improving overall efficiency.",
-    contactName: "Rory O'Neill",
-    contactEmail: "roneill@tcelect.net",
-    documents: []
-  }
+  // {
+  //   name: "FieldWire",
+  //   imgSrc: FieldWire,
+  //   description: "Standardized workflow and collaboration for marking up drawings",
+  //   extraText: "Fieldwire streamlines collaboration and version control for multiple engineers, eliminating the need to constantly ensure that work is done on the latest document version. In the past, projects faced challenges with communication among engineers and maintaining consistency in project drawings. However, Fieldwire offers a standardized space for document history and collaborative drawing markups, effectively reducing the pain points associated with maintaining consistency, enhancing communication, and improving overall efficiency.",
+  //   contactName: "Rory O'Neill",
+  //   contactEmail: "roneill@tcelect.net",
+  //   documents: []
+  // }
 ];
 
 const Home = () => {
@@ -134,9 +134,9 @@ const Home = () => {
     <div className="container">
       <br />
       <div className={styles.techSubheader}>
-      Welcome to TCIG.nyc - home of the TCE Innovation Group! Here, you'll find a suite of tools designed to enhance our internal operations and collaboration. 
-      Whether you're looking to access specific applications, seek guidance on our tech stack, or explore user documentation, everything you need 
-      is right at your fingertips. Our goal is to empower each team member with the resources and support necessary to excel in our projects. 
+      Welcome to TCE.tools - home of TCE's innovative tools! Here, you'll find access to a suite of tools designed to enhance our internal operations and collaboration, 
+      seek guidance on our tech stack, or explore user documentation. 
+      Our goal is to empower each team member with the resources and support necessary to excel in our projects. 
       Dive into our tools or reach out for assistance - let's innovate together!
       </div>
 
