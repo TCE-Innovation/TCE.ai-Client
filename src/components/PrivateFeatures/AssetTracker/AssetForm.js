@@ -105,12 +105,13 @@ const AssetForm = () => {
 
     // Options for items
     const itemOptions = [
+        "Insta360 X2",
+        "Insta360 X4",
         "Matterport Pro2", 
         "Matterport Pro3",
-        "Ferret Plus",
-        "Ricoh Theta Z1",
-        "Insta360 OneX2",
-        "Bushman Halo 360 Light",
+        // "Ferret Plus",
+        // "Ricoh Theta Z1",
+        // "Bushman Halo 360 Light",
     ]; 
 
     return (
@@ -212,7 +213,7 @@ const AssetForm = () => {
             ) : (
                 <div className="form-container">
                     <div style={{textAlign:"center", color:"#1b365f"}}>
-                        <div>Thank you for your submission. A TCIG team member will follow up with you.</div>
+                        <div>Thank you for your submission. Rory will follow up with you.</div>
                         <Button style={{ 
                             width: "15vw", 
                             marginTop: "1vw", 

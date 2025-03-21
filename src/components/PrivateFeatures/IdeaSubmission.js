@@ -81,7 +81,7 @@ const IdeaSubmission = () => {
             ) : (
                 // Show success message if submitted
                 <div style={{textAlign:"center", color:"#1b365f"}}>
-                    <div>Thank you for your submission. A TCIG team member will follow up with you.</div>
+                    <div>Thank you for your submission. We will follow up with you.</div>
                     <Button style={{ 
                                 width: "15vw", 
                                 marginTop: "1vw", 

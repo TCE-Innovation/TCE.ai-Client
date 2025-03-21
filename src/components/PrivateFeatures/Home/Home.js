@@ -3,8 +3,8 @@ import styles from "./home.module.css";
 
 import ProCore from "../../../img/PartnerImages/ProCore.png";
 import Airtable from "../../../img/PartnerImages/Airtable.png";
-import FieldWire from "../../../img/PartnerImages/FieldWire.png";
-import Bridgit from "../../../img/PartnerImages/Bridgit.png";
+// import FieldWire from "../../../img/PartnerImages/FieldWire.png";
+// import Bridgit from "../../../img/PartnerImages/Bridgit.png";
 import OpenSpace from "../../../img/PartnerImages/OpenSpace.png";
 import EZ from "../../../img/PartnerImages/EZ.png";
 import Matterport from "../../../img/PartnerImages/Matterport.png";
@@ -50,8 +50,8 @@ const partnerData = [
     imgSrc: Airtable,
     description: "A host for multiple internal applications for use across a wide range of workflows",
     extraText: "Airtable assists various user groups and their specific needs, including TCIG, Estimating, Safety, Engineers, and Project Managers. TCIG and Estimating leverage Airtable's static database functionality to track internal assets and plan future bids, complementing their workflow with Bridgit Bench. The efficiency gains are further enhanced through Airtable's process logic and email automation, seamlessly integrated into multiple applications. The safety team benefits from automation in capturing track/safety certifications in a database and notifies safety managers of expiration dates, reducing downtime required for updating certifications which often have lead times of over three months.",
-    contactName: "Jacob Shavel",
-    contactEmail: "jshavel@tcelect.net",
+    contactName: "Rory O'Neill",
+    contactEmail: "roneill@tcelect.net",
     documents: [
       {title: "GO Tracker White Paper", url: "https://judlauent.sharepoint.com/:b:/s/TCEInnovation/ETEIqNwZPvFPsCP6KLnLxYIBjt_3LmFY_SAtRvYhBchi_Q?e=GgEatL", id: "go-tracker"},
       {title: "GO Tracker SOP", url: "https://judlauent.sharepoint.com/:b:/s/TCEInnovation/EehYuVJdG9NJj_8Hp4_gqskBg8G5xFP0W6s7iQKaslYRDA?e=LL6t1E", id: "go-tracker-sop"}
@@ -72,8 +72,8 @@ const partnerData = [
     imgSrc: EZ,
     description: "Asset management for maximizing overstock usage and minimizing item surplus",
     extraText: "EZOffice Inventory provides comprehensive asset tracking capabilities for items that can be allocated to various project sites. It mitigates the risk of lost or misused assets while optimizing resource utilization. Warehouse users benefit from streamlined processes for efficiently managing the inflow and outflow of items. Notable features, including location tracking and customized item groupings, eliminate the need for manual searches, ensuring zero downtime and efficient access to available in-stock items.",
-    contactName: "Matthew Bayne",
-    contactEmail: "mbayne@tcelect.net",
+    contactName: "Thomas Marston",
+    contactEmail: "tmarston@tcelect.net",
     documents: [
       {title: "TCE EZOffice Dashboard", url: "https://tcelectric.ezofficeinventory.com/dashboard"},
     ],
@@ -88,35 +88,35 @@ const partnerData = [
     contactEmail: "skadarpeta@tcelect.net",
     documents: []
   },
-  {
-    name: "Bridgit",
-    imgSrc: Bridgit,
-    description: "Transforms workforce data into insights that inform strategic and tactical business decisions",
-    extraText: "Bridgit Bench improves project management by seamlessly integrating project and individual employee data, enabling more precise timelines and workforce optimization. During the pre-construction phase, it facilitates the creation and assignment of role titles and streamlines the coordination of Key Personnel for Design-Build Projects. As projects transition into the active phase and employees are assigned to specific roles, Bridgit Bench ensures optimal allocation, preventing overwork, and strategically placing employees based on their qualifications, certifications, and project history to meet both their needs and the project's requirements.",
-    contactName: "Jacob Shavel",
-    contactEmail: "jshavel@tcelect.net",
-    documents: [
-      {title: "Bridgit White Paper", url: "https://judlauent.sharepoint.com/:b:/s/TCEInnovation/EQyO1dDTWFxDjvk9Gr5tN5YBQqF6b73gNlDd3jGcNjQ9Yg?e=Zp6Ply", id: "bridgit"},
-    ]
-  },
+  // {
+  //   name: "Bridgit",
+  //   imgSrc: Bridgit,
+  //   description: "Transforms workforce data into insights that inform strategic and tactical business decisions",
+  //   extraText: "Bridgit Bench improves project management by seamlessly integrating project and individual employee data, enabling more precise timelines and workforce optimization. During the pre-construction phase, it facilitates the creation and assignment of role titles and streamlines the coordination of Key Personnel for Design-Build Projects. As projects transition into the active phase and employees are assigned to specific roles, Bridgit Bench ensures optimal allocation, preventing overwork, and strategically placing employees based on their qualifications, certifications, and project history to meet both their needs and the project's requirements.",
+  //   contactName: "Jacob Shavel",
+  //   contactEmail: "jshavel@tcelect.net",
+  //   documents: [
+  //     {title: "Bridgit White Paper", url: "https://judlauent.sharepoint.com/:b:/s/TCEInnovation/EQyO1dDTWFxDjvk9Gr5tN5YBQqF6b73gNlDd3jGcNjQ9Yg?e=Zp6Ply", id: "bridgit"},
+  //   ]
+  // },
   {
     name: "Peak Visuals",
     imgSrc: PeakVisuals,
     description: "Advanced aerial surveying and construction documentation",
     extraText: "Peak Visuals specializes in drone surveying to capture high-resolution imagery of large outdoor areas for construction documentation and surveying. Leveraging state-of-the-art drone technology, Peak Visuals provides accurate, comprehensive site data that enhances project planning and monitoring. This service is essential for construction managers and engineers who require detailed aerial perspectives to guide decision-making and track project progress.",
-    contactName: "Jacob Shavel",
-    contactEmail: "jshavel@tcelect.net",
-    documents: []
-  },
-  {
-    name: "FieldWire",
-    imgSrc: FieldWire,
-    description: "Standardized workflow and collaboration for marking up drawings",
-    extraText: "Fieldwire streamlines collaboration and version control for multiple engineers, eliminating the need to constantly ensure that work is done on the latest document version. In the past, projects faced challenges with communication among engineers and maintaining consistency in project drawings. However, Fieldwire offers a standardized space for document history and collaborative drawing markups, effectively reducing the pain points associated with maintaining consistency, enhancing communication, and improving overall efficiency.",
     contactName: "Rory O'Neill",
     contactEmail: "roneill@tcelect.net",
     documents: []
-  }
+  },
+  // {
+  //   name: "FieldWire",
+  //   imgSrc: FieldWire,
+  //   description: "Standardized workflow and collaboration for marking up drawings",
+  //   extraText: "Fieldwire streamlines collaboration and version control for multiple engineers, eliminating the need to constantly ensure that work is done on the latest document version. In the past, projects faced challenges with communication among engineers and maintaining consistency in project drawings. However, Fieldwire offers a standardized space for document history and collaborative drawing markups, effectively reducing the pain points associated with maintaining consistency, enhancing communication, and improving overall efficiency.",
+  //   contactName: "Rory O'Neill",
+  //   contactEmail: "roneill@tcelect.net",
+  //   documents: []
+  // }
 ];
 
 const Home = () => {
@@ -134,18 +134,18 @@ const Home = () => {
     <div className="container">
       <br />
       <div className={styles.techSubheader}>
-      Welcome to TCIG.nyc - home of the TCE Innovation Group! Here, you'll find a suite of tools designed to enhance our internal operations and collaboration. 
-      Whether you're looking to access specific applications, seek guidance on our tech stack, or explore user documentation, everything you need 
-      is right at your fingertips. Our goal is to empower each team member with the resources and support necessary to excel in our projects. 
-      Dive into our tools or reach out for assistance - let's innovate together!
+      Welcome to TCE.tools–home of TCE's innovative tools! Here, you'll have access to tools
+      and associated documentation designed to enhance our internal operations and collaboration. 
+      Our goal is to empower each team member with the resources and support necessary to excel in our projects. 
+      Dive into our tools and reach out for any assistance you need!
       </div>
 
       <div className={styles.techSubheader}>
-        On this page you will find information about software tools in TCE's technology stack. 
-        In addition to these overviews, you will find helpful links like documentation from the 
-        partners as well as standard operating procedures and white papers created by TCIG. To 
-        contact the relevant TCIG team member with questions or requests on a certain tool, please 
-        click email icon under any tool to draft an email and start a conversation. 
+        On this page you will find overviews about TCE's software tools. 
+        In addition to these overviews, you will find links to documentation from the 
+        partners as well as standard operating procedures and white papers. To 
+        contact the relevant tool owner with questions or requests on a certain tool, please 
+        click the email icon under any tool to draft an email and start a conversation. 
       </div>
       
       <div>
