@@ -83,7 +83,7 @@ function Gateway() {
                         '&:hover': { borderWidth: '.3vw', borderColor: '#003eab', backgroundColor: 'rgba(255, 255, 255, 0.9)', transform: 'scale(1.05)' }, 
                     }}
                 >
-                    Continue to the public site
+                    Continue to public site
                 </Button>
             </Box>
         </Box>
