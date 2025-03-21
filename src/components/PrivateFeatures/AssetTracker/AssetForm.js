@@ -107,10 +107,11 @@ const AssetForm = () => {
     const itemOptions = [
         "Matterport Pro2", 
         "Matterport Pro3",
-        "Ferret Plus",
-        "Ricoh Theta Z1",
-        "Insta360 OneX2",
-        "Bushman Halo 360 Light",
+        // "Ferret Plus",
+        // "Ricoh Theta Z1",
+        "Insta360 X2",
+        "Insta360 X4",
+        // "Bushman Halo 360 Light",
     ]; 
 
     return (

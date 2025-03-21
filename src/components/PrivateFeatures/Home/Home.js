@@ -104,8 +104,8 @@ const partnerData = [
     imgSrc: PeakVisuals,
     description: "Advanced aerial surveying and construction documentation",
     extraText: "Peak Visuals specializes in drone surveying to capture high-resolution imagery of large outdoor areas for construction documentation and surveying. Leveraging state-of-the-art drone technology, Peak Visuals provides accurate, comprehensive site data that enhances project planning and monitoring. This service is essential for construction managers and engineers who require detailed aerial perspectives to guide decision-making and track project progress.",
-    contactName: "Jacob Shavel",
-    contactEmail: "jshavel@tcelect.net",
+    contactName: "Rory O'Neill",
+    contactEmail: "roneill@tcelect.net",
     documents: []
   },
   // {
@@ -134,15 +134,15 @@ const Home = () => {
     <div className="container">
       <br />
       <div className={styles.techSubheader}>
-      Welcome to TCE.tools - home of TCE's innovative tools! Here, you'll find access to a suite of tools designed to enhance our internal operations and collaboration, 
-      seek guidance on our tech stack, or explore user documentation. 
+      Welcome to TCE.tools–home of TCE's innovative tools! Here, you'll have access to tools
+      and associated documentation designed to enhance our internal operations and collaboration. 
       Our goal is to empower each team member with the resources and support necessary to excel in our projects. 
       Dive into our tools and reach out for any assistance you need!
       </div>
 
       <div className={styles.techSubheader}>
-        On this page you will find information about software tools in TCE's technology stack. 
-        In addition to these overviews, you will find helpful links like documentation from the 
+        On this page you will find overviews about TCE's software tools. 
+        In addition to these overviews, you will find links to documentation from the 
         partners as well as standard operating procedures and white papers. To 
         contact the relevant tool owner with questions or requests on a certain tool, please 
         click the email icon under any tool to draft an email and start a conversation. 
