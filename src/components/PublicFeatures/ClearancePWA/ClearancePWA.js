@@ -389,8 +389,8 @@ const Clearance = () => {
               <h2>This page is designed for mobile viewing.</h2>
               <p>
                 To use the calculator on your computer or learn how to download the tool on your mobile device, visit{' '}
-                <a href="https://tcig.nyc/private/clearance-calculator" target="_blank" rel="noopener noreferrer">
-                  tcig.nyc/private/clearance-calculator
+                <a href="https://tce.tools/private/clearance-calculator" target="_blank" rel="noopener noreferrer">
+                  tce.tools/private/clearance-calculator
                 </a>
               </p>
           </div>

@@ -32,7 +32,7 @@ const Document = () => {
 
     useEffect(() => {
         if (!iframeUrl) {
-            window.location.href = 'https://tcig.nyc/public'; // Redirect if document name is invalid
+            window.location.href = 'https://tce.tools/public'; // Redirect if document name is invalid
         }
     }, [iframeUrl]);
 
