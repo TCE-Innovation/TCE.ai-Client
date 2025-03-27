@@ -9,8 +9,8 @@ function Copyright(props) {
     return (
         <Typography variant="body2" color="text.secondary" align="center" {...props}>
             {'Copyright © '}
-            <Link color="inherit" href="https://tcig.nyc">
-                TCIG.nyc
+            <Link color="inherit" href="https://tce.tools">
+                TCE.tools
             </Link>{' '}
             {new Date().getFullYear()}
             {'.'}
