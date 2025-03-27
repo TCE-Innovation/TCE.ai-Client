@@ -136,7 +136,7 @@ const Support = () => {
 
                             <ListSubheader>My TCIG Tools</ListSubheader>
                             {tools.map((tool, index) => (
-                                <MenuItem key={`tcig-${index}`} value={`TCIG.nyc - ${tool}`}>{tool}</MenuItem>
+                                <MenuItem key={`tcig-${index}`} value={`TCE.tools - ${tool}`}>{tool}</MenuItem>
                             ))}
                         </Select>
 
