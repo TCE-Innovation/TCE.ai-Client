@@ -6,6 +6,7 @@ export const msalConfig = {
         redirectUri: (process.env.REACT_APP_ENV === 'dev' || process.env.NODE_ENV === 'development')
             ? "https://dev.tcig.nyc/private/welcome"
             : "https://tcig.nyc/private/welcome",
+            // add adjusted redirect to Azure
     },
 };
 
