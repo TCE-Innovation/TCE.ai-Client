@@ -3,10 +3,13 @@ import { formatMessage, formatCitations } from "../utils/data";
 
 const route = "/user/messages";
 
-export const getMessages = async (conversationId) => {
-  const { data, success, message } = await client.get(route, {
-    conversation_id: conversationId,
-  });
+export const getMessages = async ({ conversationId, userId }) => {
+  const queryParams = { conversation_id: conversationId };
+  if (userId) {
+    queryParams.user_id = userId;
+  }
+
+  const { data, success, message } = await client.get(route, queryParams);
   if (success) {
     if (!Array.isArray(data))
       return { data: null, success: false, message: "invalid response!" };

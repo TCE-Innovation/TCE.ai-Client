@@ -3,10 +3,13 @@ import { extractConversationData } from "../utils/data";
 
 const route = "/user/conversations";
 
-export const getConversations = async (projectId) => {
-  const { data, success, message } = await client.get(route, {
-    project_id: projectId,
-  });
+export const getConversations = async (projectId, userId) => {
+  const queryParams = { project_id: projectId };
+  if (userId) {
+    queryParams.user_id = userId;
+  }
+
+  const { data, success, message } = await client.get(route, queryParams);
   if (success) {
     const conversations = data.map(extractConversationData);
     return { data: conversations, success: true };

@@ -1,10 +1,13 @@
 import useQuery from "../useQuery";
 import { messageService } from "../../services";
 
-export const useGetMessagesQuery = ({ conversationId }, options = {}) => {
+export const useGetMessagesQuery = (
+  { conversationId, userId },
+  options = {}
+) => {
   return useQuery(
-    ["getMessages", { conversationId }],
-    () => messageService.getMessages(conversationId),
+    ["getMessages", { conversationId, userId }],
+    () => messageService.getMessages({ conversationId, userId }),
     options
   );
 };

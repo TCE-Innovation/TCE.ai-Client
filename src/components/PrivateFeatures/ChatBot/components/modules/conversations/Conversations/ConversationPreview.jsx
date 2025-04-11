@@ -1,4 +1,5 @@
 import React from "react";
+import { Loader } from "../../../common";
 import Conversation from "../Conversation/Conversation";
 import EmptyConversations from "./Empty";
 import { useConversation } from "../../../../hooks";
@@ -11,12 +12,15 @@ const ConversationList = () => {
     currentConversation,
     setCurrentConversation,
     isCreatingConversation,
+    loadingConversations: loading,
   } = useConversation();
 
   return (
     <Wrapper>
       <div className="conversation-list">
-        {conversations.length ? (
+        {loading ? (
+          <Loader />
+        ) : conversations.length ? (
           conversations.map((conversation) => (
             <Conversation
               key={conversation.id}

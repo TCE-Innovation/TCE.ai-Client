@@ -7,6 +7,7 @@ import React, {
 } from "react";
 
 import useStorage from "../../hooks/useStorage";
+import { useQueryParam } from "../../hooks";
 
 import { useGetConversationsQuery } from "../../hooks/queries/";
 import {
@@ -43,8 +44,12 @@ const ConversationProvider = ({ children }) => {
 
   const [selectedProjectId, setSelectedProjectId] = useStorage("PROJECT_ID", 9);
 
-  const { data, loading } = useGetConversationsQuery(
-    { projectId: selectedProjectId },
+  const query = useQueryParam();
+  const { params } = query;
+  const userId = params.user_id;
+
+  const { data, loading, refetch } = useGetConversationsQuery(
+    { projectId: selectedProjectId, userId },
     { disableRunOnMount: selectedProjectId === null }
   );
 
@@ -60,6 +65,13 @@ const ConversationProvider = ({ children }) => {
       reset();
     }
   }, [conversations, currentConversation, reset]);
+
+  useEffect(() => {
+    if (userId && selectedProjectId !== null) {
+      refetch();
+      reset();
+    }
+  }, [userId, selectedProjectId, refetch, reset]);
 
   const createConversation = async () => {
     if (isCreating) return;
@@ -96,6 +108,19 @@ const ConversationProvider = ({ children }) => {
     setCurrentConversation(null);
   };
 
+  const handleSetCurrentConversation = (conversation) => {
+    setCurrentConversation(conversation);
+    if (userId) {
+      query.push(
+        {
+          ...params,
+          user_id: userId,
+        },
+        { replace: true }
+      );
+    }
+  };
+
   return (
     <ConversationContext.Provider
       value={{
@@ -104,7 +129,7 @@ const ConversationProvider = ({ children }) => {
         createConversation,
         deleteConversation,
         editConversation,
-        setCurrentConversation,
+        setCurrentConversation: handleSetCurrentConversation, // Use our wrapped version
         loadingConversations: loading,
         isDeletingConversation: isDeleting,
         isCreatingConversation: isCreating,
@@ -112,6 +137,7 @@ const ConversationProvider = ({ children }) => {
         selectedProjectId,
         setSelectedProjectId,
         clearConversation: reset,
+        userId,
       }}
     >
       {children}
