@@ -2,10 +2,9 @@ import { ROLES } from "../constants/admin";
 import { genRandomId } from "./uuid";
 
 export const extractUserData = (item) => {
-  const name = [item.first_name, item.last_name].join(" ").trim();
   return {
     ...item,
-    name: name || item.name || item.user_name || "",
+    name: item.name || item.user_name || "",
     email: item.email || item.user_email,
     role: item.role || item.user_role,
     id: item.id || item.user_id,
