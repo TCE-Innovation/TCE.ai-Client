@@ -14,7 +14,7 @@ const CreateConversation = () => {
     if (!currentConversation) {
       createConversation();
     }
-  }, []);
+  });
 
   return (
     <div className="create-new-chat">
