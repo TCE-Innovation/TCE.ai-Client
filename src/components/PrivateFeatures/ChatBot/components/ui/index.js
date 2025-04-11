@@ -4,8 +4,6 @@ import ChatBot from "./chatbot";
 import Admin from "./admin";
 import ChatPreview from "./chatPreview";
 
-import ReportButton from "./_Report";
-
 import GlobalContext from "../../components/contexts/Global";
 import CacheContext from "../../components/contexts/Cache";
 import ConversationContext from "../../components/contexts/Conversation";
@@ -28,7 +26,6 @@ const Chat = () => {
           <MessageContext>
             <BaseLayout>
               <Component />
-              <ReportButton />
             </BaseLayout>
           </MessageContext>
         </ConversationContext>
