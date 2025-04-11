@@ -17,10 +17,11 @@ const ProjectList = () => {
     if (!data?.data) return [];
     return data.data.map((item) => ({
       ...item,
-      assignedUsers: item.users.map((user) => ({
-        ...user,
-        url: user.image_url,
-      })),
+      assignedUsers:
+        item.users?.map((user) => ({
+          ...user,
+          url: user.image_url,
+        })) || [],
     }));
   }, [data?.data]);
 
