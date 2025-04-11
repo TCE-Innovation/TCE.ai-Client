@@ -1,10 +1,21 @@
-import React from "react";
+import React, { useEffect } from "react";
 
 import { EditIcon } from "../../icons";
 import { useConversation } from "../../../hooks";
 
 const CreateConversation = () => {
-  const { createConversation, isCreatingConversation } = useConversation();
+  const {
+    createConversation,
+    isCreatingConversation,
+    currentConversation,
+  } = useConversation();
+
+  useEffect(() => {
+    if (!currentConversation) {
+      createConversation();
+    }
+  }, []);
+
   return (
     <div className="create-new-chat">
       <span>Create new chat</span>

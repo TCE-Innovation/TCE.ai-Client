@@ -62,7 +62,7 @@ const ConversationProvider = ({ children }) => {
   }, [conversations, currentConversation, reset]);
 
   const createConversation = async () => {
-    if (loading || isCreating) return;
+    if (isCreating) return;
     createConversationMutation({
       projectId: selectedProjectId,
     });
