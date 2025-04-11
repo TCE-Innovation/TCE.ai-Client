@@ -1,4 +1,4 @@
-import { useEffect, useRef, useState } from "react";
+import { useEffect, useState } from "react";
 import { version } from "pdfjs-dist";
 import { pageNavigationPlugin } from "@react-pdf-viewer/page-navigation";
 import { searchPlugin } from "@react-pdf-viewer/search";
@@ -51,9 +51,15 @@ const useDocument = (textToHighlight, pageNumber) => {
     renderHighlights: renderHighlights(pageNumber),
   });
 
+  const {
+    CurrentPageLabel,
+    NumberOfPages,
+    jumpToPage,
+  } = pageNavigationPluginInstance;
+
   useEffect(() => {
     jumpToPage(currentPageNumber - 1);
-  }, [currentPageNumber]);
+  }, [currentPageNumber, jumpToPage]);
 
   const { highlight } = searchPluginInstance;
 
@@ -66,12 +72,6 @@ const useDocument = (textToHighlight, pageNumber) => {
       setCurrentPageNumber(offset);
     }
   };
-
-  const {
-    CurrentPageLabel,
-    NumberOfPages,
-    jumpToPage,
-  } = pageNavigationPluginInstance;
 
   const extractLines = (textContent) => {
     const items = [];
