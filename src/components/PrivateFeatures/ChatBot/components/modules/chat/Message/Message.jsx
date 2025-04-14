@@ -8,9 +8,7 @@ import React, {
 
 import botImg from "../../../../assets/images/bot.png";
 
-import Citation from "./Citation";
 import Feedback from "./Feedback";
-import FormContext from "../../../contexts/FormContext";
 import DocumentModal from "../../document/Modal";
 
 import { Markdown, TypeWriter } from "../../../common";
