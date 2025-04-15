@@ -1,4 +1,4 @@
-import React, { useMemo, useState } from "react";
+import React, { useMemo, useState, useEffect, useRef } from "react";
 
 import useUpload from "./useUpload";
 
@@ -15,7 +15,7 @@ import { RenameDocumentModal } from "../../../Documents/Modals";
 
 const uploadDirectoryElement = (
   <UploadDirectory
-    name={"documents"}
+    name={"directory"}
     title="Upload Document Folder"
     id="upload-directory"
   />
@@ -29,8 +29,6 @@ const uploadFilesElement = (
 );
 
 const AddDocument = ({ show, onClose }) => {
-  const [selected, setSelected] = useState(null);
-
   const {
     formStep,
     changeFormStep,
@@ -59,7 +57,6 @@ const AddDocument = ({ show, onClose }) => {
   const onSubmit = (values) => {
     const success = handleSubmit(values);
     if (!success) return;
-    setSelected(null);
     onClose();
   };
 
@@ -107,32 +104,11 @@ const AddDocument = ({ show, onClose }) => {
               pointerEvents: isloading ? "none" : "all",
             }}
           >
-            {!selected ? (
-              <div className="d-flex flex-column gap-2">
-                <div
-                  onClick={(e) => {
-                    e.preventDefault();
-                    e.stopPropagation();
-                    setSelected("folder");
-                  }}
-                >
-                  {uploadDirectoryElement}
-                </div>
-                <div
-                  onClick={(e) => {
-                    e.preventDefault();
-                    e.stopPropagation();
-                    setSelected("files");
-                  }}
-                >
-                  {uploadFilesElement}
-                </div>
-              </div>
-            ) : selected === "files" ? (
-              uploadFilesElement
-            ) : selected === "folder" ? (
-              uploadDirectoryElement
-            ) : null}
+            <div className="d-flex flex-column gap-2">
+              {uploadDirectoryElement}
+
+              {uploadFilesElement}
+            </div>
           </div>
         </div>
       </Modal>
