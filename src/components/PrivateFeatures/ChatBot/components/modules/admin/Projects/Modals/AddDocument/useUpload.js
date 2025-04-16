@@ -29,7 +29,18 @@ const useUploadFile = ({ name }) => {
 
   const { resetForm } = useContext();
 
-  const { value: files, setError, error } = useFieldValue(name);
+  const {
+    value: documentFiles,
+    setError: setDocumentsError,
+    error: documentsError,
+  } = useFieldValue("documents");
+  const { value: directoryFiles, error: directoryError } = useFieldValue(
+    "directory"
+  );
+
+  const error = documentsError || directoryError;
+  const files = [...documentFiles, ...directoryFiles];
+
   const { value: formStep, changeValue: changeFormStep } = useFieldValue(
     "step"
   );
@@ -45,7 +56,7 @@ const useUploadFile = ({ name }) => {
     if (loadingDocuments || isSubmitting) return;
 
     if (!files.length) {
-      setError("Please select documents");
+      setDocumentsError("Please select documents or a directory");
       return;
     }
 
@@ -60,6 +71,20 @@ const useUploadFile = ({ name }) => {
 
     const formData = [].concat(files).reduce((formData, doc, i) => {
       formData.append("doc", doc);
+
+      // Handle directory structure by preserving relative path
+      if (doc.webkitRelativePath) {
+        formData.append(
+          "file_path",
+          doc.webkitRelativePath
+            .split("/")
+            .slice(0, -1)
+            .join("/")
+        );
+      } else {
+        formData.append("file_path", "");
+      }
+
       formData.append("file_name", getFileName(values.documentNames[i]));
       return formData;
     }, new FormData());

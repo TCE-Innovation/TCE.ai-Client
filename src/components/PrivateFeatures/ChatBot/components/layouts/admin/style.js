@@ -50,7 +50,7 @@ export default styled.div`
     }
 
     & .admin-table-container {
-      height: 65vh;
+      height: calc(100vh - 200px);
       padding-right: 10px;
       overflow: hidden auto;
     }

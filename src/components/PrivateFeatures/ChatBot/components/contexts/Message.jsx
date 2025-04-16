@@ -19,6 +19,7 @@ const MessageProvider = ({ children }) => {
     clearConversation,
     selectedProjectId,
     conversations,
+    userId,
   } = useConversation();
   const {
     mutate: createMessageHandler,
@@ -31,7 +32,7 @@ const MessageProvider = ({ children }) => {
     updateData: updateMessages,
     reset,
   } = useGetMessagesQuery(
-    { conversationId: currentConversation?.id },
+    { conversationId: currentConversation?.id, userId },
     {
       disableRunOnMount:
         !currentConversation ||
@@ -44,7 +45,7 @@ const MessageProvider = ({ children }) => {
   const messages = useMemo(() => data?.data?.messages || [], [data]);
 
   const initialMessageCount = useMemo(() => {
-    return data?.data.size || 0;
+    return data?.data?.size || 0;
   }, [data]);
 
   const setMessages = (value) => {
@@ -57,11 +58,12 @@ const MessageProvider = ({ children }) => {
   const createMessage = ({ isAI, body, id, citations }) => {
     if (!currentConversation?.id) return;
     const newMessage = { isAI, body, id };
-    if (isAI && citations) newMessage["citations"] = citations;
+    if (isAI && citations) newMessage.citations = citations;
+
     setMessages((prev) => {
       return {
         ...prev,
-        messages: [...(prev.messages || []), newMessage],
+        messages: [...(prev?.messages || []), newMessage],
       };
     });
   };
@@ -70,7 +72,7 @@ const MessageProvider = ({ children }) => {
     return () => {
       setMessages((prev) => ({
         ...prev,
-        size: prev.messages?.length || 0,
+        size: prev?.messages?.length || 0,
       }));
     };
     // eslint-disable-next-line

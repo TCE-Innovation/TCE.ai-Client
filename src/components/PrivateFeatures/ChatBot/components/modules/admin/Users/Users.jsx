@@ -42,12 +42,18 @@ const Users = () => {
         isLoading={loading}
         insertingRow={addUser.loading}
         onRowClick={(row) => {
-          navigate({
-            search: new URLSearchParams({
-              ...params,
-              mode: "preview",
-            }).toString(),
-          });
+          const newParams = {
+            ...params,
+            mode: "preview",
+            user_id: row.id,
+          };
+
+          navigate(
+            {
+              search: new URLSearchParams(newParams).toString(),
+            },
+            { replace: true }
+          );
         }}
       />
     </>
