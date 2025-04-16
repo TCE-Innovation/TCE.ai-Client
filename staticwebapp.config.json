@@ -38,10 +38,12 @@
     },
     {
       "route": "/private/*",
-      "rewrite": "/index.html",
       "allowedRoles": ["authenticated"]
     },
-
+    {
+      "route": "/private/welcome",
+      "rewrite": "/index.html"
+    },
     {
       "route": "/*",
       "allowedRoles": ["anonymous"],
