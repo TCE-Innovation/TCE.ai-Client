@@ -6,7 +6,7 @@ export const msalConfig = {
         redirectUri: (process.env.REACT_APP_ENV === 'dev' || process.env.NODE_ENV === 'development')
             // ? "https://dev.tcig.nyc/private/welcome"
             ? "https://dev.tce.tools/private/welcome" // Updated dev url
-            : "https://tcig.nyc/private/welcome",  // Updated URL
+            : "https://tce.tools/private/welcome",  // Updated URL
             // : "https://tce.tools/private/welcome",  // Updated URL
     },
 };
