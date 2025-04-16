@@ -1,6 +1,16 @@
 {
   "routes": [
     {
+      "route": "/private/welcome",
+      "rewrite": "/index.html",
+      "allowedRoles": ["authenticated"]
+    },
+    {
+      "route": "/private/*",
+      "rewrite": "/index.html",
+      "allowedRoles": ["authenticated"]
+    },
+    {
       "route": "/icons/TCE_192.png",
       "allowedRoles": ["anonymous"]
     },
@@ -35,14 +45,6 @@
     {
       "route": "/static/*",
       "allowedRoles": ["anonymous"]
-    },
-    {
-      "route": "/private/*",
-      "allowedRoles": ["authenticated"]
-    },
-    {
-      "route": "/private/welcome",
-      "rewrite": "/index.html"
     },
     {
       "route": "/*",
