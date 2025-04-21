@@ -114,6 +114,11 @@ function App() {
 
                     <Route path="/apps/clearance-calculator" element={<ClearancePWA />} />
 
+                     {/* Private route with authentication for /private/welcome */}
+                    <Route path='/private/welcome' element={<AuthenticatedRoute />}>
+                        <Route index element={<Private />} />
+                    </Route>
+
                     <Route path='/private/:tool' element={<AuthenticatedRoute />}>
                         <Route index element={<Private />} />
                     </Route>
