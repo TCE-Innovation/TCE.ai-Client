@@ -9,7 +9,7 @@
       "allowedRoles": ["anonymous"]
     },
     {
-      "route": "translations.json",
+      "route": "/translations.json",
       "allowedRoles": ["anonymous"]
     },
     {
