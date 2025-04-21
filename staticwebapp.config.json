@@ -37,6 +37,16 @@
       "allowedRoles": ["anonymous"]
     },
     {
+      "route": "/private/welcome",
+      "allowedRoles": ["authenticated"],
+      "rewrite": "/index.html"
+    },
+    {
+      "route": "/private/*",
+      "allowedRoles": ["authenticated"],
+      "rewrite": "/index.html"
+    },
+    {
       "route": "/*",
       "allowedRoles": ["anonymous"],
       "rewrite": "/index.html"
