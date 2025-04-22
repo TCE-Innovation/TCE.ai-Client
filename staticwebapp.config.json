@@ -1,40 +1,20 @@
 {
   "routes": [
     {
-      "route": "/icons/TCE_192.png",
-      "allowedRoles": ["anonymous"]
+      "route": "/login",
+      "rewrite": "/.auth/login/aad"
     },
     {
-      "route": "/icons/TCE_512.png",
-      "allowedRoles": ["anonymous"]
+      "route": "/logout",
+      "redirect": "/.auth/logout"
     },
     {
-      "route": "/translations.json",
-      "allowedRoles": ["anonymous"]
+      "route": "/.auth/login/twitter",
+      "statusCode": 404
     },
     {
-      "route": "/icons/favicon.ico",
-      "allowedRoles": ["anonymous"]
-    },
-    {
-      "route": "/images/blurred_subway_map.png",
-      "allowedRoles": ["anonymous"]
-    },
-    {
-      "route": "/downloads/ClearanceCalculatorSetup.pdf",
-      "allowedRoles": ["anonymous"]
-    },
-    {
-      "route": "/images/gears.gif",
-      "allowedRoles": ["anonymous"]
-    },
-    {
-      "route": "/manifest.json",
-      "allowedRoles": ["anonymous"]
-    },
-    {
-      "route": "/static/*",
-      "allowedRoles": ["anonymous"]
+      "route": "/.auth/login/github",
+      "statusCode": 404
     },
     {
       "route": "/private/welcome",
@@ -47,9 +27,54 @@
       "rewrite": "/index.html"
     },
     {
+      "route": "/static/*",
+      "allowedRoles": ["anonymous"]
+    },
+    {
+      "route": "/icons/*",
+      "allowedRoles": ["anonymous"]
+    },
+    {
+      "route": "/images/*",
+      "allowedRoles": ["anonymous"]
+    },
+    {
+      "route": "/manifest.json",
+      "allowedRoles": ["anonymous"]
+    },
+    {
+      "route": "/translations.json",
+      "allowedRoles": ["anonymous"]
+    },
+    {
+      "route": "/downloads/Setup.pdf",
+      "allowedRoles": ["anonymous"]
+    },
+    {
       "route": "/*",
       "allowedRoles": ["anonymous"],
       "rewrite": "/index.html"
     }
-  ]
+  ],
+  "responseOverrides": {
+    "401": {
+      "redirect": "/login",
+      "statusCode": 302
+    }
+  },
+  "auth": {
+    "identityProviders": {
+      "azureActiveDirectory": {
+        "registration": {
+          "openIdIssuer": "https://login.microsoftonline.com/<your-tenant-id>/v2.0",
+          "clientIdSettingName": "AAD_CLIENT_ID",
+          "clientSecretSettingName": "AAD_CLIENT_SECRET"
+        }
+      }
+    }
+  },
+  "navigationFallback": {
+    "rewrite": "/index.html",
+    "exclude": ["/images/*.{png,jpg,gif}", "/css/*"]
+  }
 }
