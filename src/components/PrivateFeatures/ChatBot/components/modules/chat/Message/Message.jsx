@@ -26,6 +26,7 @@ const Message = ({
   showfeedbackbuttons = true,
   showTypeWriterEffect = false,
   initialShowCitation = false,
+  avatarRef,
 }) => {
   const [imgError, setImgError] = useState(false);
   const [citationPointer, setCitationPointer] = useState(0);
@@ -97,6 +98,7 @@ const Message = ({
       <div
         className={`author-avatar ${!isAI ? "user-avatar" : ""}`}
         data-name={!isAI ? displayName[0].toUpperCase() : ""}
+        ref={avatarRef}
       >
         {isAI ? (
           <img alt={"bot"} src={botImg} />

@@ -20,6 +20,9 @@ const MessageProvider = ({ children }) => {
     selectedProjectId,
     conversations,
     userId,
+    createConversation,
+    setCurrentConversation,
+    isCreatingConversation,
   } = useConversation();
   const {
     mutate: createMessageHandler,
@@ -85,10 +88,23 @@ const MessageProvider = ({ children }) => {
   };
 
   const sendMessage = async (message) => {
-    if (!currentConversation?.id) return;
+    let conversationId = currentConversation?.id;
+    // If no conversation, create one first
+    if (!conversationId) {
+      await createConversation();
+      // Wait for currentConversation to be set
+      // Poll for a short time (max 1s)
+      let waited = 0;
+      while (!conversationId && waited < 1000) {
+        await new Promise((res) => setTimeout(res, 50));
+        conversationId = currentConversation?.id;
+        waited += 50;
+      }
+      if (!conversationId) return; // fail gracefully
+    }
     createMessage({ isAI: false, body: message, id: genRandomId() });
     createMessageHandler({
-      conversationId: currentConversation?.id,
+      conversationId,
       message,
     });
   };

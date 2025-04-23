@@ -1,28 +1,17 @@
-import React, { useEffect } from "react";
-
+import React from "react";
 import { EditIcon } from "../../icons";
-import { useConversation } from "../../../hooks";
+import { useChat } from "../../contexts/Conversation";
 
 const CreateConversation = () => {
-  const {
-    createConversation,
-    isCreatingConversation,
-    currentConversation,
-  } = useConversation();
-
-  useEffect(() => {
-    if (!currentConversation) {
-      createConversation();
-    }
-  });
+  const { startNewChat, loading } = useChat();
 
   return (
     <div className="create-new-chat">
       <span>Create new chat</span>
       <button
-        disabled={isCreatingConversation}
+        disabled={loading.conversations}
         className="chat-button edit-button tooltip-container"
-        onClick={createConversation}
+        onClick={startNewChat}
       >
         <EditIcon />
         <div className="tooltip">Create new chat</div>

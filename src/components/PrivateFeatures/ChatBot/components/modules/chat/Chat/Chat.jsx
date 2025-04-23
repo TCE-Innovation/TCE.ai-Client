@@ -1,50 +1,27 @@
-import React, { useLayoutEffect } from "react";
-
-import ChatInput from "../Input/Input";
-import ChatMessages from "../Messages/Messages";
+import React from "react";
+import Messages from "../Messages/Messages";
 import SelectProject from "../SelectProject";
-import LiveStatus from "./LiveStatus";
-
-import { useMessage, useScroll } from "../../../../hooks";
-
+import ChatInput from "../Input/Input";
 import Wrapper from "./style";
-import { Alerts } from "../../../common";
+import { useChat } from "../../../contexts/Conversation";
 
 const Chat = () => {
-  const { messages, loadingMessages } = useMessage();
-
-  const { containerRef, scrollBottom } = useScroll();
-
-  useLayoutEffect(() => {
-    if (!loadingMessages && messages.length) {
-      scrollBottom();
-    }
-  }, [loadingMessages, messages, scrollBottom]);
+  const { currentProject, loading } = useChat();
+  const isInputVisible = currentProject && !loading.projects;
 
   return (
     <Wrapper>
-      <div className="chatbot-live-status-wrapper">
-        <LiveStatus />
-      </div>
-      <Alerts />
       <div>
         <SelectProject />
       </div>
-      {!loadingMessages && !messages.length && (
-        <>
-          <h1 className="welcome-text">
-            <span>Hello,</span>
-            <br />
-            <span>How can I help you today?</span>
-          </h1>
-        </>
+      <div className="messages-container">
+        <Messages />
+      </div>
+      {isInputVisible && (
+        <div className="message-input-container">
+          <ChatInput />
+        </div>
       )}
-      <div ref={containerRef} className="messages-container">
-        <ChatMessages />
-      </div>
-      <div className="message-input-container">
-        <ChatInput />
-      </div>
     </Wrapper>
   );
 };
