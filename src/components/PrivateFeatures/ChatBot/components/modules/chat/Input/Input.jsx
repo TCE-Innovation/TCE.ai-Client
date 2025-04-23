@@ -1,4 +1,4 @@
-import React, { useMemo, useState, useRef } from "react";
+import React, { useState, useRef } from "react";
 import { SendIcon } from "../../../icons";
 import { useChat } from "../../../contexts/Conversation";
 import Wrapper from "./style";
