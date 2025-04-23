@@ -1,1 +1,1 @@
-export { useContext as default } from "../components/contexts/Conversation";
+export { useChat as default } from "../components/contexts/Conversation";

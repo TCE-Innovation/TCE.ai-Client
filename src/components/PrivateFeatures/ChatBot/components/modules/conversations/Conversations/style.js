@@ -2,6 +2,9 @@ import styled from "styled-components";
 
 export default styled.div`
   height: 100%;
+  min-width: 320px;
+  max-width: 320px;
+  width: 320px;
   .conversations {
     height: 100%;
     display: flex;
@@ -9,6 +12,9 @@ export default styled.div`
     flex-direction: column;
     gap: 0.5em;
     transition: transform 0.2s ease-in;
+    min-width: 320px;
+    max-width: 320px;
+    width: 320px;
     &.slide-left {
       z-index: 1;
       position: absolute;
@@ -31,6 +37,9 @@ export default styled.div`
   }
   .chatbot-admin-button {
     border-radius: var(--chatbot-border-radius);
+    width: 320px;
+    min-width: 320px;
+    max-width: 320px;
   }
   display: flex;
   flex-direction: column;
@@ -44,6 +53,9 @@ export default styled.div`
     justify-content: space-between;
     align-items: center;
     border-radius: var(--chatbot-border-radius);
+    width: 320px;
+    min-width: 320px;
+    max-width: 320px;
     .edit-button {
       color: var(--chatbot-grey);
     }
@@ -59,7 +71,10 @@ export default styled.div`
     position: relative;
     border-radius: var(--chatbot-border-radius);
     background-color: white;
-    width: 20vw;
+    width: 320px;
+    min-width: 320px;
+    max-width: 320px;
+    min-height: 200px;
     padding: 0.5em;
     overflow: hidden auto;
     flex: 1;

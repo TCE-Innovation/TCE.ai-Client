@@ -1,28 +1,24 @@
 import React from "react";
-
 import Message from "../../Message/Message";
-
-import { useMessage } from "../../../../../hooks";
-import { Loader } from "../../../../common";
+import { useChat } from "../../../../contexts/Conversation";
+import { Loader } from "../../../common";
 
 const PreviewMessages = () => {
-  const { messages, loadingMessages } = useMessage();
-  if (loadingMessages) {
+  const { messages, loading } = useChat();
+  if (loading.messages) {
     return <Loader size={5} />;
   }
   return (
     <div>
-      {messages.map((message, i) => {
-        return (
-          <Message
-            key={message.id}
-            {...message}
-            showTypeWriterEffect={false}
-            showfeedbackbuttons={false}
-            initialShowCitation={true}
-          />
-        );
-      })}
+      {messages.map((message, i) => (
+        <Message
+          key={message.id}
+          {...message}
+          showTypeWriterEffect={false}
+          showfeedbackbuttons={false}
+          initialShowCitation={true}
+        />
+      ))}
     </div>
   );
 };

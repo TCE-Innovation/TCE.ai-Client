@@ -1,18 +1,15 @@
 import React, { useState } from "react";
 import { DeleteIcon, EditIcon } from "../../../icons";
 import useConversation from "../../../../hooks/useConversation";
-import useMessage from "../../../../hooks/useMessage";
-
 import { DeleteConversationModal, EditConversationModal } from "../Modal";
 
 const Actions = (props) => {
   const [showDeleteModal, setShowDeleteModal] = useState(false);
   const [showEditModal, setShowEditModal] = useState(false);
   const { isDeletingConversation, isEditingConversation } = useConversation();
-  const { sendingMessage } = useMessage();
 
   const handleOpenDeleteModal = () => {
-    if (isDeletingConversation || sendingMessage) return;
+    if (isDeletingConversation) return;
     setShowDeleteModal(true);
   };
 
