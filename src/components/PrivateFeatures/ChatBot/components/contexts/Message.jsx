@@ -20,6 +20,7 @@ const MessageProvider = ({ children }) => {
     selectedProjectId,
     conversations,
     userId,
+    createConversation,
   } = useConversation();
   const {
     mutate: createMessageHandler,

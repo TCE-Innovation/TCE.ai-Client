@@ -89,7 +89,6 @@ const Message = ({
   const handleCitationClick = (citation) => {
     setActiveCitation(citation);
     setShowDocumentModal(true);
-    setShowDropdown(false);
     setSelectedCitation(citation);
   };
 
