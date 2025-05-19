@@ -106,6 +106,8 @@ function App() {
 
                     <Route exact path='/public' element={<Public />} />
 
+                    {/* add routing to private welcome */}
+
                     <Route exact path='/document' element={<Document />} />
                     
                     <Route path='/sign-in' element={<UnauthenticatedRoute />}>

@@ -64,6 +64,8 @@ function ResponsiveAppBar() {
                 return 'Cable Run Optimizer';
             case 'go-tracker':
                 return 'GO Tracker';
+            case 'monthly-project-reports':
+                return 'Monthly Project Reports';
             case 'equipment-checkout':
                 return 'Equipment Checkout';
             case 'sub-automation':

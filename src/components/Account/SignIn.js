@@ -43,6 +43,10 @@ function Login() {
             setTool('GO Tracker');
             break;
 
+        case '/private/monthly-project-reports':
+            setTool('Monthly Project Reports');
+            break;
+
         case '/private/equipment-checkout':
             setTool('Equipment Checkout');
             break;

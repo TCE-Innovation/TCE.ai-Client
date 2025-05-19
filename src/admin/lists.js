@@ -1,7 +1,7 @@
 // ADMINS
 const adminList = [
-    'mbayne@tcelect.net',
-    'jshavel@tcelect.net',
+    // 'mbayne@tcelect.net',
+    // 'jshavel@tcelect.net',
     'pbesser@tcelect.net',
     'roneill@tcelect.net',
     'sdefalco@tcelect.net',
@@ -15,6 +15,7 @@ const toolList = [
     'Chatbot',
     'Cable Run Optimizer',
     'GO Tracker',
+    'Monthly Project Reports',
     'Tool Usage Statistics',
     'Drone Captures',
     'EIT Dashboard',

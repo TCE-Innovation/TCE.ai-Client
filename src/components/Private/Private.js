@@ -21,6 +21,7 @@ import AssetTracker from '../PrivateFeatures/AssetTracker/AssetTracker';
 import ChatBot from '../PrivateFeatures/ChatBot';
 import GenerateEmails from "../PrivateFeatures/GenerateEmails";
 import GOTracker from "../PrivateFeatures/GOTracker";
+import MonthlyProjectReports from '../PrivateFeatures/MonthlyProjectReports';
 import SubAuto from "../PrivateFeatures/SubAuto/SubAuto";
 import ScheduleDashboards from '../PrivateFeatures/ScheduleDashboards';
 import ToolUsage from "../PrivateFeatures/ToolUsage";
@@ -59,6 +60,7 @@ function PrivateContent() {
     'Email Generator': 'generate-emails',
     'Cable Run Optimizer': 'cable-run-optimizer',
     'GO Tracker': 'go-tracker',
+    'Monthly Project Reports': 'monthly-project-reports',
     'Equipment Checkout': 'equipment-checkout',
     'Subcontractor Forms': 'sub-automation',
     'Schedule Dashboards': 'schedule-dashboards',
@@ -94,6 +96,7 @@ function PrivateContent() {
     'cable-run-optimizer': CRO,
     'equipment-checkout': AssetTracker,
     'go-tracker': GOTracker,
+    'monthly-project-reports': MonthlyProjectReports,
     'chatbot': ChatBot,
     'sub-automation': SubAuto,
     'schedule-dashboards': ScheduleDashboards,
