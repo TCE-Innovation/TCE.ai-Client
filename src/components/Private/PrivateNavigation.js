@@ -86,6 +86,8 @@ function ResponsiveAppBar() {
                 return 'Equipment Install Tracker Dashboard';
             case 'executive-dashboards':
                 return 'Executive Dashboards';
+            case 'monthly-executive-reports':
+                return 'Monthly Executive Reports';
             case 'procore-dashboards':
                 return 'Procore Dashboards';
             case 'chatbot-dashboard':
