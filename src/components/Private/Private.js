@@ -30,6 +30,7 @@ import Clearance from '../PrivateFeatures/Clearance/Clearance';
 import EITDashboard from '../PrivateFeatures/EITDashboard';
 import Admin from '../PrivateFeatures/AdminPanel/AdminPanel';
 import ExecutiveDashboards from '../PrivateFeatures/ExecutiveDashboards';
+import MonthlyExecutiveReports from '../PrivateFeatures/MonthlyExecutiveReports';
 import ProcoreDashboards from '../PrivateFeatures/ProcoreDashboards';
 import ChatbotDashboard from '../PrivateFeatures/ChatbotDashboard';
 
@@ -69,12 +70,13 @@ function PrivateContent() {
     'LLLE Clearance Calculator': 'clearance-calculator',
     'EIT Dashboard': 'equip-install-dashboard',
     'Executive Dashboards': 'executive-dashboards',
+    'Monthly Executive Reports': 'monthly-executive-reports',
     'Procore Dashboards' : 'procore-dashboards',
     'Chatbot Dashboard' : 'chatbot-dashboard',
   };
 
   // Always available tools
-  const alwaysAvailableTools = useMemo(() => ['home', 'training', 'sub-automation', 'equipment-checkout', 'go-tracker', '3d-printing-request', 'chatbot', 'clearance-calculator', 'admin' ], []);
+  const alwaysAvailableTools = useMemo(() => ['home', 'training', 'sub-automation', 'equipment-checkout', 'go-tracker', '3d-printing-request', 'chatbot', 'clearance-calculator', 'admin'], []);
 
   // Split the userTools string into an array
   const userToolsArray = (userTools || "")
@@ -103,6 +105,7 @@ function PrivateContent() {
     'clearance-calculator': Clearance,
     'equip-install-dashboard' : EITDashboard,
     'executive-dashboards' : ExecutiveDashboards,
+    'monthly-executive-reports' : MonthlyExecutiveReports,
     'procore-dashboards' : ProcoreDashboards,
     'chatbot-dashboard' : ChatbotDashboard,
     'admin': isAdmin ? Admin : null // Admin access only
@@ -112,7 +115,6 @@ function PrivateContent() {
   useEffect(() => {
     // skip this check for chatbot as it has url query parameters
     if(tool === "chatbot") return;
-    console.log('Always available tools:', alwaysAvailableTools);
     if (!toolComponentMap[tool] || (!alwaysAvailableTools.includes(tool) && !userToolsUrlEnds.includes(tool))) {
       navigate("/private/home", { replace: true });
     }
