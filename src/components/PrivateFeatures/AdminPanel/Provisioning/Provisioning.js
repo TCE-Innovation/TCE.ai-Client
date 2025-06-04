@@ -17,6 +17,7 @@ const tableNameMap = {
     'Chatbot': 'chatbot',
     'Equipment Install Tracking Dashboard': 'eit_dashboard',
     'Executive Dashboards': 'executive_dashboards',
+    'Monthly Executive Reports': 'monthly_executive_reports',
     'Procore Dashboards' : 'procore_dashboards',
     'Chatbot Dashboard' : 'chatbot_dashboard',
 };
