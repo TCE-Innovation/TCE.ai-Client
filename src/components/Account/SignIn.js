@@ -61,6 +61,9 @@ function Login() {
         case '/private/executive-dashboards':
             setTool('Executive Dashboards');
             break;
+        case '/private/monthly-executive-reports':
+            setTool('Monthly Executive Reports');
+            break;  
 
       default:
         setTool('the site'); // A default case if the path doesn't match any specific tool
