@@ -156,13 +156,12 @@ function ResponsiveAppBar() {
                         sx={{
                             marginTop: '10px',
                             flexGrow: 1,
-                            fontFamily: "'Aptos', sans-serif", // Changed to Aptos
                             fontWeight: '500',
                             letterSpacing: '.1rem',
                             color: 'white',
                             textDecoration: 'none',
                             textAlign: 'center',
-                            textShadow: 'none'                 // Ensure no drop shadow
+                            textShadow: 'none'                 
                         }}
                     >
                         {setTitle(tool)}
