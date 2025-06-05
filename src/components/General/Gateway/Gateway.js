@@ -47,7 +47,6 @@ function Gateway() {
                     sx={{ 
                         color: '#1b365f', 
                         fontFamily: "'Aptos', sans-serif",
-                        fontWeight: 'bold',
                         textShadow: 'none',
                         borderColor: '#1b365f', 
                         backgroundColor: 'rgba(255, 255, 255, 0.9)', 
@@ -90,7 +89,6 @@ function Gateway() {
                     sx={{ 
                         color: '#1b365f', 
                         fontFamily: "'Aptos', sans-serif",
-                        fontWeight: 'bold',
                         textShadow: 'none',
                         borderColor: '#1b365f', 
                         backgroundColor: 'rgba(255, 255, 255, 0.9)', 
