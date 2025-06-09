@@ -112,7 +112,6 @@ function PrivateContent() {
   useEffect(() => {
     // skip this check for chatbot as it has url query parameters
     if(tool === "chatbot") return;
-    console.log('Always available tools:', alwaysAvailableTools);
     if (!toolComponentMap[tool] || (!alwaysAvailableTools.includes(tool) && !userToolsUrlEnds.includes(tool))) {
       navigate("/private/home", { replace: true });
     }
