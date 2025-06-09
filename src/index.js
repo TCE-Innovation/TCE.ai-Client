@@ -22,13 +22,13 @@ const root = createRoot(document.getElementById('root'));
 
 if (window.location.hash !== '') {
   console.log("hash found" + window.location.hash);
+} else {
+  root.render(
+    <MsalProvider instance={msalInstance}>
+      <App />
+    </MsalProvider>
+  );
 }
-
-root.render(
-  <MsalProvider instance={msalInstance}>
-    <App />
-  </MsalProvider>
-);
 
 // Register the service worker for caching data
 register();
