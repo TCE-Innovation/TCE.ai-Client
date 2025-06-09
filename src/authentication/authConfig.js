@@ -5,7 +5,7 @@ export const msalConfig = {
         //redirectUri: "http://localhost:3000/private/welcome"
         redirectUri: (process.env.REACT_APP_ENV === 'dev' || process.env.NODE_ENV === 'development')
             ? "https://dev.tce.tools/private/welcome" 
-            : "https://tce.tools/private/welcome",
+            : "https://tcig.nyc/private/welcome",
         postLogoutRedirectUri: (process.env.REACT_APP_ENV === 'dev' || process.env.NODE_ENV === 'development')
             ? "https://dev.tce.tools"
             : "https://tce.tools",
