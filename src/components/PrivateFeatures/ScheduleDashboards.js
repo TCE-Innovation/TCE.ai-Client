@@ -1,4 +1,4 @@
-import React, { useState, useEffect, useContext } from 'react';
+import React, { useState, useEffect, useContext, useRef } from 'react';
 import TrainLoader from '../General/TrainLoader';
 import { getPBILog } from '../../data/Airtable'; 
 import { getUserProjectsArray } from '../../data/SQL';
@@ -16,11 +16,27 @@ const ScheduleDashboards = () => {
     const [iframeLink, setIframeLink] = useState('');
 
     const { userEmail } = useContext(AuthContext);
+    const iframeRef = useRef(null);
+
+    const handleFullScreen = () => {
+        if (iframeRef.current) {
+            if (iframeRef.current.requestFullscreen) {
+                iframeRef.current.requestFullscreen();
+            } else if (iframeRef.current.mozRequestFullScreen) { // Firefox
+                iframeRef.current.mozRequestFullScreen();
+            } else if (iframeRef.current.webkitRequestFullscreen) { // Chrome, Safari & Edge
+                iframeRef.current.webkitRequestFullscreen();
+            } else if (iframeRef.current.msRequestFullscreen) { // IE/Edge
+                iframeRef.current.msRequestFullscreen();
+            }
+        } else {
+            console.error("Iframe is not available for fullscreen");
+        }
+    };
 
     useEffect(() => {
         const fetchDashboards = async () => {
             try {
-              
                 const data = await getUserProjectsArray(userEmail, 'schedule_dashboards');
                 setUserDashboards(data);
             } catch (error) {
@@ -152,10 +168,27 @@ const ScheduleDashboards = () => {
                                 </Select>
                             </FormControl>
                         )}
+                        {/* Full Screen Button */}
+                        {iframeLink && (
+                            <div style={{ position: 'relative', width: '100%' }}>
+                                <button 
+                                    onClick={handleFullScreen} 
+                                    style={{ 
+                                        position: 'absolute', 
+                                        top: 0, 
+                                        right: 0, 
+                                        padding: '8px 12px', 
+                                        cursor: 'pointer' 
+                                    }}>
+                                    Full Screen
+                                </button>
+                            </div>
+                        )}
                     </Box>
                     {iframeLink && (
                         <div style={{ display: iframeLoaded ? 'block' : 'none', width: '100%', height: '75vh', margin: 'auto' }}>
                             <iframe
+                                ref={iframeRef}
                                 onLoad={handleIframeLoad}
                                 src={iframeLink}
                                 style={{ width: '100%', height: '100%', border: '1px solid #ccc', background: 'transparent' }}

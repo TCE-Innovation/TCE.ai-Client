@@ -15,12 +15,18 @@ export const useUploadDocuments = () => {
       onSuccess: (newData, { updateQuery }) => {
         if (newData.success) {
           const { documents } = newData.data;
+
+          const mappedDocuments = documents.map((doc) => ({
+            ...doc,
+            uploadedBy: doc.updated_by || null,
+          }));
+
           updateQuery(
             ["getProjectDocuments", { projectId: argsRef.current.projectId }],
             (prevDocuments) => {
               return {
                 ...prevDocuments,
-                data: [...documents, ...prevDocuments.data],
+                data: [...mappedDocuments, ...prevDocuments.data],
               };
             }
           );

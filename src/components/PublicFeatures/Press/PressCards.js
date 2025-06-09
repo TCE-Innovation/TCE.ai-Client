@@ -1,7 +1,7 @@
 import React from 'react';
 import styles from "./pressCards.module.css";
 
-import Bridgit from '../../../img/Public/bridgit.webp'
+// import Bridgit from '../../../img/Public/bridgit.webp'
 import Openspace from '../../../img/Public/Openspace.jpg'
 
 const cardData = [
@@ -12,13 +12,13 @@ const cardData = [
         title: "Fireside Chat: How TCE's Transit Projects Arrive On Time with OpenSpace",
         description: "In this recorded fireside chat, you'll hear OpenSpace's Josh Berger and Colin Sucher in conversation with Jacob Shavel.",
     },
-    {
-        href: "https://gobridgit.com/case-studies/tc-electric/",
-        image: Bridgit,
-        alt: "Bridgit",
-        title: "Using Bridgit Bench to Forecast Accurately and Plan with Confidence",
-        description: "How Bridgit Bench gives TCE confidence in their labor allocations and integrates with the rest of their software stack.",
-    }
+    // {
+    //     href: "https://gobridgit.com/case-studies/tc-electric/",
+    //     image: Bridgit,
+    //     alt: "Bridgit",
+    //     title: "Using Bridgit Bench to Forecast Accurately and Plan with Confidence",
+    //     description: "How Bridgit Bench gives TCE confidence in their labor allocations and integrates with the rest of their software stack.",
+    // }
 ];
 
 const PressCards = () => {

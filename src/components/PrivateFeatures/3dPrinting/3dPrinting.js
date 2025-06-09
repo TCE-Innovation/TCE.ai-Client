@@ -187,7 +187,7 @@ const PrintingRequest = () => {
             This not only enhances the overall quality and performance of the final product but also reduces the risk of costly errors and delays.                 
         </div>
         <div className={style.formDescription} style={{ textAlign: 'left', marginTop: '20px', marginRight: '0px', fontSize: '1.3em', maxWidth: '80%' }}>
-            After submitting your print request via the form below, a team member will reach out to you to discuss the details of your requested print and coordinate handoff.
+            After submitting your print request via the form below, Rory will reach out to you to discuss the details of your requested print and coordinate handoff.
         </div>
 
         <div className={style.formDescription} style={{ textAlign: 'left', marginTop: '15px', marginRight: '0px', fontSize: '0.8em', color: 'red', maxWidth: '80%' }}>

@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useRef } from 'react';
 import TrainLoader from '../General/TrainLoader';
 import { getPBILog } from '../../data/Airtable'; // Adjust the path to where your function is located
 import { FormControl, InputLabel, Select, MenuItem, Box } from '@mui/material';
@@ -9,7 +9,21 @@ const ExecutiveDashboards = () => {
     const [selectedDashboard, setSelectedDashboard] = useState('');
     const [iframeSrc, setIframeSrc] = useState('');
     const [iframeLoaded, setIframeLoaded] = useState(false);
+    const iframeRef = useRef(null);
     
+    const handleFullScreen = () => {
+        if (iframeRef.current) {
+            if (iframeRef.current.requestFullscreen) {
+                iframeRef.current.requestFullscreen();
+            } else if (iframeRef.current.mozRequestFullScreen) { // Firefox
+                iframeRef.current.mozRequestFullScreen();
+            } else if (iframeRef.current.webkitRequestFullscreen) { // Chrome, Safari, and Opera
+                iframeRef.current.webkitRequestFullscreen();
+            } else if (iframeRef.current.msRequestFullscreen) { // IE/Edge
+                iframeRef.current.msRequestFullscreen();
+            }
+        }
+    };
 
     useEffect(() => {
         const fetchLink = async () => {
@@ -74,10 +88,25 @@ const ExecutiveDashboards = () => {
                         ))}
                     </Select>
                 </FormControl>
+                {/* Full Screen Button */}
+                <div style={{ position: 'relative', width: '100%' }}>
+                    <button 
+                        onClick={handleFullScreen} 
+                        style={{ 
+                            position: 'absolute', 
+                            top: 0, 
+                            right: 0, 
+                            padding: '8px 12px', 
+                            cursor: 'pointer' 
+                        }}>
+                        Full Screen
+                    </button>
+                </div>
             </Box>
             {iframeSrc && (
                 <div style={{ display: iframeLoaded ? 'block' : 'none', width: '100%', height: '75vh', margin: 'auto' }}>
                     <iframe
+                        ref={iframeRef}
                         onLoad={handleIframeLoad}
                         src={iframeSrc}
                         style={{ width: '100%', height: '100%', border: '1px solid #ccc', background: 'transparent' }}

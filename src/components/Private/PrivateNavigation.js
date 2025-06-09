@@ -35,6 +35,7 @@ function ResponsiveAppBar() {
     const [openDialog, setOpenSupportDialog] = useState(false);
     const [openAccountDialog, setOpenAccountDialog] = useState(false);
     const [openIdeaDialog, setOpenIdeaDialog] = useState(false);
+      
 
     const { tool } = useParams();
     const { userPic } = useContext(AuthContext);
@@ -130,7 +131,8 @@ function ResponsiveAppBar() {
         </Dialog>
 
         <AppBar position="fixed" sx={{
-            background: '#1b365f', height: '90px'
+            background: '#1b365f', 
+            height: '90px',
         }}>
                 <Toolbar disableGutters>
                     <Box sx={{ display: 'flex', alignItems: 'center', justifyContent:"center"}}>       
@@ -139,7 +141,7 @@ function ResponsiveAppBar() {
                                 src={logo}
                                 alt='logo'
                                 style={{
-                                    width: '150px',
+                                    width: '206px',
                                     marginLeft: '30px',
                                     marginTop: '11px',
                                 }}
@@ -154,11 +156,12 @@ function ResponsiveAppBar() {
                         sx={{
                             marginTop: '10px',
                             flexGrow: 1,
-                            fontfamily: "Roboto",
+                            fontWeight: '500',
                             letterSpacing: '.1rem',
                             color: 'white',
                             textDecoration: 'none',
-                            textAlign: 'center'
+                            textAlign: 'center',
+                            textShadow: 'none'                 
                         }}
                     >
                         {setTitle(tool)}

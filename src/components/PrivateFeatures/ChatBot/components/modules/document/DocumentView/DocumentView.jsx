@@ -21,10 +21,10 @@ const DocumentView = ({
     pageControl,
     workerUrl,
     handleDocumentLoad,
+    numericNumberOfPages,
     zoom,
     scaler,
   } = useDocument(highlightedText, pageNumber);
-
   return (
     <Wrapper scaler={scaler}>
       <DocumentHeader
@@ -33,6 +33,8 @@ const DocumentView = ({
         jumpToNextPage={pageControl.jumpToNextPage}
         jumpToPreviousPage={pageControl.jumpToPreviousPage}
         totalPage={pageControl.NumberOfPages}
+        numberOfPages={numericNumberOfPages}
+        currentPageNumber={pageControl.currentPageNumber}
         onClose={onClose}
         handleZoom={zoom}
         scaler={scaler}

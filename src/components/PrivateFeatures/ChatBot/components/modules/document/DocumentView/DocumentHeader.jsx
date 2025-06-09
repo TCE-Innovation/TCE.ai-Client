@@ -13,6 +13,7 @@ const DocumentHeader = ({
   currentPage = 0,
   totalPage,
   jumpToPreviousPage,
+  currentPageNumber,
   jumpToNextPage,
   onClose,
   handleZoom,
@@ -49,14 +50,14 @@ const DocumentHeader = ({
       <div className="document-navigation">
         <button
           className="chat-button tooltip-container"
-          onClick={jumpToPreviousPage}
+          onClick={() => jumpToPreviousPage(currentPageNumber - 1)}
         >
           <LeftIcon />
           <div className="tooltip align-top">previous</div>
         </button>
         <button
           className="chat-button tooltip-container"
-          onClick={jumpToNextPage}
+          onClick={() => jumpToNextPage(currentPageNumber + 1)}
         >
           <RightIcon />
           <div className="tooltip align-top">next</div>

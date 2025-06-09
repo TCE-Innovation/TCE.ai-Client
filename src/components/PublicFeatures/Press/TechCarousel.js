@@ -9,7 +9,7 @@ import "slick-carousel/slick/slick-theme.css";
 //IMAGES
 import ProCore from "../../../img/PartnerImages/ProCore.png";
 import Airtable from "../../../img/PartnerImages/Airtable.png";
-import Bridgit from "../../../img/PartnerImages/Bridgit.png";
+// import Bridgit from "../../../img/PartnerImages/Bridgit.png";
 import OpenSpace from "../../../img/PartnerImages/OpenSpace.png";
 import EZ from "../../../img/PartnerImages/EZ.png";
 import Matterport from "../../../img/PartnerImages/Matterport.png";
@@ -34,11 +34,11 @@ const TechCarousel = () => {
             title: 'ProCore',
             link: 'https://www.procore.com/'
         },
-        {
-            image: Bridgit,
-            title: 'Bridgit',
-            link: 'https://gobridgit.com/'
-        },
+        // {
+        //     image: Bridgit,
+        //     title: 'Bridgit',
+        //     link: 'https://gobridgit.com/'
+        // },
         {
             image: Airtable,
             title: 'Airtable',

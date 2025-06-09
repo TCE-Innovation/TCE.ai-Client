@@ -1,31 +1,36 @@
 {
   "routes": [
     {
-      "route": "/icons/TCE_192.png",
+      "route": "/login",
+      "rewrite": "/.auth/login/aad"
+    },
+    {
+      "route": "/logout",
+      "redirect": "/.auth/logout"
+    },
+    {
+      "route": "/.auth/login/twitter",
+      "statusCode": 404
+    },
+    {
+      "route": "/.auth/login/github",
+      "statusCode": 404
+    },
+    {
+      "route": "/private/*",
+      "allowedRoles": ["authenticated"],
+      "rewrite": "/index.html"
+    },
+    {
+      "route": "/static/*",
       "allowedRoles": ["anonymous"]
     },
     {
-      "route": "/icons/TCE_512.png",
+      "route": "/icons/*",
       "allowedRoles": ["anonymous"]
     },
     {
-      "route": "translations.json",
-      "allowedRoles": ["anonymous"]
-    },
-    {
-      "route": "/icons/favicon.ico",
-      "allowedRoles": ["anonymous"]
-    },
-    {
-      "route": "/images/blurred_subway_map.png",
-      "allowedRoles": ["anonymous"]
-    },
-    {
-      "route": "/downloads/ClearanceCalculatorSetup.pdf",
-      "allowedRoles": ["anonymous"]
-    },
-    {
-      "route": "/images/gears.gif",
+      "route": "/images/*",
       "allowedRoles": ["anonymous"]
     },
     {
@@ -33,7 +38,11 @@
       "allowedRoles": ["anonymous"]
     },
     {
-      "route": "/static/*",
+      "route": "/translations.json",
+      "allowedRoles": ["anonymous"]
+    },
+    {
+      "route": "/downloads/Setup.pdf",
       "allowedRoles": ["anonymous"]
     },
     {
@@ -41,5 +50,26 @@
       "allowedRoles": ["anonymous"],
       "rewrite": "/index.html"
     }
-  ]
+  ],
+  "responseOverrides": {
+    "401": {
+      "redirect": "/login",
+      "statusCode": 302
+    }
+  },
+  "auth": {
+    "identityProviders": {
+      "azureActiveDirectory": {
+        "registration": {
+          "openIdIssuer": "https://login.microsoftonline.com/<your-tenant-id>/v2.0",
+          "clientIdSettingName": "AAD_CLIENT_ID",
+          "clientSecretSettingName": "AAD_CLIENT_SECRET"
+        }
+      }
+    }
+  },
+  "navigationFallback": {
+    "rewrite": "/index.html",
+    "exclude": ["/images/*.{png,jpg,gif}", "/css/*"]
+  }
 }

@@ -1,26 +1,18 @@
-import React, { useMemo, useState } from "react";
-
+import React, { useState, useRef } from "react";
 import { SendIcon } from "../../../icons";
-
-import { useMessage, useConversation, queries } from "../../../../hooks";
-
+import { useChat } from "../../../contexts/Conversation";
 import Wrapper from "./style";
 
 const ChatInput = () => {
-  const { loadingMessages, sendMessage, sendingMessage } = useMessage();
-  const { data, loading: loadingProjects } = queries.useGetProjectsQuery();
-  const {
-    conversations,
-    currentConversation,
-    loadingConversations,
-    isCreatingConversation,
-  } = useConversation();
+  const { currentProject, loading, sendMessage } = useChat();
   const [message, setMessage] = useState("");
+  const inputRef = useRef(null);
 
-  const hasProjects = useMemo(() => {
-    if (!data) return false;
-    return data.data?.length > 0;
-  }, [data]);
+  const isDisabled =
+    !currentProject ||
+    loading.projects ||
+    loading.conversations ||
+    loading.messages;
 
   const handleInput = (e) => {
     setMessage(e.target.value);
@@ -32,26 +24,19 @@ const ChatInput = () => {
     }
   };
 
-  const isDisabled =
-    !conversations.length ||
-    !currentConversation ||
-    !hasProjects ||
-    loadingProjects ||
-    loadingMessages ||
-    sendingMessage ||
-    loadingConversations ||
-    isCreatingConversation;
-
-  const submitMessageHandler = () => {
-    if (isDisabled) return;
-    sendMessage(message);
+  const submitMessageHandler = async () => {
+    if (isDisabled || !message.trim()) return;
+    const tempMessage = message;
     setMessage("");
+    await sendMessage(tempMessage);
+    if (inputRef.current) inputRef.current.blur();
   };
 
   return (
     <Wrapper tabIndex={0}>
       <div className="chatbot-input-container">
         <input
+          ref={inputRef}
           value={message}
           disabled={isDisabled}
           onChange={handleInput}

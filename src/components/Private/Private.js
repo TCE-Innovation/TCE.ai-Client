@@ -37,38 +37,11 @@ import ChatbotDashboard from '../PrivateFeatures/ChatbotDashboard';
 import { adminList } from "../../admin/lists";
 import { AuthContext } from "../../authentication/Auth";
 
-const Drawer = styled(MuiDrawer, {
-  shouldForwardProp: (prop) => prop !== "open",
-})(({ theme, open }) => ({
-  "& .MuiDrawer-paper": {
-    position: "fixed",
-    whiteSpace: "nowrap",
-    marginTop: "90px",
-    width: "auto",
-    transition: theme.transitions.create("width", {
-      easing: theme.transitions.easing.sharp,
-      duration: theme.transitions.duration.enteringScreen,
-    }),
-    boxSizing: "border-box",
-    height: "100vh",
-    ...(!open && {
-      overflowX: "hidden",
-      transition: theme.transitions.create("width", {
-        easing: theme.transitions.easing.sharp,
-        duration: theme.transitions.duration.leavingScreen,
-      }),
-      width: theme.spacing(7),
-      [theme.breakpoints.up("sm")]: {
-        width: theme.spacing(9),
-      },
-    }),
-  },
-}));
-
 const mdTheme = createTheme();
 
 function PrivateContent() {
   const [open, setOpen] = React.useState(true);
+
   const toggleDrawer = () => {
     setOpen(!open);
   };
@@ -139,7 +112,6 @@ function PrivateContent() {
   useEffect(() => {
     // skip this check for chatbot as it has url query parameters
     if(tool === "chatbot") return;
-    console.log('Always available tools:', alwaysAvailableTools);
     if (!toolComponentMap[tool] || (!alwaysAvailableTools.includes(tool) && !userToolsUrlEnds.includes(tool))) {
       navigate("/private/home", { replace: true });
     }
@@ -152,6 +124,32 @@ function PrivateContent() {
   ]);
 
   const ComponentToRender = toolComponentMap[tool] || Home;
+
+  const Drawer = styled(MuiDrawer, {
+    shouldForwardProp: (prop) => prop !== "open",
+  })(({ theme, open }) => ({
+    "& .MuiDrawer-paper": {
+      position: "fixed",
+      whiteSpace: "nowrap",
+      marginTop: "90px",
+      width: "auto",
+      boxSizing: "border-box",
+      //height: "calc(100vh - 20px)",
+      height: "90vh",
+      overflowY: "auto", // Allow vertical scrolling
+      scrollbarWidth: "none", // For Firefox, hides scrollbar
+      "&::-webkit-scrollbar": {
+        display: "none", // Hides the scrollbar for Webkit browsers like Chrome, Safari
+      },
+      ...(open ? {} : {
+        overflowX: "hidden",
+        width: theme.spacing(7),
+        [theme.breakpoints.up("sm")]: {
+          width: theme.spacing(9),
+        },
+      }),
+    },
+  }));
 
   return (
     <ThemeProvider theme={mdTheme}>
@@ -185,7 +183,11 @@ function PrivateContent() {
 
         <Box
           component="main"
-          sx={{ marginTop: 5, flexGrow: 1, p: 3, ml: open ? 33 : 9 }}
+          sx={{ 
+            marginTop: 5, 
+            flexGrow: 1, 
+            p: 3, 
+            ml: open ? 33 : 9 }}
         >
           <ComponentToRender />
         </Box>

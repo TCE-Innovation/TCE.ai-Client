@@ -17,9 +17,13 @@ jobs:
     env: 
       REACT_APP_ENV: "prod"
     steps:
-      - uses: actions/checkout@v3
+      - name: Checkout code
+        uses: actions/checkout@v3
         with:
           submodules: true
+          lfs: false
+          persist-credentials: false  # Prevents the "extraheader" issue
+
       - name: Build And Deploy
         id: builddeploy
         uses: Azure/static-web-apps-deploy@v1

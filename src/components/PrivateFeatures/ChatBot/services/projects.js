@@ -7,7 +7,7 @@ const route = "/user/projects";
 
 export const getProjects = async () => {
   const { data, message, success } = await client.get(route);
-  const _data = sortArray(data, "created_at").map((item) => {
+  const _data = data.map((item) => {
     return {
       ...item,
       name: item.name,
@@ -82,7 +82,7 @@ export const addUserToProject = async ({ projectId, userId }) => {
 };
 
 /**
- * 
+ *
  * @example Response
  * [
     {
@@ -101,8 +101,8 @@ export const addUserToProject = async ({ projectId, userId }) => {
         "role": "Project Manager",
         "added_to_project": true
     }
-] 
- * 
+]
+ *
  */
 export const addUsersToProjects = async ({ projectIds, userIds }) => {
   const { data, ...result } = await client.create(`${route}/users`, {

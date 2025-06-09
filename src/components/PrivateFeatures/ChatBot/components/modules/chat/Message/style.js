@@ -14,6 +14,9 @@ export default styled.div`
       font-size: var(--size);
     }
     .message-body {
+      word-break: break-word;
+      white-space: pre-wrap;
+      overflow-wrap: break-word;
       color: var(--chatbot-text-primary);
       line-height: 2em;
     }

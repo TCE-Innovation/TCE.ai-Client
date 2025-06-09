@@ -1,10 +1,11 @@
 import { useRef } from "react";
-import { useGlobal } from "../../hooks";
+import { useGlobal, useConversation } from "../../hooks";
 import { messageService } from "../../services";
 import useMutation from "../useMutation";
 
 export const useCreateMessage = () => {
   const { createAlert } = useGlobal();
+  const { userId } = useConversation();
   const argsRef = useRef();
 
   return useMutation(
@@ -18,11 +19,12 @@ export const useCreateMessage = () => {
       onSuccess: (newData, { updateQuery }) => {
         if (newData.success) {
           const newMessage = newData.data;
-          return updateQuery(
+          updateQuery(
             [
               "getMessages",
               {
                 conversationId: argsRef.current.conversationId,
+                userId,
               },
             ],
             (messages) => {

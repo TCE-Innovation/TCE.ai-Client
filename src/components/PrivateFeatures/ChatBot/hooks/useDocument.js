@@ -1,4 +1,4 @@
-import { useRef, useState } from "react";
+import { useEffect, useState } from "react";
 import { version } from "pdfjs-dist";
 import { pageNavigationPlugin } from "@react-pdf-viewer/page-navigation";
 import { searchPlugin } from "@react-pdf-viewer/search";
@@ -42,14 +42,24 @@ const renderHighlights = (pageNumber) => (props) => {
 };
 
 const useDocument = (textToHighlight, pageNumber) => {
-  const [uniquePageMatcheIndices, setUniquePageMatchIndices] = useState([]);
   const [scaler, setScaler] = useState(2);
-  const currentMatchPageRef = useRef(0);
+  const [currentPageNumber, setCurrentPageNumber] = useState(pageNumber || 0);
+  const [totalPages, setTotalPages] = useState(0);
   const pageNavigationPluginInstance = pageNavigationPlugin();
   const searchPluginInstance = searchPlugin({
     enableShortcuts: false,
     renderHighlights: renderHighlights(pageNumber),
   });
+
+  const {
+    CurrentPageLabel,
+    NumberOfPages,
+    jumpToPage,
+  } = pageNavigationPluginInstance;
+
+  useEffect(() => {
+    jumpToPage(currentPageNumber - 1);
+  }, [currentPageNumber, jumpToPage]);
 
   const { highlight } = searchPluginInstance;
 
@@ -57,23 +67,11 @@ const useDocument = (textToHighlight, pageNumber) => {
     setScaler((prev) => Math.min(Math.max(1, prev + n), 2));
   };
 
-  const updateMatchPage = (offset) => {
-    const currentPageIndex = currentMatchPageRef.current;
-    const newPageIndex = currentPageIndex + offset;
-    if (newPageIndex < 0)
-      currentMatchPageRef.current = uniquePageMatcheIndices.length - 1;
-    else
-      currentMatchPageRef.current =
-        newPageIndex % uniquePageMatcheIndices.length;
-    const page = uniquePageMatcheIndices[currentMatchPageRef.current];
-    jumpToPage(page);
+  const updateMatchPage = (offset, totalPages) => {
+    if (offset <= totalPages && offset > 0) {
+      setCurrentPageNumber(offset);
+    }
   };
-
-  const {
-    CurrentPageLabel,
-    NumberOfPages,
-    jumpToPage,
-  } = pageNavigationPluginInstance;
 
   const extractLines = (textContent) => {
     const items = [];
@@ -112,25 +110,26 @@ const useDocument = (textToHighlight, pageNumber) => {
     const filteredLines = isHighlightedTextArray
       ? []
       : filterLines(lines, textToHighlight);
-    setTimeout(async () => {
-      highlight(
-        filteredLines.map((line) => ({
-          keyword: line,
-        }))
-      ).then(() => {
-        jumpToPage(pageNumber - 1);
-      });
 
-      setUniquePageMatchIndices([pageNumber - 1]);
-    }, 0);
+    await highlight(
+      filteredLines.map((line) => ({
+        keyword: line,
+      }))
+    ).then(() => {
+      jumpToPage(pageNumber - 1);
+    });
+
+    const totalPages = ev.doc.numPages;
+
+    setTotalPages(totalPages);
   };
 
-  const next = () => {
-    updateMatchPage(1);
+  const next = (nextPageNumber) => {
+    updateMatchPage(nextPageNumber, totalPages);
   };
 
-  const prev = () => {
-    updateMatchPage(-1);
+  const prev = (prevPageNumber) => {
+    updateMatchPage(prevPageNumber, totalPages);
   };
 
   const workerUrl = `https://unpkg.com/pdfjs-dist@${version}/build/pdf.worker.min.js`;
@@ -143,6 +142,7 @@ const useDocument = (textToHighlight, pageNumber) => {
       jumpToPreviousPage: prev,
       CurrentPageLabel: CurrentPageLabel(),
       NumberOfPages: NumberOfPages(),
+      currentPageNumber: currentPageNumber,
     },
     handleDocumentLoad,
     zoom,

@@ -29,8 +29,14 @@ function Gateway() {
         }}
       />
         <Box className={styles.mainContainer}>
-                <Typography variant="h1" component="h1" gutterBottom className={styles.text}>
-                    Welcome to the home of <br/> the TCE Innovation Group
+                <Typography
+                  variant="h1"
+                  component="h1"
+                  gutterBottom
+                  className={styles.text}
+                  sx={{ fontFamily: "'Aptos', sans-serif", fontWeight: 'bold' }}
+                >
+                  Welcome to the home of <br /> TCE Innovation Tools
                 </Typography>
                 <img src={logo} alt="TCE Innovation Group Logo" className={styles.smallLogo} />
             <Box className={styles.buttonBox}>
@@ -40,6 +46,8 @@ function Gateway() {
                     onClick={MicrosoftSignIn}
                     sx={{ 
                         color: '#1b365f', 
+                        fontFamily: "'Aptos', sans-serif",
+                        textShadow: 'none',
                         borderColor: '#1b365f', 
                         backgroundColor: 'rgba(255, 255, 255, 0.9)', 
                         boxShadow:'0px 0px 20px 0px rgba(0, 0, 0, 0.75)',
@@ -57,7 +65,18 @@ function Gateway() {
                     Employee Sign In
                 </Button>
 
-                <Typography variant="h1" component="h1" gutterBottom sx={{ fontSize: '1.4vw', textAlign:"center", marginTop: "1vw", color: 'white' }}>
+                <Typography 
+                  variant="h1" 
+                  component="h1" 
+                  gutterBottom
+                  sx={{ fontFamily: "'Aptos', sans-serif", 
+                      fontWeight: 'bold', 
+                      fontSize: '1.4vw', 
+                      textAlign:"center", 
+                      marginTop: "1vw", 
+                      color: 'white' 
+                    }}
+                >
                     OR
                 </Typography>
 
@@ -69,6 +88,8 @@ function Gateway() {
                     }}
                     sx={{ 
                         color: '#1b365f', 
+                        fontFamily: "'Aptos', sans-serif",
+                        textShadow: 'none',
                         borderColor: '#1b365f', 
                         backgroundColor: 'rgba(255, 255, 255, 0.9)', 
                         boxShadow:'0px 0px 20px 0px rgba(0, 0, 0, 0.75)',
@@ -83,7 +104,7 @@ function Gateway() {
                         '&:hover': { borderWidth: '.3vw', borderColor: '#003eab', backgroundColor: 'rgba(255, 255, 255, 0.9)', transform: 'scale(1.05)' }, 
                     }}
                 >
-                    Continue to the public site
+                    Continue to public site
                 </Button>
             </Box>
         </Box>

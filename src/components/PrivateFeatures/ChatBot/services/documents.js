@@ -14,7 +14,7 @@ export const getDocuments = async ({ projectId }) => {
     name: item.document_name,
     uploadDate: item.created_at,
     id: item.document_id,
-    uploadedBy: item.uploaded_by || null,
+    uploadedBy: item.updated_by || null,
   }));
   return {
     data: _data,
@@ -24,7 +24,7 @@ export const getDocuments = async ({ projectId }) => {
 };
 
 /**
- * 
+ *
  * @example Response
  * document: {
     "id": 130,
@@ -36,7 +36,7 @@ export const getDocuments = async ({ projectId }) => {
     "processed_at": null,
     "created_at": "2024-08-21T12:48:49.513365Z"
   }
- *  
+ *
  */
 export const uploadDocument = async ({ projectId, formData }) => {
   const { data, ...result } = await client.create(

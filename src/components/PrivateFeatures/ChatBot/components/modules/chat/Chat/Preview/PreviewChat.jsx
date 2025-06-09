@@ -1,32 +1,25 @@
-import React, { useLayoutEffect } from "react";
-
-import ChatMessages from "./PreviewMessages";
-import SelectProject from "../../SelectProject";
-
-import { useMessage, useScroll } from "../../../../../hooks";
-
-import Wrapper from "../style";
+import React from "react";
+import Message from "../../Message/Message";
+import { useChat } from "../../../../contexts/Conversation";
+import { Loader } from "../../../../common";
 
 const PreviewChat = () => {
-  const { messages, loadingMessages } = useMessage();
-
-  const { containerRef, scrollBottom } = useScroll();
-
-  useLayoutEffect(() => {
-    if (!loadingMessages && messages.length) {
-      scrollBottom();
-    }
-  }, [loadingMessages, messages, scrollBottom]);
-
+  const { messages, loading } = useChat();
+  if (loading.messages) {
+    return <Loader size={5} />;
+  }
   return (
-    <Wrapper>
-      <div>
-        <SelectProject />
-      </div>
-      <div ref={containerRef} className="messages-container">
-        <ChatMessages />
-      </div>
-    </Wrapper>
+    <div>
+      {messages.map((message, i) => (
+        <Message
+          key={message.id}
+          {...message}
+          showTypeWriterEffect={false}
+          showfeedbackbuttons={false}
+          initialShowCitation={true}
+        />
+      ))}
+    </div>
   );
 };
 

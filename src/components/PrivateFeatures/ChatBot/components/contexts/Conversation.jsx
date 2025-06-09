@@ -1,122 +1,223 @@
-import React, {
-  createContext,
-  useContext as _useContext,
-  useLayoutEffect,
-  useMemo,
-  useEffect,
-} from "react";
+import React, { createContext, useContext, useState, useEffect, useCallback, useRef } from "react";
+import { conversationService, messageService, projectService } from "../../services";
+import { genRandomId } from "../../utils/uuid";
 
-import useStorage from "../../hooks/useStorage";
+const ChatContext = createContext();
 
-import { useGetConversationsQuery } from "../../hooks/queries/";
-import {
-  useDeleteConversation,
-  useEditConversation,
-  useCreateConversation,
-} from "../../hooks/mutations/";
+export const useChat = () => useContext(ChatContext);
 
-const ConversationContext = createContext();
+const ChatProvider = ({ children }) => {
+  const [projects, setProjects] = useState([]);
+  const [currentProject, setCurrentProject] = useState(null);
+  const [conversations, setConversations] = useState([]);
+  const [currentConversation, setCurrentConversation] = useState(null);
+  const [messages, setMessages] = useState([]);
+  const [loading, setLoading] = useState({ projects: false, conversations: false, messages: false });
+  const [error, setError] = useState(null);
+  const [sendingMessage, setSendingMessage] = useState(false);
+  const [isDeletingConversation, setIsDeletingConversation] = useState(false);
+  const [isEditingConversation, setIsEditingConversation] = useState(false);
+  // Track if a conversation was just created to prevent fetching messages after first message
+  const justCreatedConversationRef = useRef(false);
 
-export const useContext = () => _useContext(ConversationContext);
+  // Fetch projects on mount
+  useEffect(() => {
+    setLoading(l => ({ ...l, projects: true }));
+    projectService.getProjects()
+      .then(data => {
+        console.log("data", data);
+        setProjects(data.data || []);
+        setCurrentProject(data.data[0].id);
+      })
+      .catch(e => setError(e))
+      .finally(() => setLoading(l => ({ ...l, projects: false })));
+  }, []);
 
-const ConversationProvider = ({ children }) => {
-  const {
-    mutate: deleteConversationMutation,
-    loading: isDeleting,
-  } = useDeleteConversation();
-
-  const {
-    mutate: editConversationMutation,
-    loading: isEditing,
-  } = useEditConversation();
-
-  const {
-    mutate: createConversationMutation,
-    data: newConversation,
-    loading: isCreating,
-  } = useCreateConversation();
-
-  const [currentConversation, setCurrentConversation, reset] = useStorage(
-    "CHATBOT_CURRENT_CONVERSATION",
-    null
-  );
-
-  const [selectedProjectId, setSelectedProjectId] = useStorage("PROJECT_ID", 9);
-
-  const { data, loading } = useGetConversationsQuery(
-    { projectId: selectedProjectId },
-    { disableRunOnMount: selectedProjectId === null }
-  );
-
-  const conversations = useMemo(() => data?.data || [], [data]);
-
-  useLayoutEffect(() => {
-    if (!currentConversation?.id || !conversations.length) return;
-    if (parseInt(!currentConversation.id)) return reset();
-    const isValid = conversations.some(
-      (c) => c.id.toString() === currentConversation.id.toString()
-    );
-    if (!isValid) {
-      reset();
-    }
-  }, [conversations, currentConversation, reset]);
-
-  const createConversation = async () => {
-    if (loading || isCreating) return;
-    createConversationMutation({
-      projectId: selectedProjectId,
-    });
-  };
+  // Fetch conversations when project changes
+  const fetchConversations = useCallback(() => {
+    if (!currentProject) return;
+    setLoading(l => ({ ...l, conversations: true }));
+    conversationService.getConversations(currentProject)
+      .then(data => {
+        const convs = data.data || [];
+        // Always replace conversations with the new list for the current project
+        setConversations(convs);
+        // If currentConversation is not set or not in the list, set to first
+        if (!convs.length) {
+          setCurrentConversation(null);
+        } else if (!currentConversation || !convs.some(c => c.id === currentConversation.id)) {
+          setCurrentConversation(convs[0]);
+        }
+      })
+      .catch(e => setError(e))
+      .finally(() => setLoading(l => ({ ...l, conversations: false })));
+  }, [currentProject, currentConversation]);
 
   useEffect(() => {
-    if (!newConversation) return;
-    setCurrentConversation({
-      id: newConversation.data,
-      title: "New Title",
-    });
-    //eslint-disable-next-line
-  }, [newConversation]);
+    fetchConversations();
+    // eslint-disable-next-line
+  }, [currentProject]);
 
-  const editConversation = async ({ name, id }) => {
-    if (isEditing || !id) return;
-    editConversationMutation({
-      conversationId: id,
-      name,
-      projectId: selectedProjectId,
-    });
-  };
+  // Fetch messages when conversation changes
+  useEffect(() => {
+    if (!currentConversation) {
+      setMessages([]);
+      return;
+    }
+    // Only fetch if not a pending conversation (i.e., user switched conversations)
+    if (currentConversation.id === "pending") return;
+    // Prevent fetching after first message in a new conversation
+    if (justCreatedConversationRef.current) {
+      justCreatedConversationRef.current = false;
+      return;
+    }
+    setLoading(l => ({ ...l, messages: true }));
+    messageService.getMessages({ conversationId: currentConversation.id })
+      .then(data => setMessages(data.data?.messages || []))
+      .catch(e => setError(e))
+      .finally(() => setLoading(l => ({ ...l, messages: false })));
+    // eslint-disable-next-line
+  }, [currentConversation]);
 
-  const deleteConversation = (id) => async (e) => {
-    if (isDeleting || !id) return;
-    e.stopPropagation();
-    deleteConversationMutation({
-      conversationId: id,
-      projectId: selectedProjectId,
-    });
+  // Actions
+  const selectProject = useCallback((projectId) => {
+    setCurrentProject(projectId);
     setCurrentConversation(null);
-  };
+    setMessages([]);
+  }, []);
+
+  const selectConversation = useCallback((conversation) => {
+    setCurrentConversation(conversation);
+  }, []);
+
+  const startNewChat = useCallback(() => {
+    setCurrentConversation(null);
+    setMessages([]);
+  }, []);
+
+  const sendMessage = useCallback(async (body) => {
+    let conversation = currentConversation;
+    setSendingMessage(true);
+    const userMessageId = genRandomId();
+    // If no conversation, set a temporary one for optimistic UI
+    if (!conversation) {
+      conversation = { id: "pending", title: "New Chat", projectId: currentProject };
+      setCurrentConversation(conversation);
+    }
+    // Optimistically add the user's message and bot animation
+    setMessages((prev) => [
+      ...prev,
+      { isAI: false, body, id: userMessageId },
+      { isAI: true, body: null, id: "bot-typing", typing: true },
+    ]);
+    try {
+      // If conversation is pending, create it
+      let realConversation = conversation;
+      if (conversation.id === "pending") {
+        const convRes = await conversationService.createConversation(currentProject);
+        if (!convRes.success) throw new Error(convRes.message || "Failed to create conversation");
+        realConversation = { id: convRes.data, title: "New Chat", projectId: currentProject };
+        setCurrentConversation(realConversation);
+        justCreatedConversationRef.current = true; // Prevent fetch after first message
+      }
+      // Send message
+      const msgRes = await messageService.createMessage({ conversationId: realConversation.id, message: body });
+      if (!msgRes.success) throw new Error(msgRes.message || "Failed to send message");
+      // Replace the bot-typing placeholder with the real AI response
+      setMessages((prev) =>
+        prev
+          .filter((m) => m.id !== "bot-typing")
+          .map((m) =>
+            m.id === userMessageId
+              ? m
+              : m
+          )
+          .concat({
+            isAI: true,
+            body: msgRes.data.body || msgRes.data.ai_response,
+            citations: msgRes.data.citations,
+            id: msgRes.data.id || genRandomId(),
+          })
+      );
+      // After first message in new conversation, refresh conversation list (add only new conv)
+      if (conversation.id === "pending") {
+        conversationService.getConversations(currentProject).then(data => {
+          const convs = data.data || [];
+          setConversations(convs);
+        });
+      }
+    } catch (e) {
+      setError(e.message || "Failed to send message");
+      // Remove the bot-typing placeholder
+      setMessages((prev) => prev.filter((m) => m.id !== "bot-typing"));
+    } finally {
+      setSendingMessage(false);
+    }
+  }, [currentConversation, currentProject]);
+
+  // Delete conversation function for DeleteConversation component
+  const deleteConversation = useCallback((id) => {
+    return async (e) => {
+      setIsDeletingConversation(true);
+      try {
+        await conversationService.deleteConversation(id, currentProject);
+        setConversations(prev => prev.filter(c => c.id !== id));
+        if (currentConversation && currentConversation.id === id) {
+          setCurrentConversation(null);
+          setMessages([]);
+        }
+      } catch (err) {
+        setError(err.message || "Failed to delete conversation");
+      } finally {
+        setIsDeletingConversation(false);
+      }
+    };
+  }, [currentProject, currentConversation]);
+
+  // Edit conversation function for EditConversation component
+  const editConversation = useCallback(async ({ name, id }) => {
+    setIsEditingConversation(true);
+    try {
+      const res = await conversationService.editConversation({ conversationId: id, name, projectId: currentProject });
+      if (res.success) {
+        setConversations(prev => prev.map(c => c.id === id ? { ...c, title: name } : c));
+        if (currentConversation && currentConversation.id === id) {
+          setCurrentConversation({ ...currentConversation, title: name });
+        }
+      } else {
+        setError(res.message || "Failed to edit conversation");
+      }
+    } catch (err) {
+      setError(err.message || "Failed to edit conversation");
+    } finally {
+      setIsEditingConversation(false);
+    }
+  }, [currentProject, currentConversation]);
 
   return (
-    <ConversationContext.Provider
+    <ChatContext.Provider
       value={{
+        projects,
+        currentProject,
+        selectProject,
         conversations,
         currentConversation,
-        createConversation,
+        selectConversation,
+        messages,
+        sendMessage,
+        startNewChat,
+        loading,
+        error,
+        sendingMessage,
         deleteConversation,
+        isDeletingConversation,
         editConversation,
-        setCurrentConversation,
-        loadingConversations: loading,
-        isDeletingConversation: isDeleting,
-        isCreatingConversation: isCreating,
-        isEditingConversation: isEditing,
-        selectedProjectId,
-        setSelectedProjectId,
-        clearConversation: reset,
+        isEditingConversation,
       }}
     >
       {children}
-    </ConversationContext.Provider>
+    </ChatContext.Provider>
   );
 };
 
-export default ConversationProvider;
+export default ChatProvider;
