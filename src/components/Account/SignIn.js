@@ -19,10 +19,6 @@ function Login() {
     
     switch (toolPath) {
 
-        case '/private/welcome':
-            setTool('Welcome Page');
-            break;
-
         case '/private/tech-partners':
             setTool('Tech Partners Page');
             break;
