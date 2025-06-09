@@ -29,7 +29,6 @@ export async function getUsageLog(sortField = 'Last Login (Date)', sortDirection
 export async function getPBILog(tableID) {
     try{
         const {data} = await axios.post('https://tce-ai-api.azurewebsites.net/api/get-pbi-log', tableID);
-        console.log(data);
         return data;
     }
     catch(error){
