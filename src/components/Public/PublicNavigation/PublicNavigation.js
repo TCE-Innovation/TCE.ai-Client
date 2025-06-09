@@ -4,7 +4,6 @@ import {
   AppBar, Box, Toolbar, Tooltip, IconButton, Typography, Menu, MenuItem, 
   ListItemIcon, Avatar, Button
 } from '@mui/material';
-import HomeIcon from '@mui/icons-material/Home';
 import ExitToAppIcon from '@mui/icons-material/ExitToApp';
 
 import logo from '../../../img/Utils/logo.png';
