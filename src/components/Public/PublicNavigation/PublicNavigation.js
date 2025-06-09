@@ -97,7 +97,6 @@ function ResponsiveAppBar() {
     
 
     const accSettings = [
-        { label: "Toolbox", icon: <HomeIcon />, link: "/private/welcome" },
         { label: "Log Out", icon: <ExitToAppIcon />, action: () => MicrosoftSignOut() }
     ];
 

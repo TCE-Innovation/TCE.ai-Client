@@ -107,7 +107,7 @@ export function UnauthenticatedRoute() {
   const isAuthenticated = accounts.length > 0;
 
   if (isAuthenticated) {
-    return <Navigate to="/private/welcome" replace />;
+    return <Navigate to="/private/home" replace />;
   }
 
   return <Outlet />;
