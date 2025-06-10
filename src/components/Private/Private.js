@@ -49,7 +49,11 @@ function PrivateContent() {
   const { tool } = useParams();
   const navigate = useNavigate();
 
-  const { userEmail, userTools } = useContext(AuthContext);
+  const { userEmail, userTools, loading } = useContext(AuthContext);
+  useEffect(() => {
+    if (loading) return; // Wait for loading to finish
+  });
+
   const isAdmin = adminList.includes(userEmail);
 
   // Mapping full names of tools to their URL ends
@@ -112,7 +116,9 @@ function PrivateContent() {
   useEffect(() => {
     // skip this check for chatbot as it has url query parameters
     if(tool === "chatbot") return;
-    if (!toolComponentMap[tool] || (!alwaysAvailableTools.includes(tool) && !userToolsUrlEnds.includes(tool))) {
+    if (!toolComponentMap[tool] 
+        || (!alwaysAvailableTools.includes(tool)
+            && !userToolsUrlEnds.includes(tool))) {
       navigate("/private/home", { replace: true });
     }
   }, [
