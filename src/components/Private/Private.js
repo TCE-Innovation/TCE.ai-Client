@@ -47,7 +47,6 @@ function PrivateContent() {
   };
 
   const { tool } = useParams();
-  console.log("Tool from useParams()", tool);
   const navigate = useNavigate();
 
   const { userEmail, userTools } = useContext(AuthContext);
@@ -125,7 +124,6 @@ function PrivateContent() {
   ]);
 
   const ComponentToRender = toolComponentMap[tool] || Home;
-  console.log("Rendering component for tool:", tool, "Component:", ComponentToRender);
 
   const Drawer = styled(MuiDrawer, {
     shouldForwardProp: (prop) => prop !== "open",
