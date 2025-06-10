@@ -21,7 +21,6 @@ function HomeRedirect() {
   const location = useLocation();
 
   if (isAuthenticated) {
-    if (location.pathname === "/private/home") return null;
     return <Navigate to="/private/home" replace />;
   }
   return <Gateway />;

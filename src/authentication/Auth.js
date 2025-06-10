@@ -94,13 +94,18 @@ export function AuthenticatedRoute() {
   const location = useLocation();
   const isAuthenticated = accounts.length > 0;
 
-  // Always set postLoginRedirect to the current path
-  localStorage.setItem('postLoginRedirect', location.pathname + location.search);
+  useEffect(() => {
+    if (!isAuthenticated) {
+      localStorage.setItem(
+        'postLoginRedirect',
+        location.pathname + location.search
+      );
+    }
+  }, [isAuthenticated, location]);
 
   if (!isAuthenticated) {
     return <Navigate to="/sign-in" replace />;
   }
-
   return <Outlet />;
 }
 
