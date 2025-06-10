@@ -20,11 +20,8 @@ export function useMicrosoftSignIn() {
         if (currentAccounts.length > 0) {
           //redirect to the cached url or the default url
           const postLoginRedirect = localStorage.getItem('postLoginRedirect') || '/private/home';
-          console.log('waiting 1 second before redirecting to:', postLoginRedirect);
-          setTimeout(() => navigate(postLoginRedirect), 1000);
+          localStorage.removeItem('postLoginRedirect');
           navigate(postLoginRedirect);
-          //clear the stored URL after redirecting
-          localStorage.removeItem('postLoginRedirect'); 
           //update user log
           await updateUserLog(currentAccounts[0].name);
         }
