@@ -115,11 +115,9 @@ export function UnauthenticatedRoute() {
   const isAuthenticated = accounts.length > 0;
 
   if (isAuthenticated) {
-    // Only redirect to /private/home if the user is on the base /private route
     if (location.pathname === '/private' || location.pathname === '/private/') {
       return <Navigate to="/private/home" replace />;
     }
-    // Otherwise, let them access their requested route
     return <Outlet />;
   }
 
