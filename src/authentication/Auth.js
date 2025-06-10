@@ -107,7 +107,10 @@ export function UnauthenticatedRoute() {
   const isAuthenticated = accounts.length > 0;
 
   if (isAuthenticated) {
-    return <Navigate to="/private/home" replace />;
+    // Use postLoginRedirect if available, otherwise default to /private/home
+    const postLoginRedirect = localStorage.getItem('postLoginRedirect') || '/private/home';
+    localStorage.removeItem('postLoginRedirect');
+    return <Navigate to={postLoginRedirect} replace />;
   }
 
   return <Outlet />;
