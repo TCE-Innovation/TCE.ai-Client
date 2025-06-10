@@ -94,20 +94,31 @@ export function AuthenticatedRoute() {
   const location = useLocation();
   const isAuthenticated = accounts.length > 0;
 
+  useEffect(() => {
+    if (!isAuthenticated) {
+      localStorage.setItem(
+        'postLoginRedirect',
+        location.pathname + location.search
+      );
+    }
+  }, [isAuthenticated, location]);
+
   if (!isAuthenticated) {
-    localStorage.setItem('postLoginRedirect', location.pathname + location.search);
     return <Navigate to="/sign-in" replace />;
   }
-
   return <Outlet />;
 }
 
 export function UnauthenticatedRoute() {
   const { accounts } = useMsal();
+  const location = useLocation();
   const isAuthenticated = accounts.length > 0;
 
   if (isAuthenticated) {
-    return <Navigate to="/private/home" replace />;
+    if (location.pathname === '/private' || location.pathname === '/private/') {
+      return <Navigate to="/private/home" replace />;
+    }
+    return <Outlet />;
   }
 
   return <Outlet />;

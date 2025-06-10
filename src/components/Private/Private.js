@@ -49,7 +49,7 @@ function PrivateContent() {
   const { tool } = useParams();
   const navigate = useNavigate();
 
-  const { userEmail, userTools } = useContext(AuthContext);
+  const { userEmail, userTools, loading } = useContext(AuthContext);
   const isAdmin = adminList.includes(userEmail);
 
   // Mapping full names of tools to their URL ends
@@ -110,9 +110,12 @@ function PrivateContent() {
 
   // Check if the tool is valid and if user has access
   useEffect(() => {
-    // skip this check for chatbot as it has url query parameters
-    if(tool === "chatbot") return;
-    if (!toolComponentMap[tool] || (!alwaysAvailableTools.includes(tool) && !userToolsUrlEnds.includes(tool))) {
+    if (loading) return; // Wait for userTools to load
+    if (tool === "chatbot") return;
+    if (
+      !toolComponentMap[tool] ||
+      (!alwaysAvailableTools.includes(tool) && !userToolsUrlEnds.includes(tool))
+    ) {
       navigate("/private/home", { replace: true });
     }
   }, [
@@ -121,6 +124,7 @@ function PrivateContent() {
     toolComponentMap,
     alwaysAvailableTools,
     userToolsUrlEnds,
+    loading
   ]);
 
   const ComponentToRender = toolComponentMap[tool] || Home;
