@@ -47,6 +47,7 @@ function PrivateContent() {
   };
 
   const { tool } = useParams();
+  console.log("Tool from useParams()", tool);
   const navigate = useNavigate();
 
   const { userEmail, userTools } = useContext(AuthContext);
