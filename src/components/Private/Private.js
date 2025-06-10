@@ -124,6 +124,7 @@ function PrivateContent() {
   ]);
 
   const ComponentToRender = toolComponentMap[tool] || Home;
+  console.log("Rendering component for tool:", tool, "Component:", ComponentToRender);
 
   const Drawer = styled(MuiDrawer, {
     shouldForwardProp: (prop) => prop !== "open",
