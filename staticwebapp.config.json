@@ -8,7 +8,8 @@
   "navigationFallback": {
     "rewrite": "/index.html",
     "exclude": [
-      "/images/*.{png,jpg,gif}",
+      "/static/*",
+      "/images/*.{png,jpg,gif,svg}",
       "/css/*",
       "/service-worker.js",
       "/translations.json",
