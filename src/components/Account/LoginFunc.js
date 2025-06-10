@@ -22,7 +22,7 @@ export function useMicrosoftSignIn() {
           const postLoginRedirect = localStorage.getItem('postLoginRedirect') || '/private/home';
           console.log('waiting 1 second before redirecting to:', postLoginRedirect);
           setTimeout(() => navigate(postLoginRedirect), 1000);
-          //navigate(postLoginRedirect);
+          navigate(postLoginRedirect);
           //clear the stored URL after redirecting
           localStorage.removeItem('postLoginRedirect'); 
           //update user log
