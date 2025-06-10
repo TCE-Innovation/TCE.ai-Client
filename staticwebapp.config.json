@@ -1,20 +1,75 @@
 {
   "routes": [
     {
+      "route": "/login",
+      "rewrite": "/.auth/login/aad"
+    },
+    {
+      "route": "/logout",
+      "redirect": "/.auth/logout"
+    },
+    {
+      "route": "/.auth/login/twitter",
+      "statusCode": 404
+    },
+    {
+      "route": "/.auth/login/github",
+      "statusCode": 404
+    },
+    {
+      "route": "/private/*",
+      "allowedRoles": ["authenticated"],
+      "rewrite": "/index.html"
+    },
+    {
+      "route": "/static/*",
+      "allowedRoles": ["anonymous"]
+    },
+    {
+      "route": "/icons/*",
+      "allowedRoles": ["anonymous"]
+    },
+    {
+      "route": "/images/*",
+      "allowedRoles": ["anonymous"]
+    },
+    {
+      "route": "/manifest.json",
+      "allowedRoles": ["anonymous"]
+    },
+    {
+      "route": "/translations.json",
+      "allowedRoles": ["anonymous"]
+    },
+    {
+      "route": "/downloads/Setup.pdf",
+      "allowedRoles": ["anonymous"]
+    },
+    {
       "route": "/*",
+      "allowedRoles": ["anonymous"],
       "rewrite": "/index.html"
     }
   ],
+  "responseOverrides": {
+    "401": {
+      "redirect": "/login",
+      "statusCode": 302
+    }
+  },
+  "auth": {
+    "identityProviders": {
+      "azureActiveDirectory": {
+        "registration": {
+          "openIdIssuer": "https://login.microsoftonline.com/<your-tenant-id>/v2.0",
+          "clientIdSettingName": "AAD_CLIENT_ID",
+          "clientSecretSettingName": "AAD_CLIENT_SECRET"
+        }
+      }
+    }
+  },
   "navigationFallback": {
     "rewrite": "/index.html",
-    "exclude": [
-      "/static/*",
-      "/images/*.{png,jpg,gif,svg}",
-      "/css/*",
-      "/service-worker.js",
-      "/translations.json",
-      "manifest.json",
-      "/downloads/Setup.pdf"
-    ]
+    "exclude": ["/images/*.{png,jpg,gif}", "/css/*", "/service-worker.js"]
   }
 }
