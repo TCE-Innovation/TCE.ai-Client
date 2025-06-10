@@ -104,13 +104,16 @@ export function AuthenticatedRoute() {
 
 export function UnauthenticatedRoute() {
   const { accounts } = useMsal();
+  const location = useLocation();
   const isAuthenticated = accounts.length > 0;
 
   if (isAuthenticated) {
-    // Use postLoginRedirect if available, otherwise default to /private/home
-    const postLoginRedirect = localStorage.getItem('postLoginRedirect') || '/private/home';
-    localStorage.removeItem('postLoginRedirect');
-    return <Navigate to={postLoginRedirect} replace />;
+    // Only redirect to /private/home if the user is on the base /private route
+    if (location.pathname === '/private' || location.pathname === '/private/') {
+      return <Navigate to="/private/home" replace />;
+    }
+    // Otherwise, let them access their requested route
+    return <Outlet />;
   }
 
   return <Outlet />;
