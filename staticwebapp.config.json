@@ -1,6 +1,10 @@
 {
   "routes": [
     {
+      "route": "/service-worker.js",
+      "allowedRoles": ["anonymous"]
+    },
+    {
       "route": "/login",
       "rewrite": "/.auth/login/aad"
     },
