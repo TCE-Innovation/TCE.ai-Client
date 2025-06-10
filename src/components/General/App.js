@@ -1,6 +1,6 @@
 //REACT
 import React from 'react';
-import { BrowserRouter as Router, Route, Routes, Navigate, useLocation } from 'react-router-dom';
+import { BrowserRouter as Router, Route, Routes, Navigate } from 'react-router-dom';
 import { isMobile, isTablet } from 'react-device-detect';
 
 //COMPONENTS
@@ -18,7 +18,6 @@ import { useMsal } from "@azure/msal-react";
 function HomeRedirect() {
   const { accounts } = useMsal();
   const isAuthenticated = accounts.length > 0;
-  const location = useLocation();
 
   if (isAuthenticated) {
     return <Navigate to="/private/home" replace />;
