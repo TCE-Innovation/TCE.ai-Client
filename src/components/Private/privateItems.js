@@ -76,8 +76,6 @@ const PrivateListItems = ({ tool }) => {
     // Split the userTools string into an array
     const userToolsArray = validUserTools.split(',').map(tool => tool.trim());
 
-    console.log('User Tools Array:', userToolsArray);
-
     // Filter the listItems based on userToolsArray
     let filteredListItems = listItems.filter(item => userToolsArray.includes(item.text));
 
@@ -87,8 +85,6 @@ const PrivateListItems = ({ tool }) => {
             ? { ...item, text: 'Monthly Exec. Reports', originalText: 'Monthly Executive Reports' }
             : item
     );
-
-    console.log('Filtered List Items:', filteredListItems);
 
     // Add admin specific items conditionally
     if (adminList.includes(userEmail)) {
