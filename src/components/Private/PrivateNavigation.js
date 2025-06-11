@@ -143,7 +143,7 @@ function ResponsiveAppBar() {
                                 src={logo}
                                 alt='logo'
                                 style={{
-                                    width: '150px',
+                                    width: '206px',
                                     marginLeft: '30px',
                                     marginTop: '11px',
                                 }}
@@ -158,11 +158,12 @@ function ResponsiveAppBar() {
                         sx={{
                             marginTop: '10px',
                             flexGrow: 1,
-                            fontfamily: "Roboto",
+                            fontWeight: '500',
                             letterSpacing: '.1rem',
                             color: 'white',
                             textDecoration: 'none',
-                            textAlign: 'center'
+                            textAlign: 'center',
+                            textShadow: 'none'                 
                         }}
                     >
                         {setTitle(tool)}

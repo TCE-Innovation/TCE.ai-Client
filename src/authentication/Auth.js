@@ -34,17 +34,38 @@ export const AuthProvider = ({ children }) => {
         const activeAccount = accounts[0];
         setTimeout(async () => {
           if (activeAccount) {
-            const response = await instance.acquireTokenSilent({
-              account: activeAccount,
-              scopes: ["openid", "profile", "User.Read", "Mail.Send"],
-            });
-            fetchAndSetUserDetails(response.accessToken, response.account.name, response.account.username);
+            try {
+              const response = await instance.acquireTokenSilent({
+                account: activeAccount,
+                scopes: ["openid", "profile", "User.Read", "Mail.Send"],
+              });
+              fetchAndSetUserDetails(response.accessToken, response.account.name, response.account.username);
+            } catch (error) {
+              // If interaction is required, fallback to redirect
+              if (error.name === "InteractionRequiredAuthError") {
+                try {
+                  await instance.acquireTokenRedirect({
+                    account: activeAccount,
+                    scopes: ["openid", "profile", "User.Read", "Mail.Send"],
+                  });
+                } catch (redirectError) {
+                  console.error('Redirect error during token acquisition:', redirectError);
+                  setLoading(false);
+                }
+              } else {
+                console.error('Error fetching user details:', error);
+                setLoading(false);
+              }
+            }
+          } else {
+            setLoading(false);
           }
         }, 0);
       } catch (error) {
-        console.error('Error fetching user details:', error);
-      };
-    }
+        console.error('Error in getAccount:', error);
+        setLoading(false);
+      }
+    };
     getAccount();
   }, [accounts, instance]);
 
@@ -94,20 +115,31 @@ export function AuthenticatedRoute() {
   const location = useLocation();
   const isAuthenticated = accounts.length > 0;
 
+  useEffect(() => {
+    if (!isAuthenticated) {
+      localStorage.setItem(
+        'postLoginRedirect',
+        location.pathname + location.search
+      );
+    }
+  }, [isAuthenticated, location]);
+
   if (!isAuthenticated) {
-    localStorage.setItem('postLoginRedirect', location.pathname + location.search);
     return <Navigate to="/sign-in" replace />;
   }
-
   return <Outlet />;
 }
 
 export function UnauthenticatedRoute() {
   const { accounts } = useMsal();
+  const location = useLocation();
   const isAuthenticated = accounts.length > 0;
 
   if (isAuthenticated) {
-    return <Navigate to="/private/welcome" replace />;
+    if (location.pathname === '/private' || location.pathname === '/private/') {
+      return <Navigate to="/private/home" replace />;
+    }
+    return <Outlet />;
   }
 
   return <Outlet />;

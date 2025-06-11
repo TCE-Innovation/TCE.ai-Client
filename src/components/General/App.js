@@ -13,6 +13,17 @@ import ClearancePWA from '../PublicFeatures/ClearancePWA/ClearancePWA';
 
 //AUTH
 import { AuthenticatedRoute, UnauthenticatedRoute, AuthProvider } from "../../authentication/Auth";
+import { useMsal } from "@azure/msal-react";
+// Redirects authenticated users to /private/home, otherwise shows Gateway
+function HomeRedirect() {
+  const { accounts } = useMsal();
+  const isAuthenticated = accounts.length > 0;
+
+  if (isAuthenticated) {
+    return <Navigate to="/private/home" replace />;
+  }
+  return <Gateway />;
+}
 
 // CSS Styles for the Mobile Warning Popup
 const styles = `
@@ -100,26 +111,18 @@ function App() {
         <AuthProvider>
             <Router>
                 <Routes>
-                    <Route path='/' element={<UnauthenticatedRoute />}>
-                        <Route index element={<Gateway />} /> 
-                    </Route>
-
+                    <Route path='/' element={<HomeRedirect />} />
                     <Route exact path='/public' element={<Public />} />
-
                     <Route exact path='/document' element={<Document />} />
-                    
                     <Route path='/sign-in' element={<UnauthenticatedRoute />}>
                         <Route index element={<SignIn />} />
                     </Route>
-
                     <Route path="/apps/clearance-calculator" element={<ClearancePWA />} />
-
+                    <Route path='/private' element={<HomeRedirect />} />
                     <Route path='/private/:tool' element={<AuthenticatedRoute />}>
                         <Route index element={<Private />} />
                     </Route>
-
                     <Route path='*' element={<Navigate to="/" replace />} />
-
                 </Routes>
             </Router>
         </AuthProvider>

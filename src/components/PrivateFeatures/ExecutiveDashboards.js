@@ -30,7 +30,6 @@ const ExecutiveDashboards = () => {
             try {
                 const tableID = "tblClSMqs3WKoFNoq";
                 const response = await getPBILog(tableID);
-                console.log(response);
                 if (response) {
                     // set states upon sucessful api response
                     const tmpMap = response;

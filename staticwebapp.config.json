@@ -1,6 +1,10 @@
 {
   "routes": [
     {
+      "route": "/service-worker.js",
+      "allowedRoles": ["anonymous"]
+    },
+    {
       "route": "/login",
       "rewrite": "/.auth/login/aad"
     },
@@ -17,13 +21,7 @@
       "statusCode": 404
     },
     {
-      "route": "/private/welcome",
-      "allowedRoles": ["authenticated"],
-      "rewrite": "/index.html"
-    },
-    {
       "route": "/private/*",
-      "allowedRoles": ["authenticated"],
       "rewrite": "/index.html"
     },
     {
@@ -75,6 +73,6 @@
   },
   "navigationFallback": {
     "rewrite": "/index.html",
-    "exclude": ["/images/*.{png,jpg,gif}", "/css/*"]
+    "exclude": ["/images/*.{png,jpg,gif}", "/css/*", "/service-worker.js"]
   }
 }

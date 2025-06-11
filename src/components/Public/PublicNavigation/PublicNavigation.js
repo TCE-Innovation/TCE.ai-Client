@@ -4,7 +4,6 @@ import {
   AppBar, Box, Toolbar, Tooltip, IconButton, Typography, Menu, MenuItem, 
   ListItemIcon, Avatar, Button
 } from '@mui/material';
-import HomeIcon from '@mui/icons-material/Home';
 import ExitToAppIcon from '@mui/icons-material/ExitToApp';
 
 import logo from '../../../img/Utils/logo.png';
@@ -97,7 +96,6 @@ function ResponsiveAppBar() {
     
 
     const accSettings = [
-        { label: "Toolbox", icon: <HomeIcon />, link: "/private/welcome" },
         { label: "Log Out", icon: <ExitToAppIcon />, action: () => MicrosoftSignOut() }
     ];
 
@@ -107,7 +105,7 @@ function ResponsiveAppBar() {
                 <Toolbar sx={{ width: '100%' }} disableGutters>
                     <Box sx={{ display: 'flex', alignItems: 'center' }}>       
                         <div onClick={handleLogoClick}>
-                            <img src={currentLogo} alt='logo' style={{ width: "10rem", marginLeft: "2em", marginTop: "3em" }} draggable="false" />
+                            <img src={currentLogo} alt='logo' style={{ width: "14rem", marginLeft: "1.5em", marginTop: "3.5em" }} draggable="false" />
                         </div>
                     </Box>
                     <Box sx={{

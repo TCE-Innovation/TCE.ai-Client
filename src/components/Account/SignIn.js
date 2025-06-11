@@ -13,15 +13,10 @@ function Login() {
 
   useEffect(() => {
     const postLoginRedirect = localStorage.getItem('postLoginRedirect');
-    console.log(postLoginRedirect);
 
     const toolPath = postLoginRedirect ? new URL(postLoginRedirect, window.location.origin).pathname : '';
     
     switch (toolPath) {
-
-        case '/private/welcome':
-            setTool('Welcome Page');
-            break;
 
         case '/private/tech-partners':
             setTool('Tech Partners Page');

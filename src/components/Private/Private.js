@@ -50,7 +50,7 @@ function PrivateContent() {
   const { tool } = useParams();
   const navigate = useNavigate();
 
-  const { userEmail, userTools } = useContext(AuthContext);
+  const { userEmail, userTools, loading } = useContext(AuthContext);
   const isAdmin = adminList.includes(userEmail);
 
   // Mapping full names of tools to their URL ends
