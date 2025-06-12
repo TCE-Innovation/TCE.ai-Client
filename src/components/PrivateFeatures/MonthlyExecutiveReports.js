@@ -27,7 +27,6 @@ const MonthlyExecutiveReports = () => {
             try {
                 const tableID = "tblx3x0CUBoYVEkIj";
                 const response = await getPBILog(tableID);
-                console.log(response);
                 if (response && response.url) {
                     setIframeSrc(response.url);
                 } else {
