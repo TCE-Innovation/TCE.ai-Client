@@ -23,7 +23,7 @@ const ChatPreview = () => {
                 <LiveStatus />
               </div>
             </div>
-            <div className="flex-grow-1 overflow-hidden">
+            <div className="flex-grow-1 overflow-auto">
               <PreviewChat />
             </div>
           </div>

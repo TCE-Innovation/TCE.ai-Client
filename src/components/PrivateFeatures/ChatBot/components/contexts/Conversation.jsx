@@ -127,20 +127,26 @@ const ChatProvider = ({ children }) => {
       setMessages([]);
       return;
     }
-    // Only fetch if not a pending conversation (i.e., user switched conversations)
     if (currentConversation.id === "pending") return;
-    // Prevent fetching after first message in a new conversation
     if (justCreatedConversationRef.current) {
       justCreatedConversationRef.current = false;
       return;
     }
+    
     setLoading(l => ({ ...l, messages: true }));
-    messageService.getMessages({ conversationId: currentConversation.id })
+
+    // Determine if we're in admin preview mode
+    const isAdminPreview = isAdmin && isPreviewMode && viewingUser;
+
+    const messageParams = isAdminPreview 
+      ? { conversationId: currentConversation.id, userId: viewingUser }
+      : { conversationId: currentConversation.id };
+
+    messageService.getMessages(messageParams)
       .then(data => setMessages(data.data?.messages || []))
       .catch(e => setError(e))
       .finally(() => setLoading(l => ({ ...l, messages: false })));
-    // eslint-disable-next-line
-  }, [currentConversation]);
+  }, [currentConversation, isAdmin, isPreviewMode, viewingUser]);
 
   // Actions
   const selectProject = useCallback((projectId) => {
