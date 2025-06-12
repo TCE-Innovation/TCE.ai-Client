@@ -1,4 +1,5 @@
 import React, { createContext, useContext, useState, useEffect, useCallback, useRef } from "react";
+import { useLocation } from 'react-router-dom';
 import { conversationService, messageService, projectService } from "../../services";
 import { genRandomId } from "../../utils/uuid";
 
@@ -7,6 +8,7 @@ const ChatContext = createContext();
 export const useChat = () => useContext(ChatContext);
 
 const ChatProvider = ({ children }) => {
+  const location = useLocation();
   const [projects, setProjects] = useState([]);
   const [currentProject, setCurrentProject] = useState(null);
   const [conversations, setConversations] = useState([]);
@@ -17,6 +19,9 @@ const ChatProvider = ({ children }) => {
   const [sendingMessage, setSendingMessage] = useState(false);
   const [isDeletingConversation, setIsDeletingConversation] = useState(false);
   const [isEditingConversation, setIsEditingConversation] = useState(false);
+  const [viewingUser, setViewingUser] = useState(null);
+  const [isAdmin, setIsAdmin] = useState(false);
+  const [isPreviewMode, setIsPreviewMode] = useState(false);
   // Track if a conversation was just created to prevent fetching messages after first message
   const justCreatedConversationRef = useRef(false);
 
@@ -25,7 +30,6 @@ const ChatProvider = ({ children }) => {
     setLoading(l => ({ ...l, projects: true }));
     projectService.getProjects()
       .then(data => {
-        console.log("data", data);
         setProjects(data.data || []);
         setCurrentProject(data.data[0].id);
       })
@@ -33,30 +37,89 @@ const ChatProvider = ({ children }) => {
       .finally(() => setLoading(l => ({ ...l, projects: false })));
   }, []);
 
+  // Combine URL parameter handling into one function
+  const updateURLParameters = useCallback(() => {
+    const params = new URLSearchParams(location.search);
+    const isAdmin = params.get('admin') === 'true';
+    const isPreview = params.get('mode') === 'preview';
+    const userId = params.get('user_id');
+
+    // Clear existing conversations and set loading state
+    setConversations([]);
+    setCurrentConversation(null);
+    setLoading(l => ({ ...l, conversations: true }));
+
+    setIsAdmin(isAdmin);
+    setIsPreviewMode(isPreview);
+    
+    if (isAdmin && isPreview && userId) {
+      setViewingUser(userId);
+    } else {
+      setViewingUser(null);
+    }
+
+  }, [location]);
+
   // Fetch conversations when project changes
   const fetchConversations = useCallback(() => {
-    if (!currentProject) return;
+    if (!currentProject && !viewingUser) return;
     setLoading(l => ({ ...l, conversations: true }));
-    conversationService.getConversations(currentProject)
-      .then(data => {
-        const convs = data.data || [];
-        // Always replace conversations with the new list for the current project
-        setConversations(convs);
-        // If currentConversation is not set or not in the list, set to first
-        if (!convs.length) {
-          setCurrentConversation(null);
-        } else if (!currentConversation || !convs.some(c => c.id === currentConversation.id)) {
-          setCurrentConversation(convs[0]);
+
+    // Case 1: Normal user viewing their own conversations
+    if (!viewingUser) {
+      conversationService.getConversations(currentProject)
+        .then(data => {
+          const convs = data.data || [];
+          setConversations(convs);
+          if (!convs.length) {
+            setCurrentConversation(null);
+          } else if (!currentConversation || !convs.some(c => c.id === currentConversation.id)) {
+            setCurrentConversation(convs[0]);
+          }
+        })
+        .catch(e => setError(e))
+        .finally(() => setLoading(l => ({ ...l, conversations: false })));
+      return;
+    }
+
+    // Case 2: Admin viewing another user's conversations across all projects
+    projectService.getProjects(viewingUser)
+      .then(async projectsData => {
+        const projects = projectsData.data || [];
+        let allConversations = [];
+
+        try {
+          // Fetch conversations for each project
+          const conversationPromises = projects.map(project => 
+            conversationService.getConversations(project.id, viewingUser)
+              .then(convData => convData.data || [])
+              .catch(e => {
+                console.error(`Error fetching conversations for project ${project.id}:`, e);
+                return [];
+              })
+          );
+
+          const conversationsArrays = await Promise.all(conversationPromises);
+          allConversations = conversationsArrays.flat();
+
+          setConversations(allConversations);
+          if (!allConversations.length) {
+            setCurrentConversation(null);
+          } else if (!currentConversation || !allConversations.some(c => c.id === currentConversation.id)) {
+            setCurrentConversation(allConversations[0]);
+          }
+        } catch (e) {
+          setError(e);
         }
       })
       .catch(e => setError(e))
       .finally(() => setLoading(l => ({ ...l, conversations: false })));
-  }, [currentProject, currentConversation]);
+  }, [currentProject, currentConversation, viewingUser]);
 
   useEffect(() => {
     fetchConversations();
     // eslint-disable-next-line
-  }, [currentProject]);
+  }, [currentProject, isPreviewMode]);
 
   // Fetch messages when conversation changes
   useEffect(() => {
@@ -194,6 +257,11 @@ const ChatProvider = ({ children }) => {
     }
   }, [currentProject, currentConversation]);
 
+  // Watch for URL changes
+  useEffect(() => {
+    updateURLParameters();
+  }, [location, updateURLParameters]);
+
   return (
     <ChatContext.Provider
       value={{
@@ -213,6 +281,9 @@ const ChatProvider = ({ children }) => {
         isDeletingConversation,
         editConversation,
         isEditingConversation,
+        viewingUser,
+        isAdmin,
+        isPreviewMode,
       }}
     >
       {children}
