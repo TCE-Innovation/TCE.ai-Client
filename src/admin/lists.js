@@ -19,7 +19,8 @@ const toolList = [
     'Drone Captures',
     'EIT Dashboard',
     'Training',
-    'Executive Dashboards'
+    'Executive Dashboards',
+    'Monthly Executive Reports'
 ]
 
 module.exports = {
