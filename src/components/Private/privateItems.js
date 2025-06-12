@@ -19,6 +19,7 @@ import PrintOutlinedIcon from '@mui/icons-material/PrintOutlined';
 import SatelliteAltIcon from '@mui/icons-material/SatelliteAlt';
 import PercentIcon from '@mui/icons-material/Percent';
 import SchoolIcon from '@mui/icons-material/School';
+import CalendarMonthIcon from '@mui/icons-material/CalendarMonth';
 
 // CONTEXT
 import { AuthContext } from "../../authentication/Auth";
@@ -64,6 +65,7 @@ const PrivateListItems = ({ tool }) => {
         { to: '/private/drone-captures', text: 'Drone Captures', icon: <SatelliteAltIcon />, key: 'drone-captures' },
         { to: '/private/equip-install-dashboard', text: 'EIT Dashboard', icon: <DataThresholdingOutlinedIcon />, key: 'equip-install-dashboard' },
         { to: '/private/executive-dashboards', text: 'Executive Dashboards', icon: <DataThresholdingOutlinedIcon />, key: 'executive-dashboards' },
+        { to: '/private/monthly-executive-reports', text: 'Monthly Executive Reports', icon: <CalendarMonthIcon/>, key: 'monthly-executive-reports' },
         { to: '/private/procore-dashboards', text: 'Procore Dashboards', icon: <DataThresholdingOutlinedIcon />, key: 'procore-dashboards' },
         { to: '/private/chatbot-dashboard', text: 'Chatbot Dashboard', icon: <DataThresholdingOutlinedIcon />, key: 'chatbot-dashboard'},
     ];
@@ -76,6 +78,13 @@ const PrivateListItems = ({ tool }) => {
 
     // Filter the listItems based on userToolsArray
     let filteredListItems = listItems.filter(item => userToolsArray.includes(item.text));
+
+    // After filtering, update the display text for Monthly Executive Reports
+    filteredListItems = filteredListItems.map(item =>
+        item.text === 'Monthly Executive Reports'
+            ? { ...item, text: 'Monthly Exec. Reports', originalText: 'Monthly Executive Reports' }
+            : item
+    );
 
     // Add admin specific items conditionally
     if (adminList.includes(userEmail)) {
