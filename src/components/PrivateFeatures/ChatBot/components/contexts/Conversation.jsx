@@ -119,7 +119,7 @@ const ChatProvider = ({ children }) => {
   useEffect(() => {
     fetchConversations();
     // eslint-disable-next-line
-  }, [currentProject, isPreviewMode]);
+  }, [currentProject, isPreviewMode, isAdmin]);
 
   // Fetch messages when conversation changes
   useEffect(() => {
