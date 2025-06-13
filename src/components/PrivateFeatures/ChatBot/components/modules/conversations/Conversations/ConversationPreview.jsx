@@ -10,15 +10,15 @@ const ConversationList = () => {
   const {
     conversations,
     currentConversation,
-    setCurrentConversation,
+    selectConversation: setConversation,
     isCreatingConversation,
-    loadingConversations: loading,
+    loading,
   } = useConversation();
 
   return (
     <Wrapper>
       <div className="conversation-list">
-        {loading ? (
+        {loading.conversations ? (
           <Loader />
         ) : conversations.length ? (
           conversations.map((conversation) => (
@@ -26,7 +26,7 @@ const ConversationList = () => {
               key={conversation.id}
               {...conversation}
               active={conversation.id === currentConversation?.id}
-              setConversation={setCurrentConversation}
+              setConversation={setConversation}
             />
           ))
         ) : isCreatingConversation ? null : (
