@@ -1,7 +1,6 @@
 import React, { useState, useEffect, useRef } from 'react';
 import TrainLoader from '../General/TrainLoader';
 import { getPBILog } from '../../data/Airtable';
-import { Box } from '@mui/material';
 
 const MonthlyExecutiveReports = () => {
     const [iframeSrc, setIframeSrc] = useState('');
@@ -50,22 +49,22 @@ const MonthlyExecutiveReports = () => {
                     <TrainLoader />
                 </div>
             )}
-            <Box sx={{ width: '100%', display: 'flex', marginBottom: 2, height: '40px' }}>
-                <div style={{ position: 'relative', width: '100%' }}>
-                    <button 
-                        onClick={handleFullScreen} 
-                        style={{ 
-                            position: 'absolute', 
-                            top: 0, 
-                            right: 0, 
-                            padding: '8px 12px', 
-                            cursor: 'pointer',
-                            borderRadius: '4px',
-                        }}>
-                        Full Screen
-                    </button>
-                </div>
-            </Box>
+
+            {/* Full Screen Button Container */}
+            <div style={{ position: 'relative', width: '100%' }}>
+                <button 
+                    onClick={handleFullScreen} 
+                    style={{ 
+                        position: 'absolute', 
+                        top: 0, 
+                        right: 0, 
+                        padding: '8px 12px', 
+                        cursor: 'pointer',
+                        borderRadius: '4px',
+                    }}>
+                    Full Screen
+                </button>
+            </div>
             {iframeSrc && (
                 <div style={{ display: iframeLoaded ? 'block' : 'none', width: '100%', height: '78vh', margin: 'auto' }}>
                     <iframe
