@@ -25,6 +25,7 @@ const tableNameMap = {
 const toolsWithProjectOption = [
     'Schedule Dashboards',
     'Drone Captures',
+    'Procore Dashboards'
 ];
 
 // map project team names to name of their Drone Captures Project name
@@ -42,6 +43,14 @@ const projectTeamToDashboardMap = {
     'DB PACIS Upgrades; Canarsie Line': 'Canarsie PACIS (W-32808)',
 }
 
+// map project team names to name of their Procore Dashboard Project name
+const projectTeamToProcoreMap = {
+    'Project Alpha': 'Project Alpha',
+    'Project Beta': 'Project Beta',
+    'Project Gamma': 'Project Gamma',
+    'Project Delta': 'Project Delta'
+}
+
 const Provisioning = () => {
     const [selectedTool, setSelectedTool] = useState('');
     const [users, setUsers] = useState([]);
@@ -57,6 +66,7 @@ const Provisioning = () => {
     const [openRemoveAllDialog, setOpenRemoveAllDialog] = useState(false);
     const [userProjects, setUserProjects] = useState([]);
     const [dashboardProjects, setDashboardProjects] = useState([]);
+    const [procoreProjects, setProcoreProjects] = useState([]);
     const [tableName, setTableName] = useState(null);
     const [defaultProjects, setDefaultProjects] = useState(null);
     const [dialogOpen, setDialogOpen] = useState(false);
@@ -249,6 +259,11 @@ const Provisioning = () => {
                 if (selectedProject.trim() in projectTeamToDroneProjectMap) {
                     projectToAdd = formattedProject
                 } else { projectToAdd = defaultProjects; }
+            } else if (selectedTool === "Procore Dashboards") {
+                const formattedProject = projectTeamToProcoreMap[selectedProject.trim()]
+                if (selectedProject.trim() in projectTeamToProcoreMap) {
+                    projectToAdd = formattedProject
+                } else { projectToAdd = defaultProjects; }
             }
             await addUsersToTool(projectTeam, tableName, projectToAdd);
             const updatedUsers = await getUsersOfTool(tableName);
@@ -313,10 +328,34 @@ const Provisioning = () => {
     useEffect(() => {
         const fetchProjects = async () => {
             try {
-                const data = await getPBILog("tblGN3jn8NvpVOnFo");
-                let projectOptions = Object.keys(data);
-                projectOptions = [...projectOptions];
-                setDashboardProjects(projectOptions);
+
+                // Fetch project list for Schedule Dashboards
+                const SD_data= await getPBILog("tblGN3jn8NvpVOnFo");
+                let SD_projects = Object.keys(SD_data);
+                SD_projects = [...SD_projects];
+                setDashboardProjects(SD_projects);
+
+                // Fetch project list for Procore Dashboards
+                const PD_data = await getPBILog('tblktn0TTQNN2v3zM');
+                if (PD_data) {
+                    const allProjects = Array.isArray(PD_data) 
+                        ? PD_data.reduce((acc, record) => {
+                            if (Array.isArray(record.projects)) {
+                                acc.push(...record.projects);
+                            }
+                            return acc;
+                        }, [])
+                        : (Array.isArray(PD_data.projects) ? PD_data.projects : []);
+                    const uniqueProjects = [...new Set(
+                        allProjects
+                            .filter(Boolean)
+                            .map(project => project.trim())
+                    )].sort();
+                    setProcoreProjects(uniqueProjects);
+                } else {
+                    console.error("Failed to fetch Procore Dashboard projects");
+                    setProcoreProjects([]);
+                }
             } catch (error) {
                 console.error('Error fetching projects:', error);
             }
@@ -360,6 +399,8 @@ const Provisioning = () => {
         } else if (selectedTool === "Drone Captures") {
             const allProjectString = (Object.values(projectTeamToDroneProjectMap)).join(', ');
             setDefaultProjects(allProjectString);
+        } else if (selectedTool === "Procore Dashboards") {
+            setDefaultProjects("");
         } else {
             setDefaultProjects(null);
         }
@@ -423,7 +464,7 @@ const Provisioning = () => {
                                 projectTeam={projectTeam}
                                 handleAddProjectTeam={handleAddProjectTeam}
                                 handleCancelProjectSelection={handleCancelProjectSelection}
-                                isDisabled={filteredPersonnelList.length === 0}
+                                isDisabled={filteredPersonnelList.length === 0 || selectedTool === 'Procore Dashboards'}
                             />
                         </Box>
                             <Button
@@ -511,6 +552,7 @@ const Provisioning = () => {
                             userProjects={userProjects}
                             handleUserProjectChange={handleUserProjectChange}
                             dashboardProjects={dashboardProjects}
+                            procoreProjects={procoreProjects}
                             provisionedCount={users.length}
                             tableNameMap={tableNameMap}
                             nonProvisionedCount={filteredPersonnelList.length}
