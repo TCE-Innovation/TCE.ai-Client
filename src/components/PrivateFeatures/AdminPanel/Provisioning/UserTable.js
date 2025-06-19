@@ -1,7 +1,7 @@
 import React, { useState, useEffect, useRef, useMemo } from 'react';
 import { Table, TableBody, TableCell, TableContainer, TableHead, TableRow, Paper, Button, FormControl, Select, MenuItem, TextField, Box, Typography, Checkbox } from '@mui/material';
 
-const UserTable = ({ users, handleRemoveUser, selectedTool, userProjects, handleUserProjectChange, dashboardProjects, provisionedCount, nonProvisionedCount }) => {
+const UserTable = ({ users, handleRemoveUser, selectedTool, userProjects, handleUserProjectChange, dashboardProjects, procoreProjects, provisionedCount, nonProvisionedCount }) => {
     const [searchQuery, setSearchQuery] = useState('');
     const [flashColor, setFlashColor] = useState({});
     const [projects, setProjects] = useState([]);
@@ -13,6 +13,7 @@ const UserTable = ({ users, handleRemoveUser, selectedTool, userProjects, handle
     const requiresProjectColumn = [
         'Schedule Dashboards',
         'Drone Captures',
+        'Procore Dashboards',
     ];
 
     // Projects that are in PIX4D
@@ -92,10 +93,12 @@ const UserTable = ({ users, handleRemoveUser, selectedTool, userProjects, handle
             setProjects(dashboardProjects);
         } else if (selectedTool === 'Drone Captures') {
             setProjects(droneProjects);
+        } else if (selectedTool === 'Procore Dashboards') {
+            setProjects(procoreProjects); 
         } else {
             setProjects([]);
         }
-    }, [selectedTool, dashboardProjects, droneProjects]);
+    }, [selectedTool, dashboardProjects, droneProjects, procoreProjects]);
 
     useEffect(() => {
         const updatedUserSelection = {};
