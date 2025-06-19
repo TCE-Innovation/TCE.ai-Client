@@ -93,7 +93,7 @@ function ResponsiveAppBar() {
             case 'chatbot-dashboard':
                 return 'Chatbot Dashboard';
             default:
-                return 'TCE Innovation Group';  
+                return 'TCE Tools';  
         }
     }
 
