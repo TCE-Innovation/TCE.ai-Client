@@ -51,13 +51,15 @@ const MonthlyExecutiveReports = () => {
             )}
 
             {/* Full Screen Button Container */}
-            <div style={{ position: 'relative', width: '100%' }}>
+            <div style={{ 
+                width: '100%', 
+                display: 'flex', 
+                justifyContent: 'flex-end',
+                marginBottom: '2vh'
+            }}>
                 <button 
                     onClick={handleFullScreen} 
                     style={{ 
-                        position: 'absolute', 
-                        top: 0, 
-                        right: 0, 
                         padding: '8px 12px', 
                         cursor: 'pointer',
                         borderRadius: '4px',
@@ -65,6 +67,7 @@ const MonthlyExecutiveReports = () => {
                     Full Screen
                 </button>
             </div>
+
             {iframeSrc && (
                 <div style={{ display: iframeLoaded ? 'block' : 'none', width: '100%', height: '78vh', margin: 'auto' }}>
                     <iframe
