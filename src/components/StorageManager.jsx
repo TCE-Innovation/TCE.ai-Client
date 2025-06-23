@@ -98,7 +98,7 @@ const StorageManager = ({ savedCalculations, setSavedCalculations }) => {
                     Storage Usage: {isLoading ? 'Calculating...' : 
                         `${Math.round(storageInfo.percentUsed)}%`}
                     {' '}({isLoading ? '...' : 
-                        `${(storageInfo.usage / 1024 / 1024).toFixed(2)} MB of ${(storageInfo.quota / 1024 / 1024).toFixed(2)} MB`})
+                        `${(storageInfo.usage / 1024 / 1024).toFixed(4)} MB of ${(storageInfo.quota / 1024 / 1024).toFixed(2)} MB`})
                 </Typography>
 
                 <LinearProgress

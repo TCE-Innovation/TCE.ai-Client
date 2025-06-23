@@ -354,3 +354,33 @@ body {
   padding: 0 16px;
   z-index: 8;
 }
+
+.calculation-name {
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  max-width: 250px; /* Adjust based on your layout */
+}
+
+/* Responsive adjustments */
+@media (max-width: 600px) {
+  .calculation-name {
+    max-width: 180px;
+  }
+}
+
+/* Add this new class for calculation details title */
+.calculation-details-title {
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  max-width: 90%; /* Use percentage for better responsiveness in dialog */
+  margin: 0 auto; /* Center if needed */
+}
+
+/* Responsive adjustments for details title */
+@media (max-width: 600px) {
+  .calculation-details-title {
+    max-width: 85%;
+  }
+}

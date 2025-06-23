@@ -8,6 +8,7 @@ import DeleteIcon from '@mui/icons-material/Delete';
 import GetAppIcon from '@mui/icons-material/GetApp';
 import CloudOffIcon from '@mui/icons-material/CloudOff';
 import CloudIcon from '@mui/icons-material/Cloud';
+import { storageManager } from '../utils/storageManager';
 
 const SavedCalculations = ({ savedCalculations, setSavedCalculations }) => {
     const [selectedCalculation, setSelectedCalculation] = useState(null);
@@ -111,8 +112,21 @@ const SavedCalculations = ({ savedCalculations, setSavedCalculations }) => {
                                 divider
                             >
                                 <ListItemText
-                                    primary={calc.name}
+                                    primary={storageManager.truncateText(calc.name)}
                                     secondary={`${new Date(calc.timestamp).toLocaleString()} - ${calc.inputs.division}`}
+                                    primaryTypographyProps={{ 
+                                        title: calc.name,
+                                        sx: { 
+                                            whiteSpace: 'nowrap',
+                                            overflow: 'hidden',
+                                            textOverflow: 'ellipsis',
+                                            maxWidth: {
+                                                xs: '180px',  // for extra small screens
+                                                sm: '250px',  // for small screens
+                                                md: '350px',  // for medium screens
+                                            }
+                                        }
+                                    }}
                                 />
                                 <ListItemSecondaryAction>
                                     <Tooltip title={isOnline ? "Export" : "Need internet to export"}>
@@ -145,8 +159,16 @@ const SavedCalculations = ({ savedCalculations, setSavedCalculations }) => {
                 )}
             </div>
 
-            <Dialog open={showDetails} onClose={() => setShowDetails(false)} maxWidth="md">
-                <DialogTitle>{selectedCalculation?.name}</DialogTitle>
+            <Dialog open={showDetails} onClose={() => setShowDetails(false)} maxWidth="sm" fullWidth>
+                <DialogTitle>
+                    <Typography
+                        variant="h6"
+                        className="calculation-details-title"
+                        title={selectedCalculation?.name}
+                    >
+                        {selectedCalculation?.name}
+                    </Typography>
+                </DialogTitle>
                 <DialogContent>
                     {selectedCalculation && (
                         <div className="calculation-details">
