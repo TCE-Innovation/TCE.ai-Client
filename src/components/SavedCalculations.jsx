@@ -19,6 +19,9 @@ const SavedCalculations = ({ savedCalculations, setSavedCalculations }) => {
     const [filenameDialogOpen, setFilenameDialogOpen] = useState(false);
     const [customFilename, setCustomFilename] = useState('');
     const [calculationsToExport, setCalculationsToExport] = useState([]);
+    // Add these new states
+    const [deleteConfirmOpen, setDeleteConfirmOpen] = useState(false);
+    const [idToDelete, setIdToDelete] = useState(null);
 
     // Sort the calculations by timestamp (newest)
     const sortedCalculations = [...savedCalculations].sort((a, b) =>
@@ -48,6 +51,12 @@ const SavedCalculations = ({ savedCalculations, setSavedCalculations }) => {
         const updatedCalculations = savedCalculations.filter(calc => calc.id !== id);
         setSavedCalculations(updatedCalculations);
         localStorage.setItem('savedCalculations', JSON.stringify(updatedCalculations));
+        setDeleteConfirmOpen(false);
+    };
+
+    const confirmDelete = (id) => {
+        setIdToDelete(id);
+        setDeleteConfirmOpen(true);
     };
 
     const handleShowDetails = (calculation) => {
@@ -116,21 +125,30 @@ const SavedCalculations = ({ savedCalculations, setSavedCalculations }) => {
     // Helper function to convert calculations to CSV format
     const convertToCSV = (calculations) => {
         // Headers
-        let csvContent = 'EQUIPMENT NAME,EQUIPMENT TYPE,HEIGHT OF EQUIP. FROM B.O.R.,CHART LETTER,DISTANCE TO G.O.R.,' +
+        let csvContent = 'EQUIPMENT NAME,EQUIPMENT TYPE,HEIGHT OF EQUIP. FROM T.O.R.,CHART LETTER,DISTANCE TO G.O.R.,' +
                         'TRACK,CENTER OR END EXCESS,SUPER ELEVATION,SUPER ELEV. EXCESS,MIN. DISTANCE REQUIRED,TOTAL CLEARANCE\n';
         
         // Add data rows
         calculations.forEach(calc => {
             // For CENTER OR END EXCESS, use whichever value is not 0
-            const centerOrEndExcess = calc.results.EE !== 0 ? calc.results.EE : calc.results.CE;
-            
+            let centerOrEndExcess;
+            if (calc.results.EE !== 0) {
+                // Place EE after the inch symbol
+                centerOrEndExcess = `${decimalToFraction(calc.results.EE).replace('"', '" EE')}`;
+            } else if (calc.results.CE !== 0) {
+                // Place CE after the inch symbol
+                centerOrEndExcess = `${decimalToFraction(calc.results.CE).replace('"', '" CE')}`;
+            } else {
+                centerOrEndExcess = `${decimalToFraction(0)}`;
+            }
+
             csvContent += `"${calc.name}",` +  // EQUIPMENT NAME
                         `,` +                  // EQUIPMENT TYPE (empty cell)
-                        `${decimalToFraction(calc.inputs.H)},` +  // HEIGHT OF EQUIP. FROM B.O.R.
+                        `${decimalToFraction(calc.inputs.H)},` +  // HEIGHT OF EQUIP. FROM H.O.R.
                         `,` +                  // CHART LETTER (empty cell) 
                         `${decimalToFraction(calc.inputs.D)},` +  // DISTANCE TO G.O.R.
                         `,` +                  // TRACK (empty cell)
-                        `${decimalToFraction(centerOrEndExcess)},` + // CENTER OR END EXCESS
+                        `${centerOrEndExcess},` + // CENTER OR END EXCESS with EE or CE appended
                         `${decimalToFraction(calc.inputs.SUPER)},` + // SUPER ELEVATION
                         `${decimalToFraction(calc.results.SE)},` + // SUPER ELEV. EXCESS
                         `${decimalToFraction(calc.results.LLLEClearance)},` + // MIN. DISTANCE REQUIRED
@@ -238,8 +256,7 @@ const SavedCalculations = ({ savedCalculations, setSavedCalculations }) => {
 
     const handleDeleteFromDetails = () => {
         if (selectedCalculation) {
-            handleDelete(selectedCalculation.id);
-            setShowDetails(false);
+            confirmDelete(selectedCalculation.id);
         }
     };
 
@@ -362,7 +379,7 @@ const SavedCalculations = ({ savedCalculations, setSavedCalculations }) => {
                                         edge="end"
                                         onClick={(e) => {
                                             e.stopPropagation();
-                                            handleDelete(calc.id);
+                                            confirmDelete(calc.id);
                                         }}
                                     >
                                         <DeleteIcon color="error" />
@@ -448,7 +465,7 @@ const SavedCalculations = ({ savedCalculations, setSavedCalculations }) => {
                                 </div>
                                 
                                 <div style={{ display: 'flex', justifyContent: 'space-between' }}>
-                                    <Typography variant="body2" color="text.secondary">Height from B.O.R.:</Typography>
+                                    <Typography variant="body2" color="text.secondary">Height from T.O.R.:</Typography>
                                     <Typography variant="body2" fontWeight="medium">{decimalToFraction(selectedCalculation.inputs.H)}</Typography>
                                 </div>
                                 
@@ -590,6 +607,34 @@ const SavedCalculations = ({ savedCalculations, setSavedCalculations }) => {
                         disabled={!customFilename.trim()}
                     >
                         Export
+                    </Button>
+                </DialogActions>
+            </Dialog>
+
+            {/* Delete Confirmation Dialog */}
+            <Dialog
+                open={deleteConfirmOpen}
+                onClose={() => setDeleteConfirmOpen(false)}
+                aria-labelledby="alert-dialog-title"
+                aria-describedby="alert-dialog-description"
+            >
+                <DialogTitle id="alert-dialog-title">
+                    {"Confirm Deletion"}
+                </DialogTitle>
+                <DialogContent>
+                    <Typography variant="body1">
+                        Are you sure you want to delete this calculation? This action cannot be undone.
+                    </Typography>
+                </DialogContent>
+                <DialogActions>
+                    <Button onClick={() => setDeleteConfirmOpen(false)}>Cancel</Button>
+                    <Button 
+                        onClick={() => handleDelete(idToDelete)} 
+                        color="error" 
+                        variant="contained"
+                        autoFocus
+                    >
+                        Delete
                     </Button>
                 </DialogActions>
             </Dialog>

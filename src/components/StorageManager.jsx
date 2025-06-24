@@ -122,21 +122,30 @@ const StorageManager = ({ savedCalculations, setSavedCalculations }) => {
     // Helper function to convert calculations to CSV format
     const convertToCSV = (calculations) => {
         // Headers
-        let csvContent = 'EQUIPMENT NAME,EQUIPMENT TYPE,HEIGHT OF EQUIP. FROM B.O.R.,CHART LETTER,DISTANCE TO G.O.R.,' +
+        let csvContent = 'EQUIPMENT NAME,EQUIPMENT TYPE,HEIGHT OF EQUIP. FROM T.O.R.,CHART LETTER,DISTANCE TO G.O.R.,' +
                         'TRACK,CENTER OR END EXCESS,SUPER ELEVATION,SUPER ELEV. EXCESS,MIN. DISTANCE REQUIRED,TOTAL CLEARANCE\n';
         
         // Add data rows
         calculations.forEach(calc => {
             // For CENTER OR END EXCESS, use whichever value is not 0
-            const centerOrEndExcess = calc.results.EE !== 0 ? calc.results.EE : calc.results.CE;
-            
+            let centerOrEndExcess;
+            if (calc.results.EE !== 0) {
+                // Place the quotation mark before EE
+                centerOrEndExcess = `${decimalToFraction(calc.results.EE)} EE`;
+            } else if (calc.results.CE !== 0) {
+                // Place the quotation mark before CE
+                centerOrEndExcess = `${decimalToFraction(calc.results.CE)} CE`;
+            } else {
+                centerOrEndExcess = `${decimalToFraction(0)}`;
+            }
+
             csvContent += `"${calc.name}",` +  // EQUIPMENT NAME
                         `,` +                  // EQUIPMENT TYPE (empty cell)
-                        `${decimalToFraction(calc.inputs.H)},` +  // HEIGHT OF EQUIP. FROM B.O.R.
+                        `${decimalToFraction(calc.inputs.H)},` +  // HEIGHT OF EQUIP. FROM T.O.R.
                         `,` +                  // CHART LETTER (empty cell) 
                         `${decimalToFraction(calc.inputs.D)},` +  // DISTANCE TO G.O.R.
                         `,` +                  // TRACK (empty cell)
-                        `${decimalToFraction(centerOrEndExcess)},` + // CENTER OR END EXCESS
+                        `${centerOrEndExcess},` + // CENTER OR END EXCESS
                         `${decimalToFraction(calc.inputs.SUPER)},` + // SUPER ELEVATION
                         `${decimalToFraction(calc.results.SE)},` + // SUPER ELEV. EXCESS
                         `${decimalToFraction(calc.results.LLLEClearance)},` + // MIN. DISTANCE REQUIRED
