@@ -1,11 +1,9 @@
 import React, { useState, useEffect } from 'react';
 import {
     Typography, Button, LinearProgress, 
-    List, ListItem, ListItemText,
     Paper, Box, Dialog, DialogActions, DialogContent, DialogTitle, TextField
 } from '@mui/material';
 import DeleteIcon from '@mui/icons-material/Delete';
-import GetAppIcon from '@mui/icons-material/GetApp';
 import CloudOffIcon from '@mui/icons-material/CloudOff';
 import CloudIcon from '@mui/icons-material/Cloud';
 import { storageManager } from '../utils/storageManager';

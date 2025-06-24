@@ -457,7 +457,7 @@ const Clearance = () => {
   useEffect(() => {
     // TODO: Change for web testin
     if (isBrowser) {
-      setShowMobileWarning(false);
+      setShowMobileWarning(true);
     }
   }, []);
 

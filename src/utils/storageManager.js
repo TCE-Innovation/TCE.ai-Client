@@ -68,7 +68,6 @@ export const storageManager = {
 
             // Check if we have enough space
             const { usage, quota } = await this.checkStorageUsed();
-            const availableSpace = quota - usage;
 
             // Account for the size of existing savedCalculations that will be replaced
             let existingSize = 0;
@@ -147,7 +146,6 @@ export const storageManager = {
         let removedCount = 0;
 
         while (currentSize > targetSize && removedCount < savedCalculations.length - 1) {
-            const removed = savedCalculations.shift(); // Remove oldest
             removedCount++;
             currentSize -= this.getObjectSize(savedCalculations);
         }
