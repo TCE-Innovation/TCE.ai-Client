@@ -39,7 +39,7 @@ const ConnectionStatus = () => {
                 {isOnline ? (
                     <WifiIcon style={{ color: '#4CAF50', fontSize: '18px' }} />
                 ) : (
-                    <WifiOffIcon style={{ color: '#FF9800', fontSize: '18px' }} />
+                    <WifiOffIcon style={{ color: '#FF9800' }} />
                 )}
             </div>
             <Snackbar
