@@ -9,6 +9,7 @@ import ConnectionStatus from './components/ConnectionStatus';
 import SavedCalculations from './components/SavedCalculations';
 import StorageManager from './components/StorageManager';
 import ServiceWorkerStatus from './components/ServiceWorkerStatus';
+import NativeFeeling from './components/NativeFeeling';
 import './App.css'; // Import CSS file
 
 // TabPanel component for Tab navigation
@@ -592,415 +593,418 @@ const Clearance = () => {
   });
 
   return (
-    <div className="pwa-calculator-container">
-      <ConnectionStatus />
-      <ServiceWorkerStatus />
+    <>
+      <NativeFeeling />
+      <div className="pwa-calculator-container">
+        <ConnectionStatus />
+        <ServiceWorkerStatus />
 
-      {showMobileWarning ? (
-        <MobileWarningPopup />
-      ) : (
-        <div>
-          <Tabs
-            value={activeTab}
-            onChange={handleTabChange}
-            variant="fullWidth"
-            indicatorColor="primary"
-            textColor="primary"
-          >
-            <Tab label="Calculator" />
-            <Tab label="Saved Calculations" />
-          </Tabs>
+        {showMobileWarning ? (
+          <MobileWarningPopup />
+        ) : (
+          <div>
+            <Tabs
+              value={activeTab}
+              onChange={handleTabChange}
+              variant="fullWidth"
+              indicatorColor="primary"
+              textColor="primary"
+            >
+              <Tab label="Calculator" />
+              <Tab label="Saved Calculations" />
+            </Tabs>
 
-          <TabPanel value={activeTab} index={0}>
-            <div className="calculator-container">
-              <div className="pwa-input-container">
-                <div className={`pwa-section-container ${state === 'RESULTS' ? 'results' : ''}`}>
-                  <div className="pwa-side-by-side">
-                    <div className={`pwa-small-pill-selector ${state === 'RESULTS' ? 'results' : ''}`}>
-                      <div
-                        className={`pwa-tab ${division === 'A Division' ? 'active' : ''}`}
-                        onClick={() => handleDivisionChange('A')}
-                      >
-                        A Division
+            <TabPanel value={activeTab} index={0}>
+              <div className="calculator-container">
+                <div className="pwa-input-container">
+                  <div className={`pwa-section-container ${state === 'RESULTS' ? 'results' : ''}`}>
+                    <div className="pwa-side-by-side">
+                      <div className={`pwa-small-pill-selector ${state === 'RESULTS' ? 'results' : ''}`}>
+                        <div
+                          className={`pwa-tab ${division === 'A Division' ? 'active' : ''}`}
+                          onClick={() => handleDivisionChange('A')}
+                        >
+                          A Division
+                        </div>
+                        <div
+                          className={`pwa-tab ${division === 'B Division' ? 'active' : ''}`}
+                          onClick={() => handleDivisionChange('B')}
+                        >
+                          B Division
+                        </div>
+                        <div className={`pwa-slider ${division === 'B Division' ? 'slide-right' : 'slide-left'}`}></div>
                       </div>
-                      <div
-                        className={`pwa-tab ${division === 'B Division' ? 'active' : ''}`}
-                        onClick={() => handleDivisionChange('B')}
-                      >
-                        B Division
+                      <div className={`pwa-small-pill-selector ${state === 'RESULTS' ? 'results' : ''}`}>
+                        <div
+                          className={`pwa-tab ${trackType === 'tangent' ? 'active' : ''}`}
+                          onClick={() => handleTrackTypeClick('tangent')}
+                        >
+                          Tangent Track
+                        </div>
+                        <div
+                          className={`pwa-tab ${trackType === 'curve' ? 'active' : ''}`}
+                          onClick={() => handleTrackTypeClick('curve')}
+                        >
+                          Curved Track
+                        </div>
+                        <div className={`pwa-slider ${trackType === 'curve' ? 'slide-right' : 'slide-left'}`}></div>
                       </div>
-                      <div className={`pwa-slider ${division === 'B Division' ? 'slide-right' : 'slide-left'}`}></div>
+                      <div className={`pwa-small-pill-selector ${state === 'RESULTS' ? 'results' : ''}`}>
+                        <div
+                          className={`pwa-tab ${direction === 'IN' ? 'active' : ''}`}
+                          onClick={() => setDirection('IN')}
+                        >
+                          {trackType !== 'tangent' ? 'Inside of Curve' : 'Side of Lower Rail'}
+                        </div>
+                        <div
+                          className={`pwa-tab ${direction === 'OUT' ? 'active' : ''}`}
+                          onClick={() => setDirection('OUT')}
+                        >
+                          {trackType !== 'tangent' ? 'Outside of Curve' : 'Side of Higher Rail'}
+                        </div>
+                        <div className={`pwa-slider ${direction === 'OUT' ? 'slide-right' : 'slide-left'}`}></div>
+                      </div>
                     </div>
-                    <div className={`pwa-small-pill-selector ${state === 'RESULTS' ? 'results' : ''}`}>
-                      <div
-                        className={`pwa-tab ${trackType === 'tangent' ? 'active' : ''}`}
-                        onClick={() => handleTrackTypeClick('tangent')}
-                      >
-                        Tangent Track
+                  </div>
+
+                  <div id="container">
+                    <div className="pwa-inner-container">
+                      <div className={`pwa-item ${state === 'RESULTS' ? 'results' : ''}`}>
+                        <TextField
+                          label="Height from TOR"
+                          type="number"
+                          id="height-tor"
+                          value={formatNumber(H, 3)}
+                          inputProps={{
+                            inputMode: "decimal",
+                            min: -0.5,
+                            precision: 3,
+                            max: divMaxH,
+                            step: hStep,
+                            style: { textAlign: 'center' }
+                          }}
+                          InputProps={{
+                            endAdornment: <InputAdornment position="end">in.</InputAdornment>,
+                          }}
+                          onFocus={handleFocus}
+                          onBlur={handleBlur}
+                          onChange={handleHChange}
+                          disabled={state === 'RESULTS'}
+                          style={{ width: '100%' }}
+                        />
                       </div>
-                      <div
-                        className={`pwa-tab ${trackType === 'curve' ? 'active' : ''}`}
-                        onClick={() => handleTrackTypeClick('curve')}
-                      >
-                        Curved Track
+                      <div className={`pwa-item ${state === 'RESULTS' ? 'results' : ''}`}>
+                        <TextField
+                          label="Distance from GOR"
+                          type="number"
+                          id="height-gor"
+                          value={D}
+                          inputProps={{
+                            inputMode: "decimal",
+                            min: 0,
+                            precision: 2,
+                            max: 1000, // arbitrary max value
+                            step: dStep,
+                            style: { textAlign: 'center' }
+                          }}
+                          InputProps={{
+                            endAdornment: <InputAdornment position="end">in.</InputAdornment>
+                          }}
+                          onFocus={handleFocus}
+                          onBlur={handleBlur}
+                          onChange={handleDChange}
+                          disabled={state === 'RESULTS'}
+                          style={{ width: '100%' }}
+                        />
                       </div>
-                      <div className={`pwa-slider ${trackType === 'curve' ? 'slide-right' : 'slide-left'}`}></div>
-                    </div>
-                    <div className={`pwa-small-pill-selector ${state === 'RESULTS' ? 'results' : ''}`}>
-                      <div
-                        className={`pwa-tab ${direction === 'IN' ? 'active' : ''}`}
-                        onClick={() => setDirection('IN')}
-                      >
-                        {trackType !== 'tangent' ? 'Inside of Curve' : 'Side of Lower Rail'}
+                      <div className={`pwa-item ${state === 'RESULTS' ? 'results' : ''}`}>
+                        <TextField
+                          label="Middle Ordinate"
+                          type="number"
+                          id="middle-ordinate"
+                          value={MO}
+                          inputProps={{
+                            inputMode: "decimal",
+                            min: 0,
+                            precision: 2,
+                            max: 1000, // arbitrary max value
+                            step: moStep,
+                            style: { textAlign: 'center' }
+                          }}
+                          InputProps={{
+                            endAdornment: <InputAdornment position="end">in.</InputAdornment>
+                          }}
+                          disabled={trackType === 'tangent' || state === 'RESULTS'}
+                          onFocus={handleFocus}
+                          onBlur={handleBlur}
+                          onChange={handleMOChange}
+                          style={{ width: '100%' }}
+                          sx={{
+                            opacity: trackType === 'tangent' ? 0.3 : 1, 
+                            '&:disabled': {
+                            opacity: 0.3, 
+                            },
+                          }}
+                        />
                       </div>
-                      <div
-                        className={`pwa-tab ${direction === 'OUT' ? 'active' : ''}`}
-                        onClick={() => setDirection('OUT')}
-                      >
-                        {trackType !== 'tangent' ? 'Outside of Curve' : 'Side of Higher Rail'}
+                      <div className={`pwa-item ${state === 'RESULTS' ? 'results' : ''}`}>
+                        <TextField
+                          label="Super Elevation"
+                          type="number"
+                          id="super-elevation"
+                          value={SUPER}
+                          inputProps={{
+                            inputMode: "decimal",
+                            min: 0,
+                            precision: 2,
+                            max: 1000, // arbitrary max value
+                            step: superStep,
+                            style: { textAlign: 'center' }
+                          }}
+                          InputProps={{
+                            endAdornment: <InputAdornment position="end">in.</InputAdornment>
+                          }}
+                          onFocus={handleFocus}
+                          onBlur={handleBlur}
+                          onChange={handleSUPERChange}
+                          disabled={state === 'RESULTS'}
+                          style={{ width: '100%' }}
+                        />
                       </div>
-                      <div className={`pwa-slider ${direction === 'OUT' ? 'slide-right' : 'slide-left'}`}></div>
+                      <div className="pwa-item">
+                        <Button
+                          variant="contained"
+                          size="large"
+                          disabled={calculateEnabled === false}
+                          onClick={updateCalcs}
+                          sx={{
+                            width: "100%",
+                            height: "100%",
+                            backgroundColor: calculateEnabled ? '#003EAB' : '#D3D3D3', 
+                            '&:hover': {
+                              backgroundColor: calculateEnabled ? '#00328A' : '#1D469E', 
+                            },
+                          }}
+                        >
+                          {state === "INPUT" ? 'Calculate' : 'Reset'}
+                        </Button>
+                      </div>
                     </div>
                   </div>
                 </div>
 
-                <div id="container">
-                  <div className="pwa-inner-container">
-                    <div className={`pwa-item ${state === 'RESULTS' ? 'results' : ''}`}>
-                      <TextField
-                        label="Height from TOR"
-                        type="number"
-                        id="height-tor"
-                        value={formatNumber(H, 3)}
-                        inputProps={{
-                          inputMode: "decimal",
-                          min: -0.5,
-                          precision: 3,
-                          max: divMaxH,
-                          step: hStep,
-                          style: { textAlign: 'center' }
-                        }}
-                        InputProps={{
-                          endAdornment: <InputAdornment position="end">in.</InputAdornment>,
-                        }}
-                        onFocus={handleFocus}
-                        onBlur={handleBlur}
-                        onChange={handleHChange}
-                        disabled={state === 'RESULTS'}
-                        style={{ width: '100%' }}
-                      />
+                <div className={`pwa-result-container ${isClearanceGreater === true ? 'okay' : 'bad'} ${state === 'INPUT' ? 'disabled' : ''}`}>
+                  <div id="container">
+                    <div className="pwa-inner-container">
+                      <div className="pwa-calculated-item">
+                        <TextField
+                          label="Radius"
+                          type="number"
+                          value={R.toFixed(3)}
+                          InputProps={{
+                            style: { textAlign: 'center' },
+                            endAdornment: <InputAdornment position="end">ft.</InputAdornment>, 
+                            inputProps: {
+                              readOnly: true,
+                              style: { textAlign: 'center', cursor: 'default' }
+                            }
+                          }}
+                          style={{ width: '100%' }}
+                          disabled={trackType === 'tangent'}
+                          readOnly
+                        />
+                      </div>
+                      <div className="pwa-calculated-item">
+                        <TextField
+                          label="Super Elev. Excess"
+                          type="number"
+                          value={SE.toFixed(3)}
+                          InputProps={{
+                            style: { textAlign: 'center' },
+                            endAdornment: <InputAdornment position="end">in.</InputAdornment>, 
+                            inputProps: {
+                              readOnly: true,
+                              style: { textAlign: 'center', cursor: 'default' }
+                            }
+                          }}
+                          style={{ width: '100%' }}
+                          readOnly
+                        />
+                      </div>
+                      <div className="pwa-calculated-item">
+                        <TextField
+                          label="End Excess"
+                          type="number"
+                          value={EE.toFixed(3)}
+                          InputProps={{
+                            style: { textAlign: 'center' },
+                            endAdornment: <InputAdornment position="end">in.</InputAdornment>, 
+                            inputProps: {
+                              readOnly: true,
+                              style: { textAlign: 'center', cursor: 'default' }
+                            }
+                          }}
+                          style={{ width: '100%' }}
+                          disabled={trackType === 'tangent'}
+                          readOnly
+                        />
+                      </div>
+                      <div className="pwa-calculated-item">
+                        <TextField
+                          label="Center Excess"
+                          type="number"
+                          value={CE.toFixed(3)}
+                          InputProps={{
+                            style: { textAlign: 'center' },
+                            endAdornment: <InputAdornment position="end">in.</InputAdornment>, 
+                            inputProps: {
+                              readOnly: true,
+                              style: { textAlign: 'center', cursor: 'default' }
+                            }
+                          }}
+                          style={{ width: '100%' }}
+                          disabled={trackType === 'tangent'}
+                          readOnly
+                        />
+                      </div>
                     </div>
-                    <div className={`pwa-item ${state === 'RESULTS' ? 'results' : ''}`}>
-                      <TextField
-                        label="Distance from GOR"
-                        type="number"
-                        id="height-gor"
-                        value={D}
-                        inputProps={{
-                          inputMode: "decimal",
-                          min: 0,
-                          precision: 2,
-                          max: 1000, // arbitrary max value
-                          step: dStep,
-                          style: { textAlign: 'center' }
-                        }}
-                        InputProps={{
-                          endAdornment: <InputAdornment position="end">in.</InputAdornment>
-                        }}
-                        onFocus={handleFocus}
-                        onBlur={handleBlur}
-                        onChange={handleDChange}
-                        disabled={state === 'RESULTS'}
-                        style={{ width: '100%' }}
-                      />
+                  </div>
+                  <div id="container">
+                    <div className="pwa-inner-container">
+                      <div className="pwa-calculated-item">
+                        <TextField
+                          label="LLLE (without Excess)"
+                          type="number"
+                          value={formatNumber(LLLEMinReq, 4)}
+                          InputProps={{
+                            style: { textAlign: 'center' },
+                            endAdornment: <InputAdornment position="end">in.</InputAdornment>, 
+                            inputProps: {
+                              readOnly: true,
+                              style: { textAlign: 'center', cursor: 'default' }
+                            }
+                          }}
+                          style={{ width: '100%' }}
+                          readOnly
+                        />
+                      </div>
+                      <div className="pwa-calculated-item">
+                        <TextField
+                          label="LLLE (with Excess)"
+                          type="number"
+                          value={LLLEClearance.toFixed(3)}
+                          InputProps={{
+                            style: { textAlign: 'center' },
+                            endAdornment: <InputAdornment position="end">in.</InputAdornment>, 
+                            inputProps: {
+                              readOnly: true,
+                              style: { textAlign: 'center', cursor: 'default' }
+                            }
+                          }}
+                          style={{ width: '100%' }}
+                          readOnly
+                        />
+                      </div>
+                      <div className="pwa-calculated-item">
+                        <TextField
+                          label="Calculated Clearance"
+                          type="number"
+                          value={clearance.toFixed(3)}
+                          InputProps={{
+                            style: { textAlign: 'center' },
+                            endAdornment: <InputAdornment position="end">in.</InputAdornment>, 
+                            inputProps: {
+                              readOnly: true,
+                              style: { textAlign: 'center', cursor: 'default' }
+                            }
+                          }}
+                          style={{ width: '100%' }}
+                        />
+                      </div>
                     </div>
-                    <div className={`pwa-item ${state === 'RESULTS' ? 'results' : ''}`}>
-                      <TextField
-                        label="Middle Ordinate"
-                        type="number"
-                        id="middle-ordinate"
-                        value={MO}
-                        inputProps={{
-                          inputMode: "decimal",
-                          min: 0,
-                          precision: 2,
-                          max: 1000, // arbitrary max value
-                          step: moStep,
-                          style: { textAlign: 'center' }
-                        }}
-                        InputProps={{
-                          endAdornment: <InputAdornment position="end">in.</InputAdornment>
-                        }}
-                        disabled={trackType === 'tangent' || state === 'RESULTS'}
-                        onFocus={handleFocus}
-                        onBlur={handleBlur}
-                        onChange={handleMOChange}
-                        style={{ width: '100%' }}
-                        sx={{
-                          opacity: trackType === 'tangent' ? 0.3 : 1, 
-                          '&:disabled': {
-                          opacity: 0.3, 
-                          },
-                        }}
-                      />
-                    </div>
-                    <div className={`pwa-item ${state === 'RESULTS' ? 'results' : ''}`}>
-                      <TextField
-                        label="Super Elevation"
-                        type="number"
-                        id="super-elevation"
-                        value={SUPER}
-                        inputProps={{
-                          inputMode: "decimal",
-                          min: 0,
-                          precision: 2,
-                          max: 1000, // arbitrary max value
-                          step: superStep,
-                          style: { textAlign: 'center' }
-                        }}
-                        InputProps={{
-                          endAdornment: <InputAdornment position="end">in.</InputAdornment>
-                        }}
-                        onFocus={handleFocus}
-                        onBlur={handleBlur}
-                        onChange={handleSUPERChange}
-                        disabled={state === 'RESULTS'}
-                        style={{ width: '100%' }}
-                      />
-                    </div>
-                    <div className="pwa-item">
+                  </div>
+                    <div className="pwa-item save-button-container">
                       <Button
                         variant="contained"
-                        size="large"
-                        disabled={calculateEnabled === false}
-                        onClick={updateCalcs}
+                        color="secondary"
+                        onClick={() => setShowSaveDialog(true)}
+                        disabled={state !== 'RESULTS'}
+                        className="save-calculation-button"
                         sx={{
                           width: "100%",
                           height: "100%",
-                          backgroundColor: calculateEnabled ? '#003EAB' : '#D3D3D3', 
+                          fontSize: "1rem",
+                          backgroundColor: state === 'RESULTS' ? '#9c27b0' : '#D3D3D3', // Use your secondary color here
                           '&:hover': {
-                            backgroundColor: calculateEnabled ? '#00328A' : '#1D469E', 
+                            backgroundColor: state === 'RESULTS' ? '#7B1FA2' : '#D3D3D3', // Darker variant for hover
                           },
+                          opacity: state === 'RESULTS' ? 1 : 0.7,
                         }}
                       >
-                        {state === "INPUT" ? 'Calculate' : 'Reset'}
+                        Save This Calculation
                       </Button>
                     </div>
-                  </div>
                 </div>
               </div>
+            </TabPanel>
 
-              <div className={`pwa-result-container ${isClearanceGreater === true ? 'okay' : 'bad'} ${state === 'INPUT' ? 'disabled' : ''}`}>
-                <div id="container">
-                  <div className="pwa-inner-container">
-                    <div className="pwa-calculated-item">
-                      <TextField
-                        label="Radius"
-                        type="number"
-                        value={R.toFixed(3)}
-                        InputProps={{
-                          style: { textAlign: 'center' },
-                          endAdornment: <InputAdornment position="end">ft.</InputAdornment>, 
-                          inputProps: {
-                            readOnly: true,
-                            style: { textAlign: 'center', cursor: 'default' }
-                          }
-                        }}
-                        style={{ width: '100%' }}
-                        disabled={trackType === 'tangent'}
-                        readOnly
-                      />
-                    </div>
-                    <div className="pwa-calculated-item">
-                      <TextField
-                        label="Super Elev. Excess"
-                        type="number"
-                        value={SE.toFixed(3)}
-                        InputProps={{
-                          style: { textAlign: 'center' },
-                          endAdornment: <InputAdornment position="end">in.</InputAdornment>, 
-                          inputProps: {
-                            readOnly: true,
-                            style: { textAlign: 'center', cursor: 'default' }
-                          }
-                        }}
-                        style={{ width: '100%' }}
-                        readOnly
-                      />
-                    </div>
-                    <div className="pwa-calculated-item">
-                      <TextField
-                        label="End Excess"
-                        type="number"
-                        value={EE.toFixed(3)}
-                        InputProps={{
-                          style: { textAlign: 'center' },
-                          endAdornment: <InputAdornment position="end">in.</InputAdornment>, 
-                          inputProps: {
-                            readOnly: true,
-                            style: { textAlign: 'center', cursor: 'default' }
-                          }
-                        }}
-                        style={{ width: '100%' }}
-                        disabled={trackType === 'tangent'}
-                        readOnly
-                      />
-                    </div>
-                    <div className="pwa-calculated-item">
-                      <TextField
-                        label="Center Excess"
-                        type="number"
-                        value={CE.toFixed(3)}
-                        InputProps={{
-                          style: { textAlign: 'center' },
-                          endAdornment: <InputAdornment position="end">in.</InputAdornment>, 
-                          inputProps: {
-                            readOnly: true,
-                            style: { textAlign: 'center', cursor: 'default' }
-                          }
-                        }}
-                        style={{ width: '100%' }}
-                        disabled={trackType === 'tangent'}
-                        readOnly
-                      />
-                    </div>
-                  </div>
+            <TabPanel value={activeTab} index={1}>
+              <div className="saved-calculations-layout">
+                <div className="saved-calculations-container">
+                  <SavedCalculations
+                    savedCalculations={savedCalculations}
+                    setSavedCalculations={setSavedCalculations}
+                  />
                 </div>
-                <div id="container">
-                  <div className="pwa-inner-container">
-                    <div className="pwa-calculated-item">
-                      <TextField
-                        label="LLLE (without Excess)"
-                        type="number"
-                        value={formatNumber(LLLEMinReq, 4)}
-                        InputProps={{
-                          style: { textAlign: 'center' },
-                          endAdornment: <InputAdornment position="end">in.</InputAdornment>, 
-                          inputProps: {
-                            readOnly: true,
-                            style: { textAlign: 'center', cursor: 'default' }
-                          }
-                        }}
-                        style={{ width: '100%' }}
-                        readOnly
-                      />
-                    </div>
-                    <div className="pwa-calculated-item">
-                      <TextField
-                        label="LLLE (with Excess)"
-                        type="number"
-                        value={LLLEClearance.toFixed(3)}
-                        InputProps={{
-                          style: { textAlign: 'center' },
-                          endAdornment: <InputAdornment position="end">in.</InputAdornment>, 
-                          inputProps: {
-                            readOnly: true,
-                            style: { textAlign: 'center', cursor: 'default' }
-                          }
-                        }}
-                        style={{ width: '100%' }}
-                        readOnly
-                      />
-                    </div>
-                    <div className="pwa-calculated-item">
-                      <TextField
-                        label="Calculated Clearance"
-                        type="number"
-                        value={clearance.toFixed(3)}
-                        InputProps={{
-                          style: { textAlign: 'center' },
-                          endAdornment: <InputAdornment position="end">in.</InputAdornment>, 
-                          inputProps: {
-                            readOnly: true,
-                            style: { textAlign: 'center', cursor: 'default' }
-                          }
-                        }}
-                        style={{ width: '100%' }}
-                      />
-                    </div>
-                  </div>
+                <div className="storage-manager-container">
+                  <StorageManager
+                    savedCalculations={savedCalculations}
+                    setSavedCalculations={setSavedCalculations}
+                  />
                 </div>
-                  <div className="pwa-item save-button-container">
-                    <Button
-                      variant="contained"
-                      color="secondary"
-                      onClick={() => setShowSaveDialog(true)}
-                      disabled={state !== 'RESULTS'}
-                      className="save-calculation-button"
-                      sx={{
-                        width: "100%",
-                        height: "100%",
-                        fontSize: "1rem",
-                        backgroundColor: state === 'RESULTS' ? '#9c27b0' : '#D3D3D3', // Use your secondary color here
-                        '&:hover': {
-                          backgroundColor: state === 'RESULTS' ? '#7B1FA2' : '#D3D3D3', // Darker variant for hover
-                        },
-                        opacity: state === 'RESULTS' ? 1 : 0.7,
-                      }}
-                    >
-                      Save This Calculation
-                    </Button>
-                  </div>
               </div>
-            </div>
-          </TabPanel>
+            </TabPanel>
 
-          <TabPanel value={activeTab} index={1}>
-            <div className="saved-calculations-layout">
-              <div className="saved-calculations-container">
-                <SavedCalculations
-                  savedCalculations={savedCalculations}
-                  setSavedCalculations={setSavedCalculations}
-                />
-              </div>
-              <div className="storage-manager-container">
-                <StorageManager
-                  savedCalculations={savedCalculations}
-                  setSavedCalculations={setSavedCalculations}
-                />
-              </div>
-            </div>
-          </TabPanel>
-
-          <Snackbar
-            open={storageWarning?.show}
-            autoHideDuration={6000}
-            onClose={() => setStorageWarning(null)}
-            anchorOrigin={{ vertical: 'bottom', horizontal: 'center'}}
-          >
-            <Alert
+            <Snackbar
+              open={storageWarning?.show}
+              autoHideDuration={6000}
               onClose={() => setStorageWarning(null)}
-              severity="warning"
-              sx={{ width: '100%' }}
+              anchorOrigin={{ vertical: 'bottom', horizontal: 'center'}}
             >
-              {storageWarning?.message}
-            </Alert>
-          </Snackbar>
+              <Alert
+                onClose={() => setStorageWarning(null)}
+                severity="warning"
+                sx={{ width: '100%' }}
+              >
+                {storageWarning?.message}
+              </Alert>
+            </Snackbar>
 
-          <Dialog open={showSaveDialog} onClose={() => setShowSaveDialog(false)}>
-            <DialogTitle>Save Calculation</DialogTitle>
-            <DialogContent>
-              <TextField
-                autoFocus
-                margin="dense"
-                label="Calculation Name"
-                type="text"
-                fullWidth
-                value={calculationName}
-                onChange={(e) => setCalculationName(e.target.value)}
-                placeholder={`Calculation ${savedCalculations.length + 1}`}
-              />
-            </DialogContent>
-            <DialogActions>
-              <Button onClick={() => setShowSaveDialog(false)}>Cancel</Button>
-              <Button onClick={saveCalculation} color="primary" variant="contained">
-                Save
-              </Button>
-            </DialogActions>
-          </Dialog>
-        </div>
-      )}
-    </div>
+            <Dialog open={showSaveDialog} onClose={() => setShowSaveDialog(false)}>
+              <DialogTitle>Save Calculation</DialogTitle>
+              <DialogContent>
+                <TextField
+                  autoFocus
+                  margin="dense"
+                  label="Calculation Name"
+                  type="text"
+                  fullWidth
+                  value={calculationName}
+                  onChange={(e) => setCalculationName(e.target.value)}
+                  placeholder={`Calculation ${savedCalculations.length + 1}`}
+                />
+              </DialogContent>
+              <DialogActions>
+                <Button onClick={() => setShowSaveDialog(false)}>Cancel</Button>
+                <Button onClick={saveCalculation} color="primary" variant="contained">
+                  Save
+                </Button>
+              </DialogActions>
+            </Dialog>
+          </div>
+        )}
+      </div>
+    </>
   );
 };
 
