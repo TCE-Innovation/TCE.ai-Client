@@ -65,6 +65,8 @@ const Clearance = () => {
   const [calculationName, setCalculationName] = useState('');
   const [storageWarning, setStorageWarning] = useState(null);
   const [activeTab, setActiveTab] = useState(0);
+  // eslint-disable-next-line
+  const [slideDirection, setSlideDirection] = useState('');
 
   // Load saved calculations on component mount
   useEffect(() => {
@@ -594,24 +596,39 @@ const Clearance = () => {
   });
 
   // Handle swipe gestures for tab navigation
+  const handleSwipeTabChange = (newTab) => {
+    const direction = newTab > activeTab ? 'left' : 'right';
+    setSlideDirection(`tab-slide-${direction}`);
+    
+    // Show the swipe indicator
+    const indicator = document.querySelector(`.swipe-indicator.${direction === 'left' ? 'right' : 'left'}`);
+    if (indicator) {
+      indicator.classList.add('show-swipe-indicator');
+      setTimeout(() => {
+        indicator.classList.remove('show-swipe-indicator');
+      }, 1500);
+    }
+    
+    // Allow animation to start before changing tab
+    setTimeout(() => {
+      setActiveTab(newTab);
+      setTimeout(() => {
+        setSlideDirection('');
+      }, 50);
+    }, 50);
+  };
+
+  // Update your swipeHandlers
   const swipeHandlers = useSwipeable({
     onSwipedLeft: (eventData) => {
-      // Check if the swipe started on a scrollable element
-      const target = eventData.event.target;
-      const isScrollableElement = target.closest('');
-      
-      // Only change tabs if swipe didn't start on a scrollable element
-      if (!isScrollableElement && activeTab === 0) {
-        setActiveTab(1);
+      if (activeTab === 0) {
+        handleSwipeTabChange(1);
       }
     },
     onSwipedRight: (eventData) => {
-      // Similar check for right swipes
-      const target = eventData.event.target;
-      const isScrollableElement = target.closest('');
-      
-      if (!isScrollableElement && activeTab === 1) {
-        setActiveTab(0);
+
+      if (activeTab === 1) {
+        handleSwipeTabChange(0);
       }
     },
     preventDefaultTouchmoveEvent: false,
