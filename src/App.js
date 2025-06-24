@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from 'react';
+import { useSwipeable } from 'react-swipeable';
 import {
   TextField, InputAdornment, Button, Dialog, DialogActions,
   DialogContent, DialogTitle, Tabs, Tab, Snackbar, Alert, Box
@@ -592,6 +593,34 @@ const Clearance = () => {
     }
   });
 
+  // Handle swipe gestures for tab navigation
+  const swipeHandlers = useSwipeable({
+    onSwipedLeft: (eventData) => {
+      // Check if the swipe started on a scrollable element
+      const target = eventData.event.target;
+      const isScrollableElement = target.closest('.saved-calculations-container, .calculator-container');
+      
+      // Only change tabs if swipe didn't start on a scrollable element
+      if (!isScrollableElement && activeTab === 0) {
+        setActiveTab(1);
+      }
+    },
+    onSwipedRight: (eventData) => {
+      // Similar check for right swipes
+      const target = eventData.event.target;
+      const isScrollableElement = target.closest('.saved-calculations-container, .calculator-container');
+      
+      if (!isScrollableElement && activeTab === 1) {
+        setActiveTab(0);
+      }
+    },
+    preventDefaultTouchmoveEvent: false, // Don't prevent default to allow scrolling
+    trackMouse: false,
+    trackTouch: true,
+    delta: 50, // Minimum swipe distance to trigger
+    swipeDuration: 500 // Maximum time for swipe in ms
+  });
+  
   return (
     <>
       <NativeFeeling />
@@ -602,7 +631,7 @@ const Clearance = () => {
         {showMobileWarning ? (
           <MobileWarningPopup />
         ) : (
-          <div>
+          <div {...swipeHandlers}>
             <Tabs
               value={activeTab}
               onChange={handleTabChange}
@@ -616,6 +645,11 @@ const Clearance = () => {
 
             <TabPanel value={activeTab} index={0}>
               <div className="calculator-container">
+                {/* Right swipe indicator */}
+                <div className="swipe-indicator right">
+                  <span>›</span>
+                </div>
+                
                 <div className="pwa-input-container">
                   <div className={`pwa-section-container ${state === 'RESULTS' ? 'results' : ''}`}>
                     <div className="pwa-side-by-side">
@@ -950,6 +984,11 @@ const Clearance = () => {
 
             <TabPanel value={activeTab} index={1}>
               <div className="saved-calculations-layout">
+                {/* Left swipe indicator */}
+                <div className="swipe-indicator left">
+                  <span>‹</span>
+                </div>
+                
                 <div className="saved-calculations-container">
                   <SavedCalculations
                     savedCalculations={savedCalculations}
