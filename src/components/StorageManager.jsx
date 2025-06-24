@@ -14,6 +14,10 @@ const StorageManager = ({ savedCalculations, setSavedCalculations }) => {
     const [isOnline, setIsOnline] = useState(navigator.onLine);
     const [filenameDialogOpen, setFilenameDialogOpen] = useState(false);
     const [customFilename, setCustomFilename] = useState('');
+    
+    // Add new state for delete confirmation dialog
+    const [deleteConfirmOpen, setDeleteConfirmOpen] = useState(false);
+    const [isExportAndDelete, setIsExportAndDelete] = useState(false);
 
     useEffect(() => {
         const checkStorage = async () => {
@@ -50,13 +54,19 @@ const StorageManager = ({ savedCalculations, setSavedCalculations }) => {
         };
     }, [savedCalculations]);
 
+    // Modified to use custom dialog instead of window.confirm
     const handleDeleteAll = async () => {
-        if (window.confirm("Are you sure you want to delete all saved calculations?")) {
-            localStorage.removeItem('savedCalculations');
-            setSavedCalculations([]);
-            const info = await storageManager.checkStorageUsed();
-            setStorageInfo(info);
-        }
+        setIsExportAndDelete(false);
+        setDeleteConfirmOpen(true);
+    };
+    
+    // New function to actually perform deletion after confirmation
+    const confirmDeleteAll = async () => {
+        localStorage.removeItem('savedCalculations');
+        setSavedCalculations([]);
+        const info = await storageManager.checkStorageUsed();
+        setStorageInfo(info);
+        setDeleteConfirmOpen(false);
     };
 
     // Helper function to convert decimal inches to mixed number format with fractions
@@ -212,6 +222,9 @@ const StorageManager = ({ savedCalculations, setSavedCalculations }) => {
             return;
         }
         
+        // Set export and delete flag
+        setIsExportAndDelete(true);
+        
         // Set default filename and open dialog
         const defaultName = `${new Date().toISOString().split('T')[0]}_clearanceCalculations`;
         setCustomFilename(defaultName);
@@ -232,9 +245,9 @@ const StorageManager = ({ savedCalculations, setSavedCalculations }) => {
         // Try to export
         const exportSuccess = await handleExportCalculations(filename);
         
-        // Only delete if export was successful
+        // Only prompt for delete confirmation if export was successful
         if (exportSuccess) {
-            handleDeleteAll();
+            setDeleteConfirmOpen(true);
         }
     };
 
@@ -356,6 +369,38 @@ const StorageManager = ({ savedCalculations, setSavedCalculations }) => {
                         disabled={!customFilename.trim()}
                     >
                         Export and Delete All
+                    </Button>
+                </DialogActions>
+            </Dialog>
+            
+            {/* New Delete Confirmation Dialog, styled like SavedCalculations */}
+            <Dialog
+                open={deleteConfirmOpen}
+                onClose={() => setDeleteConfirmOpen(false)}
+                aria-labelledby="alert-dialog-title"
+                aria-describedby="alert-dialog-description"
+                maxWidth="sm"
+                fullWidth
+            >
+                <DialogTitle id="alert-dialog-title">
+                    {"Confirm Deletion"}
+                </DialogTitle>
+                <DialogContent>
+                    <Typography variant="body1">
+                        {isExportAndDelete 
+                            ? "Are you sure you want to delete all calculations? This will remove all exported data from the app."
+                            : "Are you sure you want to delete all saved calculations? This action cannot be undone."}
+                    </Typography>
+                </DialogContent>
+                <DialogActions sx={{ borderTop: '1px solid rgba(0, 0, 0, 0.12)', px: 2 }}>
+                    <Button onClick={() => setDeleteConfirmOpen(false)}>Cancel</Button>
+                    <Button 
+                        onClick={confirmDeleteAll} 
+                        color="error" 
+                        variant="contained"
+                        autoFocus
+                    >
+                        Delete All
                     </Button>
                 </DialogActions>
             </Dialog>

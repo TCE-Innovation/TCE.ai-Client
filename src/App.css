@@ -1,13 +1,10 @@
 body {
-  /*--safe-top: env(safe-area-inset-top, 47px); 
-  --safe-bottom: env(safe-area-inset-bottom, 34px); */
-  --safe-top: 47px;
-  --safe-bottom: 34px;
+  --safe-top: env(safe-area-inset-top, 47px); 
+  --safe-bottom: env(safe-area-inset-bottom, 34px);
   padding-top: var(--safe-top);
   padding-bottom: var(--safe-bottom);
   padding-left: env(safe-area-inset-left, 0px);
   padding-right: env(safe-area-inset-right, 0px);
-  
   -webkit-overflow-scrolling: touch;
   background-color: #f2f2f7;
   margin: 0;
@@ -15,12 +12,10 @@ body {
   overflow: hidden;
 }
 
-/* iOS system fonts */
 * {
   font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif !important;
 }
 
-/* iOS typography scale */
 h1, .MuiTypography-h1 {
   font-size: 34px !important;
   font-weight: 700 !important;
@@ -47,19 +42,6 @@ body, p, .MuiTypography-body1 {
   color: #8e8e93 !important;
 }
 
-/* Fixed tabs at the top */
-.MuiTabs-root {
-  top: var(--safe-top);
-  left: 0;
-  right: 0;
-  z-index: 10;
-  background-color: rgba(255, 255, 255, 0.9) !important;
-  backdrop-filter: blur(10px) !important;
-  border-bottom: 1px solid rgba(0, 0, 0, 0.1) !important;
-  height: 50px !important;
-  border-top: none !important;
-}
-
 .pwa-calculator-container {
   padding-top: 0px; 
   margin: 0 auto;
@@ -84,16 +66,28 @@ body, p, .MuiTypography-body1 {
   display: flex;
   flex-direction: column;
   justify-content: space-between;
-  height: calc(100vh - var(--safe-top) - 50px - var(--safe-bottom)); /* Account for tabs and safe areas */
+  height: calc(100vh - var(--safe-top) - 50px - var(--safe-bottom)); 
   overflow: hidden;
   margin-bottom: var(--safe-bottom);
+  position: relative;
+  z-index: 1;
 }
 
 .saved-calculations-container {
   flex: 1;
   overflow-y: auto;
+  overflow-x: hidden;
   -webkit-overflow-scrolling: touch;
   padding: 10px 15px;
+  padding-top: 0; 
+  position: relative;
+  mask-image: linear-gradient(to bottom, transparent 0, black 5px, black calc(100% - 5px), transparent 100%);
+  -webkit-mask-image: linear-gradient(to bottom, transparent 0, black 5px, black calc(100% - 5px), transparent 100%);
+  &::-webkit-scrollbar {
+    display: none;
+  }
+  -ms-overflow-style: none;
+  scrollbar-width: none;
 }
 
 .storage-manager-container {
@@ -160,7 +154,7 @@ body, p, .MuiTypography-body1 {
 }
 
 .pwa-section-container {
-  margin-bottom: 10px; /* Reduced from 20px */
+  margin-bottom: 10px; 
 }
 
 .pwa-section-container.results {
@@ -255,7 +249,7 @@ body, p, .MuiTypography-body1 {
   flex-basis: calc(50% - 10px);
   box-sizing: border-box;
   padding-top: 5px;
-  padding-bottom: 5px; /* Reduced from 10px */
+  padding-bottom: 5px;
 }
 
 .pwa-item.results{
@@ -268,8 +262,8 @@ body, p, .MuiTypography-body1 {
   padding-left: 5px;
   padding-right: 5px;
   flex-basis: calc(50% - 10px);
-  padding-top: 3px; /* Reduced from 5px */
-  padding-bottom: 10px; /* Reduced from 15px */
+  padding-top: 3px;
+  padding-bottom: 10px;
   box-sizing: border-box;
 }
 
@@ -312,15 +306,24 @@ body, p, .MuiTypography-body1 {
   display: flex;
   flex-direction: column;
   align-items: center;
-  margin-top: 0px;
   text-align: center;
+  position: sticky;  
+  top: 0;            
+  background-color: #f2f2f7; 
+  z-index: 8;        
+  margin-top: 0px;
+  margin-bottom: 10px;
+  backdrop-filter: blur(5px); 
+  border-bottom: 5px solid transparent;
+  padding: 10px 0;
+  width: 100%;
 }
 
 .export-controls {
   display: flex;
   justify-content: center;
   align-items: center;
-  margin-top: 0px;
+  margin-top: 10px;
   width: 100%;
 }
 
@@ -344,7 +347,6 @@ body, p, .MuiTypography-body1 {
   align-items: center !important;
 }
 
-/* Consistent sizing with the Calculate/Reset button */
 .pwa-item.save-button-container {
   min-height: 50px; 
   max-height: 50px; 
@@ -365,7 +367,7 @@ body, p, .MuiTypography-body1 {
   }
   
   .MuiTextField-root .MuiInputBase-input {
-    padding: 8px 16px !important; /* Reduced from 12px 16px */
+    padding: 8px 16px !important;
   }
   
   .pwa-inner-container {
@@ -374,14 +376,14 @@ body, p, .MuiTypography-body1 {
 }
 
 .calculations-list {
-  max-height: calc(100vh - 180px); /* Adjust based on the height of your storage manager */
+  max-height: calc(100vh - 180px);
   overflow-y: auto;
 }
 
 /* iOS-style inputs */
 .MuiTextField-root .MuiOutlinedInput-root {
   border-radius: 8px;
-  background-color: rgba(142, 142, 147, 0.12); /* iOS input background */
+  background-color: rgba(142, 142, 147, 0.12);
   backdrop-filter: blur(10px);
   border: none !important;
 }
@@ -396,16 +398,14 @@ body, p, .MuiTypography-body1 {
 }
 
 .MuiTextField-root .MuiInputBase-input {
-  font-size: 17px; /* iOS standard text size */
+  font-size: 17px;
   padding: 12px 16px !important;
 }
 
-/* iOS-style focus */
 .MuiTextField-root .MuiOutlinedInput-root.Mui-focused {
   background-color: rgba(0, 122, 255, 0.05);
 }
 
-/* iOS-style sheets/dialogs */
 .MuiDialog-paper {
   border-radius: 12px !important;
   box-shadow: 0 8px 26px rgba(0, 0, 0, 0.15) !important;
@@ -417,7 +417,6 @@ body, p, .MuiTypography-body1 {
   width: calc(100% - 32px) !important; /* Account for margins */
 }
 
-/* iOS-style sheet animation */
 @keyframes ios-sheet-enter {
   from { transform: translateY(100%); }
   to { transform: translateY(0); }
@@ -436,7 +435,6 @@ body, p, .MuiTypography-body1 {
   animation: ios-sheet-exit 0.2s cubic-bezier(0.32, 0, 0.67, 0) forwards;
 }
 
-/* iOS-style dialog header */
 .MuiDialogTitle-root {
   text-align: center;
   border-bottom: 1px solid rgba(0, 0, 0, 0.1);
@@ -445,12 +443,15 @@ body, p, .MuiTypography-body1 {
   font-weight: 600 !important;
 }
 
-/* iOS-style tab bar */
 .MuiTabs-root {
-  background-color: rgba(255, 255, 255, 0.8) !important;
   top: var(--safe-top);
+  left: 0;
+  right: 0;
+  z-index: 10;
+  background-color: rgba(255, 255, 255, 0.8) !important;
   backdrop-filter: blur(10px) !important;
   border-top: 1px solid rgba(0, 0, 0, 0.1) !important;
+  border-bottom: 1px solid rgba(0, 0, 0, 0.1) !important;
   height: 50px !important;
 }
 
@@ -469,7 +470,6 @@ body, p, .MuiTypography-body1 {
   display: none !important; /* Remove the indicator line */
 }
 
-/* Add small icons indicator instead */
 .MuiTab-root::after {
   content: '';
   display: block;

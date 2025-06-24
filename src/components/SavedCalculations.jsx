@@ -52,6 +52,11 @@ const SavedCalculations = ({ savedCalculations, setSavedCalculations }) => {
         setSavedCalculations(updatedCalculations);
         localStorage.setItem('savedCalculations', JSON.stringify(updatedCalculations));
         setDeleteConfirmOpen(false);
+        
+        // Also close the details dialog if the deleted item is currently being viewed
+        if (selectedCalculation && selectedCalculation.id === id) {
+            setShowDetails(false);
+        }
     };
 
     const confirmDelete = (id) => {
@@ -262,29 +267,31 @@ const SavedCalculations = ({ savedCalculations, setSavedCalculations }) => {
 
     return (
         <>
-            <div className="saved-calculations-container">
-                <div className="saved-calculations-header">
-                    <div className="export-controls" style={{ display: 'flex', flexDirection: 'column', gap: '8px' }}>
-                        <Button
-                            variant="contained"
-                            color="primary"
-                            onClick={handleExportAll}
-                            disabled={!isOnline || savedCalculations.length === 0}
-                            startIcon={isOnline ? <CloudIcon /> : <CloudOffIcon />}
-                            sx={{ width: '100%' }}
-                        >
-                            {selectedItems.length > 0 
-                                ? `Export Selected (${selectedItems.length})` 
-                                : "Export All"}
-                        </Button>
-                        {!isOnline && savedCalculations.length > 0 && (
-                            <Typography variant="caption" color="error" style={{ marginLeft: 10 }}>
-                                Connect to internet to export
-                            </Typography>
-                        )}
-                    </div>
+            {/* Export controls header - MOVED OUTSIDE the scrollable container */}
+            <div className="saved-calculations-header">
+                <div className="export-controls" style={{ display: 'flex', flexDirection: 'column', gap: '8px' }}>
+                    <Button
+                        variant="contained"
+                        color="primary"
+                        onClick={handleExportAll}
+                        disabled={!isOnline || savedCalculations.length === 0}
+                        startIcon={isOnline ? <CloudIcon /> : <CloudOffIcon />}
+                        sx={{ width: '100%' }}
+                    >
+                        {selectedItems.length > 0 
+                            ? `Export Selected (${selectedItems.length})` 
+                            : "Export All"}
+                    </Button>
+                    {!isOnline && savedCalculations.length > 0 && (
+                        <Typography variant="caption" color="error" style={{ marginLeft: 10 }}>
+                            Connect to internet to export
+                        </Typography>
+                    )}
                 </div>
-
+            </div>
+            
+            {/* Scrollable container - NOW ONLY CONTAINS THE LIST */}
+            <div className="saved-calculations-container">
                 {savedCalculations.length === 0 ? (
                     <Typography variant="body2" style={{ padding: '20px 0', textAlign: 'center' }}>
                         No saved calculations yet
@@ -390,7 +397,7 @@ const SavedCalculations = ({ savedCalculations, setSavedCalculations }) => {
                     </List>
                 )}
             </div>
-
+            
             <Dialog open={showDetails} onClose={() => setShowDetails(false)} maxWidth="sm" fullWidth>
                 <DialogTitle sx={{ 
                     display: 'flex', 
