@@ -2,56 +2,135 @@
 
 import { clientsClaim } from 'workbox-core';
 import { ExpirationPlugin } from 'workbox-expiration';
-import { registerRoute } from 'workbox-routing';
-import { StaleWhileRevalidate } from 'workbox-strategies';
+import { registerRoute, NavigationRoute } from 'workbox-routing';
+import { StaleWhileRevalidate, CacheFirst, NetworkOnly } from 'workbox-strategies';
+import { precacheAndRoute } from 'workbox-precaching';
 
-// Required to keep somewhere in file, but we don't want to use...
-// eslint-disable-next-line no-unused-vars
-const ignored = self.__WB_MANIFEST;
+// Required to keep somewhere in file, but activate it properly
+const manifest = self.__WB_MANIFEST;
+precacheAndRoute(manifest);
 
-self.skipWaiting()
+self.skipWaiting();
 clientsClaim();
 
-// define URLs to cache  
+// Define app shell routes to cache (adjust based on your app's essential URLs)
 const urls = [
   '/',
-]
+  '/index.html',
+  '/static/js/',
+  '/static/css/'
+];
 
-// Set up App Shell-style routing to cache urls 
+// Define exclusions - files that should NEVER be cached
+const exclusions = [
+  '/images/blurred_subway_map.png'
+];
+
+// Cache app shell resources
 registerRoute(
   ({ request, url }) => {
+    // First check exclusions - if it matches an exclusion, don't cache it
+    if (exclusions.some(exclusion => url.pathname.endsWith(exclusion))) {
+      return false;
+    }
+    
+    // Cache static assets
+    if (request.destination === 'style' || 
+        request.destination === 'script' || 
+        request.destination === 'font') {
+      return true;
+    }
 
-    // eslint-disable-next-line no-unused-vars
-    const ignored = request;
-
-    // don't cache subway map, because only shown on web (not essential for tool)
-    if (url.pathname.startsWith('/images/blurred_subway_map.png')) { return false; }
-
-    // Check if url.pathname starts with any URL in urls
+    // Check essential URLs
     if (urls.some(cacheUrl => url.pathname.startsWith(cacheUrl))) {
       return true;
     }
 
-    if (url.pathname.startsWith('/static/css/main.')) { return true; }
-    if (url.pathname.startsWith('/static/js/main.')) { return true; }
-
-    // Do not cache if not in urls...
     return false;
   },
-  new StaleWhileRevalidate({
-    cacheName: 'CalculatorCache',
+  new CacheFirst({
+    cacheName: 'app-shell-cache',
     plugins: [
       new ExpirationPlugin({
-        maxEntries: 100, // Adjust as necessary
+        maxEntries: 50, 
         maxAgeSeconds: 100 * 365 * 24 * 60 * 60, // 100 years
+        purgeOnQuotaError: true // Auto-cleanup if storage is full
       }),
-    ]
+    ],
   })
 );
 
-// This allows the web app to trigger skipWaiting via
+// Cache dynamic content
+registerRoute(
+  ({ request, url }) => {
+    // Don't cache the excluded image
+    if (exclusions.some(exclusion => url.pathname.endsWith(exclusion))) {
+      return false;
+    }
+    
+    return request.destination === 'image';
+  },
+  new StaleWhileRevalidate({
+    cacheName: 'images-cache',
+    plugins: [
+      new ExpirationPlugin({
+        maxEntries: 60,
+        maxAgeSeconds: 100 * 365 * 24 * 60 * 60, // 100 years
+      }),
+    ],
+  })
+);
+
+// Add a specific route for excluded files to ensure they're always fetched from network
+registerRoute(
+  ({ url }) => exclusions.some(exclusion => url.pathname.endsWith(exclusion)),
+  new NetworkOnly()
+);
+
+// Add offline fallback route
+const networkOnly = new NavigationRoute(
+  new StaleWhileRevalidate({
+    cacheName: 'navigations',
+  })
+);
+registerRoute(networkOnly);
+
+// Listen for message events from clients
 self.addEventListener('message', (event) => {
   if (event.data && event.data.type === 'SKIP_WAITING') {
     self.skipWaiting();
+  }
+  
+  if (event.data && event.data.type === 'CONNECTION_STATUS') {
+    // Broadcast connection status to all clients
+    self.clients.matchAll().then(clients => {
+      clients.forEach(client => {
+        client.postMessage({
+          type: 'CONNECTION_STATUS_UPDATE',
+          online: event.data.online
+        });
+      });
+    });
+  }
+});
+
+// Add event listener for online/offline status changes
+self.addEventListener('fetch', (event) => {
+  // Only handle navigation requests (HTML pages)
+  if (event.request.mode === 'navigate') {
+    const isOnline = self.navigator.onLine;
+    
+    // Broadcast to all clients when online status changes
+    if (typeof self._lastOnlineStatus === 'undefined' || self._lastOnlineStatus !== isOnline) {
+      self._lastOnlineStatus = isOnline;
+      self.clients.matchAll().then(clients => {
+        clients.forEach(client => {
+          client.postMessage({
+            type: 'CONNECTION_STATUS_UPDATE',
+            online: isOnline
+          });
+        });
+      });
+    }
   }
 });

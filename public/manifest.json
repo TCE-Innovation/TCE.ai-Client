@@ -1,7 +1,7 @@
 {
     "name": "Clearance Calculator",
     "short_name": "Clearance",
-    "description": "TCIG LLLE Clearance Calculator Tool",
+    "description": "TCE LLLE Clearance Calculator Tool",
     "start_url": "/",
     "display": "standalone",
     "background_color": "#FFFFFF",
