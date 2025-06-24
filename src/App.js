@@ -598,7 +598,7 @@ const Clearance = () => {
     onSwipedLeft: (eventData) => {
       // Check if the swipe started on a scrollable element
       const target = eventData.event.target;
-      const isScrollableElement = target.closest('.saved-calculations-container, .calculator-container');
+      const isScrollableElement = target.closest('');
       
       // Only change tabs if swipe didn't start on a scrollable element
       if (!isScrollableElement && activeTab === 0) {
@@ -608,17 +608,17 @@ const Clearance = () => {
     onSwipedRight: (eventData) => {
       // Similar check for right swipes
       const target = eventData.event.target;
-      const isScrollableElement = target.closest('.saved-calculations-container, .calculator-container');
+      const isScrollableElement = target.closest('');
       
       if (!isScrollableElement && activeTab === 1) {
         setActiveTab(0);
       }
     },
-    preventDefaultTouchmoveEvent: false, // Don't prevent default to allow scrolling
+    preventDefaultTouchmoveEvent: false,
     trackMouse: false,
     trackTouch: true,
-    delta: 50, // Minimum swipe distance to trigger
-    swipeDuration: 500 // Maximum time for swipe in ms
+    delta: 50, 
+    swipeDuration: 500 
   });
   
   return (
