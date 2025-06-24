@@ -379,14 +379,15 @@ const SavedCalculations = ({ savedCalculations, setSavedCalculations }) => {
                     display: 'flex', 
                     justifyContent: 'space-between',
                     alignItems: 'center',
-                    pr: 1 // Reduce padding to accommodate the delete button
+                    pr: 1,
+                    borderBottom: '1px solid rgba(0, 0, 0, 0.12)'
                 }}>
                     <Typography
                         variant="h6"
                         className="calculation-details-title"
                         title={selectedCalculation?.name}
                         sx={{
-                            maxWidth: 'calc(100% - 40px)', // Leave room for delete button
+                            maxWidth: 'calc(100% - 40px)',
                             overflow: 'hidden',
                             textOverflow: 'ellipsis',
                             whiteSpace: 'nowrap'
@@ -403,41 +404,146 @@ const SavedCalculations = ({ savedCalculations, setSavedCalculations }) => {
                         <DeleteForeverIcon />
                     </IconButton>
                 </DialogTitle>
-                <DialogContent>
+                <DialogContent sx={{ pt: 2, pb: 1 }}>
                     {selectedCalculation && (
                         <div className="calculation-details">
-                            <Typography variant="subtitle1">Input Values:</Typography>
-                            <div className="detail-grid">
-                                <Typography>Division: {selectedCalculation.inputs.division}</Typography>
-                                <Typography>Track Type: {selectedCalculation.inputs.trackType}</Typography>
-                                <Typography>Direction: {selectedCalculation.inputs.direction}</Typography>
-                                <Typography>Height: {selectedCalculation.inputs.H} in.</Typography>
-                                <Typography>Distance: {selectedCalculation.inputs.D} in.</Typography>
-                                <Typography>Middle Ordinate: {selectedCalculation.inputs.MO} in.</Typography>
-                                <Typography>Super Elevation: {selectedCalculation.inputs.SUPER} in.</Typography>
+                            <Typography 
+                                variant="subtitle1" 
+                                sx={{ 
+                                    fontWeight: 500, 
+                                    mb: 1, 
+                                    color: 'primary.main',
+                                    borderBottom: '1px solid rgba(0, 0, 0, 0.08)',
+                                    pb: 0.5
+                                }}
+                            >
+                                Input Values
+                            </Typography>
+                            
+                            <div style={{ 
+                                display: 'grid', 
+                                gridTemplateColumns: { xs: '1fr', sm: '1fr 1fr' },
+                                gap: 1.5,
+                                mb: 2
+                            }}>
+                                <div style={{ display: 'flex', justifyContent: 'space-between' }}>
+                                    <Typography variant="body2" color="text.secondary">Train Division:</Typography>
+                                    <Typography variant="body2" fontWeight="medium">{selectedCalculation.inputs.division}</Typography>
+                                </div>
+                                
+                                <div style={{ display: 'flex', justifyContent: 'space-between' }}>
+                                    <Typography variant="body2" color="text.secondary">Track Type:</Typography>
+                                    <Typography variant="body2" fontWeight="medium">
+                                        {selectedCalculation.inputs.trackType === 'tangent' ? 'Tangent' : 'Curved'}
+                                    </Typography>
+                                </div>
+                                
+                                <div style={{ display: 'flex', justifyContent: 'space-between' }}>
+                                    <Typography variant="body2" color="text.secondary">Side of Track:</Typography>
+                                    <Typography variant="body2" fontWeight="medium">
+                                        {selectedCalculation.inputs.direction === 'IN' ? 
+                                            (selectedCalculation.inputs.trackType === 'tangent' ? 'Side of Lower Rail' : 'Inside of Curve') : 
+                                            (selectedCalculation.inputs.trackType === 'tangent' ? 'Side of Higher Rail' : 'Outside of Curve')}
+                                    </Typography>
+                                </div>
+                                
+                                <div style={{ display: 'flex', justifyContent: 'space-between' }}>
+                                    <Typography variant="body2" color="text.secondary">Height from B.O.R.:</Typography>
+                                    <Typography variant="body2" fontWeight="medium">{decimalToFraction(selectedCalculation.inputs.H)}</Typography>
+                                </div>
+                                
+                                <div style={{ display: 'flex', justifyContent: 'space-between' }}>
+                                    <Typography variant="body2" color="text.secondary">Distance to G.O.R.:</Typography>
+                                    <Typography variant="body2" fontWeight="medium">{decimalToFraction(selectedCalculation.inputs.D)}</Typography>
+                                </div>
+                                
+                                <div style={{ display: 'flex', justifyContent: 'space-between' }}>
+                                    <Typography variant="body2" color="text.secondary">Middle Ordinate:</Typography>
+                                    <Typography variant="body2" fontWeight="medium">{decimalToFraction(selectedCalculation.inputs.MO)}</Typography>
+                                </div>
+                                
+                                <div style={{ display: 'flex', justifyContent: 'space-between' }}>
+                                    <Typography variant="body2" color="text.secondary">Super Elevation:</Typography>
+                                    <Typography variant="body2" fontWeight="medium">{decimalToFraction(selectedCalculation.inputs.SUPER)}</Typography>
+                                </div>
                             </div>
 
-                            <Typography variant="subtitle1" style={{ marginTop: 20 }}>Results:</Typography>
-                            <div className="detail-grid">
-                                <Typography>Radius: {selectedCalculation.results.R.toFixed(3)} ft.</Typography>
-                                <Typography>Super Elev. Excess: {selectedCalculation.results.SE.toFixed(3)} in.</Typography>
-                                <Typography>End Excess: {selectedCalculation.results.EE.toFixed(3)} in.</Typography>
-                                <Typography>Center Excess: {selectedCalculation.results.CE.toFixed(3)} in.</Typography>
-                                <Typography>LLLE Min Req: {selectedCalculation.results.LLLEMinReq.toFixed(3)} in.</Typography>
-                                <Typography>LLLE Clearance: {selectedCalculation.results.LLLEClearance.toFixed(3)} in.</Typography>
-                                <Typography 
-                                    style={{
-                                        color: selectedCalculation.results.clearance > 0 ? 'green' : 'red',
-                                        fontWeight: 'bold'
-                                    }}
-                                >
-                                    Calculated Clearance: {selectedCalculation.results.clearance.toFixed(3)} in.
-                                </Typography>
+                            <Typography 
+                                variant="subtitle1" 
+                                sx={{ 
+                                    fontWeight: 500, 
+                                    mb: 1, 
+                                    color: 'primary.main',
+                                    borderBottom: '1px solid rgba(0, 0, 0, 0.08)',
+                                    pb: 0.5
+                                }}
+                            >
+                                Results
+                            </Typography>
+                            
+                            <div style={{ 
+                                display: 'grid', 
+                                gridTemplateColumns: { xs: '1fr', sm: '1fr 1fr' },
+                                gap: 1.5
+                            }}>
+                                <div style={{ display: 'flex', justifyContent: 'space-between' }}>
+                                    <Typography variant="body2" color="text.secondary">Curve Radius:</Typography>
+                                    <Typography variant="body2" fontWeight="medium">
+                                        {selectedCalculation.results.R === 0 ? "∞" : `${decimalToFraction(selectedCalculation.results.R)}'`}
+                                    </Typography>
+                                </div>
+                                
+                                <div style={{ display: 'flex', justifyContent: 'space-between' }}>
+                                    <Typography variant="body2" color="text.secondary">Super Elevation Excess:</Typography>
+                                    <Typography variant="body2" fontWeight="medium">{decimalToFraction(selectedCalculation.results.SE)}</Typography>
+                                </div>
+                                
+                                <div style={{ display: 'flex', justifyContent: 'space-between' }}>
+                                    <Typography variant="body2" color="text.secondary">End Excess:</Typography>
+                                    <Typography variant="body2" fontWeight="medium">
+                                        {decimalToFraction(selectedCalculation.results.EE)}
+                                    </Typography>
+                                </div>
+                                
+                                <div style={{ display: 'flex', justifyContent: 'space-between' }}>
+                                    <Typography variant="body2" color="text.secondary">Center Excess:</Typography>
+                                    <Typography variant="body2" fontWeight="medium">
+                                        {decimalToFraction(selectedCalculation.results.CE)}
+                                    </Typography>
+                                </div>
+                                
+                                <div style={{ display: 'flex', justifyContent: 'space-between' }}>
+                                    <Typography variant="body2" color="text.secondary">Min. Distance Required:</Typography>
+                                    <Typography variant="body2" fontWeight="medium">{decimalToFraction(selectedCalculation.results.LLLEMinReq)}</Typography>
+                                </div>
+                                
+                                <div style={{ display: 'flex', justifyContent: 'space-between' }}>
+                                    <Typography variant="body2" color="text.secondary">Total Clearance:</Typography>
+                                    <Typography variant="body2" fontWeight="medium">{decimalToFraction(selectedCalculation.results.LLLEClearance)}</Typography>
+                                </div>
+                                
+                                <div style={{ 
+                                    display: 'flex', 
+                                    justifyContent: 'space-between',
+                                    gridColumn: '1 / -1',
+                                    borderTop: '1px solid rgba(0, 0, 0, 0.08)',
+                                    paddingTop: 1,
+                                    marginTop: 1
+                                }}>
+                                    <Typography variant="body1" fontWeight="medium" color="text.secondary">Calculated Clearance:</Typography>
+                                    <Typography 
+                                        variant="body1" 
+                                        fontWeight="bold"
+                                        color={selectedCalculation.results.clearance > 0 ? 'success.main' : 'error.main'}
+                                    >
+                                        {decimalToFraction(selectedCalculation.results.clearance)}
+                                    </Typography>
+                                </div>
                             </div>
                         </div>
                     )}
                 </DialogContent>
-                <DialogActions>
+                <DialogActions sx={{ borderTop: '1px solid rgba(0, 0, 0, 0.12)', px: 2 }}>
                     <Button onClick={() => setShowDetails(false)}>Close</Button>
                     <Button
                         onClick={() => handleExportSingle(selectedCalculation)}
