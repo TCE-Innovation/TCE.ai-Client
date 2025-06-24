@@ -135,3 +135,9 @@ export function unregister() {
       });
   }
 }
+
+self.addEventListener('activate', (event) => {
+  event.waitUntil(
+    clients.claim()
+  );
+});
