@@ -521,7 +521,6 @@ const Clearance = () => {
   
   // CSS Styles for the Mobile Warning Popup
   const mobileWarningStyles = `
-  /* Assuming this is in a CSS file linked to your React component */
   body {
       background-image: url('/images/blurred_subway_map.png'); 
       background-size: cover; 
@@ -536,36 +535,42 @@ const Clearance = () => {
   .mobile-warning {
       background-color: rgba(255, 255, 255, 0.50); 
       padding: 50px;
-      border: 1px solid #ccc;
-      box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
-      z-index: 1000;
+      border-radius: 12px;
+      box-shadow: 0 8px 32px rgba(0, 0, 0, 0.15);
+      width: 90%;
+      max-width: 50vw;
+      min-width: 25vw;
       display: flex;
-      flex-direction: column; 
+      flex-direction: column;
+      justify-content: center;
       align-items: center;
-      min-height: 10vh; 
-      min-width: 10vw; 
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      z-index: 9999;
   }
 
   .popup-content h2 {
-      font-size: 38px; 
-      font-weight: bold; 
+      font-size: 32px;
+      font-weight: bold;
+      margin-bottom: 20px;
+      text-align: center;
   }
 
   .popup-content p {
-      font-size: 16px; 
+      font-size: 16px;
+      text-align: center;
+      line-height: 1.5;
   }
 
   .popup-content {
       text-align: center;
+      width: 100%;
   }
 
   .container-style {
-      display: flex;
-      justify-content: center;
-      align-items: center;
-      padding-top: 10px;
-      height: 200px;
-      transform: rotate(180deg);
+      display: none; /* Hide this if it's not necessary */
   }
   `;
   
