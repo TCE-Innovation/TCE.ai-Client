@@ -1,8 +1,8 @@
 import React, { useState, useEffect } from 'react';
 import { useSwipeable } from 'react-swipeable';
 import {
-  TextField, InputAdornment, Button, Dialog, DialogActions,
-  DialogContent, DialogTitle, Tabs, Tab, Snackbar, Alert, Box
+  TextField, InputAdornment, Button,
+  Tabs, Tab, Snackbar, Alert, Box
 } from '@mui/material';
 import { isBrowser } from 'react-device-detect';
 import { storageManager } from './utils/storageManager';
@@ -12,6 +12,10 @@ import StorageManager from './components/StorageManager';
 import ServiceWorkerStatus from './components/ServiceWorkerStatus';
 import NativeFeeling from './components/NativeFeeling';
 import './App.css'; // Import CSS file
+import { initializeIonic } from './ionicSetup';
+import IonicPrompt from './components/IonicPrompt';
+
+initializeIonic(); // Initialize Ionic styles
 
 // TabPanel component for Tab navigation
 function TabPanel(props) {
@@ -67,6 +71,7 @@ const Clearance = () => {
   const [activeTab, setActiveTab] = useState(0);
   // eslint-disable-next-line
   const [slideDirection, setSlideDirection] = useState('');
+  const [promptKey, setPromptKey] = useState(0);
 
   // Load saved calculations on component mount
   useEffect(() => {
@@ -126,11 +131,11 @@ const Clearance = () => {
       };
   }, []);
 
-  const saveCalculation = async () => {
+  const saveCalculation = async (saveName) => {
     // Create calculation object 
     const newCalculation = {
       id: Date.now(),
-      name: calculationName || `Calculation ${savedCalculations.length +1}`,
+      name: saveName || `Calculation ${savedCalculations.length +1}`,
       timestamp: new Date().toISOString(),
       inputs: {
         division,
@@ -983,7 +988,11 @@ const Clearance = () => {
                       <Button
                         variant="contained"
                         color="secondary"
-                        onClick={() => setShowSaveDialog(true)}
+                        onClick={() => {
+                          setCalculationName(''); // Clear name when opening dialog
+                          setPromptKey(Date.now());
+                          setShowSaveDialog(true);
+                        }}
                         disabled={state !== 'RESULTS'}
                         className="save-calculation-button"
                         sx={{
@@ -1041,27 +1050,41 @@ const Clearance = () => {
               </Alert>
             </Snackbar>
 
-            <Dialog open={showSaveDialog} onClose={() => setShowSaveDialog(false)}>
-              <DialogTitle>Save Calculation</DialogTitle>
-              <DialogContent>
-                <TextField
-                  autoFocus
-                  margin="dense"
-                  label="Calculation Name"
-                  type="text"
-                  fullWidth
-                  value={calculationName}
-                  onChange={(e) => setCalculationName(e.target.value)}
-                  placeholder={`Calculation ${savedCalculations.length + 1}`}
-                />
-              </DialogContent>
-              <DialogActions>
-                <Button onClick={() => setShowSaveDialog(false)}>Cancel</Button>
-                <Button onClick={saveCalculation} color="primary" variant="contained">
-                  Save
-                </Button>
-              </DialogActions>
-            </Dialog>
+            <IonicPrompt
+              key={promptKey}
+              isOpen={showSaveDialog}
+              onDidDismiss={() => {
+                setShowSaveDialog(false);
+                setCalculationName('');
+              }}
+              header="Save Calculation"
+              message="Enter a name for this calculation"
+              placeholder={`Calculation ${savedCalculations.length + 1}`}
+              value={calculationName}
+              buttons={[
+                {
+                  text: 'Cancel',
+                  role: 'cancel',
+                  handler: () => {
+                    setCalculationName('');
+                    return false;
+                  }
+                },
+                {
+                  text: 'Save',
+                  handler: (formData) => {
+                    if (formData.input && formData.input.trim() !== '') {
+                      saveCalculation(formData.input.trim());
+                    } else {
+                      saveCalculation();
+                    }
+                    setCalculationName('');
+                    return true;
+                  }
+                }
+              ]}
+            />
+
           </div>
         )}
       </div>

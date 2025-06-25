@@ -1,12 +1,14 @@
 import React, { useState, useEffect } from 'react';
 import {
     Typography, Button, LinearProgress, 
-    Paper, Box, Dialog, DialogActions, DialogContent, DialogTitle, TextField
+    Paper, Box
 } from '@mui/material';
 import DeleteIcon from '@mui/icons-material/Delete';
 import CloudOffIcon from '@mui/icons-material/CloudOff';
 import CloudIcon from '@mui/icons-material/Cloud';
 import { storageManager } from '../utils/storageManager';
+import IonicAlert from './IonicAlert'; 
+import IonicPrompt from './IonicPrompt';
 
 const StorageManager = ({ savedCalculations, setSavedCalculations }) => {
     const [storageInfo, setStorageInfo] = useState({ usage: 0, quota: 1, percentUsed: 0 });
@@ -14,10 +16,10 @@ const StorageManager = ({ savedCalculations, setSavedCalculations }) => {
     const [isOnline, setIsOnline] = useState(navigator.onLine);
     const [filenameDialogOpen, setFilenameDialogOpen] = useState(false);
     const [customFilename, setCustomFilename] = useState('');
+    const [promptKey, setPromptKey] = useState(0); // Add this for forcing re-renders
     
     // Add new state for delete confirmation dialog
     const [deleteConfirmOpen, setDeleteConfirmOpen] = useState(false);
-    const [isExportAndDelete, setIsExportAndDelete] = useState(false);
 
     useEffect(() => {
         const checkStorage = async () => {
@@ -56,7 +58,6 @@ const StorageManager = ({ savedCalculations, setSavedCalculations }) => {
 
     // Modified to use custom dialog instead of window.confirm
     const handleDeleteAll = async () => {
-        setIsExportAndDelete(false);
         setDeleteConfirmOpen(true);
     };
     
@@ -222,28 +223,30 @@ const StorageManager = ({ savedCalculations, setSavedCalculations }) => {
             return;
         }
         
-        // Set export and delete flag
-        setIsExportAndDelete(true);
-        
-        // Set default filename and open dialog
-        const defaultName = `${new Date().toISOString().split('T')[0]}_clearanceCalculations`;
+        // Set default filename
+        const defaultName = `${new Date().toISOString().split('T')[0]}`;
         setCustomFilename(defaultName);
+        
+        // Increment promptKey to ensure fresh instance
+        setPromptKey(prevKey => prevKey + 1);
+        
+        // Open the dialog
         setFilenameDialogOpen(true);
     };
     
-    const executeExportAndDelete = async () => {
-        let filename = customFilename.trim();
+    const executeExportAndDelete = async (filename) => {
+        let finalFilename = filename.trim();
         
         // Ensure filename has .csv extension
-        if (!filename.toLowerCase().endsWith('.csv')) {
-            filename = `${filename}.csv`;
+        if (!finalFilename.toLowerCase().endsWith('.csv')) {
+            finalFilename = `${finalFilename}.csv`;
         }
         
-        // Close the dialog first
+        // Close the filename dialog immediately
         setFilenameDialogOpen(false);
         
         // Try to export
-        const exportSuccess = await handleExportCalculations(filename);
+        const exportSuccess = await handleExportCalculations(finalFilename);
         
         // Only prompt for delete confirmation if export was successful
         if (exportSuccess) {
@@ -336,74 +339,72 @@ const StorageManager = ({ savedCalculations, setSavedCalculations }) => {
                 </Box>
             </Paper>
 
-            {/* Add filename dialog */}
-            <Dialog 
-                open={filenameDialogOpen} 
-                onClose={() => setFilenameDialogOpen(false)}
-                maxWidth="sm"
-                fullWidth
-            >
-                <DialogTitle>Export Backup Before Deletion</DialogTitle>
-                <DialogContent>
-                    <TextField
-                        autoFocus
-                        margin="dense"
-                        label="Filename"
-                        fullWidth
-                        variant="outlined"
-                        value={customFilename}
-                        onChange={(e) => setCustomFilename(e.target.value)}
-                        helperText="All calculations will be deleted after successful export"
-                        InputProps={{
-                            endAdornment: !customFilename.toLowerCase().includes('.csv') ? 
-                                <span style={{ color: 'rgba(0, 0, 0, 0.54)' }}>.csv</span> : null
-                        }}
-                    />
-                </DialogContent>
-                <DialogActions>
-                    <Button onClick={() => setFilenameDialogOpen(false)}>Cancel</Button>
-                    <Button 
-                        onClick={executeExportAndDelete}
-                        variant="contained" 
-                        color="primary"
-                        disabled={!customFilename.trim()}
-                    >
-                        Export and Delete All
-                    </Button>
-                </DialogActions>
-            </Dialog>
+            {/* Replace Dialog with IonicPrompt */}
+            <IonicPrompt
+                key={promptKey}
+                isOpen={filenameDialogOpen}
+                onDidDismiss={() => {
+                    setFilenameDialogOpen(false);
+                    setCustomFilename('');
+                }}
+                header="Export All"
+                message="Enter a filename for the CSV export"
+                placeholder={`${new Date().toISOString().split('T')[0]}`}
+                value={customFilename}
+                buttons={[
+                    {
+                        text: 'Cancel',
+                        role: 'cancel',
+                        handler: () => {
+                            setCustomFilename('');
+                            setFilenameDialogOpen(false);
+                            // Increment key to force a fresh instance next time
+                            setPromptKey(prevKey => prevKey + 1);
+                            return false;
+                        }
+                    },
+                    {
+                        text: 'Export All',
+                        handler: (formData) => {
+                            if (formData.input && formData.input.trim() !== '') {
+                                executeExportAndDelete(formData.input.trim());
+                            } else {
+                                // Use default name if nothing was entered
+                                const defaultName = `${new Date().toISOString().split('T')[0]}`;
+                                executeExportAndDelete(defaultName);
+                            }
+                            // Increment key to force a fresh instance next time
+                            setPromptKey(prevKey => prevKey + 1);
+                            return true;
+                        }
+                    }
+                ]}
+            />
             
-            {/* New Delete Confirmation Dialog, styled like SavedCalculations */}
-            <Dialog
-                open={deleteConfirmOpen}
-                onClose={() => setDeleteConfirmOpen(false)}
-                aria-labelledby="alert-dialog-title"
-                aria-describedby="alert-dialog-description"
-                maxWidth="sm"
-                fullWidth
-            >
-                <DialogTitle id="alert-dialog-title">
-                    {"Confirm Deletion"}
-                </DialogTitle>
-                <DialogContent>
-                    <Typography variant="body1">
-                        {isExportAndDelete 
-                            ? "Are you sure you want to delete all calculations? This will remove all exported data from the app."
-                            : "Are you sure you want to delete all saved calculations? This action cannot be undone."}
-                    </Typography>
-                </DialogContent>
-                <DialogActions sx={{ borderTop: '1px solid rgba(0, 0, 0, 0.12)', px: 2 }}>
-                    <Button onClick={() => setDeleteConfirmOpen(false)}>Cancel</Button>
-                    <Button 
-                        onClick={confirmDeleteAll} 
-                        color="error" 
-                        variant="contained"
-                        autoFocus
-                    >
-                        Delete All
-                    </Button>
-                </DialogActions>
-            </Dialog>
+            {/* Delete Confirmation Dialog */}
+            <IonicAlert
+                isOpen={deleteConfirmOpen}
+                onDidDismiss={() => setDeleteConfirmOpen(false)}
+                header="Confirm Deletion"
+                message="Are you sure you want to delete all saved calculations? This action cannot be undone."
+                cssClass="delete-confirmation"
+                buttons={[
+                    {
+                        text: 'Cancel',
+                        role: 'cancel',
+                        handler: () => setDeleteConfirmOpen(false)
+                    },
+                    {
+                        text: 'Delete All',
+                        role: 'destructive',
+                        cssClass: 'danger',
+                        handler: () => {
+                            confirmDeleteAll();
+                            setDeleteConfirmOpen(false);
+                        }
+                    }
+                ]}
+            />
         </>
     );
 };
