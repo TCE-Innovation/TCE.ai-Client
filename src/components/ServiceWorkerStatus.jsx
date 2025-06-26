@@ -55,6 +55,7 @@ const ServiceWorkerStatus = () => {
       autoHideDuration={6000}
       onClose={() => setSwStatus({...swStatus, show: false})}
       anchorOrigin={{ vertical: 'top', horizontal: 'center'}}
+      sx={{ top: 'var(--safe-top) !important' }}
     >
       <Alert
         onClose={() => setSwStatus({...swStatus, show: false})}

@@ -1040,6 +1040,7 @@ const Clearance = () => {
               autoHideDuration={6000}
               onClose={() => setStorageWarning(null)}
               anchorOrigin={{ vertical: 'bottom', horizontal: 'center'}}
+              sx={{ bottom: 'var(--safe-bottom) !important' }}
             >
               <Alert
                 onClose={() => setStorageWarning(null)}

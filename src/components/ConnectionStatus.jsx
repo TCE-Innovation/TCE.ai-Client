@@ -47,6 +47,7 @@ const ConnectionStatus = () => {
                 autoHideDuration={6000}
                 onClose={() => setShowNotification(false)}
                 anchorOrigin={{ vertical: 'top', horizontal: 'center' }}
+                sx={{ top: 'var(--safe-top) !important' }}
             >
                 <Alert
                     onClose={() => setShowNotification(false)}

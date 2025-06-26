@@ -10,6 +10,8 @@ body {
   margin: 0;
   height: 100vh;
   overflow: hidden;
+  position: fixed; 
+  width: 100%; 
 }
 
 * {
@@ -55,11 +57,13 @@ body, p, .MuiTypography-body1 {
 
 .calculator-container {
   height: calc(100vh - var(--safe-top) - 50px - var(--safe-bottom));
-  overflow: hidden;
+  overflow-y: auto; 
+  overflow-x: hidden;
   display: flex;
   flex-direction: column;
   justify-content: space-evenly;
   border-radius: 5px;
+  -webkit-overflow-scrolling: touch;
 }
 
 .saved-calculations-layout {
@@ -75,7 +79,7 @@ body, p, .MuiTypography-body1 {
 
 .saved-calculations-container {
   flex: 1;
-  overflow-y: auto;
+  overflow-y: auto !important; 
   overflow-x: hidden;
   -webkit-overflow-scrolling: touch;
   padding: 10px 15px;
@@ -88,6 +92,8 @@ body, p, .MuiTypography-body1 {
   }
   -ms-overflow-style: none;
   scrollbar-width: none;
+  overscroll-behavior: contain;
+  height: auto; 
 }
 
 .storage-manager-container {
@@ -143,7 +149,8 @@ body, p, .MuiTypography-body1 {
   border-radius: 0;
   border-width: 0;
   background-color: transparent;
-  overflow: auto;
+  overflow-y: auto; 
+  overflow-x: hidden;
   -webkit-overflow-scrolling: touch;
 }
 
@@ -537,4 +544,15 @@ body, p, .MuiTypography-body1 {
 
 .MuiTab-root.Mui-selected::after {
   background-color: #007AFF; /* iOS blue */
+}
+
+html {
+  overflow: hidden;
+  height: 100%;
+}
+
+#root {
+  overflow: hidden;
+  height: 100%;
+  position: relative;
 }
