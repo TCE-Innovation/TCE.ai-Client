@@ -11,6 +11,7 @@ import SavedCalculations from './components/SavedCalculations';
 import StorageManager from './components/StorageManager';
 import ServiceWorkerStatus from './components/ServiceWorkerStatus';
 import NativeFeeling from './components/NativeFeeling';
+import PWAPrompt from 'react-ios-pwa-prompt'
 import './App.css'; // Import CSS file
 import { initializeIonic } from './ionicSetup';
 import IonicPrompt from './components/IonicPrompt';
@@ -613,15 +614,6 @@ const Clearance = () => {
     const direction = newTab > activeTab ? 'left' : 'right';
     setSlideDirection(`tab-slide-${direction}`);
     
-    // Show the swipe indicator
-    const indicator = document.querySelector(`.swipe-indicator.${direction === 'left' ? 'right' : 'left'}`);
-    if (indicator) {
-      indicator.classList.add('show-swipe-indicator');
-      setTimeout(() => {
-        indicator.classList.remove('show-swipe-indicator');
-      }, 1500);
-    }
-    
     // Allow animation to start before changing tab
     setTimeout(() => {
       setActiveTab(newTab);
@@ -654,6 +646,19 @@ const Clearance = () => {
   return (
     <>
       <NativeFeeling />
+      {!window.matchMedia('(display-mode: standalone)').matches && !window.navigator.standalone && (
+        <PWAPrompt 
+          timesToshow={1}
+          promptOnVisit={1}
+          delay={1500}
+          appIconPath="/icons/TCE_192.png"
+          onClose={() => {
+            const iosPwaPrompt = JSON.parse(localStorage.getItem('iosPwaPrompt') || {});
+            iosPwaPrompt.visits = 0;
+            localStorage.setItem('iosPwaPrompt', JSON.stringify({ iosPwaPrompt}))
+          }}
+        />
+      )}
       <div className="pwa-calculator-container">
         <ConnectionStatus />
         <ServiceWorkerStatus />
@@ -675,11 +680,6 @@ const Clearance = () => {
 
             <TabPanel value={activeTab} index={0}>
               <div className="calculator-container">
-                {/* Right swipe indicator */}
-                <div className="swipe-indicator right">
-                  <span>›</span>
-                </div>
-                
                 <div className="pwa-input-container">
                   <div className={`pwa-section-container ${state === 'RESULTS' ? 'results' : ''}`}>
                     <div className="pwa-side-by-side">
@@ -1018,11 +1018,6 @@ const Clearance = () => {
 
             <TabPanel value={activeTab} index={1}>
               <div className="saved-calculations-layout">
-                {/* Left swipe indicator */}
-                <div className="swipe-indicator left">
-                  <span>‹</span>
-                </div>
-                
                 <div className="saved-calculations-container">
                   <SavedCalculations
                     savedCalculations={savedCalculations}
@@ -1088,7 +1083,6 @@ const Clearance = () => {
                 }
               ]}
             />
-
           </div>
         )}
       </div>
