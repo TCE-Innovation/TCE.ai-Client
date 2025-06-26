@@ -21,12 +21,6 @@ const NativeFeeling = () => {
         e.preventDefault();
         return;
       }
-      
-      // Get the scrollable container
-      const container = e.target.closest(scrollableContainers.join(','));
-      
-      // Allow natural scrolling within scrollable containers regardless of content height
-      // This ensures scrollable containers will scroll if they need to
     };
     
     // Apply to both touchmove and wheel events to prevent all scrolling
