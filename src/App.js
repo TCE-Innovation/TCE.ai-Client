@@ -535,21 +535,22 @@ const Clearance = () => {
       display: flex;
       justify-content: center;
       align-items: center;
+      overflow: hidden;
   }
 
   .mobile-warning {
-      background-color: rgba(255, 255, 255, 0.50); 
-      padding: 50px;
+      background-color: rgba(255, 255, 255, 0.65); 
+      padding: 30px;
       border-radius: 12px;
-      box-shadow: 0 8px 32px rgba(0, 0, 0, 0.15);
+      box-shadow: 0 8px 32px rgba(0, 0, 0, 0.2);
       width: 90%;
-      max-width: 50vw;
-      min-width: 25vw;
+      max-width: 600px;
+      min-width: 300px;
       display: flex;
       flex-direction: column;
       justify-content: center;
       align-items: center;
-      position: absolute;
+      position: fixed;
       top: 50%;
       left: 50%;
       transform: translate(-50%, -50%);
@@ -557,7 +558,7 @@ const Clearance = () => {
   }
 
   .popup-content h2 {
-      font-size: 32px;
+      font-size: 24px;
       font-weight: bold;
       margin-bottom: 20px;
       text-align: center;
@@ -567,15 +568,17 @@ const Clearance = () => {
       font-size: 16px;
       text-align: center;
       line-height: 1.5;
+      margin-bottom: 0;
   }
 
-  .popup-content {
-      text-align: center;
-      width: 100%;
+  .popup-content a {
+      color: #007AFF;
+      font-weight: bold;
+      text-decoration: underline;
   }
 
   .container-style {
-      display: none; /* Hide this if it's not necessary */
+      display: none;
   }
   `;
   

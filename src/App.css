@@ -50,20 +50,21 @@ body, p, .MuiTypography-body1 {
   display: flex;
   flex-direction: column;
   width: 100%;
-  height: calc(100vh - var(--safe-top) - var(--safe-bottom));
+  height: 100%;
   box-sizing: border-box;
   overflow: hidden;
 }
 
 .calculator-container {
-  height: calc(100vh - var(--safe-top) - 50px - var(--safe-bottom));
+  height: calc(100vh - var(--safe-top) - 50px - var(--safe-bottom) - 10px); /* Add extra padding */
   overflow-y: auto; 
   overflow-x: hidden;
   display: flex;
   flex-direction: column;
-  justify-content: space-evenly;
+  justify-content: space-between; /* Change from space-evenly to space-between */
   border-radius: 5px;
   -webkit-overflow-scrolling: touch;
+  padding-bottom: 10px; /* Add padding at the bottom */
 }
 
 .saved-calculations-layout {
@@ -342,9 +343,10 @@ body, p, .MuiTypography-body1 {
 }
 
 .save-calculation-button {
-  margin-top: 16px !important;
+  margin-top: 8px !important;
+  margin-bottom: 8px !important;
+  height: calc(100% - 10px) !important; /* Slightly reduce height */
   width: 100%;
-  margin-bottom: 16px !important;
 }
 
 .save-calculation-button {
@@ -355,10 +357,7 @@ body, p, .MuiTypography-body1 {
 }
 
 .pwa-item.save-button-container {
-  min-height: 50px; 
-  max-height: 50px; 
-  padding: 0px;
-  height: 56px; 
+  max-height: 56px; 
   padding: 0px 5px;
 }
 
