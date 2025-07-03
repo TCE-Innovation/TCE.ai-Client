@@ -110,7 +110,7 @@ const DroneCaptures = () => {
                 )}
             </Box>
             {iframeLink && (
-                <div style={{ display: iframeLoaded ? 'block' : 'none', width: '100%', height: '68vh', margin: 'auto' }}>
+                <div style={{ display: iframeLoaded ? 'block' : 'none', width: '100%', height: '74vh', margin: 'auto' }}>
                     <iframe
                         onLoad={handleIframeLoad}
                         src={iframeLink} // Use srcDoc instead of src to directly embed the HTML content
