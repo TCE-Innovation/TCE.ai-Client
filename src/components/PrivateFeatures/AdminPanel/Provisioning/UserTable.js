@@ -20,6 +20,7 @@ const UserTable = ({ users, handleRemoveUser, selectedTool, userProjects, handle
     const droneProjects = useMemo(() => [
         '207th Street Yard',
         'Rockaways',
+        'Fulton-Liberty',
     ], []);
 
     // function to get a user's projects given their emails
