@@ -1,4 +1,4 @@
-import React, { useState, useEffect, useContext } from 'react';
+import React, { useState, useEffect, useContext, useRef } from 'react';
 import TrainLoader from '../General/TrainLoader';
 import { FormControl, InputLabel, Select, MenuItem, Box, Paper, Typography } from '@mui/material';
 import { getUserProjectsArray } from '../../data/SQL'; // Import the getUserProjects function
@@ -24,7 +24,7 @@ const YardLocationIFrameMap = {
 const FultonLibertyLocationIFrameMap = {
     'East': "https://cloud.pix4d.com/project/embed/2275383-9c3d98f512b1429ca2d1c0c700fc9a62/",
     'West': "https://cloud.pix4d.com/project/embed/2275189-1353f4e23cfb4168842e38ac07f6f894/",
-    'Both (low-res)': ""
+    'Both (low-res)': "https://cloud.pix4d.com/project/embed/2275593-f9bfff9facee408e9e77912a73d97db1"
 };
 
 const DroneCaptures = () => {
@@ -35,6 +35,7 @@ const DroneCaptures = () => {
     const [iframeLink, setIframeLink] = useState('');
     const [filteredProjects, setFilteredProjects] = useState([]);
     const { userEmail } = useContext(AuthContext);
+    const iframeRef = useRef(null);
 
     useEffect(() => {
         async function fetchUserProjects() {
@@ -83,6 +84,20 @@ const DroneCaptures = () => {
         setIframeLoaded(true);
     };
 
+    const handleFullScreen = () => {
+        if (iframeRef.current) {
+            if (iframeRef.current.requestFullscreen) {
+                iframeRef.current.requestFullscreen();
+            } else if (iframeRef.current.mozRequestFullScreen) {
+                iframeRef.current.mozRequestFullScreen();
+            } else if (iframeRef.current.webkitRequestFullscreen) {
+                iframeRef.current.webkitRequestFullscreen();
+            } else if (iframeRef.current.msRequestFullscreen) {
+                iframeRef.current.msRequestFullscreen();
+            }
+        }
+    };
+
     return (
         <div style={{ width: '100%', display: 'flex', flexDirection: "column" }}>
             {!iframeLoaded && iframeLink && (
@@ -90,41 +105,62 @@ const DroneCaptures = () => {
                     <TrainLoader />
                 </div>
             )}
-            <Box sx={{ width: '100%', display: 'flex', marginBottom: 2 }}>
-                <FormControl variant="standard" sx={{ m: 1, minWidth: 120 }}>
-                    <InputLabel id="project-label">Project</InputLabel>
-                    <Select
-                        labelId="project-label"
-                        id="project-select"
-                        value={selectedProject}
-                        onChange={handleProjectChange}
-                        label="Project"
-                    >
-                        {filteredProjects.map((project) => (
-                            <MenuItem key={project} value={project}>{project}</MenuItem>
-                        ))}
-                    </Select>
-                </FormControl>
-                {locations.length > 1 && (
+            <Box sx={{ 
+                width: '100%', 
+                display: 'flex',
+                justifyContent: 'space-between',
+                alignItems: 'center',
+                marginBottom: 2 
+            }}>
+                <Box sx={{ display: 'flex' }}>
                     <FormControl variant="standard" sx={{ m: 1, minWidth: 120 }}>
-                        <InputLabel id="location-label">Location</InputLabel>
+                        <InputLabel id="project-label">Project</InputLabel>
                         <Select
-                            labelId="location-label"
-                            id="location-select"
-                            value={selectedLocation}
-                            onChange={handleLocationChange}
-                            label="Location"
+                            labelId="project-label"
+                            id="project-select"
+                            value={selectedProject}
+                            onChange={handleProjectChange}
+                            label="Project"
                         >
-                            {locations.map((location) => (
-                                <MenuItem key={location} value={location}>{location}</MenuItem>
+                            {filteredProjects.map((project) => (
+                                <MenuItem key={project} value={project}>{project}</MenuItem>
                             ))}
                         </Select>
                     </FormControl>
+                    {locations.length > 1 && (
+                        <FormControl variant="standard" sx={{ m: 1, minWidth: 120 }}>
+                            <InputLabel id="location-label">Location</InputLabel>
+                            <Select
+                                labelId="location-label"
+                                id="location-select"
+                                value={selectedLocation}
+                                onChange={handleLocationChange}
+                                label="Location"
+                            >
+                                {locations.map((location) => (
+                                    <MenuItem key={location} value={location}>{location}</MenuItem>
+                                ))}
+                            </Select>
+                        </FormControl>
+                    )}
+                </Box>
+                
+                {iframeLink && (
+                    <button 
+                        onClick={handleFullScreen} 
+                        style={{ 
+                            padding: '8px 12px', 
+                            cursor: 'pointer',
+                            borderRadius: '4px',
+                        }}>
+                        Full Screen
+                    </button>
                 )}
             </Box>
             {iframeLink ? (
                 <div style={{ display: iframeLoaded ? 'block' : 'none', width: '100%', height: '74vh', margin: 'auto' }}>
                     <iframe
+                        ref={iframeRef}
                         onLoad={handleIframeLoad}
                         src={iframeLink}
                         style={{ width: '100%', height: '100%', border: '1px solid #ccc', background: 'transparent' }}
