@@ -6,15 +6,21 @@ import { AuthContext } from "../../authentication/Auth";
 
 const projectLocationMap = {
     '207th Street Yard': ['Yard'],
-    'Rockaways': ['North', 'West', 'East']
+    'Rockaways': ['North', 'West', 'East'],
+    'Fulton-Liberty': ['East', 'West'],
 };
 
-const locationIFrameMap = {
+const RockawaysLocationIFrameMap = {
     'North': "https://cloud.pix4d.com/project/embed/1877194-21583576bc254bd1b4c10a926d35b5e5/",
     'West': "https://cloud.pix4d.com/project/embed/1869741-9bcc232a350e46ee8f7b98256995ab88/",
     'East': "https://cloud.pix4d.com/project/embed/1869711-de6bf6526fd4493abc7320fcaa7f094b/",
     'Yard': "https://cloud.pix4d.com/project/embed/1878517-0701e39043844f67b1f23dad1bf26f25/",
 };
+
+const FultonLibertyLocationIFrameMap = {
+    'East': "https://cloud.pix4d.com/project/embed/1869711-de6bf6526fd4493abc7320fcaa7f094b/",
+    'West': "https://cloud.pix4d.com/project/embed/1869741-9bcc232a350e46ee8f7b98256995ab88/",
+}
 
 const DroneCaptures = () => {
     const [selectedProject, setSelectedProject] = useState('');
@@ -45,8 +51,12 @@ const DroneCaptures = () => {
     }, [selectedProject]);
 
     useEffect(() => {
-        setIframeLink(locationIFrameMap[selectedLocation] || '');
-    }, [selectedLocation]);
+        if (selectedProject === 'Rockaways') {
+            setIframeLink(RockawaysLocationIFrameMap[selectedLocation] || '');
+        } else if (selectedProject === 'Fulton-Liberty') {
+            setIframeLink(FultonLibertyLocationIFrameMap[selectedLocation] || '');
+        }
+    }, [selectedLocation, selectedProject]);
 
     const handleProjectChange = (event) => {
         setSelectedProject(event.target.value);

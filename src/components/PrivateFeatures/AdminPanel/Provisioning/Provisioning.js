@@ -32,6 +32,7 @@ const toolsWithProjectOption = [
 const projectTeamToDroneProjectMap = {
     '207th St Rail Yard': '207th Street Yard',
     'Rockaway Line Resilience & Rehab': 'Rockaways',
+    'Fulton-Liberty': 'Fulton-Liberty',
 }
 
 // map project team names to name of their Schedule Dashboard Project name
