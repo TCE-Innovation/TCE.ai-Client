@@ -22,8 +22,8 @@ const YardLocationIFrameMap = {
 };
 
 const FultonLibertyLocationIFrameMap = {
-    'East': "",
-    'West': "",
+    'East': "https://cloud.pix4d.com/project/embed/2275383-9c3d98f512b1429ca2d1c0c700fc9a62/",
+    'West': "https://cloud.pix4d.com/project/embed/2275189-1353f4e23cfb4168842e38ac07f6f894/",
     'Both (low-res)': ""
 };
 
