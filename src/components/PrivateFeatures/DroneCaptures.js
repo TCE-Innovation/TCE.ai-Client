@@ -24,7 +24,7 @@ const YardLocationIFrameMap = {
 const FultonLibertyLocationIFrameMap = {
     'East': "https://cloud.pix4d.com/project/embed/2278753-604673e3b7fd4c81810ec7e7690ff221",
     'West': "https://cloud.pix4d.com/project/embed/2275189-1353f4e23cfb4168842e38ac07f6f894/",
-    'Both (low-res)': "https://cloud.pix4d.com/project/embed/2275593-f9bfff9facee408e9e77912a73d97db1"
+    'Both (low-res)': "https://cloud.pix4d.com/project/embed/2282416-cde7461c02794b47acd69acf3bc78995"
 };
 
 const DroneCaptures = () => {
